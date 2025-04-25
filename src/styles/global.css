@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@layer base, starlight, theme, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer base {
+  ul {
+    @apply list-disc pl-5;
+  }
+
+  li ul {
+    @apply pl-6;
+    list-style: circle;
+  }
+  ol {
+    @apply list-decimal pl-5;
+  }
+
+  li ol {
+    @apply pl-6;
+  }
+}
