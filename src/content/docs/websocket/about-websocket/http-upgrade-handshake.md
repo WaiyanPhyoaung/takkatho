@@ -11,9 +11,26 @@ Client ကနေ HTTP Request ပို့ပြီး Upgrade လုပ်ဖ�
 ကိုယ့် Browser (Client) ကနေ Website Server ဆီကို ပုံမှန်အားဖြင့် Website စာမျက်နှာ ဒါမှမဟုတ် အချက်အလက်တစ်ခုခု တောင်းဆိုတဲ့ HTTP GET Request တစ်ခု ပို့လိုက်ပါတယ်။ ဒါပေမယ့် ဒီတစ်ခါမှာတော့ ပုံမှန် Request မဟုတ်ဘဲ WebSocket Connection လုပ်ချင်ကြောင်း Server ကို အချက်ပြဖို့ Upgrade: websocket နဲ့ Connection: Upgrade ဆိုတဲ့ သီးခြား ထပ်ဆောင်းအချက်အလက်တွေ (Headers) ကို ထည့်ပေးလိုက်ပါတယ်။ ဒါ့အပြင် လုံခြုံရေးအတွက် ကျပန်းထုတ်ထားတဲ့ လျှို့ဝှက်ကုဒ်တစ်ခု (Sec-WebSocket-Key) နဲ့ ဘယ် WebSocket Version ကို သုံးချင်ကြောင်းဆိုတာကိုလည်း ထည့်ပို့ပါတယ်။
 (ဒါဟာ ပုံမှန် ဖုန်းခေါ်လိုက်ပြီး စကားမပြောသေးခင် 'ဒီဖုန်းခေါ်ဆိုမှုကို နှစ်ဖက်စလုံး တစ်ပြိုင်နက် စိတ်ကြိုက်ပြောလို့ရတဲ့ အထူးလိုင်းအဖြစ် ပြောင်းရအောင်လား' လို့ Server ကို မေးလိုက်တာနဲ့ တူပါတယ်)
 
+```
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: [random base64 key]
+Sec-WebSocket-Version: 13
+Origin: http://client.example.com
+```
+
 Server က Upgrade လုပ်ရန် သဘောတူကြောင်း ပြန်ကြားခြင်း (101 Switching Protocols):
 Server က Client ပို့လိုက်တဲ့ Upgrade တောင်းဆိုမှုကို လက်ခံရရှိပြီး WebSocket Connection လုပ်ဖို့ အဆင်သင့် ဖြစ်တယ်၊ သဘောတူတယ်ဆိုရင် HTTP Status Code ဖြစ်တဲ့ 101 Switching Protocols ဆိုတဲ့ သီးခြား နံပါတ်နဲ့ ပြန်ဖြေပါတယ်။ ဒါဟာ 'မင်း Protocol ပြောင်းချင်တာကို ငါ နားလည်ပြီ၊ ပြောင်းဖို့လည်း သဘောတူတယ်' လို့ Server က ပြောလိုက်တာပါ။ Server ရဲ့ Response မှာ Client ပို့လိုက်တဲ့ Upgrade နဲ့ Connection Headers တွေကို ပြန်ထည့်ပေးပြီး Client ရဲ့ လျှို့ဝှက်ကုဒ် (Sec-WebSocket-Key) ကနေ တွက်ချက်ထားတဲ့ Sec-WebSocket-Accept ဆိုတဲ့ တန်ဖိုးတစ်ခုကိုပါ ပြန်ထည့်ပေးလိုက်ပါတယ်။
 (ဒီ Sec-WebSocket-Accept တန်ဖိုးက Server ဟာ WebSocket Handshake လုပ်နည်းကို မှန်မှန်ကန်ကန် နားလည်ပြီး တကယ်လည်း လုပ်ဆောင်နိုင်ကြောင်း Client ဘက်ကို အတည်ပြုပြတဲ့ လျှို့ဝှက်ကုဒ် ပြန်ပြောပြတာမျိုးပါ)
+
+```
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: [calculated key]
+```
 
 WebSocket Connection အောင်မြင်စွာ ထူထောင်ပြီးခြင်း:
 Client (Browser) က Server ရဲ့ 101 Switching Protocols Response နဲ့ Server ပြန်ပို့လိုက်တဲ့ Sec-WebSocket-Accept တန်ဖိုး မှန်ကန်မှု ရှိ/မရှိကို စစ်ဆေးပြီးတာနဲ့ အစက စတင်ခဲ့တဲ့ HTTP Connection ဟာ HTTP Connection အဖြစ်ကနေ လုံးဝ ပြောင်းလဲပြီး WebSocket Connection အဖြစ် အောင်မြင်စွာ ထူထောင်ပြီး ဖြစ်သွားပါပြီ။

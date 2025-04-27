@@ -22,3 +22,7 @@
     @apply pl-6;
   }
 }
+.site-title img {
+  height: 4rem;
+  width: auto;
+}

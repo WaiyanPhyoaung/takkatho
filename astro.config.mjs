@@ -3,13 +3,22 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import tailwindcss from "@tailwindcss/vite";
 import starlightThemeNova from "starlight-theme-nova";
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
+    react(),
     starlight({
       plugins: [starlightThemeNova()],
       title: "Takkatho",
+
+      logo: {
+        replacesTitle: true,
+        light: "/public/favicon.svg",
+        dark: "/public/favicon.svg",
+        alt: "Takkatho University",
+      },
       customCss: ["./src/styles/global.css"],
       social: [
         {
@@ -72,6 +81,23 @@ export default defineConfig({
                 {
                   label: "WebSocket Messaging",
                   slug: "websocket/about-websocket/websocket-messaging",
+                },
+                {
+                  label: "Two sides of WebSocket",
+                  slug: "websocket/about-websocket/two-sides-websocket",
+                },
+              ],
+            },
+            {
+              label: "Real World Example",
+              items: [
+                {
+                  label: "Simple Chat App - Client",
+                  slug: "websocket/real-world-application/chat-app-client",
+                },
+                {
+                  label: "Simple Chat App - Server",
+                  slug: "websocket/real-world-application/chat-app-server",
                 },
               ],
             },
