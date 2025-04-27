@@ -5,20 +5,23 @@ description: WebSocket Connection - Client နှင့် Server
 
 WebSocket Communication မှာ အဓိက အခန်းကဏ္ဍ နှစ်ခု ရှိပါတယ်။ အဲဒါတွေကတော့ Client နဲ့ Server ပါပဲ။ သူတို့နှစ်ခုကြားမှာ WebSocket Connection ကို ထူထောင်ပြီး Real-time Data တွေ ဖလှယ်ကြတာ ဖြစ်ပါတယ်။
 
-Client: Connection ကို စတင်တဲ့ဘက် ဖြစ်ပါတယ်။ ပုံမှန်အားဖြင့် Web Browser (Chrome, Firefox, Safari, Edge စတာတွေ) ဖြစ်ပါတယ်။ Client က Server ဆီကို WebSocket Connection တစ်ခု စချင်ကြောင်း Handshake Request ပို့ပြီး စတင်ပါတယ်။
+- Client: Connection ကို စတင်တဲ့ဘက် ဖြစ်ပါတယ်။ ပုံမှန်အားဖြင့် Web Browser (Chrome, Firefox, Safari, Edge စတာတွေ) ဖြစ်ပါတယ်။ Client က Server ဆီကို WebSocket Connection တစ်ခု စချင်ကြောင်း Handshake Request ပို့ပြီး စတင်ပါတယ်။
 
-Server: Client ရဲ့ Connection Request ကို လက်ခံပြီး Connection ကို ထူထောင်ပေးတဲ့ဘက် ဖြစ်ပါတယ်။ Server ဟာ Client အများအပြားနဲ့ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီး Data တွေကို ကိုင်တွယ်ပေးနိုင်ပါတယ်။
+- Server: Client ရဲ့ Connection Request ကို လက်ခံပြီး Connection ကို ထူထောင်ပေးတဲ့ဘက် ဖြစ်ပါတယ်။ Server ဟာ Client အများအပြားနဲ့ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီး Data တွေကို ကိုင်တွယ်ပေးနိုင်ပါတယ်။
 
 ပုံ စိတ်ကူး (အသစ်) ၁: Client (Browser icon) အများအပြားကနေ Server Box ဆီကို WebSocket Connection မြှားများစွာ ထိုးထားပုံ (Server သည် Client များစွာကို ကိုင်တွယ်နိုင်ကြောင်း ပြသရန်)။
 
-Client ဘက် (Browser Built-in API)
+### Client ၏ အခန်းကဏ္ဍ
+
+#### Client ဘက် (Browser Built-in API)
 
 Client ဘက်မှာ WebSocket ကို အသုံးပြုဖို့အတွက် ခေတ်မီ Web Browser တွေမှာ Built-in လုပ်ပြီးသား WebSocket API ကို သုံးနိုင်ပါတယ်။ ဒါကြောင့် Client-side JavaScript နဲ့တင် WebSocket Connection တွေ ထူထောင်ပြီး Data တွေ ပို့/ယူ လုပ်လို့ရပါတယ်။ ဘာ Add-on မှ ထပ်ထည့်စရာ မလိုပါဘူး။
 
 WebSocket Object ကို ဖန်တီးခြင်းဖြင့် စတင်သည် (new WebSocket(url))။
 Connection ရဲ့ အခြေအနေ (ဖွင့်ခြင်း၊ ပိတ်ခြင်း၊ Error ဖြစ်ခြင်း၊ Message လက်ခံရရှိခြင်း) များကို Event Handler များဖြင့် ကိုင်တွယ်သည်။ (ဥပမာ - onopen, onmessage, onerror, onclose)။
 Data ပို့ရန် send() Method ကို အသုံးပြုသည်။
-Server ဘက် (Server-side Implementations)
+
+### Server ၏ အခန်းကဏ္ဍ
 
 Server ဘက်မှာတော့ သင်အသုံးပြုတဲ့ Programming Language နဲ့ Framework ပေါ် မူတည်ပြီး WebSocket Server တွေ တည်ဆောက်ဖို့ Library တွေ အများကြီး ရှိပါတယ်။ ဥပမာအားဖြင့် -
 

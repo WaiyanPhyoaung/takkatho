@@ -101,6 +101,10 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Latest Updates & Alternatives",
+              slug: "websocket/latest-and-alternatives",
+            },
           ],
         },
         // {

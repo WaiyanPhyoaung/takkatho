@@ -6,6 +6,9 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @layer base {
+  html {
+    @apply font-medium;
+  }
   ul {
     @apply list-disc pl-5;
   }
@@ -21,6 +24,9 @@
   li ol {
     @apply pl-6;
   }
+}
+.tagline {
+  @apply mt-4;
 }
 .site-title img {
   height: 4rem;
