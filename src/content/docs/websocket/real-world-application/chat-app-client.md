@@ -121,7 +121,6 @@ Client နဲ့ Server ဘက်ခြမ်း ဘယ်လိုအလုပ�
 
         // Socket.IO Server သို့ 'chat message' event အမည်ဖြင့် Message Object ကို ပို့ခြင်း
         socket.emit("chat message", message);
-
         messageInput.value = "";
       }
 
