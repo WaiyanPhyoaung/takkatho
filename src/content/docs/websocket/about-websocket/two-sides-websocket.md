@@ -9,7 +9,9 @@ WebSocket Communication မှာ အဓိက အခန်းကဏ္ဍ န�
 
 - Server: Client ရဲ့ Connection Request ကို လက်ခံပြီး Connection ကို ထူထောင်ပေးတဲ့ဘက် ဖြစ်ပါတယ်။ Server ဟာ Client အများအပြားနဲ့ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီး Data တွေကို ကိုင်တွယ်ပေးနိုင်ပါတယ်။
 
-ပုံ စိတ်ကူး (အသစ်) ၁: Client (Browser icon) အများအပြားကနေ Server Box ဆီကို WebSocket Connection မြှားများစွာ ထိုးထားပုံ (Server သည် Client များစွာကို ကိုင်တွယ်နိုင်ကြောင်း ပြသရန်)။
+<div class='flex justify-center p-4'>
+<img class="mx-auto" src="/src/assets/connections.png" alt="browsers and server ws connections" width="500" height="auto">
+</div>
 
 ### Client ၏ အခန်းကဏ္ဍ
 

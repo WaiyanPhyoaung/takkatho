@@ -11,10 +11,17 @@ description: WebSockets - Opening doors to Real-Time Web
 
 ရှင်းရှင်းပြောရရင် WebSocket ဆိုတာဟာ ကိုယ့်ရဲ့ Browser နဲ့ Website ရဲ့ Server ကြားမှာ ဖုန်းကြိုးဖွင့်ထားသလိုမျိုး လမ်းကြောင်းတစ်ခုကို အမြဲတမ်း ဖွင့်ပေးထားတာပါ။ ဒါ့ကြောင့် အချက်အလက်တွေ ပို့ချင်တဲ့အခါ အဲဒီဖွင့်ထားတဲ့ လမ်းကြောင်းအတိုင်း ချက်ချင်း ပို့လို့ ရသွားပါတယ်။
 
-![websocket request/response diagram](/src/assets/connection.webp)
+<div class='flex justify-center p-4'>
+<img class="mx-auto" src="/src/assets/bi-directional.png" alt="browsers and server ws connection" width="500" height="auto">
+</div>
+
+
 
 ### TCP & HTTP
 
 ဒီလိုမျိုး အမြဲတမ်းဖွင့်ထားပြီး အပြန်အလှန် ပြောဆိုလို့ရတဲ့ လမ်းကြောင်းမျိုးကို ဘာကြောင့် လိုအပ်လာတာလဲ? ဒါကို သိရှိဖို့အတွက် HTTP နဲ့ TCP အကြောင်းကို ပြန်ကြည့်ဖို့ လိုပါတယ်။ ဘာလို့လဲဆိုတော့ အင်တာနက် ချိတ်ဆက်မှုတွေရဲ့ အခြေခံအစက TCP ဖြစ်ပြီး၊ အဲဒီအပေါ်မှာ အခြေခံတဲ့ HTTP ရဲ့ လက်ဆွဲနှုတ်ဆက်ပုံ (handshake) ကို အသုံးပြုပြီးမှ WebSocket ချိတ်ဆက်မှုကို ထူထောင်ကြတာ ဖြစ်ပါတယ်။ ဒါကြောင့် အရင်ဆုံး TCP နဲ့ HTTP အကြောင်းကို လေ့လာကြည့်ရအောင်။
 
-![tcp,http and websocket](/src/assets/three.webp)
+
+<div class='flex justify-center p-4'>
+<img class="mx-auto" src="/src/assets/websocket-connection.png" alt="browsers and server ws connection" width="500" height="auto">
+</div>
