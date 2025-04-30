@@ -35,6 +35,9 @@ Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: [calculated key]
 ```
+<div class='flex justify-center p-4'>
+<img class="mx-auto" src="/src/assets/http-upgrade.png" alt="HTTP request response" width="700" height="auto">
+</div>
 
 ### WebSocket Connection အောင်မြင်စွာ ထူထောင်ပြီးခြင်း
 
