@@ -36,12 +36,15 @@
   --sl-color-bg-nav: #ffffff70;
 }
 @layer base {
-  /* html {
+  .main-pane ul,
+  .main-pane ol {
+    @apply px-5;
+  }
+  html {
     @apply font-medium;
   }
-  ul {
-    @apply list-disc pl-5;
-  }
+  /* 
+
 
   li ul {
     @apply pl-6;
