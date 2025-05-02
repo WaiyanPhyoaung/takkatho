@@ -2,6 +2,8 @@
 title: HTTP Version များ၏ သမိုင်းအကျဉ်း (အသေးစိတ်)
 description: HTTP Version များ၏ သမိုင်းအကျဉ်း (အသေးစိတ်)
 ---
+import ContentImage from '@components/Content-image.astro';
+import httpVersions from '@assets/websockets/http-versions.png'
 
 ### ဘယ်လို တိုးတက်ပြောင်းလဲလာတာလဲ?
 
@@ -23,9 +25,7 @@ HTTP ဟာ နှစ်ပေါင်းများစွာ ကြာလာ�
 
 အသစ်ဆုံး Version ပါ။ အချက်အလက် ပို့ဆောင်တဲ့ အောက်ခံနည်းလမ်းကို TCP ရဲ့နေရာမှာ ပိုပြီး မြန်ဆန်တဲ့ QUIC ဆိုတဲ့ နည်းလမ်းသစ် (UDP ပေါ်မှာ တည်ဆောက်ထားပြီး လိုအပ်တဲ့ ယုံကြည်စိတ်ချမှုတွေ ထပ်ထည့်ထားပါတယ်) ကို အသုံးပြုပါတယ်။ ဒါ့ကြောင့် ချိတ်ဆက်မှု စလုပ်တာ ပိုမြန်ပြီး Network မကောင်းတဲ့အခါမျိုးမှာတောင် အချက်အလက်အများကြီးကို တစ်ပြိုင်နက် ပို့တာ ပိုကောင်းလာပါတယ်။
 
-<div className='flex justify-center p-4'>
-![HTTP versions](../../../../assets/http-versions.png)
-</div>
+<ContentImage imgSrc={httpVersions} altText='HTTP versions' />
 
 
 ### Real-Time အတွက် HTTP ရဲ့ အားနည်းချက် (ပိုရှင်းအောင် ထပ်ပြောခြင်း):

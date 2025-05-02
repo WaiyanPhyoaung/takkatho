@@ -2,6 +2,8 @@
 title: The Handshake - Connection ကို စတင်ခြင်း
 description: The Handshake - Connection ကို စတင်ခြင်း
 ---
+import ContentImage from '@components/Content-image.astro';
+import httpUpgrade from '@assets/websockets/http-upgrade.png'
 
 WebSocket ချိတ်ဆက်မှုတစ်ခုကို စတင်ထူထောင်တာဟာ စိတ်ဝင်စားစရာ ကောင်းပါတယ်။ သူက ပုံမှန် HTTP Request တစ်ခုနဲ့ အရင် စပြီး၊ အဲဒီ ချိတ်ဆက်ထားတဲ့ လမ်းကြောင်းကိုပဲ WebSocket Protocol ဆိုတဲ့ ပိုပြီး အဆင့်မြင့်တဲ့၊ နှစ်ဖက်သွား ပြောဆိုနိုင်တဲ့ နည်းလမ်းအသစ်တစ်ခုဆီ "အဆင့်မြှင့်တင်" (Upgrade) လုပ်လိုက်တာမျိုး ဖြစ်ပါတယ်။
 
@@ -35,9 +37,8 @@ Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: [calculated key]
 ```
-<div className='flex justify-center p-4'>
-![HTTP upgrade handshake](../../../../assets/http-upgrade.png)
-</div>
+
+<ContentImage imgSrc={httpUpgrade} altText='http upgrade handshake'/>
 
 ### WebSocket Connection အောင်မြင်စွာ ထူထောင်ပြီးခြင်း
 

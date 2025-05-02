@@ -2,6 +2,8 @@
 title: HTTP ရဲ့ သမိုင်းနှင့် ကန့်သတ်ချက်များ
 description: HTTP ရဲ့ သမိုင်းနှင့် ကန့်သတ်ချက်များ (TCP အပေါ်မှာ)
 ---
+import ContentImage from '@components/Content-image.astro';
+import requestResponse from '@assets/websockets/request-response.png'
 
 ### HTTP ဆိုတာ ဘာလဲ?
 
@@ -14,11 +16,7 @@ HTTP ဘယ်လို အလုပ်လုပ်လဲဆိုတဲ့ အ�
 - **ကိုယ့်ဘက်က တောင်းဆိုခြင်း (Client Request)**: ကိုယ့် Browser (Client) ကနေ Website Server ဆီကို 'ဒီ Website ရဲ့ စာမျက်နှာကို ပြပါ' လိုမျိုး၊ ဒါမှမဟုတ် 'ဒီပုံလေးကို လိုချင်တယ်' လိုမျိုး အချက်အလက်တစ်ခုခုကို "တောင်းဆိုခြင်း (Request)" လုပ်ပါတယ်။ (ဒါဟာ ကိုယ်က Server ကို မေးခွန်းတစ်ခု မေးလိုက်တာနဲ့တူပါတယ်)
 - **Server ဘက်က ပြန်ပို့ပေးခြင်း (Server Response)**: Server က Client ရဲ့ တောင်းဆိုမှုကို လက်ခံရရှိတာနဲ့ တောင်းဆိုထားတဲ့ အချက်အလက်ကို ရှာပြီး "တုံ့ပြန်ခြင်း (Response)" အနေနဲ့ ပြန်ပို့ပေးပါတယ်။ (Server က ကိုယ်မေးတဲ့ မေးခွန်းကို ပြန်ဖြေပေးတာပါ)
 
-
-<div className='flex justify-center p-4'>
-![HTTP request response](../../../../assets/request-response.png)
-</div>
-
+<ContentImage imgSrc={requestResponse} altText='HTTP request response'/>
 
 ### ဆက်သွယ်မှုပုံစံ
 
