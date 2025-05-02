@@ -40,9 +40,7 @@
   .main-pane ol {
     @apply px-5;
   }
-  html {
-    @apply font-medium;
-  }
+
   /* 
 
 

@@ -1,6 +1,605 @@
 ---
+// import MainLayout from "../layouts/MainLayout.astro";
+// import { Icon } from "astro-icon/components";
 import "../styles/global.css";
 ---
 
-<h1 class="text-3xl font-bold text-green-600">THis is custom page about</h1>
-<p>DO you want to know about me hahah</p>
+<!-- <MainLayout title="About Us | Our Story & Mission"> -->
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="hero-section relative overflow-hidden py-20 px-4 mb-16">
+    <div class="animated-bg"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tight">
+        About Our Journey
+      </h1>
+      <p
+        class="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed"
+      >
+        Discover the story behind our project, the people who made it happen,
+        and our vision for the future.
+      </p>
+    </div>
+
+    <div class="absolute -bottom-10 left-0 right-0 flex justify-center">
+      <div class="shape-divider"></div>
+    </div>
+  </section>
+
+  <!-- Our Mission Section -->
+  <section class="mission-section max-w-6xl mx-auto px-4 py-16 scroll-reveal">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="mission-content">
+        <span class="section-subtitle">Our Mission</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+          Why We Started This Journey
+        </h2>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+          Our platform was born from a simple yet powerful idea: to create a
+          space where knowledge is accessible to everyone, regardless of their
+          background or resources.
+        </p>
+        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+          We believe that information should be democratized, and learning
+          experiences should be engaging, interactive, and tailored to diverse
+          learning styles.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <div class="stat-box">
+            <span class="stat-number">10k+</span>
+            <span class="stat-label">Users Served</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">95%</span>
+            <span class="stat-label">Satisfaction</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-visual relative">
+        <div class="shape-1 absolute"></div>
+        <div class="shape-2 absolute"></div>
+        <div
+          class="image-wrapper relative z-10 rounded-lg overflow-hidden shadow-2xl"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            alt="Team collaborating on project"
+            class="w-full h-auto"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story Section -->
+  <section
+    class="story-section bg-gray-50 py-20 px-4 my-16 relative scroll-reveal"
+  >
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="section-subtitle">Our Story</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+          How It All Began
+        </h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-xl font-bold mb-2">The Idea (2020)</h3>
+            <p class="text-gray-700">
+              It all started during a late-night conversation about the gaps in
+              online education and how technology could bridge them.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-xl font-bold mb-2">First Prototype (2021)</h3>
+            <p class="text-gray-700">
+              After months of research and planning, we launched our first
+              prototype to a small group of early adopters.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-xl font-bold mb-2">Growing Community (2022)</h3>
+            <p class="text-gray-700">
+              We were amazed by the positive feedback and organic growth as more
+              users discovered our platform.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-xl font-bold mb-2">Where We Are Today (2023)</h3>
+            <p class="text-gray-700">
+              Today, we're proud to have built a vibrant community of learners
+              and contributors from around the world.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section max-w-6xl mx-auto px-4 py-16 scroll-reveal">
+    <div class="text-center mb-16">
+      <span class="section-subtitle">Meet Our Team</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+        The People Behind the Magic
+      </h2>
+      <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+        Our diverse team brings together expertise in education, technology,
+        design, and content creation.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Team Member 1 -->
+      <div class="team-member">
+        <div class="member-image">
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+            alt="Wai Yan Phyo Aung"
+            class="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div class="member-info text-center mt-4">
+          <h3 class="text-xl font-bold">Wai Yan Phyo Aung</h3>
+          <p class="text-gray-600">Founder & Lead Developer</p>
+          <div class="social-links mt-3 flex justify-center gap-3">
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:github" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:linkedin" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:twitter" class="w-5 h-5" /> -->
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="team-member">
+        <div class="member-image">
+          <img
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+            alt="Sarah Johnson"
+            class="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div class="member-info text-center mt-4">
+          <h3 class="text-xl font-bold">Sarah Johnson</h3>
+          <p class="text-gray-600">UX Designer</p>
+          <div class="social-links mt-3 flex justify-center gap-3">
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:github" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:linkedin" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:twitter" class="w-5 h-5" /> -->
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="team-member">
+        <div class="member-image">
+          <img
+            src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+            alt="Miguel Rodriguez"
+            class="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div class="member-info text-center mt-4">
+          <h3 class="text-xl font-bold">Miguel Rodriguez</h3>
+          <p class="text-gray-600">Content Strategist</p>
+          <div class="social-links mt-3 flex justify-center gap-3">
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:github" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:linkedin" class="w-5 h-5" /> -->
+            </a>
+            <a href="#" class="social-icon">
+              <!-- <Icon name="mdi:twitter" class="w-5 h-5" /> -->
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Us Section -->
+  <section class="support-section relative py-20 px-4 my-16 scroll-reveal">
+    <div class="support-bg"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="support-card bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="section-subtitle">Support Our Mission</span>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+              Help Us Make a Difference
+            </h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              We're committed to keeping our core content free and accessible to
+              everyone. Your support helps us maintain and expand our platform.
+            </p>
+            <div class="space-y-4 mt-8">
+              <div class="support-way">
+                <!-- <Icon name="mdi:heart" class="w-6 h-6 text-red-500" /> -->
+                <span>Become a monthly supporter</span>
+              </div>
+              <div class="support-way">
+                <!-- <Icon name="mdi:coffee" class="w-6 h-6 text-amber-600" /> -->
+                <span>Buy us a coffee</span>
+              </div>
+              <div class="support-way">
+                <!-- <Icon name="mdi:share-variant" class="w-6 h-6 text-blue-500" /> -->
+                <span>Share our platform with others</span>
+              </div>
+            </div>
+            <div class="mt-10">
+              <a href="#" class="cta-button">
+                Support Our Work
+                <!-- <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" /> -->
+              </a>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="illustration-container relative">
+              <div class="illustration-element illustration-1"></div>
+              <div class="illustration-element illustration-2"></div>
+              <div class="illustration-element illustration-3"></div>
+              <div class="illustration-element illustration-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section
+    class="contact-section max-w-6xl mx-auto px-4 py-16 mb-16 scroll-reveal"
+  >
+    <div class="text-center mb-12">
+      <span class="section-subtitle">Get In Touch</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+        We'd Love to Hear From You
+      </h2>
+      <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+        Have questions, suggestions, or just want to say hello? We're always
+        open to connecting with our community.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="contact-method">
+        <div class="icon-circle">
+          <!-- <Icon name="mdi:email-outline" class="w-7 h-7" /> -->
+        </div>
+        <h3 class="text-xl font-bold mt-4 mb-2">Email Us</h3>
+        <p class="text-gray-600">hello@ourwebsite.com</p>
+      </div>
+
+      <div class="contact-method">
+        <div class="icon-circle">
+          <!-- <Icon name="mdi:forum-outline" class="w-7 h-7" /> -->
+        </div>
+        <h3 class="text-xl font-bold mt-4 mb-2">Join Community</h3>
+        <p class="text-gray-600">Discord / Slack</p>
+      </div>
+
+      <div class="contact-method">
+        <div class="icon-circle">
+          <!-- <Icon name="mdi:social-media" class="w-7 h-7" /> -->
+        </div>
+        <h3 class="text-xl font-bold mt-4 mb-2">Follow Us</h3>
+        <p class="text-gray-600">Twitter / Instagram</p>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- </MainLayout> -->
+
+<style>
+  @import "../styles/global.css"; /* Base styles */
+  .section-subtitle {
+    @apply inline-block text-emerald-600 font-bold mb-2 tracking-wider uppercase text-sm;
+  }
+
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hero section styles */
+  .hero-section {
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  }
+
+  .animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 40%
+      );
+    animation: pulse 10s infinite alternate;
+  }
+
+  .shape-divider {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    transform: scaleX(1.5);
+  }
+
+  /* Mission section styles */
+  .stat-box {
+    @apply bg-white shadow-md rounded-lg p-4 flex flex-col items-center min-w-[100px];
+  }
+
+  .stat-number {
+    @apply text-2xl font-bold text-emerald-600;
+  }
+
+  .stat-label {
+    @apply text-sm text-gray-600;
+  }
+
+  .shape-1 {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(16, 185, 129, 0.1);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: -30px;
+    left: -40px;
+    z-index: 0;
+    animation: morph 8s linear infinite alternate;
+  }
+
+  .shape-2 {
+    width: 160px;
+    height: 160px;
+    background-color: rgba(79, 70, 229, 0.1);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    bottom: -20px;
+    right: -30px;
+    z-index: 0;
+    animation: morph 8s linear infinite alternate-reverse;
+  }
+
+  /* Timeline styles */
+  .timeline {
+    @apply relative max-w-3xl mx-auto;
+    padding-left: 30px;
+    border-left: 2px solid #e5e7eb;
+  }
+
+  .timeline-item {
+    @apply relative pb-12;
+  }
+
+  .timeline-marker {
+    @apply absolute -left-[31px] w-[16px] h-[16px] bg-emerald-500 rounded-full border-4 border-white;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  }
+
+  .timeline-content {
+    @apply bg-white p-6 rounded-lg shadow-md;
+  }
+
+  /* Team section styles */
+  .team-member {
+    @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+  }
+
+  .member-image img {
+    transition: transform 0.5s ease;
+  }
+
+  .team-member:hover .member-image img {
+    transform: scale(1.05);
+  }
+
+  .social-icon {
+    @apply w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition-colors duration-300;
+  }
+
+  /* Support section styles */
+  .support-section {
+    overflow: hidden;
+  }
+
+  .support-bg {
+    @apply absolute inset-0;
+    background-image:
+      linear-gradient(
+        135deg,
+        rgba(16, 185, 129, 0.05) 0%,
+        rgba(79, 70, 229, 0.05) 100%
+      ),
+      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e5e7eb' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
+  .support-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .support-way {
+    @apply flex items-center gap-3 text-gray-700;
+  }
+
+  .cta-button {
+    @apply inline-flex items-center px-6 py-3 bg-emerald-600 text-white font-bold rounded-full hover:bg-emerald-700 transition-colors duration-300;
+  }
+
+  .illustration-container {
+    @apply relative h-80;
+  }
+
+  .illustration-element {
+    @apply absolute rounded-lg shadow-lg;
+    background-color: #fff;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .illustration-1 {
+    width: 100px;
+    height: 100px;
+    top: 30px;
+    left: 40px;
+    background-color: rgba(16, 185, 129, 0.2);
+    animation-delay: 0s;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+
+  .illustration-2 {
+    width: 80px;
+    height: 80px;
+    top: 120px;
+    left: 120px;
+    background-color: rgba(79, 70, 229, 0.2);
+    animation-delay: 1s;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  .illustration-3 {
+    width: 70px;
+    height: 70px;
+    bottom: 50px;
+    left: 60px;
+    background-color: rgba(245, 158, 11, 0.2);
+    animation-delay: 2s;
+    border-radius: 40% 60% 60% 40% / 40% 60% 40% 60%;
+  }
+
+  .illustration-4 {
+    width: 90px;
+    height: 90px;
+    bottom: 90px;
+    right: 40px;
+    background-color: rgba(239, 68, 68, 0.2);
+    animation-delay: 1.5s;
+    border-radius: 50% 50% 30% 70% / 50% 50% 70% 30%;
+  }
+
+  /* Contact section styles */
+  .contact-method {
+    @apply bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300;
+  }
+
+  .icon-circle {
+    @apply w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto;
+  }
+
+  /* Animations */
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes morph {
+    0% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    25% {
+      border-radius: 50% 50% 30% 70% / 50% 50% 70% 30%;
+    }
+    50% {
+      border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
+    }
+    75% {
+      border-radius: 30% 70% 70% 30% / 50% 60% 40% 50%;
+    }
+    100% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translatey(0px);
+    }
+    50% {
+      transform: translatey(-15px);
+    }
+    100% {
+      transform: translatey(0px);
+    }
+  }
+</style>
+
+<script>
+  // Scroll reveal animation
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    document.querySelectorAll(".scroll-reveal").forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
