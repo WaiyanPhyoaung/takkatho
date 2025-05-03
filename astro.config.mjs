@@ -4,8 +4,11 @@ import { fileURLToPath } from "url";
 import starlight from "@astrojs/starlight";
 import starlightThemeNova from "starlight-theme-nova";
 import react from "@astrojs/react";
+// import vercelStatic from "@astrojs/vercel/static";
 
 import tailwindcss from "@tailwindcss/vite";
+
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
@@ -148,4 +151,10 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
 });
