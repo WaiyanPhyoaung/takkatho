@@ -28,6 +28,7 @@ export default defineConfig({
           href: "https://github.com/withastro/starlight",
         },
       ],
+      routeMiddleware: "./src/routeMiddleware.ts",
       sidebar: [
         {
           label: "WebSocket",
@@ -105,6 +106,24 @@ export default defineConfig({
             {
               label: "Latest Updates & Alternatives",
               slug: "websocket/latest-and-alternatives",
+            },
+          ],
+        },
+        {
+          label: "Advanced-Typescript",
+          items: [
+            {
+              label: "Why is needed?",
+              items: [
+                {
+                  label: "why advanced typescript?",
+                  slug: "advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript",
+                },
+                {
+                  label: "why advancedsdf?",
+                  slug: "advanced-typescript/why-is-advanced-ts-needed/aa",
+                },
+              ],
             },
           ],
         },
