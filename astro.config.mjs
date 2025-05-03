@@ -28,7 +28,7 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/withastro/starlight",
+          href: "https://github.com/WaiyanPhyoaung/takkatho",
         },
       ],
       routeMiddleware: "./src/routeMiddleware.ts",
@@ -143,7 +143,7 @@ export default defineConfig({
     resolve: {
       alias: {
         "@components": fileURLToPath(
-          new URL("./src/components", import.meta.url)
+          new URL("./src/components", import.meta.url),
         ),
         "@assets": fileURLToPath(new URL("./src/assets", import.meta.url)),
         "@styles": fileURLToPath(new URL("./src/styles", import.meta.url)),

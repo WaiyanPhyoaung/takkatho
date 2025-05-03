@@ -1,7 +1,7 @@
 ---
 title: တက္ကသိုလ်
 description: Get started building your docs site with Starlight.
-template: splash 
+template: splash
 hero:
   tagline: မိမိဘာသာစကားဖြင့် နက်နက်ရှိုင်းရှိုင်းနားလည်အောင် လေ့လာပါ။
   image:
@@ -16,25 +16,499 @@ hero:
       variant: minimal
 ---
 
-import Analytics from '@vercel/analytics/astro'
-import { Card, CardGrid } from "@astrojs/starlight/components";
+import Analytics from "@vercel/analytics/astro";
+import {
+  Card,
+  CardGrid,
+  Tabs,
+  TabItem,
+  Icon,
+  LinkCard,
+} from "@astrojs/starlight/components";
+import { Image } from "astro:assets";
 
 
-## Popular topics
+<div class="hero-grid-background">
+  <div class="grid-container">
+    <div class="grid"></div>
+  </div>
+</div>
 
-<CardGrid stagger>
-  <Card title="Update content" icon="pencil">
-    Edit `src/content/docs/index.mdx` to see this page change.
-  </Card>
-  <Card title="Add new content" icon="add-document">
-    Add Markdown or MDX files to `src/content/docs` to create new pages.
-  </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
-  </Card>
-  <Card title="Read the docs" icon="open-book">
-    Learn more in [the Starlight Docs](/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript).
-  </Card>
-</CardGrid>
+<div class="welcome-message">
+  <h2>
+    <Icon name="open-book" size="1.4em" />
+    <span>ကျွန်ုပ်တို့၏ ဒစ်ဂျစ်တယ် သင်ယူရေးပလက်ဖောင်းသို့ ကြိုဆိုပါသည်</span>
+  </h2>
+  <p>
+    နည်းပညာနယ်ပယ်ကို ရိုးရှင်းလွယ်ကူစွာ ရှင်းလင်းထားသော သင်ခန်းစာများနှင့်
+    လေ့လာကြမည်
+  </p>
+</div>
+
+## သင်ခန်းစာ အမျိုးအစားများ
+
+<div class="featured-categories">
+  <CardGrid stagger>
+    <Card title="အခြေခံ JavaScript" icon="pencil">
+      JavaScript ၏ အခြေခံများမှစ၍ အဆင့်မြင့် သဘောတရားများအထိ အဆင့်ဆင့်
+      လေ့လာနိုင်ပါသည်။
+    </Card>
+    <Card title="WebSocket နည်းပညာ" icon="setting">
+      Real-time web applications ဖန်တီးရန် WebSocket နည်းပညာအား အသေးစိတ်
+      လေ့လာမည်။
+    </Card>
+    <Card title="TypeScript အဆင့်မြင့်" icon="add-document">
+      TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာပါမည်။
+    </Card>
+    <Card title="Frontend Frameworks" icon="open-book">
+      လူကြိုက်များသော React, Angular, Vue အစရှိသည့် frameworks များကို လေ့လာမည်။
+    </Card>
+  </CardGrid>
+</div>
+
+## သင်ယူရန် ခေါင်းစဉ်များ
+
+<Tabs>
+  <TabItem label="လူကြိုက်များဆုံး" icon='star'>
+    <div class="popular-topics">
+      <div class="topic-card">
+        <Icon name="rocket" size="2.5rem" />
+        <h3>WebSocket အခြေခံ</h3>
+        <p>Real-time web applications ဖန်တီးရန် WebSocket နည်းပညာအား နားလည်ခြင်း</p>
+        <a href="/websocket/introduction/what-is-websocket" class="learn-more">
+          <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+        </a>
+      </div>
+      <div class="topic-card">
+        <Icon name="puzzle" size="2.5rem" />
+        <h3>Advanced TypeScript</h3>
+        <p>TypeScript ၏ အဆင့်မြင့်သေတ်တရားများကို နက်နက်နဲနဲ လေ့လာခြင်း</p>
+        <a href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript" class="learn-more">
+          <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+        </a>
+      </div>
+      <div class="topic-card">
+        <Icon name="seti:nodejs" size="2.5rem" />
+        <h3>Node.js Backend</h3>
+        <p>Server-side JavaScript နှင့် API လေ့လာခြင်း</p>
+        <a href="#" class="learn-more">
+          <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+        </a>
+      </div>
+    </div>
+  </TabItem>
+
+{" "}
+
+<TabItem label="အခြေခံများ" icon="seti:plan">
+  <div class="popular-topics">
+    <div class="topic-card">
+      <Icon name="javascript" size="2.5rem" />
+      <h3>JavaScript ၏ အခြေခံများ</h3>
+      <p>JavaScript ၏ မရှိမဖြစ် အခြေခံအသိပညာများနှင့် အသုံးပြုပုံ</p>
+      <a href="#" class="learn-more">
+        <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+      </a>
+    </div>
+    <div class="topic-card">
+      <Icon name="document" size="2.5rem" />
+      <h3>HTML and CSS</h3>
+      <p>ဝဘ်ဆိုဒ်များ၏ အခြေခံတည်ဆောက်ပုံများ</p>
+      <a href="#" class="learn-more">
+        <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+      </a>
+    </div>
+    <div class="topic-card">
+      <Icon name="github" size="2.5rem" />
+      <h3>Git နှင့် GitHub</h3>
+      <p>Version control နှင့် ဝေမျှခြင်း အခြေခံများ</p>
+      <a href="#" class="learn-more">
+        <span>ပိုမိုလေ့လာရန်</span> <Icon name="right-arrow" size="1.2em" />
+      </a>
+    </div>
+  </div>
+</TabItem>
+
+  <TabItem label="မကြာမီလာမည်" icon='approve-check'>
+    <div class="coming-soon">
+      <Icon name="rocket" size="3rem" />
+      <h3>မကြာမီလာမည့် သင်ခန်းစာအသစ်များ</h3>
+      <ul>
+        <li><Icon name="star" size="1.2em" /> React စွမ်းရည်မြှင့်တင်ခြင်း နည်းလမ်းများ</li>
+        <li><Icon name="star" size="1.2em" /> Next.js မိတ်ဆက်</li>
+        <li><Icon name="star" size="1.2em" /> GraphQL API တည်ဆောက်ခြင်း</li>
+        <li><Icon name="star" size="1.2em" /> Blockchain နှင့် Cryptocurrency အခြေခံ</li>
+      </ul>
+      <div class="notification-box">
+        <Icon name="notification" size="1.5em" />
+        <p>အသစ်ထွက်ရှိမှုများကို သိရှိလိုပါက <a href="#">အီးမေးလ်စာရင်းသွင်းပါ</a></p>
+      </div>
+    </div>
+  </TabItem>
+</Tabs>
+
+## မိတ်ဖက်များ
+
+<div class="partners">
+  <LinkCard
+    title="Discord"
+    description="ကျွန်ုပ်တို့၏ Discord ကို လာရောက်ပါဝင်ပါ"
+    href="#"
+    icon="discord"
+  />
+  <LinkCard
+    title="GitHub"
+    description="GitHub တွင် ပံ့ပိုးကူညီပါ"
+    href="#"
+    icon="github"
+  />
+  <LinkCard
+    title="Twitter"
+    description="Twitter တွင် follow လိုက်ပါ"
+    href="#"
+    icon="twitter"
+  />
+</div>
+
+<div class="testimonials">
+  <h2>
+    <Icon name="star" size="1.2em" />
+    <span>ကျောင်းသားများ၏ ပြောကြားချက်</span>
+  </h2>
+  <div class="quotes">
+    <blockquote>
+      "ရိုးရှင်းပြီး နားလည်လွယ်သော ရှင်းလင်းချက်များဖြင့် နည်းပညာ
+      ခက်ခဲမှုများကို ကျော်လွှားရန် ကူညီပေးပါသည်။"
+      <footer>— ကျောင်းသား၊ ရန်ကုန်</footer>
+    </blockquote>
+    <blockquote>
+      "ကျွန်ုပ်၏ ကိုယ်ပိုင်ဘာသာစကားဖြင့် နက်နက်နဲနဲနားလည်စေပြီး၊
+      စိတ်ပိုင်းဆိုင်ရာ အတားအဆီးများကို ဖယ်ရှားပေးပါသည်။"
+      <footer>— ကျောင်းသား၊ မန္တလေး</footer>
+    </blockquote>
+  </div>
+</div>
+
+<style>{`
+  :root {
+    --grid-line-color: rgba(118, 119, 130, 0.08);
+    --accent-gradient: linear-gradient(to bottom right, rgba(var(--sl-color-accent-high), 0.8), rgba(var(--sl-color-accent-low), 0.3));
+  }
+
+  /* Hero background grid - Next.js style */
+  .hero-grid-background {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .grid-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background-image:
+      linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 70%);
+    -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+  }
+
+  /* Welcome message */
+  .welcome-message {
+    margin: 5rem 0 4rem;
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    background: var(--sl-color-bg-offset);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(var(--sl-color-accent), 0.1);
+  }
+
+  .welcome-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent-gradient);
+    opacity: 0.1;
+    z-index: -1;
+  }
+
+  .welcome-message h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .welcome-message p {
+    font-size: 1.3rem;
+    max-width: 80%;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+
+  /* Featured categories */
+  .featured-categories {
+    margin: 4rem 0;
+  }
+
+  h2, h3 {
+    font-weight: 700;
+  }
+
+  /* Topic cards */
+  .popular-topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.8rem;
+    margin-top: 2rem;
+  }
+
+  .topic-card {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 220px;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-color: rgba(var(--sl-color-accent), 0.3);
+  }
+
+  .topic-card h3 {
+    margin: 1.2rem 0 0.8rem;
+    font-size: 1.5rem;
+  }
+
+  .topic-card p {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  .learn-more {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--sl-color-accent);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: auto;
+    transition: all 0.2s ease;
+    padding: 0.5rem 0;
+    width: fit-content;
+  }
+
+  .learn-more:hover {
+    gap: 0.8rem;
+    filter: brightness(1.1);
+  }
+
+  /* Coming soon section */
+  .coming-soon {
+    padding: 3rem;
+    border-radius: 1rem;
+    background-color: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .coming-soon h3 {
+    margin: 1.5rem 0 2rem;
+    font-size: 1.8rem;
+  }
+
+  .coming-soon ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.2rem;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+    text-align: left;
+  }
+
+  .coming-soon li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--sl-color-bg-offset);
+    border-radius: 0.8rem;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+
+  .coming-soon li:hover {
+    transform: translateX(5px);
+  }
+
+  .notification-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 2rem;
+    background-color: var(--sl-color-accent-low);
+    border-radius: 0.8rem;
+    width: fit-content;
+  }
+
+  .notification-box a {
+    color: var(--sl-color-accent-high);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .notification-box a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* Partners section */
+  .partners {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    margin: 5rem 0 3rem;
+    animation: fadeIn 1s ease-out;
+    animation-delay: 0.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .testimonials h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .quotes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+  blockquote {
+    position: relative;
+    padding: 2rem 2.5rem;
+    background-color: var(--sl-color-bg);
+    border-left: 4px solid var(--sl-color-accent);
+    border-radius: 0.8rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  blockquote::before {
+    content: '"';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-size: 3.5rem;
+    color: var(--sl-color-accent-low);
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  blockquote footer {
+    margin-top: 1.2rem;
+    text-align: right;
+    font-weight: 600;
+    font-style: normal;
+    opacity: 0.8;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .welcome-message {
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .welcome-message p {
+      max-width: 100%;
+      font-size: 1.1rem;
+    }
+
+    .welcome-message h2 {
+      font-size: 1.6rem;
+    }
+
+    .quotes {
+      grid-template-columns: 1fr;
+    }
+
+    .topic-card {
+      padding: 1.5rem;
+    }
+
+    .coming-soon {
+      padding: 2rem 1.5rem;
+    }
+
+    .coming-soon ul {
+      grid-template-columns: 1fr;
+    }
+
+    .grid {
+      background-size: 40px 40px;
+    }
+  }
+  `}</style>
 
 <Analytics />
