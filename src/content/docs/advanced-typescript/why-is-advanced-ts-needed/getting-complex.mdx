@@ -1,0 +1,28 @@
+---
+title: "ကြုံလာနိုင်တဲ့ အခက်အခဲအသစ်များ - ပိုကြီးလာတဲ့အခါ ပိုရှုပ်ထွေးလာခြင်း "
+description: "ကြုံလာနိုင်တဲ့ အခက်အခဲအသစ်များ - ပိုကြီးလာတဲ့အခါ ပိုရှုပ်ထွေးလာခြင်း "
+---
+
+import { Code } from "@astrojs/starlight/components";
+import ContentImage from "@components/Content-image.astro";
+import repeat1 from "@assets/advanced-typescript/repeat1.png";
+import notExactType from "@assets/advanced-typescript/not-exact-type.png";
+
+အခြေခံ TypeScript က Error အများကြီးကို ကာကွယ်ပေးနိုင်ပေမယ့် Program တွေ၊ Project တွေ ပိုကြီးလာ၊ ပိုရှုပ်ထွေးလာတဲ့အခါ အခက်အခဲအသစ်တွေ ပေါ်လာပြန်တယ်။
+
+- **Code တွေ ထပ်ရေးနေရခြင်း(Repeating)**: ပုံစံတူ အလုပ်တစ်ခုကိုပဲ Data အမျိုးမျိုး (number၊ string၊ Object) အတွက် သီးသန့် Code တွေ ခွဲရေးနေရတာမျိုး။ ဒါက Code တွေ အများကြီး ဖြစ်လာပြီး ပြင်ရခက်စေတယ်။
+- **Type တွေ အများကြီး ထပ်လုပ်နေရခြင်း**: ရှိပြီးသား Data ပုံစံ (Type) ကနေ နည်းနည်းလေး ပြောင်းသုံးချင်တာမျိုး (ဥပမာ အချို့ အချက်အလက်နဲနဲပဲ လိုတာမျိုး) လုပ်ချင်ရင် Data ပုံစံအသစ် (Type အသစ်) တွေ ထပ်ခွဲလုပ်နေရတာမျိုး။
+- **Data ရဲ့ အသေးစိတ်ကို မပျောက်စေဘဲ ပုံစံမှန်မှန်း စစ်ခြင်း**: Data တစ်ခုက ငါလိုချင်တဲ့ ပုံစံ (Type) နဲ့ ကိုက်ညီရဲ့လား စစ်ချင်တယ်၊ ဒါပေမယ့် အဲဒီ Data ရဲ့ တိကျတဲ့ တန်ဖိုးလေးတွေကိုလည်း သုံးချင်တာမျိုး။ (ဥပမာ number type ဖြစ်ရမယ် ဆိုတာထက် constant "5" ဆိုတာကိုပဲ သုံးချင်တာမျိုး)။
+
+<ContentImage imgSrc={repeat1} altText="repeating function" />
+
+အပေါ်က Code မှာဆိုရင် ပေးလိုက်တဲ့ value ရဲ့ Type ကို မူတည်ပြီး Array ပြန်ပေးတာ ဖြစ်ပါတယ်။ ဒါပေမယ့် Type တစ်ခုစီအတွက် function တစ်ခုရေးဖို့ ဆိုတာ လက်တွေ့မကျပါဘူး။
+
+<ContentImage imgSrc={notExactType} altText="not exact type" />
+
+အခုလို Union type နဲ့ ရေးမယ်ဆိုရင်လဲ ရလာတဲ့ result type က number မှန်း ရေးတဲ့သူက သိပေမယ့် typescript က string လား၊ number လား မသိပါဘူး။ အဲ့တာကြောင့် number type ရဲ့ intellisense လဲမရတော့ သလို typescript သုံးခြင်းရဲ့ အကျိုးကျေးဇူးလဲ မရတော့ပါဘူး။
+
+### ရှင်းပြချက်
+
+ဒီအခက်အခဲတွေက Code တွေကို ရေးရတာ ပိုများစေတယ်၊ နားလည်ရခက်စေတယ်၊ ပြင်ရတာ ပိုကြာစေတယ်။
+သုံးခြင်းရဲ့ အကျိုးကျေးဇူးလဲ မရတော့ပါဘူး။

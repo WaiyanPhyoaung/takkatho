@@ -16,6 +16,7 @@ export default defineConfig({
     react(),
     starlight({
       plugins: [starlightThemeNova()],
+      expressiveCode: true,
       title: "Takkatho",
       logo: {
         replacesTitle: true,
@@ -123,8 +124,16 @@ export default defineConfig({
                   slug: "advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript",
                 },
                 {
-                  label: "why advancedsdf?",
-                  slug: "advanced-typescript/why-is-advanced-ts-needed/aa",
+                  label: "Basic Typescript's Help",
+                  slug: "advanced-typescript/why-is-advanced-ts-needed/basic-typescript",
+                },
+                {
+                  label: "New Challenges: Getting More Complex",
+                  slug: "advanced-typescript/why-is-advanced-ts-needed/getting-complex",
+                },
+                {
+                  label: "More powerful Ways",
+                  slug: "advanced-typescript/why-is-advanced-ts-needed/more-powerful-ways",
                 },
               ],
             },
@@ -143,7 +152,7 @@ export default defineConfig({
     resolve: {
       alias: {
         "@components": fileURLToPath(
-          new URL("./src/components", import.meta.url),
+          new URL("./src/components", import.meta.url)
         ),
         "@assets": fileURLToPath(new URL("./src/assets", import.meta.url)),
         "@styles": fileURLToPath(new URL("./src/styles", import.meta.url)),

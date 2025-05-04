@@ -1,0 +1,47 @@
+---
+title: "အခြေခံ TypeScript ရဲ့ အကူအညီ - ကြိုတင်စစ်ဆေးခြင်း"
+description: အခြေခံ TypeScript ရဲ့ အကူအညီ - ကြိုတင်စစ်ဆေးခြင်း
+---
+
+import { Code } from "@astrojs/starlight/components";
+import ContentImage from "@components/Content-image.astro";
+import tsError1 from "@assets/advanced-typescript/ts-check1.png";
+
+import tsError2 from "@assets/advanced-typescript/ts-check2.png";
+export const code = `
+interface User {
+  name: string;
+  age: number;
+}
+
+function greetUser(user: User): void {
+// အခု user က User Type ဖြစ်မှန်း၊ name က string ဖြစ်မှန်း TypeScript က သိနေပြီ
+console.log(\`Hello, \${user.name.toUpperCase()}!\`);
+}
+
+let goodUserData: User = { name: "Alice", age: 30 }; // မှန်တယ်
+
+// let badUserData: User = { name: "Bob" }; // ERROR: age မပါဘူးလို့ TypeScript က ကြိုပြောပြီ!
+// greetUser(null); // ERROR: null က User Type မဟုတ်ဘူးလို့ ကြိုပြောပြီ!
+
+greetUser(goodUserData); // ဘာမှမဖြစ်ဘဲ အလုပ်လုပ်တယ်
+`
+
+ဒီလိုမျိုး Run တဲ့အချိန်ကျမှ Error တက်တာတွေကို သက်သာဖို့ အတွက်ဆိုရင် TypeScript က အများကြီး ကူညီပေးပါတယ်။ TypeScript က ကျွန်တော်တို့ကို Code မရေးခင် ကိုယ့် Data တွေက ဘယ်လို ပုံစံ၊ ဘယ်လို Type ဖြစ်ရမယ်ဆိုတာ သတ်မှတ်ခိုင်းတယ်။
+
+ဥပမာ "User" ဆိုတဲ့ Data ဆိုရင် သူ့မှာ "name" ဆိုတဲ့ စာသားနဲ့ "age" ဆိုတဲ့ ဂဏန်းပါရမယ် စသဖြင့် သတ်မှတ်တာပေါ့။ ဒါကို Static Typing လို့ခေါ်တယ်။
+
+ဒီလို သတ်မှတ်လိုက်တော့ ဘာကောင်းလဲဆိုတော့ Code ရေးနေတုန်းမှာတင် ဒါမှမဟုတ် Code ကို Program အဖြစ် မပြောင်းခင် Compile လုပ်နေတုန်းမှာတင် Type မှားတာတွေ၊ လိုအပ်တဲ့ အချက်အလက် (Property) မပါတာတွေကို TypeScript က ကြိုပြီး ပြောပြပေးတယ်။
+
+ဒီ Code လေးကို TypeScript နဲ့ ရေးကြည့်ရအောင်။
+
+<Code lang="typescript" title="index.ts" code={code} />
+
+ကျွန်တော်တို့ Comment ပိတ်ထားတဲ့ စာကြောင်းတွေကို comment ပြန်ဖွင့်ကြည့်တဲ့ အခါ
+
+<ContentImage imgSrc={tsError2} altText="ts error" />
+<ContentImage imgSrc={tsError1} altText="ts error" />
+
+### ရှင်းပြချက်
+
+TypeScript က ကျွန်တော်တို့ သတ်မှတ်ထားတဲ့ Type အတိုင်း ဟုတ်မဟုတ် Code ရေးနေတုန်းကတည်းက စစ်ပေးတယ်။ ဒါကြောင့် Run တဲ့အချိန်ကျမှ Error ဖြစ်မယ့်အစား အစောကြီးတင် သိပြီး ပြင်လို့ရသွားတယ်။ ဒါက Program ရေးရတာကို ပိုစိတ်ချရစေတယ်။
