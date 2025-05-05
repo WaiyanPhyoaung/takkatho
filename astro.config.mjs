@@ -137,6 +137,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Generics",
+              items: [
+                {
+                  label: "Introduction",
+                  slug: "advanced-typescript/generics/introduction",
+                },
+                {
+                  label: "Explicitly and Inference",
+                  slug: "advanced-typescript/generics/explicitly-and-inference",
+                },
+                {
+                  label: "Usages of Generics",
+                  slug: "advanced-typescript/generics/usage-of-generics",
+                },
+              ],
+            },
           ],
         },
         // {

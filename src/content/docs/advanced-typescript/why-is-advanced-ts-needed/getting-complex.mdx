@@ -3,10 +3,27 @@ title: "ကြုံလာနိုင်တဲ့ အခက်အခဲအသ�
 description: "ကြုံလာနိုင်တဲ့ အခက်အခဲအသစ်များ - ပိုကြီးလာတဲ့အခါ ပိုရှုပ်ထွေးလာခြင်း "
 ---
 
-import { Code } from "@astrojs/starlight/components";
-import ContentImage from "@components/Content-image.astro";
-import repeat1 from "@assets/advanced-typescript/repeat1.png";
-import notExactType from "@assets/advanced-typescript/not-exact-type.png";
+import { Code, Aside } from "@astrojs/starlight/components";
+export const code = `
+// number Array အတွက် ပထမဆုံး Element ယူတဲ့ Function
+function getFirstNumber(arr: number[]): number | undefined {
+  return arr[0];
+}
+
+// string Array အတွက် ပထမဆုံး Element ယူတဲ့ Function
+function getFirstString(arr: string[]): string | undefined {
+return arr[0];
+}
+
+// Object Array အတွက် ပထမဆုံး Element ယူတဲ့ Function
+// (User Type က အရင်က သတ်မှတ်ထားတယ်လို့ မှတ်ယူပါ)
+interface User { name: string; age: number; }
+function getFirstUser(arr: User[]): User | undefined {
+return arr[0];
+}
+
+// အခု ဒီ Function သုံးခုလုံးက ပထမဆုံး Element ကိုပဲ ယူတဲ့ အလုပ်ကိုပဲ လုပ်တာပါ။
+`
 
 အခြေခံ TypeScript က Error အများကြီးကို ကာကွယ်ပေးနိုင်ပေမယ့် Program တွေ၊ Project တွေ ပိုကြီးလာ၊ ပိုရှုပ်ထွေးလာတဲ့အခါ အခက်အခဲအသစ်တွေ ပေါ်လာပြန်တယ်။
 
@@ -14,15 +31,19 @@ import notExactType from "@assets/advanced-typescript/not-exact-type.png";
 - **Type တွေ အများကြီး ထပ်လုပ်နေရခြင်း**: ရှိပြီးသား Data ပုံစံ (Type) ကနေ နည်းနည်းလေး ပြောင်းသုံးချင်တာမျိုး (ဥပမာ အချို့ အချက်အလက်နဲနဲပဲ လိုတာမျိုး) လုပ်ချင်ရင် Data ပုံစံအသစ် (Type အသစ်) တွေ ထပ်ခွဲလုပ်နေရတာမျိုး။
 - **Data ရဲ့ အသေးစိတ်ကို မပျောက်စေဘဲ ပုံစံမှန်မှန်း စစ်ခြင်း**: Data တစ်ခုက ငါလိုချင်တဲ့ ပုံစံ (Type) နဲ့ ကိုက်ညီရဲ့လား စစ်ချင်တယ်၊ ဒါပေမယ့် အဲဒီ Data ရဲ့ တိကျတဲ့ တန်ဖိုးလေးတွေကိုလည်း သုံးချင်တာမျိုး။ (ဥပမာ number type ဖြစ်ရမယ် ဆိုတာထက် constant "5" ဆိုတာကိုပဲ သုံးချင်တာမျိုး)။
 
-<ContentImage imgSrc={repeat1} altText="repeating function" />
+<Code code={code} lang="typescript" title="index.ts" />
 
-အပေါ်က Code မှာဆိုရင် ပေးလိုက်တဲ့ value ရဲ့ Type ကို မူတည်ပြီး Array ပြန်ပေးတာ ဖြစ်ပါတယ်။ ဒါပေမယ့် Type တစ်ခုစီအတွက် function တစ်ခုရေးဖို့ ဆိုတာ လက်တွေ့မကျပါဘူး။
+<Aside title="ရှင်းပြချက်">
+  မြင်တဲ့အတိုင်းပဲ Function သုံးခုလုံးက return arr[0]; ဆိုတဲ့ အလုပ်
+  တစ်ခုတည်းကိုပဲ လုပ်တာပါ။ ဒါပေမယ့် Array ထဲက Data Type မတူတာကြောင့် Function
+  သုံးခု ခွဲရေးလိုက်ရတယ်။ ဒါက Code Duplication (Code ထပ်ခြင်း) ပါပဲ။
+</Aside>
 
-<ContentImage imgSrc={notExactType} altText="not exact type" />
+"ဒီလို Code တွေ ထပ်နေတော့ ဘာဖြစ်လဲဆိုတော့... အကယ်၍ ဒီ Function ရဲ့ အလုပ်လုပ်ပုံလေး
+နည်းနည်း ပြောင်းချင်တယ်ဆိုပါစို့ (ဥပမာ Array က အချည်းနှီး ဖြစ်နေလား အရင်စစ်ချင်တာမျိုး)။
+အဲဒီအခါကျရင် ကျွန်တော်တို့ ခုနက ရေးထားတဲ့ getFirstNumber, getFirstString, getFirstUser
+ဆိုတဲ့ Function သုံးခုလုံးကို လိုက်ပြင်နေရတော့မယ်။ Code များရင် ပြင်ရတာ ပိုရှုပ်၊
+ပိုမှားနိုင်တာပေါ့။"
 
-အခုလို Union type နဲ့ ရေးမယ်ဆိုရင်လဲ ရလာတဲ့ result type က number မှန်း ရေးတဲ့သူက သိပေမယ့် typescript က string လား၊ number လား မသိပါဘူး။ အဲ့တာကြောင့် number type ရဲ့ intellisense လဲမရတော့ သလို typescript သုံးခြင်းရဲ့ အကျိုးကျေးဇူးလဲ မရတော့ပါဘူး။
-
-### ရှင်းပြချက်
-
-ဒီအခက်အခဲတွေက Code တွေကို ရေးရတာ ပိုများစေတယ်၊ နားလည်ရခက်စေတယ်၊ ပြင်ရတာ ပိုကြာစေတယ်။
+ဒီအခက်အခဲတွေက Code တွေကို ရေးရတာ ပိုများစေတယ်၊ နားလည်ရခက်စေတယ်၊ ပြင်ရတာ ပိုကြာစေတယ်။ Typescript
 သုံးခြင်းရဲ့ အကျိုးကျေးဇူးလဲ မရတော့ပါဘူး။

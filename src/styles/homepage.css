@@ -1,0 +1,357 @@
+.gradient-bg {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.dots-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    rgba(var(--sl-color-accent), 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 35px 35px;
+  opacity: 0.5;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+/* Introduction section */
+.intro-section {
+  margin: 4rem 0 5rem;
+  text-align: center;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeUp 1s ease-out;
+}
+
+.intro-section h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(
+    to right,
+    rgba(var(--sl-color-accent-high), 1),
+    rgba(var(--sl-color-accent-low), 1)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.intro-section p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--sl-color-gray-3);
+}
+
+/* Concepts grid */
+.concepts-grid {
+  margin: 3rem 0 5rem;
+}
+
+/* Key features section */
+.key-features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4rem 0;
+  width: 80%;
+  margin-inline: auto;
+}
+
+.feature {
+  display: flex;
+  margin-top: 0;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.8rem;
+  border-radius: 12px;
+  background-color: var(--sl-color-bg-offset);
+  border: 1px solid rgba(var(--sl-color-gray-5), 0.1);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--sl-color-accent), 0.3);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: rgba(var(--sl-color-accent), 0.1);
+  color: var(--sl-color-accent);
+}
+
+.feature-content h3 {
+  margin: 0 0 0.7rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.feature-content p {
+  margin: 0;
+  color: var(--sl-color-gray-3);
+  line-height: 1.5;
+}
+
+/* Study paths */
+.study-paths {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0 5rem;
+}
+
+.path-card {
+  padding: 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--sl-color-gray-5);
+  background-color: var(--sl-color-bg);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.path-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.beginner {
+  border-left: 4px solid var(--sl-color-accent);
+}
+
+.intermediate {
+  border-left: 4px solid rgb(73, 156, 84);
+}
+
+.path-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.path-card p {
+  margin-bottom: 2rem;
+  color: var(--sl-color-gray-3);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.path-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--sl-color-accent);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+  margin-top: auto;
+}
+
+.path-link:hover {
+  gap: 0.8rem;
+}
+
+/* Quote section */
+.quote-section {
+  margin: 5rem 0;
+  padding: 3rem 0;
+  border-top: 1px solid rgba(var(--sl-color-gray-5), 0.1);
+  border-bottom: 1px solid rgba(var(--sl-color-gray-5), 0.1);
+}
+
+blockquote {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-style: italic;
+  color: var(--sl-color-gray-2);
+}
+
+blockquote p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+blockquote cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--sl-color-gray-3);
+}
+
+/* Upcoming section */
+.upcoming-section {
+  margin: 4rem 0;
+  padding: 3rem;
+  border-radius: 16px;
+  background-color: var(--sl-color-bg-offset);
+  border: 1px solid rgba(var(--sl-color-gray-5), 0.1);
+}
+
+.upcoming-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.upcoming-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.upcoming-topic {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  background-color: var(--sl-color-bg);
+  border: 1px solid rgba(var(--sl-color-gray-5), 0.1);
+  color: var(--sl-color-gray-2);
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.upcoming-topic:hover {
+  transform: translateX(5px);
+}
+
+.notify-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.notify-link:hover {
+  gap: 0.8rem;
+}
+
+/* Community section */
+.community-section {
+  margin: 5rem 0 3rem;
+  text-align: center;
+}
+
+.community-section h2 {
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.community-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.community-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--sl-color-gray-2);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+  padding: 1rem;
+}
+
+.community-link:hover {
+  transform: translateY(-5px);
+  color: var(--sl-color-accent);
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .intro-section {
+    padding: 0 1rem;
+    margin: 3rem 0;
+  }
+
+  .intro-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .intro-section p {
+    font-size: 1.1rem;
+  }
+
+  .key-features {
+    gap: 1.5rem;
+  }
+
+  .feature {
+    padding: 1.5rem;
+  }
+
+  .quote-section {
+    padding: 2rem 1rem;
+  }
+
+  blockquote p {
+    font-size: 1.3rem;
+  }
+
+  .upcoming-section {
+    padding: 2rem 1.5rem;
+  }
+}

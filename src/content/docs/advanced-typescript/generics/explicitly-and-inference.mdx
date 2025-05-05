@@ -1,0 +1,58 @@
+---
+title: "Generic Function ကို သုံးပုံ: တိုက်ရိုက်ပြောပြခြင်း နဲ့ သူဘာသာသိခြင်း (Inference)"
+description: "(Generic Function ကို သုံးပုံ): တိုက်ရိုက်ပြောပြခြင်း နဲ့ TypeScript က သူဘာသာ မှန်းသိခြင်း (Inference)"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const code = `
+// T က string ဖြစ်ရမယ်လို့ ကိုယ်တိုင် ပြောလိုက်တာ
+let outputString = identity<string>("Hello Generics!");
+
+// T က number ဖြစ်ရမယ်လို့ ကိုယ်တိုင် ပြောလိုက်တာ
+let outputNumber = identity<number>(123);
+
+// T က User ဖြစ်ရမယ်လို့ ကိုယ်တိုင် ပြောလိုက်တာ
+interface User { name: string; } // User Type ကို ပြန်ထည့်ပေးထားပါတယ်
+let outputUser = identity<User>({ name: "Alice" });
+
+console.log(outputString.toUpperCase()); // Type က string မှန်း သိလို့ toUpperCase() ခေါ်လို့ရတယ်၊ TypeScript က စစ်ပေးထားတယ်!
+console.log(outputNumber.toFixed(2)); // Type က number မှန်း သိလို့ toFixed(2) ခေါ်လို့ရတယ်၊ စိတ်ချရတယ်!
+console.log(outputUser.name); // Type က User မှန်း သိလို့ name ကို သုံးလို့ရတယ်၊ စိတ်ချရတယ်!
+`;
+
+export const code2 = `// "Hello Inference!" ဆိုတဲ့ string ကို ထည့်လိုက်တာနဲ့ T က string လို့ TypeScript က ခန့်မှန်းသိတယ်
+let inferredString = identity("Hello Inference!");
+
+// 456 ဆိုတဲ့ number ကို ထည့်လိုက်တာနဲ့ T က number လို့ TypeScript က ခန့်မှန်းသိတယ်
+let inferredNumber = identity(456);
+
+// { name: "Bob" } ဆိုတဲ့ object ကို ထည့်လိုက်တာနဲ့ T က { name: string } လို့ TypeScript က ခန့်မှန်းသိတယ်
+let inferredUser = identity({ name: "Bob" });
+
+console.log(inferredString.toUpperCase()); // ခန့်မှန်းသိပေမယ့် Type က မှန်နေလို့ စိတ်ချရတုန်းပဲ!
+console.log(inferredNumber.toFixed(2));
+console.log(inferredUser.name);
+`
+
+ဒီလိုမျိုး Generic ရေးထားတဲ့ Function ကို ဘယ်လို ခေါ်သုံးရမလဲ? နည်းလမ်း နှစ်ခု ရှိပါတယ်။
+
+### နည်းလမ်း ၁: Type ကို ကိုယ်တိုင် တိုက်ရိုက် ပြောပြခြင်း
+
+Function ကို ခေါ်သုံးတဲ့အခါ Angle Bracket \<> ထဲမှာ T နေရာမှာ ဘယ် Type ဖြစ်ရမယ်ဆိုတာကို ကျွန်တော်တို့ ကိုယ်တိုင် ထည့်ပြောပေးလို့ရတယ်။
+
+<Code code={code} lang="typescript" title="index.ts" />
+
+### နည်းလမ်း ၂: Type Inference (TypeScript က သူဘာသာ သိခြင်း):
+
+အများစု အချိန်တွေမှာတော့ TypeScript က ကျွန်တော်တို့ ထည့်လိုက်တဲ့ Data ရဲ့ တန်ဖိုးကို ကြည့်ပြီး T နေရာမှာ ဘယ် Type ဖြစ်သင့်လဲဆိုတာကို သူဘာသာသူ ခန့်မှန်းပြီး သိတယ်။ ဒီလိုမျိုး TypeScript က ကိုယ်တိုင် သိတာကို Inference လို့ခေါ်တယ်။ ဒီနည်းက Code ရေးရတာ ပိုလွယ်တယ်။
+
+<Code code={code2} lang="typescript" title="index.ts" />
+
+<Aside type="tip">
+  အများအားဖြင့်တော့ Inference ကိုပဲ သုံးကြလိမ့်မယ်။ ဒါပေမယ့် တိုက်ရိုက်
+  ပြောပြလို့ရတယ်ဆိုတာ သိထားတာက ပိုရှုပ်ထွေးတဲ့ အခြေအနေတွေမှာ အရေးကြီးတယ်။ အဓိက
+  မှတ်ထားရမှာက Type Safety (Type မှန်ကန်စိတ်ချရမှု)ပဲ။ Generic Function ထဲကို
+  ဘယ် Type ထည့်လိုက်သည်ဖြစ်စေ၊ TypeScript က အဲဒီ Function ကနေ ပြန်ထွက်လာမယ့်
+  Data ကလည်း အဲဒီ Type ပဲ ဖြစ်လိမ့်မယ်လို့ သေချာ သိနေတယ်။ ဒါကြောင့် Code တွေ
+  ပိုစိတ်ချရလာတာပေါ့။
+</Aside>

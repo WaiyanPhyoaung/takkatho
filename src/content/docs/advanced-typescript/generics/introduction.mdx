@@ -1,0 +1,40 @@
+---
+title: "Generic Superpowers! ပိုပြီး လိုက်လျောညီထွေတဲ့ Code များ ရေးသားခြင်း"
+description: "Generic Superpowers! ပိုပြီး လိုက်လျောညီထွေတဲ့ Code များ ရေးသားခြင်း"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const code = `
+// ၁။ Function နာမည်ရဲ့ နောက်မှာ Generic Type Variable <T> ကို ကြေညာမယ်။
+// ၂။ လက်ခံမယ့် argument ရဲ့ Type ကို T လို့ သုံးမယ်။
+// ၃။ ပြန်ထုတ်မယ့် return Type ကိုလည်း T လို့ သုံးမယ်။
+
+function identity<T>(arg: T): T {
+console.log(\`received data's Type: ${typeof arg}\`);
+return arg;
+}
+`;
+
+ဒီလို အခက်အခဲတွေကို ဖြေရှင်းဖို့ TypeScript မှာ ပိုအစွမ်းထက်တဲ့ ကိရိယာတွေ ရှိတယ်။ အဲဒါတွေကတော့ Generics နဲ့ Utility Types တွေပဲ ဖြစ်တယ်။
+
+### Generic ဆိုတာ တကယ်တော့ ဘာလဲ? "Type Variable" ဆိုတဲ့ Idea
+
+> Generics ရဲ့ အဓိက Concept ဖြစ်တဲ့ Type တွေအတွက် နေရာယူထားတာ ဆိုတဲ့ အချက်ကို နားလည်ဖို့၊ သူက ဘယ်လို ပြဿနာကို ဖြေရှင်းပေးလဲ (Code တွေ ထပ်နေတာ) သိရှိဖို့နဲ့ အခြေခံ Generic Function လေးတစ်ခု ရေးတတ်ဖို့ ဖြစ်ပါတယ်။
+
+ခုနကလို Code တွေ ထပ်နေတဲ့ ပြဿနာကို ဖြေရှင်းဖို့အတွက် Generics ဆိုတာက ကူညီပေးနိုင်တယ်။ စဉ်းစားကြည့်ဗျာ... Function တစ်ခုကို Data အမျိုးမျိုး (number၊ string) ထည့်သုံးချင်ရင် Parameter တွေ ပေးရတယ်။ Generics က အဲဒီလိုပဲ Function ကို Type အမျိုးမျိုး ထည့်သုံးလို့ရအောင် ကူညီပေးတာ။ သူတို့က Code ရေးတဲ့အချိန်မှာ ဘယ် Type ဖြစ်မလဲဆိုတာ မသိသေးခင် Type တွေအတွက် နေရာယူထားတဲ့ Placeholder လေးတွေ၊ ဒါမှမဟုတ် Type တွေကို ကိုယ်စားပြုတဲ့ Variable လေးတွေပါပဲ။
+
+<Aside>
+Generic Type Variable ကို ကြေညာချင်ရင် Angle Bracket \<Aside> လေးတွေ သုံးရတယ်။ နာမည်က T (Type ကို ကိုယ်စားပြုတယ်) လို့ အများဆုံး သုံးပေမယ့် U, K, V စသဖြင့်တခြား နာမည်လည်း ပေးလို့ရတယ်။
+</Aside>
+
+<Code code={code} lang="typescript" title="index.ts" />
+
+- **\<T>**: ဒါက ပြောလိုက်တာက 'ဒီ identity Function က Generic ဖြစ်တယ်၊ Type တစ်ခုခုနဲ့ အလုပ်လုပ်မယ်၊ အဲဒီ Type ကို အခုတော့ T လို့ ခေါ်ထားမယ်' ပေါ့။
+- **arg**: T: Function ကို လက်ခံမယ့် arg ဆိုတဲ့ Data ရဲ့ Type က T ကိုယ်စားပြုတဲ့ အဲဒီ Type ပဲ ဖြစ်လိမ့်မယ်။
+- **: T**: Function က ပြန်ထုတ်ပေးမယ့် တန်ဖိုးရဲ့ Type ကလည်း T ကိုယ်စားပြုတဲ့ အဲဒီ Type အတိုင်း ပဲ ဖြစ်လိမ့်မယ်။
+
+<Aside type="tip" title="ကောင်းကျိုး">
+  "ဒီလို ရေးလိုက်တော့ Logic (Code) ကို တစ်ခါတည်း ရေးလိုက်ရုံနဲ့ ဘယ် Data Type
+  နဲ့ လာလာ အလုပ်လုပ်နိုင်တဲ့၊ ပြန်လည် အသုံးပြုလို့ရတဲ့ Function တစ်ခု ရသွားပြီ။
+  Code တွေ ထပ်ရေးစရာ မလိုတော့ဘူး။"
+</Aside>

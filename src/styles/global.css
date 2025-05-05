@@ -18,6 +18,7 @@
   --sl-color-gray-6: #24272f;
   --sl-color-black: #17181c;
   --sl-color-bg-nav: #17181c70;
+  --sl-color-bg: #17181c70;
 }
 /* Light mode colors. */
 :root[data-theme="light"] {
@@ -34,6 +35,7 @@
   --sl-color-gray-7: #f5f6f8;
   --sl-color-black: #ffffff;
   --sl-color-bg-nav: #ffffff70;
+  --sl-color-bg: #ffffff70;
 }
 @layer base {
   .main-pane ul,
@@ -41,7 +43,7 @@
     @apply px-5;
   }
 
-  /* 
+  /*
 
 
   li ul {
@@ -62,4 +64,13 @@
 .site-title img {
   height: 4rem;
   width: auto;
+}
+blockquote {
+  background: var(--sl-color-bg-nav); /* light gray‑blue fill */
+  border-left: 4px solid #c5ccd8; /* muted accent bar    */
+  padding: 1rem 1.25rem; /* 16 px × 20 px space */
+  margin: 1rem 0; /* breathing room      */
+  border-radius: 0.25rem; /* soft corners        */
+  font-size: 1rem;
+  line-height: 1.5;
 }
