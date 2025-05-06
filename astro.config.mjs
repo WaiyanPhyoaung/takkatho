@@ -162,6 +162,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Utility Types",
+              items: [
+                {
+                  label: "Introduction",
+                  slug: "advanced-typescript/utility/introduction",
+                },
+              ],
+            },
           ],
         },
         // {
