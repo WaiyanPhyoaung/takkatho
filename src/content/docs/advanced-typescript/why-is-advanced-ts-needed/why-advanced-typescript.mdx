@@ -1,10 +1,10 @@
-
 ---
 title: "ဘာကြောင့် အဆင့်မြင့် TypeScript features တွေလိုအပ်တာလဲ?"
 description: ဘာကြောင့် အဆင့်မြင့် TypeScript features တွေလိုအပ်တာလဲ?
 ---
-import ContentImage from '@components/Content-image.astro';
-import jsError from '@assets/advanced-typescript/js-error.png'
+
+import ContentImage from "@/components/Content-image.astro";
+import jsError from "@/assets/advanced-typescript/js-error.png";
 
 ### JavaScript ရဲဲ့ မထင်မက်ထားတဲ့ ပြဿနာ
 
@@ -14,13 +14,10 @@ import jsError from '@assets/advanced-typescript/js-error.png'
 ကျွန်တော်တို့ Code တွေ ရေးပြီးပြီ၊ အားလုံး မှန်တယ် ထင်နေတာပဲ။ ဒါပေမယ့် Program ကို Run လိုက်တဲ့အခါကျမှ... "ဟင်၊ ဒီနေရာမှာ ဘာမှ မရှိပါလား?"
 "ဒီလို ဖြစ်သွားရတာလား?" ဆိုပြီး မထင်ထားတဲ့ Error တွေ ပေါ်လာတတ်တယ်။ Data ရဲ့ ပုံစံ မမှန်တာတို့၊ မှားယွင်းတဲ့ အချက်အလက် ထည့်သုံးမိတာတို့ပေါ့။ ဒီလိုမျိုး Code Run နေရင်း ရုတ်တရက် ပေါ်လာတဲ့ Error တွေက တကယ် ခေါင်းခဲစေတယ်။ အထူးသဖြင့် Code တွေ အများကြီး ဖြစ်လာပြီဆို ပိုဆိုးတာပေါ့။
 
-
 ဒီလိုမျိုး Run တဲ့အချိန်ကျမှ Error တက်တာကို ဒီ Code လေးနဲ့ နမူနာ ကြည့်ရအောင်ပါ။
 
-
 ```js
-
-let userData = { name: "Alice", /* age မပါဘူးနော် */ };
+let userData = { name: "Alice" /* age မပါဘူးနော် */ };
 
 function greetUser(user) {
   // user ထဲမှာ name ရှိတယ်လို့ ယူဆပြီး ရေးလိုက်တာ...
@@ -28,9 +25,10 @@ function greetUser(user) {
   // ဟာ... user ထဲက name က မပါလာတော့ Error တက်ပြီ!
 }
 
-greetUser(userData); 
+greetUser(userData);
 greetUser(null); // သေချာပေါက် crash မှာပဲ
 ```
+
 အပေါ်က code ကို run ကြည့်ပါက ...
 
 <ContentImage imgSrc={jsError} altText="JS error" />
@@ -38,4 +36,3 @@ greetUser(null); // သေချာပေါက် crash မှာပဲ
 ### **ရှင်းပြချက်**
 
 ဒီ Code လေးမှာဆိုရင် userData ထဲမှာ name ပဲပါပြီး age မပါတာတို့၊ ဒါမှမဟုတ် greetUser Function ကို null ဆိုတဲ့ ဘာမှ မဟုတ်တဲ့ Data နဲ့ ခေါ်လိုက်တာတို့ကြောင့် Program Run ရင်း Error တက်သွားတာကို ပြထားတယ်။ ဘာလို့လဲဆိုတော့ JavaScript က Code Run တဲ့အချိန်ကျမှ 'အော်... ဒီ data က ဒီလို ပုံစံပါလား' ဆိုတာ သိရတာကိုး။
-

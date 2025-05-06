@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap");
 @layer base, starlight, theme, components, utilities;
 
 @import "@astrojs/starlight-tailwind";
@@ -38,25 +39,26 @@
   --sl-color-bg: #ffffff70;
 }
 @layer base {
+  * {
+    font-family: "Noto Sans Myanmar", sans-serif;
+    font-style: normal;
+  }
   .main-pane ul,
   .main-pane ol {
     @apply px-5;
   }
-
-  /*
-
-
-  li ul {
-    @apply pl-6;
-    list-style: circle;
+  .sl-link-card {
+    border: 1px solid var(--sl-color-gray-5);
+    box-shadow: var(--sl-color-gray-3);
   }
-  ol {
-    @apply list-decimal pl-5;
-  }
+}
 
-  li ol {
-    @apply pl-6;
-  } */
+@layer components {
+  .sl-markdown-content
+    :not(a, strong, em, del, span, input, code, br)
+    + :not(a, strong, em, del, span, input, code, br, :where(.not-content *)) {
+    margin-top: 0;
+  }
 }
 .tagline {
   @apply mt-4;
