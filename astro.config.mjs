@@ -152,6 +152,14 @@ export default defineConfig({
                   label: "Usages of Generics",
                   slug: "advanced-typescript/generics/usage-of-generics",
                 },
+                {
+                  label: "Generics Constraints",
+                  slug: "advanced-typescript/generics/generics-constraints",
+                },
+                {
+                  label: "Common Patterns",
+                  slug: "advanced-typescript/generics/common-patterns",
+                },
               ],
             },
           ],

@@ -54,9 +54,7 @@
 }
 
 @layer components {
-  .sl-markdown-content
-    :not(a, strong, em, del, span, input, code, br)
-    + :not(a, strong, em, del, span, input, code, br, :where(.not-content *)) {
+  .path-card {
     margin-top: 0;
   }
 }

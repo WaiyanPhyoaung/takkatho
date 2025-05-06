@@ -100,7 +100,7 @@ console.log(lastString); // Output: "second"
 
 // stringStack.push(123); // ERROR: stringStack က string တွေအတွက် Stack ဖြစ်လို့ number လာထည့်လို့ မရဘူး။ TypeScript က Error ပြပြီ!`
 
-### Generic Functions
+## Generic Functions
 
 Generics က ခုနက ပြောခဲ့တဲ့ Identity Function လို ရိုးရိုးလေးတွေတင်မကပါဘူး။ တခြား Function အမျိုးမျိုးမှာလည်း သုံးလို့ရတယ်။ ဥပမာအနေနဲ့ Data တစ်ခုခုကို လက်ခံပြီး အဲဒီ Data တစ်ခုတည်း ပါဝင်တဲ့ array တစ်ခု ပြန်ထုတ်ပေးမယ့် Function လေးတစ်ခု ရေးကြည့်ရအောင်။
 
@@ -116,7 +116,7 @@ Generics က ခုနက ပြောခဲ့တဲ့ Identity Function လ�
   အသုံးပြုလို့ရတယ် (Reusable) ဖြစ်သွားပြီ။
 </Aside>
 
-### Generic Interfaces
+## Generic Interfaces
 
 Interfaces တွေက object တွေရဲ့ ပုံစံ (shape) ကို သတ်မှတ်ပေးတယ်ဆိုတာ သိထားပြီးသားနော်။ ဒီ Interface တွေရဲ့ ပုံစံကိုလည်း Generics သုံးပြီး ပိုပြီး လိုက်လျောညီထွေ ဖြစ်အောင် လုပ်လို့ရတယ်။ API ကနေ ပြန်လာတဲ့ Response တွေအတွက် Standard ပုံစံတစ်ခု သတ်မှတ်တာက Generic Interface ရဲ့ အကောင်းဆုံး ဥပမာတစ်ခုပဲ။
 
@@ -127,7 +127,8 @@ Interfaces တွေက object တွေရဲ့ ပုံစံ (shape) ကိ
 <Aside title="မှတ်ချက်">
   {`ApiResponse<DataType> လို့ Generic Interface တစ်ခုတည်း ရေးလိုက်ရုံနဲ့ API ကနေ User Data ပြန်လာရင် ApiResponse<User> လို့ သုံး၊ Product Data ပြန်လာရင် ApiResponse<Product> လို့ သုံး၊ Product Array ပြန်လာရင် ApiResponse<Product[]> လို့ သုံး... စသဖြင့် လိုအပ်တဲ့ Data Type ကို DataType နေရာမှာ အစားထိုးပြီး သုံးသွားလို့ရပြီ။ UserApiResponse, ProductsApiResponse စသဖြင့် Interface တွေ အများကြီး ထပ်လုပ်နေစရာ မလိုတော့ဘူး။ ဒါက API Response တွေကို ကိုင်တွယ်တဲ့နေရာမှာ ပုံစံတူညီစေပြီး Type မှန်ကန်စိတ်ချရစေတယ်။`}
 </Aside>
-### Generic Classes
+
+## Generic Classes
 
 Classes တွေမှာလည်း Generics ကို သုံးလို့ရတယ်။ ဥပမာအားဖြင့် Data တွေကို အစီအစဉ်အတိုင်း ထည့်သွင်းပြီး နောက်ဆုံးမှ ထည့်တဲ့ Data ကို အရင်ဆုံး ပြန်ထုတ်ယူရတဲ့ Data Structure တစ်ခုဖြစ်တဲ့ Stack (Last-In, First-Out) ရိုးရိုးလေးတစ်ခုကို Class နဲ့ တည်ဆောက်ကြည့်ရအောင်။
 
