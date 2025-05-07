@@ -32,6 +32,7 @@ export default defineConfig({
           href: "https://github.com/WaiyanPhyoaung/takkatho",
         },
       ],
+
       routeMiddleware: "./src/routeMiddleware.ts",
       sidebar: [
         {
