@@ -1,7 +1,8 @@
 ---
-import { Icon } from "@astrojs/starlight/components";
-import MainLayout from "@/layouts/MainLayout.astro";
+import { Icon, TabItem } from "@astrojs/starlight/components";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { Steps } from "@astrojs/starlight/components";
 import "../styles/global.css";
 ---
 
@@ -12,42 +13,24 @@ import "../styles/global.css";
   }}
   hasSidebar={false}
 >
-  <MainLayout title="About Us | Our Story & Mission">
-    <div class="about-page">
-      <!-- Hero Section -->
-      <section
-        class="hero-section relative overflow-hidden py-12 md:py-16 lg:py-20 px-4 mb-12 md:mb-16"
-      >
-        <div class="animated-bg"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-          <h1
-            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 tracking-tight"
-          >
-            တက္ကသိုလ် အကြောင်း
-          </h1>
-          <p
-            class="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed"
-          >
-            ခက်ခဲသော နည်းပညာ သဘောတရားများကို ရိုးရှင်းလွယ်ကူစွာ ရှင်းပြရန်
-          </p>
-        </div>
+  <div class="about-page">
+    <!-- Hero Section -->
 
-        <div class="absolute -bottom-10 left-0 right-0 flex justify-center">
-          <div class="shape-divider"></div>
-        </div>
-      </section>
-
-      <!-- Our Mission Section -->
-      <section
-        class="mission-section max-w-6xl mx-auto px-4 py-12 md:py-16 scroll-reveal"
-      >
-        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div class="mission-content order-2 md:order-1">
-            <span class="section-subtitle">ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-              ဤ ခရီးစဉ်ကို အဘယ်ကြောင့် စတင်ခဲ့သနည်း
-            </h2>
-            <p class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
+    <!-- Our Mission Section -->
+    <section
+      class="mission-section max-w-6xl mx-auto px-4 py-4 md:py-8 scroll-reveal"
+    >
+      <div class="">
+        <div class="flex flex-col items-center">
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 xl:mb-8"
+          >
+            ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်
+          </h2>
+          <div class="max-w-2xl text-center">
+            <p
+              class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed text-center"
+            >
               နည်းပညာ ဆိုင်ရာ အသိပညာများကို လူတိုင်းလက်လှမ်းမီနိုင်စေရန်နှင့်
               ရိုးရှင်းလွယ်ကူစွာ နားလည်နိုင်စေရန် ရည်ရွယ်၍ ဤ platform ကို
               ဖန်တီးခဲ့ခြင်းဖြစ်ပါသည်။
@@ -56,478 +39,394 @@ import "../styles/global.css";
               ဘာသာစကား အတားအဆီးနှင့် ပညာရေး နောက်ခံ ကွာဟချက်များကြောင့်
               အခက်အခဲတွေ့နေရသော မြန်မာ developers များအတွက် အထူးရည်ရွယ်ပါသည်။
             </p>
-            <div
-              class="flex flex-wrap gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-start"
-            >
-              <div class="stat-box">
-                <span class="stat-number">5+</span>
-                <span class="stat-label">နည်းပညာ အမျိုးအစားများ</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">သင်ခန်းစာများ</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-number">0 ကျပ်</span>
-                <span class="stat-label">အခမဲ့ သင်ကြားမှု</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mission-visual relative order-1 md:order-2 mb-8 md:mb-0">
-            <div class="shape-1 absolute hidden sm:block"></div>
-            <div class="shape-2 absolute hidden sm:block"></div>
-            <div
-              class="image-wrapper relative z-10 rounded-xl overflow-hidden shadow-xl mx-auto max-w-sm md:max-w-none transform transition-transform duration-700 hover:scale-[1.02]"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                alt="Developer writing code"
-                class="w-full h-auto"
-              />
-              <div class="image-overlay"></div>
-            </div>
           </div>
         </div>
-      </section>
-
-      <!-- Our Story Section -->
-      <section
-        class="story-section py-12 md:py-16 lg:py-20 px-4 my-12 md:my-16 relative scroll-reveal"
+      </div>
+      <div
+        class="flex flex-wrap gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-center"
       >
-        <div class="story-bg"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-          <div class="text-center mb-10 md:mb-16">
-            <span class="section-subtitle">ကျွန်ုပ်တို့၏ အကြောင်း</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-              ဤ ခရီးစဉ် ဘယ်လို စတင်ခဲ့သလဲ
-            </h2>
-          </div>
+        <div class="stat-box">
+          <span class="stat-number">5+</span>
+          <span class="stat-label">နည်းပညာ အမျိုးအစားများ</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">သင်ခန်းစာများ</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">0 ကျပ်</span>
+          <span class="stat-label">အခမဲ့ သင်ကြားမှု</span>
+        </div>
+      </div>
+    </section>
 
-          <div class="timeline max-w-xl mx-auto">
-            <div class="timeline-item">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content">
-                <h3 class="text-lg md:text-xl font-bold mb-2">
-                  အိုင်ဒီယာ (၂၀၂၂)
-                </h3>
+    <!-- Our Story Section -->
+    <section class="story-section px-4 my-4 md:my-8 relative scroll-reveal">
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-4 md:mb-8">
+          <p class="mb-4">ကျွန်ုပ်တို့၏ အကြောင်း</p>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+            ဘယ်လို စတင်ခဲ့သလဲ
+          </h2>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <Steps>
+            <ol>
+              <li class="timeline-item">
+                <h3 class="text-lg md:text-xl font-bold mb-2">စတင်ခြင်း</h3>
                 <p class="text-sm md:text-base">
                   မြန်မာ developers များအတွက် အရည်အသွေးမြင့် နည်းပညာဆိုင်ရာ
                   အကြောင်းအရာများကို မိခင်ဘာသာစကားဖြင့် ရရှိနိုင်ရန် အတွက်
                   စဉ်းစားမိခဲ့ပါသည်။
                 </p>
-              </div>
-            </div>
+              </li>
 
-            <div class="timeline-item">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content">
+              <li class="timeline-item">
                 <h3 class="text-lg md:text-xl font-bold mb-2">
-                  ပထမဆုံး စမ်းသပ်မှု (၂၀၂၃)
+                  ပထမဆုံး စမ်းသပ်မှု
                 </h3>
                 <p class="text-sm md:text-base">
                   WebSocket နှင့် Advanced TypeScript စသော ခက်ခဲသော
                   နည်းပညာများကို ရှင်းလင်းသော မြန်မာဘာသာဖြင့် စတင်ရေးသားရန်
                   ဆုံးဖြတ်ခဲ့ပါသည်။
                 </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content">
+              </li>
+              <li class="timeline-item">
                 <h3 class="text-lg md:text-xl font-bold mb-2">
-                  လက်ရှိ အခြေအနေ (၂၀၂၄)
+                  လက်ရှိ အခြေအနေ
                 </h3>
                 <p class="text-sm md:text-base">
                   ယခုအခါ ကျွန်ုပ်တို့သည် ပိုမို တိုးချဲ့လာနိုင်ခဲ့ပြီး မြန်မာ
                   developers များအတွက် နည်းပညာဆိုင်ရာ ရင်းမြစ်တစ်ခု ဖြစ်လာစေရန်
                   ဆက်လက်ကြိုးပမ်းလျက်ရှိပါသည်။
                 </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content">
+              </li>
+              <li class="timeline-item">
                 <h3 class="text-lg md:text-xl font-bold mb-2">
-                  အနာဂတ် အစီအစဉ်များ (၂၀၂၄+)
+                  အနာဂတ် အစီအစဉ်များ
                 </h3>
                 <p class="text-sm md:text-base">
                   နောက်ထပ် နည်းပညာဆိုင်ရာ အကြောင်းအရာများ၊ interactive tutorials
                   နှင့် community platform အဖြစ် ချဲ့ထွင်ရန် စီစဉ်ထားပါသည်။
                 </p>
-              </div>
-            </div>
-          </div>
+              </li>
+            </ol>
+          </Steps>
         </div>
-      </section>
+      </div>
+    </section>
+  </div>
+</StarlightPage>
 
-      <!-- Values & Principles Section -->
-      <section
-        class="values-section max-w-6xl mx-auto px-4 py-12 md:py-16 scroll-reveal"
-      >
-        <div class="text-center mb-10 md:mb-16">
-          <span class="section-subtitle">ကျွန်ုပ်တို့၏ တန်ဖိုးထားမှုများ</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            ကျွန်ုပ်တို့ ယုံကြည်သော အရာများ
-          </h2>
-          <p class="text-base md:text-lg max-w-3xl mx-auto">
-            နည်းပညာဆိုင်ရာ ပညာရေးတွင် ကျွန်ုပ်တို့ ခိုင်မာစွာ လိုက်နာသော
-            အခြေခံမူများ
-          </p>
-        </div>
+<!-- Values & Principles Section -->
+<section
+  class="values-section max-w-6xl mx-auto px-4 py-12 md:py-16 scroll-reveal"
+>
+  <div class="text-center mb-10 md:mb-16">
+    <p class="mb-4">ကျွန်ုပ်တို့၏ တန်ဖိုးထားမှုများ</p>
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+      ကျွန်ုပ်တို့ ယုံကြည်သော အရာများ
+    </h2>
+    <p class="text-base md:text-lg max-w-3xl mx-auto">
+      နည်းပညာဆိုင်ရာ ပညာရေးတွင် ကျွန်ုပ်တို့ ခိုင်မာစွာ လိုက်နာသော အခြေခံမူများ
+    </p>
+  </div>
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-        >
-          <!-- Value 1 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="open-book" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">ရိုးရှင်းမှု</h3>
-            <p class="text-sm md:text-base">
-              ခက်ခဲသော သဘောတရားများကို ရိုးရှင်းစွာ ရှင်းပြခြင်းဖြင့်
-              နားလည်မှုကို မြှင့်တင်ပေးခြင်း
-            </p>
-          </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <!-- Value 1 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="open-book" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">ရိုးရှင်းမှု</h3>
+      <p class="text-sm md:text-base">
+        ခက်ခဲသော သဘောတရားများကို ရိုးရှင်းစွာ ရှင်းပြခြင်းဖြင့် နားလည်မှုကို
+        မြှင့်တင်ပေးခြင်း
+      </p>
+    </div>
 
-          <!-- Value 2 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="document" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
-              ဘာသာစကား ကူးပြောင်းမှု
-            </h3>
-            <p class="text-sm md:text-base">
-              အဂ္ဂလိပ်မှ မြန်မာသို့ ဘာသာပြန်ရာတွင် အဓိပ္ပာယ်ပျက်ယွင်းမှု
-              မရှိအောင် ဂရုတစိုက် ပြုလုပ်ခြင်း
-            </p>
-          </div>
+    <!-- Value 2 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="document" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
+        ဘာသာစကား ကူးပြောင်းမှု
+      </h3>
+      <p class="text-sm md:text-base">
+        အဂ္ဂလိပ်မှ မြန်မာသို့ ဘာသာပြန်ရာတွင် အဓိပ္ပာယ်ပျက်ယွင်းမှု မရှိအောင်
+        ဂရုတစိုက် ပြုလုပ်ခြင်း
+      </p>
+    </div>
 
-          <!-- Value 3 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="rocket" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
-              လက်တွေ့အသုံးချနိုင်မှု
-            </h3>
-            <p class="text-sm md:text-base">
-              သီအိုရီသက်သက်မဟုတ်ဘဲ လက်တွေ့အသုံးဝင်သော ဥပမာများနှင့်
-              ချဉ်းကပ်နည်းများကို ဦးစားပေးခြင်း
-            </p>
-          </div>
+    <!-- Value 3 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="rocket" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
+        လက်တွေ့အသုံးချနိုင်မှု
+      </h3>
+      <p class="text-sm md:text-base">
+        သီအိုရီသက်သက်မဟုတ်ဘဲ လက်တွေ့အသုံးဝင်သော ဥပမာများနှင့်
+        ချဉ်းကပ်နည်းများကို ဦးစားပေးခြင်း
+      </p>
+    </div>
 
-          <!-- Value 4 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="puzzle" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">အရည်အသွေး</h3>
-            <p class="text-sm md:text-base">
-              အရည်အသွေးမြင့် အကြောင်းအရာများကို ဖန်တီးရန် အမြဲတမ်း
-              ကြိုးပမ်းခြင်း
-            </p>
-          </div>
+    <!-- Value 4 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="puzzle" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">အရည်အသွေး</h3>
+      <p class="text-sm md:text-base">
+        အရည်အသွေးမြင့် အကြောင်းအရာများကို ဖန်တီးရန် အမြဲတမ်း ကြိုးပမ်းခြင်း
+      </p>
+    </div>
 
-          <!-- Value 5 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="star" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
-              လူတိုင်းလက်လှမ်းမီမှု
-            </h3>
-            <p class="text-sm md:text-base">
-              အသိပညာသည် လူတိုင်းလက်လှမ်းမီရမည်ဟု ယုံကြည်ပြီး အခမဲ့ဖြစ်အောင်
-              ကြိုးပမ်းခြင်း
-            </p>
-          </div>
+    <!-- Value 5 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="star" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
+        လူတိုင်းလက်လှမ်းမီမှု
+      </h3>
+      <p class="text-sm md:text-base">
+        အသိပညာသည် လူတိုင်းလက်လှမ်းမီရမည်ဟု ယုံကြည်ပြီး အခမဲ့ဖြစ်အောင်
+        ကြိုးပမ်းခြင်း
+      </p>
+    </div>
 
-          <!-- Value 6 -->
-          <div class="value-card">
-            <div class="value-icon">
-              <Icon name="setting" class="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
-              စဉ်ဆက်မပြတ် တိုးတက်မှု
-            </h3>
-            <p class="text-sm md:text-base">
-              အကြောင်းအရာများနှင့် platform ကို စဉ်ဆက်မပြတ်
-              ပိုမိုကောင်းမွန်အောင် ပြုလုပ်ခြင်း
-            </p>
-          </div>
-        </div>
-      </section>
+    <!-- Value 6 -->
+    <div class="value-card">
+      <div class="value-icon">
+        <Icon name="setting" class="w-6 h-6 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">
+        စဉ်ဆက်မပြတ် တိုးတက်မှု
+      </h3>
+      <p class="text-sm md:text-base">
+        အကြောင်းအရာများနှင့် platform ကို စဉ်ဆက်မပြတ် ပိုမိုကောင်းမွန်အောင်
+        ပြုလုပ်ခြင်း
+      </p>
+    </div>
+  </div>
+</section>
 
-      <!-- Team Section -->
-      <section
-        class="team-section max-w-6xl mx-auto px-4 py-12 md:py-16 scroll-reveal"
-      >
-        <div class="text-center mb-10 md:mb-16">
-          <span class="section-subtitle">ကျွန်ုပ်တို့ အဖွဲ့</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            နောက်ကွယ်မှ ပုဂ္ဂိုလ်များ
-          </h2>
-        </div>
+<!-- Team Section -->
+<section
+  class="team-section max-w-6xl mx-auto px-4 py-12 md:py-16 scroll-reveal"
+>
+  <div class="text-center mb-10 md:mb-16">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+      ကျွန်ုပ်တို့ အဖွဲ့
+    </h2>
+  </div>
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto"
-        >
-          <!-- Team Member 1 -->
-          <div class="team-member">
-            <div class="member-image">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                alt="Wai Yan Phyo Aung"
-                class="w-full h-auto rounded-lg"
-              />
-              <div class="member-overlay">
-                <div class="social-links-hover flex gap-3 justify-center">
-                  <a
-                    href="https://github.com/WaiYanPhyoAung"
-                    target="_blank"
-                    class="social-icon-hover"
-                  >
-                    <Icon name="github" class="w-6 h-6" />
-                  </a>
-                  <a href="#" class="social-icon-hover">
-                    <Icon name="linkedin" class="w-6 h-6" />
-                  </a>
-                  <a href="#" class="social-icon-hover">
-                    <Icon name="twitter" class="w-6 h-6" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="member-info text-center mt-4 px-4 pb-4">
-              <h3 class="text-lg md:text-xl font-bold">ဝေယံဖြိုးအောင်</h3>
-              <p class="text-sm md:text-base opacity-80">
-                တည်ထောင်သူ & Lead Developer
-              </p>
-              <div class="social-links mt-3 flex justify-center gap-3">
-                <a
-                  href="https://github.com/WaiYanPhyoAung"
-                  target="_blank"
-                  class="social-icon"
-                >
-                  <Icon name="github" class="w-5 h-5" />
-                </a>
-                <a href="#" class="social-icon">
-                  <Icon name="linkedin" class="w-5 h-5" />
-                </a>
-                <a href="#" class="social-icon">
-                  <Icon name="twitter" class="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Team Member 2 (Placeholder - can be removed or replaced with actual team members) -->
-          <div class="team-member">
-            <div class="member-image">
-              <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-                alt="Content Writer"
-                class="w-full h-auto rounded-lg"
-              />
-              <div class="member-overlay">
-                <div class="social-links-hover flex gap-3 justify-center">
-                  <a href="#" class="social-icon-hover">
-                    <Icon name="github" class="w-6 h-6" />
-                  </a>
-                  <a href="#" class="social-icon-hover">
-                    <Icon name="linkedin" class="w-6 h-6" />
-                  </a>
-                  <a href="#" class="social-icon-hover">
-                    <Icon name="twitter" class="w-6 h-6" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="member-info text-center mt-4 px-4 pb-4">
-              <h3 class="text-lg md:text-xl font-bold">စုမြတ်ကျော်</h3>
-              <p class="text-sm md:text-base opacity-80">
-                အကြောင်းအရာ ရေးသားသူ
-              </p>
-              <div class="social-links mt-3 flex justify-center gap-3">
-                <a href="#" class="social-icon">
-                  <Icon name="github" class="w-5 h-5" />
-                </a>
-                <a href="#" class="social-icon">
-                  <Icon name="linkedin" class="w-5 h-5" />
-                </a>
-                <a href="#" class="social-icon">
-                  <Icon name="twitter" class="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- You are invited section -->
-          <div
-            class="community-card sm:col-span-2 lg:col-span-1 sm:max-w-xs sm:mx-auto lg:max-w-none"
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto"
+  >
+    <!-- Team Member 1 -->
+    <div class="team-member">
+      <div class="member-image">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+          alt="Wai Yan Phyo Aung"
+          class="w-full h-auto object-fit rounded-lg"
+        />
+      </div>
+      <div class="member-info text-center mt-4 px-4 pb-4">
+        <h3 class="text-lg md:text-xl font-bold">ဝေယံဖြိုးအောင်</h3>
+        <p class="text-sm md:text-base opacity-80">
+          တည်ထောင်သူ & Lead Developer
+        </p>
+        <div class="social-links mt-3 flex justify-center gap-3">
+          <a
+            href="https://github.com/WaiYanPhyoAung"
+            target="_blank"
+            class="social-icon"
           >
-            <div class="card-content">
-              <div class="icon-circle mx-auto mb-4">
-                <Icon name="star" class="w-6 h-6" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-3">
-                သင်လည်း ပါဝင်နိုင်ပါသည်
-              </h3>
-              <p class="text-sm md:text-base mb-4">
-                ဤစာမျက်နှာကို ပိုမိုကောင်းမွန်စေရန် သင်၏ အကြံဉာဏ်များ သို့မဟုတ်
-                အရည်အသွေးမြင့် အကြောင်းအရာများဖြင့် ပူးပေါင်းပါဝင်နိုင်ပါသည်။
-              </p>
-              <a href="#" class="contribute-btn">
-                ကျွန်ုပ်တို့နှင့် ပူးပေါင်းရန်
-                <Icon name="right-arrow" class="w-4 h-4 ml-1" />
+            <Icon name="github" class="w-5 h-5" />
+          </a>
+          <a href="#" class="social-icon">
+            <Icon name="linkedin" class="w-5 h-5" />
+          </a>
+          <a href="#" class="social-icon">
+            <Icon name="twitter" class="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 2 (Placeholder - can be removed or replaced with actual team members) -->
+    <!-- <div class="team-member">
+        <div class="member-image">
+          <img
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+            alt="Content Writer"
+            class="w-full h-auto rounded-lg"
+          />
+          <div class="member-overlay">
+            <div class="social-links-hover flex gap-3 justify-center">
+              <a href="#" class="social-icon-hover">
+                <Icon name="github" class="w-6 h-6" />
+              </a>
+              <a href="#" class="social-icon-hover">
+                <Icon name="linkedin" class="w-6 h-6" />
+              </a>
+              <a href="#" class="social-icon-hover">
+                <Icon name="twitter" class="w-6 h-6" />
               </a>
             </div>
           </div>
         </div>
-      </section>
+        <div class="member-info text-center mt-4 px-4 pb-4">
+          <h3 class="text-lg md:text-xl font-bold">စုမြတ်ကျော်</h3>
+          <p class="text-sm md:text-base opacity-80">အကြောင်းအရာ ရေးသားသူ</p>
+          <div class="social-links mt-3 flex justify-center gap-3">
+            <a href="#" class="social-icon">
+              <Icon name="github" class="w-5 h-5" />
+            </a>
+            <a href="#" class="social-icon">
+              <Icon name="linkedin" class="w-5 h-5" />
+            </a>
+            <a href="#" class="social-icon">
+              <Icon name="twitter" class="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div> -->
 
-      <!-- Support Us Section -->
-      <section
-        class="support-section relative py-12 md:py-16 lg:py-20 px-4 my-12 md:my-16 scroll-reveal"
+    <!-- You are invited section -->
+    <!-- <div
+        class="community-card sm:col-span-2 lg:col-span-1 sm:max-w-xs sm:mx-auto lg:max-w-none"
       >
-        <div class="support-bg"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-          <div class="support-card p-6 sm:p-8 md:p-12 rounded-2xl shadow-xl">
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-              <div>
-                <span class="section-subtitle">ကျွန်ုပ်တို့ကို ကူညီပါ</span>
-                <h2
-                  class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6"
-                >
-                  အခမဲ့ ပညာရေးကို ထောက်ပံ့ပါ
-                </h2>
-                <p class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
-                  ကျွန်ုပ်တို့သည် အဓိက အကြောင်းအရာများကို အခမဲ့ဖြစ်အောင်
-                  ထိန်းသိမ်းရန် ကြိုးပမ်းလျက်ရှိပါသည်။ သင်၏ ကူညီထောက်ပံ့မှုသည် ဤ
-                  platform ကို ဆက်လက်တည်တံ့စေရန် အထောက်အကူ ဖြစ်စေပါသည်။
-                </p>
-                <div class="space-y-3 md:space-y-4 mt-6 md:mt-8">
-                  <div class="support-way">
-                    <Icon name="star" class="w-5 h-5 md:w-6 md:h-6" />
-                    <span class="text-sm md:text-base"
-                      >GitHub Star ပေးခြင်း</span
-                    >
-                  </div>
-                  <div class="support-way">
-                    <Icon name="external" class="w-5 h-5 md:w-6 md:h-6" />
-                    <span class="text-sm md:text-base"
-                      >အခြားသူများကို မျှဝေခြင်း</span
-                    >
-                  </div>
-                  <div class="support-way">
-                    <Icon name="pencil" class="w-5 h-5 md:w-6 md:h-6" />
-                    <span class="text-sm md:text-base"
-                      >အကြောင်းအရာများ ရေးသားခြင်း</span
-                    >
-                  </div>
-                </div>
-                <div class="mt-8 md:mt-10 text-center md:text-left">
-                  <a
-                    href="#"
-                    class="cta-button text-sm md:text-base px-5 py-2.5 md:px-6 md:py-3"
-                  >
-                    ပူးပေါင်းပါဝင်ရန်
-                    <Icon
-                      name="right-arrow"
-                      class="w-4 h-4 md:w-5 md:h-5 ml-2"
-                    />
-                  </a>
-                </div>
-              </div>
-              <div class="hidden md:block">
-                <div class="illustration-container relative">
-                  <div class="illustration-element illustration-1"></div>
-                  <div class="illustration-element illustration-2"></div>
-                  <div class="illustration-element illustration-3"></div>
-                  <div class="illustration-element illustration-4"></div>
-                </div>
-              </div>
-            </div>
+        <div class="card-content">
+          <div class="icon-circle mx-auto mb-4">
+            <Icon name="star" class="w-6 h-6" />
           </div>
-        </div>
-      </section>
-
-      <!-- Contact Us Section -->
-      <section
-        class="contact-section max-w-6xl mx-auto px-4 py-12 md:py-16 mb-12 md:mb-16 scroll-reveal"
-      >
-        <div class="text-center mb-8 md:mb-12">
-          <span class="section-subtitle">ဆက်သွယ်ရန်</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ
-          </h2>
-          <p class="text-base md:text-lg max-w-3xl mx-auto">
-            မေးခွန်းများ၊ အကြံပြုချက်များ သို့မဟုတ် ပူးပေါင်းပါဝင်လိုပါက
-            ဆက်သွယ်နိုင်ပါသည်။
-          </p>
-        </div>
-
-        <div
-          class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto"
-        >
-          <div class="contact-method">
-            <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
-              <Icon name="discord" class="w-5 h-5 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
-              Discord
-            </h3>
-            <p class="text-sm md:text-base opacity-80">
-              ကျွန်ုပ်တို့၏ community သို့ ဝင်ရောက်ပါ
-            </p>
-          </div>
-
-          <div class="contact-method">
-            <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
-              <Icon name="github" class="w-5 h-5 md:w-7 md:h-7" />
-            </div>
-            <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
-              GitHub
-            </h3>
-            <p class="text-sm md:text-base opacity-80">
-              Code contributions နှင့် issues
-            </p>
-          </div>
-        </div>
-        <div class="contact-method">
-          <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
-            <Icon name="email" class="w-5 h-5 md:w-7 md:h-7" />
-          </div>
-          <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
-            Email
+          <h3 class="text-lg md:text-xl font-bold mb-3">
+            သင်လည်း ပါဝင်နိုင်ပါသည်
           </h3>
-          <p class="text-sm md:text-base opacity-80">hello@example.com</p>
+          <p class="text-sm md:text-base mb-4">
+            ဤစာမျက်နှာကို ပိုမိုကောင်းမွန်စေရန် သင်၏ အကြံဉာဏ်များ သို့မဟုတ်
+            အရည်အသွေးမြင့် အကြောင်းအရာများဖြင့် ပူးပေါင်းပါဝင်နိုင်ပါသည်။
+          </p>
+          <a href="#" class="contribute-btn">
+            ကျွန်ုပ်တို့နှင့် ပူးပေါင်းရန်
+            <Icon name="right-arrow" class="w-4 h-4 ml-1" />
+          </a>
         </div>
-      </section>
+      </div> -->
+  </div>
+</section>
+
+<!-- Support Us Section -->
+<section
+  class="support-section relative py-12 md:py-16 lg:py-20 px-4 my-12 md:my-16 scroll-reveal"
+>
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="support-card p-6 sm:p-8 md:p-12 rounded-2xl shadow-xl">
+      <div class="">
+        <div class="mx-auto max-w-3xl">
+          <h2
+            class="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-8"
+          >
+            အခမဲ့ ပညာရေးကို ထောက်ပံ့ပါ
+          </h2>
+          <p class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
+            ကျွန်ုပ်တို့သည် အဓိက အကြောင်းအရာများကို အခမဲ့ဖြစ်အောင် ထိန်းသိမ်းရန်
+            ကြိုးပမ်းလျက်ရှိပါသည်။ သင်၏ ကူညီထောက်ပံ့မှုသည် ဤ platform ကို
+            ဆက်လက်တည်တံ့စေရန် အထောက်အကူ ဖြစ်စေပါသည်။
+          </p>
+          <div class="space-y-3 md:space-y-4 mt-6 md:mt-8">
+            <div class="support-way">
+              <Icon name="star" class="w-5 h-5 md:w-6 md:h-6" />
+              <span class="text-sm md:text-base">GitHub Star ပေးခြင်း</span>
+            </div>
+            <div class="support-way">
+              <Icon name="external" class="w-5 h-5 md:w-6 md:h-6" />
+              <span class="text-sm md:text-base">အခြားသူများကို မျှဝေခြင်း</span
+              >
+            </div>
+            <div class="support-way">
+              <Icon name="pencil" class="w-5 h-5 md:w-6 md:h-6" />
+              <span class="text-sm md:text-base"
+                >အကြောင်းအရာများ ရေးသားခြင်း</span
+              >
+            </div>
+          </div>
+          <div class="mt-8 md:mt-10 text-center md:text-left group">
+            <a
+              href="#"
+              class="cta-button text-sm md:text-base px-5 py-2.5 md:px-6 md:py-3"
+            >
+              ပူးပေါင်းပါဝင်ရန်
+              <Icon
+                name="right-arrow"
+                class="w-4 h-4 md:w-5 md:h-5 ml-2 duration-150 group-hover:translate-x-[4px]"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-  </MainLayout>
-</StarlightPage>
+  </div>
+</section>
+
+<!-- Contact Us Section -->
+<section
+  class="contact-section max-w-6xl mx-auto px-4 py-12 md:py-16 mb-12 md:mb-16 scroll-reveal"
+>
+  <div class="text-center mb-8 md:mb-12">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+      ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ
+    </h2>
+    <p class="text-base md:text-lg max-w-3xl mx-auto">
+      မေးခွန်းများ၊ အကြံပြုချက်များ သို့မဟုတ် ပူးပေါင်းပါဝင်လိုပါက
+      ဆက်သွယ်နိုင်ပါသည်။
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+    <div class="contact-method">
+      <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
+        <Icon name="discord" class="w-5 h-5 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
+        Discord
+      </h3>
+      <p class="text-sm md:text-base opacity-80">
+        ကျွန်ုပ်တို့၏ community သို့ ဝင်ရောက်ပါ
+      </p>
+    </div>
+
+    <div class="contact-method">
+      <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
+        <Icon name="github" class="w-5 h-5 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
+        GitHub
+      </h3>
+      <p class="text-sm md:text-base opacity-80">
+        Code contributions နှင့် issues
+      </p>
+    </div>
+    <div class="contact-method">
+      <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
+        <Icon name="email" class="w-5 h-5 md:w-7 md:h-7" />
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
+        Email
+      </h3>
+      <p class="text-sm md:text-base opacity-80">hello@example.com</p>
+    </div>
+  </div>
+</section>
 
 <style>
   /* Common section styles with theme-aware colors */
-  .section-subtitle {
-    display: inline-block;
-    font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: var(--tracking-wider);
-    text-transform: uppercase;
-    font-size: smaller;
-    color: var(--sl-color-accent);
-    @media (min-width: 640px) {
-      font-size: small;
-    }
-  }
-
   .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -542,73 +441,25 @@ import "../styles/global.css";
   }
 
   /* Hero section styles */
-  .hero-section {
-    background: linear-gradient(
-      135deg,
-      var(--sl-color-accent) 0%,
-      var(--sl-color-accent-high) 100%
-    );
-    color: var(--sl-color-white);
-  }
-
-  .animated-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(
-        circle at 20% 30%,
-        rgba(255, 255, 255, 0.15) 0%,
-        transparent 40%
-      ),
-      radial-gradient(
-        circle at 80% 70%,
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 40%
-      );
-    animation: pulse 10s infinite alternate;
-  }
-
-  .shape-divider {
-    width: 100%;
-    height: 40px;
-    background-color: var(--sl-color-bg);
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-    transform: scaleX(1.5);
-  }
-
-  @media (min-width: 768px) {
-    .shape-divider {
-      height: 60px;
-    }
-  }
 
   /* Mission section styles */
   .stat-box {
-    background-color: var(--sl-color-bg-offset);
-    color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-border);
-    box-shadow: var(--sl-shadow-sm);
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0 10px var(--sl-color-gray-6);
     border-radius: 0.5rem;
     padding: 0.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80px;
-    transition: all 300ms ease;
+    min-width: 100px;
+    transition: all 100ms ease;
 
     @media (min-width: 640px) {
-      min-width: 100px;
+      min-width: 200px;
     }
 
     @media (min-width: 768px) {
       padding: 1rem;
-    }
-
-    &:hover {
-      box-shadow: var(--sl-shadow-md);
-      transform: translateY(-0.25rem);
     }
   }
 
@@ -627,90 +478,8 @@ import "../styles/global.css";
     @media (min-width: 768px) {
       font-size: 0.875rem;
     }
-    color: var(--sl-color-text);
+    /* color: var(--sl-color-text); */
     opacity: 0.8;
-  }
-
-  .image-wrapper {
-    position: relative;
-    box-shadow: var(--sl-shadow-lg);
-    border: 1px solid var(--sl-color-border);
-  }
-
-  .image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      to bottom right,
-      var(--sl-color-accent-low),
-      transparent
-    );
-    opacity: 0.15;
-    mix-blend-mode: overlay;
-    transition: opacity 0.3s ease;
-  }
-
-  .image-wrapper:hover .image-overlay {
-    opacity: 0.25;
-  }
-
-  .shape-1 {
-    width: 150px;
-    height: 150px;
-    background-color: var(--sl-color-accent-low);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    top: -20px;
-    left: -30px;
-    z-index: 0;
-    animation: morph 8s linear infinite alternate;
-    opacity: 0.6;
-  }
-
-  .shape-2 {
-    width: 120px;
-    height: 120px;
-    background-color: var(--sl-color-accent-low);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    bottom: -15px;
-    right: -20px;
-    z-index: 0;
-    animation: morph 8s linear infinite alternate-reverse;
-    opacity: 0.4;
-  }
-
-  @media (min-width: 768px) {
-    .shape-1 {
-      width: 200px;
-      height: 200px;
-      top: -30px;
-      left: -40px;
-    }
-
-    .shape-2 {
-      width: 160px;
-      height: 160px;
-      bottom: -20px;
-      right: -30px;
-    }
-  }
-
-  /* Story section styles */
-  .story-section {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .story-bg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: var(--sl-color-bg-offset);
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='currentColor' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
   }
 
   /* Timeline styles */
@@ -734,60 +503,14 @@ import "../styles/global.css";
     }
   }
 
-  .timeline-marker {
-    position: absolute;
-    left: -11px;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background-color: var(--sl-color-accent);
-    border: 4px solid var(--sl-color-bg);
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px var(--sl-color-accent-low);
-
-    @media (min-width: 640px) {
-      left: -16px;
-      width: 24px;
-      height: 24px;
-      border-width: 5px;
-    }
-  }
-
-  .timeline-content {
-    padding: 1rem;
-    border-radius: 0.5rem;
-
-    @media (min-width: 640px) {
-      padding: 1.5rem;
-    }
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-border);
-    box-shadow: var(--sl-shadow-sm);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .timeline-item:hover .timeline-content {
-    transform: translateX(5px);
-    box-shadow: var(--sl-shadow-md);
-  }
-
   /* Values section styles */
   .value-card {
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-border);
+    background-color: var(--sl-color-bg-nav);
     border-radius: 0.75rem;
     padding: 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: var(--sl-shadow-sm);
-  }
-
-  .value-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sl-shadow-md);
-    border-color: var(--sl-color-accent-low);
+    box-shadow: 0 0 10px var(--sl-color-gray-6);
   }
 
   .value-icon {
@@ -806,77 +529,18 @@ import "../styles/global.css";
   .team-member {
     border-radius: 0.75rem;
     overflow: hidden;
-    transition: all 300ms;
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-border);
-    box-shadow: var(--sl-shadow-sm);
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0 10px var(--sl-color-gray-6);
     transform: translateY(0);
   }
-
-  .team-member:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--sl-shadow-lg);
-    border-color: var(--sl-color-accent-low);
-  }
-
   .member-image {
     position: relative;
     overflow: hidden;
   }
-
   .member-image img {
-    transition: transform 0.5s ease;
+    height: 300px;
+    object-fit: cover;
   }
-
-  .team-member:hover .member-image img {
-    transform: scale(1.05);
-  }
-
-  .member-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--sl-color-accent-high);
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-  }
-
-  .team-member:hover .member-overlay {
-    opacity: 0.85;
-  }
-
-  .social-icon-hover {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-
-  .team-member:hover .social-icon-hover {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .team-member:hover .social-icon-hover:nth-child(2) {
-    transition-delay: 0.1s;
-  }
-
-  .team-member:hover .social-icon-hover:nth-child(3) {
-    transition-delay: 0.2s;
-  }
-
   .social-icon {
     width: 2rem;
     height: 2rem;
@@ -889,7 +553,6 @@ import "../styles/global.css";
       background-color 300ms,
       border-color 300ms;
     background-color: var(--sl-color-bg-offset);
-    color: var(--sl-color-text);
   }
 
   .social-icon:hover {
@@ -962,8 +625,8 @@ import "../styles/global.css";
   }
 
   .support-card {
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-border);
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0 10px var(--sl-color-gray-6);
     position: relative;
     overflow: hidden;
   }
@@ -976,7 +639,7 @@ import "../styles/global.css";
     @media (min-width: 768px) {
       gap: 0.75rem;
     }
-    color: var(--sl-color-text);
+    /* color: var(--sl-color-text); */
   }
 
   .support-way svg {
@@ -988,104 +651,11 @@ import "../styles/global.css";
     align-items: center;
     font-weight: bold;
     border-radius: 9999px;
-    background-color: var(--sl-color-accent);
+    background-color: var(--sl-color-accent-low);
     color: var(--sl-color-white);
     transition: all 0.3s ease;
     box-shadow: 0 4px 14px -2px var(--sl-color-accent-low);
-  }
-
-  .cta-button:hover {
-    background-color: var(--sl-color-accent-high);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px -2px var(--sl-color-accent-low);
-  }
-
-  .illustration-container {
-    position: relative;
-    height: 15rem;
-
-    @media (min-width: 768px) {
-      height: 20rem;
-    }
-  }
-
-  .illustration-element {
-    position: absolute;
-    border-radius: 0.5rem;
-    box-shadow: var(--sl-shadow-md);
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .illustration-1 {
-    width: 80px;
-    height: 80px;
-    top: 20px;
-    left: 30px;
-    background-color: var(--sl-color-accent-low);
-    animation-delay: 0s;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  }
-
-  .illustration-2 {
-    width: 60px;
-    height: 60px;
-    top: 90px;
-    left: 90px;
-    background-color: var(--sl-color-accent-low);
-    animation-delay: 1s;
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    opacity: 0.7;
-  }
-
-  .illustration-3 {
-    width: 50px;
-    height: 50px;
-    bottom: 40px;
-    left: 50px;
-    background-color: var(--sl-color-accent-low);
-    animation-delay: 2s;
-    border-radius: 40% 60% 60% 40% / 40% 60% 40% 60%;
-    opacity: 0.5;
-  }
-
-  .illustration-4 {
-    width: 70px;
-    height: 70px;
-    bottom: 70px;
-    right: 30px;
-    background-color: var(--sl-color-accent-low);
-    animation-delay: 1.5s;
-    border-radius: 50% 50% 30% 70% / 50% 50% 70% 30%;
-    opacity: 0.6;
-  }
-
-  @media (min-width: 768px) {
-    .illustration-1 {
-      width: 100px;
-      height: 100px;
-      top: 30px;
-      left: 40px;
-    }
-    .illustration-2 {
-      width: 80px;
-      height: 80px;
-      top: 120px;
-      left: 120px;
-    }
-
-    .illustration-3 {
-      width: 70px;
-      height: 70px;
-      bottom: 50px;
-      left: 60px;
-    }
-
-    .illustration-4 {
-      width: 90px;
-      height: 90px;
-      bottom: 90px;
-      right: 40px;
-    }
+    text-decoration: none;
   }
 
   /* Contact section styles */
@@ -1094,15 +664,8 @@ import "../styles/global.css";
     padding: 1.5rem;
     text-align: center;
     transition: all 300ms ease;
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-border);
-    box-shadow: var(--sl-shadow-sm);
-  }
-
-  .contact-method:hover {
-    box-shadow: var(--sl-shadow-md);
-    transform: translateY(-5px);
-    border-color: var(--sl-color-accent-low);
+    background-color: var(--sl-color-bg-nav);
+    box-shadow: 0 0 10px var(--sl-color-gray-6);
   }
 
   .icon-circle {
@@ -1114,46 +677,6 @@ import "../styles/global.css";
     margin-right: auto;
     background-color: var(--sl-color-accent-low);
     color: var(--sl-color-accent);
-  }
-
-  /* Animations */
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes morph {
-    0% {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    25% {
-      border-radius: 50% 50% 30% 70% / 50% 50% 70% 30%;
-    }
-    50% {
-      border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
-    }
-    75% {
-      border-radius: 30% 70% 70% 30% / 50% 60% 40% 50%;
-    }
-    100% {
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-  }
-
-  @keyframes float {
-    0% {
-      transform: translatey(0px);
-    }
-    50% {
-      transform: translatey(-10px);
-    }
-    100% {
-      transform: translatey(0px);
-    }
   }
 
   @media (min-width: 768px) {
