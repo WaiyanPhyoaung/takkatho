@@ -24,7 +24,7 @@ export default defineConfig({
         dark: "/public/favicon.svg",
         alt: "Takkatho University",
       },
-      customCss: ["./src/styles/global.css", "./src/styles/homepage.css"],
+      customCss: ["./src/styles/global.css"],
       social: [
         {
           icon: "github",
