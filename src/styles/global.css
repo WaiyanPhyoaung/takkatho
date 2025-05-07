@@ -18,7 +18,7 @@
   --sl-color-gray-5: #353841;
   --sl-color-gray-6: #24272f;
   --sl-color-black: #17181c;
-  --sl-color-bg-nav: #17181c70;
+  --sl-color-bg-nav: #23252c70;
   --sl-color-bg: #17181c70;
 }
 /* Light mode colors. */
@@ -35,13 +35,17 @@
   --sl-color-gray-6: #eceef2;
   --sl-color-gray-7: #f5f6f8;
   --sl-color-black: #ffffff;
-  --sl-color-bg-nav: #ffffff70;
+  --sl-color-bg-nav: #ededed70;
   --sl-color-bg: #ffffff70;
 }
 @layer base {
   * {
     font-family: "Noto Sans Myanmar", sans-serif;
     font-style: normal;
+  }
+  code * {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
   }
   .main-pane ul,
   .main-pane ol {

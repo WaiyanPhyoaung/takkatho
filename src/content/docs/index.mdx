@@ -7,7 +7,7 @@ hero:
   image:
     file: ../../assets/hero.svg
   actions:
-    - text: WebSocket
+    - text: Get Started
       link: /websocket/introduction/what-is-websocket
       icon: right-arrow
     - text: About the Author
@@ -28,6 +28,7 @@ import {
 import { Image } from "astro:assets";
 import "@/styles/homepage.css";
 
+<hr/>
 <section class="intro-section">
 
   <p>
@@ -35,7 +36,7 @@ import "@/styles/homepage.css";
     နက်နက်နဲနဲ လေ့လာနိုင်ပါပြီ
   </p>
 </section>
-
+<hr/ >
 ## လေ့လာရန် ခေါင်းစဉ်များ
 
 <CardGrid className="concepts-grid">
@@ -73,7 +74,7 @@ import "@/styles/homepage.css";
     <div class="feature-content">
       <h3>မိမိဘာသာစကားဖြင့် လေ့လာခြင်း</h3>
       <p>
-        စိတ်ပိုင်းဆိုင်ရာ အတားအဆီးများကို ဖယ်ရှားကာ ပိုမိုလျင်မြန်စွာ
+        language ပိုင်းဆိုင်ရာ အတားအဆီးများကို ဖယ်ရှားကာ ပိုမိုလျင်မြန်စွာ
         နားလည်နိုင်ရန်
       </p>
     </div>
@@ -137,20 +138,13 @@ import "@/styles/homepage.css";
   <h2>
     <Icon name="rocket" size="1.2em" /> <span>မကြာမီလာမည့် သင်ခန်းစာများ</span>
   </h2>
-  <div class="upcoming-topics">
-    <div class="upcoming-topic">
-      <Icon name="star" size="1em" />
-      <span>React Performance Optimization</span>
-    </div>
-    <div class="upcoming-topic">
-      <Icon name="star" size="1em" />
-      <span>Next.js App Router</span>
-    </div>
-    <div class="upcoming-topic">
-      <Icon name="star" size="1em" />
-      <span>GraphQL API Development</span>
-    </div>
-  </div>
+  <CardGrid class="upcoming-topics">
+    <Card icon="star" title="HTML Forms">
+      <p>Lorem</p>
+    </Card>
+    <Card icon="star" title="Javascript" />
+    <Card icon="star" title="Advanced CSS" />
+  </CardGrid>
   <a href="#" class="notify-link">
     <Icon name="notification" size="1em" />
     <span>အသစ်ထွက်ရှိမှုများကို အကြောင်းကြားရန် စာရင်းသွင်းပါ</span>
