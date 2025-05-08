@@ -1,0 +1,41 @@
+---
+title: "Property များ ပြင်ဆင်ခြင်း: Readonly<T>"
+description: "Property များ ပြင်ဆင်ခြင်း: Readonly<T>"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const readonly = `
+type ReadonlyUserProfile = {
+   readonly id: number; // ပြင်လို့မရတော့ဘူး
+   readonly username: string; // ပြင်လို့မရတော့ဘူး
+   readonly email?: string; // ပြင်လို့မရတော့ဘူး (optional ဖြစ်တာ မပြောင်းပါဘူး)
+   readonly bio: string | null; // ပြင်လို့မရတော့ဘူး
+   readonly isActive: boolean; // ပြင်လို့မရတော့ဘူး
+ }
+`;
+
+export const usage= `
+const appConfig: Readonly<UserProfile> = {
+  id: 0, // System User ID လို့ သဘောထားပါ
+  username: "system_config",
+  email: "config@example.com",
+  bio: "Initial application settings",
+  isActive: true
+};
+
+// appConfig ရဲ့ Property တန်ဖိုးကို ပြောင်းလဲဖို့ ကြိုးစားကြည့်မယ်
+// appConfig.username = "new_config"; // Error ပြလိမ့်မယ်။ username က readonly property
+// appConfig.id = 1; // Error ပြလိမ့်မယ်။ id ကလည်း readonly
+`
+
+### Readonly\<T>: Property အားလုံးကို ပြင်လို့မရအောင် (Read-Only) လုပ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Readonly\<T> က T Type မှာရှိတဲ့ Property အားလုံးကို readonly (ဖတ်လို့ပဲရမယ်၊ တန်ဖိုး အသစ် ပြန်ထည့်လို့ မရဘူး) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Readonly\<UserProfile>
+- **ရလာမယ့် Type (ပုံစံ)**:
+
+<Code lang="typescript" code={readonly} title="index.ts" />
+
+- **ဘယ်လိုနေရာမှာ သုံးလဲ**: Program စတဲ့အချိန်မှာပဲ Data တစ်ခါ သတ်မှတ်ပြီးရင် နောက်ထပ် ဘယ်တော့မှ တန်ဖိုး ပြောင်းလဲလို့ မရအောင် လုပ်ချင်တဲ့ Configuration object မျိုးတွေ၊ ဒါမှမဟုတ် ပြင်ဆင်ခွင့်မရှိတဲ့ Data မျိုးတွေအတွက် အကောင်းဆုံးပဲ။
+
+<Code lang="typescript" code={usage} title="config.ts" />

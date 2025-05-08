@@ -1,0 +1,54 @@
+---
+title: "Property များ ပြင်ဆင်ခြင်း: Partial<T>"
+description: "Property များ ပြင်ဆင်ခြင်း: Partial<T>"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const userprofile = `
+interface UserProfile {
+  id: number;
+  username: string;
+  email?: string; // email က Optional (ပါချင်မှပါ) ဖြစ်အောင် ? လေး တပ်ထားတယ်
+  bio: string | null; // bio ကတော့ string ဒါမှမဟုတ် null ဖြစ်နိုင်တယ်
+  isActive: boolean;
+}`;
+
+export const partial = `
+interface PartialUserProfile {
+  id?: number; // id က Optional ဖြစ်သွားပြီ
+  username?: string; // username က Optional ဖြစ်သွားပြီ
+  email?: string; // email က Optional ဖြစ်သွားပြီ
+  bio?: string | null; // bio က Optional ဖြစ်သွားပြီ
+  isActive?: boolean; // isActive က Optional ဖြစ်သွားပြီ
+}`;
+
+export const usage= `
+function updateUser(userId: number, updates: Partial<UserProfile>) {
+  // ... user ကို ရှာပြီး updates တွေကို ထည့်သွင်းမယ့် Logic ...
+  console.log(\`Updating user \${userId} with:\`, updates);
+}
+
+// userId 1 ကို username ပဲ ပြင်ဖို့ ပို့လိုက်တယ်
+updateUser(1, { username: "new_username" });
+
+// userId 2 ကို email နဲ့ isActive ကို ပြင်ဖို့ ပို့လိုက်တယ်
+updateUser(2, { email: "new@example.com", isActive: false });
+
+// updateUser(3, { unknownProperty: "test" }); // Error ပြလိမ့်မယ်။ unknownProperty က UserProfile ထဲမှာ မရှိဘူး
+`
+
+ဒီဥပမာတွေအတွက် အခြေခံ Type လေးတစ်ခုကို အရင်သတ်မှတ်ထားရအောင်။
+
+<Code lang="typescript" code={userprofile} title="index.ts" />
+
+### Partial\<T>: Property အားလုံးကို Optional ဖြစ်အောင် လုပ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Partial\<T> က T Type မှာရှိတဲ့ Property အားလုံးကို Optional (ပါချင်မှပါ/ထည့်ချင်မှ ထည့်) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Partial\<UserProfile>
+- **ရလာမယ့် Type (ပုံစံ)**:
+
+<Code lang="typescript" code={partial} title="index.ts" />
+
+- **ဘယ်လိုနေရာမှာ သုံးလဲ**: User ရဲ့ အချက်အလက်ကို ပြင်ဆင်တဲ့ Function မျိုးတွေအတွက် အသုံးဝင်တယ်။ ပြင်ချင်တဲ့ Field (အချက်အလက်) ကိုပဲ ပို့လိုက်လို့ ရတယ်။
+
+<Code lang="typescript" code={usage} title="index.ts" />

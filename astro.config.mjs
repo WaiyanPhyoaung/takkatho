@@ -41,7 +41,7 @@ export default defineConfig({
           items: [
             // Each item here is one entry in the navigation menu.
             {
-              label: "Introduction",
+              label: "Websocket Introduction",
               items: [
                 {
                   label: "What is WebSocket?",
@@ -142,7 +142,7 @@ export default defineConfig({
               label: "Generics",
               items: [
                 {
-                  label: "Introduction",
+                  label: "Generics Introduction",
                   slug: "advanced-typescript/generics/introduction",
                 },
                 {
@@ -167,8 +167,20 @@ export default defineConfig({
               label: "Utility Types",
               items: [
                 {
-                  label: "Introduction",
+                  label: "Utility Introduction",
                   slug: "advanced-typescript/utility/introduction",
+                },
+                {
+                  label: "Modifying Properties - Partial",
+                  slug: "advanced-typescript/utility/modifying-properties-partial",
+                },
+                {
+                  label: "Modifying Properties - Required",
+                  slug: "advanced-typescript/utility/modifying-properties-required",
+                },
+                {
+                  label: "Modifying Properties - Readonly",
+                  slug: "advanced-typescript/utility/modifying-properties-readonly",
                 },
               ],
             },

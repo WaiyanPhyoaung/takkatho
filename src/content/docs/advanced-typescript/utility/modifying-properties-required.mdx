@@ -1,0 +1,44 @@
+---
+title: "Property များ ပြင်ဆင်ခြင်း: Required<T>"
+description: "Property များ ပြင်ဆင်ခြင်း: Required<T>"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const required = `
+type RequiredUserProfile = {
+  id: number; // မဖြစ်မနေ ပါရမယ်
+  username: string; // မဖြစ်မနေ ပါရမယ်
+  email: string; // မူရင်းက ? ပါပေမယ့် အခု မဖြစ်မနေ ပါရမယ်!
+  bio: string | null; // null ကတော့ လက်ခံတယ်၊ ဒါပေမယ့် bio Property ကိုယ်တိုင်က မဖြစ်မနေ ပါရမယ်
+  isActive: boolean; // မဖြစ်မနေ ပါရမယ်
+}
+`;
+
+export const usage= `
+function processCompleteProfile(profile: Required<UserProfile>) {
+  // profile.email ကို မရှိမရှိ စစ်စရာမလိုဘဲ စိတ်ချစွာ ခေါ်သုံးလို့ရပြီ။ ဘာလို့လဲဆိုတော့ Required ဖြစ်နေလို့
+  console.log(\`Processing complete profile for: \${profile.email.toLowerCase()}\`);
+}
+
+// userProfile Type အတိုင်း ရေးထားတာ email မပါဘူး
+// const incompleteProfile: UserProfile = { id: 1, username: "test", bio: null, isActive: true };
+// processCompleteProfile(incompleteProfile); // Error ပြလိမ့်မယ်။ email က မဖြစ်မနေ လိုအပ်တယ်
+
+// Required<UserProfile> Type အတိုင်း ရေးထားတာ အားလုံးပါရမယ်
+const completeProfile: Required<UserProfile> = {
+id: 1, username: "test", email: "test@example.com", bio: "A full bio.", isActive: true
+};
+processCompleteProfile(completeProfile); // အလုပ်လုပ်တယ်
+`
+
+### Required\<T>: Property အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Required\<T> က T Type မှာရှိတဲ့ Property အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးတယ်။ မူရင်းက Optional ( ? ပါတာ) ဖြစ်နေရင်တောင် မဖြစ်မနေ ဖြစ်သွားစေတယ်။
+- **ဘယ်လို သုံးမလဲ**: Required\<UserProfile>
+- **ရလာမယ့် Type (ပုံစံ)**:
+
+<Code lang="typescript" code={required} title="index.ts" />
+
+- **ဘယ်လိုနေရာမှာ သုံးလဲ**: Data ဖြည့်တဲ့ Form တွေကနေ ရလာတဲ့ object တစ်ခုက အချက်အလက် တချို့ပဲ ပါချင်မှ ပါမယ်။ ဒါပေမယ့် အဲဒီ object ကို လက်ခံမယ့် Function တစ်ခုကတော့ Field အားလုံး ပြည့်နေဖို့ လိုချင်တာမျိုးမှာ သုံးနိုင်တယ်။
+
+<Code lang="typescript" code={usage} title="index.ts" />
