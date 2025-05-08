@@ -163,12 +163,18 @@ blockquote {
   border: 1px solid var(--sl-color-gray-6);
   transition: transform 0.2s ease, border-color 0.2s ease;
   cursor: default;
+  transition: box-shadow 0.1s;
 }
 
 .feature:hover {
-  border-color: var(--sll-color-accent);
+  box-shadow: 0 0px 6px var(--sl-color-gray-6);
 }
-
+.value-card {
+  margin-top: 0;
+}
+.content-method {
+  margin-top: 0;
+}
 .feature-icon {
   display: flex;
   gap: 1rem;
@@ -183,6 +189,7 @@ blockquote {
 
 .feature-content {
   margin-top: 0;
+  margin-left: 0.5rem;
 }
 
 .feature-content h3 {
@@ -209,16 +216,19 @@ blockquote {
   padding: 2rem;
   border-radius: 12px;
   display: flex;
+  text-decoration: none;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   border: 1px solid var(--sl-color-gray-5);
   background-color: var(--sl-color-bg);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-box {
+  margin-top: 0;
 }
 
 .path-card:hover {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.06);
+  border-color: var(--sl-color-gray-4);
 }
 
 .beginner {
@@ -240,28 +250,21 @@ blockquote {
 
 .path-card > p {
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
   color: var(--sl-color-gray-3);
   line-height: 1.6;
   flex-grow: 1;
 }
-
-.path-link {
+.link-content {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: gap 0.2s ease;
   margin-top: auto;
-  color: var(--sl-color-accent);
+  font-weight: 600;
+  transition: gap 0.2s;
 }
-
-.path-link:hover {
-  gap: 1rem;
-  color: var(--sl-color-accent-high);
+.path-card:hover .link-content {
+  gap: 0.8rem;
 }
 
 /* Quote section */
