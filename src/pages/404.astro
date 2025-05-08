@@ -1,0 +1,127 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Not Found",
+    tableOfContents: false,
+  }}
+  hasSidebar={false}
+>
+  <div class="not-found-container">
+    <div class="not-found-content">
+      <div class="error-icon">
+        <img
+          src="/src/assets/hero.svg"
+          alt="404 Error"
+          width="120"
+          height="120"
+        />
+      </div>
+
+      <h1>404 Not Found</h1>
+      <p>သင်ရှာဖွေနေသော စာမျက်နှာကို မတွေ့ပါ</p>
+
+      <div class="action-buttons">
+        <button onclick="history.back()" class="btn-primary"> Go Back </button>
+      </div>
+    </div>
+  </div>
+</StarlightPage>
+
+<style>
+  .not-found-container {
+    padding-block: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .not-found-content {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    animation: fadeIn 0.8s ease-out forwards;
+    max-width: 90%;
+  }
+
+  .error-icon {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    color: var(--sl-color-accent);
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(
+      to right,
+      var(--sl-color-gray-2),
+      var(--sl-color-accent),
+      var(--sl-color-accent-high)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background-color: var(--sl-color-gray-7);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-6);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0px 3px var(--sl-color-accent-low);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+</style>

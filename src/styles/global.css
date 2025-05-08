@@ -363,12 +363,11 @@ blockquote cite {
   gap: 0.8rem;
   text-decoration: none;
   color: var(--sl-color-gray-2);
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: color 0.2s;
   padding: 1rem;
 }
 
 .community-link:hover {
-  transform: translateY(-5px);
   color: var(--sl-color-accent);
 }
 
