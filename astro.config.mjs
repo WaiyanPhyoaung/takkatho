@@ -171,16 +171,24 @@ export default defineConfig({
                   slug: "advanced-typescript/utility/introduction",
                 },
                 {
-                  label: "Modifying Properties - Partial",
+                  label: "Partial",
                   slug: "advanced-typescript/utility/modifying-properties-partial",
                 },
                 {
-                  label: "Modifying Properties - Required",
+                  label: "Required",
                   slug: "advanced-typescript/utility/modifying-properties-required",
                 },
                 {
-                  label: "Modifying Properties - Readonly",
+                  label: "Readonly",
                   slug: "advanced-typescript/utility/modifying-properties-readonly",
+                },
+                {
+                  label: "Pick & Omit",
+                  slug: "advanced-typescript/utility/pick-omit",
+                },
+                {
+                  label: "Record",
+                  slug: "advanced-typescript/utility/record",
                 },
               ],
             },
