@@ -190,6 +190,18 @@ export default defineConfig({
                   label: "Record",
                   slug: "advanced-typescript/utility/record",
                 },
+                {
+                  label: "Exclude, Extract & NonNullable",
+                  slug: "advanced-typescript/utility/exclude-extract-nonnullable",
+                },
+                {
+                  label: "Parameters, ReturnType & Awaited",
+                  slug: "advanced-typescript/utility/parameters-returntype-awaited",
+                },
+                {
+                  label: "Summary (Cheat Sheet)",
+                  slug: "advanced-typescript/utility/utility-cheat-sheet",
+                },
               ],
             },
           ],
