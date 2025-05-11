@@ -204,6 +204,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Satisfies Keyword",
+              items: [
+                {
+                  label: "Before Satisfies",
+                  slug: "advanced-typescript/satisfies/before-satisfies",
+                },
+                {
+                  label: "Problem with Type annotation and 'as' keyword",
+                  slug: "advanced-typescript/satisfies/solving-types",
+                },
+                {
+                  label: "Satisfies Introduction",
+                  slug: "advanced-typescript/satisfies/satisfies-introduction",
+                },
+              ],
+            },
           ],
         },
         // {

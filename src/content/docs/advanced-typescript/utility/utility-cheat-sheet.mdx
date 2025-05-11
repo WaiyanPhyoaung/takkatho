@@ -59,16 +59,38 @@ displayUser();
 
 Utility Type တွေရဲ့ အဓိက အချက်အလက်တွေကို အတိုချုပ် စာရင်း ပြန်လုပ်ပေးထားပါတယ်။
 
-- Partial\<T>: All properties optional. <br/>
+- **Partial\<T>: All properties optional.** <br/>
   T ရဲ့ Property အားလုံးကို Optional (ပါချင်မှပါ) ဖြစ်အောင် လုပ်ပေးတယ်။
-- Required\<T>: All properties required.<br/> T ရဲ့ Property အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ပေးတယ်။
-- Readonly\<T>: All properties readonly.<br/> T ရဲ့ Property အားလုံးကို ပြင်လို့မရအောင် (Readonly) လုပ်ပေးတယ်။
-- Pick\<T, K>: Selects properties K from T.<br/> T ထဲက ကိုယ်လိုချင်တဲ့ Property K တွေကို ရွေးထုတ်ပေးတယ်။
-- Omit\<T, K>: Removes properties K from T.<br/> T ထဲက ကိုယ်မလိုချင်တဲ့ Property K တွေကို ဖယ်ထုတ်ပေးတယ်။
-- Record\<K, T>: Object with keys of type K and values of type T.<br/> Key တွေက K Type ဖြစ်ပြီး Value တွေက T Type ဖြစ်တဲ့ Object တစ်ခုကို လုပ်ပေးတယ်။
-- Exclude\<T, U>: From union T, remove types assignable to U.<br/> Union Type T ထဲက U နဲ့ တူတဲ့ Type တွေကို ဖယ်ထုတ်ပေးတယ်။
-- Extract\<T, U>: From union T, keep only types assignable to U.<br/> Union Type T ထဲက U နဲ့ တူတဲ့ Type တွေကိုပဲ ထားပေးတယ်။
-- NonNullable\<T>: Remove null and undefined from T. <br/> T ထဲက null နဲ့ undefined Type တွေကို ဖယ်ထုတ်ပေးတယ်။
-- Parameters\<F>: Tuple of function F's parameter types.<br/> Function F ရဲ့ Parameter တွေရဲ့ Type ကို Tuple အနေနဲ့ ထုတ်ပေးတယ်။
-- ReturnType\<F>: Return type of function F.<br/> Function F ရဲ့ ပြန်လာသော result ရဲ့ Type ကို ထုတ်ပေးတယ်။
-- Awaited\<P>: Resolved type of Promise P.<br/> Promise P ရဲ့ အထဲက ပြန်လာမယ့် (resolved) Type ကို ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Required\<T>: All properties required.**<br/> T ရဲ့ Property အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ပေးတယ်။
+  <br />
+  <br />
+- **Readonly\<T>: All properties readonly.**<br/> T ရဲ့ Property အားလုံးကို ပြင်လို့မရအောင် (Readonly) လုပ်ပေးတယ်။
+  <br />
+  <br />
+- **Pick\<T, K>: Selects properties K from T.**<br/> T ထဲက ကိုယ်လိုချင်တဲ့ Property K တွေကို ရွေးထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Omit\<T, K>: Removes properties K from T.**<br/> T ထဲက ကိုယ်မလိုချင်တဲ့ Property K တွေကို ဖယ်ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Record\<K, T>: Object with keys of type K and values of type T.**<br/> Key တွေက K Type ဖြစ်ပြီး Value တွေက T Type ဖြစ်တဲ့ Object တစ်ခုကို လုပ်ပေးတယ်။
+  <br />
+  <br />
+- **Exclude\<T, U>: From union T, remove types assignable to U.**<br/> Union Type T ထဲက U နဲ့ တူတဲ့ Type တွေကို ဖယ်ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Extract\<T, U>: From union T, keep only types assignable to U.**<br/> Union Type T ထဲက U နဲ့ တူတဲ့ Type တွေကိုပဲ ထားပေးတယ်။
+  <br />
+  <br />
+- **NonNullable\<T>: Remove null and undefined from T. **<br/> T ထဲက null နဲ့ undefined Type တွေကို ဖယ်ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Parameters\<F>: Tuple of function F's parameter types.**<br/> Function F ရဲ့ Parameter တွေရဲ့ Type ကို Tuple အနေနဲ့ ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **ReturnType\<F>: Return type of function F.**<br/> Function F ရဲ့ ပြန်လာသော result ရဲ့ Type ကို ထုတ်ပေးတယ်။
+  <br />
+  <br />
+- **Awaited\<P>: Resolved type of Promise P.**<br/> Promise P ရဲ့ အထဲက ပြန်လာမယ့် (resolved) Type ကို ထုတ်ပေးတယ်။

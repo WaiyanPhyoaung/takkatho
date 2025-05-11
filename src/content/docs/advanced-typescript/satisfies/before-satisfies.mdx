@@ -1,0 +1,65 @@
+---
+title: "Satisfies Keyword"
+description: "Satisfies Keyword"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const appConfig = `
+// ဒါက AppConfig ဆိုတဲ့ interface တစ်ခုပါ။
+// သူ့မှာ ဘာတွေ ပါရမယ်ဆိုတာ ပြောပြတယ်။
+interface AppConfig {
+  env: "development" | "production" | "test"; // env က ဒီ ၃ ခုထဲက တစ်ခုခု ဖြစ်ရမယ်။
+  port: number; // port က number ဖြစ်ရမယ်။
+  featureFlags: Record<string, boolean>; // featureFlags က Key က string၊ Value က boolean ဖြစ်တဲ့ object ဖြစ်ရမယ်။
+}
+`;
+
+export const configObj = `
+const myAppConfig = {
+  env: "development", // Specific literal type: "development"
+  port: 3000,
+  featureFlags: {
+    darkMode: true,   // Specific key: "darkMode"
+    newOnboarding: false // Specific key: "newOnboarding"
+  }
+};
+
+// At this point, TypeScript infers the most specific type for myAppConfig:
+// typeof myAppConfig is:
+// {
+// env: "development"; // "development" လို့ အတိအကျ သိတယ်။
+// port: number; // (or 3000 if we used 'as const', but let's ignore that for a moment)
+// featureFlags: {
+// darkMode: boolean; // darkMode ဆိုတဲ့ Key ပါကြောင်း အတိအကျ သိတယ်။
+// newOnboarding: boolean; // newOnboarding ဆိုတဲ့ Key ပါကြောင်း အတိအကျ သိတယ်။
+// };
+// }
+`
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  satisfies က ဘယ်ပြဿနာကို ဖြေရှင်းပေးလဲဆိုတာ ရိုးရှင်းစွာ နားလည်ဖို့၊ သူ့ရဲ့
+  အသုံးပြုပုံကို သိဖို့နဲ့ ပိုပြီး တိကျတဲ့ Code တွေ ရေးတတ်ဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+### Type သတ်မှတ်ရာမှာ အသေးစိတ် အချက်အလက်တွေ ပျောက်ဆုံးသွားခြင်း
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  Type Annotation (:) ကို သုံးတဲ့အခါ Object တွေရဲ့ အထဲက အသေးစိတ် အချက်အလက်တွေ
+  ဘာလို့ ပျောက်သွားလဲ၊ ပြီးတော့ အဲဒီအချက်အလက်တွေကို ပြန်သုံးဖို့ ဘာလို့
+  ခက်သွားလဲဆိုတာ နားလည်ဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+### Typed object တစ်ခု သတ်မှတ်ခြင်း
+
+ကျွန်တော်တို့ App တွေမှာ objects တွေ အများကြီး လုပ်ရတာ များတယ်။ အဲဒီ objects တွေက သတ်မှတ်ထားတဲ့ general structure နဲ့ ကိုက်ညီ ရတယ်။ ဥပမာ application အတွက် configuration object လိုမျိုးပေါ့။
+
+<Code lang="typescript" code={appConfig} title="config.ts" />
+
+အခု အဲဒီ interface နဲ့ ကိုက်ညီတဲ့ အတိအကျ configuration တစ်ခုကို create လုပ်ကြည့်ရအောင်။
+
+<Code lang="typescript" code={configObj} title="config.ts" />
+
+<Aside title="ရှင်းပြချက်">
+  TypeScript က myAppConfig ကို ကြည့်လိုက်တာနဲ့ env က development ဆိုတာ၊
+  featureFlags ထဲမှာ darkMode တို့ ပါတယ်ဆိုတာ အတိအကျ သိတယ်။
+</Aside>

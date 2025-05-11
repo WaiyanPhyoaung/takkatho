@@ -1,0 +1,95 @@
+---
+title: "satisfies ကို မိတ်ဆက်ခြင်း: အကောင်းဆုံးနှစ်ခုပေါင်းစပ်ခြင်း (The Best of Both Worlds)"
+description: "Type Annotation(:), Type Assertion (as) ရဲ့ ပြဿနာ"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const satisfies = `
+interface AppConfig {
+  env: "development" | "production" | "test";
+  port: number;
+  featureFlags: Record<string, boolean>;
+}
+
+const myConfig = { // ကျွန်တော်တို့ရဲ့ မူရင်း အတိအကျ object
+env: "development",
+port: 3000,
+featureFlags: {
+darkMode: true,
+newOnboarding: false
+// extraFeature: "yes" // ဒီ property ကို ထည့်ကြည့်ပါ၊ error ပြပါလိမ့်မယ်။
+}
+} satisfies AppConfig; // ဒီနေရာမှာ satisfies operator ကို သုံးလိုက်တယ်။
+`;
+
+export const still = `
+// typeof myConfig is STILL:
+// {
+//   env: "development";
+//   port: number; // or 3000 if TS infers it as literal
+//   featureFlags: {
+//     darkMode: boolean; // or true
+//     newOnboarding: boolean; // or false
+//   };
+// }
+`;
+
+export const benefits = `
+console.log(myConfig.env); // Type is "development"
+// myConfig.env = "production"; // ဒီနေရာမှာ myConfig.env ရဲ့ type က "development" အတိအကျ ဖြစ်နေသေးလို့ "production" လို့ ပြန်ပြောင်းပေးရင် error ပြပါမယ်။
+
+console.log(myConfig.featureFlags.darkMode); // အလုပ်လုပ်ပါတယ်။ Type က boolean (ဒါမှမဟုတ် true) ဖြစ်တယ်။
+// console.log(myConfig.featureFlags.someOtherFlag); // ဒါက error ပဲ၊ 'someOtherFlag' က မူရင်း myConfig Object မှာ မပါလို့။
+`;
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  satisfies operator ရဲ့ syntax နဲ့ behavior ကို သင်ယူဖို့၊ ပြီးတော့ မူရင်း
+  အတိုင်း အတိအကျ type ကို မပြောင်းလဲဘဲ type ကို ဘယ်လို စစ်ဆေး ပေးလဲဆိုတာ သိဖို့
+  ဖြစ်ပါတယ်။
+</Aside>
+
+### ဖြေရှင်းနည်း: The satisfies Operator
+
+TypeScript (version 4.9 ကစပြီး) satisfies operator ကို မိတ်ဆက်ခဲ့ပါတယ်။ ဒီပြဿနာကို satisfies operator က ဖြေရှင်းပေးဖို့ပါ။
+
+**Syntax**: expression satisfies Type
+
+### ဘယ်လိုအလုပ်လုပ်လဲ: ပြောင်းလဲခြင်းမရှိဘဲ စစ်ဆေးခြင်း (Validation without Transformation)
+
+AppConfig ဥပမာကို satisfies နဲ့ ပြန်ကြည့်ရအောင်။
+
+<Code lang="typescript" code={satisfies} title="config.ts" />
+
+`satisfies AppConfig` က ဘာလုပ်ပေးလဲ:
+
+- #### **Validation Check**:
+
+  `satisfies AppConfig` က ဘယ်ဘက်က object literal ဟာ `AppConfig` နဲ့ ကိုက်ညီမှု ရှိမရှိ TypeScript က စစ်ဆေးပေးပါတယ်။
+
+  - `port` ကို `prt` လို့ စာလုံးပေါင်းမှားရင် TypeScript က error ပြပါမယ်။
+  - `env` က `"staging"` (AppConfig.env union မှာ မပါရင်)၊ TypeScript က error ပြပါမယ်။
+  - `featureFlags.darkMode` က `number` ဖြစ်နေရင် (`boolean` မဟုတ်ရင်)၊ TypeScript က error ပြပါမယ်။ (`Record\<string, boolean>` က `boolean` values တွေကိုပဲ လက်ခံလို့ပါ။ )
+
+<br />
+
+- #### **Specificity (တိကျမှု) ကို ထိန်းသိမ်းပေးခြင်း**:
+
+  အရေးကြီးတာက `myConfig` ရဲ့ type ဟာ Type Annotation (:) တုန်းကလို Type Widening (Type ကျယ်ပြန့်ခြင်း) ဖြစ်မသွားပါဘူး။ သတ်မှတ်ထားတဲ့ Type အတိုင်း အတိအကျပဲ ဆက်ဖြစ်နေပြီး `AppConfig` နဲ့ လဲ ကိုက်ညီမှုရှိမရှိ စစ်ဆေးပေးပါတယ်။
+
+<Code lang="typescript" code={still} title="config.ts" />
+
+### အကျိုးကျေးဇူးများ
+
+အခုဆိုရင် အတိအကျ properties တွေကို safely access လုပ်နိုင်ပါပြီ။
+
+<Code lang="typescript" code={benefits} title="config.ts" />
+
+**ဥပမာခိုင်းနှိုင်းချက်:**
+
+"`satisfies` ကို စစ်ဆေးရေးမှူး တစ်ယောက်က checklist (`AppConfig`) နဲ့ စစ်ဆေးနေတာမျိုး စဉ်းစားကြည့်ပါ။"
+
+"သင်က inspector ကို သင်ကိုယ်တိုင် အတိအကျ ဖန်တီးထားတဲ့ item (`myConfig` object literal) ကို ပေးလိုက်တယ်။"
+
+"Inspector က သင့် item ဟာ checklist ထဲက စံနှုန်းတွေနဲ့ ကိုက်ညီမှု ရှိမရှိ စစ်ဆေးပါတယ်။ မကိုက်ညီရင် ငြင်းပယ်လိမ့်မယ်။ (TypeScript error ပြမယ်)။"
+
+"အကယ်၍ စစ်ဆေးမှု အောင်မြင်ရင် သင့် item ကို ဘာမှ မပြောင်းလဲဘဲပြန်ပေး လိမ့်မယ်။ သူတို့က item ကို ပြောင်းလဲတာ ဒါမှမဟုတ် checklist ထဲက generic version (ယေဘုယျ ပုံစံ) နဲ့ အစားထိုး တာမျိုး မလုပ်ပါဘူး။ သင်က သင့်ရဲ့ မူရင်း အတိအကျ item ကို ပြန်ရမှာ ဖြစ်သလို၊ ဒါဟာ standards တွေနဲ့ ကိုက်ညီတယ်ဆိုတဲ့ အာမခံချက် ကိုပါ ရရှိပါမယ်။"
