@@ -1,8 +1,8 @@
 ---
-import { Icon, TabItem } from "@astrojs/starlight/components";
+import { Icon } from "@astrojs/starlight/components";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import MainLayout from "@/layouts/MainLayout.astro";
 import { Steps } from "@astrojs/starlight/components";
+import Waiyanphyoaung from "@/assets/waiyanphyoaung.webp";
 import "../styles/global.css";
 ---
 
@@ -31,19 +31,21 @@ import "../styles/global.css";
             <p
               class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed text-center"
             >
+              ဘာသာစကားဆိုင်ရာ အတားအဆီး အနည်းနဲ့အများ ရှိနေတာကြောင့် နက်နဲတဲ့
+              နည်းပညာဆိုင်ရာ ဗဟုသုတတွေကို လေ့လာတဲ့အခါ အခက်အခဲတချို့
+              ကြုံတွေ့နိုင်ပါတယ်။ အဲဒီအခါမျိုးမှာ မိခင်ဘာသာစကားနဲ့ လေ့လာခြင်းက
+              များစွာ အထောက်အကူပြုပါလိမ့်မယ်။
+            </p>
+            <p class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
               နည်းပညာ ဆိုင်ရာ အသိပညာများကို လူတိုင်းလက်လှမ်းမီနိုင်စေရန်နှင့်
               ရိုးရှင်းလွယ်ကူစွာ နားလည်နိုင်စေရန် ရည်ရွယ်၍ ဤ platform ကို
               ဖန်တီးခဲ့ခြင်းဖြစ်ပါသည်။
             </p>
-            <p class="text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
-              ဘာသာစကား အတားအဆီးနှင့် ပညာရေး နောက်ခံ ကွာဟချက်များကြောင့်
-              အခက်အခဲတွေ့နေရသော မြန်မာ developers များအတွက် အထူးရည်ရွယ်ပါသည်။
-            </p>
           </div>
         </div>
       </div>
-      <div
-        class="flex flex-wrap gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-center"
+      <!-- <div
+        class="flex flex-col md:flex-row flex-wrap gap-3 md:gap-4 mt-6 md:mt-8 justify-center md:justify-center"
       >
         <div class="stat-box">
           <span class="stat-number">5+</span>
@@ -57,15 +59,17 @@ import "../styles/global.css";
           <span class="stat-number">0 ကျပ်</span>
           <span class="stat-label">အခမဲ့ သင်ကြားမှု</span>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <!-- Our Story Section -->
     <section class="story-section px-4 my-4 md:my-8 relative scroll-reveal">
       <div class="max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-4 md:mb-8">
-          <p class="mb-4">ကျွန်ုပ်တို့၏ အကြောင်း</p>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+          <p class="mb-2 md:mb-4">ကျွန်ုပ်တို့၏ အကြောင်း</p>
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 mt-0"
+          >
             ဘယ်လို စတင်ခဲ့သလဲ
           </h2>
         </div>
@@ -76,8 +80,8 @@ import "../styles/global.css";
                 <h3 class="text-lg md:text-xl font-bold mb-2">စတင်ခြင်း</h3>
                 <p class="text-sm md:text-base">
                   မြန်မာ developers များအတွက် အရည်အသွေးမြင့် နည်းပညာဆိုင်ရာ
-                  အကြောင်းအရာများကို မိခင်ဘာသာစကားဖြင့် ရရှိနိုင်ရန် အတွက်
-                  စဉ်းစားမိခဲ့ပါသည်။
+                  အကြောင်းအရာများကို မိခင်ဘာသာစကားဖြင့် လွယ်ကူစွာ
+                  နားလည်နိုင်စေရန် အတွက် စဉ်းစားမိခဲ့ပါသည်။
                 </p>
               </li>
 
@@ -107,7 +111,8 @@ import "../styles/global.css";
                 </h3>
                 <p class="text-sm md:text-base">
                   နောက်ထပ် နည်းပညာဆိုင်ရာ အကြောင်းအရာများ၊ interactive tutorials
-                  နှင့် community platform အဖြစ် ချဲ့ထွင်ရန် စီစဉ်ထားပါသည်။
+                  များ၊ Blogs နှင့် community platform အဖြစ် ချဲ့ထွင်ရန်
+                  စီစဉ်ထားပါသည်။
                 </p>
               </li>
             </ol>
@@ -154,7 +159,7 @@ import "../styles/global.css";
           ဘာသာစကား ကူးပြောင်းမှု
         </h3>
         <p class="text-sm md:text-base">
-          အဂ္ဂလိပ်မှ မြန်မာသို့ ဘာသာပြန်ရာတွင် အဓိပ္ပာယ်ပျက်ယွင်းမှု မရှိအောင်
+          မြန်မာဘာသာဖြင့် ရှင်းလင်းရာတွင် အဓိပ္ပာယ်ပျက်ယွင်းမှု မရှိအောင်
           ဂရုတစိုက် ပြုလုပ်ခြင်း
         </p>
       </div>
@@ -169,7 +174,7 @@ import "../styles/global.css";
         </h3>
         <p class="text-sm md:text-base">
           သီအိုရီသက်သက်မဟုတ်ဘဲ လက်တွေ့အသုံးဝင်သော ဥပမာများနှင့်
-          ချဉ်းကပ်နည်းများကို ဦးစားပေးခြင်း
+          ချဉ်းကပ်နည်းများကို ဦးစားပေးခြင်း။
         </p>
       </div>
 
@@ -180,7 +185,7 @@ import "../styles/global.css";
         </div>
         <h3 class="text-lg md:text-xl font-bold mt-4 mb-2">အရည်အသွေး</h3>
         <p class="text-sm md:text-base">
-          အရည်အသွေးမြင့် အကြောင်းအရာများကို ဖန်တီးရန် အမြဲတမ်း ကြိုးပမ်းခြင်း
+          အရည်အသွေးမြင့် အကြောင်းအရာများကို ဖန်တီးရန် အမြဲတမ်း ကြိုးပမ်းခြင်း။
         </p>
       </div>
 
@@ -193,8 +198,8 @@ import "../styles/global.css";
           လူတိုင်းလက်လှမ်းမီမှု
         </h3>
         <p class="text-sm md:text-base">
-          အသိပညာသည် လူတိုင်းလက်လှမ်းမီရမည်ဟု ယုံကြည်ပြီး အခမဲ့ဖြစ်အောင်
-          ကြိုးပမ်းခြင်း
+          Beginners တွေအတွက် Programming ပညာရပ်များကို အလွယ်တကူ ထိတွေ့နိုင်ရန်
+          နဲ့ တစ်ထောင့်တစ်နေရာမှ တတ်နိုင်သလောက် ကူညီရန်။
         </p>
       </div>
 
@@ -208,7 +213,7 @@ import "../styles/global.css";
         </h3>
         <p class="text-sm md:text-base">
           အကြောင်းအရာများနှင့် platform ကို စဉ်ဆက်မပြတ် ပိုမိုကောင်းမွန်အောင်
-          ပြုလုပ်ခြင်း
+          ပြုလုပ်ခြင်း။
         </p>
       </div>
     </div>
@@ -231,7 +236,7 @@ import "../styles/global.css";
       <div class="team-member">
         <div class="member-image">
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
+            src={Waiyanphyoaung.src}
             alt="Wai Yan Phyo Aung"
             class="w-full h-auto object-fit rounded-lg"
           />
@@ -239,7 +244,7 @@ import "../styles/global.css";
         <div class="member-info text-center mt-4 px-4 pb-4">
           <h3 class="text-lg md:text-xl font-bold">ဝေယံဖြိုးအောင်</h3>
           <p class="text-sm md:text-base opacity-80">
-            တည်ထောင်သူ & Lead Developer
+            Founder, Main Instructor & Lead Developer
           </p>
           <div class="social-links mt-3 flex justify-center gap-3">
             <a
@@ -324,11 +329,11 @@ import "../styles/global.css";
 
   <!-- Support Us Section -->
   <section
-    class="support-section relative py-12 md:py-16 lg:py-20 px-4 my-12 md:my-16 scroll-reveal"
+    class="support-section relative py-4 md:py-8 lg:py-20 px-4 my-4 md:my-8 lg:my-12 scroll-reveal"
   >
     <div class="max-w-6xl mx-auto relative z-10">
       <div
-        class="support-card p-6 sm:p-8 md:p-12 2xl:p-16 rounded-2xl shadow-xl"
+        class="support-card py-8 md:py-12 2xl:py-16 px-6 md:px-8 lg:px-12 rounded-2xl shadow-xl"
       >
         <div class="">
           <div class="mx-auto max-w-3xl">
@@ -353,12 +358,12 @@ import "../styles/global.css";
                   >အခြားသူများကို မျှဝေခြင်း</span
                 >
               </div>
-              <div class="support-way">
+              <!-- <div class="support-way">
                 <Icon name="pencil" class="w-5 h-5 md:w-6 md:h-6" />
                 <span class="text-sm md:text-base"
                   >အကြောင်းအရာများ ရေးသားခြင်း</span
                 >
-              </div>
+              </div> -->
             </div>
             <div class="mt-8 md:mt-10 text-center md:text-left group">
               <a
@@ -393,9 +398,9 @@ import "../styles/global.css";
     </div>
 
     <div
-      class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto"
+      class="flex flex-wrap flex-col md:flex-row justify-center gap-6 md:gap-8 max-w-4xl mx-auto"
     >
-      <div class="contact-method">
+      <!-- <div class="contact-method">
         <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
           <Icon name="discord" class="w-5 h-5 md:w-7 md:h-7" />
         </div>
@@ -405,9 +410,9 @@ import "../styles/global.css";
         <p class="text-sm md:text-base opacity-80">
           ကျွန်ုပ်တို့၏ community သို့ ဝင်ရောက်ပါ
         </p>
-      </div>
+      </div> -->
 
-      <div class="contact-method">
+      <!-- <div class="contact-method">
         <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
           <Icon name="github" class="w-5 h-5 md:w-7 md:h-7" />
         </div>
@@ -417,329 +422,335 @@ import "../styles/global.css";
         <p class="text-sm md:text-base opacity-80">
           Code contributions နှင့် issues
         </p>
-      </div>
-      <div class="contact-method">
+      </div> -->
+
+      <a
+        href="mailto:waiyanphyoaung2015@gmail.com"
+        class="block contact-method no-underline"
+      >
         <div class="icon-circle w-12 h-12 md:w-16 md:h-16">
           <Icon name="email" class="w-5 h-5 md:w-7 md:h-7" />
         </div>
         <h3 class="text-lg md:text-xl font-bold mt-3 md:mt-4 mb-1 md:mb-2">
           Email
         </h3>
-        <p class="text-sm md:text-base opacity-80">hello@example.com</p>
-      </div>
+        <p class="text-sm md:text-base opacity-80">
+          waiyanphyoaung2015@gmail.com
+        </p>
+      </a>
     </div>
   </section>
-</StarlightPage>
 
-<style>
-  /* Common section styles with theme-aware colors */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition:
-      opacity 0.8s ease,
-      transform 0.8s ease;
-  }
+  <style>
+    /* Common section styles with theme-aware colors */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
 
-  .scroll-reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-  /* Hero section styles */
+    /* Hero section styles */
 
-  /* Mission section styles */
-  .stat-box {
-    background-color: var(--sl-color-bg-nav);
-    box-shadow: 0 0 10px var(--sl-color-gray-6);
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 100px;
-    transition: all 100ms ease;
+    /* Mission section styles */
+    .stat-box {
+      background-color: var(--sl-color-bg-nav);
+      box-shadow: 0 0 10px var(--sl-color-gray-6);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+      transition: all 100ms ease;
+
+      @media (min-width: 640px) {
+        min-width: 200px;
+      }
+
+      @media (min-width: 768px) {
+        padding: 1rem;
+      }
+    }
+
+    .stat-number {
+      font-size: 1.25rem;
+      font-weight: 700;
+      @media (min-width: 768px) {
+        font-size: 1.5rem;
+      }
+      color: var(--sl-color-accent);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-align: center;
+      @media (min-width: 768px) {
+        font-size: 0.875rem;
+      }
+      /* color: var(--sl-color-text); */
+      opacity: 0.8;
+    }
+
+    /* Timeline styles */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+      border-left: 2px solid var(--sl-color-accent);
+    }
 
     @media (min-width: 640px) {
-      min-width: 200px;
-    }
-
-    @media (min-width: 768px) {
-      padding: 1rem;
-    }
-  }
-
-  .stat-number {
-    font-size: 1.25rem;
-    font-weight: 700;
-    @media (min-width: 768px) {
-      font-size: 1.5rem;
-    }
-    color: var(--sl-color-accent);
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    text-align: center;
-    @media (min-width: 768px) {
-      font-size: 0.875rem;
-    }
-    /* color: var(--sl-color-text); */
-    opacity: 0.8;
-  }
-
-  /* Timeline styles */
-  .timeline {
-    position: relative;
-    padding-left: 20px;
-    border-left: 2px solid var(--sl-color-accent);
-  }
-
-  @media (min-width: 640px) {
-    .timeline {
-      padding-left: 30px;
-    }
-  }
-
-  .timeline-item {
-    position: relative;
-    padding-bottom: 2rem;
-    @media (min-width: 768px) {
-      padding-bottom: 3rem;
-    }
-  }
-
-  /* Values section styles */
-  .value-card {
-    background-color: var(--sl-color-bg-nav);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px var(--sl-color-gray-6);
-  }
-
-  .value-icon {
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    border-radius: 9999px;
-    background-color: var(--sl-color-accent-low);
-    color: var(--sl-color-accent);
-  }
-
-  /* Team section styles */
-  .team-member {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background-color: var(--sl-color-bg-nav);
-    box-shadow: 0 0 10px var(--sl-color-gray-6);
-    transform: translateY(0);
-  }
-  .member-image {
-    position: relative;
-    overflow: hidden;
-  }
-  .member-image img {
-    height: 300px;
-    object-fit: cover;
-  }
-  .social-icon {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-      color 300ms,
-      background-color 300ms,
-      border-color 300ms;
-    background-color: var(--sl-color-bg-offset);
-  }
-
-  .social-icon:hover {
-    color: var(--sl-color-accent);
-    background-color: var(--sl-color-accent-low);
-  }
-
-  /* Community card styles for "You are invited" section */
-  .community-card {
-    border-radius: 0.75rem;
-    background-color: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-accent-low);
-    box-shadow: var(--sl-shadow-sm);
-    overflow: hidden;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-  }
-
-  .community-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--sl-shadow-md);
-  }
-
-  .card-content {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-  }
-
-  .contribute-btn {
-    display: inline-flex;
-    align-items: center;
-    font-weight: 600;
-    color: var(--sl-color-accent);
-    background-color: var(--sl-color-accent-low);
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    transition: all 0.3s ease;
-    margin-top: auto;
-  }
-
-  .contribute-btn:hover {
-    background-color: var(--sl-color-accent);
-    color: white;
-    transform: translateY(-2px);
-  }
-
-  /* Support section styles */
-  .support-section {
-    overflow: hidden;
-  }
-
-  .support-bg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-      135deg,
-      var(--sl-color-accent-low) 0%,
-      transparent 100%
-    );
-    opacity: 0.5;
-  }
-
-  .support-card {
-    background-color: var(--sl-color-bg-nav);
-    box-shadow: 0 0 10px var(--sl-color-gray-6);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .support-way {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    @media (min-width: 768px) {
-      gap: 0.75rem;
-    }
-    /* color: var(--sl-color-text); */
-  }
-
-  .support-way svg {
-    color: var(--sl-color-accent);
-  }
-
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    font-weight: bold;
-    border-radius: 9999px;
-    background-color: var(--sl-color-accent-low);
-    color: var(--sl-color-white);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 14px -2px var(--sl-color-accent-low);
-    text-decoration: none;
-  }
-
-  /* Contact section styles */
-  .contact-method {
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 300ms ease;
-    background-color: var(--sl-color-bg-nav);
-    box-shadow: 0 0 10px var(--sl-color-gray-6);
-  }
-
-  .icon-circle {
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--sl-color-accent-low);
-    color: var(--sl-color-accent);
-  }
-
-  @media (min-width: 768px) {
-    @keyframes float {
-      0% {
-        transform: translatey(0px);
-      }
-      50% {
-        transform: translatey(-15px);
-      }
-      100% {
-        transform: translatey(0px);
+      .timeline {
+        padding-left: 30px;
       }
     }
-  }
-</style>
 
-<script>
-  // Scroll reveal animation
-  document.addEventListener("DOMContentLoaded", () => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            // Once element is revealed, no need to observe it anymore
-            observer.unobserve(entry.target);
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+      @media (min-width: 768px) {
+        padding-bottom: 3rem;
+      }
+    }
+
+    /* Values section styles */
+    .value-card {
+      background-color: var(--sl-color-bg-nav);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px var(--sl-color-gray-6);
+    }
+
+    .value-icon {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      border-radius: 9999px;
+      background-color: var(--sl-color-accent-low);
+      color: var(--sl-color-accent);
+    }
+
+    /* Team section styles */
+    .team-member {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background-color: var(--sl-color-bg-nav);
+      box-shadow: 0 0 10px var(--sl-color-gray-6);
+      transform: translateY(0);
+    }
+    .member-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .member-image img {
+      height: 300px;
+      object-fit: cover;
+    }
+    .social-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        color 300ms,
+        background-color 300ms,
+        border-color 300ms;
+      background-color: var(--sl-color-bg-offset);
+    }
+
+    .social-icon:hover {
+      color: var(--sl-color-accent);
+      background-color: var(--sl-color-accent-low);
+    }
+
+    /* Community card styles for "You are invited" section */
+    .community-card {
+      border-radius: 0.75rem;
+      background-color: var(--sl-color-bg);
+      border: 1px solid var(--sl-color-accent-low);
+      box-shadow: var(--sl-shadow-sm);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .community-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--sl-shadow-md);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+    }
+
+    .contribute-btn {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--sl-color-accent);
+      background-color: var(--sl-color-accent-low);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .contribute-btn:hover {
+      background-color: var(--sl-color-accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Support section styles */
+    .support-section {
+      overflow: hidden;
+    }
+
+    .support-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: linear-gradient(
+        135deg,
+        var(--sl-color-accent-low) 0%,
+        transparent 100%
+      );
+      opacity: 0.5;
+    }
+
+    .support-card {
+      background-color: var(--sl-color-bg-nav);
+      box-shadow: 0 0 10px var(--sl-color-gray-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .support-way {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      @media (min-width: 768px) {
+        gap: 0.75rem;
+      }
+      /* color: var(--sl-color-text); */
+    }
+
+    .support-way svg {
+      color: var(--sl-color-accent);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      font-weight: bold;
+      border-radius: 9999px;
+      background-color: var(--sl-color-accent-low);
+      color: var(--sl-color-white);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px -2px var(--sl-color-accent-low);
+      text-decoration: none;
+    }
+
+    /* Contact section styles */
+    .contact-method {
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 300ms ease;
+      background-color: var(--sl-color-bg-nav);
+      box-shadow: 0 0 10px var(--sl-color-gray-6);
+    }
+
+    .icon-circle {
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: var(--sl-color-accent-low);
+      color: var(--sl-color-accent);
+    }
+
+    @media (min-width: 768px) {
+      @keyframes float {
+        0% {
+          transform: translatey(0px);
+        }
+        50% {
+          transform: translatey(-15px);
+        }
+        100% {
+          transform: translatey(0px);
+        }
+      }
+    }
+  </style>
+
+  <script>
+    // Scroll reveal animation
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              // Once element is revealed, no need to observe it anymore
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px", // Slightly before the element comes into view
+        }
+      );
+
+      // Add a small delay for initial animations to avoid janky loading
+      setTimeout(() => {
+        document.querySelectorAll(".scroll-reveal").forEach((element) => {
+          observer.observe(element);
+        });
+      }, 100);
+
+      // Check for elements that are already visible on initial load
+      const checkInitialVisibility = () => {
+        document.querySelectorAll(".scroll-reveal").forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          const windowHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+
+          if (rect.top <= windowHeight * 0.9) {
+            element.classList.add("visible");
+            observer.unobserve(element);
           }
         });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px", // Slightly before the element comes into view
-      }
-    );
+      };
 
-    // Add a small delay for initial animations to avoid janky loading
-    setTimeout(() => {
-      document.querySelectorAll(".scroll-reveal").forEach((element) => {
-        observer.observe(element);
-      });
-    }, 100);
-
-    // Check for elements that are already visible on initial load
-    const checkInitialVisibility = () => {
-      document.querySelectorAll(".scroll-reveal").forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        const windowHeight =
-          window.innerHeight || document.documentElement.clientHeight;
-
-        if (rect.top <= windowHeight * 0.9) {
-          element.classList.add("visible");
-          observer.unobserve(element);
-        }
-      });
-    };
-
-    checkInitialVisibility();
-  });
-</script>
+      checkInitialVisibility();
+    });
+  </script>
+</StarlightPage>

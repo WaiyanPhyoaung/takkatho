@@ -219,6 +219,14 @@ export default defineConfig({
                   label: "Satisfies Introduction",
                   slug: "advanced-typescript/satisfies/satisfies-introduction",
                 },
+                {
+                  label: "Satisfies Comparison",
+                  slug: "advanced-typescript/satisfies/satisfies-comparison",
+                },
+                {
+                  label: "Practical Use Cases",
+                  slug: "advanced-typescript/satisfies/satisfies-practical-use-cases",
+                },
               ],
             },
           ],

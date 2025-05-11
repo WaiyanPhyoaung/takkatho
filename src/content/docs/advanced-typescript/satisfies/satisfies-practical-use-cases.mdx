@@ -1,0 +1,126 @@
+---
+title: "satisfies ကို လက်တွေ့ အသုံးပြုနိုင်သော နေရာများ"
+description: "satisfies ကို လက်တွေ့ အသုံးပြုနိုင်သော နေရာများ"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const configuration = `
+type ThemeColors = "light" | "dark";
+
+type ComponentSettings = {
+padding: number;
+font: string;
+features?: Record<string, boolean>;
+};
+
+interface AppTheme {
+activeTheme: ThemeColors;
+componentDefaults: Record<string, ComponentSettings>;
+}
+
+const myAppTheme = {
+activeTheme: "dark", // ဒီမှာ "dark" လို့ အတိအကျ သိတယ်။
+componentDefaults: {
+button: { padding: 10, font: "Arial", features: { roundedCorners: true } },
+card: { padding: 15, font: "Georgia" }
+// modal: { paddng: 5, font: "Verdana" } // ERROR: 'paddng' ဆိုပြီး စာလုံးပေါင်း မှားနေတာ။ \`satisfies AppTheme\` က ဒါကို ဖမ်းမိမှာ။
+}
+} satisfies AppTheme;
+`;
+
+export const benefits = `
+const currentThemeMode = myAppTheme.activeTheme; // Type က "dark" လို့ အတိအကျ သိတယ်။ ThemeColors ထဲက တစ်ခုခုလို့ မမှတ်တော့ဘူး။
+const buttonPadding = myAppTheme.componentDefaults.button.padding; // Type က number လို့ အတိအကျပဲ။
+const buttonHasRoundedCorners = myAppTheme.componentDefaults.button.features?.roundedCorners; // Type က boolean (true/false) ဒါမှမဟုတ် undefined လို့ အတိအကျ သိတယ်။
+`;
+
+export const dictionary = `
+type Permissions = "read" | "write" | "delete";
+type UserRolePermissions = Record<Permissions, boolean>;
+
+const adminPermissions = {
+read: true,
+write: true,
+delete: true,
+// moderate: true // ဒီနေရာမှာ 'moderate' လိုမျိုး မပါတဲ့ key ထည့်မိရင် error တက်မယ်။
+} satisfies UserRolePermissions;
+
+const guestPermissions = {
+read: true,
+write: false,
+// delete property မပါဘူး!
+} // satisfies UserRolePermissions; // ဒီနေရာမှာ \`satisfies UserRolePermissions\` ထည့်လိုက်ရင် error ပြမယ်။
+
+// adminPermissions.read ရဲ့ type က \`true\` ဖြစ်တယ်၊ \`boolean\` မဟုတ်ဘူး။
+`;
+
+export const array = `
+type Color = "red" | "green" | "blue" | {custom: string};
+
+const primaryPalette = [
+"red",
+"green",
+{custom: "#FFA500"} // Orange
+] satisfies Color[];
+
+// primaryPalette[0] ရဲ့ Type က "red" လို့ အတိအကျပဲ။
+// primaryPalette[2].custom ရဲ့ Type က string လို့ အတိအကျပဲ။
+// const invalidPalette = [
+// "red", "yellow"
+// "yellow" က Color type ထဲမှာ မပါလို့ error တက်မယ်။
+// ] satisfies Color[]; // ERROR!
+
+type Command =
+| { command: "navigate", path: string }
+| { command: "wait", duration: number }
+| { command: "log", message: string };
+
+const userJourney = [
+{ command: "navigate", path: "/home" },
+{ command: "wait", duration: 500 },
+{ command: "log", message: "User waited" },
+// { command: "click", element: "button" } // ဒါက မှန်ကန်တဲ့ Command မဟုတ်လို့ error တက်မယ်။
+] satisfies Command[];
+
+// command type ကို ကြည့်ပြီး properties တွေကို လွယ်လွယ် ခေါ်သုံးလို့ရတယ်။
+userJourney.forEach(step => {
+if (step.command === "navigate") {
+console.log(step.path); // step.path ရဲ့ type က string လို့ အတိအကျပဲ။
+}
+});
+`;
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  satisfies ကို ဘယ်လိုနေရာတွေမှာ အသုံးဝင်လဲ၊ အကောင်းဆုံး ဘယ်လိုသုံးလို့ရလဲဆိုတာ
+  လေ့လာကြည့်ရအောင်။
+</Aside>
+
+#### Configuration Objects
+
+Configuration ဆိုတာ setting တွေ စုထားတဲ့ object တွေပေါ့။ ဥပမာ - website ရဲ့ theme (အရောင်) တွေ၊ font တွေ၊ padding တွေ စသဖြင့်ပေါ့။ ဒီလို setting တွေကို စီမံခန့်ခွဲတဲ့အခါ satisfies က အရမ်းအသုံးဝင်ပါတယ်။ ပုံစံမှန်အောင် ထိန်းပေးရုံတင်မကဘဲ၊ setting တစ်ခုချင်းစီရဲ့ အသေးစိတ်အချက်အလက်တွေကိုပါ လုံလုံခြုံခြုံ ပြန်ထုတ်သုံးလို့ရအောင် ကူညီပေးပါတယ်။
+
+<Code lang="typescript" code={configuration} title="config.ts" />
+
+#### `satisfies` ရဲ့ အကျိုးကျေးဇူးများ
+
+၁။ စစ်ဆေးပေးခြင်း (Validation): `myAppTheme` object ဟာ `AppTheme` ဆိုတဲ့ သတ်မှတ်ထားတဲ့ ပုံစံနဲ့ ကိုက်ညီရဲ့လားဆိုတာ `satisfies` က စစ်ဆေးပေးတယ်။
+
+- `activeTheme` ကို "blue" လို့ ထားမိရင် error တက်မယ်။
+- `button.padding` ကို number မဟုတ်ဘဲ string ("10px") ထည့်မိရင်လည်း error တက်မယ်။
+- `button.extraProp` ဆိုပြီး မရှိတဲ့ property ထပ်ထည့်မိရင်လည်း error တက်မယ်။
+
+၂။ အသေးစိတ် အချက်အလက် မပျောက်ဆုံးခြင်း (Specificity):
+
+<Code lang="typescript" code={benefits} title="config.ts" />
+
+#### Key တွေ အတိအကျ သိထားတဲ့ Object တွေ (ဒါမှမဟုတ် Dictionary တွေ) ကို အသုံးပြုခြင်း
+
+Object တွေကို key-value pair တွေ စုထားတဲ့ dictionary လိုမျိုး သုံးရတဲ့အခါမျိုးမှာ `satisfies` က အရမ်းအသုံးဝင်ပါတယ်။ key တွေ အကုန်ပါရဲ့လား၊ value တွေက မှန်ရဲ့လားဆိုတာ သေချာအောင် လုပ်ပေးနိုင်သလို၊ ဒီ object ကို တစ်ခုချင်း လိုက်စစ်တာတို့၊ `Record` တစ်ခုလို သုံးတာတို့လည်း လုပ်လို့ရပါတယ်။
+
+<Code lang="typescript" code={dictionary} title="permission.ts" />
+
+#### Array/Tuple တစ်ခုမှာ ခွင့်ပြုထားတဲ့ Type တွေပဲ ပါကြောင်း သေချာစေခြင်း
+
+အရောင်တွေကို စီစဉ်တဲ့ palettes တွေ၊ ခိုင်းစေချက်တွေ ဆင့်ခေါ်တဲ့ command sequences တွေလိုမျိုး နေရာတွေမှာ သုံးလို့ကောင်းတယ်။
+
+<Code lang="typescript" code={array} title="palette.ts" />
