@@ -240,6 +240,10 @@ export default defineConfig({
                   label: "Mini Project",
                   slug: "advanced-typescript/all-together/mini-project",
                 },
+                {
+                  label: "Common Pitfalls & Best Practices",
+                  slug: "advanced-typescript/all-together/advanced-tips-pitfalls",
+                },
               ],
             },
           ],

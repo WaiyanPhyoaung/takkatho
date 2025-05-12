@@ -396,6 +396,52 @@ blockquote cite {
   color: var(--sl-color-accent);
 }
 
+/* Slim, beautiful, cross-browser scrollbar styles */
+html {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--sl-color-gray-1);
+}
+
+/* WebKit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    var(--sl-color-gray-1) 0%,
+    var(--sl-color-gray-2) 100%
+  );
+  border-radius: 8px;
+  min-height: 40px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    135deg,
+    var(--sl-color-gray-1) 0%,
+    var(--sl-color-gray-2) 100%
+  );
+}
+::-webkit-scrollbar-track {
+  background: var(--sl-color-gray-1);
+  border-radius: 8px;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sl-color-gray-1);
+}
+
+/* Edge/IE (fallback, limited support) */
+html {
+  scrollbar-face-color: var(--sl-color-gray-1);
+  scrollbar-track-color: var(--sl-color-gray-1);
+  scrollbar-width: thin;
+}
+
 /* Animations */
 @keyframes fadeUp {
   from {

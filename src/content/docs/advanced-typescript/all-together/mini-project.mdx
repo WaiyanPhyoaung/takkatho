@@ -37,7 +37,7 @@ function loadConfig<T extends object, D extends Partial<T>>( // Generic Types �
 // ဒီ Function ရဲ့ အဓိက အလုပ်က Default Value တွေနဲ့ အပြင်ကနေ ရလာတဲ့ Setting တွေကို ပေါင်းစပ်ဖို့ပါပဲ။
 // အပြင်ကနေ ရလာတဲ့ Setting တွေမှာ default နဲ့ တူတဲ့ နာမည်ရှိရင် သူက default ကို အစားထိုးမယ် (ဦးစားပေးမယ်)။
 // ဒါကို 'shallow merge' (အပေါ်ယံ ပေါင်းစပ်ခြင်း) လို့ ခေါ်ပါတယ်။
-// ဥပမာ featureFlags လိုမျိုး object အချင်းချင်း nested (ထဲဝင်နေတဲ့) တွေဆိုရင်
+// ဥပမာ featureFlags လိုမျိုး nested object တွေဆိုရင်
 // အသေးစိတ် ပေါင်းတာ (deep merge) က ပိုကောင်းပေမယ့် ဒီဥပမာမှာ ရိုးရှင်းအောင် shallow merge ပဲ သုံးထားပါတယ်။
 const mergedConfig = {
 ...defaultValues, // Default Value တွေ
@@ -45,10 +45,56 @@ const mergedConfig = {
 } as T; // 'as T' ကို ဘာလို့ သုံးလဲဆိုတော့ ဒီပေါင်းစပ်ထားတဲ့ object ဟာ နောက်ဆုံးမှာ T (AppConfig) Type နဲ့ ကိုက်ညီလိမ့်မယ်လို့ TypeScript ကို ပြောပြလိုက်တာပါ။
 // တကယ့် Project တွေမှာဆိုရင်တော့ Zod လိုမျိုး Library တွေနဲ့ ထပ်စစ်တာက ပိုပြီး Type မှန်ကန်မှုကို အာမခံနိုင်ပါတယ်။
 
-// Object.freeze() ကို သုံးခြင်းဖြင့် mergedConfig object ကို တကယ်ပဲ ပြောင်းလဲလို့မရအောင် လုပ်လိုက်တာပါ။
+// Object.freeze() ကို သုံးခြင်းဖြင့် mergedConfig object ကို ပြောင်းလဲလို့မရအောင် လုပ်လိုက်တာပါ။
 // ဒါဆိုရင် ဒီ object ရဲ့ properties တွေကို နောက်မှ ထပ်ပြောင်းလို့ ရတော့မှာ မဟုတ်ဘူး။
-return Object.freeze(mergedConfig); // final config ကို Readonly (ပြောင်းမရ) အဖြစ် ပြန်ပေး။
+return Object.freeze(mergedConfig); // final config ကို Readonly အဖြစ် ပြန်ပေး။
 }
+`;
+export const useConfig = `
+// ဒါက အပြင်ကနေ (ဥပမာ JSON file ကနေ) ရလာမယ့် configuration data ကို အတုအယောင် လုပ်ထားတာပါ။
+// ဒီ object က ပိုရှုပ်ထွေးနေရင် ဒါမှမဟုတ် code မှာ တိုက်ရိုက်ရေးရင် \`satisfies\` က အသုံးဝင်ပါတယ်။
+const configFileContent = {
+// env: "production", // ဒီ setting က file ထဲမှာ မပါဘူးလို့ စဉ်းစားကြည့်ရအောင်။
+port: 8080,
+apiBaseUrl: "/api/v2",
+featureFlags: {
+betaFeature: true,
+// logging setting က ဒီမှာ မပါဘူး၊ default ကနေ ယူသွားမယ်။
+},
+customServiceUrl: "http://my.service" // ဒီ property က AppConfig ထဲမှာ မပါပါဘူး။
+} satisfies Partial<AppConfig> & { customServiceUrl?: string }; // satisfies က Partial<AppConfig> နဲ့ ကိုက်ညီလားစစ်ပြီး၊ customServiceUrl လို အပိုတွေကိုလည်း ခွင့်ပြုတယ်။
+
+// အကယ်၍ \`AppConfig\` မှာ ပါဝင်တဲ့ အစိတ်အပိုင်းတွေကိုပဲ သေချာအောင် စစ်ပြီး အပိုတွေကို ဖယ်ထုတ်ချင်ရင်-
+const filteredConfigFileContent: Partial<AppConfig> = {
+port: 8080,
+apiBaseUrl: "/api/v2",
+featureFlags: { betaFeature: true }
+};
+
+// loadConfig function ကို သုံးပြီး filteredConfigFileContent နဲ့ defaultConfig တွေကို ပေါင်းစပ်လိုက်ပါမယ်။
+const finalAppConfig = loadConfig<AppConfig, Partial<AppConfig>>(
+filteredConfigFileContent, // ဒါမှမဟုတ် configFileContent ကို တိုက်ရိုက်ပေးလို့လည်း ရတယ်။
+defaultConfig
+);
+
+console.log("နောက်ဆုံးရလာတဲ့ Config:");
+console.log(finalAppConfig);
+
+// result တွေကို ကြည့်ရအောင်:
+// finalAppConfig.env ဟာ "development" (defaultConfig ကနေ ရလာ) ဖြစ်မယ်။
+// finalAppConfig.port ဟာ 8080 (configFileContent ကနေ ရလာ) ဖြစ်မယ်။
+// finalAppConfig.apiBaseUrl ဟာ "/api/v2" (configFileContent ကနေ ရလာ) ဖြစ်မယ်။
+// finalAppConfig.featureFlags ဟာ { betaFeature: true, logging: true } (ပေါင်းထားတာ၊ shallow merge ကို သတိပြုပါ) ဖြစ်မယ်။
+
+// Type မှန်ကန်စွာ ခေါ်ယူသုံးစွဲခြင်း:
+console.log("ဒီ App ကို ဘယ် environment မှာ run နေလဲ:", finalAppConfig.env);
+console.log("API Base URL:", finalAppConfig.apiBaseUrl.toUpperCase());
+if (finalAppConfig.featureFlags?.betaFeature) {
+console.log("Beta feature ကို ဖွင့်ထားပါတယ်!");
+}
+
+// finalAppConfig.port = 3001; // Error! ဒါက Readonly<AppConfig> ဖြစ်နေလို့ ပြောင်းလို့မရပါဘူး။
+// const customUrl = finalAppConfig.customServiceUrl; // Error! customServiceUrl က AppConfig ထဲမှာ မပါပါဘူး။
 `;
 
 <Aside title="ရည်ရွယ်ချက်" type="tip">
@@ -97,3 +143,16 @@ return Object.freeze(mergedConfig); // final config ကို Readonly (ပြ�
 - **Return Type: `Readonly\<T>`:** ဒီ Function ကနေ ပြန်လာမယ့် နောက်ဆုံးရလဒ် (Config Object) ဟာ `T` (AppConfig) ရဲ့ အပြည့်အစုံ Type ဖြစ်ရမယ်။ ပြီးတော့ `Readonly` ဆိုတဲ့ `Utility Type` ကို သုံးထားလို့ ဒီ Object ကို ပြောင်းလဲလို့ ရတော့မှာ မဟုတ်ပါဘူး။
 - `Object.freeze(mergedConfig)`:
   ဒါက `mergedConfig` ဆိုတဲ့ Object ကို တကယ်ပဲ ပြောင်းလဲလို့မရအောင် လုပ်လိုက်တာပါ။ ဒါဆိုရင် ဒီ Object ရဲ့ properties တွေကို နောက်မှ ထပ်ပြောင်းလို့ ရတော့မှာ မဟုတ်ဘူး။
+
+### အဆင့် ၃: Config Loader ကို အသုံးပြုခြင်းနဲ့ satisfies ကို သုံးပြီး loaded config ကို စစ်ဆေးခြင်း
+
+အခု ကျွန်တော်တို့ တည်ဆောက်ထားတဲ့ loadConfig function ကို လက်တွေ့ အသုံးပြုကြည့်ရအောင်။
+
+ပထမဆုံးအနေနဲ့၊ အပြင်ကနေ ရလာမယ့် config data ကို အတုအယောင် ဖန်တီးပါမယ်။ (တကယ့်အပြင်မှာဆိုရင် JSON file ကနေ လာနိုင်ပါတယ်)။ ဒီနေရာမှာ satisfies ကို ဘယ်လိုသုံးလဲဆိုတာ သတိထားပါ။
+
+<Code lang="typescript" code={useConfig} title="config.ts" />
+
+#### `satisfies` အသုံးပြုပုံ ရှင်းပြချက်:
+
+- `configFileContent` ကို သတ်မှတ်တဲ့အခါ၊ `satisfies Partial\<AppConfig> & { customServiceUrl?: string }`ကို သုံးခြင်းအားဖြင့်`configFileContent`ဟာ`Partial\<AppConfig>` ရဲ့ ပုံစံနဲ့ ကိုက်ညီရဲ့လားဆိုတာ စစ်ပေးတယ်။
+- ဒါ့အပြင် `AppConfig` ထဲမှာ မပါဝင်ပေမယ့် `customServiceUrl` လိုမျိုး အပို properties တွေကိုလည်း ဒီ `configFileContent` ထဲမှာ ထည့်ခွင့်ပြုထားတာဖြစ်ပါတယ်။
