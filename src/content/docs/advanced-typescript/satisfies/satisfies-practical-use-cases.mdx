@@ -95,13 +95,13 @@ console.log(step.path); // step.path ရဲ့ type က string လို့ အ�
   လေ့လာကြည့်ရအောင်။
 </Aside>
 
-#### Configuration Objects
+### Configuration Objects
 
 Configuration ဆိုတာ setting တွေ စုထားတဲ့ object တွေပေါ့။ ဥပမာ - website ရဲ့ theme (အရောင်) တွေ၊ font တွေ၊ padding တွေ စသဖြင့်ပေါ့။ ဒီလို setting တွေကို စီမံခန့်ခွဲတဲ့အခါ satisfies က အရမ်းအသုံးဝင်ပါတယ်။ ပုံစံမှန်အောင် ထိန်းပေးရုံတင်မကဘဲ၊ setting တစ်ခုချင်းစီရဲ့ အသေးစိတ်အချက်အလက်တွေကိုပါ လုံလုံခြုံခြုံ ပြန်ထုတ်သုံးလို့ရအောင် ကူညီပေးပါတယ်။
 
 <Code lang="typescript" code={configuration} title="config.ts" />
 
-#### `satisfies` ရဲ့ အကျိုးကျေးဇူးများ
+### `satisfies` ရဲ့ အကျိုးကျေးဇူးများ
 
 ၁။ စစ်ဆေးပေးခြင်း (Validation): `myAppTheme` object ဟာ `AppTheme` ဆိုတဲ့ သတ်မှတ်ထားတဲ့ ပုံစံနဲ့ ကိုက်ညီရဲ့လားဆိုတာ `satisfies` က စစ်ဆေးပေးတယ်။
 
@@ -113,13 +113,13 @@ Configuration ဆိုတာ setting တွေ စုထားတဲ့ object 
 
 <Code lang="typescript" code={benefits} title="config.ts" />
 
-#### Key တွေ အတိအကျ သိထားတဲ့ Object တွေ (ဒါမှမဟုတ် Dictionary တွေ) ကို အသုံးပြုခြင်း
+### Key တွေ အတိအကျ သိထားတဲ့ Object တွေ (ဒါမှမဟုတ် Dictionary တွေ) ကို အသုံးပြုခြင်း
 
 Object တွေကို key-value pair တွေ စုထားတဲ့ dictionary လိုမျိုး သုံးရတဲ့အခါမျိုးမှာ `satisfies` က အရမ်းအသုံးဝင်ပါတယ်။ key တွေ အကုန်ပါရဲ့လား၊ value တွေက မှန်ရဲ့လားဆိုတာ သေချာအောင် လုပ်ပေးနိုင်သလို၊ ဒီ object ကို တစ်ခုချင်း လိုက်စစ်တာတို့၊ `Record` တစ်ခုလို သုံးတာတို့လည်း လုပ်လို့ရပါတယ်။
 
 <Code lang="typescript" code={dictionary} title="permission.ts" />
 
-#### Array/Tuple တစ်ခုမှာ ခွင့်ပြုထားတဲ့ Type တွေပဲ ပါကြောင်း သေချာစေခြင်း
+### Array/Tuple တစ်ခုမှာ ခွင့်ပြုထားတဲ့ Type တွေပဲ ပါကြောင်း သေချာစေခြင်း
 
 အရောင်တွေကို စီစဉ်တဲ့ palettes တွေ၊ ခိုင်းစေချက်တွေ ဆင့်ခေါ်တဲ့ command sequences တွေလိုမျိုး နေရာတွေမှာ သုံးလို့ကောင်းတယ်။
 

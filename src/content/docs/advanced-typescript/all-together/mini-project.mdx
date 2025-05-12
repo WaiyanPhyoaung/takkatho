@@ -1,0 +1,99 @@
+---
+title: "Mini-Project: Typed Config Loader"
+description: "Mini-Project: Typed Config Loader"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const appConfig = `
+interface AppConfig {
+  env: "development" | "production"; // ဒီ App ကို ဘယ်ပတ်ဝန်းကျင် (environment) မှာ run မလဲ။ (ဥပမာ- development အတွက်လား၊ production အတွက်လား)
+  port: number; // ဒီ App က ဘယ် port နံပါတ်ကနေ အလုပ်လုပ်မလဲ။ (ဂဏန်းဖြစ်ရမယ်)
+  apiBaseUrl: string; // API တွေကို ဆက်သွယ်မယ့် အဓိက URL (Link) ။ (စာသားဖြစ်ရမယ်)
+  featureFlags?: Record<string, boolean>; // App ရဲ့ feature တွေကို ဖွင့်မလား/ပိတ်မလား ထိန်းချုပ်မယ့် flag တွေ။ (? ပါလို့ ထည့်ချင်မှ ထည့်လို့ရတဲ့ property ပါ)
+}
+`;
+
+export const defaultValues = `
+// ဒါတွေကတော့ Setting တွေအတွက် Default Value တွေပါ။
+// Partial<AppConfig> လို့ ဘာလို့ သတ်မှတ်လဲဆိုတော့ AppConfig ထဲက properties တွေ အကုန်မထည့်ဘဲ၊
+// ကျွန်တော်တို့ default ထားချင်တဲ့ properties တွေကိုပဲ ထည့်လို့ရလို့ပါ။
+const defaultConfig: Partial<AppConfig> = {
+  env: "development", // \`env\` မပါရင် \`development\` လို့ ဖြစ်စေမယ်။
+  port: 3000, // \`port\` မပါရင် \`3000\` လို့ ဖြစ်စေမယ်။
+  featureFlags: {
+    logging: true // \`logging\` feature ကို \`true\` (ဖွင့်ထား) လို့ default ထားမယ်။
+  }
+};
+`;
+
+export const loadConfig = `
+// T က ကျွန်တော်တို့ App ရဲ့ Config ရဲ့ အပြည့်အစုံ ပုံစံ (ဥပမာ AppConfig) ပါ။
+// D က ကျွန်တော်တို့ရဲ့ Default Value တွေရဲ့ ပုံစံ (ဥပမာ Partial<AppConfig>) ပါ။
+function loadConfig<T extends object, D extends Partial<T>>( // Generic Types တွေဖြစ်တဲ့ <T, D> ကို ဒီမှာ သုံးထားတယ်။
+  loadedRawConfig: Partial<T>, // အပြင်ကနေ (file ထဲကနေ) ရလာတဲ့ Config တွေ။ သူတို့က အပြည့်အစုံ မဖြစ်နိုင်ဘူး။
+  defaultValues: D // ကျွန်တော်တို့ ကြိုတင်သတ်မှတ်ထားတဲ့ Default Value တွေ။
+  ): Readonly<T> { // ဒီ Function ကနေ ပြန်လာမယ့် result က Readonly (ပြောင်းလို့မရ) ဖြစ်ပြီး T (AppConfig) ရဲ့ အပြည့်အစုံ ပုံစံဖြစ်ရမယ်။
+
+// ဒီ Function ရဲ့ အဓိက အလုပ်က Default Value တွေနဲ့ အပြင်ကနေ ရလာတဲ့ Setting တွေကို ပေါင်းစပ်ဖို့ပါပဲ။
+// အပြင်ကနေ ရလာတဲ့ Setting တွေမှာ default နဲ့ တူတဲ့ နာမည်ရှိရင် သူက default ကို အစားထိုးမယ် (ဦးစားပေးမယ်)။
+// ဒါကို 'shallow merge' (အပေါ်ယံ ပေါင်းစပ်ခြင်း) လို့ ခေါ်ပါတယ်။
+// ဥပမာ featureFlags လိုမျိုး object အချင်းချင်း nested (ထဲဝင်နေတဲ့) တွေဆိုရင်
+// အသေးစိတ် ပေါင်းတာ (deep merge) က ပိုကောင်းပေမယ့် ဒီဥပမာမှာ ရိုးရှင်းအောင် shallow merge ပဲ သုံးထားပါတယ်။
+const mergedConfig = {
+...defaultValues, // Default Value တွေ
+...loadedRawConfig, // အပြင်ကနေ ရလာတဲ့ Setting တွေ (ဒါတွေက default တွေပေါ်မှာ ထပ်သွားမယ်။)
+} as T; // 'as T' ကို ဘာလို့ သုံးလဲဆိုတော့ ဒီပေါင်းစပ်ထားတဲ့ object ဟာ နောက်ဆုံးမှာ T (AppConfig) Type နဲ့ ကိုက်ညီလိမ့်မယ်လို့ TypeScript ကို ပြောပြလိုက်တာပါ။
+// တကယ့် Project တွေမှာဆိုရင်တော့ Zod လိုမျိုး Library တွေနဲ့ ထပ်စစ်တာက ပိုပြီး Type မှန်ကန်မှုကို အာမခံနိုင်ပါတယ်။
+
+// Object.freeze() ကို သုံးခြင်းဖြင့် mergedConfig object ကို တကယ်ပဲ ပြောင်းလဲလို့မရအောင် လုပ်လိုက်တာပါ။
+// ဒါဆိုရင် ဒီ object ရဲ့ properties တွေကို နောက်မှ ထပ်ပြောင်းလို့ ရတော့မှာ မဟုတ်ဘူး။
+return Object.freeze(mergedConfig); // final config ကို Readonly (ပြောင်းမရ) အဖြစ် ပြန်ပေး။
+}
+`;
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  သေးငယ်တဲ့၊ လက်တွေ့မှာ သုံးလို့ရတဲ့ ကိရိယာတစ်ခု (config loader) ကို အတူတူ
+  တည်ဆောက်ကြည့်ကြမယ်။ ဒီ loader ထဲမှာ Generics၊ Utility Types နဲ့ `satisfies`
+  ကို ပေါင်းစပ်ပြီး ဘယ်လို အလုပ်လုပ်လဲဆိုတာ ပြသသွားမယ်။
+</Aside>
+
+### ဒီ Mini-Project အကြောင်း
+
+ရိုးရှင်းတဲ့၊ type မှန်ကန်တဲ့ `configuration loader` (setting တွေကို သတ်မှတ်ပြီး အသုံးပြုဖို့ ပြင်ဆင်ပေးတဲ့စနစ်) တစ်ခု တည်ဆောက်ကြရအောင်။ ဒီစနစ်က ဘာတွေလုပ်ပေးမလဲဆိုတော့ -
+
+- ကျွန်တော်တို့ရဲ့ App (Application) အတွက် Setting တွေ ဘယ်လိုပုံစံရှိရမယ်ဆိုတာကို အရင်ဆုံး သတ်မှတ်မယ်။
+- ပြီးတော့ အပြင်ကနေ ရလာမယ့် Setting တွေကို 'အတု' ဖန်တီးပြီး ထည့်သွင်းမယ်။ (တကယ့် Project မှာဆိုရင် ဒါတွေက JSON file ထဲကနေ ဒါမှမဟုတ် Database ထဲကနေ လာနိုင်တယ်)။
+- တစ်ခါတစ်လေ Setting တချို့က ပြည့်ပြည့်စုံစုံ မပါလာတတ်ဘူး။ အဲဒီအခါမျိုးမှာ မပါတဲ့ Setting တွေအတွက် ကျွန်တော်တို့ ကြိုတင်သတ်မှတ်ထားတဲ့ 'Default Value' (ပုံမှန်တန်ဖိုး) တွေ အစားထိုးပေးမယ်။
+- နောက်ဆုံးရလာတဲ့ Setting တွေဟာ Type မှန်ကန်ကြောင်း (Type-safe ဖြစ်ကြောင်း) နဲ့ နောက်ထပ် ပြောင်းလို့မရအောင် (Immutable ဖြစ်အောင်) သေချာအောင် လုပ်ပေးမယ်။
+
+### အဆင့် ၁: Config ရဲ့ ပုံစံနဲ့ 'Default Value' တွေ သတ်မှတ်ခြင်း
+
+ပထမဆုံးအနေနဲ့ ကျွန်တော်တို့ App ရဲ့ Setting တွေ (Config) ဘယ်လိုပုံစံရှိရမယ်ဆိုတာကို interface နဲ့ သတ်မှတ်ပါမယ်။ ဒါက AppConfig လို့ ခေါ်ပါတယ်။
+
+<Code lang="typescript" code={appConfig} title="config.ts" />
+
+ပြီးတော့ Setting တွေ မပါလာရင် အစားထိုးပေးမယ့် 'Default Value' တွေ (ပုံမှန်တန်ဖိုးတွေ) ကို သတ်မှတ်ပါမယ်။ ဒီ defaultConfig ကို Partial\<AppConfig> လို့ သတ်မှတ်ထားတာကို သတိထားပါ။
+
+<Code lang="typescript" code={defaultValues} title="config.ts" />
+
+<Aside title="ရှင်းပြချက်" type="note">
+  `defaultConfig` ကို `Partial\<AppConfig>` လို့ သတ်မှတ်ထားတာ ဘာကြောင့်လဲဆိုတော့၊ `AppConfig` ထဲက properties တွေ အကုန်မထည့်ဘဲ၊ ကျွန်တော်တို့ `default` ထားချင်တဲ့ properties တွေကိုပဲ ထည့်လို့ရအောင် လုပ်ထားတာပါ။
+</Aside>
+
+### အဆင့် ၂: Config တွေကို load လုပ်ပေးမယ့် Function (Generics နဲ့ Utilities တွေကို သုံးပြီး)
+
+အခုဆိုရင် ကျွန်တော်တို့ရဲ့ အဓိက 'Config Loader' Function ကို တည်ဆောက်ပါမယ်။ ဒီ Function ထဲမှာ `Generics` နဲ့ `Utility Types` တွေကို ဘယ်လို အသုံးချလဲဆိုတာ တွေ့ရမှာပါ။
+
+<Code lang="typescript" code={loadConfig} title="config.ts" />
+
+#### `loadConfig` Function ရှင်းပြချက်:
+
+- **Generics (\<T, D>):**
+  - `T` ဆိုတာ ကျွန်တော်တို့ရဲ့ Config ရဲ့ အပြည့်အစုံ ပုံစံ (Type) ပါ။ ဥပမာ `AppConfig` လိုမျိုးပေါ့။
+  - `D` ဆိုတာကတော့ `Default Value` တွေရဲ့ ပုံစံ (Type) ပါ။ `D` က `T` ရဲ့ တစ်စိတ်တစ်ပိုင်း (Partial) ဖြစ်ရမယ်လို့ သတ်မှတ်ထားတယ်။
+- **Input Parameters:**
+  - `loadedRawConfig: Partial\<T>:` အပြင်ကနေ (JSON File ထဲကနေ) ရလာမယ့် Setting တွေပါ။ သူတို့က အမြဲတမ်း အပြည့်အစုံ ပါလာတာမျိုး မဟုတ်နိုင်လို့ Partial`\<T>` လို့ သတ်မှတ်ထားတာပါ။
+  - `defaultValues: D:` ကျွန်တော်တို့ ကြိုတင်သတ်မှတ်ထားတဲ့ ပုံမှန် (Default) တန်ဖိုးတွေပါ။
+- **Return Type: `Readonly\<T>`:** ဒီ Function ကနေ ပြန်လာမယ့် နောက်ဆုံးရလဒ် (Config Object) ဟာ `T` (AppConfig) ရဲ့ အပြည့်အစုံ Type ဖြစ်ရမယ်။ ပြီးတော့ `Readonly` ဆိုတဲ့ `Utility Type` ကို သုံးထားလို့ ဒီ Object ကို ပြောင်းလဲလို့ ရတော့မှာ မဟုတ်ပါဘူး။
+- `Object.freeze(mergedConfig)`:
+  ဒါက `mergedConfig` ဆိုတဲ့ Object ကို တကယ်ပဲ ပြောင်းလဲလို့မရအောင် လုပ်လိုက်တာပါ။ ဒါဆိုရင် ဒီ Object ရဲ့ properties တွေကို နောက်မှ ထပ်ပြောင်းလို့ ရတော့မှာ မဟုတ်ဘူး။

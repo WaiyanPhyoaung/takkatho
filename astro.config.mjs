@@ -229,6 +229,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Bringing it all together",
+              items: [
+                {
+                  label: "Generics + Utility Types",
+                  slug: "advanced-typescript/all-together/generics-utility",
+                },
+                {
+                  label: "Mini Project",
+                  slug: "advanced-typescript/all-together/mini-project",
+                },
+              ],
+            },
           ],
         },
         // {
