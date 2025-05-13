@@ -40,22 +40,23 @@ import { Image } from "astro:assets";
 
 <CardGrid className="concepts-grid">
   <LinkCard
-    title="WebSocket နည်းပညာ"
-    description="Real-time communication အတွက် WebSocket နည်းပညာကို အခြေခံမှ အဆင့်မြင့်သဘောတရားများအထိ လေ့လာမည်။"
-    href="/websocket/introduction/what-is-websocket"
-    icon="rocket"
-  />
-  <LinkCard
     title="Advanced TypeScript"
     description="TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာခြင်း"
     href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript"
     icon="puzzle"
   />
   <LinkCard
-    title="JavaScript အခြေခံများ"
-    description="JavaScript ၏ မရှိမဖြစ် အခြေခံအသိပညာများနှင့် အသုံးပြုပုံများ"
-    href="#"
-    icon="document"
+    title="WebSocket နည်းပညာ"
+    description="Real-time communication အတွက် WebSocket နည်းပညာကို အခြေခံမှ အဆင့်မြင့်သဘောတရားများအထိ လေ့လာမည်။"
+    href="/websocket/introduction/what-is-websocket"
+    icon="rocket"
+  />
+
+  <LinkCard
+    title="Git Version Control"
+    description="Codes အပြောင်းအလဲများကို စနစ်တကျ စီမံခန့်ခွဲခြင်းနှင့် Teamwork အတွက် မရှိမဖြစ်လိုအပ်သော Git ကို လေ့လာမည်။"
+    href="/git-course/introduction/why-git"
+    icon="git-branch"
   />
   <LinkCard
     title="Frontend Frameworks"
@@ -106,6 +107,21 @@ import { Image } from "astro:assets";
 ## စတင်လေ့လာရန်
 
 <div class="study-paths">
+  <a href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript" class="path-card block advanced ">
+    <h3><Icon name="document" size="1.2em" /> အဆင့်မြင့် TypeScript</h3>
+    <p>TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာခြင်း</p>
+    <div className='link-content'>
+    <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
+    </div>
+  </a>
+   <a href="/git-course/introduction/why-git" class="path-card block intermediate">
+    <h3><Icon name="star" size="1.2em" /> Git Version Control</h3>
+    <p>Codes အပြောင်းအလဲများကို စနစ်တကျ စီမံခန့်ခွဲခြင်းနှင့် Teamwork အတွက် မရှိမဖြစ်လိုအပ်သော Git ကို လေ့လာမည်။</p>
+    <div className='link-content'>
+     <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
+     </div>
+
+  </a>
   <a href="/websocket/introduction/what-is-websocket" class="path-card block beginner">
     <h3><Icon name="star" size="1.2em" /> WebSocket နည်းပညာ</h3>
     <p>Real-time web applications ဖန်တီးရန် WebSocket ကို အသေးစိတ် လေ့လာပါမည်</p>
@@ -113,14 +129,6 @@ import { Image } from "astro:assets";
      <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
      </div>
 
-  </a>
-
-  <a href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript" class="path-card block intermediate ">
-    <h3><Icon name="document" size="1.2em" /> အဆင့်မြင့် TypeScript</h3>
-    <p>TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာခြင်း</p>
-    <div className='link-content'>
-    <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
-    </div>
   </a>
 </div>
 

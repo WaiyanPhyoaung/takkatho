@@ -248,6 +248,21 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Git Version Control",
+          // autogenerate: { directory: "websocket" },
+          items: [
+            {
+              label: "Git Introduction",
+              items: [
+                {
+                  label: "Why Git?",
+                  slug: "git-course/introduction/why-git",
+                },
+              ],
+            },
+          ],
+        },
         // {
         // 	label: 'Reference',
         // 	autogenerate: { directory: 'reference' },

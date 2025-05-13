@@ -232,7 +232,7 @@ blockquote {
 /* Study paths */
 .study-paths {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   margin: 2rem 0 5rem;
 }
@@ -262,6 +262,9 @@ blockquote {
 
 .intermediate {
   border-left: 4px solid rgb(73, 156, 84);
+}
+.advanced {
+  border-left: 4px solid blueviolet;
 }
 
 .path-card h3 {
