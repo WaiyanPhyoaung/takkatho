@@ -1,0 +1,74 @@
+---
+title: "Installation & Identity"
+description: "Installation & Identity"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import gitInit from "@/assets/git-course/git-init.png";
+import gitFolder from "@/assets/git-course/git-folder.png";
+
+export const config = `
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+`;
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  Git ကို သွင်းပြီး ကိုယ့်ရဲ့ အဓိက နာမည်နဲ့ Email လိုအပ်တဲ့ အချက်အလက်တွေကို
+  ထည့်သွင်းတတ်ဖို့။
+</Aside>
+
+### Git ကို Install လုပ်ခြင်း
+
+- https://git-scm.com/downloads ကို သွားပါ။
+
+- ကိုယ်သုံးတဲ့ ကွန်ပျူတာ စနစ် (Windows, macOS, Linux) အတွက် Installer ကို Download လုပ်ပြီး သွင်းပါ။ များသောအားဖြင့် Default Setting တွေက အဆင်ပြေပါတယ်။
+
+- သွင်းပြီးတာ သေချာလားဆိုတာ စစ်ဖို့ Terminal (ဒါမှမဟုတ် Windows မှာ Git Bash) ကို ဖွင့်ပြီး git --version လို့ ရိုက်ကြည့်ပါ။ Version နံပါတ် ပေါ်လာပြီဆိုရင် ရပါပြီ။
+
+### Git ကိုယ်ပိုင်အချက်အလက်
+
+Git က ကိုယ်လုပ်လိုက်တဲ့ ပြောင်းလဲမှု (Commit) တိုင်းမှာ လုပ်တဲ့သူရဲ့ နာမည်နဲ့ Email ကို တံဆိပ်နှိပ်ထားပါတယ်။ ဒါက အရမ်း အရေးကြီးပါတယ်။ **(Blame ဖို့မဟုတ်ဘူးနော်)**
+
+အထူးသဖြင့် Team နဲ့ အလုပ်လုပ်တဲ့အခါ ဘယ်သူက ဘာကို ပြောင်းလဲခဲ့လဲဆိုတာ သိရဖို့ပါ။
+
+<Code code={config} title="Bash" />
+
+--global ဆိုတာက ကိုယ့် ကွန်ပျူတာထဲက Project အားလုံးအတွက် သတ်မှတ်လိုက်တာပါ။
+
+### ပထမဆုံး Repository
+
+<Aside title="ရည်ရွယ်ချက်" type="tip">
+  Git Repository ဆိုတာ ဘာလဲ နားလည်ဖို့နဲ့ Project တစ်ခုအတွက် Repository ဘယ်လို
+  ဖန်တီးရလဲ သိဖို့။
+</Aside>
+
+Repository (Repo) ဆိုတာ ဘာလဲ?
+
+Git Repository ဆိုတာ ကိုယ့် Project ရဲ့ ဖိုင်တွေ အားလုံးနဲ့ သူတို့ ပြောင်းလဲခဲ့တဲ့ သမိုင်းကြောင်း အစအဆုံးကို Git က မှတ်တမ်းတင်ထားတဲ့ Folder တစ်ခုပါ။
+
+**ဥပမာ:** ကိုယ့် Project ရဲ့ သီးသန့် "ထိန်းချုပ်ရေးစင်တာ" ဒါမှမဟုတ် "မှတ်တမ်းရုံး" လို သဘောထားလို့ရတယ်။
+
+### Repository ဖန်တီးခြင်း git init Command
+
+git init ဆိုတာ ပုံမှန် Folder တစ်ခုကို Git Repository အဖြစ် ပြောင်းလဲပေးတဲ့ Command ပါ။
+
+Git က အဲဒီ Folder ထဲမှာ ပြောင်းလဲမှုတွေကို စတင် မှတ်တမ်းတင်ဖို့ လိုအပ်တဲ့ ဖိုင်တွေ (Hidden Files) ကို ပြင်ဆင်ပေးပါတယ်။
+
+**ဘယ်လိုလုပ်မလဲ (Terminal မှာ):**
+
+-ကိုယ့် Project Folder ထဲကို သွားပါ: cd path/to/your/project (ဥပမာ- cd Documents/my-project)
+
+- အောက်က Command ကို ရိုက်ပါ: `git init`
+
+- အဲဒီအခါ Terminal မှာ Initialized empty Git repository in /path/to/your/project/.git/ လိုမျိုး ပြပါလိမ့်မယ်
+
+<ContentImage imgSrc={gitInit} altText="git init command" />
+
+### .git Folder
+
+git init ကို သုံးလိုက်ရင် Hidden ဖြစ်နေတဲ့ .git Folder တစ်ခု ပေါ်လာပါမယ်။ ဒါဟာ Git က ကိုယ့် Project ရဲ့ မှတ်တမ်းတွေ အားလုံးကို သိမ်းထားတဲ့ နေရာပါ။
+
+**သတိထားရမှာက:** ဒီ Folder ကို ကိုယ်တိုင် သွားပြင်တာ ဒါမှမဟုတ် ဖျက်တာမျိုး လုံးဝ မလုပ်ပါနဲ့! Git ကပဲ သူ့ဘာသာ စီမံပါတယ်။
+
+<ContentImage imgSrc={gitFolder} altText=".git folder" />

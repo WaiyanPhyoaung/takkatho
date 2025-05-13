@@ -259,6 +259,14 @@ export default defineConfig({
                   label: "Why Git?",
                   slug: "git-course/introduction/why-git",
                 },
+                {
+                  label: "Installation & Identity",
+                  slug: "git-course/introduction/installation-identity",
+                },
+                {
+                  label: "The Three Arenas",
+                  slug: "git-course/introduction/three-arena",
+                },
               ],
             },
           ],
