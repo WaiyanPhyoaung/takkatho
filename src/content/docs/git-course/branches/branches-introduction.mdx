@@ -1,0 +1,41 @@
+---
+title: "Branches များကို မိတ်ဆက်ခြင်း"
+description: "Branches များကို မိတ်ဆက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import branches from "@/assets/git-course/branches.png";
+import gitIgnore from "@/assets/git-course/git-ignore.png";
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  Branch ရဲ့ အဓိက သဘောတရားကို နားလည်ပြီး Branch အသစ်တွေ ဘယ်လို ဖန်တီးမလဲ၊ Branch
+  တစ်ခုကနေ နောက်တစ်ခုကို ဘယ်လို ပြောင်းရမလဲ နားလည်ရန်။
+</Aside>
+
+### Branch ဆိုတာ ဘာလဲ? သီးခြား အလုပ်လုပ်တဲ့ လမ်းကြောင်းတစ်ခု။
+
+ကျွန်တော်တို့ Project တစ်ခုကို စလုပ်တယ်ဆိုပါစို့။ အဲဒါက အဓိက လမ်းကြောင်းကြီးပေါ့။ အခု Feature အသစ်တစ်ခု ထပ်ထည့်ချင်တယ်။ အဲဒီ Feature က Project ရဲ့ အဓိက လမ်းကြောင်းကြီးကို မထိခိုက်စေဘဲ သီးသန့် လုပ်ချင်တယ်။ အဲဒီအခါ Branch ဆိုတဲ့ အရာကို သုံးလို့ရပါတယ်။ Branch ဆိုတာ ကိုယ့် Project Code ရဲ့ နောက်ထပ် Copy လိုမျိုးပါပဲ။ အဲဒီ မိတ္တူ ပေါ်မှာ ကိုယ်က အဓိက Code (Main branch)ကို မထိဘဲ လွတ်လွတ်လပ်လပ် အလုပ်လုပ်လို့ ရပါတယ်။
+
+Branch တွေ သုံးတာက ဘာလို့လဲဆိုတော့:
+
+- Feature အသစ်တွေကို စိတ်ကြိုက် ရေးကြည့်ဖို့။
+- Project ရဲ့ အဆင်ပြေနေပြီးသား Code တွေကို မထိဘဲ အမှားတွေ ပြင်ဖို့။
+
+<ContentImage imgSrc={branches} altText="git branches" />
+
+### ကိုယ့်မှာ ဘယ် Branch တွေ ရှိလဲ ကြည့်ခြင်း (`git branch`)
+
+ကိုယ့် Project မှာ ကိုယ် ဘယ် Branch တွေ ဖန်တီးထားလဲဆိုတာ သိချင်ရင် Terminal မှာ `git branch` လို့ ရိုက်ကြည့်ပါ။ ဒါက Branch တွေ အားလုံးကို ပြပေးပြီး ကိုယ် လက်ရှိ လုပ်နေတဲ့ Branch ကိုတော့ \* လေးနဲ့ ပြပါလိမ့်မယ်။
+
+### Branch အသစ် ဖန်တီးခြင်း (`git branch <branch-name>`)
+
+Branch အသစ်တစ်ခု လုပ်ချင်ရင် `git branch <ကိုယ်ပေးချင်တဲ့ နာမည်>` လို့ ရိုက်ပါ။ ဥပမာ - `git branch add-user-login` လို့ ရိုက်ရင် "add-user-login" ဆိုတဲ့ Branch အသစ် ရပါပြီ။ ဒါပေမဲ့ ကိုယ်က အဲဒီ Branch ကို ချက်ချင်း ရောက်သွားမှာ မဟုတ်သေးပါဘူး။
+
+### Branch ပြောင်းခြင်း (`git switch <branch-name>`)
+
+ဖန်တီးထားတဲ့ Branch အသစ် ဒါမှမဟုတ် တခြား Branch တစ်ခုကို ပြောင်းချင်ရင် `git switch <သွားချင်တဲ့ Branch နာမည်>` Command ကို သုံးရပါတယ်။ ဥပမာ - `git switch add-user-login` လို့ ရိုက်ရင် ကိုယ် အခု "add-user-login" Branch ကို ရောက်သွားပါပြီ။ (ကိုယ့် Project ဖိုင်တွေလည်း အဲဒီ Branch ရဲ့ နောက်ဆုံး အခြေအနေအတိုင်း ပြောင်းသွားပါလိမ့်မယ်။)
+
+### Branch အသစ် လုပ်ပြီး ချက်ချင်း အဲဒီ Branch ကို သွားခြင်း (Shortcut)
+
+Branch အသစ်တစ်ခု ဖန်တီးပြီးတာနဲ့ အဲဒီ Branch ကို ချက်ချင်း ရောက်သွားချင်တယ်ဆိုရင် `git switch -c <Branch နာမည်အသစ်>` ဆိုတဲ့ Command ကို သုံးလို့ရပါတယ်။ ဥပမာ - `git switch -c new-idea-branch` လို့ ရိုက်လိုက်တာနဲ့ "new-idea-branch" ဆိုတဲ့ Branch ကို ဖန်တီးပြီး အဲဒီကို ရောက်သွားပါပြီ။

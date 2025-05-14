@@ -267,6 +267,19 @@ export default defineConfig({
                   label: "The Three Arenas",
                   slug: "git-course/introduction/three-arena",
                 },
+                {
+                  label: "Commit Messages & Git History",
+                  slug: "git-course/introduction/commit-messages",
+                },
+              ],
+            },
+            {
+              label: "Branches",
+              items: [
+                {
+                  label: "Branches Introduction",
+                  slug: "git-course/branches/branches-introduction",
+                },
               ],
             },
           ],
