@@ -280,6 +280,18 @@ export default defineConfig({
                   label: "Branches Introduction",
                   slug: "git-course/branches/branches-introduction",
                 },
+                {
+                  label: "Merging Branches",
+                  slug: "git-course/branches/merge",
+                },
+                {
+                  label: "Solving Merge Conficts",
+                  slug: "git-course/branches/solving-conflicts",
+                },
+                {
+                  label: "Deleting Branches",
+                  slug: "git-course/branches/deleting-branches",
+                },
               ],
             },
           ],

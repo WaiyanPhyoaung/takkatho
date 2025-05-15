@@ -1,0 +1,33 @@
+---
+title: "Branches များကို Merge လုပ်ခြင်း"
+description: "Branches များကို Merge လုပ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import branches from "@/assets/git-course/branches.png";
+import gitMerge from "@/assets/git-course/git-merge.png";
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  Branch တစ်ခုက ပြောင်းလဲမှုတွေကို နောက် Branch တစ်ခုထဲကို ဘယ်လို ပေါင်းစပ်
+  ထည့်သွင်းရမလဲ နားလည်ရန်။
+</Aside>
+
+### Merging ဆိုတာ ဘာလဲ? အလုပ်တွေကို စုစည်းခြင်း။
+
+ကိုယ် Feature အသစ်တစ်ခု ဒါမှမဟုတ် Bug ပြင်တာ လုပ်ထားတဲ့ Branch မှာ အလုပ်ပြီးသွားပြီဆိုရင် အဲဒီ Branch မှာ လုပ်ထားတဲ့ ပြောင်းလဲမှုတွေ အားလုံးကို ကိုယ့် Project ရဲ့ အဓိက Branch (ဥပမာ main Branch) ထဲကို ပြန်ထည့်ဖို့ လိုပါတယ်။ ဒါကို Merging လုပ်တယ် လို့ ခေါ်ပါတယ်။ ဒါဟာ ကိုယ် သီးခြားလုပ်ထားတဲ့ အလုပ်တွေ အားလုံးကို Project ရဲ့ အဓိက Code ထဲ ပြန်ထည့်လိုက်တာပါပဲ။
+
+#### Merge လုပ်မယ့် Command: `git merge <ပေါင်းထည့်ချင်တဲ့ Branch နာမည်>`
+
+ဘယ်လိုလုပ်မလဲ:
+
+- ကိုယ် ပြောင်းလဲမှုတွေ ထည့်ချင်တဲ့ Branch (အများအားဖြင့် main Branch) ကို အရင် သွားပါ: `git switch main`
+- အဲဒီ Branch မှာ ရောက်နေပြီဆိုရင် အောက်က Command ကို ရိုက်ပါ: `git merge add-user-login` (ဒီ Command က "add-user-login" Branch က ပြောင်းလဲမှုတွေကို "main" Branch ထဲ ပေါင်းထည့်ပေးပါမယ်)။
+
+<ContentImage imgSrc={branches} altText="mergin branches" />
+
+#### Merge လုပ်တာ Git ဘယ်လို လုပ်လဲ:
+
+များသောအားဖြင့် git merge Command ရိုက်လိုက်ရင် Git က ကိုယ့် Branch နဲ့ ပေါင်းထည့်မယ့် Branch နှစ်ခုက ပြောင်းလဲမှုတွေကို သူ့ဘာသာ အလိုအလျောက် ပေါင်းစပ်ပေးလိုက်ပါတယ်။ တချို့ အခြေအနေတွေမှာတော့ Merge လုပ်လိုက်ပြီဆိုတဲ့ မှတ်တမ်းအနေနဲ့ Commit အသစ်တစ်ခု ဖန်တီးပေးတာမျိုးလည်း ရှိပါတယ်။
+
+<ContentImage imgSrc={gitMerge} altText="git merge" />

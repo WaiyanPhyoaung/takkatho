@@ -1,0 +1,33 @@
+---
+title: "Merge Conflicts များကို ဖြေရှင်းခြင်း"
+description: "Merge Conflicts များကို ဖြေရှင်းခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import conflicts from "@/assets/git-course/conflicts.png";
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  Merge လုပ်ရင် Conflict ဖြစ်တတ်တဲ့ အကြောင်းနဲ့ ဖြေရှင်းနည်းကို လေ့လာရန်
+</Aside>
+
+### Merge Conflict ဆိုတာ ဘာလဲ?
+
+Merge Conflict ဆိုတာ Branch နှစ်ခုက တူညီတဲ့ ဖိုင်ထဲမှာ တူညီတဲ့ နေရာကို တစ်ယောက်တစ်မျိုးစီ ပြင်ထားတဲ့အခါ ဖြစ်ပါတယ်။ ဥပမာ - Branch A နဲ့ B က တူညီတဲ့ စာကြောင်းကို မတူညီတဲ့ ပုံစံနဲ့ ပြင်ထားတာ၊ သို့မဟုတ် Branch တစ်ခုက ဖိုင်ကို ဖျက်ပြီး နောက်တစ်ခုက ပြင်ထားတာမျိုး။ Git က ဘယ်ဟာကို ယူရမှန်း မသိတော့ပါ။
+
+<Aside type="danger" title="မှတ်ချက်">
+  အပြိုင် အလုပ်လုပ်ရင် ဒါမျိုး ဖြစ်တတ်ပါတယ်။ ပုံမှန်ပါပဲ။
+</Aside>
+
+### Conflict ဖြစ်နေပြီလား ဘယ်လိုသိမလဲ
+
+Merge လုပ်ရင် Git က Terminal မှာ "Conflict" ဖြစ်ကြောင်း ပြပါမယ်။ `git status` နဲ့ ကြည့်ရင်လည်း ပြဿနာရှိတဲ့ ဖိုင်တွေကို ပြပါမယ်။
+
+### Conflict ဖြေရှင်းနည်း
+
+1. **ဖိုင်ကို ဖွင့်ပါ**: Git က ပြဿနာဖြစ်တဲ့ နေရာကို `<<<<<<<`, `=======`, `>>>>>>>` အမှတ်အသားတွေနဲ့ ပြထားပါမယ်။
+2. **ပြင်ဆင်ပါ**: ဘယ်ကုဒ်ကို ထားမလဲ ဆုံးဖြတ်ပြီး ပြင်ပါ။ `<<<<<<<`, `=======`, `>>>>>>>` အမှတ်အသားတွေ အားလုံးကို ဖျက်ပစ်ပါ။
+3. **Staging ထဲ ထည့်ပါ**: `git add <ဖိုင်နာမည်>` နဲ့ ပြင်ပြီးသား ဖိုင်ကို ထည့်ပါ။
+4. **Commit လုပ်ပါ**: `git commit` နဲ့ Merge ကို အပြီးသတ်ပါ။ (Git က Commit Message ကို အဆင်သင့် ထည့်ပေးထားပါမယ်)
+
+<ContentImage imgSrc={conflicts} altText="merge conflict" />
