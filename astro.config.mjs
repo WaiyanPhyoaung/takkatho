@@ -294,6 +294,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Remote Repository",
+              items: [
+                {
+                  label: "Remote Repository Introduction",
+                  slug: "git-course/remote-repository/remote-intro",
+                },
+                {
+                  label: "Linking Local and Remote",
+                  slug: "git-course/remote-repository/connect-remote",
+                },
+                {
+                  label: "Pushing",
+                  slug: "git-course/remote-repository/pushing",
+                },
+              ],
+            },
           ],
         },
         // {

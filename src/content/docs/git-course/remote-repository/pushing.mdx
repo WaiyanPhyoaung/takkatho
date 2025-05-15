@@ -1,0 +1,55 @@
+---
+title: "Pushing လုပ်ခြင်း"
+description: "Pushing လုပ်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import remoteCheck from "@/assets/git-course/remote-check.png";
+export const gitPush = `
+git push -u origin main
+`;
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  ကိုယ့်ကွန်ပျူတာ (Local) မှာ မှတ်တမ်းတင်ထားတဲ့ Project ရဲ့
+  အပြောင်းအလဲတွေအားလုံး (commits/history) ကို Online မှာရှိတဲ့ Remote Repository
+  ဆီ ဘယ်လို ပို့တင်ရမလဲဲ သိရန်။
+</Aside>
+
+### `Pushing` ဆိုတာဘာလဲ?
+
+Git မှာ `pushing` လုပ်တယ်ဆိုတာ ကိုယ့် Local Machine (ကွန်ပျူတာ) ထဲမှာ Save/Commit လုပ်ထားတဲ့ Code အပြောင်းအလဲတွေ (Local Changes) နဲ့ Project ရဲ့ မှတ်တမ်း (Local History) အားလုံးကို Online မှာရှိတဲ့ Remote Repository ဆီ ပို့တင်လိုက်တာ ဖြစ်ပါတယ်။
+
+ဒါမှ ကိုယ်လုပ်ထားတာတွေကို အွန်လိုင်းမှာ လုံခြုံအောင် သိမ်းဆည်းထားနိုင်မယ်၊ တခြားသူတွေ မြင်ရ/သုံးလို့ ရလာမှာပါ။
+
+`git push` command ကို သုံးရပါတယ်။
+
+#### Push လုပ်တာက ဘာလို့ အသုံးဝင်လဲဆိုတော့:
+
+- ကိုယ်လုပ်ထားတာတွေ ပျောက်သွားမှာ စိုးလို့ **Backup** အဖြစ် သိမ်းဆည်းဖို့။
+- အတူတူ အလုပ်လုပ်တဲ့သူတွေ (collaborators) နဲ့ ကိုယ့်လုပ်ထားတဲ့ အလုပ်တွေကို **မျှဝေဖို့**။
+- ကိုယ့် Project ကို လူအများ မြင်သာအောင် (**publicly visible**) လုပ်ဖို့။
+
+#### Push လုပ်မယ့် Command ပုံစံ:
+
+`git push <remote-name> <branch-name>`
+
+#### ဘယ်လို Push လုပ်မလဲ (ဥပမာ):
+
+များသောအားဖြင့် ကိုယ့် Project ရဲ့ အဓိက branch (`main branch`) ကို ပို့လေ့ရှိပါတယ်။ Terminal မှာ `git push origin main` လို့ ရိုက်ထည့်ပါ။
+
+(ဒါက ကိုယ့် local မှာရှိတဲ့ main branch ရဲ့ Codes အားလုံးကို origin လို့ နာမည်ပေးထားတဲ့ online project/repository ထဲကို ပို့တင်လိုက်တာပါ)။
+
+#### ပထမဆုံးအကြိမ် Push လုပ်ခြင်း (-u သုံးခြင်း):
+
+Branch တစ်ခုကို Online (Remote) ကို ပထမဆုံးအကြိမ် `push` လုပ်တဲ့အခါ `-u` (သို့မဟုတ် `--set-upstream`) ဆိုတဲ့ flag ကို ထပ်ထည့်ပေးပါ။
+
+ဒါက ကိုယ့် Local မှာရှိတဲ့ branch နဲ့ Remote မှာရှိတဲ့ branch ကို ချိတ်ဆက်မှတ်သားပေးလိုက်တာ ဖြစ်ပါတယ်။ ဒီလို ချိတ်ဆက်ပြီးသွားရင် နောက်ပိုင်း အဲဒီ branch မှာ push လုပ်တဲ့အခါ git push လို့ပဲ ရိုက်ထည့်လိုက်ရုံပါပဲ။ Git က အလိုအလျောက် နားလည်ပြီး ဘယ်ကို ပို့ရမယ်ဆိုတာ သိနေပါလိမ့်မယ်။
+
+<Code code={gitPush} title="Bash" />
+
+#### ကိုယ်တိုင်လုပ်ကြည့်ရန်:
+
+ကိုယ့် my-first-repo Project Folder ထဲက Terminal မှာ `git push -u origin main` လို့ ရိုက်ကြည့်ပါ။
+
+ပြီးရင် GitHub မှာ ကိုယ့် Project Page ကို Browser နဲ့ ဖွင့်ပြီး refresh လုပ်ကြည့်ပါ။ ကိုယ့် Code တွေနဲ့ ကိုယ် Commit လုပ်ထားခဲ့တဲ့ history လေးတွေ Online ပေါ် ရောက်နေတာ မြင်ရပါလိမ့်မယ်။
