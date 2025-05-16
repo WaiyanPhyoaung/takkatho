@@ -1,0 +1,50 @@
+---
+title: "Pulling လုပ်ခြင်း"
+description: "Pulling လုပ်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const gitPull = `
+git pull <remote-name> <branch-name>
+`;
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  Online (Remote) မှာရှိတဲ့ အပြောင်းအလဲတွေကို ကိုယ့်ကွန်ပျူတာ (Local) ထဲကို ဘယ်လို ပြန်ယူရမလဲဆိုတာ လေ့လာရန်။
+</Aside>
+
+## Pulling ဆိုတာ ဘာလဲ?
+
+**Git Pull** ဆိုတာ Online (Remote) Repository ကနေ အပြောင်းအလဲတွေကို ကိုယ့်ကွန်ပျူတာထဲ ဆွဲယူပြီး ကိုယ့် Project ထဲ ပေါင်းထည့်လိုက်တာပါ။
+
+### အရေးကြီးတဲ့ အချက်များ
+
+- အဖွဲ့လိုက် အလုပ်လုပ်တဲ့အခါ အခြားသူတွေရဲ့ အပြောင်းအလဲတွေကို ရယူနိုင်ဖို့
+- ကွန်ပျူတာ မတူတာတွေနဲ့ အလုပ်လုပ်တဲ့အခါ ကိုယ့်အလုပ်တွေကို sync လုပ်ဖို့
+
+## Pull လုပ်နည်း
+
+အခြေခံ command ပုံစံ:
+
+<Code code={gitPull} title='Bash' />
+
+ဥပမာ:
+
+<Code code={`git pull origin main`} title='Bash' />
+
+ဒါက origin လို့ နာမည်ပေးထားတဲ့ Remote က main branch က changes တွေကို ဆွဲယူပြီး ကိုယ့် local branch ထဲ ပေါင်းထည့်လိုက်တာပါ။
+
+<Aside title='မှတ်ချက်'>upstream ချိတ်ဆက်ပြီးသား branch တွေမှာဆိုရင် git pull လို့ပဲ ရိုက်ထည့်လိုက်ရုံနဲ့ ရပါတယ်။</Aside>
+
+## Git Pull က ဘယ်လို အလုပ်လုပ်လဲ?
+
+`Git Pull` က အဓိက အဆင့် ၂ ဆင့် လုပ်ဆောင်ပါတယ်:
+
+1. `git fetch`: Remote ကနေ changes တွေကို download လုပ်ယူ
+2. `git merge`: ဆွဲယူထားတဲ့ changes တွေကို ကိုယ့် branch ထဲ ပေါင်းထည့်
+
+## လက်တွေ့စမ်းသပ်ကြည့်ရန်
+
+1. GitHub မှာ ကိုယ့် Repository ကို ဖွင့်ပြီး `README.md` file ကို ပြင်ဆင်ပါ
+2. GitHub မှာပဲ Commit လုပ်လိုက်ပါ
+3. ကိုယ့် Local Terminal မှာ `git pull origin main` လို့ ရိုက်ပါ
+4. ကိုယ့် Local က `README.md file` ကို ဖွင့်ကြည့်ပါ - GitHub မှာ ပြင်ခဲ့တဲ့ အပြောင်းအလဲတွေ ရောက်လာပါပြီ

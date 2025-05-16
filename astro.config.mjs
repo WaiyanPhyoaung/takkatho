@@ -309,6 +309,14 @@ export default defineConfig({
                   label: "Pushing",
                   slug: "git-course/remote-repository/pushing",
                 },
+                {
+                  label: "Pulling",
+                  slug: "git-course/remote-repository/pulling",
+                },
+                {
+                  label: "Cloning",
+                  slug: "git-course/remote-repository/cloning",
+                },
               ],
             },
           ],

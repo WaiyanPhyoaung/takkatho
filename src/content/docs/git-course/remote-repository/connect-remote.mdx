@@ -1,57 +1,56 @@
 ---
-title: "local & remote projects နှစ်ခုကို ချိတ်ဆက်ခြင်း"
-description: "local & remote projects နှစ်ခုကို ချိတ်ဆက်ခြင်း"
+title: "Local & Remote Projects ချိတ်ဆက်ခြင်း"
+description: "Local နှင့် Remote Projects များကို ချိတ်ဆက်နည်း"
 ---
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import remoteCheck from "@/assets/git-course/remote-check.png";
+export const remoteAddExample = `
+git remote add <nickname> <remote-url>
+`;
 export const remoteAdd = `
 git remote add origin https://github.com/YourUsername/my-first-repo.git
 `;
 
 <Aside type="tip" title="ရည်ရွယ်ချက်">
-  GitHub မှာ new repository တစ်ခု ဘယ်လို ဖန်တီးမလဲ၊ ပြီးတော့ ကိုယ့်ရဲ့
-  ရှိပြီးသား local Git repository လေးကို အဲဒီ အွန်လိုင်းက new repository လေးနဲ့
-  ဘယ်လို ချိတ်ဆက် ပေးမလဲ သိရန်။
+  GitHub မှာ Repository အသစ်တစ်ခုဖန်တီးပြီး Local Git Repository နဲ့ ဘယ်လိုချိတ်ဆက်မလဲ လေ့လာရန်။
 </Aside>
 
-### အဆင့် ၁: GitHub မှာ Empty `Repository` တစ်ခု ဖန်တီးမယ်။
+## အဆင့် ၁: GitHub မှာ Repository တစ်ခု ဖန်တီးပါ
 
-GitHub.com Website ပေါ်မှာ:
+1. **GitHub.com** ကို သွားပြီး Login ဝင်ပါ
+2. ညာဘက်အပေါ်ထောင့်က **"+"** ကိုနှိပ်ပြီး **"New repository"** ကိုရွေးပါ
+3. Repository **name** ပေးပါ (ဥပမာ - `my-first-repo`)
+4. **Visibility** ကို **"Public"** ရွေးပါ
 
-- GitHub ကို Login လုပ်ဝင်ပါ။
-  -"+" ပုံလေး (များသောအားဖြင့် ညာဘက် အပေါ်ထောင့်မှာ ရှိပါတယ်) ကို နှိပ်ပြီး "New repository" (Project အသစ်) ကို ရွေးပါ။
-- ကိုယ့် Project အတွက် `name` လေး တစ်ခု ပေးပါ (ကိုယ့် `local` က Project `name` my-first-repo နဲ့ တူရင် မှတ်ရလွယ်တာပေါ့)။
-- `visibility` ကို "Public" ကို ရွေးထားပါ။
-- <Aside type="danger" title="သတိပြုရန်">
-    ကိုယ့် `local machine` ထဲမှာ Project Code တွေ ရှိပြီးသားဆိုရင် "Initialize
-    this repository with a README", ".gitignore", or "license" လိုမျိုး
-    စာကြောင်းလေးတွေကို **အမှန်ခြစ် မခြစ်ပါနဲ့**။ ကျွန်တော်တို့ အွန်လိုင်းက
-    remote ကို empty (ဗလာ) ထားပြီး ကိုယ့် local က Codes တွေကို အဲဒီ ဗလာထဲ push
-    (ထည့်) မှာ မို့လို့ပါ။
-  </Aside>
-- "Create repository" ကို နှိပ်လိုက်ပါ။
-- GitHub က ကိုယ့် `new remote repository` အတွက် URL လိပ်စာ တစ်ခု ပေးပါလိမ့်မယ် (ဥပမာ - `https://github.com/YourUsername/my-first-repo.git`)။ ဒီ URL လေးကို Copy ယူထားလိုက်ပါ။
+<Aside type="danger" title="သတိပြုရန်">
+  Local မှာ Project ရှိပြီးသားဆိုရင် "Initialize this repository with a README", ".gitignore", or "license" စတာတွေကို **အမှန်ခြစ် မခြစ်ပါနဲ့**။
+</Aside>
 
-အဆင့် ၂: ကိုယ့် `Local Repo` ကို `Remote` နဲ့ ချိတ်မယ်: `git remote add`
+5. **"Create repository"** ကိုနှိပ်ပါ
+6. GitHub က ပေးတဲ့ URL (ဥပမာ - `https://github.com/YourUsername/my-first-repo.git`) ကို Copy ကူးထားပါ
 
-ဒီ `git remote add` command က ကိုယ့် `local Git repository` လေးကနေ သူ့ရဲ့ အွန်လိုင်းမှာ ရှိတဲ့ သက်ဆိုင်ရာ `remote repository` လေးကို ဘယ်နေရာမှာ ရှိတယ်ဆိုတာ လမ်းညွှန်ပေးလိုက်တာ။
+## အဆင့် ၂: Local Repo ကို Remote နဲ့ ချိတ်ဆက်ပါ
 
-Command ပုံစံ: `git remote add <nickname (origin)> <အွန်လိုင်းက Project လိပ်စာ>`
+`git remote add` command က Local Repository ကို GitHub Repository နဲ့ ချိတ်ဆက်ပေးပါတယ်။
 
-အွန်လိုင်းက `remote` ကို ကိုယ် အလွယ်မှတ်မိအောင် ပေးတဲ့ nickname ။ standard convention ကတော့ origin လို့ပဲ ပေးကြတယ်။
-`<အွန်လိုင်းက Project လိပ်စာ>`: ခုနက GitHub ကနေ Copy ယူခဲ့တဲ့ Project URL ပေါ့။
-ဘယ်လိုလုပ်မလဲ (ကိုယ့် `local repo` ရဲ့ `terminal` မှာ):
+<Code code={remoteAddExample} title='Bash' />
+
+
+- `<nickname>` : Remote အတွက် အလွယ်မှတ်ခေါ်ခေါ် (များသောအားဖြင့် `origin` သုံးပါတယ်)
+- `<remote-url>` : အဆင့် ၁ က Copy ကူးထားတဲ့ URL
+
+ဥပမာ:
 
 <Code code={remoteAdd} title="Bash" />
 
 <Aside title="သတိပြုရန်" type="caution">
-  URL နေရာမှာ ကိုယ့် Project ရဲ့ GitHub က လိပ်စာ အမှန်ကို သေချာ ထည့်ရန်!
+  URL နေရာမှာ သင့် GitHub Repository ရဲ့ URL အမှန်ကို ထည့်ပါ။
 </Aside>
 
-### Connection မိပြီလား? စစ်ဆေးခြင်: `git remote -v`
+## အဆင့် ၃: ချိတ်ဆက်မှု စစ်ဆေးပါ
 
-- `terminal` မှာ `git remote -v` လို့ ရိုက်ကြည့်ပါ။ (အဲဒါဆို ကိုယ် ချိတ်ထားတဲ့ `origin` ဆိုတဲ့ နာမည်နဲ့ GitHub က Project URL ကို "fetch" နဲ့ "push" အတွက် ပြနေတာ တွေ့ရရင် အောင်မြင်ပါပြီ)။
+Terminal မှာ git remote -v လို့ရိုက်ပြီး စစ်ဆေးပါ။ origin နာမည်နဲ့ GitHub URL ကို "fetch" နဲ့ "push" အတွက် ပြနေရင် ချိတ်ဆက်မှု အောင်မြင်ပါပြီ။
 
 <ContentImage imgSrc={remoteCheck} altText="remote checking" />
