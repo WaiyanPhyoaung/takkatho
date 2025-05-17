@@ -319,6 +319,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Git Workflow",
+              items: [
+                {
+                  label: "Git Workflow Introduction",
+                  slug: "git-course/collaboration/workflow",
+                },
+                {
+                  label: "Pull Requests (PRs)",
+                  slug: "git-course/collaboration/pull-requests",
+                },
+                {
+                  label: "Discussion & Improvment",
+                  slug: "git-course/collaboration/discussion",
+                },
+              ],
+            },
           ],
         },
         // {

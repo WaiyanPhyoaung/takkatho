@@ -3,7 +3,7 @@ title: "Repository များကို ကူးယူခြင်း (Cloning
 description: "အခြားသူများ၏ Repository များကို ကိုယ့်စက်ထဲသို့ ကူးယူခြင်း"
 ---
 
-import { Aside,Code } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 export const cloneSample = `
 git clone <remote-url>
@@ -13,7 +13,8 @@ git clone https://github.com/SomeUser/SomeAwesomeProject.git
 `;
 
 <Aside type="tip" title="ရည်ရွယ်ချက်">
-  ရှိပြီးသား `Remote Repository` တစ်ခုကို ကိုယ့်ကွန်ပျူတာထဲသို့ ဘယ်လိုကူးယူရမလဲ လေ့လာရန်။
+  ရှိပြီးသား `Remote Repository` တစ်ခုကို ကိုယ့်ကွန်ပျူတာထဲသို့ ဘယ်လိုကူးယူရမလဲ
+  လေ့လာရန်။
 </Aside>
 
 ## Cloning ဆိုတာဘာလဲ?
@@ -27,15 +28,15 @@ git clone https://github.com/SomeUser/SomeAwesomeProject.git
 
 ## ဘာကြောင့် Clone လုပ်ကြလဲ?
 
-1. **ရှိပြီးသား `Project` တစ်ခုကို စတင်အလုပ်လုပ်ရန်**
-2. **`Open-source Project` များကို ကူညီရေးသားရန်**
-3. **အဖွဲ့ဝင်များ၏ `Code` ကို ကြည့်ရှုလေ့လာရန်**
+1. ရှိပြီးသား `Project` တစ်ခုကို စတင်အလုပ်လုပ်ရန်
+2. `Open-source Project` များကို ကူညီရေးသားရန်
+3. အဖွဲ့ဝင်များ၏ `Code` ကို ကြည့်ရှုလေ့လာရန်
 
 ## Clone လုပ်နည်း
 
 အခြေခံ command ပုံစံ:
 
-<Code code={cloneSample} title='Bash' />
+<Code code={cloneSample} title="Bash" />
 
 ### လုပ်ဆောင်ရန် အဆင့်များ
 
@@ -46,7 +47,7 @@ git clone https://github.com/SomeUser/SomeAwesomeProject.git
 3. **`Clone` လုပ်ပါ**
    - အောက်ပါ command ကိုရိုက်ပါ:
 
-<Code code={clone} title='Bash' />
+<Code code={clone} title="Bash" />
 
 ဒီ command က Project အမည်ဖြင့် Folder အသစ်တစ်ခု ဖန်တီးပြီး `Repository` တစ်ခုလုံးကို ထည့်သွင်းပေးပါမည်။
 
@@ -60,17 +61,22 @@ GitHub မှာ စိတ်ဝင်စားဖွယ် Repository တစ်
    - တခြားနာမည် ပေးလို့ရပါတယ်
 
 2. **Push နဲ့ Pull ကို မကြာခဏလုပ်ပါ**
-   - ကိုယ့် Local နဲ့ Remote ကို အမြဲ နောက်ဆုံးပေါ် ဖြစ်နေအောင်ထားပါ
-   - အထူးသဖြင့် အတူတူအလုပ်လုပ်တဲ့အခါ အသေးစား update တွေက စီမံခန့်ခွဲရ ပိုလွယ်ပါတယ်
+
+   - ကိုယ့် Local နဲ့ Remote ကို အမြဲ update ဖြစ်နေအောင်ထားပါ
+   - အထူးသဖြင့် အတူတူအလုပ်လုပ်တဲ့အခါ အသေးစား update လေးတွေက စီမံခန့်ခွဲရ ပိုလွယ်ပါတယ်
 
 3. **Conflicts**
+
    - ပြဿနာတွေ မဟုတ်ပါဘူး
-   - ရင်ဆိုင်တဲ့အခါ စိတ်အေးအေးထားပါ
+   - စိတ်အေးအေးထားပြီး ဖြေရှင်းပါ
 
 4. **Merge လုပ်ရင် ရည်ရွယ်ချက်နဲ့ လုပ်ပါ**
+
    - ကိုယ် ဘယ် Branch မှာ ရောက်နေလဲ၊ ဘယ် Branch ကနေ ပေါင်းထည့်နေလဲဆိုတာ သိပါစေ
 
 5. **Merge (သို့) Rebase လုပ်ခြင်း**
-   - git pull ထက် ပိုထိန်းချုပ်ချင်ရင် git fetch လုပ်ပြီး Remote အပြောင်းအလဲတွေကို အရင်ကြည့်လို့ရတယ်
+
+   - git pull ထက် ပိုထိန်းချုပ်ချင်ရင် git fetch လုပ်ပြီး Remote ကအပြောင်းအလဲတွေကို အရင်ကြည့်လို့ရတယ်
    - ပြီးမှ ဘယ်လိုပေါင်းစပ်မလဲ ဆုံးဖြတ်လို့ရတယ် (ဒါက နည်းနည်းပိုအဆင့်မြင့်ပေမဲ့ သိထားဖို့ကောင်းတဲ့ အချက်ပါ)
+
 </Aside>
