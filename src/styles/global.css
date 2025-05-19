@@ -17,6 +17,7 @@
   --sl-color-gray-4: #545861;
   --sl-color-gray-5: #353841;
   --sl-color-gray-6: #24272f;
+  --sl-color-gray-7: #1e1f23;
   --sl-color-black: #17181c;
   --sl-color-bg-nav: #23252c70;
   --sl-color-bg: #17181c70;
@@ -84,8 +85,8 @@
   h6 {
     line-height: 1.5;
   }
-  ul,
-  ol {
+  .main-pane ul,
+  .main-pane ol {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
   }
@@ -313,6 +314,7 @@ blockquote {
   max-width: 800px;
   margin: 2rem auto;
   color: var(--sl-color-gray-2);
+  background-color: var(--sl-color-gray-7);
 }
 .quote-section blockquote {
   text-align: center;

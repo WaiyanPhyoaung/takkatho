@@ -334,6 +334,19 @@ export default defineConfig({
                   label: "Discussion & Improvment",
                   slug: "git-course/collaboration/discussion",
                 },
+                {
+                  label: "Merging a Pull Request",
+                  slug: "git-course/collaboration/merging",
+                },
+              ],
+            },
+            {
+              label: "Advanced Techniques",
+              items: [
+                {
+                  label: "Quick Fixes",
+                  slug: "git-course/advanced-techniques/quick-fixes",
+                },
               ],
             },
           ],

@@ -1,0 +1,56 @@
+---
+title: "ကိုယ့်အလုပ်တွေကို Project ထဲ ထည့်သွင်းခြင်း - PR ကို Merge လုပ်ခြင်း"
+description: "ကိုယ့်အလုပ်တွေကို Project ထဲ ထည့်သွင်းခြင်း - PR ကို Merge လုပ်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+
+<Aside title="ရည်ရွယ်ချက်">
+  **approved changes** တွေ ပါဝင်တဲ့ **Pull Request** တစ်ခုကို **main branch** ထဲ
+  ဘယ်လို **merge** လုပ်ရလဲ သိဖို့။ ပြီးရင် **local** မှာ ဘာတွေ ဆက်လုပ်ရမလဲ
+  နားလည်ဖို့။
+</Aside>
+
+### Green Light: Approval နှင့် Merging
+
+**reviewers** တွေက စိတ်ကျေနပ်ပြီ၊ လိုအပ်တဲ့ **checks** (ဥပမာ- automated tests (အလိုအလျောက် စစ်ဆေးတဲ့ စနစ်)) တွေ အားလုံး pass သွားပြီဆိုရင် PR ကို **approve** လုပ်လို့ ရပါပြီ။
+
+### ဘယ်သူတွေက Merge လုပ်တာလဲ?
+
+များသောအားဖြင့် **repository** ပေါ်မှာ **merge rights** ရှိတဲ့သူ တစ်ယောက် (**approved လုပ်ပြီးနောက် PR ဖွင့်သူ ကိုယ်တိုင် ဒါမှမဟုတ် maintainer**) က **merge** လုပ်တာပါ။
+
+#### ဘယ်လိုလုပ်မလဲ (GitHub):
+
+1. PR page ပေါ်မှာ **"Merge pull request"** button တစ်ခု ပေါ်လာပါလိမ့်မယ်။
+2. များသောအားဖြင့် merge method ကို ရွေးလို့ ရပါသေးတယ် (ဥပမာ- `"Create a merge commit"`၊ `"Squash and merge"`၊ `"Rebase and merge"`)။ အခု စစချင်းအတွက်တော့ **default** ဖြစ်တဲ့ `"Create a merge commit"` က အဆင်ပြေပါတယ်။
+3. **"Confirm merge"** ကို နှိပ်ပါ။
+
+   > GitHub က ကိုယ့် **feature branch** ထဲက **commits** တွေကို ယူပြီး **remote repository** ပေါ်မှာ ရှိတဲ့ **base branch (main)** ထဲကို **merge** လုပ်ပါလိမ့်မယ်။
+
+### Merge လုပ်ပြီးနောက်: Cleaning Up
+
+Merge လုပ်ပြီးသွားရင် အလုပ်နည်းနည်း ကျန်ပါသေးတယ်။
+
+### Remote Branch Deletion (မဖြစ်မနေ မဟုတ်):
+
+PR ကို merging လုပ်ပြီးတာနဲ့ GitHub က များသောအားဖြင့် **"Delete branch"** button လေး တစ်ခုပေး ပါလိမ့်မယ်။ ဒါက **remote repository** ပေါ်မှာ ရှိတဲ့ `feature branch` ကို **delete** လိုက်တာပါ။ ဘာလို့လဲဆိုတော့ အဲဒီ branch ရဲ့ အလုပ်တွေ အားလုံးက အခု main ထဲ ရောက်သွားပြီလေ။
+
+### Local Cleanup:
+
+ကိုယ့် local machine မှာလည်း ရှင်းလင်းရေး လုပ်ရပါမယ်။
+
+1. ကိုယ့် local main branch ကို update လုပ်ပါ
+
+   - `git switch main`
+
+   - `git pull origin main` (ဒါက **remote main** ကနေ အခု merge လုပ်ထားတဲ့ changes အသစ်တွေကို ကိုယ့် **local main** ထဲ pull လိုက်တာ)။
+
+2. ကိုယ့် **local feature branch** ကို ဖျက်ပါ။ ( merged ပြီးသား ဖြစ်သွားပြီ):
+   - `git branch -d my-new-feature`
+     (`-d` ကို **safe delete** အတွက် သုံးပါတယ်။ ဒါက branch ကို merged ပြီးသား ဖြစ်မှ ဖျက်ပေးတာ)။
+
+<Aside title="အနှစ်ချုပ်">
+  PR တစ်ခု approved ဖြစ်သွားရင် GitHub ပေါ်မှာ merged လုပ်လိုက်တယ်။ ပြီးရင်
+  ကိုယ့် local main ကို update လုပ်ပြီး local feature branch ကို delete
+  လုပ်တာပါ။
+</Aside>

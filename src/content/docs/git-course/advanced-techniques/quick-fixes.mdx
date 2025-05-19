@@ -1,0 +1,65 @@
+---
+title: "Advanced Techniques and Quick Fixes"
+description: "Advanced Techniques and Quick Fixes"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const fileAdd = `
+git add <file name>
+git commit --amend
+`;
+
+<Aside title="ရည်ရွယ်ချက်">
+  ဒီပိုင်းမှာ git commit ကို ပြင်နည်း၊ file တွေကို unstage လုပ်နည်း၊
+  မသိမ်းရသေးတဲ့ local changes တွေကို ပယ်ဖျက်နည်းတွေကို သိရှိ နားလည်လာစေရန်။
+</Aside>
+
+## Quick Fixes - Commit ပြင်ခြင်းနဲ့ Local Changes ကို Undo လုပ်ခြင်း
+
+<Aside title="ရည်ရွယ်ချက်">
+  နောက်ဆုံး commit ကို ပြင်ချင်တာ၊ file တွေကို unstage လုပ်ချင်တာ၊ မသိမ်းရသေးတဲ့
+  local changes တွေကို ပယ်ဖျက်တာတွေကို နားလည်ရန်။
+</Aside>
+
+### `git commit --amend`
+
+နောက်ဆုံး commit ထဲကို ပြင်ချင်တာ၊ file တစ်ခု ထပ်ထည့်ချင်တာ၊ commit message မှာ စာလုံးပေါင်းမှားတာ ပြင်ချင်တာတွေကို ဒီ command နဲ့ လုပ်နိုင်ပါတယ်။
+
+**ဘယ်လိုလုပ်မလဲ**:
+
+အကယ်၍ file တစ်ခု ထည့်ဖို့ မေ့သွားတယ်ဆိုရင်:
+
+<Code title="Bash" code={fileAdd} />
+
+<Aside type="caution" title="သတိပြုရန်">
+  `git commit --amend` ကို push မလုပ်ရသေးတဲ့ commits တွေမှာပဲ သုံးပါ။ Amending က
+  history ကို rewrites ပြန်လုပ်တာမလို့ push ပြီးသားဆိုရင် ပြဿနာ ဖြစ်နိုင်ပါတယ်။
+</Aside>
+
+### `git reset HEAD <file>`
+
+ဒါက file တစ်ခုကို **stage** မှာထည့်ထားတာ ပြန်ဖြုတ်တာပါ။ file ထဲက **changes** တွေက မပျောက်ပါဘူး။
+
+အဓိက သုံးတာက `git add` လုပ်ပြီးမှ မှားသွားတာတွေကို **unstage** ပြန်ဖြုတ်ချင်ရင် သုံးပါတယ်။
+
+Command: `git reset HEAD <file နာမည်>`
+
+(အကုန်လုံးကို unstages လုပ်ချင်ရင် git reset HEAD ကို သုံးပါ)
+
+### `git checkout -- <file> (သတိထားပြီး သုံးပါ)`
+
+ဒါက file တစ်ခုထဲက လက်ရှိပြင်ထားတဲ့ changes တွေကို လုံးဝ ပယ်ဖျက်ပစ်တာပါ။ file ကို last commit (HEAD) အတိုင်း ပြန်ပြောင်းပေးပါတယ်။
+
+file ထဲမှာ ပြောင်းလဲမှုတွေ မလိုချင်တော့ဘူးဆိုရင် သုံးပါတယ်။
+
+Command: `git checkout -- <file နာမည်>`
+
+<Aside type="danger" title="သတိပေးချက်!">
+ ဒီ command ကို သုံးရင် commit မလုပ်ရသေးတဲ့ changes တွေ အကုန်ပျက်သွားပါတယ်။ ပြန်ပြင်လို့ မရနိုင်တော့ပါဘူး။ ၁၀၀% သေချာမှ သုံးပါ။ (`git restore <filename>` က နည်းနည်းပိုလုံခြုံပြီး ပိုရှင်းလင်းပါတယ်။ ရနိုင်ရင် git restore ကို သုံးပါ)
+</Aside>
+
+<Aside title="အနှစ်ချုပ်">
+  `--amend` က last commit ကို ပြင်ဖို့၊ `reset HEAD` က stage မှာထည့်ထားတာ
+  ပြန်ဖြုတ်ဖို့၊ `checkout --`က commit မလုပ်ရသေးတဲ့ changes တွေကို ပယ်ဖျက်ဖို့
+  သုံးပါ။
+</Aside>
