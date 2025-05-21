@@ -1,0 +1,54 @@
+---
+title: "Published Commits များကို ပြန်ပြင်ခြင်း"
+description: "Published Commits များကို ပြန်ပြင်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const gitRevert = `
+git revert <commit ID>
+`;
+
+<Aside title="ရည်ရွယ်ချက်">
+  **published(pushed)** လုပ််ပြီးသား Commit တစ်ခုကို ဘေးကင်းစွာ ပြန်ပြင်နည်း။
+</Aside>
+
+## Commit ကို ပြန်ပြင်ခြင်း: git revert
+
+**`git revert` ဆိုတာ ဘာလဲ?**
+
+- အရင် Commit တစ်ခုရဲ့ ပြောင်းလဲမှုတွေကို ပြန်ဖျက်တဲ့ Commit အသစ်တစ်ခု ဖန်တီးပေးတာပါ
+- အရင် Commit ကို မဖျက်ပါဘူး
+- ဆန့်ကျင်ဘက် ပြောင်းလဲမှုတွေပါတဲ့ Commit အသစ်တစ်ခု ထပ်ထည့်ပေးတာပါ
+
+**ဘာကြောင့် သုံးရလဲ?**
+
+- `push` ပြီးသားမလို့ တခြားသူတွေ သုံးနေနိုင်ပါတယ်။ အဲ့တာကြောင့် pushed ပြီးသား commit ကို တိုက်ရိုက်ပြန်ပြင်မဲ့ အစား အသစ် commit လုပ်ပြီး ပြန်ပြင်တာပါ
+- **commit history** တွေကို မဖျက်ဘဲ ထိန်းသိမ်းထားပါတယ်။ စိတ်ချရတဲ့ နည်းလမ်း	ဖြစ်ပါတယ်။
+
+### ဘယ်လိုလုပ်မလဲ
+
+1. ပြန်ပြင်လိုတဲ့ Commit ရဲ့ ID ကို ရှာပါ
+   - git log သုံးပြီး Commit ID ကို ရှာပါ (ဥပမာ - a1b2c3d)
+
+2. **Revert** လုပ်ပါ
+<Code code={gitRevert} title='Bash' />
+
+3. Commit Message ရေးပါ
+   - Git က Commit Message ရေးဖို့ Editor ဖွင့်ပေးပါမယ်
+   - များသောအားဖြင့် `Revert 'original Commit Message'` လို့ အဆင်သင့် ရေးပေးထားပါတယ်
+   - save ပြီး ပိတ်လိုက်ပါ
+
+4. push လုပ်ပါ
+   - git push သုံးပြီး Revert Commit ကို အွန်လိုင်းပေါ် တင်ပါ
+
+## revert နဲ့ reset ကွာခြားချက်
+
+**`revert` - shared branch တွေအတွက် စိတ်ချရပါတယ်**
+- commit အသစ် ထပ်ထည့်ပေးတာပါ
+
+**`reset` - shared branch တွေအတွက် အန္တရာယ်ရှိပါတယ်**
+- commits တွေကို rewrite ပြန်ရေးတာမလို့ အတူအလုပ်လုပ်သူတွေကို ရှုပ်ထွေးစေပါတယ်
+
+<Aside>
+`git revert <commit-id>` က shared branch (already pushed to remote) ပေါ်က ပြောင်းလဲမှုတွေကို ပြန်ပြင်ဖို့ အကောင်းဆုံး နည်းလမ်းပါ။ ပြဿနာရှိတဲ့ Commit ရဲ့ ဆန့်ကျင်ဘက် ပြောင်းလဲမှုတွေပါတဲ့ Commit အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။
+</Aside>

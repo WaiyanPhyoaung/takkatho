@@ -347,6 +347,14 @@ export default defineConfig({
                   label: "Quick Fixes",
                   slug: "git-course/advanced-techniques/quick-fixes",
                 },
+                {
+                  label: "Reverting Published Commits",
+                  slug: "git-course/advanced-techniques/reverting",
+                },
+                {
+                  label: "Stashing",
+                  slug: "git-course/advanced-techniques/stashing",
+                },
               ],
             },
           ],
