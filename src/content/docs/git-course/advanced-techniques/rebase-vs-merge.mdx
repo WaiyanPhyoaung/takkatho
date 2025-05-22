@@ -1,0 +1,37 @@
+---
+title: "Rebase vs. Merge - အဓိက ကွာခြားချက်များ အကျဉ်းချုပ်"
+description: "Rebase vs. Merge - အဓိက ကွာခြားချက်များ အကျဉ်းချုပ်"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import mergeVsRebase from "@/assets/git-course/merge-vs-rebase.png"
+
+export const mainUpdate = `
+git switch main
+git pull origin main
+`;
+
+export const switchToFeature = `
+git switch my-feature
+`;
+export const gitRebaseMain = `
+git rebase main
+`;
+
+<Aside title="ရည်ရွယ်ချက်">
+Rebase နှင့် Merge ကြား အဓိက ကွာခြားချက်များကို နားလည်ရန်နှင့် မည်သည့်အခြေအနေတွင် မည်သည့်နည်းလမ်းကို အသုံးပြုသင့်သည်ကို လေ့လာရန်။
+</Aside>
+
+### Merge:
+- မူလ Commit History ကို မပြောင်းလဲပါဘူး။ Branches နှစ်ခု ဘယ်နေရာမှာ ပေါင်းခဲ့တယ်ဆိုတာကို "merge commit" တစ်ခုနဲ့ ပြသပါတယ်။
+- Branches တွေက ပုံစံအမျိုးမျိုးနဲ့ ခွဲထွက်ပြီး ပြန်ပေါင်းတဲ့ Graph ပုံစံမျိုး မြင်ရနိုင်ပါတယ်။
+- pushed လုပ်ပြီးသား shared Commits များအတွက် ပို Safe ဖြစ်ပါတယ်။ ဘာလို့လဲဆိုတော့ လက်ရှိ commits တွေကို ပြန်ပြင်ရေးတာမျိုး မလုပ်လို့ပါ။
+
+### Rebase:
+- Commits History ကို ပြန်လည်ရေးသားပြီး ခွဲထွက်တာမျိုးမရှိဘဲ တစ်ဆင့်ပြီးတစ်ဆင့် ဆက်တိုက်ဖြစ်ပေါ်ခဲ့သလို ပုံစံဖြစ်အောင် လုပ်ပါတယ်။ Commit တွေကို နေရာအသစ်တစ်ခုပေါ်ကို ရွှေ့လိုက်တာပါ။
+- Commit History ကို ပိုပြီး သန့်ရှင်းသပ်ရပ်စေပြီး ဖတ်ရလွယ်ကူစေပါတယ်။ (ဖြောင့်တန်းတဲ့ လိုင်းတစ်ကြောင်းလို ဖြစ်သွားပါတယ်)
+- push လုပ်ပြီးသား commits တွေမှာ သုံးရင် အန္တရာယ်ရှိပါတယ်။ ကိုယ့် local  မှာပဲ သပ်သပ်ရပ်ရပ်လုပ်ဖို့ ဒါမှမဟုတ် push မလုပ်ခင် ပြင်ဆင်ဖို့အတွက် အကောင်းဆုံးပါ။
+
+
+<ContentImage imgSrc={mergeVsRebase} altText='merge vs rebase' />

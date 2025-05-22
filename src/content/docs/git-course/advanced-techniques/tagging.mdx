@@ -1,0 +1,72 @@
+---
+title: "အရေးကြီးမှတ်တိုင်များ - Releases များကို Tagging လုပ်ခြင်း"
+description: "အရေးကြီးမှတ်တိုင်များ - Releases များကို Tagging လုပ်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const gitTag = `
+git tag v1.0.0
+`;
+
+export const gitTagToCommit = `
+git tag v1.0.0 <commit-hash>
+`;
+export const annotatedTag = `
+git tag -a v1.0.0 -m "Version 1.0.1 release with bug fixes"
+`;
+export const gitTagLists = `
+git tag
+`;
+export const pushTag = `
+git push origin v1.0.0
+`;
+export const pushAllTags = `
+git push origin --tags
+`;
+
+
+<Aside title="ရည်ရွယ်ချက်">
+Project History မှာ အရေးကြီးတဲ့ နေရာများကို Tags တွေသုံးပြီး ဘယ်လိုမှတ်သားရမလဲဆိုတာ လေ့လာရန်။
+</Aside>
+
+### ထူးခြားသော အချိန်များကို မှတ်သားခြင်း: git tag
+
+**Tag ဆိုတာ ဘာလဲ?**
+- သတ်မှတ်ထားတဲ့ commit တစ်ခုကို ညွှန်ပြတဲ့ အမှတ်အသားတစ်ခုပါ
+- history မှာ အဓိပ္ပာယ်ရှိတဲ့ point တစ်ခုကို မှတ်သားဖို့ သုံးပါတယ်
+- ဥပမာ - releases ထုတ်ဝေမှုများ (v1.0, v2.0.1)
+
+**ဘာကြောင့် သုံးရလဲ?**
+- Code ရဲ့ တိတိကျကျသတ်မှတ်ထားတဲ့ version များကို လွယ်လွယ်ရှာဖွေနိုင်ရန်
+- နောက်ကျရင် ပြန်ညွှန်းဖို့ လွယ်ကူစေရန်
+
+> Project history စာအုပ်ထဲက အရေးကြီး point တစ်ခုပေါ်မှာ အမြဲတမ်း Bookmark ထားသလိုပါ
+
+### Tags များ ဖန်တီးခြင်း
+
+**1. ရိုးရှင်းသော Tag**
+
+လက်ရှိ commit ကို Tag လုပ်ခြင်း
+<Code code={gitTag} title='Bash' />
+
+specific commit ကို Tag လုပ်ခြင်း
+<Code code={gitTagToCommit} title='Bash' />
+
+**2. အချက်အလက်ပါသော Tag (Annotated Tags)**
+<Code code={annotatedTag} title='Bash'/>
+
+### Tags များကို ကြည့်ရှုခြင်း
+<Code code={gitTagLists} title='Bash'/>
+
+### Tags များကို မျှဝေခြင်း (Remote သို့ Push လုပ်ခြင်း)
+Tag သတ်မှတ်ပြီးပြီဆိုရင် Tags တွေကလဲ commits တွေလိုပဲ local မှာပဲရှိနေသေးတာ ဖြစ်ပါတယ်။ သူတို့ကို Push ဖို့ဆိုရင်:
+
+**သတ်မှတ်ထားတဲ့ Tag တစ်ခုကို Push လုပ်ခြင်း**
+<Code code={pushTag} title='Bash' />
+
+**Tag အားလုံးကို Push လုပ်ခြင်း**
+<Code code={pushAllTags} title='Bash' />
+
+<Aside title='အနှစ်ချုပ်'>
+`git tag` က အရေးကြီးတဲ့ commits (releases လိုမျိုး) ကို မှတ်သားပေးပါတယ်။ Releases တွေအတွက် **Annotated Tags (-a -m)** ကို သုံးပြီး မျှဝေဖို့နဲ့ `push` လုပ်ဖို့ မမေ့ပါနဲ့။
+</Aside>

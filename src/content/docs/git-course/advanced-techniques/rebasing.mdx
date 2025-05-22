@@ -1,0 +1,120 @@
+---
+title: "ကိုယ့် Story ကို သပ်ရပ်အောင် ပြင်ဆင်ခြင်း - git rebase အကြောင်း"
+description: "ကိုယ့် Story ကို သပ်ရပ်အောင် ပြင်ဆင်ခြင်း - git rebase အကြောင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import gitRebase from "@/assets/git-course/rebase.png"
+
+export const mainUpdate = `
+git switch main
+git pull origin main
+`;
+
+export const switchToFeature = `
+git switch my-feature
+`;
+export const gitRebaseMain = `
+git rebase main
+`;
+
+<Aside title="ရည်ရွယ်ချက်">
+`git rebase` ရဲ့ အခြေခံ သဘောတရားကို နားလည်ဖို့၊ **local history** ကို ရှင်းလင်းဖို့နဲ့ **remote branch** က changes များကို ထည့်သွင်းဖို့ အသုံးပြုပုံများကို လေ့လာရန်။ **git merge** နဲ့ ဘယ်လို အခြေခံကျကျ ကွာခြားလဲဆိုတာ နားလည်ဖို့နဲ့ **"Rebase ရဲ့ Golden Rule"** ကို သင်ယူဖို့။
+</Aside>
+
+### `git rebase` ဆိုတာဘာလဲ? ကိုယ့်ရဲ့ Story ကို ပြန်ရေးခြင်း
+
+**git rebase ဆိုတာ:**
+- branch တစ်ခုက commits တွေကို commit အသစ်တစ်ခု အဖြစ် ပြန်လုပ်တဲ့နည်းလမ်းတစ်ခုပါ
+- ကိုယ့် branch ရဲ့ စတင်တဲ့နေရာကို ပြောင်းလဲလိုက်တာဖြစ်ပါတယ်
+- ကိုယ်က အခုမှ တခြားနေရာကနေ အလုပ်စခဲ့သလို ဖြစ်သွားတာပါ
+- commit history ကို ပြန်ရေးတာဖြစ်ပါတယ်
+
+### အသုံးပြုပုံများ (စတင်လေ့လာသူများအတွက်):
+
+1. Local feature branch history ကို ရှင်းလင်းခြင်း:
+    - merging မလုပ်ခင် multiple commits တွေကို ပိုအဓိပ္ပာယ်ရှိတဲ့ commits အဖြစ် ပေါင်းစပ်ခြင်း (interactive rebase သုံးပြီး)
+
+2. Parent branch က changes တွေကို ကိုယ့် feature branch ထဲ ထည့်သွင်းခြင်း:
+    - ကိုယ့် feature branch ကို up-to-date ဖြစ်အောင် ကူညီနိုင်ပြီး နောက်ဆုံး merge ကို ပိုပြီး သပ်သပ်ရပ်ရပ် ဖြစ်စေပါတယ်
+
+## Rebase (Linear Story) vs. Merge (Preserves Divergence)
+
+### Scenario 1: ကိုယ့် Feature Branch ကို main ရဲ့ Changes များနဲ့ Update လုပ်ခြင်း
+
+**ပြဿနာ**: ကိုယ်က main ကနေ my-feature ကို ဖန်တီးခဲ့တယ်။ ကိုယ် အလုပ်လုပ်နေတုန်းမှာ main မှာ အရေးကြီး updates တွေ ရရှိခဲ့တယ်။ ကိုယ်က ဒီ updates တွေကို အခု လက်ရှိလုပ်နေတဲ့ my-feature ထဲ ထည့်သွင်းချင်တယ်။ 
+
+**ဘယ်လိုလုပ်မလဲ?**
+
+**1. အရင်ဆုံး main ကို update လုပ်ပါ**
+<Code code={mainUpdate} title='Bash' />
+
+**2. my-feature ကို ပြန်ပြောင်းပါ**
+<Code code={switchToFeature} title='Bash' />
+
+**3. main ပေါ်မှာ Rebase လုပ်ပါ**
+<Code code={gitRebaseMain} title='Bash' />
+
+**ဘာဖြစ်သွားလဲ?**
+
+Git က my-feature နဲ့ သက်ဆိုင်တဲ့ commits တွေကို ခန ဘေးဖယ်ထားတယ်။ 
+main ရဲ့ update commits တွေကို ယူပြီးတော့ ခုန က ဖယ်ထားတဲ့ my-feature ရဲ့ commits တွေကို main ရဲ့ အပေါ်မှာ တစ်ခုချင်းစီ ပြန်တင်တယ်။
+
+<Aside type='caution' title='Conflicts'>
+Rebase လုပ်နေစဉ် conflicts တွေ ကြုံရနိုင်တယ်။ Merging နဲ့ ဆင်တူတယ်။ ပြန်တင်နေတဲ့ commit တစ်ခုချင်းစီအတွက် conflicts တွေ ရှိနိုင်တယ်။ ကိုယ်က သူတို့ကို ဖြေရှင်းရမယ်။ `git add <resolved file name>` ရိုက်ရမယ်။ ပြီးရင် `git rebase --continue` လို့ ရိုက်ရမယ်။ (ရပ်တန့်ဖို့ `git rebase --abort` )။
+</Aside>
+
+<Aside type='tip' title='အကျိုးကျေးဇူး'>
+ ကိုယ့် **my-feature branch** မှာ main ရဲ့ updates တွေ အားလုံး ပါဝင်သွားပြီ။ ကိုယ်က main updates တွေ ပြီးမှ ကိုယ့် feature ကို စခဲ့သလို ဖြစ်သွားတာပါ။ ဒါက my-feature ကို main ထဲ နောက်ဆုံး merge လုပ်တဲ့အခါ သပ်ရပ်တဲ့ **fast-forward merging** ဖြစ်စေပါတယ်။
+ </Aside>
+
+ ### Scenario 2: Interactive Rebase (git rebase -i) ဖြင့် Local Commits များကို ရှင်းလင်းခြင်း
+
+**ပြဿနာ**: ကိုယ့် local my-feature branch ပေါ်မှာ (push မလုပ်ခင်) ကိုယ်က `"WIP"`, `"fix typo"`, `"another small fix"` လိုမျိုး အစီအစဉ်မကျတဲ့ commits များစွာ လုပ်ခဲ့တယ်။ Pull Request တစ်ခု မဖန်တီးခင် ဒါကို တစ်ခု၊ နှစ်ခု လောက်ပဲရှိတဲ့ သင့်တော်တဲ့ commits အဖြစ် ရှင်းလင်းချင်တယ်။
+
+**ဘယ်လိုလုပ်မလဲ? (Interactive Rebase)**
+```
+git rebase -i HEAD~3
+```
+(ဒါက "လက်ရှိနေရာကနေ နောက်ဆုံး commits သုံးခုကို ပြန်ပြင်မယ် (interactive rebase)" လို့ ဆိုလိုတယ်)
+
+**ဘာဖြစ်သွားလဲ**
+Git က ကိုယ့် သတ်မှတ်ထားတဲ့ text editor ကို commits စာရင်းနဲ့ ဖွင့်တယ်။ commit တစ်ခုချင်းစီအတွက် ကိုယ်က လုပ်ဆောင်မှု တစ်ခုကို ရွေးနိုင်တယ်:
+
+- **pick**: commit ကို ရှိတဲ့အတိုင်း သုံးပါ
+- **reword (r)**: commit ကို သုံးပါ၊ ဒါပေမဲ့ message ကို ပြင်ပါ
+- **squash (s)**: ဒီ commit ရဲ့ changes တွေကို အရင် commit ထဲကို ပေါင်းထည့်ပါ၊ messages တွေကိုလည်း ပေါင်းစပ်ပါ
+- **fixup (f)**: squash နဲ့ ဆင်တူတယ်၊ ဒါပေမဲ့ ဒီ commit ရဲ့ message ကို ပယ်ဖျက်ပါ
+(တခြား actions တွေလည်း ရှိသေးတယ်၊ ဒါပေမဲ့ ဒါတွေက အသုံးများဆုံးပါ)
+
+<Aside type='tip' title='မှတ်ချက်'>
+အဓိက ကတော့ rebase -i ကို သုံးပြီး commits တွေကို ပြန်လည် ပြင်ဆင်နိုင်တယ်။ အသုံးများတာကတော့ ဥပမာ commits ၃ ခုကို ၁ ခုထဲ အဖြစ် ပြန်ပြောင်းတာမျိုး၊ ကိုယ်လိုချင်တဲ့ commit ကို pick လုပ်ပြီး မလိုချင်တဲ့ commit ကို squash or fixup လုပ်လိုက်တာမျိုးပါ။
+</Aside>
+
+
+### ဥပမာ:
+<ContentImage imgSrc={gitRebase} altText='rebasing'/>
+
+```
+pick 37709fc WIP
+pick 3980a2f fix typo  # ဒါကို 's' သို့မဟုတ် 'squash' လို့ ပြောင်းပါ
+pick f259ca8 actual feature work # 'pick' ကို 'r' သို့မဟုတ် 'reword' လို့ ပြောင်းပါ
+```
+
+<Aside type='tip' title='ရှင်းလင်းချက်'>
+- ပထမ စာကြောင်း က WIP ဆိုတဲ့ commit ကို ဘာမှ မပြောင်းဘဲ ထားတာပါ။
+- ဒုတိယ စာကြောင်း က fix typo ဆိုတဲ့ commit ကို မယူတော့ဘဲ changes တွေကို သူ့အပေါ်က commit (WIP) ထဲပေါင်းထည့်လိုက်တာပါ။
+- နောက်ဆုံးစာကြောင်း ကတော့ actual feature work ဆိုတဲ့ commit ကို ယူပြီး  reword ကတော့ commit message ကို ပြန်ပြင်မယ်လို့ ပြောတာပါ။
+
+save ပြီးတဲ့ အခါ - 
+- Git က ဒီ commit အသစ်ရဲ့ message ကို ပြန်ရေးဖို့ editor တစ်ခု ပွင့်လာပေးပါလိမ့်မယ်။ အဲဒီမှာ WIP ရယ် fix typo ရယ် နှစ်ခုလုံးရဲ့ စာသားတွေ ပါနေတတ်ပြီး အဲဒီနှစ်ခုကို ပေါင်းပြီး ပိုရှင်းလင်းတဲ့ message အသစ်တစ်ခု ရေးလို့ရပါတယ်။
+
+- ပြီးတော့ reword အတွက် Git က message ကို ပြန်ရေးဖို့ editor တစ်ခု ပွင့်လာပေးပါလိမ့်မယ်။ 'actual feature work' ဆိုတဲ့ message ကို ပြန်လည် ပြင်ဆင်နိုင်ပါတယ်။
+</Aside>
+
+<Aside title='သတိပြုရန်' type='danger'>
+    push ပြီးသား shared history တွေကို rebase လုံးဝ မလုပ်ပါနဲ့။ ဘာဖြစ်လို့လဲ ဆိုတော့ အဲ့ဒီ shared commits ပေါ် မူတည်ပြီး အလုပ်လုပ်နေတဲ့ သူတွေရှိနေနိုင်ပါတယ်။ rebase က လဲ commit history ကို ပြန်ပြင်တာဖြစ်လို့ ကိုယ့် teammates တွေမှာ ရှိတဲ့ history နဲ့ သိသိသာသာ ကွဲလွဲ သွားပါလိမ့်မယ်။
+
+    > **push မလုပ်ရသေးတဲ့ local branch မှာသာ commits တွေရှုပ်နေရင် rebase လုပ်ပါ။**
+</Aside>

@@ -355,6 +355,18 @@ export default defineConfig({
                   label: "Stashing",
                   slug: "git-course/advanced-techniques/stashing",
                 },
+                {
+                  label: "Rebasing",
+                  slug: "git-course/advanced-techniques/rebasing",
+                },
+                {
+                  label: "Rebase Vs Merge",
+                  slug: "git-course/advanced-techniques/rebase-vs-merge",
+                },
+                {
+                  label: "Tagging",
+                  slug: "git-course/advanced-techniques/tagging",
+                },
               ],
             },
           ],
