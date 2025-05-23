@@ -85,6 +85,9 @@
   h6 {
     line-height: 1.5;
   }
+  a {
+    text-decoration: none;
+  }
   .main-pane ul,
   .main-pane ol {
     margin-top: 0.5rem;

@@ -348,6 +348,10 @@ export default defineConfig({
                   slug: "git-course/advanced-techniques/quick-fixes",
                 },
                 {
+                  label: "Resetting(Soft, Mixed & Hard)",
+                  slug: "git-course/advanced-techniques/resetting",
+                },
+                {
                   label: "Reverting Published Commits",
                   slug: "git-course/advanced-techniques/reverting",
                 },
@@ -366,6 +370,10 @@ export default defineConfig({
                 {
                   label: "Tagging",
                   slug: "git-course/advanced-techniques/tagging",
+                },
+                {
+                  label: "Reflog",
+                  slug: "git-course/advanced-techniques/reflog",
                 },
               ],
             },
