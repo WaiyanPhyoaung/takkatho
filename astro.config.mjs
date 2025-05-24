@@ -379,6 +379,33 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Web Performance: Web Vitals and More",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Why Web Performance",
+                  slug: "web-performance/introduction/why-web-performance",
+                },
+                {
+                  label: "The Business Case for Performance",
+                  slug: "web-performance/introduction/business-cases",
+                },
+              ],
+            },
+            {
+              label: "Measuring Web Performance",
+              items: [
+                {
+                  label: "Key Performance Metrics",
+                  slug: "web-performance/measuring-performance/metrics",
+                },
+              ],
+            },
+          ],
+        },
         // {
         // 	label: 'Reference',
         // 	autogenerate: { directory: 'reference' },
