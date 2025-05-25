@@ -402,6 +402,19 @@ export default defineConfig({
                   label: "Key Performance Metrics",
                   slug: "web-performance/measuring-performance/metrics",
                 },
+                {
+                  label: "Essential Tools",
+                  slug: "web-performance/measuring-performance/essential-tools",
+                },
+              ],
+            },
+            {
+              label: "Mastering Core Web Vitals",
+              items: [
+                {
+                  label: "Largest Contentful Paint (LCP)",
+                  slug: "web-performance/core-vitals/lcp",
+                },
               ],
             },
           ],
