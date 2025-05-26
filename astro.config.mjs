@@ -415,6 +415,14 @@ export default defineConfig({
                   label: "Largest Contentful Paint (LCP)",
                   slug: "web-performance/core-vitals/lcp",
                 },
+                {
+                  label: "FID & INP",
+                  slug: "web-performance/core-vitals/fid-and-inp",
+                },
+                {
+                  label: "CLS",
+                  slug: "web-performance/core-vitals/cls",
+                },
               ],
             },
           ],

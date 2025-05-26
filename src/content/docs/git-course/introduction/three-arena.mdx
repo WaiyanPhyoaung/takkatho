@@ -24,7 +24,7 @@ git config --global user.email "your.email@example.com"
 
 Git မှာ ကျွန်တော်တို့ ပြောင်းလဲလိုက်တဲ့ Code တွေကို စနစ်တကျ မှတ်တမ်းတင်ဖို့အတွက် ဖြတ်သန်းရတဲ့ နေရာ သုံးခု ရှိပါတယ်။ ဒီနေရာတွေက တစ်ဆင့်ပြီး တစ်ဆင့် ဘယ်လို အလုပ်လုပ်လဲ ကြည့်ကြစို့။
 
-<ContentImage imgSrc={threeStages} altText="three stages" />
+<ContentImage src={threeStages} alt="three stages" />
 
 ### ၁။ ကိုယ် Code တွေ ပြင်ဆင်နေတဲ့ နေရာ (Working Directory)
 
@@ -40,7 +40,7 @@ my-first-repo Folder ထဲမှာ `README.md` ဆိုတဲ့ ဖိုင
 
 Terminal မှာ `git status` လို့ ရိုက်ပါ။ (အဲဒီအခါ `README.md` ကို "Untracked" လို့ ပြနေတာ တွေ့ရပါလိမ့်မယ်)။
 
-<ContentImage imgSrc={status} altText="git status" />
+<ContentImage src={status} alt="git status" />
 
 ### ၂။ နောက်တစ်ခါ Save ဖို့ ပြင်ဆင်တဲ့ နေရာ (Staging Area)
 
@@ -50,7 +50,7 @@ Staging Area ကတော့ ကိုယ် ပြင်ဆင်ထားတ�
 
 ကိုယ် Save လုပ်ချင်တဲ့ ဖိုင်တွေကို ဒီ Staging Area ထဲကို ပို့ဖို့အတွက် `git add \<file name>` Command ကို သုံးရပါတယ်။ ဥပမာ- `README.md` ဆိုတဲ့ ဖိုင်ကို Save ချင်ရင် `git add README.md` လို့ ရိုက်ရပါတယ်။ `git status` ကို ထပ်ရိုက်ကြည့်ရင် ခုနက ဖိုင်တွေက Staging Area ထဲ ရောက်နေပြီဆိုတာ 'Changes to be committed' ဆိုပြီး တွေ့ရပါလိမ့်မယ်။ ဒီလို တစ်ဆင့်ခံပြီး ကိုယ် လိုချင်တဲ့ အပိုင်းလေးတွေကိုပဲ ရွေးချယ် ထည့်သွင်းတာက ကိုယ့် Project ရဲ့ ပြောင်းလဲမှု မှတ်တမ်း (History) ကို ပိုပြီး သပ်ရပ် စနစ်ကျစေပါတယ်။
 
-<ContentImage imgSrc={gitAdd} altText="git add" />
+<ContentImage src={gitAdd} alt="git add" />
 
 ### ၃။ ပြောင်းလဲမှုတွေကို အပြီးအပိုင် မှတ်တမ်းတင်တဲ့ နေရာ (Repository)
 
@@ -60,4 +60,4 @@ Staging Area ထဲမှာ ကိုယ် Save လုပ်ချင်တဲ
 
 Staging Area ထဲက ပြင်ဆင်ထားတာတွေကို Repository ထဲကို မှတ်တမ်းတစ်ခုအဖြစ် သိမ်းဆည်းဖို့အတွက် `git commit` Command ကို သုံးပါတယ်။ များသောအားဖြင့် `git commit -m "ဒီ Save မှာ ဘာတွေ ပြောင်းလဲထားလဲဆိုတဲ့ စာသား"` လို့ ရိုက်ပြီး Save လိုက်တာပါ။ `-m` နောက်က စာသားလေးက ဒီ Save Point (Commit) မှာ ကိုယ် ဘာတွေ လုပ်ခဲ့လဲဆိုတာကို အတိုချုပ်၊ ရှင်းရှင်းလင်းလင်း မှတ်ထားပေးတာပါ။ ဒီ Message က တကယ် အရေးကြီးလို့ သေချာ ရေးပေးသင့်ပါတယ်။ Commit လုပ်ပြီးသွားရင် `git status` ကို ပြန်ကြည့်ရင် အားလုံး စနစ်တကျ Save ပြီးသွားပြီဖြစ်ပြီး 'nothing to commit, working tree clean' လို့ ပြနေတာ တွေ့ရပါလိမ့်မယ်။
 
-<ContentImage imgSrc={gitCommit} altText="git commit" />
+<ContentImage src={gitCommit} alt="git commit" />

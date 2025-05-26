@@ -1,19 +1,14 @@
 ---
 interface Props {
-  imgSrc: string;
-  altText: string;
+  src: string;
+  alt: string;
   width?: number;
   height?: number;
 }
 import { Image } from "astro:assets";
-const { imgSrc, altText, width, height } = Astro.props;
+const { src, alt, width, height } = Astro.props;
 ---
 
 <div class="flex justify-center p-4">
-  <Image
-    src={imgSrc}
-    alt={altText}
-    width={Number(width)}
-    height={Number(height)}
-  />
+  <Image src={src} alt={alt} width={Number(width)} height={Number(height)} />
 </div>

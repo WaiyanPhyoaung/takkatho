@@ -1,0 +1,86 @@
+---
+title: "First Input Delay (FID) နှင့် Interaction to Next Paint (INP)"
+description: "First Input Delay (FID) နှင့် Interaction to Next Paint (INP)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro'
+import inp from '@/assets/web-performance/inp.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ FID နဲ့ INP က website ရဲ့ တုံ့ပြန်မှု မြန်နှုန်းကို ဘယ်လို တိုင်းတာလဲ၊ ဘာကြောင့် score မကောင်းတာလဲ၊ ပြီးတော့ ဘယ်လို မြှင့်တင်ရမလဲဆိုတာ နားလည်ဖို့ပါ။
+</Aside>
+
+### Measuring Responsiveness: From First Impression (FID) to Overall Experience (INP)
+
+### First Input Delay (FID) 
+
+- **ဘာကို တိုင်းတာလဲ။** FID က သုံးစွဲသူ website ကို ပထမဆုံး အသုံးပြုတဲ့အချိန် (ဥပမာ- နှိပ်တာ၊ ပွတ်ဆွဲတာ ဒါမှမဟုတ် key နှိပ်တာ) ကနေ browser က အဲဒီ action ကို response လုပ်တဲ့အချိန်အထိ တိုင်းတာပါတယ်။ 
+- **ဘာကြောင့် အရေးကြီးလဲ။** ဒါက website ရဲ့ အသုံးပြုမှု မြန်နှုန်းအပေါ် User ရဲ့ first impression ဖြစ်ပါတယ်။ FID များရင် website က နှေးကွေးပြီး ထစ်ငေါ့နေတယ်လို့ ခံစားရစေပါတယ်။
+- **FID မကောင်းရခြင်းရဲ့ အဓိက အကြောင်းရင်းများ။** JavaScript အများကြီး အလုပ်လုပ်နေတာ၊ browser ရဲ့ အဓိက main thread ပိတ်ဆို့နေလို့ Response မလုပ်ဆောင်နိုင်တာတွေကြောင့်ပါ။
+
+### FID သတ်မှတ်ချက်များ။
+
+- **Good:** 100 milliseconds or less
+- **Needs Improvement:** Between 100ms and 300ms
+- **Poor:** More than 300ms
+
+### Interaction to Next Paint (INP) - တုံ့ပြန်မှု မြန်နှုန်းအတွက် စံနှုန်းအသစ်
+- **ဘာကို တိုင်းတာလဲ။** INP က website ရဲ့ User တွေရဲ့ actions တွေအပေါ် တုံ့ပြန်မှုကို  ခြုံငုံပြီး တိုင်းတာတဲ့ Core Web Vital တစ်ခုပါ။ website ကို အသုံးပြုနေစဉ် တစ်လျှောက်လုံး နှိပ်တာနဲ့ keyboard နဲ့ အသုံးပြုတာတွေ အားလုံးရဲ့ နှေးကွေးမှုကို ကြည့်ရှုပြီး အားလုံးရဲ့ ၇၅% အောက်ရှိသော တန်ဖိုးတစ်ခုကို အစီရင်ခံပေးပါသည်။ 
+> INP နိမ့်လေ၊ စာမျက်နှာက တုံ့ပြန်မှု ပိုမြန်လေဖြစ်ပါသည်။
+
+- **INP က ဘာကြောင့် ပိုကောင်းတာလဲ?** ယခင်က FID က **ပထမဆုံး** အသုံးပြုမှုတစ်ခုကိုသာ တိုင်းတာခဲ့သော်လည်း၊ INP သည် အသုံးပြုသူ၏ **လုပ်ဆောင်ချက်တိုင်း**ကို (အသုံးပြုလိုက်တဲ့အချိန်ကနေ နောက် frame ပေါ်လာတဲ့အချိန်အထိ) ထည့်သွင်းစဉ်းစားပါသည်။ ဒါကြောင့် စာမျက်နှာရဲ့တုံ့ပြန်မှုကို ပိုမိုကောင်းမွန်စွာ သိရှိနိုင်ပါသည်။
+
+### INP တွက်ချက်ပုံ အဆင့်များ
+**1. Input Delay**: browser က Response လုပ်ဖို့ မစတင်ခင် စောင့်ဆိုင်းရတဲ့အချိန် (အခြား task များကြောင့် နှောင့်နှေးနိုင်သည်)။
+
+**2. Processing Time**: လုပ်ဆောင်ချက်ကို JavaScript က ပြီးမြောက်အောင် လုပ်ဆောင်ရသည့်အချိန်။
+
+**3. Presentation Delay**: အလုပ်လုပ်ပြီးနောက် browser က နောက် frame တစ်ခုကို ပြသဖို့ ကြာတဲ့အချိန်။
+
+INP က ဒီသုံးခုရဲ့ ပေါင်းလဒ်ကို Action တစ်ခုချင်းစီအတွက် တိုင်းတာပါတယ်။
+
+### INP မကောင်းရခြင်းရဲ့ အဓိက အကြောင်းရင်းများ။
+
+- **Main Thread (အဓိက အလုပ်လုပ်သည့်နေရာ) ပေါ်တွင် အလုပ်များနေခြင်း** - JavaScript ကုဒ်များ အလွန်အမင်း အလုပ်လုပ်ခြင်း၊ ရှုပ်ထွေးသော တွက်ချက်မှုများ ပါဝင်နေခြင်း။
+
+- **DOM အရွယ်အစား ကြီးမားခြင်း** - Page rendering လုပ်ငန်းစဉ်ကို နှေးကွေးစေပါသည်။
+
+- **ထိရောက်မှုမရှိသော Event Handlers များ** - JavaScript ကုဒ်များ ရှုပ်ထွေးခြင်း (သို့) သေချာ Optimized လုပ်မထားခြင်းကြောင့် User ရဲ့တုံ့ပြန်မှုများကို နှေးစေပါသည်။
+
+- **Third-party Scripts များ** - အဓိက thread (Main Thread) ကို အလုပ်များစေပြီး  တုံ့ပြန်မှုကို ထိခိုက်စေနိုင်ပါသည်။
+
+
+### INP သတ်မှတ်ချက်များ။
+- **Good:** 200 milliseconds or less
+- **Needs Improvement:** Between 200ms and 500ms
+- **Poor:** More than 500ms
+
+### FID နှင့် INP မြှင့်တင်ရန် နည်းဗျူဟာများ
+ဒီ metrics နှစ်ခုလုံးက main thread ရဲ့ တုံ့ပြန်မှု မြန်နှုန်းနဲ့ ဆက်စပ်နေတာကြောင့်၊ ကောင်းမွန်အောင် လုပ်ဆောင်တဲ့ နည်းလမ်းတွေက ဆင်တူပါတယ်။
+
+#### 1. Long Tasks များကို ခွဲခြားပါ
+- 50 ms ထက် ပိုကြာအောင် အလုပ်လုပ်တဲ့ JavaScript ဟာ main thread ကို ပိတ်ဆို့နိုင်ပါတယ်။
+- အကြာကြီး အလုပ်လုပ်နေတဲ့ code တွေကို setTimeout ဒါမှမဟုတ် requestIdleCallback လို နည်းလမ်းတွေ သုံးပြီး အပိုင်းလိုက် ခွဲခြားပါ။
+
+#### 2. JavaScript Execution ကို အားကောင်းအောင်လုပ်ပါ
+- JavaScript ပမာဏကို လျှော့ပါ။
+- အရေးမကြီးသော JavaScript များကို နောက်မှ ဖွင့်ပါ (Defer)။
+- Web Workers များကို အသုံးပြု၍ Background Tasks များကို လုပ်ဆောင်ပါ။
+- ALGORITHM နှင့် DATA STRUCTURE များကို ပိုမိုထိရောက်စွာ ရေးသားပါ။
+
+#### 3. Main Thread အလုပ်တွေကို လျှော့ချပါ။ 
+- website ပုံစံတွေ ရုတ်တရက် ပြောင်းလဲတာ (layout thrashing)၊ ရှုပ်ထွေးတဲ့ CSS တွက်ချက်မှုတွေကို လျှော့ချပါ။
+- DOM အရွယ်အစားနဲ့ ရှုပ်ထွေးမှုကို လျှော့ချပါ။
+#### 4. Third-Party Scripts များကို သတိထားပါ။ 
+- သူတို့ရဲ့ သက်ရောက်မှုကို စစ်ဆေးပြီး ဖြစ်နိုင်ရင် lazy-load ဒါမှမဟုတ် facade တွေကို သုံးပါ။
+
+### INP အတွက် ပြဿနာများကို ရှာဖွေခြင်း
+- **Chrome DevTools (Performance Tab):**
+    - Interactions တွေကို မှတ်တမ်းတင်ပါ။
+    - main thread ထဲက "Long Tasks" တွေကို ရှာပါ။
+    - "Interactions" lane တွင် Input Delay, Processing Time, Presentation Delay တို့ကို ကြည့်ပါ။
+- **Field Data (RUM Tools / CrUX):** 
+    - Real Users များရဲ့ INP တန်ဖိုးတွေကို နားလည်ဖို့အတွက် ဒါတွေက အရေးကြီးပါတယ်။
+
+<ContentImage  src={inp} alt='inp performance tab' height={500}/>
