@@ -412,7 +412,7 @@ export default defineConfig({
               label: "Mastering Core Web Vitals",
               items: [
                 {
-                  label: "Largest Contentful Paint (LCP)",
+                  label: "LCP",
                   slug: "web-performance/core-vitals/lcp",
                 },
                 {
@@ -422,6 +422,19 @@ export default defineConfig({
                 {
                   label: "CLS",
                   slug: "web-performance/core-vitals/cls",
+                },
+                {
+                  label: "Optimizing",
+                  slug: "web-performance/core-vitals/optimizing",
+                },
+              ],
+            },
+            {
+              label: "Image & Asset Optimization",
+              items: [
+                {
+                  label: "Image Optimization",
+                  slug: "web-performance/image-and-asset/image-optimization",
                 },
               ],
             },

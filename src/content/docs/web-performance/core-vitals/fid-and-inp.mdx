@@ -6,6 +6,8 @@ description: "First Input Delay (FID) နှင့် Interaction to Next Paint 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro'
 import inp from '@/assets/web-performance/inp.png'
+import inpScores from '@/assets/web-performance/inp-values.svg'
+import action from '@/assets/web-performance/inp.svg'
 
 <Aside title="ရည်ရွယ်ချက်">
  FID နဲ့ INP က website ရဲ့ တုံ့ပြန်မှု မြန်နှုန်းကို ဘယ်လို တိုင်းတာလဲ၊ ဘာကြောင့် score မကောင်းတာလဲ၊ ပြီးတော့ ဘယ်လို မြှင့်တင်ရမလဲဆိုတာ နားလည်ဖို့ပါ။
@@ -40,13 +42,15 @@ import inp from '@/assets/web-performance/inp.png'
 
 INP က ဒီသုံးခုရဲ့ ပေါင်းလဒ်ကို Action တစ်ခုချင်းစီအတွက် တိုင်းတာပါတယ်။
 
+<ContentImage src={action} alt='click action' />
+
 ### INP မကောင်းရခြင်းရဲ့ အဓိက အကြောင်းရင်းများ။
 
 - **Main Thread (အဓိက အလုပ်လုပ်သည့်နေရာ) ပေါ်တွင် အလုပ်များနေခြင်း** - JavaScript ကုဒ်များ အလွန်အမင်း အလုပ်လုပ်ခြင်း၊ ရှုပ်ထွေးသော တွက်ချက်မှုများ ပါဝင်နေခြင်း။
 
 - **DOM အရွယ်အစား ကြီးမားခြင်း** - Page rendering လုပ်ငန်းစဉ်ကို နှေးကွေးစေပါသည်။
 
-- **ထိရောက်မှုမရှိသော Event Handlers များ** - JavaScript ကုဒ်များ ရှုပ်ထွေးခြင်း (သို့) သေချာ Optimized လုပ်မထားခြင်းကြောင့် User ရဲ့တုံ့ပြန်မှုများကို နှေးစေပါသည်။
+- **ထိရောက်မှုမရှိသော Event Handlers များ** - JavaScript ကုဒ်များ ရှုပ်ထွေးခြင်း (သို့) သေချာ Optimized လုပ်မထားခြင်းကြောင့် တုံ့ပြန်မှုများကို နှေးစေပါသည်။
 
 - **Third-party Scripts များ** - အဓိက thread (Main Thread) ကို အလုပ်များစေပြီး  တုံ့ပြန်မှုကို ထိခိုက်စေနိုင်ပါသည်။
 
@@ -55,6 +59,8 @@ INP က ဒီသုံးခုရဲ့ ပေါင်းလဒ်ကို A
 - **Good:** 200 milliseconds or less
 - **Needs Improvement:** Between 200ms and 500ms
 - **Poor:** More than 500ms
+
+<ContentImage src={inpScores} alt='scors for inp' />
 
 ### FID နှင့် INP မြှင့်တင်ရန် နည်းဗျူဟာများ
 ဒီ metrics နှစ်ခုလုံးက main thread ရဲ့ တုံ့ပြန်မှု မြန်နှုန်းနဲ့ ဆက်စပ်နေတာကြောင့်၊ ကောင်းမွန်အောင် လုပ်ဆောင်တဲ့ နည်းလမ်းတွေက ဆင်တူပါတယ်။
