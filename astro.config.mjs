@@ -436,6 +436,10 @@ export default defineConfig({
                   label: "Image Optimization",
                   slug: "web-performance/image-and-asset/image-optimization",
                 },
+                {
+                  label: "Video Optimization",
+                  slug: "web-performance/image-and-asset/video-optimization",
+                },
               ],
             },
           ],

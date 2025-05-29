@@ -1,0 +1,64 @@
+---
+title: "Video Optimization"
+description: "Video Optimization"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const sourceTags = `
+<video controls width="640" height="360">
+  <source src="movie.webm" type="video/webm">
+  <source src="movie.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+`;
+export const sizes = `
+<img src="small.jpg"
+     srcset="medium.jpg 1000w, large.jpg 2000w"
+     sizes="(max-width: 600px) 100vw, 50vw"
+     alt="A descriptive alt text.">
+`
+export const picture = `
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <source srcset="image.jpg" type="image/jpeg">
+  <img src="image.jpg" alt="A descriptive alt text.">
+</picture>
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+ ဗီဒီယို content တွေကို website တက်တဲ့အချိန် (page load times) နဲ့ User Experience (UX)ကို  မထိခိုက်စေဘဲ ထိထိရောက်ရောက် တင်ပို့ ပြသနိုင်တဲ့ နည်းလမ်းတွေကို သင်ယူဖို့ပါ။
+</Aside>
+
+### ဗီဒီယိုတွေရဲ့ အဓိက ပြဿနာ
+
+ဗီဒီယိုတွေက များသောအားဖြင့် ဖိုင်အရွယ်အစား ကြီးမားပါတယ်။ ကောင်းကောင်း Optimized လုပ်မထားတဲ့ ဗီဒီယိုတွေဟာ website Performance ကို သိသိသာသာ ထိခိုက်နိုင်ပါတယ်။
+
+### ဗီဒီယိုကို Optimized လုပ်ဖို့ အဓိက နည်းလမ်းများ
+
+- **ထိရောက်တဲ့ Format နဲ့ Codec တွေကို ရွေးချယ်ပါ။**
+     - MP4 (H.264 codec) ကို နေရာတိုင်း support လုပ်ပါတယ်။
+     - WebM (VP9 သို့မဟုတ် AV1 codec) ကတော့ ပို compress လုပ်နိုင်ပေမဲ့ MP4 ထက် support လုပ်တာ နည်းပါတယ်။ AV1 ကတော့ အရမ်းထိရောက်ပါတယ်။
+     - browser အမျိုးမျိုးနဲ့ ကိုက်ညီမှု ပိုရှိအောင် `<video>` element ကို `<source>` tag များစွာနဲ့ သုံးပါ။
+<Code code={sourceTags} title='HTML' />
+<br/>
+
+- **ဗီဒီယိုတွေကို ချုံ့ပါ။**
+
+HandBrake, FFmpeg, ဒါမှမဟုတ် online converter တွေလို tools တွေကို သုံးပြီး အရည်အသွေး မကျစေဘဲ ဖိုင်အရွယ်အစားကို လျှော့ချပါ။
+
+- **poster attribute ကို သုံးပါ။**
+     - `<video>` tag မှာ **poster attribute** ကို ထည့်ပေးရင် ဗီဒီယို download လုပ်နေချိန် ဒါမှမဟုတ် သုံးစွဲသူ play မနှိပ်ခင် ပြသမယ့် ပုံကို သတ်မှတ်ပေးနိုင်ပါတယ်။ ဒါက website မြန်တယ်လို့ ထင်ရစေပြီး၊ ဗီဒီယိုက အကြီးဆုံး element (LCP) ဖြစ်နေရင် LCP ကိုလည်း ကောင်းစေနိုင်ပါတယ်။
+     - ဥပမာ: `<video poster="video-poster.jpg" ...>`
+
+- **ဗီဒီယိုများကို လိုအပ်မှ load လုပ်ခြင်း (Lazy Loading Videos)**
+     - ပုံတွေလိုပဲ website ရဲ့ အောက်ဘက်မှာ ရှိတဲ့ ဗီဒီယိုတွေကို အဲဒီနေရာနားကို ရောက်မှ load လုပ်နိုင်ပါတယ်။ `<video>` အတွက် `loading="lazy"` attribute က အခုချိန်ထိ standard မဖြစ်သေးပါဘူး။ poster ပုံကိုပဲ lazy load လုပ်ပြီး Userက နှိပ်တဲ့အခါမှ ဗီဒီယိုကို ပြောင်းထည့်တာမျိုးတွေက အသုံးများပါတယ်။
+     - **embedded ဗီဒီယိုတွေ** (ဥပမာ- YouTube, Vimeo) အတွက်ဆိုရင် ပေါ့ပါးတဲ့ preview ပုံလေးကို အရင်ပြထားပြီး သုံးစွဲသူ နှိပ်တဲ့အခါမှ ဗီဒီယို player အပြည့်အစုံကို load လုပ်ပြီးပြတာ ကောင်းပါတယ်။
+
+- **အလိုအလျောက် ဖွင့်ခြင်း (Autoplay)**
+
+     - ဗီဒီယိုတွေကို အလိုအလျောက် ဖွင့်တာ (အထူးသဖြင့် အသံပါရင်) သုံးစွဲသူ အတွက် မကောင်းဘဲ data အများကြီး ကုန်စေပါတယ်။
+     - အကယ်၍ လိုအပ်တယ်ဆိုရင် (ဥပမာ- နောက်ခံ ဗီဒီယို)၊ အသံပိတ်ထားပြီး (`<video autoplay muted loop>`) optimized ကောင်းကောင်းလုပ်ထားပါ။
+
+- **Adaptive Bitrate Streaming (ABS)။**
+
+     - ဗီဒီယိုရှည်တွေ နဲ့ network မတည်ငြိမ်တဲ့အခါမျိုးအတွက် ABS က player ကို သုံးစွဲသူရဲ့ bandwidth အပေါ် မူတည်ပြီး ဗီဒီယို အရည်အသွေး အမျိုးမျိုးကြား အလိုအလျောက် ပြောင်းလဲနိုင်စေပါတယ်။ ဒါက ဗီဒီယို ကြည့်ရှုမှုကို ပိုချောမွေ့စေပါတယ်။ ဒါက ပိုအဆင့်မြင့်တဲ့ နည်းလမ်းပါ။
