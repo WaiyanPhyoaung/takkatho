@@ -440,6 +440,10 @@ export default defineConfig({
                   label: "Video Optimization",
                   slug: "web-performance/image-and-asset/video-optimization",
                 },
+                {
+                  label: "Font Optimization",
+                  slug: "web-performance/image-and-asset/font-optimization",
+                },
               ],
             },
           ],

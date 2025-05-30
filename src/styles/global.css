@@ -88,22 +88,23 @@
   a {
     text-decoration: none;
   }
-  ul {
-    padding-left: 1.5em;
-  }
+  .main-pane {
+    ul {
+      padding-left: 1.5em;
+    }
 
-  ul li {
-    margin: 0.5em 0;
-  }
+    ul li {
+      margin: 0.5em 0;
+    }
 
-  ul ul {
-    list-style-type: square;
-  }
+    ul ul {
+      list-style-type: square;
+    }
 
-  ul ul ul {
-    list-style-type: circle;
+    ul ul ul {
+      list-style-type: circle;
+    }
   }
-
   .main-pane ul,
   .main-pane ol {
     margin-top: 0.5rem;
