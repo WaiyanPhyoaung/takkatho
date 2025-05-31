@@ -1,0 +1,112 @@
+---
+title: "Optimizing JavaScript Loading & Execution"
+description: "Optimizing JavaScript Loading & Execution"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const sourceTags = `
+<video controls width="640" height="360">
+  <source src="movie.webm" type="video/webm">
+  <source src="movie.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+`;
+export const sizes = `
+<img src="small.jpg"
+     srcset="medium.jpg 1000w, large.jpg 2000w"
+     sizes="(max-width: 600px) 100vw, 50vw"
+     alt="A descriptive alt text.">
+`
+export const picture = `
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <source srcset="image.jpg" type="image/jpeg">
+  <img src="image.jpg" alt="A descriptive alt text.">
+</picture>
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+ JavaScript က သင့် website ကို နှေးစေတာ ဒါမှမဟုတ် ထစ်ငေါ့စေတာမျိုး မဖြစ်အောင် ဘယ်လို တားဆီးရမလဲ နဲ့ JavaScript ကို ပိုကောင်းအောင် ဘယ်လို load လုပ်မလဲ၊ ဘယ်လို အလုပ်လုပ်ခိုင်းမလဲဆိုတာ လေ့လာရန်။
+</Aside>
+
+## JavaScript - အစွမ်းထက်သော်လည်း၊ ဂရုမစိုက်လျှင် Website ကို လေးလံစေနိုင်သည်
+
+JavaScript က Website တွေကို အသက်ဝင်စေပြီး အပြန်အလှန်တုံ့ပြန်နိုင်တဲ့ feature တွေ ထပ်ထည့်ပေးပါတယ်။ ဒါပေမဲ့ သူက browser ရဲ့ အဓိကလုပ်ဆောင်မှုလမ်းကြောင်း (main thread) မှာ အလုပ်လုပ်ရတာဖြစ်ပြီး၊ အဲဒီလမ်းကြောင်းကို ပိတ်ဆို့တတ်တဲ့အတွက် TTI (Time to Interactive) နှေးတာ၊ TBT (Total Blocking Time) များတာ နဲ့ INP (Interaction to Next Paint) မကောင်းတာတွေရဲ့ အဓိကတရားခံ ဖြစ်တတ်ပါတယ်။
+
+### အဓိကကျသော JavaScript Optimization နည်းလမ်းများ
+
+- #### Minification (ချုံ့ခြင်း) နှင့် Compression (ဖိသိပ်ခြင်း):
+
+     - **Minification:** Code ရဲ့ အလုပ်လုပ်ပုံကို မပြောင်းလဲစေဘဲ မလိုအပ်တဲ့ စာလုံးတွေ (နေရာလွတ်များ၊ မှတ်ချက်များ) ကို ဖယ်ခြင်း၊ variable နာမည်ရှည်များအစား တိုတောင်းသောနာမည်များသုံးခြင်းတို့   လုပ်ဆောင်ပြီး ဖိုင်အရွယ်အစား သေးငယ်အောင် လုပ်တာဖြစ်ပါတယ်။ Terser (အရင်က UglifyJS) လို tool တွေက လူသုံးများပါတယ်။
+     - **Compression:** Minify လုပ်ထားတဲ့ ဖိုင်တွေကို Gzip ဒါမှမဟုတ် Brotli လို algorithm တွေသုံးပြီး network ကနေပို့ဆောင်ဖို့အတွက် ထပ်မံဖိသိပ်တာဖြစ်ပါတယ်။ ဒါကို server (သို့) CDN ကနေ လုပ်ဆောင်ပေးပါတယ်။
+(ပုံသေးလေးသရုပ်ဖော်ရန် - ညှပ်တံဖြင့် ညှပ်ခံထားရသော code ဖိုင်ပုံ 🗜️)
+
+- #### Code Splitting (Code အား အပိုင်းငယ်များခွဲခြင်း) နှင့် Tree Shaking (မလိုအပ်သော Code များ ဖယ်ရှားခြင်း):
+
+     - **Code Splitting:** JavaScript codes များ (bundle) တစ်ခုတည်းကို အပိုင်းသေးသေးလေးတွေ ခွဲထုတ်ပြီး လိုအပ်သလို၊ ဒါမှမဟုတ် တစ်ပြိုင်တည်း ခေါ်ယူသုံးစွဲနိုင်အောင် လုပ်တာပါ။ Webpack, Rollup, Parcel လို ခေတ်မီ bundler တွေက ဒီ feature ကို ထောက်ပံ့ပေးပါတယ်။
+
+     > ဥပမာ: ရှုပ်ထွေးတဲ့ chart library တစ်ခုရဲ့ JavaScript ကို User က အဲဒီ chart ပါတဲ့ page ကို ရောက်မှသာ ခေါ်ယူသုံးစွဲစေခြင်း။
+
+     - **Tree Shaking:**  မသုံးတဲ့ code တွေ (dead code) ကို နောက်ဆုံး product ထဲကနေ ဖယ်ထုတ်တဲ့ လုပ်ငန်းစဉ်ပါ။ Library တစ်ခုကို import လုပ်ထားပေမယ့် အထဲက function တစ်ခုပဲသုံးတယ်ဆိုရင်၊ Tree Shaking က အဲဒီ function တစ်ခုတည်းကိုပဲ ထည့်သွင်းပေးပြီး ကျန်တာတွေကို ဖယ်ချန်ခဲ့မှာပါ။
+
+(ပုံသရုပ်ဖော်ရန် - Code အထုပ်အား ခွဲခြမ်းခြင်း)
+အကြံပြုချက်: "bundle.js" ဆိုတဲ့ အထုပ်ကြီးတစ်ခုကနေ "chunk1.js", "chunk2.js", "common.js" ဆိုတဲ့ အထုပ်သေးသေးလေးတွေအဖြစ် ခွဲထွက်သွားပုံ။
+ခေါင်းစဉ်: "Code Splitting: လိုအပ်တာကိုပဲ ခေါ်သုံးမယ်။"
+
+- #### Script Loading ကို ထိန်းချုပ်ခြင်း - async နှင့် defer Attribute များ:
+HTML ထဲမှာ **async** သို့မဟုတ် **defer မပါတဲ့** `<script src="...">` tag ကို browser ကတွေ့တဲ့အခါ:
+
+1. HTML parsing ကို ရပ်တယ်။
+2. Script file ကို Fetch တယ်။
+3. Script file ကို execute လုပ်တယ်။
+4. HTML parsing ကို ပြန်စတယ်။ (ဒါကို "parser-blocking" လို့ခေါ်ပါတယ်)။
+
+- **`async` Attribute:**
+
+     - `<script async src="script.js"></script>`
+     - Script file ကို HTML parsing လုပ်နေတုန်း တစ်ပြိုင်တည်း (asynchronously) fetch ပါတယ်။
+     - Script file ရောက်တာနဲ့ HTML parsing ခဏရပ်ပြီး script ကို execute လုပ်စေပါတယ်။
+     - async နဲ့ ခေါ်ထားတဲ့ script တွေက ဒေါင်းလုဒ်လုပ်ပြီးတဲ့ အစဉ်အတိုင်း အလုပ်လုပ်နိုင်ပါတယ် (ဘယ်သူအရင်ပြီးလဲပေါ်မူတည်ပြီး)။ တစ်ခုနဲ့တစ်ခု မဆက်စပ်တဲ့ script တွေ (ဥပမာ - analytics script) အတွက် ကောင်းပါတယ်။
+
+- **`defer` Attribute:**
+
+     - `<script defer src="script.js"></script>`
+     - Script file ကို HTML parsing လုပ်နေတုန်း တစ်ပြိုင်တည်း (asynchronously) fetch ပါတယ်။
+     - HTML parsing အားလုံးပြီးဆုံးမှ၊ ဒါပေမဲ့ DOMContentLoaded event မတိုင်ခင်မှာ Script ကို execute လုပ်ပါတယ်။
+     - defer နဲ့ ခေါ်ထားတဲ့ script တွေက HTML ထဲမှာ သူတို့ရေးထားတဲ့ အစဉ်အတိုင်း အလုပ်လုပ်ပါတယ်။ DOM အပြည့်အစုံလိုအပ်တဲ့ script တွေအတွက် ကောင်းပါတယ်။
+(ပုံသရုပ်ဖော်ရန် - Async/Defer အလုပ်လုပ်ပုံ အချိန်ဇယား)
+
+အကြံပြုချက်: HTML parsing လုပ်နေတဲ့ အချိန်မျဉ်းတစ်ခု။ သာမန် script က parsing ကို ဘယ်လိုပိတ်ဆို့သွားလဲပြတဲ့ မျဉ်းတစ်ကြောင်း။ async script က တစ်ပြိုင်တည်း data ဆွဲပေမယ့် ခဏတာ parsing ကိုရပ်ပြီး အလုပ်လုပ်ပုံပြတဲ့ မျဉ်းတစ်ကြောင်း။ defer script က တစ်ပြိုင်တည်း data ဆွဲပြီး parsing ပြီးမှ အလုပ်လုပ်ပုံပြတဲ့ မျဉ်းတစ်ကြောင်း။
+ခေါင်းစဉ်: "Script ခေါ်ယူမှုကို ပိုမိုစမတ်ကျအောင်လုပ်ခြင်း - async & defer."
+
+- #### Main Thread အလုပ်များလျှော့ချခြင်း နှင့် Long Tasks များကို ကောင်းမွန်အောင်ပြုလုပ်ခြင်း
+
+     - Browser ရဲ့ main thread က JavaScript execution, page ကို render လုပ်တာ၊ user ရဲ့ input တွေကို လက်ခံတာ စတာတွေ အကုန်လုပ်ရပါတယ်။ အချိန်ကြာမြင့်စွာအလုပ်လုပ်တဲ့ JavaScript task တွေ (>50ms) က ဒီ thread ကို ပိတ်ဆို့ထားပြီး Page ကို တုံ့ပြန်မှုမရှိတာမျိုး (INP/FID မကောင်း၊ TBT များ) ဖြစ်စေပါတယ်။
+     - **Long Tasks များကို ရှာဖွေခြင်း:** Chrome DevTools ထဲက Performance tab ကိုသုံးပါ။
+     - **Long Tasks များကို ခွဲခြမ်းခြင်း:** ရှုပ်ထွေးတဲ့တွက်ချက်မှုတွေ၊ အချိန်ကြာတဲ့ loop တွေကို အပိုင်းသေးသေးလေးတွေခွဲပြီး main thread ကို အနားပေးပါ (ဥပမာ - setTimeout, requestAnimationFrame, requestIdleCallback တွေသုံးပြီး)။
+     - **Web Workers:** ပြင်းထန်သော တွက်ချက်မှုများတဲ့ JavaScript တွေကို background thread (Web Workers) တွေဆီလွှဲပေးပါ။
+(ပုံသရုပ်ဖော်ရန် - Long Task အား ခွဲခြမ်းလိုက်ပုံ)
+အကြံပြုချက်: အချိန်မျဉ်းတစ်ခုမှာ ရှည်လျားတဲ့ အနီရောင်ဘားတန်း (long task) ကို သေးငယ်ပြီး ထိန်းချုပ်ရလွယ်တဲ့ အစိမ်းရောင်ဘားတန်းလေးတွေအဖြစ် ခွဲခြမ်းလိုက်ပြီး၊ ကြားထဲမှာ browser ရဲ့ အခြားအလုပ်တွေ လုပ်ဆောင်နေပုံ။
+ခေါင်းစဉ်: "Long Tasks များကို ခွဲခြမ်းခြင်းဖြင့် တုံ့ပြန်မှု ပိုမြန်စေရန်။"
+
+- #### Debouncing နှင့် Throttling Event Handlers:
+
+     - မကြာခဏဖြစ်ပေါ်တဲ့ event တွေ (ဥပမာ - scroll, resize, mousemove, search box မှာ စာရိုက်ခြင်း) မှာ handler တွေကို အကြိမ်တိုင်းအလုပ်လုပ်ခိုင်းရင် performance ထိခိုက်နိုင်ပါတယ်။
+     - **Debouncing:** Event အများအပြားကို တစ်ခုတည်းအဖြစ်ပေါင်းပြီး၊ အချိန်တစ်ခုလောက် ကြာမှ handler ကို အလုပ်လုပ်စေတာ (ဥပမာ - user စာရိုက်တာရပ်သွားမှ search suggestion တွေ သွားယူတာ၊ မဟုတ်ရင် စာတစ်လုံးရိုက်တိုင်း API fetching လုပ်နေမှာပါ)။
+     - **Throttling:** Handler တစ်ခုကို သတ်မှတ်ထားတဲ့ အချိန်အပိုင်းအခြားတစ်ခုအတွင်း တစ်ကြိမ်သာ အလုပ်လုပ်စေတာ (ဥပမာ - scroll လုပ်တိုင်း animation ကို 100ms မှာ တစ်ကြိမ်ပဲ update လုပ်တာ၊ မဟုတ်ရင် scroll ဆွဲနေတဲ့ milli seconds တိုင်း Handler က အလုပ်လုပ်နေရမှာပါ)။
+
+- #### Third-Party Script များကို ကောင်းမွန်အောင်ပြုလုပ်ခြင်း:
+
+     - ကြော်ငြာ၊ analytics၊ social media widget တွေလို Script တွေက performance ကို အများကြီး ထိခိုက်နိုင်ပါတယ်။
+     - **သူတို့ရဲ့ သက်ရောက်မှုကို စစ်ဆေးပါ:** Lighthouse, WebPageTest လို tool တွေသုံးပြီး သူတို့က load time နဲ့ main thread work ကို ဘယ်လောက်ထိ ပိုတိုးသွားလဲ ကြည့်ပါ။
+     - **Asynchronously load လုပ်ပါ:** async သို့မဟုတ် defer သုံးလို့ရရင်သုံးပါ။
+     - **Facade များစဉ်းစားပါ:** (Video တွေမှာ ဆွေးနွေးခဲ့သလို) ပေါ့ပါးတဲ့ placeholder တစ်ခုအရင်ပြပြီး user က interaction လုပ်မှ script အပြည့်အစုံကို ခေါ်ပါ။
+     - **Local မှာ Host လုပ်ပါ:** ပြင်ပ server တွေထက် ပိုမြန်နိုင်ပါတယ်။
+     - **တကယ်ရောလိုအပ်လား:** Third-party script တွေတိုင်းက တကယ်ပဲ လိုအပ်ရဲ့လား?
+
+- #### Service Workers (Performance အတွက် မိတ်ဆက်):
+
+     - Web page နဲ့ သီးခြား နောက်ကွယ်မှာ အလုပ်လုပ်တဲ့ JavaScript ဖိုင်တွေပါ။
+     - Caching (ကြားခံသိမ်းဆည်းခြင်း): Network request တွေကို ကြားဖြတ်ဖမ်းပြီး cache ထဲက response တွေကို ပြန်ပေးနိုင်တယ်။ ဒါကြောင့် offline သုံးနိုင်တာ၊ နောက်တစ်ခေါက်ပြန်ဝင်ရင် အရမ်းမြန်ပါတယ် (PWA feature)။
+     - **Background Sync:** Network Connection ကောင်းမှ လုပ်ရမယ့် အရာတွေကို နောက်မှလုပ်ဖို့ ချန်ထားနိုင်တယ်။
+(ဒါက နည်းနည်းအဆင့်မြင့်တဲ့ အကြောင်းအရာဖြစ်ပေမယ့် performance အတွက် အစွမ်းထက်တဲ့ tool တစ်ခုပါ။)
