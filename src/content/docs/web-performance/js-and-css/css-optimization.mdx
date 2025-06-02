@@ -1,0 +1,123 @@
+---
+title: "Optimizing CSS Delivery & Performance"
+description: "Optimizing CSS Delivery & Performance"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+
+<Aside title="ရည်ရွယ်ချက်">
+ CSS ကို browser ဆီသို့ ထိထိရောက်ရောက်ပို့ဆောင်နိုင်တဲ့ နည်းလမ်းတွေနဲ့ page ကို ပိုပြီး မြန်မြန် ပြသနိုင်မယ့် CSS ရေးနည်းတွေကို လေ့လာရန်။
+</Aside>
+
+### CSS: Styles Your Page, Can Slow It Down
+CSS က သင့် Website ဘယ်လိုပုံစံ ဖြစ်မလဲ သတ်မှတ်ပေးနိုင်ပါတယ်။ ပုံမှန်အားဖြင့် browser က **HTML page ရဲ့ `<head>`** ထဲမှာရှိတဲ့ CSS အားလုံးကို download လုပ်ပြီး နားလည်အောင်လုပ်ပြီးမှသာ page ကို ပြသမှာဖြစ်ပါတယ်။ ဘာဖြစ်လို့လဲဆိုတော့ browser က ပထမဆုံးအနေနဲ့ အရာအားလုံးကို **ဘယ်လိုပုံစံချရမလဲဆိုတာ** သိဖို့လိုအပ်လို့ပါ။ ဒီလို **စောင့်ဆိုင်းရခြင်း** က website ကို နှေးတယ်လို့ ခံစားရစေနိုင်ပါတယ်။
+
+### အဓိကကျသော CSS Optimization နည်းလမ်းများ
+- CSS ဖိုင်များကို သေးငယ်အောင်လုပ်ခြင်း - Minification နှင့် Compression:
+
+     - **Minification:** CSS ဖိုင်တွေထဲက မလိုအပ်တဲ့ စာလုံးတွေ (နေရာလွတ်၊ မှတ်ချက်) ကို ဖယ်ရှားပြီး ဖိုင်အရွယ်အစား သေးအောင်လုပ်တာပါ။ ဒါက ဖိုင်ရဲ့အလုပ်လုပ်ပုံကို မပြောင်းလဲစေပါဘူး။ CSSNano လို tool တွေက ကူညီပေးနိုင်ပါတယ်။
+     - **Compression:** Minify လုပ်ပြီးတဲ့ CSS ဖိုင်တွေကို server ကနေ Gzip (သို့) Brotli လို နည်းလမ်းတွေသုံးပြီး ထပ်မံ "ဖိသိပ်" လိုက်တဲ့အတွက် internet ကနေ ပို့ဆောင်တဲ့အခါ ပိုပြီးသေးငယ်သွားပါတယ်။ 📄🤏
+     - ဘာလို့လဲဆိုတော့ ဖိုင်အရွယ်အစား သေးငယ်လေ၊ download လုပ်ရတာ ပိုမြန်လေပါပဲ။
+
+### အရေးကြီးသော Style များကို အရင်ဆုံးပေါ်အောင်လုပ်ခြင်း - Critical CSS:
+
+     - Critical CSS ဆိုတာက user တစ်ယောက်က စစချင်း အရင်ဆုံးမြင်ရမယ့် page ရဲ့ အပေါ်ပိုင်း (above-the-fold content) ကို **ပုံစံချဖို့အတွက် လိုအပ်တဲ့ CSS codes** တွေကို ဆိုလိုပါတယ်။
+     - ဒီ Critical CSS အနည်းငယ်ကို HTML ဖိုင်ရဲ့ `<head>` ထဲက `<style>` tag ထဲမှာ တိုက်ရိုက်ထည့်သွင်းရေးသားပါတယ်။ ကျန်တဲ့ CSS style တွေကိုတော့ asynchronously ခေါ်ယူပါတယ်။
+     - ဒါက page ရဲ့ စစချင်း မြင်ရတဲ့အပိုင်းကို browser က အလွန်လျင်မြန်စွာ render လုပ်နိုင်ပြီး FCP (First Contentful Paint) နဲ့ LCP (Largest Contentful Paint) လို metric တွေနဲ့ performance ကို သိသိသာသာ တိုးတက်စေပါတယ်။
+     - Penthouse (သို့) CriticalCSS လို tool တွေက ဒီ Critical CSS ကို အလိုအလျောက် ရှာဖွေပေးနိုင်ပါတယ်။
+
+(ပုံသရုပ်ဖော်ရန် - Critical CSS ထုတ်ယူပုံ)
+အကြံပြုချက်: Website စာမျက်နှာတစ်ခုရဲ့ပုံ။ "Above-the-fold" (ပထမဆုံးမြင်ရသောအပိုင်း) ကို အကွက်ဖြင့်เน้นဖော်ပြထားပုံ။ ထိုအပိုင်းအတွက် CSS တစ်ခုတည်းကိုသာ HTML head ထဲသို့ ထည့်သွင်းပြသထားသော မြှားပုံ။
+ခေါင်းစဉ်: "Critical CSS: အရင်ဆုံးမြင်ရမယ့်အပိုင်းကို ချက်ချင်းပုံစံချပါ။"
+
+### အသုံးမပြုတော့သော CSS များကို ဖယ်ရှားခြင်း:
+
+     - Website တွေမှာ ဘယ်မှာမှ အသုံးမပြုတဲ့ CSS codes တွေ ရှိတတ်ပါတယ်။ ဒီအသုံးမဝင်တဲ့ style တွေက CSS ဖိုင်တွေကို မလိုအပ်ဘဲ size ပိုကြီးစေပါတယ်။
+     - **ရှာဖွေဖယ်ရှားရန် Tools များ**
+          - **Chrome DevTools (Coverage Tab):** လက်ရှိ page မှာ အသုံးမပြုတဲ့ CSS (နဲ့ JavaScript) ဘယ်လောက်ရှိလဲဆိုတာကို ပြပေးနိုင်ပါတယ်။
+          - **PurgeCSS, UnCSS:** Website building အတွက်သုံးတဲ့ tools တွေဖြစ်ပြီး၊ HTML နဲ့ JavaScript တွေကိုဆန်းစစ်ပြီး သုံးထားတဲ့ CSS style တွေကလွဲပြီး ကျန်တာတွေကို ဖယ်ရှားပေးပါတယ်။ ✂️
+     - CSS ဖိုင်တွေ သေးငယ်လေ၊ download လုပ်ရတာနဲ့ browser က process လုပ်ရတာ ပိုမြန်လေပါပဲ။
+
+### ထိရောက်သော CSS Selector များ ရေးသားခြင်း (Minor but Best Practice):
+
+     - Selector ဆိုတာ CSS မှာ ဘယ် HTML element ကို ဘယ်လိုပုံစံသတ်မှတ်မယ်ဆိုတာ ရွေးချယ်တဲ့အရာတွေပါ (ဥပမာ - .button, #header p)။
+     - အကြံပြုချက်: ခေတ်မီ browser တွေက CSS ကို အလွန်မြန်မြန်ဆန်ဆန် နားလည်နိုင်ကြပါပြီ။ ဒါပေမဲ့၊ အလွန်ရှုပ်ထွေးတဲ့ selector တွေက အလွန်ကြီးမားတဲ့ စာမျက်နှာတွေပေါ်မှာဆိုရင်တော့ အနည်းငယ်နှေးကွေးစေနိုင်ပါတယ်။ ရိုးရှင်းပြီး ရှင်းလင်းတဲ့ selector တွေ၊ အထူးသဖြင့် class ကိုအခြေခံတဲ့ selector တွေ (ဥပမာ - div#main-content section.products ul li.item > h2.title အစား .product-title လိုမျိုး) ကို သုံးတာက ကောင်းတဲ့အလေ့အကျင့်ပါ။ ဒါက CSS ကို ဖတ်ရှုရလွယ်ကူစေပါတယ်။
+
+### Browser ကို အလုပ်အများကြီးလုပ်စေသော CSS များ ရှောင်ရှားခြင်း (Reflows/Repaints):
+
+     - အချို့ CSS property တွေကို ပြောင်းလိုက်တဲ့အခါ၊ browser က element တွေရဲ့ နေရာချထားမှု (Layout သို့မဟုတ် Reflow) ကို ပြန်လည်တွက်ချက်ဖို့ ဒါမှမဟုတ် screen ရဲ့ အစိတ်အပိုင်းတွေကို ပြန်ဆွဲဖို့ (Paint) အလုပ်အများကြီးလုပ်ရနိုင်ပါတယ်။ အချို့ပြောင်းလဲမှုတွေကတော့ ပို "သက်သာ" ပြီး ဆွဲပြီးသား layer တွေကို ပေါင်းစပ်ပြရုံပါပဲ (Composite)။
+     - Layout/Reflow ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ: width, height, top, left, display တို့ကို ပြောင်းလဲခြင်း။
+     - Paint ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ: background-color, color, box-shadow တို့ကို ပြောင်းလဲခြင်း။
+     - အသက်သာဆုံး (Composite သာဖြစ်လေ့ရှိ): transform (ဥပမာ - translate, scale, rotate) နှင့် opacity တို့ကို ပြောင်းလဲခြင်း။
+     - Animation အတွက် အကြံပြုချက်: ချောမွေ့တဲ့ animation တွေအတွက် transform နဲ့ opacity ကို သုံးကြည့်ပါ၊ ဘာလို့လဲဆိုတော့ browser က ဒါတွေကို အလွန်ထိထိရောက်ရောက် ကိုင်တွယ်နိုင်လို့ပါ။
+     - Tools: CSS Triggers လို Website တွေက မတူညီတဲ့ CSS property တွေပြောင်းလဲခြင်းရဲ့ performance ကုန်ကျစရိတ်ကို ပြပေးနိုင်ပါတယ်။
+
+### CSS Preprocessors နှင့် Post-Processors (အကျဉ်းချုပ်):
+
+     - Preprocessors (Sass, Less ကဲ့သို့): ဒီ tool တွေက CSS ကို ပိုမိုစနစ်တကျရေးသားနိုင်အောင် ကူညီပေးပေမယ့် ထွက်လာတဲ့ CSS ရဲ့ performance ကို တိုက်ရိုက်ပိုကောင်းအောင် မလုပ်ပါဘူး။
+     - Post-Processors (PostCSS ကဲ့သို့): ဒီ tool တွေက ရေးထားတဲ့ CSS ကို performance (သို့) browser compatibility အတွက် ပိုကောင်းအောင် plugin တွေ (ဥပမာ - browser prefix တွေထည့်ပေးတဲ့ Autoprefixer, minify လုပ်တဲ့ CSSNano) နဲ့တွဲပြီး ပြောင်းလဲပေးနိုင်ပါတယ်။
+
+သင်ခန်းစာ ၄.၃ - Browser များ စာမျက်နှာတည်ဆောက်ပုံ (Rendering Path) ကို နားလည်ခြင်းနှင့် ကြန့်ကြာစေသော Resource များကို လျှော့ချခြင်း
+(ခန့်မှန်းအချိန်: မိနစ် ၂၅-၃၀)
+
+ရည်ရွယ်ချက်: Browser များ စာမျက်နှာများကို ဘယ်လို render လုပ်သလဲဆိုတဲ့ အခြေခံအဆင့်များနဲ့ ဒီအရေးကြီးတဲ့လမ်းကြောင်းကို ပိတ်ဆို့နှောင့်နှေးစေတဲ့ resource များကို ဘယ်လိုရှာဖွေလျှော့ချရမလဲဆိုတာကို သဘောတရားပိုင်းနားလည်ရန်။
+
+Browser တစ်ခုက Code မှ Webpage အဖြစ်သို့ ပြောင်းလဲပုံ (The Critical Rendering Path)
+ရိုးရှင်းစွာခြုံငုံကြည့်လျှင် အောက်ပါအဆင့်များအတိုင်းဖြစ်သည်:
+
+HTML မှ DOM Tree သို့: Browser က HTML code ကိုဖတ်ပြီး စာမျက်နှာပေါ်ရှိ element အားလုံးရဲ့ တည်ဆောက်ပုံမြေပုံ (Document Object Model - DOM) ကို တည်ဆောက်သည်။
+CSS မှ CSSOM Tree သို့: Browser က CSS code (ပြင်ပ stylesheet များနှင့် inline style များ) ကိုဖတ်ပြီး element တစ်ခုချင်းစီရဲ့ ပုံပန်းသဏ္ဌာန်မြေပုံ (CSS Object Model - CSSOM) ကို တည်ဆောက်သည်။
+JavaScript အလုပ်လုပ်ခြင်း: JavaScript က HTML (DOM) နှင့် CSS (CSSOM) ကို ပြောင်းလဲနိုင်သည်။ သတိပြုမခေါ်ယူပါက HTML ဖတ်ရှုခြင်းကို ခေတ္တရပ်တန့်စေနိုင်သည်။
+Render Tree တည်ဆောက်ခြင်း: Browser က DOM နှင့် CSSOM ကိုပေါင်းစပ်ပြီး စာမျက်နှာပေါ်တွင် မြင်နိုင်သော element များနှင့် ၎င်းတို့၏ တွက်ချက်ပြီးသော style များပါဝင်သည့် Render Tree ကို ဖန်တီးသည်။
+Layout (သို့မဟုတ် Reflow): Browser က Render Tree ထဲရှိ element တစ်ခုချင်းစီ၏ တိကျသောအရွယ်အစားနှင့် နေရာကို တွက်ချက်သည်။ (ဥပမာ - ဤ box သည် အကျယ် pixels ၃၀၀ ရှိပြီး အပေါ်မှ pixels ၅၀ အကွာတွင် ရှိသည်)။
+Paint: Browser က element တစ်ခုချင်းစီအတွက် pixel များကို screen ပေါ်တွင် layer များအဖြစ် ဆွဲသည်။
+Composite: Browser က ဆွဲပြီးသား layer အားလုံးကို ပေါင်းစပ်ပြီး နောက်ဆုံးစာမျက်နှာကို screen ပေါ်တွင် ပြသသည်။
+(ပုံသရုပ်ဖော်ရန် - Rendering Path အဆင့်ဆင့်ပုံ)
+အကြံပြုချက်: Flowchart ပုံစံ - HTML code → DOM → CSS code → CSSOM → (JavaScript က DOM/CSSOM ကို ပြောင်းလဲနိုင်) → Render Tree → Layout → Paint → နောက်ဆုံးမြင်ရသော စာမျက်နှာ။
+ခေါင်းစဉ်: "Code မှ Screen သို့ - Browser ၏ Rendering အဆင့်များ။"
+Render-Blocking Resource များကို ရှာဖွေခြင်းနှင့် လျှော့ချခြင်း
+၎င်းတို့ကား အဘယ်နည်း။ စာမျက်နှာကို မြန်မြန်ဆန်ဆန်ပေါ်လာအောင်လုပ်ခြင်းကို ပိတ်ဆို့တားဆီးသော resource များဖြစ်သည်။
+`<head>` ထဲရှိ ပြင်ပ CSS ဖိုင်များ (`<link rel="stylesheet" href="...">`) သည် ပုံမှန်အားဖြင့် render-blocking ဖြစ်သည် (browser က ၎င်းတို့ကို စောင့်သည်)။
+`<head>` ထဲရှိ async သို့မဟုတ် defer မပါသော ပြင်ပ JavaScript ဖိုင်များ (`<script src="...">`) သည်လည်း render-blocking ဖြစ်သည် (browser က ၎င်းတို့ကို download လုပ်ပြီး run ရန် ရပ်စောင့်သည်)။
+သက်ရောက်မှု: ဤကြန့်ကြာမှုများက FCP, LCP နှင့် စာမျက်နှာ load ဖြစ်သည်ဟု ခံစားရသည့် အလုံးစုံအချိန်ကို နှေးကွေးစေသည်။
+အဓိကနည်းလမ်းများ (ပြန်လည်အကျဉ်းချုပ်):
+JavaScript အတွက်:
+async သို့မဟုတ် defer attribute များသုံးပါ (သင်ခန်းစာ ၄.၁ တွင်ဖော်ပြခဲ့)။
+ချက်ချင်းမလိုအပ်သော script များကို `<body>` ၏အဆုံးသို့ ရွှေ့ပါ။
+အလွန်သေးငယ်ပြီး အရေးကြီးသော script များကို inline ထည့်ရေးပါ (သတိဖြင့်သုံးပါ)။
+CSS အတွက်:
+Critical CSS ကို inline ထည့်ရေးပါ (သင်ခန်းစာ ၄.၂ တွင်ဖော်ပြခဲ့)။
+အရေးမကြီးသော CSS များကို asynchronously ခေါ်ပါ။
+CSS ပမာဏကို လျှော့ချပါ။
+Browser ကို အချက်ပြခြင်း - Resource Hints
+HTML ၏ `<head>` ထဲတွင် အထူး `<link rel="...">` tag များထည့်သွင်းခြင်းဖြင့် browser အား မကြာမီလိုအပ်လာနိုင်သော resource များအကြောင်း ကြိုတင်အချက်ပြနိုင်ပါသည်။ ၎င်းက browser အား loading ကို ပိုမိုကောင်းမွန်အောင်ပြုလုပ်ရန် ကူညီနိုင်သည်။
+
+dns-prefetch:
+`<link rel="dns-prefetch" href="//example.com">`
+ဘာလဲ: မကြာမီ resource များလိုအပ်လာနိုင်သော အခြား website (domain) တစ်ခုအတွက် DNS lookup (IP address ရှာဖွေခြင်း) ကို ကြိုတင်လုပ်ဆောင်ရန် browser အားပြောသည်။ ဖုန်းမခေါ်ခင် ဖုန်းနံပါတ်ကြိုရှာထားသလိုမျိုးဖြစ်သည်။
+preconnect:
+`<link rel="preconnect" href="https://example.com">`
+ဘာလဲ: dns-prefetch ထက်ပိုသည်။ DNS lookup လုပ်သည့်အပြင် အခြားအရေးကြီးသော website တစ်ခုသို့ ကနဦး connection (TCP handshake, TLS security) ကိုပါ တည်ဆောက်သည်။ ချက်ချင်း အသုံးပြုမည်ဟု သိသော အလွန်အရေးကြီးသော third-party service များအတွက်သုံးပါ။ အရင်းအမြစ်ကုန်သောကြောင့် အနည်းငယ်သာ (၁ ခု သို့မဟုတ် ၂ ခု အများဆုံး) သုံးပါ။
+preload:
+`<link rel="preload" href="/critical-script.js" as="script">`
+`<link rel="preload" href="/main-image.webp" as="image">`
+ဘာလဲ: "ဤဖိုင်သည် လက်ရှိစာမျက်နှာအတွက် အလွန်အရေးကြီးသည်၊ ကျေးဇူးပြု၍ ၎င်းကို ဦးစားပေးအမြင့်ဖြင့် ယခုချက်ချင်း download လုပ်ပါ!" ဟု browser အားပြောသည်။ as attribute က browser အား ၎င်းသည် မည်သည့်ဖိုင်အမျိုးအစားဖြစ်သည်ကို ပြောသည်။
+ဘယ်အခါသုံးလဲ: Browser မှ နောက်ကျမှတွေ့ရှိသော်လည်း အစောပိုင်းတွင်လိုအပ်သော resource များအတွက် (ဥပမာ - LCP ပုံ၊ အရေးကြီးသော font၊ အရေးပါသော script)။
+သတိပြုရန်: အများကြီး preload လုပ်ခြင်းက အခြားအရေးကြီးသော resource များ၏ bandwidth ကိုယူသုံးကာ performance ကိုထိခိုက်စေနိုင်သည်။ အမှန်တကယ်အရေးကြီးပြီး နောက်ကျမှတွေ့ရှိသော resource များအတွက်သာ သုံးပါ။
+prefetch:
+`<link rel="prefetch" href="/next-page-styles.css" as="style">`
+ဘာလဲ: နောက်လာမည့် navigation (ဥပမာ - user က နောက်စာမျက်နှာသို့ click သွားလျှင်) အတွက် resource တစ်ခုလိုအပ်လာနိုင်သည်ဟု browser အား အနိမ့်ဆုံးဦးစားပေးဖြင့် အချက်ပြသည်။ Browser က ၎င်းတွင် အပို capacity ရှိမှသာ download လုပ်ချင်မှလုပ်မည်။
+(ပုံသရုပ်ဖော်ရန် - Resource Hint Icon များ)
+အကြံပြုချက်: Hint တစ်ခုချင်းစီအတွက် ရိုးရှင်းသော icon များ -
+DNS Prefetch: Domain name ပေါ်တွင် မှန်ဘီလူးတင်ထားပုံ 🔍🌐။
+Preconnect: Plug နှစ်ခု ချိတ်ဆက်နေပုံ 🔌🔌။
+Preload: မြန်ဆန်စွာ download လုပ်နေသော မြှားပုံ 🚀။
+Prefetch: နောက်ကွယ်မှ ဖြည်းဖြည်း download လုပ်နေသော မြှားပုံ 🐢။
+ခေါင်းစဉ်: "Resource Hints: Browser ကို ပိုမိုစမတ်ကျစွာ Load လုပ်ရန် လမ်းညွှန်ခြင်း။"
+အခန်း (၄) အနှစ်ချုပ်
+
+JavaScript ကို ပိုမိုမြန်ဆန်အောင်လုပ်ရာတွင် ဖိုင်အရွယ်အစားချုံ့ခြင်း (minify, compress)၊ လိုအပ်သည်များကိုသာ ခေါ်ယူခြင်း (code splitting)၊ စာမျက်နှာပေါ်လာခြင်းကို မပိတ်ဆို့စေရန် async/defer သုံးခြင်း၊ main thread အလုပ်များလျှော့ချခြင်း၊ နှင့် ပြင်ပ website များမှ script များကို သတိဖြင့်စီမံခြင်းတို့ ပါဝင်သည်။
+CSS ကို ပိုမိုကောင်းမွန်အောင်လုပ်ရာတွင် ဖိုင်အရွယ်အစားချုံ့ခြင်း၊ အရေးအကြီးဆုံး style များကိုသာ အရင်ဆုံးပေါ်အောင်လုပ်ခြင်း (Critical CSS)၊ အသုံးမပြုတော့သော style များဖယ်ရှားခြင်း၊ နှင့် browser အား စာမျက်နှာဆွဲရာတွင် အလုပ်အများကြီးမလုပ်စေသော CSS ရေးသားခြင်းတို့ ပါဝင်သည်။
+Browser များ စာမျက်နှာတည်ဆောက်ပုံ (The Critical Rendering Path) ကို နားလည်ခြင်းက သင့် site ၏ ပထမဆုံးမြင်ကွင်းကို နှေးကွေးစေသော အရာများကို ရှာဖွေပြုပြင်ရာတွင် ကူညီသည်။
+Resource Hints (dns-prefetch, preconnect, preload, prefetch) များကို မှန်ကန်စွာအသုံးပြုပါက resource loading ကို ပိုမိုထိရောက်အောင်ပြုလုပ်ရာတွင် အsubtleသော်လည်း အသုံးဝင်သော optimization များ ပေးနိုင်သည်။

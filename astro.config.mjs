@@ -453,6 +453,10 @@ export default defineConfig({
                   label: "Javascript Optimization",
                   slug: "web-performance/js-and-css/js-optimization",
                 },
+                {
+                  label: "CSS Optimization",
+                  slug: "web-performance/js-and-css/css-optimization",
+                },
               ],
             },
           ],
