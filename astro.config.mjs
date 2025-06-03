@@ -457,6 +457,10 @@ export default defineConfig({
                   label: "CSS Optimization",
                   slug: "web-performance/js-and-css/css-optimization",
                 },
+                {
+                  label: "How Browsers Show Pages",
+                  slug: "web-performance/js-and-css/how-browsers-show-pages",
+                },
               ],
             },
           ],

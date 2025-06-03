@@ -5,6 +5,7 @@ description: "Optimizing CSS Delivery & Performance"
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import aboveTheFold from '@/assets/web-performance/above-the-fold.png'
 
 <Aside title="ရည်ရွယ်ချက်">
  CSS ကို browser ဆီသို့ ထိထိရောက်ရောက်ပို့ဆောင်နိုင်တဲ့ နည်းလမ်းတွေနဲ့ page ကို ပိုပြီး မြန်မြန် ပြသနိုင်မယ့် CSS ရေးနည်းတွေကို လေ့လာရန်။
@@ -22,14 +23,12 @@ CSS က သင့် Website ဘယ်လိုပုံစံ ဖြစ်မ�
 
 ### အရေးကြီးသော Style များကို အရင်ဆုံးပေါ်အောင်လုပ်ခြင်း - Critical CSS:
 
-     - Critical CSS ဆိုတာက user တစ်ယောက်က စစချင်း အရင်ဆုံးမြင်ရမယ့် page ရဲ့ အပေါ်ပိုင်း (above-the-fold content) ကို **ပုံစံချဖို့အတွက် လိုအပ်တဲ့ CSS codes** တွေကို ဆိုလိုပါတယ်။
-     - ဒီ Critical CSS အနည်းငယ်ကို HTML ဖိုင်ရဲ့ `<head>` ထဲက `<style>` tag ထဲမှာ တိုက်ရိုက်ထည့်သွင်းရေးသားပါတယ်။ ကျန်တဲ့ CSS style တွေကိုတော့ asynchronously ခေါ်ယူပါတယ်။
-     - ဒါက page ရဲ့ စစချင်း မြင်ရတဲ့အပိုင်းကို browser က အလွန်လျင်မြန်စွာ render လုပ်နိုင်ပြီး FCP (First Contentful Paint) နဲ့ LCP (Largest Contentful Paint) လို metric တွေနဲ့ performance ကို သိသိသာသာ တိုးတက်စေပါတယ်။
-     - Penthouse (သို့) CriticalCSS လို tool တွေက ဒီ Critical CSS ကို အလိုအလျောက် ရှာဖွေပေးနိုင်ပါတယ်။
+     - **Critical CSS** ဆိုတာက User တစ်ယောက်က စစချင်း အရင်ဆုံးမြင်ရမယ့် page ရဲ့ အပေါ်ပိုင်း (above-the-fold content) ကို **ပုံစံချဖို့အတွက် လိုအပ်တဲ့ CSS codes** တွေကို ဆိုလိုပါတယ်။
+     - ဒီ Critical CSS အနည်းငယ်ကို HTML ဖိုင်ရဲ့ `<head>` ထဲက `<style>` tag ထဲမှာ တိုက်ရိုက်ထည့်သွင်းရေးသားပါတယ်။ ကျန်တဲ့ CSS style တွေကိုတော့ asynchronously load လုပ်ပါတယ်။
+     - ဒါက page ရဲ့ စစချင်း မြင်ရတဲ့အပိုင်းကို browser က မြန်မြန် render လုပ်နိုင်ပြီး FCP (First Contentful Paint) နဲ့ LCP (Largest Contentful Paint) လို metric တွေနဲ့ performance ကို သိသိသာသာ တိုးတက်စေပါတယ်။
+     - **Penthouse** (သို့) **CriticalCSS** လို tool တွေက ဒီ Critical CSS ကို အလိုအလျောက် ရှာဖွေပေးနိုင်ပါတယ်။
 
-(ပုံသရုပ်ဖော်ရန် - Critical CSS ထုတ်ယူပုံ)
-အကြံပြုချက်: Website စာမျက်နှာတစ်ခုရဲ့ပုံ။ "Above-the-fold" (ပထမဆုံးမြင်ရသောအပိုင်း) ကို အကွက်ဖြင့်เน้นဖော်ပြထားပုံ။ ထိုအပိုင်းအတွက် CSS တစ်ခုတည်းကိုသာ HTML head ထဲသို့ ထည့်သွင်းပြသထားသော မြှားပုံ။
-ခေါင်းစဉ်: "Critical CSS: အရင်ဆုံးမြင်ရမယ့်အပိုင်းကို ချက်ချင်းပုံစံချပါ။"
+<ContentImage src={aboveTheFold} alt="above the fold"/>
 
 ### အသုံးမပြုတော့သော CSS များကို ဖယ်ရှားခြင်း:
 
@@ -41,22 +40,23 @@ CSS က သင့် Website ဘယ်လိုပုံစံ ဖြစ်မ�
 
 ### ထိရောက်သော CSS Selector များ ရေးသားခြင်း (Minor but Best Practice):
 
-     - Selector ဆိုတာ CSS မှာ ဘယ် HTML element ကို ဘယ်လိုပုံစံသတ်မှတ်မယ်ဆိုတာ ရွေးချယ်တဲ့အရာတွေပါ (ဥပမာ - .button, #header p)။
-     - အကြံပြုချက်: ခေတ်မီ browser တွေက CSS ကို အလွန်မြန်မြန်ဆန်ဆန် နားလည်နိုင်ကြပါပြီ။ ဒါပေမဲ့၊ အလွန်ရှုပ်ထွေးတဲ့ selector တွေက အလွန်ကြီးမားတဲ့ စာမျက်နှာတွေပေါ်မှာဆိုရင်တော့ အနည်းငယ်နှေးကွေးစေနိုင်ပါတယ်။ ရိုးရှင်းပြီး ရှင်းလင်းတဲ့ selector တွေ၊ အထူးသဖြင့် class ကိုအခြေခံတဲ့ selector တွေ (ဥပမာ - div#main-content section.products ul li.item > h2.title အစား .product-title လိုမျိုး) ကို သုံးတာက ကောင်းတဲ့အလေ့အကျင့်ပါ။ ဒါက CSS ကို ဖတ်ရှုရလွယ်ကူစေပါတယ်။
+     - Selector ဆိုတာ CSS မှာ style ပေးဖို့အတွက် HTML element ကို ရွေးချယ် သတ်မှတ်တာပါ။ (ဥပမာ - .button, #header p)။
+     - နောက်ပိုင်း browser တွေက CSS နဲ့ ပတ်သက်ပြီး မြန်မြန် အလုပ်လုပ်နိုင်ကြပါတယ်။ ဒါပေမဲ့လဲ အလွန်ရှုပ်ထွေးတဲ့ selector တွေက အရမ်းကြီးတဲ့ page တွေပေါ်မှာဆိုရင်တော့ အနည်းငယ် နှေးနိုင်ပါတယ်။ 
+     - ရိုးရှင်းပြီး ရှင်းလင်းတဲ့ selector တွေ၊ အထူးသဖြင့် **class ကိုအခြေခံတဲ့ selector** တွေ (ဥပမာ - `div#main-content section.products ul li.item > h2.title` အစား `.product-title`) လိုမျိုး သုံးတာက ကောင်းတဲ့အလေ့အကျင့်ပါ။ ဒါက ဖတ်ရတာလဲ ပိုလွယ်ပါတယ်။
 
 ### Browser ကို အလုပ်အများကြီးလုပ်စေသော CSS များ ရှောင်ရှားခြင်း (Reflows/Repaints):
 
-     - အချို့ CSS property တွေကို ပြောင်းလိုက်တဲ့အခါ၊ browser က element တွေရဲ့ နေရာချထားမှု (Layout သို့မဟုတ် Reflow) ကို ပြန်လည်တွက်ချက်ဖို့ ဒါမှမဟုတ် screen ရဲ့ အစိတ်အပိုင်းတွေကို ပြန်ဆွဲဖို့ (Paint) အလုပ်အများကြီးလုပ်ရနိုင်ပါတယ်။ အချို့ပြောင်းလဲမှုတွေကတော့ ပို "သက်သာ" ပြီး ဆွဲပြီးသား layer တွေကို ပေါင်းစပ်ပြရုံပါပဲ (Composite)။
-     - Layout/Reflow ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ: width, height, top, left, display တို့ကို ပြောင်းလဲခြင်း။
-     - Paint ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ: background-color, color, box-shadow တို့ကို ပြောင်းလဲခြင်း။
-     - အသက်သာဆုံး (Composite သာဖြစ်လေ့ရှိ): transform (ဥပမာ - translate, scale, rotate) နှင့် opacity တို့ကို ပြောင်းလဲခြင်း။
-     - Animation အတွက် အကြံပြုချက်: ချောမွေ့တဲ့ animation တွေအတွက် transform နဲ့ opacity ကို သုံးကြည့်ပါ၊ ဘာလို့လဲဆိုတော့ browser က ဒါတွေကို အလွန်ထိထိရောက်ရောက် ကိုင်တွယ်နိုင်လို့ပါ။
-     - Tools: CSS Triggers လို Website တွေက မတူညီတဲ့ CSS property တွေပြောင်းလဲခြင်းရဲ့ performance ကုန်ကျစရိတ်ကို ပြပေးနိုင်ပါတယ်။
+     - အချို့ CSS property တွေကို ပြောင်းလိုက်တဲ့အခါ၊ browser က **element တွေရဲ့ Layout သို့ Reflow ကို ပြန်လည်တွက်ချက်ဖို့** ဒါမှမဟုတ် **screen ရဲ့ အစိတ်အပိုင်းတွေကို paint ပြန်ဆွဲဖို့** အလုပ်အများကြီးလုပ်ရနိုင်ပါတယ်။ အချို့ပြောင်းလဲမှုတွေကတော့ **ဆွဲပြီးသား layer တွေကို ပေါင်းစပ်ပြရုံ**ပါပဲ (Composite)။
+     - **Layout/Reflow ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ:** width, height, top, left, display တို့ကို ပြောင်းလဲခြင်း။
+     - **Paint ဖြစ်စေနိုင်သော ပြောင်းလဲမှုများ:** background-color, color, box-shadow တို့ကို ပြောင်းလဲခြင်း။
+     - **အသက်သာဆုံး (Composite):** transform (ဥပမာ - translate, scale, rotate) နှင့် opacity တို့ကို ပြောင်းလဲခြင်း။
+     - **Animation အတွက် အကြံပြုချက်:** ချောမွေ့တဲ့ animation တွေအတွက် **transform နဲ့ opacity** က အကောင်းဆုံးပါပဲ။ ဘာလို့လဲဆိုတော့ browser က ဒါတွေကို **ထိထိရောက်ရောက် handle** လုပ်နိုင်လို့ပါ။
+     - **CSS Triggers** လို Website တွေက မတူညီတဲ့ CSS property တွေပြောင်းလဲခြင်းရဲ့ **performance cost** ကို ပြပေးနိုင်ပါတယ်။
 
 ### CSS Preprocessors နှင့် Post-Processors (အကျဉ်းချုပ်):
 
-     - Preprocessors (Sass, Less ကဲ့သို့): ဒီ tool တွေက CSS ကို ပိုမိုစနစ်တကျရေးသားနိုင်အောင် ကူညီပေးပေမယ့် ထွက်လာတဲ့ CSS ရဲ့ performance ကို တိုက်ရိုက်ပိုကောင်းအောင် မလုပ်ပါဘူး။
-     - Post-Processors (PostCSS ကဲ့သို့): ဒီ tool တွေက ရေးထားတဲ့ CSS ကို performance (သို့) browser compatibility အတွက် ပိုကောင်းအောင် plugin တွေ (ဥပမာ - browser prefix တွေထည့်ပေးတဲ့ Autoprefixer, minify လုပ်တဲ့ CSSNano) နဲ့တွဲပြီး ပြောင်းလဲပေးနိုင်ပါတယ်။
+     - **Preprocessors (Sass, Less ကဲ့သို့):** ဒီ tool တွေက **CSS ကို ပိုမိုစနစ်တကျရေးသားနိုင်အောင်** ကူညီပေးပေမယ့် ထွက်လာတဲ့ CSS ရဲ့ performance ကို ပိုကောင်းအောင် မလုပ်နိုင်ပါဘူး။
+     - **Post-Processors (PostCSS ကဲ့သို့):** ဒီ tool တွေက ရေးထားတဲ့ **CSS ကို performance (သို့) browser compatibility အတွက် ပိုကောင်းအောင်** plugin တွေ (ဥပမာ - browser prefix တွေထည့်ပေးတဲ့ Autoprefixer, minify လုပ်တဲ့ CSSNano) နဲ့တွဲပြီး ပြောင်းလဲပေးနိုင်ပါတယ်။
 
 သင်ခန်းစာ ၄.၃ - Browser များ စာမျက်နှာတည်ဆောက်ပုံ (Rendering Path) ကို နားလည်ခြင်းနှင့် ကြန့်ကြာစေသော Resource များကို လျှော့ချခြင်း
 (ခန့်မှန်းအချိန်: မိနစ် ၂၅-၃၀)
