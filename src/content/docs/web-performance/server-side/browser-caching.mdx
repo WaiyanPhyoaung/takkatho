@@ -1,0 +1,59 @@
+---
+title: "Browser Caching ကို အကျိုးရှိရှိအသုံးချခြင်း"
+description: "Browser Caching ကို အကျိုးရှိရှိအသုံးချခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import cache from '@/assets/server-side/cache.png'
+import busting from '@/assets/server-side/busting.png'
+export const headerResponse = `
+HTTP/1.1 200 OK
+Content-Type: text/css
+Cache-Control: public, max-age=604800
+ETag: "abc123xyz"
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+  Browser Caching ဘယ်လိုအလုပ်လုပ်သလဲ နားလည်ရန်၊ HTTP header များသုံးပြီး Cache ကို မည်သို့ထိန်းချုပ်ရမည်ကို သိရှိရန်၊ နှင့် cache busting ၏ အခြေခံနည်းလမ်းများကို နားလည်ရန်။
+</Aside>
+### Browser Caching ဆိုတာဘာလဲ? နောက်တစ်ခေါက်ပိုမြန်ဖို့ file တွေကို မှတ်ထားခြင်း။
+- Browser တစ်ခုက webpage ကို ဝင်ကြည့်တဲ့အခါ၊ ပုံတွေ၊ CSS၊ JavaScript လို file တစ်ချို့ရဲ့ copy တွေကို User ရဲ့စက် ထဲမှာ သိမ်းဆည်းထားနိုင်ပါတယ်။ ဒါကို "Caching" (ကြားခံသိမ်းဆည်းခြင်း) လို့ခေါ်ပါတယ်။
+- နောက်တစ်ကြိမ် User က အဲဒီ page ကို ပြန်ဝင်ကြည့်တဲ့အခါ (ဒါမှမဟုတ် အဲဒီဖိုင်တွေသုံးထားတဲ့ တခြား page ကို ကြည့်တဲ့အခါ)၊ browser က server ဆီကနေ အစကနေပြန် download လုပ်စရာမလိုဘဲ၊ သူ့ရဲ့ local cache ထဲကနေ တိုက်ရိုက်ပြန်ဖွင့်လိုက်နိုင်ပါတယ်။ ဒါက အလွန်မြန်ဆန်ပြီး data သုံးစွဲမှုကိုလည်း သက်သာစေပါတယ်။
+- **ဥပမာ:** သင်က စာကြည့်တိုက်တစ်ခုက စာအုပ်တစ်အုပ်ကို သွားငှားတယ်ဆိုပါစို့။ ပထမတစ်ခေါက်တော့ ပင်မစာကြည့်တိုက်အထိ သွားရတာ အချိန်ယူရပါမယ်။ ဒါပေမဲ့ သင့်အိမ်အနီးက စာကြည့်တိုက်ခွဲလေး (browser cache) မှာ မိတ္တူတစ်ခုထားခွင့်ပေးလိုက်ရင်၊ နောက်တစ်ခေါက် အဲဒီစာအုပ်ကိုဖတ်ချင်တဲ့အခါ အနီးက စာကြည့်တိုက်ခွဲလေးဆီပဲ သွားလိုက်ရုံနဲ့ ချက်ချင်းရနိုင်တာကြောင့် ပိုမြန်သွားပါတယ်။
+
+<ContentImage src={cache} alt="Cache Definition" />
+
+### Browser ကို ဘာတွေသိမ်းရမလဲပြောပြခြင်း - HTTP Caching Headers
+သင့် web server က ဖိုင်တွေနဲ့အတူ "HTTP headers" တွေကိုပါ ပို့ပေးပါတယ်။ ဒီ headers တွေထဲက တချို့က browser ကို files တွေ ဘယ်လို cache လုပ်ရမလဲဆိုတာ လမ်းညွှန်ပေးပါတယ်။
+
+- **Cache-Control:** အရေးအကြီးဆုံး modern caching header ပါ။ အလွန် flexible ဖြစ်ပါတယ်။
+     - **public:** ဒီဖိုင်ကို ဘယ် browser မဆို (including CDNs) သိမ်းထားနိုင်တယ်လို့ ဆိုလိုပါတယ်။
+     - **private:** ဒီဖိုင်က singe user အတွက်ပဲဖြစ်လို့ သူ့ browser ကပဲသိမ်းထားသင့်ပြီး၊ ကြားခံ cache တွေ (CDNs) မှာ မသိမ်းသင့်ဘူးလို့ ဆိုလိုပါတယ်။
+     - **no-store:** ဒီဖိုင်ကို လုံးဝ မသိမ်းပါနဲ့လို့ browser ကိုပြောတာပါ။
+     - **no-cache:** ဒီနာမည်က နည်းနည်းနားလည်မှု လွဲနိုင်ပါတယ်။ "မသိမ်းပါနဲ့" လို့ ပြောတာမဟုတ်ပါဘူး။ browser က ဖိုင်ကို cache လုပ်ထားနိုင်ပေမယ့်၊ အဲဒီ cache ထဲကဖိုင်ကို ပြန်မသုံးခင်မှာ server ကို latest version ဟုတ်မဟုတ် check ပြီးမှ သုံးရမယ်လို့ ဆိုလိုပါတယ်။ HTML ဖိုင်တွေလိုမျိုး lastet ကိုပဲ လိုချင်ရင် သင့်တော်ပါတယ်။
+     - **`max-age=<seconds>:`** browser က cache ထဲကဖိုင်ကို server ဆီပြန်မမေးဘဲ ဘယ်လောက်ကြာကြာ သုံးလို့ရလဲဆိုတာ ပြောပြပါတယ်။
+          - ဥပမာ: Cache-Control: public, max-age=31536000 (၁ နှစ်ကြာသိမ်းထားနိုင်သည်)။ ပုံတွေ၊ CSS၊ JS လို သိပ်မပြောင်းလဲတဲ့ static asset တွေအတွက် အကောင်းဆုံးပါ။
+- **Expires:** cache ထဲကဖိုင် ဘယ်နေ့ဘယ်အချိန်မှာ သက်တမ်းကုန်မလဲဆိုတာ တိတိကျကျသတ်မှတ်ပေးတဲ့ header အဟောင်းတစ်ခုပါ။ Cache-Control: max-age ကို ယေဘုယျအားဖြင့် ပိုသုံးကြပါတယ်။
+- **Validation Headers (ETag နှင့် Last-Modified):**
+     - `max-age` သက်တမ်းကုန်သွားတဲ့အခါ၊ ဒါမှမဟုတ် `no-cache` သတ်မှတ်ထားတဲ့အခါ၊ browser က server ကို "ဒီဖိုင်က lastest ဖြစ်သေးရဲ့လား" လို့ မေးပါတယ်။
+     - **ETag:** ဖိုင်ရဲ့ "လက်ဗွေရာ (fingerprint)" ဒါမှမဟုတ် version နံပါတ်လိုမျိုးပါ။ server ပေါ်က ETag နဲ့ browser cache ထဲက ETag တူနေရင်၊ server က **"304 Not Modified"** လို့ return ပြန်ပြီး၊ browser က သူ့ cache ထဲကဖိုင်ကိုပဲ သုံးလိုက်ပါတယ်။
+     - **Last-Modified:** ဖိုင်ကို နောက်ဆုံးပြောင်းလဲခဲ့တဲ့ ရက်စွဲပါ။ ETag လိုပဲ browser က ဒီရက်စွဲကိုပို့ပြီး၊ ဖိုင်ကမပြောင်းလဲသေးရင် server က **"304 Not Modified"** လို့ ပြန်ဖြေပါတယ်။
+     - ဥပမာ - <Code code={headerResponse}  />
+
+
+### Cache Busting: version အသစ်ရောက်အောင်လုပ်ခြင်း
+- **ပြဿနာ:** သင်က CSS သို့မဟုတ် JS ဖိုင်တစ်ခုကို max-age အကြာကြီး (ဥပမာ - ၁ နှစ်) သတ်မှတ်ထားပြီး၊ အဲဒီဖိုင်ကို server မှာ update လုပ်လိုက်ရင်၊ version အဟောင်း cache ထဲမှာရှိနေတဲ့ user တွေက file အသစ်ကို အချိန်အတော်ကြာတဲ့အထိ ရချင်မှရပါလိမ့်မယ်။
+- **ဖြေရှင်းချက်:** Cache Busting လို့ခေါ်တဲ့ ဖိုင်နာမည်ပြောင်းလဲခြင်းပါ။ ဖိုင်ရဲ့ content ပြောင်းသွားတဲ့အခါ၊ ဖိုင်နာမည်ကို ပြောင်းတာ ဒါမှမဟုတ် URL မှာ version နံပါတ်တစ်ခုခု ထပ်ထည့်ပေးလိုက်တာမျိုးပါ။
+     - **ဥပမာ:**
+          - အဟောင်း: style.css
+          - အသစ်: style.v2.css သို့မဟုတ် style.css?v=1.2.3 သို့မဟုတ် style-a1b2c3d4.css။
+- Browser က ဒါကို ဖိုင်အသစ်တစ်ခုအဖြစ် မြင်ပြီး၊ cache ထဲက version အဟောင်းကိုကျော်ပြီး download လုပ်ပါလိမ့်မယ်။
+- Webpack, Parcel လို Build tool တွေက ဖိုင်နာမည်တွေမှာ content hash တွေထည့်ပေးပြီး အလိုအလျောက်လုပ်ဆောင်ပေးလေ့ရှိပါတယ်။
+
+<ContentImage src={busting} alt='Cache Busting' />
+
+### Service Workers နှင့် Caching (အကျဉ်းချုပ်မိတ်ဆက်)
+- **Service Worker** တွေက web page နဲ့ သီးခြား နောက်ကွယ်မှာ အလုပ်လုပ်တဲ့ JavaScript ဖိုင်တွေပါ။ သူတို့က network request တွေကို ကြားဖြတ်ဖမ်းပြီး **Cache API** ကိုသုံးကာ caching ကို အသေးစိတ်ထိန်းချုပ်နိုင်ပါတယ်။
+- **offline** အသုံးပြုနိုင်အောင် (user offline ဖြစ်နေရင်တောင် cache ထဲကဖိုင်တွေကို ပြန်ပေးခြင်း) ဒါမှမဟုတ် HTTP header တွေထက်ပိုရှုပ်ထွေးတဲ့ caching တွေ ပြုလုပ်နိုင်ပါတယ်။
+(ဒါက အဆင့်မြင့်တဲ့အကြောင်းအရာဖြစ်လို့၊ သိထားရုံနဲ့ လုံလောက်ပါတယ်။)

@@ -463,6 +463,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Server-Side & Delivery - Caching, CDNS",
+              items: [
+                {
+                  label: "Browser Caching",
+                  slug: "web-performance/server-side/browser-caching",
+                },
+              ],
+            },
           ],
         },
         // {
