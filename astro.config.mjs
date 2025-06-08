@@ -470,6 +470,14 @@ export default defineConfig({
                   label: "Browser Caching",
                   slug: "web-performance/server-side/browser-caching",
                 },
+                {
+                  label: "Content Delivery Network",
+                  slug: "web-performance/server-side/cdn",
+                },
+                {
+                  label: "Server-Side Optimizations",
+                  slug: "web-performance/server-side/server-side",
+                },
               ],
             },
           ],
