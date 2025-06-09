@@ -5,28 +5,22 @@ description: "Server-Side Optimizations"
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
-import cache from '@/assets/server-side/cache.png'
-import busting from '@/assets/server-side/busting.png'
-export const headerResponse = `
-HTTP/1.1 200 OK
-Content-Type: text/css
-Cache-Control: public, max-age=604800
-ETag: "abc123xyz"
-`
+import ttfb from '@/assets/server-side/ttfb.png'
+import httpVersions from '@/assets/websockets/http-versions.png'
 
 <Aside title="ရည်ရွယ်ချက်">
   Server ဘက်ခြမ်းက performance ကို ထိခိုက်စေတဲ့ အကြောင်းအရာများ (အထူးသဖြင့် TTFB) နှင့် ၎င်းတို့ကို ပိုကောင်းအောင်လုပ်ဆောင်နိုင်သည့် အခြေခံနည်းလမ်းများကို နားလည်ရန်။
 </Aside>
 
 ### Server ၏ အခန်းကဏ္ဍ - လျင်မြန်သော ပထမဆုံးခြေလှမ်း
-သင့် server က request တစ်ခုကို လက်ခံပြီး ပထမဦးဆုံး HTML ကို ဘယ်လောက်မြန်မြန်ပြန်ပို့ပေးနိုင်လဲဆိုတာက ကျန်တာ တွေအားလုံးကို ဘယ်လောက်မြန်မြန်စတင်နိုင်မလဲဆိုတာကို ဆုံးဖြတ်ပေးပါတယ်။ ဒီနေရာမှာ Time To First Byte (TTFB) ဆိုတဲ့ metric က အဓိကကျပါတယ်။
+ Server က ပထမဦးဆုံး HTML ကို မြန်မြန်ပြန်ပို့ပေးနိုင်လေ ကျန်တာ တွေအားလုံးလဲ မြန်မြန်စတင်နိုင်လေ ဖြစ်ပါတယ်။ ဒီနေရာမှာ Time To First Byte (TTFB) ဆိုတဲ့ metric က အဓိကကျပါတယ်။
 
 ### Time To First Byte (TTFB) ကို ပိုကောင်းအောင်လုပ်ခြင်း
 TTFB နှေးကွေးရခြင်း အကြောင်းရင်းများမှာ-
 
-     - **Server Hardware/Configuration အားနည်းခြင်း** Server က အားနည်းနေတာ၊ web server software (Apache, Nginx) တွေရဲ့ setting တွေက ထိရောက်မှုမရှိတာ။
-     - **Network ကြန့်ကြာမှု (Latency)** Server နဲ့ user ကြား အကွာအဝေး (CDN တွေက asset တွေအတွက် ကူညီပေးပေမယ့်၊ HTML ကတော့ ပင်မ server ကနေ လာလေ့ရှိတယ်)။
-     - **Backend Application Code နှေးကွေးခြင်း** Server မှာ အလုပ်လုပ်တဲ့ code တွေ (PHP, Python, Node.js စသည်ဖြင့်) က HTML ကို Response ပေးဖို့ အချိန်အကြာကြီးယူနေတာ။
+     - **Server Hardware/Configuration အားနည်းခြင်း** Server က Powerful မဖြစ်တာ၊ web server software (Apache, Nginx) တွေရဲ့ setting တွေက ထိရောက်မှုမရှိတာ။
+     - **Network ကြန့်ကြာမှု (Latency)** Server နဲ့ user ကြား ဝေးကွာခြင်း။ (CDN တွေက asset တွေအတွက် ကူညီပေးပေမယ့်၊ HTML ကတော့ original server ကနေ လာလေ့ရှိတယ်)။
+     - **Backend Application Code နှေးကွေးခြင်း** Server က code တွေ (PHP, Python, Node.js စသည်ဖြင့်) က HTML ကို Response ပေးဖို့ အချိန်အကြာကြီးယူနေတာ။
      - **Database Query များ နှေးကွေးခြင်း** Page အတွက် database ကနေ data ဆွဲရတဲ့အခါ query တွေက နှေးနေရင် HTML ထုတ်ပေးတာကို ကြန့်ကြာစေပါတယ်။
      - **Server ဝန်ပိခြင်း** တစ်ပြိုင်နက်တည်း အသုံးပြုသူတွေ အရမ်းများပြီး server က ဝန်ပိနေတာ။
 
@@ -37,26 +31,24 @@ TTFB နှေးကွေးရခြင်း အကြောင်းရင�
      - **Backend Code ကို ပိုမြန်အောင်ရေးခြင်း** သင့် application ထဲက အချိန်အကြာဆုံးအလုပ်လုပ်နေတဲ့ Codes နေရာ တွေကိုရှာပြီး၊ ပိုကောင်းတဲ့ algorithm တွေ၊ library တွေသုံးပြီး ပြင်ဆင်ရေးသားပါ။
      - **Database Query များကို ပိုမြန်အောင်လုပ်ခြင်း** Database table တွေကို index လုပ်တာ၊ နှေးနေတဲ့ query တွေကို ပြန်ရေးတာ၊ database caching သုံးတာတွေ လုပ်နိုင်ပါတယ်။
      - **Server-Side Caching ကို အသုံးပြုခြင်း** သိပ်မပြောင်းလဲတဲ့ HTML Page အပြည့်အစုံ ဒါမှမဟုတ် Page ရဲ့ အစိတ်အပိုင်းတွေကို cache လုပ်ထားပါ။ ဒါဆို server က request တိုင်းအတွက် အစကနေပြန်ထုတ်ပေးစရာမလိုတော့ပါဘူး။
-(ပုံသရုပ်ဖော်ရန် - TTFB အဆင့်ဆင့်ပြပုံ)
-အကြံပြုချက်: TTFB ၏ အစိတ်အပိုင်းများဖြစ်သော DNS Lookup, Connect, TLS, Server Processing Time ကိုပြသထားသည့် bar chart တစ်ခု။ Backend optimization အတွက် အဓိကနေရာအဖြစ် "Server Processing Time" ကို highlight လုပ်ပြပါ။
-ခေါင်းစဉ်: "Time To First Byte ကို အသေးစိတ်ခွဲခြမ်းခြင်း (နှင့် မြန်အောင်လုပ်ခြင်း)။"
+
+<ContentImage  src={ttfb} alt="Time to first byte" />
 
 ### Server-Level Compression - Gzip နှင့် Brotli
      - ဒါတွေက server ကနေ browser ဆီမပို့ခင် text-based ဖိုင်တွေ (HTML, CSS, JS, JSON) ကို "zip" ဖိုင်လို ဖိသိပ်ပေးတဲ့ algorithm တွေပါ။ Browser က လက်ခံရရှိတဲ့အခါ zip ပြန်ဖြည်ပါတယ်။
-     - ဖိုင်အရွယ်အစားကို သိသိသာသာ (၆၀-၈၀% ခန့်) လျှော့ချပေးတဲ့အတွက် download လုပ်ရတာ ပိုမြန်စေပါတယ်။
+     - ဖိုင်အရွယ်အစားကို သိသိသာသာ (60-80% ခန့်) လျှော့ချပေးတဲ့အတွက် download လုပ်ရတာ ပိုမြန်စေပါတယ်။
      - သင့် web server (Apache, Nginx) မှာ enable လုပ်နိုင်သလို၊ CDN တွေကလည်း ဒါကို လုပ်ပေးလေ့ရှိပါတယ်။
      - Brotli က Gzip ထက် ယေဘုယျအားဖြင့် ပိုကောင်းတဲ့ compression ပေးနိုင်ပေမယ့် HTTPS လိုအပ်ပါတယ်။ Modern server နဲ့ CDN အများစုက နှစ်မျိုးလုံးကို ထောက်ပံ့ပေးပါတယ်။
 
 ### HTTP/2 နှင့် HTTP/3 ၏ အကျိုးကျေးဇူးများ
-     - **HTTP/1.1 (old version):** "Head-of-line blocking" ဆိုတဲ့ ပြဿနာရှိတယ် (connection တစ်ခုမှာ တစ်ကြိမ်လျှင် ဖိုင်အနည်းငယ်သာ download လုပ်နိုင်တယ်)။
+     - **HTTP/1.1 (old version):** **"Head-of-line blocking"** ဆိုတဲ့ ပြဿနာရှိတယ် (connection တစ်ခုမှာ တစ်ကြိမ်လျှင် ဖိုင်အနည်းငယ်သာ download လုပ်နိုင်တယ်)။
      - **HTTP/2:**
-          - **Multiplexing:** request နှင့် response အများအပြားကို TCP connection တစ်ခုတည်းပေါ်မှာ တစ်ပြိုင်တည်း ပို့ဆောင်နိုင်တဲ့အတွက် head-of-line blocking ပြဿနာကို ဖယ်ရှားပေးပါတယ်။
+          - **Multiplexing:** request နှင့် response အများအပြားကို **TCP connection တစ်ခုတည်းပေါ်မှာ တစ်ပြိုင်တည်း** ပို့ဆောင်နိုင်တဲ့အတွက် head-of-line blocking ပြဿနာကို ဖယ်ရှားပေးပါတယ်။
      - **HTTP/3:**
-          - TCP အစား QUIC ကိုအသုံးပြုပြီး connection တည်ဆောက်ချိန်ကို ပိုမိုလျှော့ချပေးကာ၊ မတည်ငြိမ်သော network များပေါ်တွင် performance ကို ပိုမိုတိုးတက်စေပါတယ်။
+          - TCP အစား **QUIC** ကိုအသုံးပြုပြီး connection တည်ဆောက်ချိန်ကို ပိုမိုလျှော့ချပေးကာ၊ မတည်ငြိမ်သော network များပေါ်တွင် performance ကို ပိုမိုတိုးတက်စေပါတယ်။
      - ဒီ protocol အသစ်တွေက asset ဖိုင်အများအပြားကို ပိုမိုမြန်ဆန်ပြီး ထိထိရောက်ရောက် ပို့ဆောင်နိုင်စေပါတယ်။ Modern hosting နဲ့ CDN အများစုက HTTP/2 ကို support လုပ်ပြီး HTTP/3 သုံးစွဲမှုကလည်း တိုးပွားလာနေပါတယ်။
-(ပုံသရုပ်ဖော်ရန် - HTTP/1.1 နှင့် HTTP/2 Loading ယှဉ်ပြပုံ)
-အကြံပြုချက်: အချိန်မျဉ်းပြိုင်နှစ်ခု။ HTTP/1.1 က asset တွေကို တစ်ခုပြီးတစ်ခုလို load လုပ်နေပုံပြပါ။ HTTP/2 က asset အများအပြားကို connection တစ်ခုတည်းပေါ်မှာ တစ်ပြိုင်တည်း load လုပ်နေပုံပြပါ။
-ခေါင်းစဉ်: "ပိုမိုမြန်ဆန်သော ပို့ဆောင်မှု - HTTP/2 & HTTP/3။"
+
+<ContentImage src={httpVersions} alt="http versions" />
 
 ### Rendering နည်းလမ်းများနှင့် Performance - SSR, CSR, SSG
 သင့် website ရဲ့ HTML ကို ဘယ်လိုထုတ်လုပ်ပေးသလဲဆိုတဲ့ နည်းလမ်းက performance အပေါ် ကြီးမားတဲ့ သက်ရောက်မှုရှိနိုင်ပါတယ်:
@@ -78,10 +70,10 @@ TTFB နှေးကွေးရခြင်း အကြောင်းရင�
 
 - #### Hybrid Approaches (Next.js, Nuxt.js, Astro ကဲ့သို့): Modern framework အများစုက ဒီနည်းလမ်းတွေကို ရောနှောအသုံးပြုနိုင်အောင် ခွင့်ပြုထားပါတယ်။
 
-အခန်း (၅) အနှစ်ချုပ်
-
-Browser Caching က browser တွေကို ဖိုင်တွေ المحليမှာ သိမ်းထားနိုင်စေပြီး ပြန်လည်ဝင်ရောက်မှုတွေကို မြန်ဆန်စေတယ်။ Cache busting က user တွေဆီ ဖိုင်ဗားရှင်းအသစ်တွေ ရောက်ရှိဖို့ သေချာစေတယ်။
-Content Delivery Networks (CDNs) တွေက သင့် static asset တွေကို ကမ္ဘာအနှံ့ server တွေမှာ ဖြန့်ဝေပေးပြီး၊ user တွေကို အနီးဆုံးနေရာကနေ ပို့ဆောင်ပေးခြင်းဖြင့် latency ကိုလျှော့ချပြီး server ဝန်ပေါ့စေတယ်။
-Server-Side Optimizations တွေက backend code, database queries, server configuration, နှင့် server-level caching တွေကို ကောင်းအောင်လုပ်ခြင်းဖြင့် Time To First Byte (TTFB) ကို တိုးတက်စေဖို့ အဓိကထားတယ်။
-Gzip/Brotli compression ကိုဖွင့်ထားခြင်းနဲ့ HTTP/2 or HTTP/3 ကိုအသုံးပြုခြင်းက data ပို့ဆောင်မှုကို သိသိသာသာမြန်ဆန်စေတယ်။
-Rendering နည်းလမ်း (CSR, SSR, SSG) ရွေးချယ်မှုက ပထမဆုံး load ဖြစ်တဲ့ performance နဲ့ interactivity အပေါ် ကြီးမားတဲ့သက်ရောက်မှုရှိတယ်။
+<Aside title='အနှစ်ချုပ်'>
+     - **Browser Caching** က ဖိုင်တွေ သိမ်းထားနိုင်စေပြီး နောက်တခေါက် ဝင်ရောက်မှုတွေကို မြန်ဆန်စေတယ်။ Cache busting က user တွေဆီ file version အသစ်တွေ ရောက်ရှိစေတယ်။
+     - **Content Delivery Networks (CDNs)** တွေက သင့် static asset တွေကို ကမ္ဘာအနှံ့ server တွေမှာ ဖြန့်ဝေပေးပြီး၊ user တွေကို အနီးဆုံးနေရာကနေ ပို့ဆောင်ပေးခြင်းဖြင့် latency ကိုလျှော့ချပြီး server ဝန်ပေါ့စေတယ်။
+     - **Server-Side Optimizations** တွေက backend code, database queries, server configuration, နှင့် server-level caching တွေကို ကောင်းအောင်လုပ်ခြင်းဖြင့် Time To First Byte (TTFB) ကို တိုးတက်စေဖို့ အဓိကထားတယ်။
+     - **Gzip/Brotli compression** ကိုဖွင့်ထားခြင်းနဲ့ HTTP/2 or HTTP/3 ကိုအသုံးပြုခြင်းက data ပို့ဆောင်မှုကို သိသိသာသာမြန်ဆန်စေတယ်။
+     - **Rendering နည်းလမ်း (CSR, SSR, SSG)** ရွေးချယ်မှုက ပထမဆုံး load ဖြစ်တဲ့ performance နဲ့ interactivity အပေါ် ကြီးမားတဲ့သက်ရောက်မှုရှိတယ်။
+</Aside>
