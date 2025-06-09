@@ -1,0 +1,25 @@
+---
+title: "Database Structure: Record"
+description: Record
+---
+
+## Record
+
+Relational database တွေမှာ table တစ်ခုထဲက row တစ်ခုစီကို Record (သို့မဟုတ်) Tuple လို့ ခေါ်ပါတယ်။ Record တစ်ခုစီက Table မှာရှိတဲ့ အရာဝတ္ထု (entity) တစ်ခုချင်းစီကို ကိုယ်စားပြုပါတယ်။ 
+(ဥပမာ - Customers စားပွဲတစ်ခုမှာ record တစ်ခုစီက customer တစ်ယောက်စီကို ကိုယ်စားပြုပါတယ်။) 
+relational database တစ်ခုကို ဒီဇိုင်းကောင်းကောင်းဆွဲမယ်ဆိုရင် record ထပ်နေတဲ့ data တွေ (data တူညီတဲ့ row တစ်ခုလုံး) ကို သိမ်းဆည်းခြင်းကနေ ရှောင်ရှားရပါမယ်။
+အချို့သော fields တွေမှာ တန်ဖိုးရှိသည်ဖြစ်စေ၊ မရှိသည်ဖြစ်စေ (NULL ဖြစ်သည်ဖြစ်စေ) အဲဒီ field တွေ အားလုံးက record ရဲ့ အစိတ်အပိုင်းအဖြစ် ပါဝင်နေပါတယ်။
+
+ဥပမာ - Students table မှာ ID၊ နာမည် (Name)၊ ဖုန်း ဆိုပြီး field (columns) ၃ ခု ရှိတယ်ဆိုပါစို့။ 
+record တစ်ခုစီဟာ ဒီfield ၃ ခုစလုံးနဲ့ ပါဝင်ဖွဲ့စည်းထားတာ ဖြစ်ပါတယ်။ Student ရဲ့ Phone field က NULL ဖြစ်နေရင်တောင်၊ Phone field မပါဝင်ဘဲ record က တိုသွားတာမျိုး မရှိပါဘူး။
+
+**Students**
+| StudentId (PK) | Name | Phone |
+| ----- | ----- | ---- |
+| 1 | Alice | 123456789 |
+| 2 | Bob | 823456789  |
+| 3 | Charlie | (NULL) |
+
+- Student table မှာ အလျားလိုက်ရှိတဲ့ row တစ်တန်းစီဟာ data ယူနစ်တစ်ခုစီ ဖြစ်တဲ့ Record ဖြစ်ပါတယ်။
+- Charlie ရဲ့ ဖုန်းနံပါတ်က NULL ဖြစ်နေရင်တောင် အဲဒီ field ဟာ record ထဲမှာ ပါဝင်နေဆဲ ဖြစ်ပါတယ်။ record တစ်ခုမှာ table ရဲ့ field (columns) အားလုံး အမြဲတမ်းအပြည့်အစုံပါဝင်ပါတယ်။
+- StudentId (primary key) က record တွေ unique ဖြစ်ပြီး ထပ်မနေစေရန် အာမခံချက်ပေးပါတယ်။ 

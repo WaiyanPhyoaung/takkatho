@@ -482,6 +482,53 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Relational Database",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome to Database!",
+                  slug: "relational-database/introduction/welcome-to-database"
+                },
+                {
+                  label: "Types of Databases",
+                  slug: "relational-database/introduction/types-of-databases"
+                }
+              ]
+            },
+            {
+              label: "Terminology",
+              items: [
+                {
+                  label: "Terminology",
+                  slug: "relational-database/terminology/terminology"
+                },
+                {
+                  label: "Data Values and Null",
+                  slug: "relational-database/terminology/value-related-terms"
+                },
+                {
+                  label: "Table",
+                  slug: "relational-database/terminology/structure-related-terms/table"
+                },
+                {
+                  label: "Field",
+                  slug: "relational-database/terminology/structure-related-terms/field"
+                },
+                {
+                  label: "Record",
+                  slug: "relational-database/terminology/structure-related-terms/record"
+                },
+                {
+                  label: "Keys",
+                  slug: "relational-database/terminology/structure-related-terms/keys"
+                }
+              ]
+            }
+          ]
+        },
         // {
         // 	label: 'Reference',
         // 	autogenerate: { directory: 'reference' },
