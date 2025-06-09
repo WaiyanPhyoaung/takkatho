@@ -1,6 +1,6 @@
 ---
-title: "Database Structure: Keys"
-description: Keys
+title: "Database Structure: Candidate Key"
+description: Candidate Key
 ---
 ## Keys
 
@@ -19,7 +19,7 @@ Candidate Key တစ်ခုဖြစ်ဖို့ အောက်ပါစ�
 
 #### Candidate key က multipart field ဖြစ်လို့ မရပါဘူး။
 
-Field တစ်ခုထဲမှာ data နှစ်ခု သုံးခု ပေါင်းစပ်ထည့်ထားတာမျိုး (ဥပမာ- "Alice Chen" လိုမျိုး FullName) ဖြစ်လို့မရပါဘူး။ 
+Field တစ်ခုထဲမှာ data နှစ်ခု သုံးခု ပေါင်းစပ်ထည့်ထားတာမျိုး (ဥပမာ- "123 Street, City, Country" လိုမျိုး FullAddress field) ဖြစ်လို့မရပါဘူး။ 
 Candidate Key ဟာ တန်ဖိုးတစ်ခုတည်း (atomic value) ဖြစ်ရပါမယ်။
 
 #### Candidate key တွင် unique တန်ဖိုးများသာ ပါဝင်ရပါမယ်။
@@ -28,11 +28,11 @@ Candidate Key ရဲ့ တန်ဖိုးဟာ ထပ်နေလို့ 
 
 #### Candidate key တွင် NULL တန်ဖိုးများ ပါဝင်လို့ မရပါဘူး။
 
-Candidate Key ရဲ့ ဘယ်အစိတ်အပိုင်းမှ unknown ဖြစ်နေလို့မရပါဘူး။ အမြဲတမ်း တိကျတဲ့ တန်ဖိုးတစ်ခုခု ရှိနေရပါမယ်။ Null ဖြစ််နေမယ်ဆိုရင် record တွေကို တိကျစွာ ခွဲခြားရှာဖွေထုတ်ယူနိုင်မှာမဟုတ်တော့ပါဘူး။
+Candidate Key မှာပါဝင်တဲ့ ဘယ် field မှ unknown ဖြစ်နေလို့မရပါဘူး။ အမြဲတမ်း တိကျတဲ့ တန်ဖိုးတစ်ခုခု ရှိနေရပါမယ်။ Null ဖြစ််နေမယ်ဆိုရင် record တွေကို တိကျစွာ ခွဲခြားရှာဖွေထုတ်ယူနိုင်မှာမဟုတ်တော့ပါဘူး။
 
-#### field နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုတဲ့ field တွေကိုပေါင်းပြီး Candidate Key အဖြစ် အသုံးပြုချင်တဲ့အခါ Candidate key ဟာ Irreducible ဖြစ်ရပါမယ်။ 
+#### Candidate key ဟာ Irreducible ဖြစ်ရပါမယ်။ 
 
-Candidate Key ကို ဖွဲ့စည်းထားတဲ့ field တွေထဲက ဘယ် field ကိုမှ ဖယ်ရှားလိုက်လို့မရပါဘူး။ ဖယ်ရှားလိုက်တာနဲ့ 
+Field နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုတဲ့ field တွေကိုပေါင်းပြီး Candidate Key အဖြစ် အသုံးပြုချင်တဲ့အခါ Candidate Key ကို ဖွဲ့စည်းထားတဲ့ field တွေထဲက ဘယ် field ကိုမှ ဖယ်ရှားလိုက်လို့မရပါဘူး။ ဖယ်ရှားလိုက်တာနဲ့ 
 အဲဒီအစုအဝေးဟာ unique မဖြစ်တော့ဘဲ Candidate Key မဟုတ်တော့ပါဘူး။ 
 
 ဥပမာ -  OrderDetails table တစ်ခု ရှိတယ်ဆိုပါစို့။
@@ -66,6 +66,7 @@ Email ✅ (unique, non-null, irreducible)
 ဒီဥပမာမှာ StudentID နဲ့ Email နှစ်ခုလုံးဟာ Candidate Key ဖြစ်နိုင်တဲ့ အရည်အချင်းတွေ ပြည့်မီပါတယ်။
 
 StudentID: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား ID နံပါတ်တစ်ခုစီ ရှိတဲ့အတွက် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒါ့အပြင် ဒီ ID တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်ကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
+
 Email: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား အီးမေးလ်လိပ်စာတစ်ခုစီပဲ ရှိတယ်လို့ ယူဆရင် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒီအီးမေးလ်တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်ကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
 
 ကျွန်တော်တို့က StudentID ကို primary key အဖြစ် ရွေးချယ်လိုက်ပြီဆိုပါစို့။ အဲဒီအခါ Email ဟာ Candidate Key အဖြစ် ဆက်လက်တည်ရှိနေဆဲ ဖြစ်ပါတယ်။
@@ -77,9 +78,30 @@ StudentID ကို ရွေးချယ်လိုက်ပေမယ့် Em
 
 > Table တစ်ခုအတွက် Candidate Key တည်ဆောက်ခြင်းဟာ တော်တော်လေး ရိုးရှင်းပါတယ်။ Candidate Key ရဲ့ စည်းမျဉ်းတွေ အားလုံးနဲ့ ကိုက်ညီတဲ့ field ဒါမှမဟုတ် set of fields ကို ရှာဖွေဖို့ပဲ ဖြစ်ပါတယ်။
 
-## Primary Key
-## Foreign Key
-## Alternate Key
-## Composite Key
-## Super Key
-## Non-Keys
+### Artificial Candidate Key
+#### Natural Candidate Key မရှိတဲ့အခါ ဘာလုပ်မလဲ - Artificial Candidate Key တစ်ခု ဖန်တီးပါ။ 
+တစ်ခါတလေ သင့်ရဲ့အချက်အလက်တွေကို သေချာစိစစ်ကြည့်တဲ့အခါ Candidate Key အဖြစ် တကယ်အသုံးပြုလို့ရတဲ့ field (သို့မဟုတ်) set of field တစ်ခုမှ မရှိဘူးဆိုတာ တွေ့ရနိုင်ပါတယ်။ 
+
+**❌ No natural candidate key: Car Table**
+| Make | Model | Year | Color | OwnerID |
+| --- | ---- | ---- | ---- | ---- |
+| Toyota | Corolla | 2020 | Red | 100 | 
+| Toyota | Corolla | 2020 | Black |   | 
+| Honda | Civic| 2020 | Blue | 101 |
+
+
+ဒီလိုဖြစ်လာတဲ့အခါ လက်လျှော့လိုက်စရာ မလိုပါဘူး။ ကိုယ်တိုင် ဖန်တီးယူလို့ရပါတယ်။
+
+Artificial Candidate Key တစ်ခုကို table ထဲမှာ field အသစ်တစ်ခု ထပ်ပေါင်းထည့်ပြီး ဖန်တီးနိုင်ပါတယ်။ ဒီ field အသစ်ဟာ Candidate Key ရဲ့ လိုအပ်တဲ့ စည်းမျဉ်းအားလုံးနဲ့ ကိုက်ညီအောင် သီးခြားဒီဇိုင်းလုပ်ထားတာဖြစ်ပါတယ်။ 
+ထပ်ပေါင်းထည့်ပြီးတာနဲ့ ဒီဖန်တီးထားတဲ့ field က သင့် table ရဲ့ တရားဝင် Candidate Key ဖြစ်လာပါလိမ့်မယ်။
+
+**✅ With artificial candidate key: Car Table**
+| ID | Make | Model | Year | Color | OwnerID |
+| --- | --- | ---- | ---- | ---- | ---- |
+| 1 | Toyota | Corolla | 2020 | Red | 100 | 
+| 2 | Toyota | Corolla | 2020 | Black |  | 
+| 3 | Honda | Civic| 2020 | Blue | 101 |
+
+
+ဥပမာ - ID လို့ နာမည်ပေးထားတဲ့ field အသစ်တစ်ခုကို ဖန်တီးပြီး (သို့မဟုတ် CustomerID, ProductID စသဖြင့် ပေးနိုင်ပါတယ်) Artificial Candidate Key အဖြစ် အသုံးပြုနိုင်ပါတယ်။ 
+ဒီ ID field ဟာ ပုံမှန်အားဖြင့် record အသစ်တိုင်းအတွက် NULL မဟုတ်တဲ့ unique တန်ဖိုးတစ်ခုစီ ရှိရပါမယ်။

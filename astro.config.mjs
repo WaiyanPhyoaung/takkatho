@@ -522,8 +522,8 @@ export default defineConfig({
                   slug: "relational-database/terminology/structure-related-terms/record"
                 },
                 {
-                  label: "Keys",
-                  slug: "relational-database/terminology/structure-related-terms/keys"
+                  label: "Candidate Key",
+                  slug: "relational-database/terminology/structure-related-terms/candidate-key"
                 }
               ]
             }
