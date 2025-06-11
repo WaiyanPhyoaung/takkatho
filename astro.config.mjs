@@ -480,6 +480,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Advanced Performance Techniques & Future Trends",
+              items: [
+                {
+                  label: "Rendering Architectures",
+                  slug: "web-performance/advanced-techniques/rendering-architectures",
+                },
+              ],
+            },
           ],
         },
         {
@@ -490,44 +499,44 @@ export default defineConfig({
               items: [
                 {
                   label: "Welcome to Database!",
-                  slug: "relational-database/introduction/welcome-to-database"
+                  slug: "relational-database/introduction/welcome-to-database",
                 },
                 {
                   label: "Types of Databases",
-                  slug: "relational-database/introduction/types-of-databases"
-                }
-              ]
+                  slug: "relational-database/introduction/types-of-databases",
+                },
+              ],
             },
             {
               label: "Terminology",
               items: [
                 {
                   label: "Terminology",
-                  slug: "relational-database/terminology/terminology"
+                  slug: "relational-database/terminology/terminology",
                 },
                 {
                   label: "Data Values and Null",
-                  slug: "relational-database/terminology/value-related-terms"
+                  slug: "relational-database/terminology/value-related-terms",
                 },
                 {
                   label: "Table",
-                  slug: "relational-database/terminology/structure-related-terms/table"
+                  slug: "relational-database/terminology/structure-related-terms/table",
                 },
                 {
                   label: "Field",
-                  slug: "relational-database/terminology/structure-related-terms/field"
+                  slug: "relational-database/terminology/structure-related-terms/field",
                 },
                 {
                   label: "Record",
-                  slug: "relational-database/terminology/structure-related-terms/record"
+                  slug: "relational-database/terminology/structure-related-terms/record",
                 },
                 {
                   label: "Candidate Key",
-                  slug: "relational-database/terminology/structure-related-terms/candidate-key"
-                }
-              ]
-            }
-          ]
+                  slug: "relational-database/terminology/structure-related-terms/candidate-key",
+                },
+              ],
+            },
+          ],
         },
         // {
         // 	label: 'Reference',
