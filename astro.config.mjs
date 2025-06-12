@@ -487,7 +487,19 @@ export default defineConfig({
                   label: "Rendering Architectures",
                   slug: "web-performance/advanced-techniques/rendering-architectures",
                 },
+                {
+                  label: "Predictive Loading",
+                  slug: "web-performance/advanced-techniques/predictive-loading",
+                },
+                {
+                  label: "Future of Web Performance",
+                  slug: "web-performance/advanced-techniques/future",
+                },
               ],
+            },
+            {
+              label: "Course Summary",
+              slug: "web-performance/summary",
             },
           ],
         },
