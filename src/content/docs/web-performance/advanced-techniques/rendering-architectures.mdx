@@ -12,7 +12,7 @@ import edgeComputing from '@/assets/web-performance/edge-computing.png'
 အလွန်မြန်ဆန်ပြီး၊ အပြန်အလှန်တုံ့ပြန်မှု(interactivity) ကောင်းမွန်သော website များကို တည်ဆောက်နိုင်သည့် ခေတ်မီ architectural patterns များ၏ အခြေခံသဘောတရားကို နားလည်ရန်။
 </Aside>
 
-### စိန်ခေါ်မှု - အကောင်းဆုံးနှစ်ခုကို ပေါင်းစပ်ခြင်း
+### အကောင်းဆုံးနှစ်ခုကို ပေါင်းစပ်ခြင်း
 အရင်သင်ခန်းစာတွေမှာ Server-Side Rendering (SSR) က ပထမဆုံး load ဖြစ်ချိန်မြန်တာ၊ Client-Side Rendering (CSR) က interactivity ကောင်းတာ စတဲ့ သူ့အားသာချက်၊ အားနည်းချက်တွေအကြောင်း လေ့လာခဲ့ပါတယ်။ ခေတ်မီနည်းပညာတွေကတော့ ဒီအားသာချက်နှစ်ခုလုံးကို အားနည်းချက်မရှိဘဲ ရရှိနိုင်အောင် ကြိုးစားလာကြပါတယ်။
 
 ### Islands Architecture
@@ -28,9 +28,9 @@ import edgeComputing from '@/assets/web-performance/edge-computing.png'
 - **ဘာကြောင့်မြန်တာလဲ -** ဒါက browser လုပ်ရမယ့်အလုပ်တွေကို ခွဲဝေပေးလိုက်ပြီး **အရေးအကြီးဆုံး အစိတ်အပိုင်းတွေကို အရင်ဆုံး တုံ့ပြန်မှုကောင်းအောင် ဦးစားပေးလိုက်တာကြောင့်ဖြစ်ပါတယ်။**
 
 ### Edge Computing & Edge Functions
-- **ဘာလဲ -** ဒါက server-side မှာလုပ်ရတဲ့ အလုပ်တချို့ကို origin server တစ်ခုတည်းကနေ မဟုတ်ဘဲ၊ "edge" (အစွန်း) လို့ခေါ်တဲ့၊ User နဲ့ အနီးဆုံးနေရာမှာရှိတဲ့ CDN server တွေဆီကို ရွှေ့ပြောင်းလုပ်ဆောင်စေတာပါ။
-- **ဘယ်လိုအလုပ်လုပ်လဲ -** CDN ရဲ့ edge server တွေက static ဖိုင်တွေကို cache လုပ်ထားရုံသာမကဘဲ၊ Codes အသေးစားလေးတွေ (Edge Functions) ကိုပါ run နိုင်ပါတယ်။ သူတို့က content ကို user အလိုက်ပြောင်းလဲပေးတာ (personalize content)၊ A/B testing လုပ်တာ၊ ဒါမှမဟုတ် သင့် original server ဆီ request မရောက်ခင်မှာ database ကနေ data ဆွဲတာမျိုးတွေ လုပ်ဆောင်နိုင်ပါတယ်။
-- **ဘာကြောင့်မြန်တာလဲ -** ဒါက dynamic content တွေအတွက် user နဲ့ server ကြား အပြန်အလှန်သွားချိန် (round-trip time) ကို သိသိသာသာလျှော့ချပေးပြီး၊ personalized Page တွေအတွက်တောင် Time To First Byte (TTFB) ကို အလွန်မြန်ဆန်စေပါတယ်။
+- **ဘာလဲ -** ဒါက server-side မှာလုပ်ရတဲ့ အလုပ်တချို့ကို origin server တစ်ခုတည်းကနေ မဟုတ်ဘဲ၊ "edge" (အစွန်း) လို့ခေါ်တဲ့၊ **User နဲ့ အနီးဆုံးနေရာမှာရှိတဲ့ CDN server** တွေဆီကို ရွှေ့ပြောင်းလုပ်ဆောင်စေတာပါ။
+- **ဘယ်လိုအလုပ်လုပ်လဲ -** CDN ရဲ့ edge server တွေက static ဖိုင်တွေကို cache လုပ်ထားရုံသာမကဘဲ၊ **Codes အသေးစားလေးတွေ (Edge Functions)** ကိုပါ run နိုင်ပါတယ်။ သူတို့က content ကို user အလိုက်ပြောင်းလဲပေးတာ (personalize content)၊ A/B testing လုပ်တာ၊ ဒါမှမဟုတ် သင့် original server ဆီ request မရောက်ခင်မှာ database ကနေ data ဆွဲတာမျိုးတွေ လုပ်ဆောင်နိုင်ပါတယ်။
+- **ဘာကြောင့်မြန်တာလဲ -** ဒါက **dynamic content** တွေအတွက် user နဲ့ server ကြား အပြန်အလှန်သွားချိန် (round-trip time) ကို သိသိသာသာလျှော့ချပေးပြီး၊ personalized Page တွေအတွက်တောင် Time To First Byte (TTFB) ကို အလွန်မြန်ဆန်စေပါတယ်။
 - **ဥပမာနှိုင်းယှဉ်ချက် -** နေ့စဉ် promotion ကိုသိဖို့ Pizza ရုံးချုပ်ကြီး (origin server) ကို ဖုန်းဆက်မေးမြန်းမယ့်အစား၊ ကိုယ့်မြို့က pizza ဆိုင်ခွဲလေး (edge server) ကပဲ promotion ကို တိုက်ရိုက်ပြောပြပြီး order ပါ တစ်ခါတည်းလက်ခံလိုက်သလိုပါပဲ။
 
-<ContentImage src={edgeComputing} alt="Edge Computing" height={500}/>
+<ContentImage src={edgeComputing} alt="Edge Computing" height={400}/>
