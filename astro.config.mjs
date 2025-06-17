@@ -560,6 +560,23 @@ export default defineConfig({
                   label: "Candidate Key",
                   slug: "relational-database/terminology/structure-related-terms/candidate-key",
                 },
+
+                {
+                  label: "Primary Key",
+                  slug: "relational-database/terminology/structure-related-terms/primary-key",
+                },
+                {
+                  label: "Foreign Key",
+                  slug: "relational-database/terminology/structure-related-terms/foreign-key",
+                },
+                {
+                  label: "Alternate Key and Non-Keys",
+                  slug: "relational-database/terminology/structure-related-terms/alternate-key",
+                },
+                {
+                  label: "Relationships",
+                  slug: "relational-database/terminology/structure-related-terms/relationships",
+                },
               ],
             },
           ],

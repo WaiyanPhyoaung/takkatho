@@ -35,11 +35,11 @@ Candidate Key မှာပါဝင်တဲ့ ဘယ် field မှ unknown �
 Field နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုတဲ့ field တွေကိုပေါင်းပြီး Candidate Key အဖြစ် အသုံးပြုချင်တဲ့အခါ Candidate Key ကို ဖွဲ့စည်းထားတဲ့ field တွေထဲက ဘယ် field ကိုမှ ဖယ်ရှားလိုက်လို့မရပါဘူး။ ဖယ်ရှားလိုက်တာနဲ့ 
 အဲဒီအစုအဝေးဟာ unique မဖြစ်တော့ဘဲ Candidate Key မဟုတ်တော့ပါဘူး။ 
 
-ဥပမာ -  OrderDetails table တစ်ခု ရှိတယ်ဆိုပါစို့။
+ဥပမာ -  OrderDetails table တစ်ခု ရှိတယ်ဆိုပါစို့။  <br />
 ဒီ table မှာ (OrderID, ProductID) ဆိုတဲ့ field နှစ်ခုကိုတွဲပြီး Candidate Key အဖြစ် သတ်မှတ်နိုင်ပါတယ်။ 
-ဒီ (OrderID, ProductID) နှစ်ခုပေါင်းလိုက်တဲ့အခါ unique ဖြစ်ပါတယ်။
-OrderID တစ်ခုတည်းကတော့ unique မဖြစ်နိုင်ပါဘူး (ဘာလို့လဲဆိုတော့ order တစ်ခုတည်းမှာ product များစွာ ပါဝင်နိုင်လို့)။
-ProductID တစ်ခုတည်းကလည်း unique မဖြစ်နိုင်ပါဘူး (ဘာလို့လဲဆိုတော့ product တစ်ခုကို order များစွာ မှာယူနိုင်လို့)။
+ဒီ (OrderID, ProductID) နှစ်ခုပေါင်းလိုက်တဲ့အခါ unique ဖြစ်ပါတယ်။ <br />
+OrderID တစ်ခုတည်း unique မဖြစ်နိုင်ပါဘူး (ဘာလို့လဲဆိုတော့ order တစ်ခုတည်းမှာ product များစွာ ပါဝင်နိုင်လို့ပါ)။ <br />
+ProductID တစ်ခုတည်း unique မဖြစ်နိုင်ပါဘူး (ဘာလို့လဲဆိုတော့ product တစ်ခုကို order များစွာ မှာယူနိုင်လို့ပါ)။ <br />
 ဒါကြောင့် (OrderID, ProductID) ဟာ လျှော့ချ၍မရနိုင်သော (irreducible) Candidate Key ဖြစ်ပါတယ်။ ဘယ်တစ်ခုကိုမှ ဖယ်ရှားလိုက်လို့မရပါဘူး။
 
 #### Candidate Key ရဲ့ တန်ဖိုးက တည်ငြိမ်မှု (stability) ရှိသင့်ပါတယ်။
@@ -57,6 +57,7 @@ Students Table
 | ----- | ----- | ---- | ---- | 
 | 1 | Alice | alice@gmail.com | 1234567890 |
 | 2 | Bob | bob@gmail.com | 0987654321 |
+| 3 | Charlie | charlie@gmail.com | [Null] |
 
 Candidate Keys များ - 
 
@@ -65,9 +66,9 @@ Email ✅ (unique, non-null, irreducible)
 
 ဒီဥပမာမှာ StudentID နဲ့ Email နှစ်ခုလုံးဟာ Candidate Key ဖြစ်နိုင်တဲ့ အရည်အချင်းတွေ ပြည့်မီပါတယ်။
 
-StudentID: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား ID နံပါတ်တစ်ခုစီ ရှိတဲ့အတွက် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒါ့အပြင် ဒီ ID တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်ကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
+StudentID: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား ID နံပါတ်တစ်ခုစီ ရှိတဲ့အတွက် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒါ့အပြင် ဒီ ID တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်စီကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
 
-Email: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား အီးမေးလ်လိပ်စာတစ်ခုစီပဲ ရှိတယ်လို့ ယူဆရင် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒီအီးမေးလ်တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်ကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
+Email: ကျောင်းသားတစ်ယောက်စီမှာ သီးခြား အီးမေးလ်လိပ်စာတစ်ခုစီပဲ ရှိတယ်လို့ ယူဆရင် ဒါဟာ unique ဖြစ်ပါတယ်။ ဒီအီးမေးလ်တစ်ခုတည်းနဲ့ ကျောင်းသားတစ်ယောက်စီကို ရှာဖွေထုတ်ယူနိုင်ပါတယ်။
 
 ကျွန်တော်တို့က StudentID ကို primary key အဖြစ် ရွေးချယ်လိုက်ပြီဆိုပါစို့။ အဲဒီအခါ Email ဟာ Candidate Key အဖြစ် ဆက်လက်တည်ရှိနေဆဲ ဖြစ်ပါတယ်။
 
@@ -82,7 +83,7 @@ StudentID ကို ရွေးချယ်လိုက်ပေမယ့် Em
 #### Natural Candidate Key မရှိတဲ့အခါ ဘာလုပ်မလဲ - Artificial Candidate Key တစ်ခု ဖန်တီးပါ။ 
 တစ်ခါတလေ သင့်ရဲ့အချက်အလက်တွေကို သေချာစိစစ်ကြည့်တဲ့အခါ Candidate Key အဖြစ် တကယ်အသုံးပြုလို့ရတဲ့ field (သို့မဟုတ်) set of field တစ်ခုမှ မရှိဘူးဆိုတာ တွေ့ရနိုင်ပါတယ်။ 
 
-**❌ No natural candidate key: Car Table**
+**❌ No natural candidate key: Cars Table**
 | Make | Model | Year | Color | OwnerID |
 | --- | ---- | ---- | ---- | ---- |
 | Toyota | Corolla | 2020 | Red | 100 | 
@@ -95,7 +96,7 @@ StudentID ကို ရွေးချယ်လိုက်ပေမယ့် Em
 Artificial Candidate Key တစ်ခုကို table ထဲမှာ field အသစ်တစ်ခု ထပ်ပေါင်းထည့်ပြီး ဖန်တီးနိုင်ပါတယ်။ ဒီ field အသစ်ဟာ Candidate Key ရဲ့ လိုအပ်တဲ့ စည်းမျဉ်းအားလုံးနဲ့ ကိုက်ညီအောင် သီးခြားဒီဇိုင်းလုပ်ထားတာဖြစ်ပါတယ်။ 
 ထပ်ပေါင်းထည့်ပြီးတာနဲ့ ဒီဖန်တီးထားတဲ့ field က သင့် table ရဲ့ တရားဝင် Candidate Key ဖြစ်လာပါလိမ့်မယ်။
 
-**✅ With artificial candidate key: Car Table**
+**✅ With artificial candidate key: Cars Table**
 | ID | Make | Model | Year | Color | OwnerID |
 | --- | --- | ---- | ---- | ---- | ---- |
 | 1 | Toyota | Corolla | 2020 | Red | 100 | 
