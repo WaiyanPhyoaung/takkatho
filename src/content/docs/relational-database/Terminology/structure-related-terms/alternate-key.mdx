@@ -1,0 +1,31 @@
+---
+title: "Database Structure: Alternate Key and Non-Keys"
+description: Alternate Key and Non-Keys
+---
+
+## Alternate Key
+
+Alternate Key ဆိုတာ Primary Key အဖြစ် ရွေးချယ်ခြင်းမခံရတဲ့ မည်သည့် Candidate Key မဆို ဖြစ်ပါတယ်။ Table တစ်ခုအတွက် primary key အဖြစ် အသုံးပြုဖို့ Candidate Key တစ်ခုကို ရွေးချယ်ပြီးသွားပြီဆိုရင်၊ ကျန်ရှိတဲ့ Candidate Key တွေကို Alternate Key အဖြစ် သတ်မှတ်ပါတယ်။
+
+### Alternate Key အကြောင်း အသေးစိတ်
+- Alternate Key တွေဟာ Primary Key လိုပဲ record တစ်ခုစီကို သီးခြားစီထုတ်ယူနိုင်ပါတယ်။ သူတို့ကို Primary Key အဖြစ် ရွေးချယ်မခံရလို့သာ Alternate Key ဖြစ်သွားတာဖြစ်ပါတယ်။
+- Alternate Key တွေကလည်း table ထဲမှာ အချက်အလက်ထပ်နေတာတွေ (duplicate records) မရှိအောင် ကာကွယ်ပေးတဲ့ နေရာမှာ အရေးပါပါတယ်။ 
+- Primary Key မဟုတ်ရင်တောင် Alternate Key တွေကနေတစ်ဆင့် အချက်အလက်တွေကို မြန်မြန်ဆန်ဆန် ရှာဖွေနိုင်ပြီး ပြန်လည်ထုတ်ယူနိုင်ပါတယ်။ သူတို့မှာလည်း index တွေ ထားရှိလေ့ရှိပါတယ်။
+- အကယ်၍ လက်ရှိ Primary Key က အနာဂတ်မှာ အကြောင်းအမျိုးမျိုးကြောင့် (ဥပမာ- စီးပွားရေးလုပ်ငန်း လိုအပ်ချက်ပြောင်းလဲမှု) မသင့်တော်တော့ဘူးဆိုရင်၊ Alternate Key တွေထဲကနေ တစ်ခုကို Primary Key အသစ်အဖြစ် ရွေးချယ်အစားထိုးနိုင်တဲ့ အရန်သင့်ရွေးချယ်စရာအဖြစ် ရှိနေပါတယ်။
+
+
+## Non Keys
+
+Non-Key ဆိုတာ Candidate Key၊ Primary Key၊ Alternate Key ဒါမှမဟုတ် Foreign Key အဖြစ် လုပ်ဆောင်ခြင်းမရှိတဲ့ field တစ်ခု ဖြစ်ပါတယ်။
+Non-Key ရဲ့ တစ်ခုတည်းသော ရည်ရွယ်ချက်ကတော့ table ရဲ့ characteristic တစ်ခုကို ကိုယ်စားပြုဖို့ပဲ ဖြစ်ပါတယ်။
+
+
+
+## Key ဝေါဟာရများ အနှစ်ချုပ်
+| ဝေါဟာရ |	အဓိပ္ပာယ် |
+| --- | ---- |
+| Candidate Key | record တစ်ခုစီကို unique ဖြစ်စွာ ထုတ်ယူနိုင်တဲ့ မည်သည့် field (သို့မဟုတ် field များ ပေါင်းစပ်မှု) မဆို။ |
+| Primary Key |	table ထဲမှာ record တွေကို ခွဲခြားရှာဖွေထုတ်ယူဖို့အတွက် Candidate Key တွေထဲက ရွေးချယ်ထားတဲ့ Candidate Key တစ်ခု။ |
+| Alternate Key |Primary Key အဖြစ် ရွေးချယ်ခြင်းမခံရတဲ့ ကျန်ရှိနေသော Candidate Key များ။ |
+| Non-Keys | Candidate Key၊ Primary Key၊ Alternate Key၊ Foreign Key အဖြစ် လုပ်ဆောင်ခြင်းမရှိတဲ့ field များ။ |
+
