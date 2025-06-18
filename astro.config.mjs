@@ -504,6 +504,20 @@ export default defineConfig({
           ],
         },
         {
+          label: "Software Architecture",
+          items: [
+            {
+              label: "Foundations",
+              items: [
+                {
+                  label: "Foundations of Software Architecture",
+                  slug: "software-architecture/foundations/foundations",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "Relational Database",
           items: [
             {
