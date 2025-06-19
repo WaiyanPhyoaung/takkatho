@@ -513,6 +513,10 @@ export default defineConfig({
                   label: "Foundations of Software Architecture",
                   slug: "software-architecture/foundations/foundations",
                 },
+                {
+                  label: "The Goals of Architecture",
+                  slug: "software-architecture/foundations/goals",
+                },
               ],
             },
           ],
