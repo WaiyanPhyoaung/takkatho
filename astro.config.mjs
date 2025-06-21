@@ -519,6 +519,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Monolithic Architecture",
+              items: [
+                {
+                  label: "Monolithic Architecture",
+                  slug: "software-architecture/monolith/monolithic",
+                },
+                {
+                  label: "Layered Architecture",
+                  slug: "software-architecture/monolith/layered",
+                },
+              ],
+            },
           ],
         },
         {

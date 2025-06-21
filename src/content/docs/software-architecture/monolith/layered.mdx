@@ -1,0 +1,36 @@
+---
+title: "Monolith ကို စနစ်တကျတည်ဆောက်ခြင်း - Layered (N-Tier) Architecture"
+description: "Monolith ကို စနစ်တကျတည်ဆောက်ခြင်း - Layered (N-Tier) Architecture"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import layered from '@/assets/software-architecture/layered.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ Layered architecture pattern က monolithic application တစ်ခုကို မည်သို့ စနစ်တကျဖြစ်စေပြီး ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူအောင် ပြုလုပ်ပေးသည်ကို လေ့လာရန်။
+</Aside>
+
+### ရှုပ်ထွေးမှုများအား စနစ်တကျဖြစ်စေခြင်း
+Monolith တစ်ခုသည် လုံးဝရှုပ်ပွ မနေသင့်ပါ။ Layered Architecture (N-Tier Architecture ဟုလည်းခေါ်သည်) သည် monolith တစ်ခုအတွင်းရှိ code များကို စနစ်တကျဖြစ်စေရန် အသုံးပြုသည့် အလွန်အသုံးများသော pattern တစ်ခုဖြစ်သည်။ ၎င်းက code များကို ၎င်းတို့၏ တာဝန်အလိုက် သီးခြားအလွှာများ အဖြစ် ခွဲခြားပေးသည်။
+
+### အလွှာများကို ရှင်းလင်းချက်
+ပုံမှန် web application တစ်ခုတွင် အဓိကအလွှာ သုံးခုရှိသည်:
+
+- **Presentation Layer (UI) -** ဤသည်မှာ အသုံးပြုသူ မြင်တွေ့ထိတွေ့ရသော အလွှာဖြစ်သည်။ ၎င်းတွင် အသုံးပြုသူ၏ browser ထဲတွင် run သော HTML, CSS, နှင့် frontend JavaScript တို့ ပါဝင်သည်။ ၎င်း၏အလုပ်မှာ data များကို ပြသရန်နှင့် user input များကို ဖမ်းယူရန်ဖြစ်သည်။
+
+- **Business Logic Layer (Application Layer) -** ဤသည်မှာ application ၏ "ဦးနှောက်" ဖြစ်သည်။ ၎င်းတွင် အဓိက business rule များ၊ logic များ၊ နှင့် workflow များ ပါဝင်သည်။ ၎င်းက UI မှလာသော user request များကို process လုပ်ခြင်း၊ ဆုံးဖြတ်ချက်ချခြင်း၊ နှင့် data layer နှင့် ချိတ်ဆက်ညှိနှိုင်းခြင်းတို့ကို ပြုလုပ်သည်။
+
+- **Data Access Layer (Persistence Layer) -** ဤအလွှာ၏ တစ်ခုတည်းသောတာဝန်မှာ database နှင့် ဆက်သွယ်ရန်ဖြစ်သည်။ ၎င်းက data များကို ဖတ်ခြင်း၊ ရေးခြင်းအားလုံး (ဥပမာ - SQL query များ) ကို ကိုင်တွယ်သည်။
+
+### The Golden Rule of Layers
+အရေးအကြီးဆုံးစည်းမျဉ်းမှာ အလွှာများသည် တစ်ခုတည်းသော ဆက်သွယ်မှုလမ်းကြောင်း ရှိသင့်သည်။ အလွှာတစ်ခုသည် ၎င်း၏ တိုက်ရိုက်အောက်ရှိ အလွှာကိုသာ စကားပြောနိုင်သည်။
+
+Presentation Layer က Business Logic Layer ကို စကားပြောသည်။
+Business Logic Layer က Data Access Layer ကို စကားပြောသည်။
+
+> **အလွန်အရေးကြီးသည်မှာ Presentation Layer သည် Data Access Layer ကို တိုက်ရိုက် ဘယ်တော့မှ စကားမပြောသင့်ပါ။**
+
+ဤသို့ခွဲခြားထားခြင်းက code များ ရှုပ်ထွေးနေခြင်းမှ ကာကွယ်ပေးပြီး system ကို ပြင်ဆင်ထိန်းသိမ်းရန် အလွန်လွယ်ကူစေသည်။
+
+<ContentImage src={layered} alt="Layered Architecture" height={300} />
