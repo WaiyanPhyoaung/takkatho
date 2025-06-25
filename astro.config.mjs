@@ -530,6 +530,10 @@ export default defineConfig({
                   label: "Layered Architecture",
                   slug: "software-architecture/monolith/layered",
                 },
+                {
+                  label: "Monolith Pain Point",
+                  slug: "software-architecture/monolith/pain-points",
+                },
               ],
             },
           ],
