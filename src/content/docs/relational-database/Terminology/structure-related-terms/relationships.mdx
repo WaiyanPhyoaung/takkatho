@@ -20,6 +20,7 @@ Table နှစ်ခုကြားမှာ တည်ရှိနိုင်�
 ### One-to-One Relationship
 One-to-One Relationship ဆိုတာက Table နှစ်ခုချိတ်ဆက်နေတာဖြစ်ပြီးတော့ ပထမ table ထဲက record တစ်ခုက ဒုတိယ table ထဲက record တစ်ခုတည်းနဲ့သာ ဆက်စပ်မှုရှိပြီး၊ 
 ဒုတိယ table ထဲက record တစ်ခုဟာလည်း ပထမ table ထဲက record တစ်ခုတည်းနဲ့သာ ဆက်စပ်မှုရှိနေတာကို ဆိုလိုပါတယ်။
+
 One-to-One Relationship မှာ table တစ်ခုက parent table အဖြစ် ဆောင်ရွက်ပြီး၊ ကျန်တစ်ခုကတော့ child table အဖြစ် ဆောင်ရွက်ပါတယ်။ 
 ဒီ relation ကို တည်ဆောက်တဲ့အခါ parent table ရဲ့ Primary Key ကို ကူးယူပြီး child table ထဲမှာ ထည့်သွင်းရပါတယ်။ 
 အဲဒီအခါ parent table ရဲ့ Primary Key က child table ထဲမှာ Foreign Key ဖြစ်လာပါတယ်။ 
@@ -32,13 +33,12 @@ One-to-One Relationship မှာ table တစ်ခုက parent table အဖ�
 **ရှင်းလင်းချက်**
 
 ဥပမာကိုကြည့်မယ်ဆိုရင် `Employees table` က `Parent table` ဖြစ်ပြီး `Laptops table` က `Child table` ဖြစ်ပါတယ်။  <br />
-ဝန်ထမ်းတစ်ယောက်စီက laptop တစ်လုံးစီသာရရှိပြီး 
-laptop တစ်လုံးစီကိုလည်း ဝန်ထမ်းတစ်ယောက်စီကပဲ အသုံးပြုပါတယ်။
-
+ဝန်ထမ်းတစ်ယောက်စီက laptop တစ်လုံးပဲ သုံးစွဲခွင့်ရှိပြီး laptop တစ်လုံးစီကိုလည်း ဝန်ထမ်းတစ်ယောက်တည်းကသာ ကိုင်တွယ်အသုံးပြုပါတယ်။
 
 ### One-to-Many Relationship
 One-to-Many Relationship ဆိုတာက Table နှစ်ခုချိတ်ဆက်နေတာဖြစ်ပြီးတော့ ပထမ table ထဲက record တစ်ခုက ဒုတိယ table ထဲက record များစွာနဲ့ ဆက်စပ်မှုရှိနိုင်ပေမယ့်၊ 
 ဒုတိယ table ထဲက record တစ်ခုကတော့ ပထမ table ထဲက record တစ်ခုတည်းနဲ့သာ ဆက်စပ်မှုရှိနိုင်တာကို ဆိုလိုပါတယ်။
+
 (One-to-One Relationship ကို ဖော်ပြရာမှာ အသုံးပြုခဲ့တဲ့ parent/child model ဟာ ဒီမှာလည်း အလုပ်ဖြစ်ပါတယ်။ 
 ဒီအခြေအနေမှာ relation ရဲ့ "တစ်ခု" ဘက်ခြမ်းမှာရှိတဲ့ table က parent table ဖြစ်ပြီး၊ "အများ" ဘက်ခြမ်းမှာရှိတဲ့ table ကတော့ child table ဖြစ်ပါတယ်။)
 One-to-Many Relationship တစ်ခုကို တည်ဆောက်တဲ့အခါ parent table ရဲ့ Primary Key ကို ကူးယူပြီး child table ထဲကို ထည့်သွင်းရပါတယ်။ 
@@ -50,36 +50,36 @@ One-to-Many Relationship တစ်ခုကို တည်ဆောက်တဲ
 **ရှင်းလင်းချက်**
 
 ဥပမာကိုကြည့်မယ်ဆိုရင် `Departments table` က `Parent table` ဖြစ်ပြီး `Employees table` က `Child table` ဖြစ်ပါတယ်။ 
-ဌာနတစ်ခုမှာ ဝန်ထမ်းများစွာ ရှိနိုင်ပြီး ဝန်ထမ်းတစ်ယောက်စီကတော့ ဌာနတစ်ခုစီကပဲဖြစ်ပါတယ်။
-
+ဌာနတစ်ခုမှာ ဝန်ထမ်းတွေအများကြီး ရှိနိုင်ပေမဲ့ ဝန်ထမ်းတစ်ယောက်စီကတော့ ဌာနတစ်ခုစီကပဲဖြစ်ပါတယ်။
 
 
 ### Many-to-Many Relationship
 Many-to-Many Relationship ဆိုတာက Table နှစ်ခုချိတ်ဆက်နေတာဖြစ်ပြီးတော့ ပထမ table ထဲက record တစ်ခုက ဒုတိယ table ထဲက record များစွာနဲ့ ဆက်စပ်မှုရှိနိုင်သလို၊ 
 ဒုတိယ table ထဲက record တစ်ခုကလည်း ပထမ table ထဲက record များစွာနဲ့ ဆက်စပ်မှုရှိနိုင်တာကို ဆိုလိုပါတယ်။
+
 Many-to-Many Relationship ကို တည်ဆောက်ရာတွင် Linking Table တစ်ခုလိုအပ်ပါတယ်။ (linking table အကြောင်းကို ဒီအခန်းရဲ့ အစပိုင်းလောက်က အနည်းငယ် ရှင်းပြထားပါတယ်။) 
-Linking Table ကို တည်ဆောက်တဲ့အခါမှာ relation မှာပါဝင်တဲ့ table တစ်ခုစီရဲ့ Primary Key တွေကို ကူးယူပြီး linking table ထဲမှာအသုံးပြုပါတယ်။ 
-ဒီ primary key တွေဖြစ်တဲ့ field တွေဟာ linking table မှာမတူညီတဲ့ အခန်းကဏ္ဍနှစ်ခုကနေ ဆောင်ရွက်ပါတယ်။
-အတူတူပေါင်းစပ်လိုက်တဲ့အခါ Linking Table ရဲ့ ပေါင်းစပ် Primary Key ကို ဖြစ်ပေါ်စေပါတယ်။
-သီးခြားစီကြည့်တဲ့အခါ သူတို့တစ်ခုစီက Foreign Key အဖြစ် ဆောင်ရွက်ပါတယ်။
+Linking Table ထဲမှာ မူရင်း table နှစ်ခုရဲ့ Primary Key တွေကို Foreign Key တွေအဖြစ် လာရောက်သိမ်းဆည်းပါတယ်။
+ဒီ Foreign Key နှစ်ခုကို ပေါင်းစပ်ပြီး Linking Table အတွက် Composite Primary Key (ပေါင်းစပ် Primary Key) တစ်ခုအဖြစ် ဖန်တီးနိုင်ပါတယ်။
 
 <ContentImage src={manyToMany} alt="Example of Many-To-Many Relationship" />
 <p style="text-align: center;">A Many-To-Many Relationship</p>
 
 **ရှင်းလင်းချက်**
 
-ဥပမာကိုကြည့်မယ်ဆိုရင် `Books table`, `Authors table` နဲ့ `BookAuthors table` (linking table) ဆိုပြီး ရှိပါတယ်။ စာအုပ်တစ်အုပ်တည်းကို စာရေးဆရာများစွာ ပေါင်းရေးနိုင်သလို စာရေးဆရာတစ်ယောက်တည်းကလည်း စာအုပ်များစွာကိုရေးသားနိုင်ပါတယ်။
+ဥပမာကိုကြည့်မယ်ဆိုရင် `Books table` နဲ့ `Authors table` ကြားမှာ `BookAuthors table` (linking table) ကို သုံးထားပါတယ်။ စာအုပ်တစ်အုပ်တည်းကို စာရေးဆရာအများကြီးက ပေါင်းရေးနိုင်သလို စာရေးဆရာတစ်ယောက်တည်းကလည်း စာအုပ်တွေအများကြီးရေးသားနိုင်ပါတယ်။
+
 `AuthorBooks table` မှာ `BookID` တစ်ခုတည်းဆိုရင် `Foreign key` အနေနဲ့ ဆောင်ရွက်ပြီး `AuthorID` တစ်ခုတည်းဆိုရင်လည်း  `Foreign key` အနေနဲ့ ဆောင်ရွက်ပါတယ်။
+
 `(BookID, AuthorID)` နှစ်ခုကို ပေါင်းစပ်၍ `Composite Primary Key` အနေနဲ့ အသုံးပြုလို့ရပါတယ်။
 
 ## Self-Referencing Relationships
-Self-Referencing Relationship ဆိုတာ table နှစ်ခုကြားမှာ တည်ရှိတဲ့ relation အမျိုးအစား မဟုတ်ပါဘူး။ Table တစ်ခုတည်းက 
+Self-Referencing Relationship ဆိုတာ table နှစ်ခုကြားမှာ တည်ရှိတဲ့ relation အမျိုးအစား မဟုတ်ဘဲ Table တစ်ခုတည်းက 
 သူ့ကိုယ်သူ ပြန်လည်ချိတ်ဆက်နေတဲ့ relation အမျိုးအစားကို ဆိုလိုတာဖြစ်ပါတယ်။ ဒီ relation ကို hierarchical ဒါမှမဟုတ် recursive data structure တွေကို
-ကိုယ်စားပြုရာတွင် အသုံးဝင်ပါတယ်။
+ကိုယ်စားပြုရာတွင် အလွန်အသုံးဝင်ပါတယ်။
 
 
 ### One-to-One Relationship
-table တစ်ခုထဲက record တစ်ခုက အဲဒီ table ထဲမှာပဲရှိတဲ့ တခြား record တစ်ခုတည်းနဲ့သာ ဆက်စပ်မှုရှိတဲ့အခါ Self-Referencing One-to-One Relationship ကိုတည်ဆောက်လို့ရပါတယ်။
+Table တစ်ခုထဲက record တစ်ခုက အဲဒီ table ထဲမှာပဲရှိတဲ့ တခြား record တစ်ခုတည်းနဲ့သာ ဆက်စပ်မှုရှိတဲ့အခါ Self-Referencing One-to-One Relationship ကိုတည်ဆောက်လို့ရပါတယ်။
 
 <ContentImage src={selfOneToOne} alt="Example of Self-Referencing One-To-One Relationship" />
 <p style="text-align: center;">A Self-Referencing One-To-One Relationship</p>
@@ -110,8 +110,8 @@ Table တစ်ခုထဲမှာ record တစ်ခုဟာ အဲ့ဒ�
 ဥပမာကိုကြည့်မယ်ဆိုရင် `Categories table` မှာ `category` တစ်ခုမှာ `subcategories` တွေအများကြီးရှိနိုင်ပြီး `subcategory` တစ်ခုမှာတော့ `parent category` တစ်ခုပဲရှိပါတယ်။
 `Category` အချို့ကတော့ `top-level` ဖြစ်ပြီး `parent` မရှိတဲ့အတွက် `Null` ဖြစ်ပါတယ်။
 
-ဒီ structure ဟာ E-commerce site တွေမှာ product အမျိုးအစားတွေ၊ အဖွဲ့အစည်းတစ်ခုရဲ့ ဌာနအဆင့်ဆင့်ဖွဲ့စည်းပုံတွေ၊ 
-ဒါမှမဟုတ် reply တွေကနေ ထပ်ပြီး reply တွေရှိနိုင်တဲ့ comment threads တွေလိုမျိုး ကိစ္စရပ်တွေအတွက် အလွန်အသုံးဝင်ပါတယ်။
+ဒီ structure ဟာ E-commerce site တွေမှာ product အမျိုးအစားတွေ (Electronics -> Laptops -> Gaming Laptops)၊ အဖွဲ့အစည်းတစ်ခုရဲ့ ဌာနအဆင့်ဆင့်ဖွဲ့စည်းပုံတွေ (CEO -> Managers -> Team Leads)၊ 
+ဒါမှမဟုတ် comment တွေအောက်မှာ reply တွေအဆင့်ဆင့်ရေးတာမျိုးတွေ အလွန်အသုံးဝင်ပါတယ်။
 
 
 ### Many-to-Many Relationship
@@ -128,7 +128,9 @@ Table တစ်ခုထဲက record တစ်ခုစီဟာ အဲ့ဒ�
 
 **ရှင်းလင်းချက်**
 
-ဥပမာကိုကြည့်မယ်ဆိုရင် `Person table` မှာ <br />
+ဥပမာကိုကြည့်မယ်ဆိုရင် `Persons table` မှာ 
+လူတစ်ယောက်က သူငယ်ချင်းတွေအများကြီးရှိနိုင်ပြီး၊ သူငယ်ချင်းတစ်ယောက်ချင်းစီကလည်း သူ့ကို ပြန်လည်သူငယ်ချင်းဖွဲ့ထားတာမျိုး (ဥပမာ- Facebook Friend System) ကို `PersonFriend` ဆိုတဲ့ Linking Table နဲ့ တည်ဆောက်နိုင်ပါတယ်။
+
 `Alice` ဟာ `Bob`, `Carol` နဲ့ သူငယ်ချင်းဖြစ်ပါတယ်။
 တစ်ချိန်တည်းမှာပဲ အဲ့ဒီ `Bob`, `Carol` ကလည်း `Alice` နဲ့ သူငယ်ချင်းဖြစ်ပါတယ်။
 
@@ -148,13 +150,13 @@ Foreign Key ရှိတဲ့ table က Child Table ဖြစ်ပါတယ်
 
 **1. Dependency (မှီခိုမှု) ကို ကြည့်ပါ။**
 
-Parent Table ဟာ သူ့ရဲ့ record တွေတည်ရှိဖို့ တခြား table ပေါ်မှာ မှီခိုနေခြင်း မရှိပါဘူး။ အချက်အလက်တွေရဲ့ မူရင်းဇစ်မြစ် (source) ဖြစ်ပါတယ်။
-Child Table ဟာ သူ့ရဲ့ record တွေအဓိပ္ပာယ်ပြည့်ဝဖို့အတွက် Parent Table မှာရှိတဲ့ သက်ဆိုင်ရာ record တစ်ခု ရှိဖို့ လိုအပ်ပါတယ်။ 
+Parent Table ဟာ သူ့ဘာသာသူ ရပ်တည်နိုင်ပြီး အချက်အလက်တွေရဲ့ မူရင်းဇစ်မြစ် (source) ဖြစ်ပါတယ်။
+Child Table ကတော့ အဓိပ္ပာယ်ပြည့်စုံဖို့ Parent Table ပေါ်မှာ မှီခိုနေရပါတယ်။  ဥပမာ- Orders table ထဲမှာ CustomerID မရှိရင် ဒီ order က ဘယ်သူ့ order မှန်း သိနိုင်မှာမဟုတ်ပါဘူး။
 
 **2. Information Flow (အချက်အလက် စီးဆင်းမှု) ကိုစဉ်းစားပါ။**
 
-Parent Table မှာ ပိုပြီး "အခြေခံ" ဒါမှမဟုတ် "အသေးစိတ်မကျသေးတဲ့" အချက်အလက်တွေ ပါဝင်လေ့ရှိပါတယ်။
-Child Table မှာတော့ Parent Table ရဲ့ အချက်အလက်တွေနဲ့ ပတ်သက်တဲ့ ပိုပြီး "အသေးစိတ်ကျတဲ့" အချက်အလက်တွေ ပါဝင်လေ့ရှိပါတယ်။
+Parent Table မှာ ပိုပြီး "အသေးစိတ်မကျသေးတဲ့" (general) အချက်အလက်တွေ ပါဝင်လေ့ရှိပါတယ်။ (ဥပမာ- Customers, Departments)။ 
+Child Table မှာတော့ Parent Table ရဲ့ အချက်အလက်တွေနဲ့ ပတ်သက်တဲ့ ပိုပြီး "အသေးစိတ်ကျတဲ့" အချက်အလက်တွေ ပါဝင်လေ့ရှိပါတယ်။ (ဥပမာ- Orders, Employees)။ 
 
 **3. Relationship Type (ဆက်စပ်မှု အမျိုးအစား) နှင့် နေရာချထားပုံ။**
 
