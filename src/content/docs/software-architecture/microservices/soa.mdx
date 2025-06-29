@@ -1,0 +1,37 @@
+---
+title: "ခွဲခြမ်းစိတ်ဖြာခြင်း - SOA နှင့် Microservices"
+description: "ခွဲခြမ်းစိတ်ဖြာခြင်း - SOA နှင့် Microservices"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import esb from '@/assets/software-architecture/esb.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+  application တစ်ခုတည်းကနေ service အများအပြား ဆက်သွယ်အလုပ်လုပ်တဲ့ပုံစံကို အခြေခံကျကျပြောင်းလဲလာခြင်း နှင့် microservices မတိုင်ခင်က SOA အကြောင်းကို လေ့လာရန်။
+</Aside>
+
+အရင်အခန်းမှာ၊ application အကြီးကြီးတစ်ခုဖြစ်တဲ့ monolith က စီမံခန့်ခွဲရတာ ဘယ်လောက်ခက်ခဲလာနိုင်လဲဆိုတာကို ကျွန်တော်တို့တွေ့ခဲ့ရပါတယ်။ ဒါကြောင့် ယုတ္တိအရှိဆုံးဖြေရှင်းချက်ကတော့ အဲဒီ application အကြီးကြီးကို အပိုင်းသေးသေးလေးတွေအဖြစ် ခွဲထုတ်ဖို့ပါပဲ။ ဒီအခန်းမှာတော့ **distributed systems** (နေရာအနှံ့မှာ ခွဲပြီးထားတဲ့ system) တွေအကြောင်းကို လေ့လာပါမယ်။ **Service-Oriented Architecture (SOA)** လို့ခေါ်တဲ့ အစောပိုင်းကြိုးပမ်းမှုတစ်ခုကနေစပြီး၊ သူ့ရဲ့ခေတ်မီပြီး လူကြိုက်များတဲ့ ပြောင်းလဲတိုးတက်မှုဖြစ်တဲ့ **Microservices** အကြောင်းကို အသေးစိတ်လေ့လာသွားပါမယ်။
+
+### တစ်ခုတည်းကနေ အများကြီးဆီသို့
+Distributed system ဆိုတာက component တစ်ခုခြင်းစီက network ကနေ ဆက်သွယ်ပြီး အတူတကွအလုပ်လုပ်တဲ့ system တစ်ခုပါ။ code အားလုံးက တစ်နေရာတည်းမှာ (monolith ထဲမှာ) run မယ့်အစား၊ မတူညီတဲ့ process တွေ၊ computer တွေပေါ်မှာ ခွဲပြီးထားတာဖြစ်ပါတယ်။ ဒါက modern large-scale application အားလုံးနီးပါးရဲ့ အခြေခံအုတ်မြစ်ပါပဲ။
+
+### စည်းမျဉ်းအသစ်များ - Distributed Systems တွေရဲ့ စိန်ခေါ်မှုများ
+Monolith ကနေ distributed system ကို ပြောင်းလိုက်တဲ့အခါ၊ ကြားထဲမှာ network ကို ထည့်သွင်းလိုက်ရပြီး၊ network ဆိုတာက ကြိုတင်ခန့်မှန်းလို့မရပါဘူး။
+
+- **Network က အမြဲတမ်း အားကိုးလို့မရဘူး -** Connection တွေက ဘယ်အချိန်မဆို ပြတ်တောက်သွားနိုင်တယ်၊ ပျက်သွားနိုင်တယ်။
+
+- **Latency (data သွားလာချိန် ကြန့်ကြာမှု) အမြဲတမ်းရှိတယ် -** Network ကနေ data တွေသွားလာဖို့ အမြဲတမ်း အချိန်ယူရတယ်။ Monolith ထဲက function တစ်ခုကိုခေါ်တာက မျက်စိတစ်မှိတ်အတွင်းဖြစ်ပေမယ့်၊ network call တစ်ခုက အဆထောင်ပေါင်းများစွာ ပိုနှေးတယ်။
+
+- **Bandwidth က အကန့်အသတ်ရှိတယ် -** သင်က data အများကြီးကို network ကနေ ချက်ချင်းပို့လို့မရဘူး။
+
+Network က ပြီးပြည့်စုံတယ်လို့ မထင်သင့်ပါဘူး။ ကောင်းမွန်တဲ့ **distributed architecture** တစ်ခုက ဒီစိန်ခေါ်မှုတွေကို ထည့်သွင်းစဉ်းစားပြီး ဒီဇိုင်းဆွဲထားပါတယ်။
+
+### ရှေ့ပြေးဖြစ်ခဲ့သော - SOA (Service-Oriented Architecture)
+SOA ဆိုတာ monolith ကို ခွဲခြမ်းဖို့အတွက် ပထမဆုံးလူကြိုက်များခဲ့တဲ့ architectural style တွေထဲက တစ်ခုပါ။
+
+- **ဘာလဲဆိုတော့:** SOA က application အကြီးကြီးတစ်ခုကို **business function အလိုက်ခွဲထားတဲ့ service** တစ်ခုစီအဖြစ် ခွဲထုတ်တာပါ (ဥပမာ - "Human Resources Service," "Finance Service")။ ဒီ service တွေက လုပ်ငန်းတစ်ခုလုံးမှာ ပြန်လည်အသုံးပြုနိုင်ဖို့ ရည်ရွယ်ပါတယ်။
+
+- **အဓိကအချက် (အားနည်းချက်) The ESB -** SOA မှာ service တွေက များသောအားဖြင့် **Enterprise Service Bus (ESB)** လို့ခေါ်တဲ့ အဓိက "ပိုက်လိုင်းကြီး" ကနေတစ်ဆင့် ဆက်သွယ်ကြတယ်။ ESB က message တွေ ဘယ်ကိုသွားရမလဲဆိုတာ လမ်းကြောင်းပေးတာ၊ data တွေကို format ပြောင်းပေးတာ၊ နဲ့ business rule တွေကို ထိန်းချုပ်တာတွေ ပြုလုပ်တယ်။ ဒါက ESB ကို အလွန်ရှုပ်ထွေးစေပြီး၊ သူပျက်သွားရင် အကုန်လုံးရပ်သွားနိုင်တဲ့ အားနည်းချက် (single point of failure) ဖြစ်စေပါတယ်။
+
+<ContentImage src={esb} alt="SOA with ESB" height={400}/>

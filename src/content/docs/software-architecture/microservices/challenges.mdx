@@ -1,0 +1,48 @@
+---
+title: "Microservices တွေရဲ့ စိန်ခေါ်မှုများ"
+description: "Microservices တွေရဲ့ စိန်ခေါ်မှုများ"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import distributedMonolith from '@/assets/software-architecture/distribute-monolith.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+   Microservices architecture ကနေ ဖြစ်ပေါ်လာတဲ့ သိသာထင်ရှားတဲ့ ရှုပ်ထွေးမှုတွေနဲ့ အပေးအယူလုပ်ရတာတွေကို လက်တွေ့ကျကျ နားလည်နိုင်ရန်။
+</Aside>
+
+### လက်တွေ့အခြေအနေ - ဒါက မလွယ်ပါဘူး
+Microservices တွေက အစွမ်းထက်ပေမယ့်၊ သူတို့က သိသိသာသာ ရှုပ်ထွေးမှုတွေကို ဖြစ်ပေါ်စေပါတယ်။ သင်က monolith ရဲ့ ပြဿနာတွေကို distributed systems တွေရဲ့ ပြဿနာအသစ်တွေနဲ့ လဲလှယ်လိုက်တာပါပဲ။
+
+#### စိန်ခေါ်မှု ၁: နေရာအနှံ့ရှိ Data များကို စီမံခန့်ခွဲခြင်း
+- **Eventual Consistency -** Service တစ်ခုချင်းစီမှာ ကိုယ်ပိုင် database ရှိတဲ့အတွက်၊ system တစ်ခုလုံးအနေနဲ့ ယာယီအားဖြင့် data တွေကွဲလွဲနေနိုင်ပါတယ်။ 
+  - ဥပမာ - user တစ်ယောက်က "User Service" မှာ သူ့ရဲ့ ပို့ဆောင်ရမယ့်လိပ်စာကို ပြောင်းလိုက်ရင်၊ "Shipping Service" က ဒီအပြောင်းအလဲကို သိဖို့ အချိန်ခဏလောက် ယူရနိုင်ပါတယ်။ System က နောက်ဆုံးမှာတော့ data တွေ ကိုက်ညီသွားလိမ့်မယ်၊ ဒါပေမဲ့ ချက်ချင်းတော့ မဟုတ်ပါဘူး။
+
+- **Distributed Transactions -** Service အများအပြားမှာ data တွေကို update လုပ်ရမယ့် လုပ်ဆောင်ချက်တစ်ခုကို ဘယ်လိုကိုင်တွယ်မလဲ။ 
+  - ဥပမာ - order တစ်ခုတင်လိုက်ရင် "Orders Service," "Payments Service," နှင့် "Inventory Service" တို့ကို update လုပ်ရပါမယ်။ သင်က သမားရိုးကျ database transaction ကို သုံးလို့မရပါဘူး။ ဒါက များသောအားဖြင့် Saga Pattern လို ရှုပ်ထွေးတဲ့ pattern တစ်ခု လိုအပ်လာပါတယ်။
+
+#### စိန်ခေါ်မှု ၂: လုပ်ငန်းလည်ပတ်မှုဆိုင်ရာ ရှုပ်ထွေးမှု (Operational Complexity)
+Deployment: သင်က application တစ်ခုတည်းကို deploy လုပ်နေတာ မဟုတ်တော့ပါဘူး။ သေးငယ်တဲ့ application ဒါဇင်ပေါင်းများစွာကို deploy လုပ်ပြီး စီမံခန့်ခွဲနေရတာပါ။ ဒါက အလိုအလျောက်စနစ် (CI/CD pipelines) တွေ အများကြီးလိုအပ်ပါတယ်။
+
+- **Monitoring -** System တစ်ခုလုံး ကောင်းကောင်း အလုပ်လုပ်ရဲ့လားဆိုတာ ဘယ်လိုသိမလဲ။ User request တစ်ခုက service ငါးခုလောက်ဆီကို "ခုန်ကူး" သွားနိုင်တယ်။ ပြဿနာဘယ်မှာဖြစ်လဲဆိုတာ အတိအကျသိဖို့ distributed tracing လိုမျိုး ရှုပ်ထွေးတဲ့ tool တွေ လိုအပ်ပါတယ်။
+
+- **Debugging -** Error တစ်ခုရဲ့ အရင်းအမြစ်ကို ရှာရတာ အများကြီးပိုခက်ပါတယ်။ ပြဿနာက service သုံးခုထဲက တစ်ခုခုမှာဖြစ်နိုင်သလို၊ သူတို့ကြားက network ဆက်သွယ်မှုမှာလည်း ဖြစ်နိုင်ပါတယ်။
+
+#### နံပါတ် ၁ ထောင်ချောက် - The Distributed Monolith
+- ဒါက အဆိုးဆုံးအခြေအနေပါ။ ဘာလဲဆိုတော့ သင်က application ကို service အသေးလေးတွေအဖြစ် ခွဲထုတ်လိုက်ပေမယ့်၊ သူတို့က တစ်ခုနဲ့တစ်ခု အရမ်းကို တင်းကျပ်စွာ ချိတ်ဆက် (tightly coupled) နေလို့၊ service တစ်ခုမှာ အပြောင်းအလဲလုပ်လိုက်တာနဲ့ တခြား service အများအပြားကိုပါ လိုက်ပြီးအတူတူ deploy လုပ်နေရတာမျိုးပါ။
+
+- ရလဒ်အနေနဲ့ သင်က distributed system ရဲ့ အခက်အခဲတွေအားလုံးကို ရရှိပြီး၊ monolith ရဲ့ အားသာချက် ရော၊ microservices ရဲ့ အားသာချက်ပါ ဘာတစ်ခုမှ မရလိုက်ပါဘူး။
+
+- ဘယ်လိုရှောင်မလဲဆိုရင် အစကတည်းက service တွေကြား လွတ်လပ်တဲ့ချိတ်ဆက်မှု (loose coupling) နဲ့ service တစ်ခုချင်းစီကို လွတ်လပ်စွာ deploy လုပ်နိုင်ဖို့ကိုပဲ အာရုံစိုက်ပါ။
+
+<ContentImage src={distributedMonolith} alt="Anti-Pattern: The Distributed Monolith" />
+
+<Aside title="အနှစ်ချုပ်">
+- Monolith တစ်ခုကို ခွဲခြမ်းလိုက်တဲ့အခါ၊ network မတည်ငြိမ်မှုနဲ့ latency လိုမျိုး သူ့ကိုယ်ပိုင်စိန်ခေါ်မှုတွေရှိတဲ့ distributed systems လောကထဲကို ရောက်ရှိလာပါတယ်။
+
+- Service-Oriented Architecture (SOA) က service တွေဖန်တီးဖို့ အစောပိုင်းကြိုးပမ်းမှုတစ်ခုဖြစ်ပြီး၊ များသောအားဖြင့် ရှုပ်ထွေးတဲ့ ဗဟို "bus" (ESB) ကို အားကိုးရလေ့ရှိတယ်။
+
+- Microservices ကတော့ ခေတ်မီတိုးတက်ပြောင်းလဲမှုတစ်ခုဖြစ်ပြီး၊ ကိုယ်ပိုင် data ပိုင်ဆိုင်ကာ ရိုးရှင်းတဲ့ API တွေကနေတစ်ဆင့် ဆက်သွယ်တဲ့ သေးငယ်ပြီး လွတ်လပ်တဲ့ service အများအပြားကို ဦးစားပေးတယ်။
+
+- Microservices တွေက အစွမ်းထက်ပေမယ့်၊ data စီမံခန့်ခွဲမှု၊ deployment, နှင့် monitoring တို့မှာ သိသိသာသာ ရှုပ်ထွေးမှုတွေ ဖြစ်ပေါ်စေပြီး၊ "Distributed Monolith" ထောင်ချောက်ကို ရှောင်ရှားဖို့ သတိပြုရပါမယ်။
+</Aside>

@@ -536,6 +536,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "SOA & Microservices",
+              items: [
+                {
+                  label: "Distributed Systems & SOA",
+                  slug: "software-architecture/microservices/soa",
+                },
+                {
+                  label: "Microservices Architecture",
+                  slug: "software-architecture/microservices/microservices",
+                },
+                {
+                  label: "Challenges of Microservices",
+                  slug: "software-architecture/microservices/challenges",
+                },
+              ],
+            },
           ],
         },
         {
