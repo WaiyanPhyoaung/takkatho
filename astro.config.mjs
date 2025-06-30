@@ -553,6 +553,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Designing Communication",
+              items: [
+                {
+                  label: "Synchronous Communication",
+                  slug: "software-architecture/communications/synchronous",
+                },
+              ],
+            },
           ],
         },
         {
