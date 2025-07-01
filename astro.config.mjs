@@ -560,6 +560,14 @@ export default defineConfig({
                   label: "Synchronous Communication",
                   slug: "software-architecture/communications/synchronous",
                 },
+                {
+                  label: "Data Architecture in Distributed Systems",
+                  slug: "software-architecture/communications/data-distributed",
+                },
+                {
+                  label: "Choosing the Right Database",
+                  slug: "software-architecture/communications/database",
+                },
               ],
             },
           ],
