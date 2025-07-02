@@ -1,0 +1,99 @@
+---
+title: "Normalization: BCNF (Boyce-Codd Normal Form)"
+description: BCNF (Boyce-Codd Normal Form)
+---
+
+## Boyce-Codd Normal Form (BCNF)
+
+Boyce-Codd Normal Form (BCNF) ဆိုတာ 3NF (Third Normal Form) ထက် အနည်းငယ် ပိုပြီးစည်းကမ်းတင်းကျပ်တဲ့ Normal Form တစ်ခု ဖြစ်ပါတယ်။  3.5NF လို့လည်း ခေါ်ကြပါတယ်။ 3NF အဆင့်ရောက်နေတဲ့ table တော်တော်များများဟာ BCNF လည်း ဖြစ်နေတတ်ပါတယ်။
+ဒါပေမဲ့ တခါတရံမှာ ထပ်နေတဲ့ candidate keys တွေကြောင့် 3NF မှာ ကျန်နေသေးတဲ့ ပြဿနာလေးတွေကို BCNF က ရှင်းထုတ်ပေးပါတယ်။
+
+
+BCNF ရဲ့ အဓိက စည်းမျဉ်းကတော့ ရှင်းပါတယ်။
+
+> Table တစ်ခုထဲမှာရှိတဲ့ Functional Dependency တိုင်းရဲ့ Determinant (ဆုံးဖြတ်ပေးသူ) ဟာ superkey (သို့မဟုတ် candidate key) ဖြစ်ရပါမယ်။
+
+လက်တွေ့မှာတော့ လုပ်ငန်းခွင်သုံး application အများစုအတွက် 3NF အထိရောက်အောင် ဒီဇိုင်းဆွဲနိုင်ရင် လုံလောက်လေ့ရှိပါတယ်။ BCNF ကတော့ ပညာရပ်ဆိုင်ရာမှာ ဒါမှမဟုတ် အလွန်ရှုပ်ထွေးတဲ့ data structure တွေအတွက် ပိုအသုံးဝင်ပါတယ်။
+
+## BCNF ကို ဘယ်လိုအခြေအနေမှာ လိုအပ်သလဲ။
+
+BCNF ကို နားလည်ဖို့အတွက် 3NF ဖြစ်နေပေမယ့် BCNF မဖြစ်တဲ့ ဥပမာတစ်ခုကို ကြည့်ရအောင်။ ဒီအခြေအနေဟာ Candidate Key တွေ ထပ်နေတဲ့အခါမျိုးမှာ ဖြစ်တတ်ပါတယ်။
+- Table ထဲမှာ Candidate Key တစ်ခုထက်ပိုရှိနေခြင်း။
+- အဲဒီ Candidate Key တွေက column နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုပြီးပေါင်းထားတဲ့ Composite Key တွေဖြစ်နေခြင်း။
+- အဲဒီ Composite Key တွေမှာ တူညီတဲ့ column တွေ အပြန်အလှန်ပါဝင်နေခြင်း (Overlapping)။
+
+ဥပမာအနေနဲ့ အောက်ပါ business rule တွေရှိတဲ့ table တစ်ခုကို စဉ်းစားကြည့်ပါ။
+
+- ကျောင်းသားတစ်ယောက်က ဘာသာရပ်တွေအများကြီး တက်နိုင်တယ်။
+- ဘာသာရပ်တစ်ခုချင်းစီအတွက် ကျောင်းသားကို သင်ကြားပေးတဲ့ ပါမောက္ခတစ်ဦးစီ ရှိတယ်။
+- ပါမောက္ခတစ်ဦးက ဘာသာရပ်တစ်ခုတည်းကိုသာ သင်ကြားတယ်။
+
+**StudentEnrollment Table**
+
+| StudentID | Subject | Professor |
+| ---- | ---- | ---- | 
+| S001 | Math | Prof. A |
+| S001 | Physics | Prof. B|
+| S002 | Math | Prof. A |
+
+### Step 1: Functional Dependencies များကို ဖော်ထုတ်ခြင်း။
+
+Business rule တွေအရ အောက်ပါ FD တွေကို ရရှိပါတယ်။
+
+**(StudentID, Subject) → Professor**
+
+- ဘယ်ကျောင်းသားက ဘယ်ဘာသာရပ်ကို တက်တယ်ဆိုတာသိရင် ဘယ်ပါမောက္ခသင်လဲဆိုတာ သိနိုင်ပါတယ်။
+
+**Professor → Subject**
+
+- ပါမောက္ခတစ်ဦးက ဘာသာရပ်တစ်ခုတည်းပဲ သင်တဲ့အတွက် ပါမောက္ခကိုသိရင် ဘာသာရပ်ကို သိနိုင်ပါတယ်။
+
+### Step 2: Candidate Keys များကို ဖော်ထုတ်ခြင်း။
+
+1. `(StudentID, Subject)` - table ထဲက field အားလုံးကို uniquely determine ပေးနိုင်တဲ့အတွက် Candidate Key ဖြစ်ပါတယ်။
+
+2.  `(StudentID, Professor)` - ဒါကလည်း `Professor → Subject` ဆိုတဲ့ FD ကြောင့် Subject ကို ဆုံးဖြတ်ပေးနိုင်တဲ့အတွက် Candidate Key ဖြစ်ပါတယ်။
+
+ဒါကြောင့် ဒီ table မှာ Overlapping Composite Candidate Key နှစ်ခုရှိနေပါတယ်။
+
+### Step 3: BCNF စစ်ဆေးခြင်း။
+BCNF အတွက် စည်းမျဉ်းကတော့ -  Functional Dependency `X → Y` တိုင်းအတွက် X ဟာ Superkey (Candidate Key) ဖြစ်ရမယ်။
+ 
+ကျွန်တော်တို့ရဲ့ Dependencies တွေကို ပြန်စစ်ကြည့်ရအောင်။
+
+**(StudentID, Subject) → Professor** 
+- Determinant ဖြစ်တဲ့ (StudentID, Subject) ဟာ Candidate Key ဖြစ်ပါတယ်။ ✅ OK
+
+**Professor → Subject** 
+- Determinant ဖြစ်တဲ့ Professor ဟာ Candidate Key မဟုတ်ပါဘူး။ ❌ BCNF စည်းမျဉ်းကိုချိုးဖောက်ပါတယ်။
+
+#### BCNF ကို ချိုးဖောက်ခြင်းရဲ့ ပြဿနာများ။
+ဒီ table ဟာ 3NF ဖြစ်နေပေမယ့် BCNF ကို ချိုးဖောက်တဲ့အတွက် Update, Insertion, Deletion Anomalies တွေ ဖြစ်ပေါ်နိုင်ပါတယ်။
+
+#### BCNF အဖြစ် ခွဲထုတ်ခြင်း။
+
+BCNF ဖြစ်ဖို့အတွက် စည်းမျဉ်းချိုးဖောက်တဲ့ FD ဖြစ်တဲ့ `Professor → Subject` ကို သူ့ရဲ့ကိုယ်ပိုင် table အဖြစ် ခွဲထုတ်ရပါမယ်။
+
+**Professor_Subject Table (BCNF)**
+
+| Professor | Subject |
+| ---- | ---- |
+| Prof. A | Math |
+| Prof. B | Physics |
+| Prof. C | Biology |
+
+အခုဆိုရင် ဒီ table မှာ `Professor → Subject` ဆိုတဲ့ FD တစ်ခုပဲရှိပြီး Determinant ဖြစ်တဲ့ Professor က Primary Key (Candidate Key) ဖြစ်တဲ့အတွက် BCNF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။
+
+-----
+
+**Student_Professor Table (BCNF)**
+
+| StudentID | Professor | 
+| ---- | ---- |
+| S001 | Prof. A |
+| S102 | Prof. A |
+| S101 | Prof. B |
+
+ဒီ table ရဲ့ Primary Key က `(StudentID, Professor)` ဖြစ်ပြီး ဒီ table ထဲမှာ တခြား ဘယ်လို FD မှ မရှိတော့တဲ့အတွက် BCNF စည်းမျဉ်းနဲ့ ကိုက်ညီပါတယ်။
+
+အခုဆိုရင် table နှစ်ခုလုံးဟာ BCNF အဆင့်ကို ရောက်ရှိသွားပြီး အပေါ်မှာပြောခဲ့တဲ့ Anomaly တွေအားလုံးကို ဖြေရှင်းနိုင်ပြီ ဖြစ်ပါတယ်။
