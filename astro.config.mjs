@@ -634,6 +634,39 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Normalization",
+              items: [
+                {
+                  label: "Normalization",
+                  slug: "relational-database/normalization/normalization",
+                },
+                {
+                  label: "First Normal Form",
+                  slug: "relational-database/normalization/first-normal-form",
+                },
+                {
+                  label: "Second Normal Form",
+                  slug: "relational-database/normalization/second-normal-form",
+                },
+                {
+                  label: "Third Normal Form",
+                  slug: "relational-database/normalization/third-normal-form",
+                },
+                {
+                  label: "Boyce-Codd Normal Form",
+                  slug: "relational-database/normalization/bcnf",
+                },
+                // {
+                //   label: "Fourth Normal Form",
+                //   slug: "relational-database/normalization/fourth-normal-form",
+                // },
+                // {
+                //   label: "Fifth Normal Form",
+                //   slug: "relational-database/normalization/fifth-normal-form",
+                // }
+              ]
+            }
           ],
         },
         // {
