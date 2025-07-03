@@ -570,6 +570,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Asynchronous Architectures",
+              items: [
+                {
+                  label: "Asynchronous Communication",
+                  slug: "software-architecture/async/asynchronous",
+                },
+              ],
+            },
           ],
         },
         {
