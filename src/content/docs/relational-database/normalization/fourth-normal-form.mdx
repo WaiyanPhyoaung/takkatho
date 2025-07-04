@@ -5,11 +5,61 @@ description: Fourth Normal Form
 
 ## Fourth Normal Form 
 Database design အများစုအတွက် 3NF သို့မဟုတ် BCNF အထိ ရောက်အောင် လုပ်ဆောင်နိုင်ရင် လုံလောက်ပါတယ်။ 
-ဒါပေမဲ့ ပိုပြီး ရှုပ်ထွေးတဲ့ data redundancy ပြဿနာတွေကို ကိုင်တွယ်ဖြေရှင်းပေးနိုင်တဲ့ ပိုမိုမြင့်မားတဲ့ Normal Forms တွေ ရှိပါသေးတယ်။
+ဒါပေမဲ့ 4NF က 3NF နဲ့ BCNF တို့ကနေ ဖြေရှင်းမပေးနိုင်တဲ့ ပြဿနာတစ်မျိုးဖြစ်တဲ့ Multivalued Dependency ကို ရှင်းထုတ်ပေးပါတယ်။
 
-### Fourth Normal Form (4NF)
+### Multi-valued dependencies (MVD)
 
-4NF က multi-valued dependencies ကို ကိုင်တွယ်ဖြေရှင်းပါတယ်။ 
+Multivalued Dependency ဆိုတာ table တစ်ခုတည်းမှာ တစ်ခုနဲ့တစ်ခုလုံးဝမသက်ဆိုင်တဲ့ list နှစ်ခု (သို့မဟုတ်) နှစ်ခုထက်ပိုပြီး သိမ်းဆည်းဖို့ကြိုးစားတဲ့အခါ ဖြစ်ပေါ်လာတဲ့ ပြဿနာဖြစ်ပါတယ်။
 
-#### Multi-valued dependencies
+သင်္ကေတ —  
 
+> A →→ B (A multidetermines B)
+
+#### ဥပမာ- စားသောက်ဆိုင် မီနူး 
+
+ပီဇာဆိုင်ခွဲတွေရဲ့ တည်နေရာ၊ သူတို့ရောင်းတဲ့ ပီဇာအမျိုးအစားတွေနဲ့ သူတို့အသုံးပြုတဲ့ Delivery Service တွေကို ဖော်ပြထားတဲ့ table တစ်ခုရှိတယ်လို့ ယူဆပါစို့။
+
+**Business Rules:**
+
+- ဆိုင်ခွဲတစ်ခုက ပီဇာအမျိုးအစားများစွာကို ရောင်းနိုင်တယ်။ (ဥပမာ- Pepperoni, Hawaiian)
+- ဆိုင်ခွဲတစ်ခုက Delivery Service များစွာကို အသုံးပြုနိုင်တယ်။ (ဥပမာ- FoodPanda, GrabFood)
+- ပီဇာအမျိုးအစား နဲ့ Delivery Service တွေဟာ သက်ဆိုင်မှုမရှိဘဲ ဆိုင်ခွဲနဲ့ပတ်သက်ပြီးသာ ဆက်စပ်နေတာဖြစ်ပါတယ်။
+
+| Location | PizzaType | DeliveryService |
+| --- | --- | --- |
+|Downtown | Pepperoni | FoodPanda |
+|Downtown | Pepperoni | GrabFood |
+|Downtown | Hawaiian | FoodPanda |
+|Downtown | Hawaiian | GrabFood |
+|Uptown | Veggie | FoodPanda |
+|Uptown | Veggie | GrabFood |
+
+Location →→ PizzaType (Location တစ်ခုက Pizza Type list ကိုဆုံးဖြတ်ပေးတယ်။)
+
+Location →→ DeliveryService (Location တစ်ခုက Delivery Service list ကိုဆုံးဖြတ်ပေးတယ်။)
+
+ဒီ Table မှာ Primary Key က (Location, Pizza Type, Delivery Service) သုံးခုပေါင်း ဖြစ်လာပါတယ်။ 
+တခြား Functional Dependency တွေ မရှိတဲ့အတွက် ဒီ Table ဟာ BCNF အထိ အောင်မြင်ပါတယ်။ ဒါပေမဲ့ Multivalued Dependency ရှိနေပါတယ်။
+Table က အချင်းချင်းမသက်ဆိုင်တဲ့ list နှစ်ခုဖြစ်တဲ့ Downtown ဆိုင်ခွဲရဲ့ (Pepperoni, Hawaiian) နဲ့ (FoodPanda, GrabFood) တို့ကို ပေါင်းစပ်ပြီး ဖြစ်နိုင်ခြေရှိတဲ့ အတွဲတိုင်းအတွက် row တစ်ခုစီကို ဖန်တီးထားရပါတယ်။
+
+### Fourth Normal Form (4NF) သို့ ပြောင်းလဲခြင်း။
+
+4NF ဖြစ်အောင်လုပ်ဖို့ ဖြေရှင်းနည်းကတော့ ရှင်းပါတယ်။ list တွေကို သူ့ table နဲ့သူ ခွဲထုတ်လိုက်ဖို့ပါပဲ။
+
+#### 1. Location_Pizzas Table (4NF)
+
+| Location | PizzaType |
+| :--- | :--- |
+| Downtown | Pepperoni |
+| Downtown | Hawaiian |
+| Uptown | Veggie |
+
+----
+
+#### 2. Location_Deliveries Table (4NF)
+
+| Location | DeliveryService |
+| :--- | :--- |
+| Downtown | FoodPanda |
+| Downtown | GrabFood |
+| Uptown | FoodPanda |

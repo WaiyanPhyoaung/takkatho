@@ -657,14 +657,14 @@ export default defineConfig({
                   label: "Boyce-Codd Normal Form",
                   slug: "relational-database/normalization/bcnf",
                 },
-                // {
-                //   label: "Fourth Normal Form",
-                //   slug: "relational-database/normalization/fourth-normal-form",
-                // },
-                // {
-                //   label: "Fifth Normal Form",
-                //   slug: "relational-database/normalization/fifth-normal-form",
-                // }
+                {
+                  label: "Fourth Normal Form",
+                  slug: "relational-database/normalization/fourth-normal-form",
+                },
+                {
+                  label: "Fifth Normal Form",
+                  slug: "relational-database/normalization/fifth-normal-form",
+                }
               ]
             }
           ],
