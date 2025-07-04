@@ -2,8 +2,143 @@
 title: "Normalization: Fifth Normal Form"
 description: Fifth Normal Form
 ---
+import { Aside, Code } from "@astrojs/starlight/components";
 
-### Fifth Normal Form (5NF)
- 
-5NF က join dependencies တွေကို ဖြေရှင်းပြီး redundancy ကို ပိုမိုလျှော့ချပေးနိုင်ပေမယ့် လက်တွေ့မှာတော့ အသုံးပြုတာ နည်းပါတယ်။
 
+## Fifth Normal Form (5NF)
+
+Fifth Normal Form (5NF) ကို Project-Join Normal Form (PJ/NF) လို့လည်း ခေါ်ပြီး
+Database Normalization ရဲ့ လက်တွေ့မှာ အလွန်ရှားပါးပြီး အမြင့်ဆုံးနဲ့ အရှုပ်ထွေးဆုံးအဆင့်ဖြစ်တဲ့ စည်းမျဉ်းဖြစ်ပါတယ်။ 5NF ရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ Join Dependency လို့ခေါ်တဲ့ အလွန်ရှုပ်ထွေးတဲ့ data redundancy အမျိုးအစားကို ဖြေရှင်းဖို့ ဖြစ်ပါတယ်။
+
+
+### Join Dependency vs 5NF
+
+Join Dependency ဆိုတာ Table တစ်ခုကို အချက်အလက်မဆုံးရှုံးဘဲ သေးငယ်တဲ့ Table သုံးခု သို့မဟုတ် သုံးခုထက်ပိုပြီး ခွဲထုတ်နိုင်တဲ့အခါ ဖြစ်ပေါ်ပါတယ်။ 
+မူလ Table ရဲ့ အချက်အလက်တွေကို မှန်မှန်ကန်ကန် ပြန်လည်တည်ဆောက်ဖို့အတွက် အဲဒီ ခွဲထုတ်လိုက်တဲ့ Table အားလုံးကို ပြန်ပြီး Join လုပ်ဖို့ လိုအပ်ပါတယ်။ 
+တချို့ကိုပဲ ချန်လှပ်ပြီး Join လုပ်လိုက်ရင် မမှန်ကန်တဲ့ data တွေ ဖြစ်ပေါ်လာနိုင်ပါတယ်။
+2NF/3NF တွေမှာ table တစ်ခုကို အပိုင်းနှစ်ပိုင်းပဲ ခွဲထုတ်လေ့ရှိပါတယ်။
+Join Dependency ကတော့ table ထဲက column တွေကြားမှာ စက်ဝိုင်းပုံသဏ္ဍာန် ဆက်နွယ်မှု (cyclical relationship) ရှိနေတဲ့အခါမျိုးမှာ ဖြစ်တတ်ပြီး
+အလွန်ရှုပ်ထွေးတဲ့ business logic တွေရှိတဲ့ Database တွေမှာသာ တွေ့ရလေ့ရှိတဲ့အတွက် လက်တွေ့မှာ ဒီအခြေအနေကို ကြုံရခဲပါတယ်။
+
+
+ဥပမာ - 
+Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သုံးယောက်မှာ အိမ်မှုကိစ္စလုပ်ဖို့ စည်းမျဉ်းတွေ ရှိတယ်ဆိုပါစို့။
+
+စည်းမျဉ်းများ - 
+
+- ဘယ်အခန်းဖော် (Roommate) က ဘယ်အိမ်မှုကိစ္စ (Chore) ကို ကျွမ်းကျင်လဲဆိုတဲ့ list တစ်ခုရှိတယ်။
+- ဘယ်အိမ်မှုကိစ္စ (Chore) ကို ဘယ်နေ့ (Day) မှာ လုပ်ရမယ်ဆိုတဲ့ list တစ်ခုရှိတယ်။
+- ဘယ်အခန်းဖော် (Roommate) က ဘယ်နေ့ (Day) မှာ အားလဲဆိုတဲ့ list တစ်ခုရှိတယ်။
+
+မှန်ကန်တဲ့ assignment တစ်ခုဖြစ်ဖို့အတွက် ဒီစည်းမျဉ်းသုံးခုလုံးနဲ့က ကိုက်ညီမှသာ ဖြစ်မြောက်မှာ ဖြစ်ပါတယ်။
+
+----
+
+ရက်သတ္တပတ်အတွက် ဘယ်သူက ဘယ်နေ့မှာ အားပြီး ဘာတာဝန်ကျလဲဆိုတာ သိဖို့အတွက် assignment table ကိုပေါင်းစပ်ကြည့်ပါမယ်။
+
+#### Assignments Table
+
+| Roommate | Chore | Day |
+|---|---|---|
+| Ann | Cooking | Monday |
+| Bob | Cleaning | Tuesday |
+| Chloe | Shopping| Monday |
+
+ဒီ table ဟာ Roommate, Chore, Day ဆိုတဲ့ သုံးခုကြားမှာ Three-Way Relationship ရှိနေပါတယ်။
+
+ဒီစည်းမျဉ်းသုံးခုကို သီးခြား Table သုံးခုနဲ့ ဖော်ပြနိုင်ပါတယ်။
+
+#### 1. Roommate-Chore Pairs
+
+| Roommate | Chore |
+| --- | --- |
+| Ann | Cooking |
+| Bob | Cleaning |
+| Chloe | Shopping |
+
+#### 2. Chore-Day Pairs
+
+| Chore | Day |
+|---|---|
+| Cooking | Monday |
+| Cleaning | Tuesday |
+| Shopping | Monday |
+
+#### 3. Roommate-Day Pairs
+
+| Roommate | Day |
+|---|---|
+| Ann | Monday |
+| Bob | Tuesday |
+| Chloe | Monday |
+
+
+ဒီ Table မှာ Join Dependency တစ်ခု ပါဝင်နေပါတယ်။
+
+ဒီ Dependency ရှိနေရတဲ့အကြောင်းရင်းက Assignments Table ကို မှန်မှန်ကန်ကန်ပြန်ရဖို့အတွက် အပေါ်က Table သုံးခုလုံးကို Join လုပ်ဖို့ လိုအပ်လို့ပါပဲ။
+
+နှစ်ခုတည်းကိုပဲ Join လုပ်ကြည့်ရင် အမှားတွေ ဖြစ်ပေါ်လာနိုင်ပါတယ်။
+
+ဥပမာ - 
+အချက်အလက်အသစ်တစ်ခု ထပ်ထည့်လိုက်ပါမယ်။ Ann ဟာ ဈေးဝယ်ရာမှာလည်း ကျွမ်းကျင်တယ်။
+
+#### Roommate-Chore Table အသစ်:
+| Roommate | Chore |
+|---|---|
+| Ann | Cooking |
+| <p style="color: red;">Ann</p> | <p style="color: red;">Shopping</p> | 
+| Bob | Cleaning |
+| Chloe | Shopping |
+
+အခု Table နှစ်ခုတည်းကိုပဲ Join လုပ်ကြည့်ရအောင် (Roommate-Chore JOIN Roommate-Day):
+
+| Roommate | Chore | Day |
+|---|---|---|
+| Ann | Cooking | Monday |
+| <p style="color: red;">Ann</p> | <p style="color: red;">Shopping</p> | <p style="color: red;">Monday</p> |
+| Bob | Cleaning | Tuesday |
+| Chloe | Shopping| Monday |
+
+ဒီလို Table နှစ်ခုတည်း Join လိုက်တာက fake tuple (row အတု) တစ်ခုကို ဖန်တီးလိုက်ပါတယ်။ 
+ဒီ row အတုက Ann ဟာ တနင်္လာနေ့မှာ ဈေးဝယ်တယ်လို့ ဖော်ပြနေပါတယ်။ 
+ဒါပေမဲ့ ကျွန်တော်တို့ရဲ့ တတိယစည်းမျဉ်း (Chore-Day) အရ ဒီအတွဲအစပ်က ခိုင်လုံမှုမရှိပါဘူး။ မူလ Assignments Table မှာလည်း ဒီ row မပါဝင်ပါဘူး။
+
+ဒီလို မမှန်ကန်တဲ့ data ဖြစ်ပေါ်လာခြင်းက Table နှစ်ခုတည်း join ခြင်းဟာ ယုံကြည်စိတ်ချလို့မရကြောင်း သက်သေပြနေပါတယ်။
+
+ဒါကြောင့် မှန်ကန်တဲ့ Assignments Table ကို row အတုတွေမပါဘဲ မူလအတိုင်း မှန်မှန်ကန်ကန်ပြန်လည်တည်ဆောက်ဖို့အတွက် Table သုံးခုလုံးကို Join လုပ်ဖို့ လိုအပ်ပါတယ်။
+
+(Roommate_Chore x Chore_Day x Roommate_Day)
+
+ဒါဟာ Join Dependency ရဲ့ အနှစ်သာရပါပဲ။ အချက်အလက်တွေက လျှော့ချလို့မရတဲ့ three-way ဆက်နွယ်မှုတစ်ခုထဲမှာ ပြန့်ကျဲနေပြီးတည်ရှိနေတာဖြစ်ပါတယ်။
+Fifth Normal Form (5NF) ဆိုတာကတော့ ဒီ Join dependency ကိုဖယ်ရှားဖို့အတွက် Table အကြီးကြီးတစ်ခုကို Table အသေးသုံးခုအဖြစ် ခွဲထုတ်တဲ့ လုပ်ငန်းစဉ်ဖြစ်ပါတယ်။ 
+
+<Aside title="အနှစ်ချုပ်">
+
+Join Dependency ဆိုတာက
+
+Table တစ်ခုကို အသေးစား Table သုံးခု (သို့မဟုတ်) ပို၍ ခွဲခြားနိုင်ပြီး <br />
+အဲ့ဒီအသေးစား Table တွေကို Join လုပ်လျှင်သာ မူရင်း Table ကို အမှန်တကယ် ပြန်ပြနိုင်ရမယ်။ <br />
+နှစ်ခုတည်းပဲ Join လုပ်လိုက်ရင် မမှန်တဲ့ (false/fake) row တွေ ပေါ်လာနိုင်တယ်။ <br />
+
+ဒါကို ဖြေရှင်းပေးတာက Fifth Normal Form (5NF) ဖြစ်ပါတယ်။ <br />
+
+**5NF Decomposition**
+
+- Assignments Table (3-way relationship) ကို
+- Roommate_Chore, Chore_Day, Roommate_Day ဆိုတဲ့ သုံးခု ခွဲရပါမယ်။
+- Table (1) x (2) x (3) Join လုပ်မှသာ မူရင်း Table ကို မှန်ကန်စွာ ပြန်ရရှိမယ်။ 5NF ဆိုတာက တကယ်ပြန်တည်ဆောက်နိုင်တဲ့ valid decomposition ဖြစ်ပါတယ်။
+
+လက်တွေ့မှာ 3NF သို့မဟုတ် BCNF အထိ ဒီဇိုင်းဆွဲနိုင်ခြင်းက အရည်အသွေးမြင့် Database တစ်ခုအတွက် လုံလောက်လေ့ရှိပါတယ်။
+</Aside>
+
+
+### Normal Form အနှစ်ချုပ်
+
+| Normal Form | ဖြေရှင်းရတဲ့ Dependency |
+|--- | --- |
+| 1NF |	Atomic values only |
+| 2NF | Partial dependency |
+| 3NF |	Transitive dependency |
+| BCNF | Superkey(candidate)-only determinant |
+| 4NF |	Multivalued dependency |
+| 5NF |	Join dependency |
