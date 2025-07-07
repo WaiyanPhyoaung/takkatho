@@ -2,8 +2,241 @@
 title: "Normalization: Fifth Normal Form"
 description: Fifth Normal Form
 ---
+import { Aside, Code } from "@astrojs/starlight/components";
+
+
+## Fifth Normal Form (5NF)
+
+Fifth Normal Form (5NF) ကို Project-Join Normal Form (PJ/NF) လို့လည်း ခေါ်ပြီး
+Database Normalization ရဲ့ အမြင့်ဆုံးနဲ့ အရှုပ်ထွေးဆုံးအဆင့်ဖြစ်ပါတယ်။
+5NF ရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ Join Dependency လို့ခေါ်တဲ့ ရှုပ်ထွေးတဲ့ data redundancy အမျိုးအစားကို ဖြေရှင်းဖို့ ဖြစ်ပါတယ်။
+ဒီ dependency ဟာ အလွန်ရှုပ်ထွေးတဲ့ business logic တွေရှိတဲ့ Database တွေမှာသာ တွေ့ရလေ့ရှိတဲ့အတွက် လက်တွေ့မှာ ဒီအခြေအနေကို ကြုံရခဲပါတယ်။
+
+
+### Join Dependency
+
+Relation (Table) ကြီးတစ်ခုကို သေးငယ်တဲ့ Table တွေအဖြစ် ခွဲထုတ်လိုက်ပြီး
+အဲဒီ ခွဲထုတ်လိုက်တဲ့ **Table အားလုံးကို** ပြန် Join လုပ်မှသာ မူလ table ကို  data အမှားအယွင်းမရှိဘဲ ပြန်လည်တည်ဆောက်နိုင်တယ်ဆိုရင် အဲဒီ table မှာ
+Join Dependency ရှိတယ်လို့ခေါ်ပါတယ်။
+
+> R = JOIN(R₁, R₂, ..., Rn)
+
+#### Join Dependency ဥပမာ - 
+Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သုံးယောက်မှာ အိမ်မှုကိစ္စလုပ်ဖို့ စည်းမျဉ်းတွေ ရှိတယ်ဆိုပါစို့။ 
+
+စည်းမျဉ်းများ - 
+
+- ဘယ်အခန်းဖော် (Roommate) က ဘယ်အိမ်မှုကိစ္စ (Chore) ကို ကျွမ်းကျင်လဲဆိုတဲ့ list တစ်ခုရှိတယ်။
+- ဘယ်အိမ်မှုကိစ္စ (Chore) ကို ဘယ်နေ့ (Day) မှာ လုပ်ရမယ်ဆိုတဲ့ list တစ်ခုရှိတယ်။
+- ဘယ်အခန်းဖော် (Roommate) က ဘယ်နေ့ (Day) မှာ အားလဲဆိုတဲ့ list တစ်ခုရှိတယ်။
+
+မှန်ကန်တဲ့ assignment တစ်ခုဖြစ်ဖို့အတွက် ဒီစည်းမျဉ်းသုံးခုလုံးနဲ့ ကိုက်ညီဖို့ လိုအပ်ပါတယ်။
+
+----
+
+ရက်သတ္တပတ်အတွက် ဘယ်သူက ဘယ်နေ့မှာ အားပြီး ဘာတာဝန်ကျလဲဆိုတာ သိဖို့အတွက် assignment table ကိုပေါင်းစပ်ကြည့်ပါမယ်။
+
+#### Assignments Table
+
+| Roommate | Chore | Day |
+|---|---|---|
+| Ann | Cooking | Monday |
+| Bob | Cleaning | Tuesday |
+| Chloe | Shopping| Monday |
+
+ဒီ table ဟာ Roommate, Chore, Day ဆိုတဲ့ သုံးခုကြားမှာ Three-Way Relationship ရှိနေပါတယ်။ 
+
+ဒီစည်းမျဉ်းသုံးခုကို သီးခြား Table သုံးခုနဲ့ ဖော်ပြနိုင်ပါတယ်။
+
+#### 1. Roommate-Chore Pairs
+
+| Roommate | Chore |
+| --- | --- |
+| Ann | Cooking |
+| Bob | Cleaning |
+| Chloe | Shopping |
+
+#### 2. Chore-Day Pairs
+
+| Chore | Day |
+|---|---|
+| Cooking | Monday |
+| Cleaning | Tuesday |
+| Shopping | Monday |
+
+#### 3. Roommate-Day Pairs
+
+| Roommate | Day |
+|---|---|
+| Ann | Monday |
+| Bob | Tuesday |
+| Chloe | Monday |
+
+မူရင်း Assignments Table ကို မှန်မှန်ကန်ကန်ပြန်ရဖို့အတွက်ဆိုရင် အပေါ်က Table သုံးခုလုံးကို Join လုပ်ဖို့ လိုအပ်ပါတယ်။
+
+**ဘာကြောင့်လဲ။**
+
+တချို့ကို ချန်လှပ်ပြီး Join လုပ်လိုက်ရင် မမှန်ကန်တဲ့ data တွေ ဖြစ်ပေါ်လာနိုင်ပါတယ်။
+
+ဥပမာ - 
+အချက်အလက်အသစ်တစ်ခု ထပ်ထည့်လိုက်ပါမယ်။ Ann ဟာ ဈေးဝယ်ရာမှာလည်း ကျွမ်းကျင်တယ်။
+
+#### Roommate-Chore Table အသစ်:
+| Roommate | Chore |
+|---|---|
+| Ann | Cooking |
+| **Ann**| **Shopping** | 
+| Bob | Cleaning |
+| Chloe | Shopping |
+
+အခု Table နှစ်ခုတည်းကိုပဲ Join လုပ်ကြည့်ရအောင် (Roommate-Chore JOIN Roommate-Day):
+
+| Roommate | Chore | Day |
+|---|---|---|
+| Ann | Cooking | Monday |
+| **Ann**| **Shopping** | **Monday**|
+| Bob | Cleaning | Tuesday |
+| Chloe | Shopping| Monday |
+
+ဒီလို Table နှစ်ခုတည်း Join လိုက်တာက (Ann, Shopping, Monday) ဆိုတဲ့ Spurious tuple (row အတု) တစ်ခုကို ဖန်တီးလိုက်ပါတယ်။ 
+ဒီ row အတုက Ann ဟာ တနင်္လာနေ့မှာ ဈေးဝယ်တယ်လို့ ဖော်ပြနေပါတယ်။ 
+ဒါပေမဲ့ မူလ Assignments Table မှာ ဒီ row မပါဝင်ပါဘူး။
+
+ဒါကြောင့် မှန်ကန်တဲ့ Assignments Table ကို row အတုတွေမပါဘဲ မူလအတိုင်း မှန်မှန်ကန်ကန်ပြန်လည်တည်ဆောက်ဖို့အတွက် Table အားလုံးကို Join လုပ်ဖို့ လိုအပ်ပါတယ်။ 
+
+(Roommate_Chore ⨝ Chore_Day ⨝ Roommate_Day) 
+
+ဒါကို Assignments Table မှာ Join dependency ရှိတယ််လို့ခေါ်ပါတယ်။
+
+#### Trivial နှင့် Non-Trivial Join Dependency
+
+**Trivial Join Dependency:**  relation (R) ကနေ ခွဲထုတ်လိုက်တဲ့ relation(R₁, R₂, ..., Rn) အသေးလေးတွေထဲမှာ relation (R) ကိုယ်တိုင်ပါဝင်နေရင် 
+Trivial ဖြစ်ပါတယ်။ 
+
+ဥပမာ - 
+မူလ table relation (R) မှာ columns `{"A", "B", "C"}` ရှိတယ်ဆိုပါစို့။
+
+`JD({"A", "B"}, {"A", "B", "C"})` (trivial)
+
+**Non-Trivial Join Dependency:** ခွဲထုတ်လိုက်တဲ့ table တွေအားလုံးက မူလ table ထက် ပိုသေးငယ်နေပြီး အဲဒီ table အားလုံးကို ပြန် join မှ မူလ table ကို ပြန်ရရင် ဒါဟာ Non-Trivial ဖြစ်ပါတယ်။
+5NF က ဒီ Non-Trivial Join Dependency တွေကိုပဲ ဖြေရှင်းတာဖြစ်ပါတယ်။
+
+ဥပမာ - 
+
+`JD({"A", "B"}, {"B", "C"}, {"A", "C"})` (non-trivial)
+
+#### Join Dependency ကိုဘယ်လိုရှာမလဲ။
+
+Join dependency ကို ရှာဖွေဖော်ထုတ်တာက တိကျတဲ့ ဖော်မြူလာမရှိပါဘူး။
+data နောက်ကွယ်က business rules ကို နားလည်ဖို့နဲ့ relationship တွေကို နားလည်ဖို့က ပိုအရေးကြီးပါတယ်။
 
 ### Fifth Normal Form (5NF)
- 
-5NF က join dependencies တွေကို ဖြေရှင်းပြီး redundancy ကို ပိုမိုလျှော့ချပေးနိုင်ပေမယ့် လက်တွေ့မှာတော့ အသုံးပြုတာ နည်းပါတယ်။
 
+5NF ဖြစ်ဖို့ဆိုရင် - 
+
+1. Table က 4NF ဖြစ်ပြီးသားဖြစ်ရပါမယ်။
+2. Table ထဲမှာရှိတဲ့ Non-trivial join dependency အားလုံးကို ဖယ်ရှားရပါမယ်။
+
+ဆိုလိုတာက -
+
+> table တစ်ခုဟာ 5NF မှာရှိတယ်ဆိုရင် ထပ်ပြီး ပိုသေးငယ်တဲ့ related table တွေကို data loss မဖြစ်စေပဲနဲ့ ခွဲမထုတ်နိုင်တော့ပါဘူး။
+
+5NF ဥပမာ - 
+
+SalePersons, Companies, and Products table ကိုကြည့်ရအောင်။
+
+**Business Rules:**
+
+- Sale person တစ်ယောက်က company တစ်ခုအတွက် အလုပ်လုပ်တယ်။
+- အဲဒီ company က product တစ်ခုကို ထုတ်လုပ်တယ်ဆိုရင် 
+- အဲဒီ sale person က အဲဲဒီ product ကိုရောင်းရပါမယ်။
+
+#### SalePersons_Assignments Table
+
+| SalePerson | Company | Product |
+| --- | --- | --- |
+| Smith | MegaCorp | Laptops |
+| Smith | MegaCorp | Phones | 
+| Bob | TechInc | Laptops |
+| Smith | TechInc | Laptops |
+
+ဒီ table က အဆင်ပြေပုံပေါ်ပေမယ့် **မမြင်ရတဲ့ redundancy** ရှိနေပါတယ်။ `Smith က Laptops ကိုရောင်းတယ်` ဆိုတဲ့ အချက်က ထပ်ခါတလဲလဲပါနေပါတယ်။
+business rules အရ
+
+နောက်ဆုံး row ကိုကြည့်မယ်ဆိုရင် - 
+(Smith, TechInc, Laptops) 
+- Smith က TechInc အတွက် အလုပ်လုပ်တယ်။
+- TechInc က Laptops ထုတ်လုပ်တယ်။
+- Smith က Laptops ကိုရောင်းတယ်။
+
+ပထမဆုံး row ကိုကြည့်မယ်ဆိုရင် - 
+(Smith, MegaCorp, Laptops) 
+- Smith က MegaCorp အတွက် အလုပ်လုပ်တယ်။
+- MegaCorp က Laptops ထုတ်လုပ်တယ်။
+- Smith က Laptops ကိုရောင်းတယ်။ **(redundent fact)**
+
+`Smith က Laptops ကိုရောင်းတယ်။` ဆိုတဲ့ အချက်အလက်ဟာ သူအလုပ်လုပ်တဲ့ Laptop ထုတ်တဲ့ ကုမ္ပဏီတိုင်းအတွက် အကြိမ်ကြိမ် မှတ်တမ်းတင်ထားရပါတယ်။
+ဒါက update anomalies ကို ဖြစ်စေပါတယ်။ ဥပမာ- Smith က Laptops တွေ လုံးဝ မရောင်းတော့ဘူးလို့ ဆုံးဖြတ်လိုက်ရင် Smith နဲ့ Laptops အတွဲပါတဲ့ row တိုင်းကို 
+လိုက်ရှာပြီး ဖျက်ပစ်ရမှာ ဖြစ်တဲ့အတွက် အမှားအယွင်း ဖြစ်နိုင်ခြေများပါတယ်။
+
+အဲဒီပြဿနာကို 5NF က ဖြေရှင်းပေးတာဖြစ်ပါတယ်။
+
+ဒီ table မှာ Join dependency က 
+*((Salesperson, Company), (Company, Product), (Salesperson, Product)) ဖြစ်ပါတယ်။
+ဒါဆိုရင် Join dependency ရှိနေတဲ့ မူရင်း table ကို table အသေးစား သုံးခုအဖြစ်ခွဲထုတ်ပါမယ်။
+
+#### Fifth Normal Form (5NF) သို့ ပြောင်းလဲခြင်း။
+
+**Table 1: Salesperson_Company**
+ 
+| SalePerson | Company |
+| --- | --- |
+| Smith | MegaCorp |
+| Bob |  TechInc |
+| Smith | TechInc |
+
+**Table 2: Company_Product** 
+
+| Company | Product |
+| --- | --- |
+| MegaCorp | Laptops |
+| MegaCorp | Phones |
+| TechInc | Laptop |
+
+**Table 3: SalePerson_Product**
+
+| SalePerson | Product |
+| ---- | --- |
+| Smith | Laptops |
+| Smith | Phones |
+| Bob | Laptops |
+
+ဘယ် saleperson က ဘယ် company အတွက် ဘယ် product ကိုရောင်းလဲဆိုတာကို သိဖို့အတွက် 
+table သုံးခုလုံးကို ပြန် join ရပါမယ်။
+ဒါဆိုရင်တော့ redundancy ရှိတဲ့ table မရှိတော့ပဲ  ဒီ design ဟာ 5NF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။ 
+
+<Aside title="အနှစ်ချုပ်">
+
+Join Dependency ဆိုတာက
+
+Table တစ်ခုကို အသေးစား Table အဖြစ် ခွဲခြားနိုင်ပြီး <br />
+အဲ့ဒီအသေးစား Table တွေအားလုံးကို Join လုပ်မှသာ မူရင်း Table ကို ပြန်ရနိုင်မယ်။ <br />
+
+**5NF Lossless Decomposition**
+
+- 5NF ဆိုတာကတော့ ဒီလို Join Dependency တွေကို ဖယ်ရှားဖို့ Table တွေကို အခြေခံအကျဆုံး အစိတ်အပိုင်းတွေအဖြစ် ခွဲထုတ်တဲ့ လုပ်ငန်းစဉ်ဖြစ်ပါတယ်။
+
+**လက်တွေ့မှာ 3NF သို့မဟုတ် BCNF အထိ ဒီဇိုင်းဆွဲနိုင်ခြင်းက အရည်အသွေးမြင့် Database တစ်ခုအတွက် လုံလောက်လေ့ရှိပါတယ်။**
+</Aside>
+
+
+### Normal Form အနှစ်ချုပ်
+
+| Normal Form | ဖြေရှင်းရတဲ့ Dependency |
+|--- | --- |
+| 1NF |	Atomic values only |
+| 2NF | Partial dependency |
+| 3NF |	Transitive dependency |
+| BCNF | Superkey(candidate)-only determinant |
+| 4NF |	Multivalued dependency |
+| 5NF |	Join dependency |
