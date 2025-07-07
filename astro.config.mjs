@@ -577,6 +577,10 @@ export default defineConfig({
                   label: "Asynchronous Communication",
                   slug: "software-architecture/async/asynchronous",
                 },
+                {
+                  label: "Architectural Patterns",
+                  slug: "software-architecture/async/patterns",
+                },
               ],
             },
           ],
@@ -666,6 +670,7 @@ export default defineConfig({
                   label: "Boyce-Codd Normal Form",
                   slug: "relational-database/normalization/bcnf",
                 },
+
                 {
                   label: "Fourth Normal Form",
                   slug: "relational-database/normalization/fourth-normal-form",
@@ -673,9 +678,9 @@ export default defineConfig({
                 {
                   label: "Fifth Normal Form",
                   slug: "relational-database/normalization/fifth-normal-form",
-                }
-              ]
-            }
+                },
+              ],
+            },
           ],
         },
         // {
