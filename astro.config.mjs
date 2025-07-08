@@ -581,6 +581,10 @@ export default defineConfig({
                   label: "Architectural Patterns",
                   slug: "software-architecture/async/patterns",
                 },
+                {
+                  label: "Advanced Patterns",
+                  slug: "software-architecture/async/advanced",
+                },
               ],
             },
           ],
