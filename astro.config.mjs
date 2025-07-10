@@ -587,6 +587,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "The Architect's Craft",
+              items: [
+                {
+                  label: "Trade-Off & Making Decisions",
+                  slug: "software-architecture/craft/decisions",
+                },
+              ],
+            },
           ],
         },
         {

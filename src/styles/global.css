@@ -88,6 +88,10 @@
   a {
     text-decoration: none;
   }
+  em,
+  i {
+    @apply italic;
+  }
   .main-pane {
     ul {
       padding-left: 1.5em;
