@@ -594,6 +594,10 @@ export default defineConfig({
                   label: "Trade-Off & Making Decisions",
                   slug: "software-architecture/craft/decisions",
                 },
+                {
+                  label: "C4 Model",
+                  slug: "software-architecture/craft/c4",
+                },
               ],
             },
           ],
