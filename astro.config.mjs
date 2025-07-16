@@ -598,6 +598,15 @@ export default defineConfig({
                   label: "C4 Model",
                   slug: "software-architecture/craft/c4",
                 },
+                {
+                  label: "Architectural Decision Records (ADRs)",
+                  slug: "software-architecture/craft/adr",
+                },
+                {
+                  label:
+                    "Evaluating Architecture & Architectural Fitness Functions",
+                  slug: "software-architecture/craft/evaluation",
+                },
               ],
             },
           ],
