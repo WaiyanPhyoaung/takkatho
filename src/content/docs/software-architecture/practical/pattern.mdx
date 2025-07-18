@@ -1,0 +1,41 @@
+---
+title: "အပေါ်ယံခြုံငုံသုံးသပ် ဒီဇိုင်းဆွဲခြင်းနှင့် Pattern ရွေးချယ်ခြင်း"
+description: "အပေါ်ယံခြုံငုံသုံးသပ် ဒီဇိုင်းဆွဲခြင်းနှင့် Pattern ရွေးချယ်ခြင်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import level1 from '@/assets/software-architecture/lvl-1.png'
+import level2 from '@/assets/software-architecture/lvl-2.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+ ကျွန်တော်တို့ application အတွက် အဓိက architectural pattern တစ်ခုကို ရွေးချယ်ရန်၊ နှင့် high-level service နယ်နိမိတ်များကို သတ်မှတ်ကာ C4 ပုံကြမ်းများဖြင့် မြင်သာအောင်ပြသရန်။
+</Aside>
+
+#### အဆင့် ၃: အဓိက Architectural Pattern တစ်ခုကို ရွေးချယ်ခြင်း
+ကျွန်တော်တို့ရဲ့ လိုအပ်ချက်တွေအပေါ် အခြေခံပြီး၊ အဓိက pattern တွေကို သုံးသပ်ကြည့်ကြရအောင်:
+
+- **Monolith လား?** Application တစ်ခုတည်းကတော့ အခက်အခဲတွေ့နိုင်ပါတယ်။ `Real-time location tracking feature` က scale လုပ်ဖို့လိုအပ်ပုံနဲ့ `user profile management feature` က scale လုပ်ဖို့လိုအပ်ပုံက အများကြီးကွာခြားပါတယ်။ ပြီးတော့၊ အစိတ်အပိုင်းတစ်ခုမှာ ပြဿနာတက်တာ (ဥပမာ - driver sign up လုပ်ငန်းစဉ်) က system တစ်ခုလုံးကို ရပ်တန့်သွားစေနိုင်ပြီး၊ ဒါက ကျွန်တော်တို့ရဲ့ အမြဲတမ်းရရှိနိုင်ရမယ်(High Availability) ဆိုတဲ့ အဓိကလိုအပ်ချက်နဲ့ မကိုက်ညီပါဘူး။ ဒါကြောင့် monolith က သင့်တော်တဲ့ရွေးချယ်မှု မဟုတ်ပါဘူး။
+
+- **Microservices လား?** ဒါကတော့ အလားအလာကောင်းပုံရပါတယ်။ ကျွန်တော်တို့က မတူညီတဲ့ function တွေအတွက် သီးခြား service တွေ (ဥပမာ - Location, Trip, Driver management) တည်ဆောက်နိုင်ပါတယ်။ ဒါက အစိတ်အပိုင်းတစ်ခုချင်းစီကို လွတ်လပ်စွာ scale လုပ်နိုင်စေပြီး အမှားအယွင်းခံနိုင်ရည် (fault tolerance) ကိုလည်း တိုးတက်စေပါတယ်။ `Driver signup service` သာ ပျက်နေရင်တောင်၊ ကားငှားသူတွေက ခရီးစဉ်တွေကို တောင်းဆိုပြီး စီးနင်းလို့ရနေဦးမှာပါ။
+
+**ဆုံးဖြတ်ချက် -** ကျွန်တော်တို့ **microservices architecture** ကို အသုံးပြုပါမယ်။
+
+#### အဆင့် ၄: Service နယ်နိမိတ်များကို သတ်မှတ်ခြင်း
+အခု application ကို လုပ်ငန်းဆောင်တာအလိုက် (our Bounded Contexts) ယုတ္တိကျတဲ့ service တွေအဖြစ် ခွဲထုတ်ကြည့်ကြရအောင်။
+
+- **Rider Service:** ကားငှားသူတွေရဲ့ profile၊ rating၊ နှင့် ငွေပေးချေမှုနည်းလမ်းတွေကို စီမံခန့်ခွဲပါတယ်။
+
+- **Driver Service:** ကားသမားတွေရဲ့ profile၊ ကားအချက်အလက်၊ rating၊ နှင့် အဆင်သင့်ဖြစ်မှုအခြေအနေ (availability status) ကို စီမံခန့်ခွဲပါတယ်။
+
+- **Trip Service:** System ရဲ့ အဓိကကျောရိုးဖြစ်ပါတယ်။ ခရီးစဉ်တစ်ခုရဲ့ အစအဆုံး lifecycle (တောင်းဆိုခြင်း၊ လက်ခံခြင်း၊ ပြီးဆုံးခြင်း) အပါအဝင်၊ ဈေးနှုန်းတွက်ချက်ခြင်းနှင့် ငွေပေးချေခြင်းတို့ကိုပါ စီစဉ်ညွှန်ကြားပေးပါတယ်။
+
+- **Location Service:** ကားသမားထောင်ပေါင်းများစွာဆီက real-time GPS location update အများအပြားကို ကိုင်တွယ်ဖို့ အထူးဒီဇိုင်းဆွဲထားတဲ့ service ဖြစ်ပါတယ်။
+
+- **Notification Service:** User တွေဆီကို SMS, email, နှင့် push notification များ ပေးပို့ရန် တာဝန်ယူသော ယေဘုယျ service တစ်ခုဖြစ်ပါတယ်။
+
+#### အဆင့် ၅: High-Level ပုံကြမ်းများဆွဲခြင်း (C4 Model)
+
+<ContentImage src={level1} alt="C4 model level 1" height={400}/>
+<ContentImage src={level2} alt="C4 model level 2" height={400} />

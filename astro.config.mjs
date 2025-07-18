@@ -609,6 +609,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Practical Architecture",
+              items: [
+                {
+                  label: 'Designing a "Ride-Sharing App"',
+                  slug: "software-architecture/practical/design",
+                },
+                {
+                  label: "High-Level Design & Pattern Selection",
+                  slug: "software-architecture/practical/pattern",
+                },
+              ],
+            },
           ],
         },
         {
