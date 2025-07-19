@@ -620,6 +620,19 @@ export default defineConfig({
                   label: "High-Level Design & Pattern Selection",
                   slug: "software-architecture/practical/pattern",
                 },
+                {
+                  label: "Detailed Design & Key Decisions",
+                  slug: "software-architecture/practical/decisions",
+                },
+              ],
+            },
+            {
+              label: "The Future of Architecture",
+              items: [
+                {
+                  label: "Current & Future Trends",
+                  slug: "software-architecture/future/current",
+                },
               ],
             },
           ],
