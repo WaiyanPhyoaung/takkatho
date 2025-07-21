@@ -8,8 +8,8 @@ import { Aside, Code } from "@astrojs/starlight/components";
 ## Fifth Normal Form (5NF)
 
 Fifth Normal Form (5NF) ကို Project-Join Normal Form (PJ/NF) လို့လည်း ခေါ်ပြီး
-Database Normalization ရဲ့ အမြင့်ဆုံးနဲ့ အရှုပ်ထွေးဆုံးအဆင့်ဖြစ်ပါတယ်။
-5NF ရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ Join Dependency လို့ခေါ်တဲ့ ရှုပ်ထွေးတဲ့ data redundancy အမျိုးအစားကို ဖြေရှင်းဖို့ ဖြစ်ပါတယ်။
+Database Normalization ရဲ့ အမြင့်ဆုံးအဆင့်ဖြစ်ပါတယ်။
+5NF ရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ Join Dependency လို့ခေါ်တဲ့ data redundancy အမျိုးအစားကို ဖြေရှင်းဖို့ ဖြစ်ပါတယ်။
 ဒီ dependency ဟာ အလွန်ရှုပ်ထွေးတဲ့ business logic တွေရှိတဲ့ Database တွေမှာသာ တွေ့ရလေ့ရှိတဲ့အတွက် လက်တွေ့မှာ ဒီအခြေအနေကို ကြုံရခဲပါတယ်။
 
 
@@ -201,7 +201,7 @@ business rules အရ
 | --- | --- |
 | MegaCorp | Laptops |
 | MegaCorp | Phones |
-| TechInc | Laptop |
+| TechInc | Laptops |
 
 **Table 3: SalePerson_Product**
 
@@ -213,13 +213,13 @@ business rules အရ
 
 ဘယ် saleperson က ဘယ် company အတွက် ဘယ် product ကိုရောင်းလဲဆိုတာကို သိဖို့အတွက် 
 table သုံးခုလုံးကို ပြန် join ရပါမယ်။
-ဒါဆိုရင်တော့ redundancy ရှိတဲ့ table မရှိတော့ပဲ  ဒီ design ဟာ 5NF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။ 
+ဒါဆိုရင်တော့ join redundancy ရှိတဲ့ table မရှိတော့ပဲ  ဒီ design ဟာ 5NF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။ 
 
 <Aside title="အနှစ်ချုပ်">
 
 Join Dependency ဆိုတာက
 
-Table တစ်ခုကို အသေးစား Table အဖြစ် ခွဲခြားနိုင်ပြီး <br />
+Table တစ်ခုကို အသေးစား Table တွေအဖြစ် ခွဲထုတ်နိုင်ပြီး <br />
 အဲ့ဒီအသေးစား Table တွေအားလုံးကို Join လုပ်မှသာ မူရင်း Table ကို ပြန်ရနိုင်မယ်။ <br />
 
 **5NF Lossless Decomposition**

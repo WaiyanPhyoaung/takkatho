@@ -633,6 +633,14 @@ export default defineConfig({
                   label: "Current & Future Trends",
                   slug: "software-architecture/future/current",
                 },
+                {
+                  label: "Software Architect's Role",
+                  slug: "software-architecture/future/role",
+                },
+                {
+                  label: "Course Recap",
+                  slug: "software-architecture/future/recap",
+                },
               ],
             },
           ],
@@ -730,9 +738,36 @@ export default defineConfig({
                 {
                   label: "Fifth Normal Form",
                   slug: "relational-database/normalization/fifth-normal-form",
+<<<<<<< HEAD
                 },
               ],
             },
+=======
+                }
+              ]
+            },
+            {
+              label: "SQL",
+              items: [
+                {
+                  label: "SQL",
+                  slug: "relational-database/sql/what-is-sql"
+                },
+                {
+                  label: "SQL Basic Types",
+                  slug: "relational-database/sql/sql-types"
+                },
+                {
+                  label: "Querying Data",
+                  slug: "relational-database/sql/querying-data"
+                },
+                {
+                  label: "Filtering and Sorting Data",
+                  slug: "relational-database/sql/filter-and-sort-data"
+                }
+              ]
+            }
+>>>>>>> c58b60b (feat: add sql querying, filtering and sorting)
           ],
         },
         // {
