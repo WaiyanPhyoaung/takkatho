@@ -633,6 +633,14 @@ export default defineConfig({
                   label: "Current & Future Trends",
                   slug: "software-architecture/future/current",
                 },
+                {
+                  label: "Software Architect's Role",
+                  slug: "software-architecture/future/role",
+                },
+                {
+                  label: "Course Recap",
+                  slug: "software-architecture/future/recap",
+                },
               ],
             },
           ],
