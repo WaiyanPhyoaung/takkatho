@@ -666,6 +666,27 @@ export default defineConfig({
                   slug: "relational-database/normalization/fifth-normal-form",
                 }
               ]
+            },
+            {
+              label: "SQL",
+              items: [
+                {
+                  label: "SQL",
+                  slug: "relational-database/sql/what-is-sql"
+                },
+                {
+                  label: "SQL Basic Types",
+                  slug: "relational-database/sql/sql-types"
+                },
+                {
+                  label: "Querying Data",
+                  slug: "relational-database/sql/querying-data"
+                },
+                {
+                  label: "Filtering and Sorting Data",
+                  slug: "relational-database/sql/filter-and-sort-data"
+                }
+              ]
             }
           ],
         },
