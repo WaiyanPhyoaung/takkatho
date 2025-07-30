@@ -1,5 +1,5 @@
 ---
-title: "Querying Data With SELECT"
+title: "SQL: Querying Data With SELECT"
 description: Querying Data With SELECT
 ---
 
@@ -35,7 +35,7 @@ Syntax:
 SELECT * FROM table_name;
 ```
 
-ဥပမာ Query - ဝန်ထမ်းအားလုံးရဲ့ data အကုန်လုံးကို ဆွဲထုတ်ပါမယ်။
+ဥပမာ - ဝန်ထမ်းအားလုံးရဲ့ data အကုန်လုံးကို ဆွဲထုတ်ပါ။
 
 ```
 SELECT * FROM Employees;
@@ -52,7 +52,7 @@ Syntax:
 SELECT column1, column2 FROM table_name;
 ```
 
-ဥပမာ Query - ဝန်ထမ်းတစ်ဦးချင်းစီရဲ့ FirstName, LastName နှင့် Department တို့ကိုသာ ဆွဲထုတ်ကြည့်ပါမယ်။
+ဥပမာ - ဝန်ထမ်းတစ်ဦးချင်းစီရဲ့ FirstName, LastName နှင့် Department တို့ကိုသာ ဆွဲထုတ်ပါ။
 
 ```
 SELECT FirstName, LastName, Department 
@@ -86,7 +86,7 @@ Syntax:
 SELECT column_name AS alias_name 
 FROM table_name;
 ```
-ဥပမာ Query - ဝန်ထမ်းရဲ့ FirstName နှင့် Salary ကို ရွေးထုတ်ပြီး column ခေါင်းစဉ်ကို "Name" နှင့် "Annual Salary" အဖြစ် ပြောင်းလဲဖော်ပြပါမယ်။
+ဥပမာ - ဝန်ထမ်းရဲ့ FirstName နှင့် Salary ကို ရွေးထုတ်ပြီး column ခေါင်းစဉ်ကို "Name" နှင့် "Annual Salary" အဖြစ် ပြောင်းလဲဖော်ပြပါ။
 
 ```
 SELECT FirstName AS "Name", Salary AS "Annual Salary"
@@ -114,7 +114,7 @@ Database က row တစ်ခုချင်းစီအတွက် တွက�
 - `*` (မြှောက်ခြင်း)
 - `/` (စားခြင်း)
 
-ဥပမာ Query - ဝန်ထမ်းတစ်ဦးချင်းစီ၏ လစာကို တွက်ချက်ပါမယ်။
+ဥပမာ - ဝန်ထမ်းတစ်ဦးချင်းစီ၏ လစာကို တွက်ချက်ပါ။
 
 ```
 SELECT FirstName, Salary / 12 AS "Monthly Salary"
