@@ -1,5 +1,5 @@
 ---
-title: "Filtering and Sorting Data"
+title: "SQL: Filtering and Sorting Data"
 description: Filtering and Sorting Data
 ---
 
@@ -45,7 +45,7 @@ WHERE clause ထဲမှာ condition ကို သတ်မှတ်ဖို�
 | `>=` | Greater than or equal to |	`WHERE Price >= 79.99` |
 | `<=` | Less than or equal to | `WHERE StockQuantity <= 200` |
 
-ဥပမာ Query - 'Electronics' category ထဲမှာရှိတဲ့ ကုန်ပစ္စည်းအားလုံးကို ရှာကြည့်ပါမယ်။ 
+ဥပမာ - 'Electronics' category ထဲမှာရှိတဲ့ ကုန်ပစ္စည်းအားလုံးကို ရှာပါ။ 
 
 ```
 SELECT ProductName, Price
@@ -120,7 +120,7 @@ SQL မှာ data filter တာကို တိုတိုနဲ့လို�
 #### BETWEEN
 ပေးထားတဲ့ တန်ဖိုးနှစ်ခုကြားက data တွေကို ရွေးထုတ်ပေးပါတယ်။ (အစနဲ့အဆုံးတန်ဖိုးတွေ အပါအဝင်)
 
-ဥပမာ Query - ဈေးနှုန်း $50 နဲ့ $100 ကြားမှာရှိတဲ့ ပစ္စည်းတွေကို ရှာကြည့်ပါမယ်။ 
+ဥပမာ - ဈေးနှုန်း $50 နဲ့ $100 ကြားမှာရှိတဲ့ ပစ္စည်းတွေကို ရှာပါ။ 
 ```
 SELECT ProductName, Price
 FROM Products
@@ -131,7 +131,7 @@ WHERE Price BETWEEN 50 AND 100;
 Column တစ်ခုအတွက် ဖြစ်နိုင်ချေရှိတဲ့ တန်ဖိုးများစွာကို တစ်ခါတည်း သတ်မှတ်ပေးပြီး data ထုတ်ယူနိုင်ပါတယ်။ 
 OR တွေအများကြီးရေးရမယ့်အစားသုံးလို့ရတဲ့ အတိုကောက်ရေးနည်းတစ်ခုလည်း ဖြစ်ပါတယ်။
 
-ဥပမာ Query - 'Footwear' ဒါမှမဟုတ် 'Kitchenware' category ထဲက ပစ္စည်းအားလုံးကို ရှာကြည့်ပါမယ်။ 
+ဥပမာ - 'Footwear' ဒါမှမဟုတ် 'Kitchenware' category ထဲက ပစ္စည်းအားလုံးကို ရှာပါ။ 
 ```
 SELECT ProductName, Category
 FROM Products
@@ -150,7 +150,7 @@ Column တစ်ခုထဲမှာ ကိုယ်လိုချင်တဲ
 ဥပမာ - <br />
 '_o_s' ဆိုရင် ရလဒ်က ပထမနေရာမှာ ဘာပဲဖြစ်ဖြစ် စာလုံးတစ်လုံး၊ ဒုတိယနေရာမှာ o၊ တတိယနေရာမှာ ဘာပဲဖြစ်ဖြစ် စာလုံးတစ်လုံး၊ စတုတ္ထနေရာမှာ s ဖြစ်ရပါမယ်။
 
-ဥပမာ Query - နာမည်မှာ 'Mouse' ဆိုတဲ့စာလုံးပါတဲ့ ပစ္စည်းကိုရှာကြည့်ပါမယ်။ 
+ဥပမာ - နာမည်မှာ 'Mouse' ဆိုတဲ့စာလုံးပါတဲ့ ပစ္စည်းကိုရှာပါ။ 
 ```
 SELECT ProductName
 FROM Products
@@ -166,7 +166,7 @@ WHERE ProductName LIKE '%Mouse%';
 #### IS NULL
 Column တစ်ခုရဲ့ တန်ဖိုးက NULL ဟုတ်မဟုတ် စစ်ဆေးဖို့အတွက်အသုံးပြုပါတယ်။ `= NULL` ဆိုပြီး သုံးလို့မရပါဘူး။
 
-ဥပမာ Query - လက်ကျန်အရေအတွက် မသိရတဲ့ (NULL ဖြစ်နေတဲ့) ပစ္စည်းတွေကို ရှာကြည့်ပါမယ်။ 
+ဥပမာ - လက်ကျန်အရေအတွက် မသိရတဲ့ (NULL ဖြစ်နေတဲ့) ပစ္စည်းတွေကို ရှာပါ။ 
 ```
 SELECT ProductName, StockQuantity
 FROM Products
@@ -191,7 +191,7 @@ FROM table_name
 ORDER BY column_name [ASC|DESC];
 ```
 
-ဥပမာ Query - ပစ္စည်းအားလုံးကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် စီပါမယ်။
+ဥပမာ - ပစ္စည်းအားလုံးကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် စီပါ။
 
 ```
 SELECT ProductName, Price
@@ -215,7 +215,7 @@ ORDER BY Price DESC;
 
 Column တစ်ခုထက်ပိုပြီးတော့လည်း စီလို့ရပါတယ်။ ပထမ column နဲ့ အရင်စီမယ် ပြီးတော့ ပထမ column မှာ တန်ဖိုးတူနေတဲ့ row တွေကို ဒုတိယ column နဲ့ ထပ်စီပေးသွားမှာဖြစ်ပါတယ်။
 
-ဥပမာ Query - ပစ္စည်းတွေကို category အလိုက် (A-Z) အရင်စီပြီး၊ category တူတဲ့ပစ္စည်းတွေကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် ထပ်စီပါမယ်။
+ဥပမာ - ပစ္စည်းတွေကို category အလိုက် (A-Z) အရင်စီပြီး၊ category တူတဲ့ပစ္စည်းတွေကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် ထပ်စီပါ။
 ```
 SELECT ProductName, Category, Price
 FROM Products
@@ -236,7 +236,7 @@ FROM table_name
 LIMIT number;
 ```
 
-ဥပမာ Query - ဈေးအကြီးဆုံး ပစ္စည်း ၃ ခုကို ရှာပါမယ်။
+ဥပမာ - ဈေးအကြီးဆုံး ပစ္စည်း ၃ ခုကို ရှာပါ။
 ```
 SELECT ProductName, Price
 FROM Products

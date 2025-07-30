@@ -1,0 +1,183 @@
+---
+title: "SQL: Data Aggregation and Grouping"
+description: Data Aggregation and Grouping
+---
+## Data Aggregation and Grouping 
+ 
+ဒီ module မှာ data အများကြီးကို အကျဉ်းချုပ်ပြီး သုံးသပ်ချက်တွေ၊ insights တွေအဖြစ် ဘယ်လိုပြောင်းလဲမလဲဆိုတာ လေ့လာကြပါမယ်။
+စုစုပေါင်းတန်ဖိုး (totals)၊ ပျမ်းမျှတန်ဖိုး (averages) နဲ့ အရေအတွက် (counts) တွေကို တွက်ချက်ပြီး အမျိုးအစားအလိုက် အုပ်စုခွဲတာတွေ လုပ်ဆောင်ကြပါမယ်။
+
+ဒီ concepts တွေကို ရှင်းပြဖို့ `Sales` ဆိုတဲ့ နမူနာ table တစ်ခုကို သုံးသွားပါမယ်။
+
+`Sales` Table - 
+
+| OrderID | ProductCategory	| ProductName | SaleAmount | SaleDate | Region |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| 1 | Electronics | Laptop | $1200.00 | 2025-01-15 | North |
+| 2	| Furniture | Desk Chair | $350.50 | 2025-01-20	| South |
+| 3	| Electronics | Headphones | $150.00 | 2025-02-03 | North |
+| 4	| Office Supplies | Pens (50-pack) | $25.00 | 2025-02-05 | West |
+| 5	| Furniture | Bookshelf | $250.00 | 2025-02-18 | South |
+| 6	| Electronics | Monitor | $450.00 | 2025-03-10 | North |
+| 7	| Office Supplies | Printer Paper | $40.00 | 2025-03-12 | West |
+| 8	| Electronics | Laptop | $1350.00 | 2025-04-02 | South | 
+
+## Aggregate Functions
+
+Aggregate function ဆိုတာက row အများကြီးကို တွက်ချက်မှုတစ်ခုလုပ်ပြီး အဖြေတစ်ခုတည်းကိုပဲ အနှစ်ချုပ်အနေနဲ့ ပြန်ပေးတဲ့ function အမျိုးအစားဖြစ်ပါတယ်။
+
+| Function | Description |
+| ---- | ---- |
+| COUNT() | row အရေအတွက်ကို ရေတွက်ပေးပါတယ်။ COUNT(*) က row အားလုံးကို ရေတွက်ပြီး COUNT(column) ကတော့ အဲ့ဒီ column ထဲက NULL မဟုတ်တဲ့ တန်ဖိုးတွေကိုပဲ ရေတွက်ပါတယ်။ |
+| SUM()	| numeric column တစ်ခုရဲ့ စုစုပေါင်းတန်ဖိုးကို တွက်ပေးပါတယ်။ |
+| AVG()	| numeric column တစ်ခုရဲ့ ပျမ်းမျှတန်ဖိုးကို တွက်ပေးပါတယ်။ |
+| MIN()	| data တွေထဲက အနည်းဆုံးတန်ဖိုးကို ရှာပေးပါတယ်။ |
+| MAX()	| data တွေထဲက အများဆုံးတန်ဖိုးကို ရှာပေးပါတယ်။ |
+
+GROUP BY clause မပါဘဲသုံးရင် aggregate function တွေက table တစ်ခုလုံးကို ခြုံငုံပြီး အနှစ်ချုပ်တွက်ချက်ပေးပါတယ်။
+
+ဥပမာ - table တစ်ခုလုံးရဲ့ အရောင်းအခြေအနေခြုံငုံချက်ကို ရှာပါ။
+
+```
+SELECT
+    COUNT(*) AS TotalOrders,
+    SUM(SaleAmount) AS TotalRevenue,
+    AVG(SaleAmount) AS AverageSale,
+    MIN(SaleAmount) AS SmallestSale,
+    MAX(SaleAmount) AS LargestSale
+FROM Sales;
+```
+
+ရလဒ် - (အနှစ်ချုပ် data ပါတဲ့ row တစ်ခုတည်းသာ ထွက်လာပါမည်)
+| TotalOrders | TotalRevenue | AverageSale | SmallestSale | LargestSale |
+| :--- | :--- | :--- | :--- | :--- |
+| 8 | $3815.50 | $476.94 | $25.00 | $1350.00 |
+
+## Data များကို အုပ်စုခွဲခြင်း - GROUP BY
+
+GROUP BY clause ကို SUM(), COUNT() ကဲ့သို့သော aggregate function တွေနဲ့တွဲသုံး၍ column တစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုတဲ့ column တွေရဲ့
+တန်ဖိုးတူညီတဲ့ row တွေကို အနှစ်ချုပ် row တစ်ခုတည်းအဖြစ် ပေါင်းစည်းရန် အသုံးပြုပါတယ်။
+ရိုးရိုး aggregate function တစ်ခုတည်းက table တစ်ခုလုံးအတွက် စုစုပေါင်းတန်ဖိုး (grand total) တစ်ခုကိုသာ ထုတ်ပေးနိုင်သော်လည်း
+GROUP BY ကို အသုံးပြုခြင်းဖြင့် မတူညီသော အမျိုးအစားတစ်ခုချင်းစီအတွက် စုစုပေါင်းတန်ဖိုး (subtotals) များကို ရရှိစေနိုင်ပါတယ်။
+
+**မှတ်ချက် - aggregate function အတွင်းမှာမရှိတဲ့ SELECT list ထဲက column မှန်သမျှကို GROUP BY clause ထဲမှာ မဖြစ်မနေ ထည့်ရေးပေးရပါမယ်။**
+
+Syntax:
+```
+SELECT column_to_group_by, AGGREGATE_FUNCTION(column_to_aggregate) 
+FROM table_name 
+GROUP BY column_to_group_by;
+```
+
+ဥပမာ - ပစ္စည်းအမျိုးအစား (Product Category) တစ်ခုချင်းစီအတွက် စုစုပေါင်းရောင်းရငွေကို တွက်ချက်ပါ။
+
+
+```
+SELECT
+    ProductCategory,
+    SUM(SaleAmount) AS CategoryRevenue
+FROM Sales
+GROUP BY ProductCategory;
+```
+
+ရလဒ် -
+| ProductCategory | CategoryRevenue |
+| :--- | :--- |
+| Electronics | $3150.00 |
+| Furniture | $600.50 |
+| Office Supplies| $65.00 |
+
+column တစ်ခုထက်ပိုပြီးတော့လည်း အုပ်စုခွဲနိုင်ပါသေးတယ်။
+
+ဥပမာ - ဒေသ (Region) အလိုက် အုပ်စုခွဲပြီး ဒေသတစ်ခုချင်းစီထဲမှာမှ ပစ္စည်းအမျိုးအစား (ProductCategory) အလိုက် ထပ်မံအုပ်စုခွဲပါ။
+
+```
+SELECT
+    Region,
+    ProductCategory,
+    COUNT(*) AS NumberOfOrders
+FROM Sales
+GROUP BY Region, ProductCategory;
+```
+ရလဒ် -
+| Region | ProductCategory | NumberOfOrders |
+| ---- | ---- | ---- |
+| North | Electronics | 3 |
+| South	| Electronics |	1 |
+| South	| Furniture	| 2 |
+| West | Office Supplies | 2 |
+
+## Filtering Groups - HAVING
+တွက်ချက်ပြီးသား တန်ဖိုး (aggregated value) ပေါ်မူတည်ပြီး ရလဒ်တွေကို filter ချင်ရင် ဘယ်လိုလုပ်မလဲ။ အဲ့ဒီအတွက် WHERE ကို သုံးလို့မရပါဘူး။
+ဒီပြဿနာကို ဖြေရှင်းဖို့အတွက် HAVING clause ကို အသုံးပြုပါတယ်။ 
+
+- WHERE က aggregation (စုစည်းတွက်ချက်မှု) မလုပ်ခင် row တစ်ခုချင်းစီကို filter ပါတယ်။
+- HAVING က aggregation လုပ်ပြီးသွားမှ အုပ်စုတစ်ခုလုံးကို filter ပါတယ်။
+
+
+Syntax:
+```
+... GROUP BY column_name 
+HAVING AGGREGATE_FUNCTION(column) condition;
+```
+
+ဥပမာ - စုစုပေါင်းရောင်းရငွေ $1,000 ကျော်တဲ့ ပစ္စည်းအမျိုးအစားတွေကိုပဲ ပြပါ။
+
+```
+SELECT
+    ProductCategory,
+    SUM(SaleAmount) AS CategoryRevenue
+FROM Sales
+GROUP BY ProductCategory
+HAVING SUM(SaleAmount) > 1000;
+```
+
+ရလဒ် -
+| ProductCategory | CategoryRevenue |
+| :--- | :--- |
+| Electronics | $3150.00 |
+
+
+## Logical Order of Execution
+
+SQL က clause တိုင်းကို သင်ရေးလိုက်တဲ့ အစဉ်(order)အတိုင်း အလုပ်မလုပ်ဘူးဆိုတာ နားလည်ထားဖို့ အရမ်းအရေးကြီးပါတယ်။ 
+SQL အလုပ်လုပ်တဲ့ စီစဉ်ပုံကိုသိထားခြင်းက ဘာလို့ query တချို့က အလုပ်လုပ်ပြီး တချို့က အလုပ်မလုပ်ဘူးဆိုတာကို နားလည်ဖို့ ကူညီပေးပါလိမ့်မယ်။
+
+1. FROM / JOIN - table တွေကို ရရှိပါတယ်။
+2. WHERE - row တစ်ခုချင်းစီကို filter ပါတယ်။
+3. GROUP BY - filter ပြီးသား row တွေကို အုပ်စုဖွဲ့ပါတယ်။
+4. HAVING - ရလာတဲ့အုပ်စုတွေကို filter ပါတယ်။
+5. SELECT - နောက်ဆုံးပြမယ့် column တွေကို ရွေးချယ်ပြီး expression/alias တွေကို တွက်ချက်ပါတယ်။
+6. DISTINCT - ထပ်နေတဲ့ row တွေကို ဖယ်ရှားပါတယ်။
+7. ORDER BY - နောက်ဆုံးရလဒ်ကို အစဉ်လိုက် order စီပါတယ်။
+8. LIMIT - row အရေအတွက်ကို ကန့်သတ်ပါတယ်။
+
+#### ဘာလို့အရေးကြီးတာလဲ။
+logical order ကြောင့်မို့လို့ WHERE ဒါမှမဟုတ် HAVING clause ထဲမှာ column alias (ယာယီအမည်) ကို သုံးလို့မရတာဖြစ်ပါတယ်။ (အဲ့ဒီအဆင့်မှာ alias က မရှိသေးပါဘူး။)
+ဒါပေမဲ့ ORDER BY clause မှာတော့ သုံးလို့ရပါတယ်။ (ORDER BY က SELECT အဆင့်ပြီးမှ အလုပ်လုပ်ပါတယ်။)
+
+Correct Usage - 
+
+```
+-- ဒီ query က အလုပ်လုပ်ပါတယ်။ ဘာလို့လဲဆိုတော့ 'TotalSales' alias ကို SELECT အဆင့်မှာ ဖန်တီးပြီးမှ ORDER BY အဆင့်က အလုပ်လုပ်လို့ပါ။
+SELECT
+    Region,
+    SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Region
+ORDER BY TotalSales DESC;
+```
+
+Incorrect Usage - 
+```
+-- ဒီ query က အလုပ်မလုပ်ပါဘူး။ ဘာလို့လဲဆိုတော့ HAVING အဆင့်က SELECT အဆင့်မတိုင်ခင် အလုပ်လုပ်တာကြောင့် 'TotalSales' alias က မရှိသေးလို့ပါ။
+SELECT
+    Region,
+    SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Region
+HAVING TotalSales > 500; -- ILLEGAL!
+```
+အပေါ်က မှားနေတဲ့ query ကို မှန်အောင်ဒီလိုရေးနိုင်ပါတယ်။ 
+
+HAVING SUM(SaleAmount) > 500;
