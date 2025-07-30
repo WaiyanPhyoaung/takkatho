@@ -1,0 +1,109 @@
+---
+title: "SQL: Data Definition Language (DDL) and Constraints"
+description: Data Definition Language (DDL) and Constraints
+---
+import { Aside } from "@astrojs/starlight/components";
+
+## Data Definition Language (DDL) and Constraints 
+
+DDL ဆိုတာက database object တွေဖြစ်တဲ့ table၊ database တွေကို တည်ဆောက်ခြင်း၊ ပြင်ဆင်ခြင်း၊ ဖျက်သိမ်းခြင်းတို့အတွက် အသုံးပြုတဲ့ SQL command တွေ ဖြစ်ပါတယ်။ 
+ဒါ့အပြင် data တွေရဲ့ မှန်ကန်တိကျမှုကို အာမခံဖို့အတွက် constraints (ကန့်သတ်ချက်များ) သတ်မှတ်ပုံကိုလည်း လေ့လာသွားပါမယ်။
+
+
+## Creating Databases and Tables (CREATE)
+CREATE statement ကို database object အသစ်များဖြစ်တဲ့ database, table, view, နှင့် index တို့ကို အစမှစ၍ (from scratch) တည်ဆောက်ရန် အသုံးပြုပါတယ်။ 
+
+### Database အသစ်ဆောက်ခြင်း
+
+`CREATE DATABASE` - table၊ view နဲ့ အခြား object တွေထည့်ဖို့အတွက် container တစ်လုံးလိုဖြစ်တဲ့ database အလွတ်တစ်ခုကို ဖန်တီးပေးပါတယ်။
+
+```
+CREATE DATABASE University;
+```
+### Table အသစ်ဆောက်ခြင်း
+
+`CREATE TABLE` - table အသစ်တစ်ခုနဲ့ column တွေကို သတ်မှတ်ဖို့အတွက် အခြေခံအကျဆုံး DDL command ဖြစ်ပါတယ်။ 
+table တစ်ခုတည်ဆောက်တဲ့အခါ column တစ်ခုချင်းစီရဲ့ နာမည်နဲ့ data အမျိုးအစား (data type) ကိုအတိအကျ သတ်မှတ်ပေးရပါမယ်။
+
+#### အသုံးများသော Data အမျိုးအစားများ
+
+အောက်ပါ data အမျိုးအစားတွေကို [ယခင် module](/relational-database/sql/sql-types) မှာအသေးစိတ် လေ့လာနိုင်ပါတယ်။
+
+| Data Type | ရှင်းလင်းချက် | ဥပမာ |
+| :--- | :--- | :--- |
+| INT or INTEGER | ကိန်းပြည့်များ။	 | 101 |
+| VARCHAR(n) | n အရေအတွက်အထိရှိနိုင်တဲ့ စာသားများ။ | VARCHAR(50) for a name |
+| DECIMAL(p, s) | ငွေကြေးအတွက် အထူးသင့်တော်တဲ့ ကိန်းသေဒဿမကိန်း။ p=စုစုပေါင်းဂဏန်း, s=ဒဿမနောက်ကဂဏန်း။ | DECIMAL(10, 2) for $99999999.99 |
+| DATE | နေ့စွဲ (YYYY-MM-DD) ကို သိမ်းဆည်းရန်။ | '2025-07-25' |
+| TIMESTAMP | နေ့စွဲနဲ့ အချိန်ကို သိမ်းဆည်းရန်။	 | '2025-07-25 17:01:42' |
+| BOOLEAN | TRUE သို့မဟုတ် FALSE တန်ဖိုး သိမ်းဆည်းရန်။ | TRUE |
+
+#### Table Constraints
+Constraints ဆိုတာက data တွေရဲ့ တိကျမှန်ကန်မှုကို အာမခံဖို့အတွက် column တွေအပေါ် သတ်မှတ်ထားတဲ့ စည်းမျဉ်းတွေဖြစ်ပါတယ်။
+
+| Constraint | ရှင်းလင်းချက် |
+| ---- | ---- |
+| NOT NULL | Column တစ်ခုမှာ NULL ဖြစ်နေလို့မရအောင် ကန့်သတ်ပေးပါတယ်။ |
+| UNIQUE | Column တစ်ခုထဲက တန်ဖိုးအားလုံး တစ်ခုနှင့်တစ်ခု မတူညီစေရန် (unique ဖြစ်စေရန်) အာမခံပေးပါတယ်။| 
+| PRIMARY KEY | Table တစ်ခုထဲက record တစ်ခုချင်းစီကို တိတိကျကျခွဲခြားနိုင်ရန်အတွက် အဓိကအသုံးပြုသော key ဖြစ်ပါတယ်။ Table တစ်ခုမှာ Primary Key တစ်ခုပဲ ရှိနိုင်ပါတယ်။ |
+| FOREIGN KEY | တခြား table တစ်ခုရဲ့ PRIMARY KEY ကို ရည်ညွှန်း(refer)ခြင်းဖြင့် table နှစ်ခုအကြား  ဆက်စပ်မှု (relationship) ကို တည်ဆောက်ပေးပါတယ်။ | 
+| CHECK	|  Column ထဲက တန်ဖိုးအားလုံးက သတ်မှတ်ထားတဲ့ အခြေအနေ (condition) တစ်ခုနဲ့ ကိုက်ညီအောင် စစ်ဆေးပေးပါတယ်။ |
+| DEFAULT | Record အသစ်ထည့်သွင်းရာမှာ တန်ဖိုးသတ်မှတ်မပေးပါက အလိုအလျောက်ထည့်သွင်းပေးမယ့် တန်ဖိုးဖြစ်ပါတယ်။ | 
+
+ဥပမာ - Data type တွေ၊ constraint တွေပါတဲ့ Students table တစ်ခု တည်ဆောက်ကြည့်ရအောင်။
+
+```
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    EnrollmentDate DATE DEFAULT CURRENT_DATE,
+    GPA DECIMAL(3, 2) CHECK (GPA >= 0.0 AND GPA <= 4.0)
+);
+```
+
+## Modifying Tables (ALTER TABLE)
+Table တစ်ခုကို တည်ဆောက်ပြီးနောက် ပြင်ဆင်လိုပါက ဖျက်ပြီးပြန်ဆောက်စရာမလိုပါဘူး။  ရှိပြီးသား table တစ်ခုရဲ့ တည်ဆောက်ပုံကို `ALTER TABLE statement` ဖြင့် ပြင်ဆင်နိုင်ပါတယ်။
+
+### Column အသစ်ထည့်ခြင်း
+
+```
+ALTER TABLE Students
+ADD COLUMN Major VARCHAR(50);
+```
+
+### Column တစ်ခုကို ဖျက်ခြင်း
+
+```
+ALTER TABLE Students
+DROP COLUMN Major;
+```
+
+### Column တစ်ခုရဲ့ Data Type ကို ပြင်ဆင်ခြင်း
+(မှတ်ချက် - SQL dialect များပေါ်မူတည်၍ syntax အနည်းငယ်ကွာခြားနိုင်ပါတယ်။ ဥပမာ- MODIFY COLUMN vs ALTER COLUMN)
+
+```
+-- LastName column ရဲ့ length ကို တိုးကြည့်ရအောင်။
+ALTER TABLE Students
+MODIFY COLUMN LastName VARCHAR(75);
+```
+
+## Deleting Databases and Tables (DROP)
+Drop command ကို Database object တစ်ခုလုံးအား ၎င်းရဲ့ တည်ဆောက်ပုံ၊ အတွင်းရှိ data အားလုံး နဲ့ သက်ဆိုင်ရာ index များ၊ constraint များ အပါအဝင် အပြီးတိုင် ဖျက်သိမ်းရန် အသုံးပြုပါတယ်။
+
+<Aside title="အရေးကြီးသတိပေးချက်">
+DROP command ရဲ့အကျိုးသက်ရောက်မှုကို ပြန်လည်ရယူလို့ လုံးဝမရပါ။
+၎င်းက object ရဲ့ တည်ဆောက်ပုံ၊ အတွင်းက data အကုန်လုံးကိုပါ အပြီးတိုင်ဖျက်ပစ်ပါတယ်။ "Undo" လုပ်လို့မရတဲ့အတွက် အသုံးမပြုခင်မှာ လုံးဝသေချာအောင် စစ်ဆေးဖို့ အလွန်အရေးကြီးပါတယ်။
+</Aside>
+
+
+### Table တစ်ခုကို ဖျက်သိမ်းခြင်း
+```
+DROP TABLE Students;
+```
+
+### Database တစ်ခုကို ဖျက်သိမ်းခြင်း
+```
+DROP DATABASE University;
+```

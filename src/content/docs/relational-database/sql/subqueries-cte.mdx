@@ -1,0 +1,158 @@
+---
+title: "SQL: Subqueries and Common Table Expressions (CTEs)"
+description: Subqueries and Common Table Expressions (CTEs)
+---
+import { Aside } from "@astrojs/starlight/components";
+
+## Subqueries and Common Table Expressions (CTEs) 
+
+ဒီ module မှာ query တွေရဲ့အတွင်း၌ နောက်ထပ် query (subqueries) တွေကို ဘယ်လိုရေးရမလဲဆိုတာ လေ့လာကြပါမယ်။
+ဒီနည်းလမ်းက အဆင့်များစွာပါတဲ့ တွက်ချက်မှုတွေလုပ်ဖို့နဲ့ သာမန် SELECT statement တစ်ကြောင်းတည်းဖြင့် ဖြေရှင်းလို့မရတဲ့ ရှုပ်ထွေးတဲ့မေးခွန်းတွေကို လုပ်ဆောင်ဖို့အတွက် ဖြစ်ပါတယ်။ 
+ပြီးရင်တော့ ရှုပ်ထွေးတဲ့ subquery တွေအစား သုံးနိုင်တဲ့ ဖတ်ရလွယ်ကူတဲ့ CTEs တွေအကြောင်းကို မိတ်ဆက်ပေးသွားပါမယ်။
+
+ဒီသင်ခန်းစာအတွက် အောက်က `Employees` နဲ့ `Sales` table တွေကို သုံးသွားပါမယ်။
+
+`Employees` Table - 
+| EmployeeID | FirstName | Department | Salary |
+| :--- | :--- | :--- | :--- |
+| 101 | Alice | Sales | $70,000|
+| 102 | Bob | Sales | $80,000|
+| 103 | Charlie | IT | $95,000|
+| 104 | Diana | HR | $65,000|
+
+`Sales` Table -
+| OrderID | EmployeeID | SaleAmount |
+| :--- | :--- | :--- |
+| 1 | 101 | $1,200 |
+| 2 | 102 | $2,500 |
+| 3 | 101 | $800 |
+| 4 | 102 | $3,000 | 
+
+## Introduction to Subqueries
+Subquery (ဒါမှမဟုတ် inner query) ဆိုတာက တခြား SQL statement တစ်ခု (outer query) ရဲ့ အတွင်းထဲမှာ ထည့်သွင်းရေးသားထားတဲ့ 
+SELECT statement အပြည့်အစုံရှိတဲ့ query တစ်ကြောင်းဖြစ်ပါတယ်။
+ဒါကို ပြဿနာတစ်ခုကို အဆင့်နှစ်ဆင့်နဲ့ ဖြေရှင်းတယ်လို့ မှတ်ယူနိုင်ပါတယ်။ 
+
+ဥပမာ - ပျမ်းမျှလစာထက် ပိုရတဲ့ ဝန်ထမ်းတွေကို ရှာချင်တယ်ဆိုရင် သင်အရင်ဆုံးသိရမှာတွေက 
+
+- ပျမ်းမျှလစာက ဘယ်လောက်လဲ။
+- အဲ့ဒီ ပျမ်းမျှလစာထက် ဘယ်သူတွေက ပိုရလဲ။
+Subquery က ဒီအဆင့်နှစ်ခုလုံးကို command တစ်ခုတည်းနဲ့ လုပ်ဆောင်နိုင်စေပါတယ်။
+
+### Subqueries in the WHERE Clause
+ဒါက subquery ရဲ့ အသုံးအများဆုံးပုံစံပါ။ သူက အပြင် query ကို အတွင်း query ရဲ့အဖြေအပေါ်မူတည်ပြီး filter နိုင်ပါတယ်။
+
+ဥပမာ - ကုမ္ပဏီရဲ့ ပျမ်းမျှလစာထက် ပိုရတဲ့ ဝန်ထမ်းအားလုံးကို ရှာပါ။
+
+```
+SELECT FirstName, Salary
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+```
+
+#### ဘယ်လိုအလုပ်လုပ်လဲ။ 
+
+အတွင်း query `(SELECT AVG(Salary) FROM Employees)` က အရင်ဆုံးအလုပ်လုပ်ပြီး ပျမ်းမျှလစာကို တွက်ထုတ်ပါတယ် (ဒီမှာဆိုရင် $77,500 ဖြစ်ပါတယ်)။
+ပြီးတော့ အပြင် query က `SELECT FirstName, Salary FROM Employees WHERE Salary > 77500;` ဆိုပြီး ဖြစ်သွားပါတယ်။
+
+ရလဒ် - 
+| FirstName | Salary |
+| :--- | :--- |
+| Bob | $80,000|
+| Charlie | $95,000|
+
+Subquery က တန်ဖိုးတစ်ခုထက်ပိုတဲ့ စာရင်း (list) တစ်ခုကို ပြန်ပေးတဲ့အခါ IN လို operator မျိုးကိုလည်း သုံးနိုင်ပါတယ်။
+
+ဥပမာ - အနည်းဆုံးတစ်ကြိမ်အရောင်း(sale) လုပ်ဆောင်ထားတဲ့ ဝန်ထမ်းအားလုံးရဲ့ နာမည်တွေကို ရှာပါ။
+```
+SELECT FirstName FROM Employees
+WHERE EmployeeID IN (SELECT DISTINCT EmployeeID FROM Sales);
+```
+
+## Subqueries in the FROM Clause
+Subquery တစ်ခုကို FROM clause ထဲမှာသုံးတဲ့အခါ သူ့ရဲ့ရလဒ်ကို ယာယီ table တစ်ခုအဖြစ် သဘောထားပါတယ်။ 
+ဒီယာယီ table ကို "derived table" လို့ခေါ်ပြီး alias (ယာယီအမည်) တစ်ခု မဖြစ်မနေ ပေးရပါမယ်။
+
+ဥပမာ - ပထမဦးစွာ ဝန်ထမ်းတစ်ဦးချင်းစီရဲ့ စုစုပေါင်းအရောင်း(sale) ကိုတွက်ပါ။ ပြီးရင် ယာယီရလဒ်ထဲကနေ စုစုပေါင်းတွေရဲ့ ပျမ်းမျှတန်ဖိုးကို ရှာပါ။
+
+```
+SELECT
+    AVG(TotalSales) AS AverageOfEmployeeTotals
+FROM (
+    SELECT
+        EmployeeID,
+        SUM(SaleAmount) AS TotalSales
+    FROM Sales
+    GROUP BY EmployeeID
+) AS EmployeeSalesSummary;
+```
+
+#### ဘယ်လိုအလုပ်လုပ်လဲ။
+
+- အတွင်းက query က အရင်အလုပ်လုပ်ပြီး ဝန်ထမ်းတစ်ယောက်ချင်းစီရဲ့ စုစုပေါင်းအရောင်း `sale` ကို တွက်ပါတယ်။ (Alice: $2000, Bob: $5500)
+
+- ဒါက `EmployeeSalesSummary` ဆိုတဲ့ ယာယီ table တစ်ခုကို ဖန်တီးပေးလိုက်ပါတယ်။
+
+- အပြင် query က အဲ့ဒီယာယီ table ထဲက `TotalSales` column ရဲ့ ပျမ်းမျှတန်ဖိုးကို တွက်ချက်ပေးပါတယ်။
+
+ရလဒ် -
+| AverageOfEmployeeTotals |
+| :--- |
+| $3750.00 |
+
+## Common Table Expressions (CTEs)
+Subquery တွေက အများကြီးထပ်နေတဲ့အခါ code တွေကို ဖတ်ရအလွန်ခက်စေပါတယ်။ ("pyramid of doom" လို့တောင် ခေါ်ကြပါတယ်)။ 
+Common Table Expressions (CTEs) တွေကတော့ ဒီပြဿနာအတွက် ဖြေရှင်းချက်တစ်ခုဖြစ်ပြီး query တွေကို အများကြီး ပိုစနစ်ကျပြီး ဖတ်ရလွယ်ကူစေပါတယ်။
+CTEs ဆိုတာက နာမည်တစ်ခုပေးထားတဲ့ ယာယီ result set တစ်ခုက်ို ဖန်တီးပြီး SELECT statement ထဲမှာ ပြန်လည်အကိုးအကားလုပ်ပြီး သုံးတာဖြစ်ပါတယ်။ 
+
+CTE တစ်ခုကို WITH clause ကိုသုံးပြီး သတ်မှတ်ပါတယ်။
+
+Syntax:
+```
+WITH CteName AS (
+    -- ဒီနေရာမှာ query ရေးပါ
+)
+SELECT ... FROM CteName;
+```
+အပေါ်က subquery ဥပမာကိုပဲ CTE သုံးပြီး ပြန်ရေးကြည့်ရအောင်။
+
+```
+WITH EmployeeSalesSummary AS (
+    SELECT
+        EmployeeID,
+        SUM(SaleAmount) AS TotalSales
+    FROM Sales
+    GROUP BY EmployeeID
+)
+SELECT AVG(TotalSales) AS AverageOfEmployeeTotals
+FROM EmployeeSalesSummary;
+```
+အလုပ်လုပ်တဲ့ပုံစံက subquery version နဲ့ တစ်ထပ်တည်းတူညီပေမယ့် တည်ဆောက်ပုံက အများကြီးပိုရှင်းလင်းသွားပါတယ်။ 
+ကိုယ်လိုချင်တဲ့ logical unit ကို အရင်သတ်မှတ်၊ နာမည်ပေးပြီးမှ ပြန်လည်အသုံးပြုသည့်ပုံစံဖြစ်ပါတယ်။
+
+
+## Correlated Subqueries (Advanced)
+Correlated Subquery ဆိုတာက သူ့ရဲ့တန်ဖိုးတွေအတွက် အပြင်က query (outer query) ကို မှီခိုနေရတဲ့ အတွင်း query (inner query) တစ်ခုဖြစ်ပါတယ်။ 
+Correlated Subquery က အပြင် query ရဲ့ row တစ်ကြောင်းချင်းစီအတွက် တစ်ကြိမ်စီ ထပ်ခါထပ်ခါ အလုပ်လုပ်ပါတယ်။
+
+ဥပမာ - မိမိတို့ရဲ့ဌာနတွင်း ပျမ်းမျှလစာထက် လစာပိုများတဲ့ ဝန်ထမ်းအားလုံးကို ရှာပါ။
+
+```
+SELECT FirstName, Salary, Department
+FROM Employees AS E1
+WHERE Salary > (
+    SELECT AVG(Salary)
+    FROM Employees AS E2
+    WHERE E2.Department = E1.Department -- The inner query is CORRELATED to the outer query
+);
+```
+#### ဘယ်လိုအလုပ်လုပ်လဲ။
+
+- Alice (Sales) အတွက် အလုပ်လုပ်တဲ့အခါ အတွင်း query က Department = 'Sales' ရဲ့ ပျမ်းမျှလစာကို တွက်ပါတယ်။
+- Charlie (IT) အတွက် အလုပ်လုပ်တဲ့အခါ အတွင်း query က Department = 'IT' ရဲ့ ပျမ်းမျှလစာကို တွက်ပါတယ်။
+ဒီလိုနဲ့ outer query မှ row တစ်ခုချင်းစီအတွက်inner query ကို ထပ်ခါထပ်ခါ run သွားပါတယ်။
+ 
+<Aside title="မှတ်ချက်">
+Correlated subquery တွေက row တစ်ကြောင်းချင်းစီအတွက် ထပ်ခါထပ်ခါ အလုပ်လုပ်ရသောကြောင့် performance ကို ကျဆင်းစေနိုင်ပါသည်။
+များသောအားဖြင့် ဒီလိုရလဒ်မျိုးကို JOIN ဒါမှမဟုတ် CTE ကိုသုံးပြီး ပိုကောင်းတဲ့ performance နဲ့ ပိုရှင်းလင်းတဲ့ code ဖြင့်ရရှိနိုင်ပါတယ်။
+</Aside>

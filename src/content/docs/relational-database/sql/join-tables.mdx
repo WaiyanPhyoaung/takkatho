@@ -1,0 +1,221 @@
+---
+title: "SQL: Joining Tables"
+description: Joining Tables
+---
+
+## Joining Tables
+
+တကယ့်လက်တွေ့မှာ Normalization အရ data တွေကို သီးခြား table တွေခွဲပြီး သိမ်းဆည်းထားလေ့ရှိပါတယ်။
+ဒီ module မှာ table နှစ်ခု (သို့) နှစ်ခုထက်ပိုတာတွေကို သူတို့ကြားမှာ ဆက်စပ်နေတဲ့ column တစ်ခုကိုအခြေခံပြီး data တွေကို ဘယ်လိုပေါင်းစပ်ထုတ်ယူမလဲဆိုတာ လေ့လာကြပါမယ်။
+
+ဒီ concepts ကို ရှင်းပြဖို့အတွက် `Employees` နှင့် `Departments` ဆိုတဲ့ table နှစ်ခုကို သုံးသွားပါမယ်။
+
+`Employees` Table - 
+
+| EmployeeID | FirstName | LastName	| DepartmentID |
+| ---- | ---- | ---- | ---- |
+| 101 | Alice | Williams | 1 |
+| 102 | Bob | Smith | 1 |
+| 103 | Charlie | Brown | 2 |
+| 104 | Diana | Jones | 3 |
+| 105 | Eve | Miller | NULL |
+
+`Departments` Table -
+
+| DepartmentID | DepartmentName | Manager |
+| --- | --- | ---- |
+| 1	| HR | David Chen |
+| 2 | IT | Grace Lee |
+| 4	| Legal | NULL |
+
+
+### Table Relationships ကို နားလည်ခြင်း
+Table တွေကို မချိတ်ဆက်မီ သူတို့ကြားက relationship ကိုအရင်နားလည်ရပါမယ်။ ဒီ relationship ကို [Primary Key](/relational-database/terminology/structure-related-terms/primary-key/) နဲ့ [Foreign Key](/relational-database/terminology/structure-related-terms/foreign-key/) တွေက သတ်မှတ်ပေးပါတယ်။
+
+Table တွေကို ON clause ကိုသုံးပြီး ချိတ်ဆက်ရပါတယ်။ ON clause က ဒီ relationship ကို ဖော်ပြပေးတာဖြစ်ပါတယ်။
+... ON Employees.DepartmentID = Departments.DepartmentID
+
+### INNER JOIN
+INNER JOIN က join အမျိုးအစားတွေထဲမှာ အသုံးအများဆုံးဖြစ်ပါတယ်။ ၎င်းက table နှစ်ခုလုံးမှာ key တန်ဖိုးကိုက်ညီသော row တွေကိုသာ ပြန်လည်ထုတ်ပေးပါတယ်။ 
+စက်ဝိုင်းနှစ်ခု ထပ်နေတဲ့ ဘုံဧရိယာ (intersection) လိုပဲ စဉ်းစားလို့ရပါတယ်။
+
+Syntax:
+```
+SELECT table1.column1, table2.column2 
+FROM table1 
+INNER JOIN table2 ON table1.key = table2.key;
+```
+
+ဥပမာ - ဝန်ထမ်းတစ်ယောက်ချင်းစီရဲ့ နာမည်နှင့် သူတို့ရဲ့ သက်ဆိုင်ရာ ဌာနအမည်ကို ဖော်ပြပါ။
+
+```
+SELECT
+    E.FirstName,
+    D.DepartmentName
+FROM
+    Employees AS E
+INNER JOIN
+    Departments AS D ON E.DepartmentID = D.DepartmentID;
+```
+
+(ဒီမှာ table တွေကို `AS E`, `AS D` ဆိုပြီး (alias) ပေးထားက query ကို ပိုမိုတိုတောင်းပြီး ဖတ်ရလွယ်စေပါတယ်။)
+
+ရလဒ် - 
+
+| FirstName	| DepartmentName| 
+| ---- | ---- |
+| Alice	| HR |
+| Bob | HR |
+| Charlie | IT |
+
+#### ဘာလို့ တချို့ record တွေ ကျန်ခဲ့တာလဲ။
+
+Eve Miller ကျန်ခဲ့တာက သူ့ရဲ့ DepartmentID က NULL ဖြစ်နေတဲ့အတွက် ချိတ်ဆက်လို့မရလို့ဖြစ်ပါတယ်။ <br />
+Diana Jones ကျန်ခဲ့တာက သူ့ရဲ့ DepartmentID 3 က Departments table ထဲမှာ မရှိလို့ဖြစ်ပါတယ်။ <br />
+'Legal' ဌာန ကျန်ခဲ့တာက DepartmentID 4 ကို ချိတ်ဆက်ထားတဲ့ ဝန်ထမ်းတစ်ယောက်မှ မရှိလို့ဖြစ်ပါတယ်။ <br />
+
+> INNER JOIN က တစ်ထပ်တည်းကျတဲ့ (perfect match) data တွေကိုပဲ ပြပေးပါတယ်။
+
+### LEFT JOIN
+LEFT JOIN (ဒါမှမဟုတ် LEFT OUTER JOIN) က ဘယ်ဘက်က table (ပထမဆုံးရေးတဲ့ table) က record အားလုံးကို ပြန်ပေးပြီး
+ညာဘက် table ကနေ ကိုက်ညီတဲ့ record တွေကိုပဲ ပြန်ပေးပါတယ်။ တကယ်လို့ ကိုက်ညီတာမရှိရင် ညာဘက်က data နေရာမှာ NULL ဆိုပြီးပြပေးပါတယ်။
+
+Syntax:
+```
+SELECT table1.column1, table2.column2 
+FROM table1 
+LEFT JOIN table2 ON table1.key = table2.key;
+```
+
+ဥပမာ - ဝန်ထမ်းအားလုံးကိုပြပြီး သူတို့မှာ ဌာနရှိရင် ဌာနအမည်ကို ဖော်ပြပါ။
+
+```
+SELECT
+    E.FirstName,
+    D.DepartmentName
+FROM
+    Employees AS E
+LEFT JOIN
+    Departments AS D ON E.DepartmentID = D.DepartmentID;
+```
+
+ရလဒ် -
+
+| FirstName	| DepartmentName |
+| ---- | ---- |
+| Alice |	HR |
+| Bob |	HR |
+| Charlie |	IT |
+| Diana	| NULL |
+| Eve |	NULL |
+
+#### ဘာအတွက် အသုံးဝင်လဲ။
+
+LEFT JOIN က table တစ်ခုမှာရှိပြီး နောက် table တစ်ခုမှာ သက်ဆိုင်ရာ data မရှိတဲ့ record တွေကို ရှာဖွေဖို့အတွက် အကောင်းဆုံးဖြစ်ပါတယ်။ 
+ဒီဥပမာမှာဆိုရင် ဘယ်ဌာနမှာမှ မရှိသေးတဲ့ ဝန်ထမ်းတွေကို အလွယ်တကူမြင်နိုင်ပါတယ်။
+
+### RIGHT JOIN
+
+RIGHT JOIN (ဒါမှမဟုတ် RIGHT OUTER JOIN) က LEFT JOIN ရဲ့ ပြောင်းပြန်ဖြစ်ပါတယ်။
+ညာဘက် table က record အားလုံးကို ပြန်ပေးပြီး ဘယ်ဘက် table က ကိုက်ညီတဲ့ record တွေကိုပဲ ပြန်ပေးပါတယ်။ 
+ကိုက်ညီတာမရှိရင် ဘယ်ဘက်က data နေရာမှာ NULL ပြပေးပါတယ်။
+
+Syntax:
+```
+SELECT table1.column1, table2.column2 
+FROM table1 
+RIGHT JOIN table2 ON table1.key = table2.key;
+```
+
+ဥပမာ - ဌာနအားလုံးကိုပြပြီး အဲ့ဒီဌာနတွေမှာရှိတဲ့ ဝန်ထမ်းတွေကို စာရင်းပြုစုပါ။
+
+```
+SELECT
+    E.FirstName,
+    D.DepartmentName
+FROM
+    Employees AS E
+RIGHT JOIN
+    Departments AS D ON E.DepartmentID = D.DepartmentID;
+```
+
+ရလဒ် - 
+
+| FirstName	| DepartmentName |
+| ---- | ---- |
+| Alice	| HR |
+| Bob | HR |
+| Charlie | IT |
+| NULL | Legal |
+
+#### ဘာအတွက် အသုံးဝင်လဲ။
+
+RIGHT JOIN က ညာဘက် table မှာရှိပြီး ဘယ်ဘက် table မှာ သက်ဆိုင်ရာ data မရှိတဲ့ record တွေကို ရှာပေးနိုင်ပါတယ်။ 
+ဒီမှာဆိုရင် 'Legal' ဌာနမှာ ဝန်ထမ်းမရှိသေးဘူးဆိုတာ ချက်ချင်းသိနိုင်ပါတယ်။
+
+
+### FULL OUTER JOIN
+FULL OUTER JOIN က ဘယ်ဘက် table မှာဖြစ်ဖြစ် ညာဘက် table မှာဖြစ်ဖြစ် ကိုက်ညီတာရှိရင် record အားလုံးကို ပြန်ပေးပါတယ်။ 
+FULL OUTER JOIN က LEFT JOIN နဲ့ RIGHT JOIN ရဲ့ ရလဒ်နှစ်ခုကို ပေါင်းထားတာနဲ့ အတူတူပါပဲ။
+
+Syntax:
+```
+SELECT table1.column1, table2.column2 
+FROM table1 
+FULL OUTER JOIN table2 ON table1.key = table2.key;
+```
+ဥပမာ - ဝန်ထမ်းတိုင်းနဲ့ ဌာနတိုင်းကို စာရင်းပြုစုပြီး ချိတ်ဆက်လို့ရတာတွေကို တွဲပြပါ။
+
+
+ရလဒ် -
+
+| FirstName |	DepartmentName |
+| --- | --- |
+| Alice | HR |
+| Bob |	HR |
+| Charlie | IT |
+| Diana	| NULL |
+| Eve |	NULL |
+| NULL | Legal |
+
+> မှတ်ချက် - MySQL database က FULL OUTER JOIN ကို support မလုပ်ပါဘူး။ ဒါပေမဲ့ LEFT JOIN နဲ့ RIGHT JOIN ကို UNION clause သုံးပြီး ပေါင်းစပ်ခြင်းဖြင့် အလားတူရလဒ်မျိုး ရအောင်လုပ်နိုင်ပါတယ်။
+
+
+## Joining Multiple Tables
+
+
+Table နှစ်ခုတည်းကိုပဲ join ရမယ်လို့ ကန့်သတ်ထားတာမရှိပါဘူး။ JOIN clause တွေကို တစ်ခုပြီးတစ်ခု ဆက်တိုက်ချိတ်ဆက်ပြီး table များစွာကို query တစ်ခုတည်းမှာ ပေါင်းစပ်နိုင်ပါတယ်။
+
+
+`Projects` ဆိုတဲ့ တတိယ table တစ်ခု ထပ်ထည့်ကြည့်ရအောင်။
+
+`Projects` Table -
+
+| ProjectID	| ProjectName | LeadEmployeeID |
+| --- | --- | --- |
+| 501 | System Upgrade	| 103 |
+| 502 | New Website	| 101 |
+
+ဥပမာ - project တစ်ခုချင်းစီ အဲ့ဒီ project ကို ဦးဆောင်တဲ့ ဝန်ထမ်းနာမည် ပြီးတော့ အဲ့ဝန်ထမ်းရဲ့ ဌာနအမည်ကို ဖော်ပြပါ။ 
+
+ဒါက table သုံးခု (Projects → Employees → Departments) ချိတ်ဆက်ဖို့ လိုအပ်ပါတယ်။
+
+```
+SELECT
+    P.ProjectName,
+    E.FirstName,
+    D.DepartmentName
+FROM
+    Projects AS P
+INNER JOIN
+    Employees AS E ON P.LeadEmployeeID = E.EmployeeID
+INNER JOIN
+    Departments AS D ON E.DepartmentID = D.DepartmentID;
+```
+
+ရလဒ် -
+
+| ProjectName | FirstName | DepartmentName |
+| --- | --- | --- |
+| System Upgrade | Charlie | IT |
+| New Website | Alice | HR |

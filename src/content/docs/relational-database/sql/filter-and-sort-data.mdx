@@ -1,0 +1,252 @@
+---
+title: "SQL: Filtering and Sorting Data"
+description: Filtering and Sorting Data
+---
+
+## Data များကို filter လုပ်ခြင်း နှင့် sorting စီခြင်း
+
+ကိုယ်လိုချင်တဲ့ data အပိုင်းလေးတွေကိုပဲ သီးသန့်ရွေးထုတ်ဖို့နဲ့ ရလဒ်တွေကို sorting စီဖို့အတွက် query တွေကို 
+ဘယ်လို ပိုမိုတိကျအောင် ရေးရမလဲဆိုတာ လေ့လာကြရအောင်။ 
+
+Concepts တွေကို ရှင်းပြဖို့အတွက် `Products` လို့ခေါ်တဲ့ နမူနာ table တစ်ခုကို အသုံးပြုသွားပါမယ်။
+
+နမူနာ `Products` Table - 
+
+| ProductID	| ProductName |	Category |	Price	| StockQuantity |
+| :---- | :---- | :--- | :--- | :---- |
+| 1 | Keyboard | Electronics | $79.99 |	150 |
+| 2	| Mouse | Electronics	| $49.99 | 200 |
+| 3	| T-Shirt | Apparel | $25.00 |	500 |
+| 4	| Hiking Boots	| Footwear | $120.00 | 80 |
+| 5 | Coffee Mug | Kitchenware | $15.50 | NULL |
+| 6	| Denim Jeans | Apparel | $89.99 | 250 |
+| 7	| Gaming Mouse Pad | Electronics | $25.00 | 300 |
+
+## ရလဒ်တွေကို filter ခြင်း - **WHERE clause**
+record တွေကို filter ဖို့အတွက် WHERE clause ကိုအသုံးပြုပါတယ်။ သတ်မှတ်ထားတဲ့ condition (အခြေအနေ) နဲ့ ကိုက်ညီတဲ့ row တွေကိုပဲ နောက်ဆုံးရလဒ်ထဲမှာ ရွေးထုတ်ပေးပါတယ်။
+
+Syntax:
+```
+SELECT column_names 
+FROM table_name 
+WHERE condition;
+```
+
+### Comparison Operator များ
+
+WHERE clause ထဲမှာ condition ကို သတ်မှတ်ဖို့အတွက် အောက်ပါ comparison operator တွေကို အသုံးပြုပါတယ်။
+
+| Operator | Description | Example |
+| ---- | ---- | --- |
+| `=` | Equal to | `WHERE Category = 'Apparel'` |
+| `<> or !=` |	Not equal to |	`WHERE Category <> 'Electronics'` |
+| `>` | Greater than | `WHERE Price > 50` |
+| `<` | Less than	| `WHERE StockQuantity < 100` |
+| `>=` | Greater than or equal to |	`WHERE Price >= 79.99` |
+| `<=` | Less than or equal to | `WHERE StockQuantity <= 200` |
+
+ဥပမာ - 'Electronics' category ထဲမှာရှိတဲ့ ကုန်ပစ္စည်းအားလုံးကို ရှာပါ။ 
+
+```
+SELECT ProductName, Price
+FROM Products
+WHERE Category = 'Electronics';
+```
+ရလဒ် - 
+| ProductName | Price |
+| :--- | :--- |
+| Keyboard | $79.99 |
+| Mouse | $49.99 |
+| Gaming Mouse Pad | $25.00 |
+
+### Logical Operator များ (AND, OR, NOT)
+WHERE clause တစ်ခုတည်းမှာ Condition တွေကို ပေါင်းပြီး ရေးချင်တဲ့အခါ Logical Operator တွေကို သုံးနိုင်ပါတယ်။
+
+- **AND:** သတ်မှတ်ထားတဲ့ condition အားလုံး မှန်ရပါမယ်။
+- **OR:** condition တွေထဲက အနည်းဆုံးတစ်ခု မှန်ရင်ရပါပြီ။
+- **NOT:** သတ်မှတ်ထားတဲ့ condition ရဲ့ ဆန့်ကျင်ဘက်ကို ရွေးထုတ်ပေးပါတယ်။
+
+**AND ဥပမာ -** 'Electronics' category ထဲက ဈေးနှုန်း $50 ထက်များတဲ့ ပစ္စည်းတွေကို ရှာကြည့်ပါမယ်။ 
+```
+SELECT ProductName, Price
+FROM Products
+WHERE Category = 'Electronics' AND Price > 50;
+```
+ရလဒ် - 
+| ProductName | Price |
+| :--- | :--- |
+| Keyboard | $79.99 |
+
+**OR ဥပမာ -** 'Apparel' category ထဲမှာရှိတဲ့ ပစ္စည်းတွေ ဒါမှမဟုတ် ဈေးနှုန်း $30 အောက်နည်းတဲ့ ပစ္စည်းတွေကို ရှာကြည့်ပါမယ်။ 
+```
+SELECT ProductName, Category, Price
+FROM Products
+WHERE Category = 'Apparel' OR Price < 30;
+```
+
+ရလဒ် - 
+| ProductName | Category | Price |
+| :--- | :--- | :--- |
+| T-Shirt | Apparel | $25.00 |
+| Coffee Mug | Kitchenware | $15.50 |
+| Denim Jeans | Apparel | $89.99 |
+| Gaming Mouse Pad | Electronics | $25.00 |
+
+**NOT ဥပမာ -** 'Apparel' category ထဲမှာ မပါဝင်တဲ့ ပစ္စည်းအားလုံးကို ရှာကြည့်ပါမယ်။ 
+
+NOT ကို IN နဲ့တွဲသုံးပြီး 'Apparel' category ကလွဲလို့ ကျန်တဲ့ category အားလုံးကို ရွေးထုတ်ပေးမှာ ဖြစ်ပါတယ်။
+```
+SELECT ProductName, Category
+FROM Products
+WHERE Category NOT IN ('Apparel');
+```
+ရလဒ် - 
+
+ဒီ query က Category column မှာ 'Apparel' လို့ သတ်မှတ်ထားတဲ့ T-Shirt နဲ့ Denim Jeans ကလွဲပြီး ကျန်တဲ့ product အားလုံးကို ပြန်ပေးမှာ ဖြစ်ပါတယ်။
+
+| ProductName |	Category |
+| :--- | :--- |
+| Keyboard | Electronics |
+| Mouse	| Electronics |
+| Hiking Boots | Footwear |
+| Coffee Mug |	Kitchenware |
+| Gaming Mouse Pad | Electronics |
+
+
+### ပိုပြီးအဆင့်မြင့်တဲ့ Filtering Keyword များ
+
+SQL မှာ data filter တာကို တိုတိုနဲ့လိုရင်းဖြစ်အောင် လုပ်ပေးနိုင်တဲ့ တခြား keyword တွေလည်း ရှိပါသေးတယ်။
+
+#### BETWEEN
+ပေးထားတဲ့ တန်ဖိုးနှစ်ခုကြားက data တွေကို ရွေးထုတ်ပေးပါတယ်။ (အစနဲ့အဆုံးတန်ဖိုးတွေ အပါအဝင်)
+
+ဥပမာ - ဈေးနှုန်း $50 နဲ့ $100 ကြားမှာရှိတဲ့ ပစ္စည်းတွေကို ရှာပါ။ 
+```
+SELECT ProductName, Price
+FROM Products
+WHERE Price BETWEEN 50 AND 100;
+```
+#### IN
+
+Column တစ်ခုအတွက် ဖြစ်နိုင်ချေရှိတဲ့ တန်ဖိုးများစွာကို တစ်ခါတည်း သတ်မှတ်ပေးပြီး data ထုတ်ယူနိုင်ပါတယ်။ 
+OR တွေအများကြီးရေးရမယ့်အစားသုံးလို့ရတဲ့ အတိုကောက်ရေးနည်းတစ်ခုလည်း ဖြစ်ပါတယ်။
+
+ဥပမာ - 'Footwear' ဒါမှမဟုတ် 'Kitchenware' category ထဲက ပစ္စည်းအားလုံးကို ရှာပါ။ 
+```
+SELECT ProductName, Category
+FROM Products
+WHERE Category IN ('Footwear', 'Kitchenware');
+```
+
+#### LIKE
+Column တစ်ခုထဲမှာ ကိုယ်လိုချင်တဲ့ ပုံစံ (pattern) တစ်ခုခုနဲ့ ကိုက်ညီတာကို ရှာပေးပါတယ်။ အောက်က wildcard character နှစ်မျိုးနဲ့ တွဲသုံးရပါတယ်။
+
+- **%** (စာလုံး မရှိတာ၊ စာလုံးတစ်လုံး ဒါမှမဟုတ် စာလုံးအများကြီးကို ကိုယ်စားပြုပါတယ်။) <br />
+ဥပမာ -  <br />
+'K%' ဆိုရင် 'K' ရဲ့နောက်မှာ ဘာစာလုံးတွေပဲလာလာ၊ စာလုံးဘယ်နှလုံးပဲရှိရှိ အကုန်ရှာပေးမှာဖြစ်ပါတယ်။  <br />
+'%s' ဆိုရင် 's' ရဲ့အရှေ့မှာ ဘာစာလုံးတွေပဲရှိရှိ၊ အရှည်ဘယ်လောက်ပဲဖြစ်ဖြစ် ရှာပေးမှာဖြစ်ပါတယ်။
+
+- **_** (စာလုံးတစ်လုံးတည်းကိုသာ အတိအကျ ကိုယ်စားပြုပါတယ်။)  <br />
+ဥပမာ - <br />
+'_o_s' ဆိုရင် ရလဒ်က ပထမနေရာမှာ ဘာပဲဖြစ်ဖြစ် စာလုံးတစ်လုံး၊ ဒုတိယနေရာမှာ o၊ တတိယနေရာမှာ ဘာပဲဖြစ်ဖြစ် စာလုံးတစ်လုံး၊ စတုတ္ထနေရာမှာ s ဖြစ်ရပါမယ်။
+
+ဥပမာ - နာမည်မှာ 'Mouse' ဆိုတဲ့စာလုံးပါတဲ့ ပစ္စည်းကိုရှာပါ။ 
+```
+SELECT ProductName
+FROM Products
+WHERE ProductName LIKE '%Mouse%';
+```
+ရလဒ် - 
+| ProductName |
+| :--- |
+| Mouse |
+| Gaming Mouse Pad |
+
+
+#### IS NULL
+Column တစ်ခုရဲ့ တန်ဖိုးက NULL ဟုတ်မဟုတ် စစ်ဆေးဖို့အတွက်အသုံးပြုပါတယ်။ `= NULL` ဆိုပြီး သုံးလို့မရပါဘူး။
+
+ဥပမာ - လက်ကျန်အရေအတွက် မသိရတဲ့ (NULL ဖြစ်နေတဲ့) ပစ္စည်းတွေကို ရှာပါ။ 
+```
+SELECT ProductName, StockQuantity
+FROM Products
+WHERE StockQuantity IS NULL;
+```
+ရလဒ် - 
+| ProductName | StockQuantity |
+| :--- | :--- |
+| Coffee Mug | NULL |
+
+## ရလဒ်တွေကို sorting စီခြင်း - **ORDER BY**
+
+ရလာတဲ့ရလဒ်တွေကို အစဉ်အတိုင်းဖြစ်စေ၊ ပြောင်းပြန်အစဉ်ဖြစ်စေ စီဖို့အတွက် ORDER BY clause ကိုအသုံးပြုပါတယ်။
+
+- **ASC:** Ascending order (အစဉ်အတိုင်း A-Z, 0-9) စီပေးပါတယ်။ ဒါက default sorting ဖြစ်ပါတယ်။
+- **DESC:** Descending order (ပြောင်းပြန်အစဉ် Z-A, 9-0) စီပေးပါတယ်။
+
+Syntax:
+```
+SELECT column_names 
+FROM table_name 
+ORDER BY column_name [ASC|DESC];
+```
+
+ဥပမာ - ပစ္စည်းအားလုံးကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် စီပါ။
+
+```
+SELECT ProductName, Price
+FROM Products
+ORDER BY Price DESC;
+```
+
+ရလဒ် - 
+
+| ProductName | Price |
+| :--- | :--- |
+| Hiking Boots | $120.00 |
+| Denim Jeans | $89.99 |
+| Keyboard | $79.99 |
+| Mouse | $49.99 |
+| T-Shirt | $25.00 |
+| Gaming Mouse Pad | $25.00 |
+| Coffee Mug | $15.50 |
+
+### Multi-column Sorting
+
+Column တစ်ခုထက်ပိုပြီးတော့လည်း စီလို့ရပါတယ်။ ပထမ column နဲ့ အရင်စီမယ် ပြီးတော့ ပထမ column မှာ တန်ဖိုးတူနေတဲ့ row တွေကို ဒုတိယ column နဲ့ ထပ်စီပေးသွားမှာဖြစ်ပါတယ်။
+
+ဥပမာ - ပစ္စည်းတွေကို category အလိုက် (A-Z) အရင်စီပြီး၊ category တူတဲ့ပစ္စည်းတွေကို ဈေးအများဆုံးကနေ အနည်းဆုံးဖြစ်အောင် ထပ်စီပါ။
+```
+SELECT ProductName, Category, Price
+FROM Products
+ORDER BY Category ASC, Price DESC;
+```
+
+## Limiting Results - **LIMIT clause**
+query ကနေပြန်ပေးမယ့် row အရေအတွက်ကို ကန့်သတ်ဖို့အတွက် LIMIT clause ကိုသုံးနိုင်ပါတယ်။ 
+ဒါကို ORDER BY နဲ့တွဲပြီး ထိပ်ဆုံး (top) ဒါမှမဟုတ် အောက်ဆုံး (bottom) record အရေအတွက် ဘယ်လောက်ပြမလဲဆိုတာမျိုးမှာ အသုံးများပါတယ်။
+
+**မှတ်ချက် - Database system တွေပေါ်မူတည်ပြီး ရေးပုံရေးနည်း ကွာနိုင်ပါတယ်။ LIMIT ကို MySQL နဲ့ PostgreSQL မှာသုံးပြီး SQL Server မှာတော့ TOP ကိုသုံးပါတယ်။**
+
+Syntax:
+```
+SELECT column_names 
+FROM table_name 
+[WHERE/ORDER BY] 
+LIMIT number;
+```
+
+ဥပမာ - ဈေးအကြီးဆုံး ပစ္စည်း ၃ ခုကို ရှာပါ။
+```
+SELECT ProductName, Price
+FROM Products
+ORDER BY Price DESC
+LIMIT 3;
+```
+
+ရလဒ် - 
+| ProductName | Price |
+| :--- | :--- |
+| Hiking Boots | $120.00 |
+| Denim Jeans | $89.99 |
+| Keyboard | $79.99 |

@@ -741,6 +741,51 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "SQL",
+              items: [
+                {
+                  label: "SQL",
+                  slug: "relational-database/sql/what-is-sql",
+                },
+                {
+                  label: "SQL Basic Types",
+                  slug: "relational-database/sql/sql-types",
+                },
+                {
+                  label: "Querying Data",
+                  slug: "relational-database/sql/querying-data",
+                },
+                {
+                  label: "Filtering and Sorting Data",
+                  slug: "relational-database/sql/filter-and-sort-data",
+                },
+                {
+                  label: "Joining Tables",
+                  slug: "relational-database/sql/join-tables",
+                },
+                {
+                  label: "Data Aggregation and Grouping",
+                  slug: "relational-database/sql/aggregate-and-group",
+                },
+                {
+                  label: "Subqueries and CTEs",
+                  slug: "relational-database/sql/subqueries-cte",
+                },
+                {
+                  label: "Data Manipulation Language (DML)",
+                  slug: "relational-database/sql/modifying-data",
+                },
+                {
+                  label: "Data Definition Language (DDL)",
+                  slug: "relational-database/sql/ddl",
+                },
+                {
+                  label: "Advanced Topics",
+                  slug: "relational-database/sql/advanced-topic",
+                },
+              ],
+            },
           ],
         },
         // {
