@@ -120,6 +120,10 @@
 }
 .tagline {
   @apply mt-4;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem auto;
+  text-align: center;
 }
 .site-title img {
   height: 4rem;
@@ -139,12 +143,16 @@ blockquote {
 .hero {
   position: relative;
   display: block !important;
+  width: 100%;
+  padding: 2rem 0;
 }
 .hero .sl-flex {
   width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .hero img {
   display: none;
