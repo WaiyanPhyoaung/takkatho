@@ -22,7 +22,7 @@ Join Dependency ရှိတယ်လို့ခေါ်ပါတယ်။
 > R = JOIN(R₁, R₂, ..., Rn)
 
 #### Join Dependency ဥပမာ - 
-Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သုံးယောက်မှာ အိမ်မှုကိစ္စလုပ်ဖို့ စည်းမျဉ်းတွေ ရှိတယ်ဆိုပါစို့။ 
+Ann, Bob, နှင့် Chloe ဆိုတဲ့ အခန်းဖော်သုံးယောက်မှာ အိမ်မှုကိစ္စလုပ်ဖို့ စည်းမျဉ်းတွေ ရှိတယ်ဆိုပါစို့။ 
 
 စည်းမျဉ်းများ - 
 
@@ -30,7 +30,7 @@ Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သု�
 - ဘယ်အိမ်မှုကိစ္စ (Chore) ကို ဘယ်နေ့ (Day) မှာ လုပ်ရမယ်ဆိုတဲ့ list တစ်ခုရှိတယ်။
 - ဘယ်အခန်းဖော် (Roommate) က ဘယ်နေ့ (Day) မှာ အားလဲဆိုတဲ့ list တစ်ခုရှိတယ်။
 
-မှန်ကန်တဲ့ assignment တစ်ခုဖြစ်ဖို့အတွက် ဒီစည်းမျဉ်းသုံးခုလုံးနဲ့ ကိုက်ညီဖို့ လိုအပ်ပါတယ်။
+မှန်ကန်တဲ့ assignment တစ်ခုဖြစ်ဖို့အတွက် ဒီစည်းမျဉ်းသုံးခုလုံးနှင့် ကိုက်ညီဖို့ လိုအပ်ပါတယ်။
 
 ----
 
@@ -46,7 +46,7 @@ Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သု�
 
 ဒီ table ဟာ Roommate, Chore, Day ဆိုတဲ့ သုံးခုကြားမှာ Three-Way Relationship ရှိနေပါတယ်။ 
 
-ဒီစည်းမျဉ်းသုံးခုကို သီးခြား Table သုံးခုနဲ့ ဖော်ပြနိုင်ပါတယ်။
+ဒီစည်းမျဉ်းသုံးခုကို သီးခြား Table သုံးခုနှင့် ဖော်ပြနိုင်ပါတယ်။
 
 #### 1. Roommate-Chore Pairs
 
@@ -81,7 +81,7 @@ Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သု�
 ဥပမာ - 
 အချက်အလက်အသစ်တစ်ခု ထပ်ထည့်လိုက်ပါမယ်။ Ann ဟာ ဈေးဝယ်ရာမှာလည်း ကျွမ်းကျင်တယ်။
 
-#### Roommate-Chore Table အသစ်:
+#### Roommate-Chore Table အသစ် -
 | Roommate | Chore |
 |---|---|
 | Ann | Cooking |
@@ -89,7 +89,7 @@ Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သု�
 | Bob | Cleaning |
 | Chloe | Shopping |
 
-အခု Table နှစ်ခုတည်းကိုပဲ Join လုပ်ကြည့်ရအောင် (Roommate-Chore JOIN Roommate-Day):
+အခု Table နှစ်ခုတည်းကိုပဲ Join လုပ်ကြည့်ရအောင် (Roommate-Chore JOIN Roommate-Day) -
 
 | Roommate | Chore | Day |
 |---|---|---|
@@ -110,7 +110,7 @@ Ann, Bob, နဲ့ Chloe ဆိုတဲ့ အခန်းဖော်သု�
 
 #### Trivial နှင့် Non-Trivial Join Dependency
 
-**Trivial Join Dependency:**  relation (R) ကနေ ခွဲထုတ်လိုက်တဲ့ relation(R₁, R₂, ..., Rn) အသေးလေးတွေထဲမှာ relation (R) ကိုယ်တိုင်ပါဝင်နေရင် 
+**Trivial Join Dependency -**  relation (R) ကနေ ခွဲထုတ်လိုက်တဲ့ relation(R₁, R₂, ..., Rn) အသေးလေးတွေထဲမှာ relation (R) ကိုယ်တိုင်ပါဝင်နေရင် 
 Trivial ဖြစ်ပါတယ်။ 
 
 ဥပမာ - 
@@ -118,7 +118,7 @@ Trivial ဖြစ်ပါတယ်။
 
 `JD({"A", "B"}, {"A", "B", "C"})` (trivial)
 
-**Non-Trivial Join Dependency:** ခွဲထုတ်လိုက်တဲ့ table တွေအားလုံးက မူလ table ထက် ပိုသေးငယ်နေပြီး အဲဒီ table အားလုံးကို ပြန် join မှ မူလ table ကို ပြန်ရရင် ဒါဟာ Non-Trivial ဖြစ်ပါတယ်။
+**Non-Trivial Join Dependency -** ခွဲထုတ်လိုက်တဲ့ table တွေအားလုံးက မူလ table ထက် ပိုသေးငယ်နေပြီး အဲဒီ table အားလုံးကို ပြန် join မှ မူလ table ကို ပြန်ရရင် ဒါဟာ Non-Trivial ဖြစ်ပါတယ်။
 5NF က ဒီ Non-Trivial Join Dependency တွေကိုပဲ ဖြေရှင်းတာဖြစ်ပါတယ်။
 
 ဥပမာ - 
@@ -128,7 +128,7 @@ Trivial ဖြစ်ပါတယ်။
 #### Join Dependency ကိုဘယ်လိုရှာမလဲ။
 
 Join dependency ကို ရှာဖွေဖော်ထုတ်တာက တိကျတဲ့ ဖော်မြူလာမရှိပါဘူး။
-data နောက်ကွယ်က business rules ကို နားလည်ဖို့နဲ့ relationship တွေကို နားလည်ဖို့က ပိုအရေးကြီးပါတယ်။
+data နောက်ကွယ်က business rules ကို နားလည်ဖို့နှင့် relationship တွေကို နားလည်ဖို့က ပိုအရေးကြီးပါတယ်။
 
 ### Fifth Normal Form (5NF)
 
@@ -139,11 +139,11 @@ data နောက်ကွယ်က business rules ကို နားလည်�
 
 ဆိုလိုတာက -
 
-> table တစ်ခုဟာ 5NF မှာရှိတယ်ဆိုရင် ထပ်ပြီး ပိုသေးငယ်တဲ့ related table တွေကို data loss မဖြစ်စေပဲနဲ့ ခွဲမထုတ်နိုင်တော့ပါဘူး။
+> table တစ်ခုဟာ 5NF မှာရှိတယ်ဆိုရင် ထပ်ပြီး ပိုသေးငယ်တဲ့ related table တွေကို data loss မဖြစ်စေပဲ ခွဲမထုတ်နိုင်တော့ပါဘူး။
 
 5NF ဥပမာ - 
 
-SalePersons, Companies, and Products table ကိုကြည့်ရအောင်။
+SalePersons, Companies နှင့် Products table ကိုကြည့်ရအောင်။
 
 **Business Rules:**
 
@@ -176,7 +176,7 @@ business rules အရ
 - Smith က Laptops ကိုရောင်းတယ်။ **(redundent fact)**
 
 `Smith က Laptops ကိုရောင်းတယ်။` ဆိုတဲ့ အချက်အလက်ဟာ သူအလုပ်လုပ်တဲ့ Laptop ထုတ်တဲ့ ကုမ္ပဏီတိုင်းအတွက် အကြိမ်ကြိမ် မှတ်တမ်းတင်ထားရပါတယ်။
-ဒါက update anomalies ကို ဖြစ်စေပါတယ်။ ဥပမာ- Smith က Laptops တွေ လုံးဝ မရောင်းတော့ဘူးလို့ ဆုံးဖြတ်လိုက်ရင် Smith နဲ့ Laptops အတွဲပါတဲ့ row တိုင်းကို 
+ဒါက update anomalies ကို ဖြစ်စေပါတယ်။ ဥပမာ- Smith က Laptops တွေ လုံးဝ မရောင်းတော့ဘူးလို့ ဆုံးဖြတ်လိုက်ရင် Smith နှင့် Laptops အတွဲပါတဲ့ row တိုင်းကို 
 လိုက်ရှာပြီး ဖျက်ပစ်ရမှာ ဖြစ်တဲ့အတွက် အမှားအယွင်း ဖြစ်နိုင်ခြေများပါတယ်။
 
 အဲဒီပြဿနာကို 5NF က ဖြေရှင်းပေးတာဖြစ်ပါတယ်။
@@ -213,7 +213,7 @@ business rules အရ
 
 ဘယ် saleperson က ဘယ် company အတွက် ဘယ် product ကိုရောင်းလဲဆိုတာကို သိဖို့အတွက် 
 table သုံးခုလုံးကို ပြန် join ရပါမယ်။
-ဒါဆိုရင်တော့ join redundancy ရှိတဲ့ table မရှိတော့ပဲ  ဒီ design ဟာ 5NF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။ 
+ဒါဆိုရင်တော့ join redundancy ရှိတဲ့ table မရှိတော့ပဲ  ဒီ design ဟာ 5NF စည်းမျဉ်းနှင့် ကိုက်ညီသွားပါပြီ။ 
 
 <Aside title="အနှစ်ချုပ်">
 

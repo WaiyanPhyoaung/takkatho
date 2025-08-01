@@ -579,12 +579,16 @@ export default defineConfig({
               label: "Introduction",
               items: [
                 {
-                  label: "Welcome to Database!",
+                  label: "Welcome to Database",
                   slug: "relational-database/introduction/welcome-to-database",
                 },
                 {
                   label: "Types of Databases",
                   slug: "relational-database/introduction/types-of-databases",
+                },
+                {
+                  label: "Relational Database",
+                  slug: "relational-database/introduction/relational-database",
                 },
               ],
             },

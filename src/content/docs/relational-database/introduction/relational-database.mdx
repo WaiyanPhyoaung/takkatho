@@ -1,0 +1,68 @@
+---
+title: "Relational Database"
+description: Relational Database
+---
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import relatedTables from "@/assets/relational-database/related-tables.png";
+
+## Relational Database
+
+### Relational Database ဆိုတာ ဘာလဲ။
+Relational Database Model ဆိုတာက ဒီနေ့ခေတ် Database Management မှာ အသုံးအများဆုံး Database Model ဖြစ်ပါတယ်။
+ဘဏ္ဍာရေး(Finance)၊ ကျန်းမာရေးစောင့်ရှောက်မှု(Healthcare)၊ ပညာရေး(Education) ဒါမှမဟုတ် လက်လီရောင်းဝယ်ရေး(Retail) စတဲ့ နယ်ပယ်အသီးသီးမှာ
+data တွေကို စနစ်တကျ စီမံခန့်ခွဲဖို့ relational database ကို အသုံးပြုနေကြပါတယ်။
+
+> Relational Database ရဲ့ အဓိက idea ကတော့ data တွေကို Relations အဖြစ် စုစည်းထားတာဖြစ်ပါတယ်။ Relations တွေကို Table တွေလို့လည်း မြင်နိုင်ပါတယ်။ Table တစ်ခုကို အောက်ပါတို့ဖြင့် ဖွဲ့စည်းထားပါတယ်။
+> - Rows (Records သို့မဟုတ် tuples လို့လည်း ခေါ်ပါတယ်): အရာဝတ္ထုတစ်ခု ဒါမှမဟုတ် မှတ်တမ်းတစ်ခု (Entity) ကို ကိုယ်စားပြုပါတယ်။ ဥပမာ - လူတစ်ယောက်၊ ပစ္စည်းတစ်ခု။
+> - Columns (attributes သို့မဟုတ် fields လို့လည်း ခေါ်ပါတယ်):  ထိုအရာဝတ္ထုရဲ့ ဂုဏ်သတ္တိ (attribute) သို့မဟုတ် data ရဲ့အမျိုးအစား (characteristics) ကို ကိုယ်စားပြုပါသည်။ ဥပမာ - နာမည်၊ အသက်၊ အရောင်။
+>
+> Table တိုင်းမှာ Primary Key တစ်ခုစီရှိပါတယ်။
+> Primary key ဆိုတာက table မှာရှိတဲ့ row တစ်ခုချင်းစီကို တိတိကျကျ ခွဲခြားညွှန်းဆိုနိုင်တဲ့ column တစ်ခု (ဒါမှမဟုတ် column အစုအဝေးတစ်ခု) ဖြစ်ပါတယ်။
+
+### Table တစ်ခုနှင့်တစ်ခု ဘယ်လိုချိတ်ဆက်ထားသလဲ။
+
+Relational Database တွေရဲ့ အဓိကစွမ်းဆောင်ရည်ကတော့ သီးခြားစီရှိနေတဲ့ table တွေကို relationships တွေသုံးပြီး ချိတ်ဆက်နိုင်တာပဲဖြစ်ပါတယ်။
+Table တွေကို ချိတ်ဆက်ဖို့အတွက် table နှစ်ခုမှာရှိတဲ့ တူညီတဲ့ fields (matching values) တွေကို အသုံးပြုပါတယ်။(ဥပမာ- Primary Key နှင့် Foreign Key)
+
+**ဥပမာလေးဖြင့် ကြည့်ရအောင်**
+
+စာသင်ကျောင်းတစ်ခုရဲ့ data တွေကို မှတ်ထားတယ်ဆိုပါစို့။
+
+- `ကျောင်းသားစာရင်း (Student Table)` ဆိုတဲ့ table တစ်ခုမှာ ကျောင်းသားတစ်ယောက်ချင်းစီတိုင်းအတွက် ကျောင်းသားကုတ်နံပါတ် (Primary Key) တွေရှိပါမယ်။ (ဥပမာ - S001, S002 စသည်ဖြင့်)။
+- `သင်တန်းအပ်နှံမှုစာရင်း (Course Enrollment Table)` နောက်ထပ် table တစ်ခုမှာ ဘယ်ကျောင်းသားက ဘယ်သင်တန်းတက်တယ်ဆိုတာ မှတ်ထားချင်တယ်ဆိုပါတော့။ 
+
+ဒီအခါမှာ `သင်တန်းအပ်နှံမှုစာရင်း table` ထဲမှာ ကျောင်းသားတွေကို မှတ်သားဖို့ `ကျောင်းသားစာရင်း Table` ရဲ့ `primary key` ဖြစ်တဲ့ `ကျောင်းသားကုတ်နံပါတ်` ကို `Foreign Key` အနေနှင့် လာထည့်ပေးရပါမယ်။ 
+ဒီလိုချိတ်ဆက်ထားခြင်းအားဖြင့် "ဘယ်ကျောင်းသားက ဘယ်သင်တန်းတက်တယ်" ဆိုတာကို table နှစ်ခုကို ဆက်စပ်ကြည့်ပြီး အလွယ်တကူ သိနိုင်သွားမှာပါ။ ဒါဟာ Relational Database တွေရဲ့ အဓိကအားသာချက်ပါပဲ။
+
+<ContentImage src={relatedTables} alt="Example of related tables" />
+<p style="text-align: center;">Fig. 1.1: Related Tables</p>
+
+အသုံးများသော Relationship အမျိုးအစား သုံးခုရှိပါတယ်။
+
+- **One-to-One (1:1)** <br />
+Table A ထဲက Record တစ်ခုက Table B ထဲက Record တစ်ခုတည်းနှင့်သာ ဆက်စပ်မှုရှိခြင်း။<br />
+ဥပမာ- User တစ်ယောက်မှာ Profile တစ်ခုပဲရှိတာမျိုး။ <br />
+- **One-to-Many (1:N)** <br />
+Table A ထဲက Record တစ်ခုက Table B ထဲက Record အများအပြားနှင့် ဆက်စပ်မှုရှိခြင်း။ <br />
+ဥပမာ- Customer တစ်ယောက်က Order တွေ အများကြီးမှာယူတာမျိုး။ <br />
+- **Many-to-Many (M:N)** <br />
+Table A ထဲက Record တွေက Table B ထဲက Record အများအပြားနှင့် ဆက်စပ်မှုရှိသလို Table B ဘက်ကလည်း Table A ထဲက Record အများအပြားနှင့် ဆက်စပ်မှုရှိခြင်း။ <br />
+ဥပမာ- ကျောင်းသားတွေအများကြီးက သင်တန်းတွေအများကြီးကို တက်ရောက်နေတာမျိုး။ <br />
+
+ဒီ relationships တွေကနေတစ်ဆင့် ချိတ်ဆက်ထားတဲ့ table ပေါင်းများစွာထဲက အချက်အလက်တွေကို လိုအပ်သလို ရှာဖွေကြည့်ရှုနိုင်ပါတယ်။ 
+တကယ်လို့ table တွေက တိုက်ရိုက်ချိတ်ဆက်မထားရင်တောင်မှ ကြားခံ key တွေကနေတစ်ဆင့် ဆက်သွယ်မှု (logical connection) ရှိနေသရွေ့ data တွေကို ဆက်စပ်ရှာဖွေနိုင်ပါတယ်။
+
+## Relational Database Management System
+
+Relational Database Management System (RDBMS) ဆိုတာ relational database တစ်ခုကို ဖန်တီးဖို့၊ စီမံခန့်ခွဲဖို့နှင့် အပြန်အလှန် အလုပ်လုပ်ဖို့ အသုံးပြုတဲ့ ဆော့ဖ်ဝဲ (Software) တစ်ခုဖြစ်ပါတယ်။  
+
+Relational Model က data တွေကို သဘောတရားအရ ဘယ်လိုဖွဲ့စည်းတည်ဆောက်ထားတယ် (Table, Row, Relationship) ဆိုတာကို ဖော်ပြပေးပြီး
+RDBMS က အဲဒါတွေကို လက်တွေ့မှာ အလုပ်ဖြစ်အောင် လုပ်ဆောင်ပေးတဲ့ tool ဖြစ်ပါတယ်။
+RDBMS ကို database ရဲ့ "ဦးနှောက်" လို့ မြင်နိုင်ပါတယ်။ Data သိမ်းဆည်းတာ၊ ပြန်ထုတ်ယူတာ၊ လုံခြုံရေး၊ တိကျမှန်ကန်မှု စတာတွေကို တာဝန်ယူကိုင်တွယ်ပေးပါတယ်။ 
+ဒါကြောင့် developer, application တွေအနေဖြင့် data ကို ဘာလုပ်ချင်လဲဆိုတာကိုပဲ အာရုံစိုက်ဖို့လိုပြီး နောက်ကွယ်မှာ data တွေ ဘယ်လိုသိမ်းဆည်းထားလဲဆိုတာကို ခေါင်းစားနေစရာ မလိုတော့ပါဘူး။
+
+<Aside title="ကွာခြားချက်">
+    - Relational Database Model က သဘောတရား (Theory) ကို ပေးပါတယ်။ ဥပမာ - data တွေကို table တွေဖြင့် သိမ်းမယ်၊ key တွေသုံးပြီး ချိတ်ဆက်မယ်၊ data မှန်ကန်ဖို့ စည်းမျဉ်းတွေ သတ်မှတ်မယ် စသဖြင့်။
+    - အဲဒီသဘောတရားတွေကို လက်တွေ့အကောင်အထည်ဖော်ပေးတာက RDBMS ဆိုတဲ့ tool ပါပဲ။ RDBMS က relational database တွေကို ထိထိရောက်ရောက်၊ လုံလုံခြုံခြုံ တည်ဆောက်ဖို့၊ စီမံခန့်ခွဲဖို့နှင့် အသုံးပြုဖို့ ကူညီပေးပါတယ်။
+</Aside>

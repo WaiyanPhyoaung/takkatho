@@ -30,7 +30,7 @@ description: Joining Tables
 
 
 ### Table Relationships ကို နားလည်ခြင်း
-Table တွေကို မချိတ်ဆက်မီ သူတို့ကြားက relationship ကိုအရင်နားလည်ရပါမယ်။ ဒီ relationship ကို [Primary Key](/relational-database/terminology/structure-related-terms/primary-key/) နဲ့ [Foreign Key](/relational-database/terminology/structure-related-terms/foreign-key/) တွေက သတ်မှတ်ပေးပါတယ်။
+Table တွေကို မချိတ်ဆက်မီ သူတို့ကြားက relationship ကိုအရင်နားလည်ရပါမယ်။ ဒီ relationship ကို [Primary Key](/relational-database/terminology/structure-related-terms/primary-key/) နှင့် [Foreign Key](/relational-database/terminology/structure-related-terms/foreign-key/) တွေက သတ်မှတ်ပေးပါတယ်။
 
 Table တွေကို ON clause ကိုသုံးပြီး ချိတ်ဆက်ရပါတယ်။ ON clause က ဒီ relationship ကို ဖော်ပြပေးတာဖြစ်ပါတယ်။
 ... ON Employees.DepartmentID = Departments.DepartmentID
@@ -156,7 +156,7 @@ RIGHT JOIN က ညာဘက် table မှာရှိပြီး ဘယ်ဘ
 
 ### FULL OUTER JOIN
 FULL OUTER JOIN က ဘယ်ဘက် table မှာဖြစ်ဖြစ် ညာဘက် table မှာဖြစ်ဖြစ် ကိုက်ညီတာရှိရင် record အားလုံးကို ပြန်ပေးပါတယ်။ 
-FULL OUTER JOIN က LEFT JOIN နဲ့ RIGHT JOIN ရဲ့ ရလဒ်နှစ်ခုကို ပေါင်းထားတာနဲ့ အတူတူပါပဲ။
+FULL OUTER JOIN က LEFT JOIN နှင့် RIGHT JOIN ရဲ့ ရလဒ်နှစ်ခုကို ပေါင်းထားတာဖြင့် အတူတူပါပဲ။
 
 Syntax:
 ```
@@ -164,7 +164,7 @@ SELECT table1.column1, table2.column2
 FROM table1 
 FULL OUTER JOIN table2 ON table1.key = table2.key;
 ```
-ဥပမာ - ဝန်ထမ်းတိုင်းနဲ့ ဌာနတိုင်းကို စာရင်းပြုစုပြီး ချိတ်ဆက်လို့ရတာတွေကို တွဲပြပါ။
+ဥပမာ - ဝန်ထမ်းတိုင်းနှင့် ဌာနတိုင်းကို စာရင်းပြုစုပြီး ချိတ်ဆက်လို့ရတာတွေကို တွဲပြပါ။
 
 
 ရလဒ် -
@@ -178,7 +178,7 @@ FULL OUTER JOIN table2 ON table1.key = table2.key;
 | Eve |	NULL |
 | NULL | Legal |
 
-> မှတ်ချက် - MySQL database က FULL OUTER JOIN ကို support မလုပ်ပါဘူး။ ဒါပေမဲ့ LEFT JOIN နဲ့ RIGHT JOIN ကို UNION clause သုံးပြီး ပေါင်းစပ်ခြင်းဖြင့် အလားတူရလဒ်မျိုး ရအောင်လုပ်နိုင်ပါတယ်။
+> မှတ်ချက် - MySQL database က FULL OUTER JOIN ကို support မလုပ်ပါဘူး။ ဒါပေမဲ့ LEFT JOIN နှင့် RIGHT JOIN ကို UNION clause သုံးပြီး ပေါင်းစပ်ခြင်းဖြင့် အလားတူရလဒ်မျိုး ရအောင်လုပ်နိုင်ပါတယ်။
 
 
 ## Joining Multiple Tables

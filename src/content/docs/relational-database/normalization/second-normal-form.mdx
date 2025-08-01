@@ -10,7 +10,7 @@ import secondNFBooks from "@/assets/relational-database/second-nf-books.png";
 
 ## Second Normal Form (2NF)
 
-Relation Schema(table) တစ်ခုဟာ Second Normal Form (2NF) ဖြစ်ဖို့ဆိုရင် အောက်ပါစည်းမျဉ်းနှစ်ခုနဲ့ ကိုက်ညီရပါမယ်။
+Relation Schema(table) တစ်ခုဟာ Second Normal Form (2NF) ဖြစ်ဖို့ဆိုရင် အောက်ပါစည်းမျဉ်းနှစ်ခုဖြင့် ကိုက်ညီရပါမယ်။
 
 > 1. 1NF ဖြစ်ပြီးသားဖြစ်ရပါမယ်။
 >
@@ -28,7 +28,7 @@ Relation Schema(table) တစ်ခုဟာ Second Normal Form (2NF) ဖြစ�
 Functional Dependency ဆိုတာက table တစ်ခုထဲမှာ column (attribute) တစ်ခုရဲ့တန်ဖိုးက တခြား column တစ်ခုရဲ့တန်ဖိုးကို ဘယ်လိုဆုံးဖြတ်ပေးတယ်ဆိုတဲ့ ဆက်နွယ်မှုကို ဖော်ပြတာဖြစ်ပါတယ်။
 
 ရိုးရှင်းအောင်ပြောရရင် —
-> Column A ရဲ့တန်ဖိုးကို သိရုံနဲ့ Column B ရဲ့တန်ဖိုးကို တိတိကျကျ သိနိုင်တယ် ဆိုရင် B ဟာ A အပေါ်မှာ Functional Dependent ဖြစ်တယ်လို့ ခေါ်ပါတယ်။
+> Column A ရဲ့တန်ဖိုးကို သိရုံဖြင့် Column B ရဲ့တန်ဖိုးကို တိတိကျကျ သိနိုင်တယ် ဆိုရင် B ဟာ A အပေါ်မှာ Functional Dependent ဖြစ်တယ်လို့ ခေါ်ပါတယ်။
 
 သင်္ကေတ — 
 `A → B` (A determines B)
@@ -52,10 +52,10 @@ Employees table ရှိတယ်ဆိုပါစို့။
 
 > EmployeeID → FirstName, LastName, Department
 
-EmployeeID ကို သိရုံနဲ့ ဝန်ထမ်းရဲ့နာမည် (FirstName, LastName) နဲ့ ဌာန (Department) ကို တိတိကျကျ သိနိုင်ပါတယ်။
+EmployeeID ကို သိရုံဖြင့် ဝန်ထမ်းရဲ့နာမည် (FirstName, LastName) နှင့် ဌာန (Department) ကို တိတိကျကျ သိနိုင်ပါတယ်။
 EmployeeID ကလည်း primary key ဖြစ်တဲ့အတွက် တူညီတဲ့ တခြား row မရှိနိုင်ပါဘူး။<br />
 ဥပမာ — <br />
-EmployeeID = 101 ဆိုတာနဲ့ 
+EmployeeID = 101 ဆိုတာနှင့်
 
 FirstName = Sarah <br />
 LastName = Connor <br />
@@ -66,7 +66,7 @@ Department = Sales <br />
 
 > Department -> DepartmentManager
 
-Department ကို သိရုံနဲ့ အဲ့ဒီဌာနရဲ့ မန်နေဂျာကို တိတိကျကျသိနိုင်ပါတယ်။ <br />
+Department ကို သိရုံဖြင့် အဲ့ဒီဌာနရဲ့ မန်နေဂျာကို တိတိကျကျသိနိုင်ပါတယ်။ <br />
 ဥပမာ — <br />
 
 Sales ➜ John <br />
@@ -83,7 +83,7 @@ FirstName → EmployeeID လို့တော့ ပြောလို့မရ
 
 ဘာလို့လဲဆိုတော့ — <br />
 
-“John” ဆိုတဲ့ FirstName နဲ့ ဝန်ထမ်း ၂ ယောက် ရှိနိုင်တဲ့အတွက် နာမည်တစ်ခုတည်းနဲ့ EmployeeID ကို တိတိကျကျ မဆုံးဖြတ်နိုင်လို့ပါပဲ။ <br />
+“John” ဆိုတဲ့ FirstName နှင့် ဝန်ထမ်း ၂ ယောက် ရှိနိုင်တဲ့အတွက် နာမည်တစ်ခုတည်းဖြင့် EmployeeID ကို တိတိကျကျ မဆုံးဖြတ်နိုင်လို့ပါပဲ။ <br />
 
 
 ### Full vs Partial Dependency (အပြည့်အဝ မှီခိုမှု vs. တစ်စိတ်တစ်ပိုင်း မှီခိုမှု)
@@ -96,7 +96,7 @@ FirstName → EmployeeID လို့တော့ ပြောလို့မရ
 
 ဥပမာ — 
 
-**ကျောင်းသား (Students) နဲ့ သင်တန်း (Courses)** <br />
+**ကျောင်းသား (Students) နှင့် သင်တန်း (Courses)** <br />
 
 ကျောင်းသားတွေ ဘယ်ဘာသာရပ်တွေ တက်ရောက်နေလဲဆိုတာကို မှတ်တမ်းတင်ထားတဲ့ table တစ်ခုကို စဉ်းစားကြည့်ပါ။
 
@@ -111,24 +111,24 @@ FirstName → EmployeeID လို့တော့ ပြောလို့မရ
 
 ဒီ Table မှာ ကျွန်တော်တို့ရဲ့ primary key က (StudentID, CourseID) ဖြစ်ပါတယ်။ အခု ကျန်တဲ့ Columns တွေရဲ့ Dependencies တွေကို ကြည့်ရအောင်။
 
-- **StudentName:** ကျောင်းသားရဲ့ နာမည်က Composite primary key (StudentID နဲ့ CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
+- **StudentName:** ကျောင်းသားရဲ့ နာမည်က Composite primary key (StudentID နှင့် CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
     - မဟုတ်ပါ။
-    - ကျောင်းသားနာမည်ကိုသိဖို့ `StudentID` တစ်ခုတည်းနဲ့ လုံလောက်ပါတယ်။ `CourseID`မလိုပါဘူး။ ဒါကြောင့် ဒါဟာ `Partial Dependency` ဖြစ်ပါတယ်။
+    - ကျောင်းသားနာမည်ကိုသိဖို့ `StudentID` တစ်ခုတည်းဖြင့် လုံလောက်ပါတယ်။ `CourseID`မလိုပါဘူး။ ဒါကြောင့် ဒါဟာ `Partial Dependency` ဖြစ်ပါတယ်။
     - `StudentName` က `composite key` ရဲ့ တစ်စိတ်တစ်ပိုင်း `(StudentID)` အပေါ်မှာပဲ မှီခိုနေပါတယ်။
 
-- **CourseProfessor:** ပါမောက္ခနာမည်က Composite primary key (StudentID နဲ့ CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
+- **CourseProfessor:** ပါမောက္ခနာမည်က Composite primary key (StudentID နှင့် CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
     - မဟုတ်ပါ။
-    - ပါမောက္ခနာမည်ကိုသိဖို့ `CourseID` တစ်ခုတည်းနဲ့ လုံလောက်ပါတယ်။ `StudentID` မလိုပါဘူး။
+    - ပါမောက္ခနာမည်ကိုသိဖို့ `CourseID` တစ်ခုတည်းဖြင့် လုံလောက်ပါတယ်။ `StudentID` မလိုပါဘူး။
     - ဒါဟာလည်း `Partial Dependency` (တစ်စိတ်တစ်ပိုင်း မှီခိုမှု) ဖြစ်ပါတယ်။ `CourseProfessor` က `composite key` ရဲ့ တစ်စိတ်တစ်ပိုင်း `(CourseID)` အပေါ်မှာပဲ မှီခိုနေပါတယ်။
 
-- **CourseGrade:** အမှတ်က Composite primary key (StudentID နဲ့ CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
+- **CourseGrade:** အမှတ်က Composite primary key (StudentID နှင့် CourseID) နှစ်ခုစလုံးအပေါ် မှီခိုနေသလား။ 
     - ဟုတ်ပါတယ်။ 
     - ကျောင်းသားတစ်ယောက်ရဲ့ အမှတ်ကို သိဖို့ဆိုရင် ဘယ်ကျောင်းသားလဲ `(StudentID)` ဆိုတာကိုရော၊ ဘယ်ဘာသာလဲ `(CourseID)` ဆိုတာကိုပါ နှစ်ခုလုံးသိဖို့လိုပါတယ်။ 
-    အဲ့ဒီအချက်အလက် နှစ်ခုထဲက တစ်ခုတည်းနဲ့ အမှတ်ကို မသိရှိနိုင်ပါဘူး။ 
+    အဲ့ဒီအချက်အလက် နှစ်ခုထဲက တစ်ခုတည်းဖြင့် အမှတ်ကို မသိရှိနိုင်ပါဘူး။ 
     - ဒါဟာ `Fully Functional Dependency` (အပြည့်အဝ မှီခိုမှု) ဖြစ်ပါတယ်။ 
     `CourseGrade` ဟာ `composite key` တစ်ခုလုံးအပေါ်မှာ မှီခိုနေပါတယ်။
 
-ဒီဥပမာကနေ Full Dependency နဲ့ Partial Dependency ကြားက ကွာခြားချက်ကို ရှင်းရှင်းလင်းလင်း နားလည်ပြီလို့ မျှော်လင့်ပါတယ်။ 
+ဒီဥပမာကနေ Full Dependency နှင့် Partial Dependency ကြားက ကွာခြားချက်ကို ရှင်းရှင်းလင်းလင်း နားလည်ပြီလို့ မျှော်လင့်ပါတယ်။ 
 
 
 ### Second Normal Form (2NF) သို့ ပြောင်းလဲခြင်း။
@@ -136,12 +136,12 @@ FirstName → EmployeeID လို့တော့ ပြောလို့မရ
 
 ဒါဆိုရင် ကျွန်တော်တို့ရဲ့ `Fig. 3.2.` 1NF Orders table ကို second normal form ဖြစ်အောင် လုပ်ကြည့်ကြရအောင်။
 
-ဒီ `Fig.3.2.` table မှာဆိုရင် Primary key က (OrderID နဲ့ BookID) ဖြစ်ပါတယ်။
+ဒီ `Fig.3.2.` table မှာဆိုရင် Primary key က (OrderID နှင့် BookID) ဖြစ်ပါတယ်။
 
 Dependency တွေကို ကြည့်ရအောင်။
 - `CustomerName`, `CustomerAddress`, `OrderDate` တို့ဟာ `OrderID` တစ်ခုတည်းအပေါ်မှာပဲ မှီခိုပါတယ်။ **(Partial Dependency)**
-- `BookTitle` နဲ့ `Price` တို့ဟာ `BookID` တစ်ခုတည်းအပေါ်မှာပဲ မှီခိုပါတယ်။ **(Partial Dependency)**
-- `Quantity` ကတော့ `OrderID` နဲ့ `BookID` နှစ်ခုလုံးအပေါ်မှာ မှီခိုပါတယ်။ **(Full Dependency)**
+- `BookTitle` နှင့် `Price` တို့ဟာ `BookID` တစ်ခုတည်းအပေါ်မှာပဲ မှီခိုပါတယ်။ **(Partial Dependency)**
+- `Quantity` ကတော့ `OrderID` နှင့် `BookID` နှစ်ခုလုံးအပေါ်မှာ မှီခိုပါတယ်။ **(Full Dependency)**
 
 2NF ဖြစ်ဖို့အတွက် ဒီ Partial Dependency တွေကို ဖယ်ရှားပြီး သက်ဆိုင်ရာ table တွေအဖြစ် ခွဲထုတ်ရပါမယ်။
 
@@ -150,4 +150,4 @@ Dependency တွေကို ကြည့်ရအောင်။
 | <ContentImage src={secondNFOrders} alt="2NF Orders Table" /> | <ContentImage src={secondNFOrderItems} alt="2NF Order Items Table" />  |  <ContentImage src={secondNFBooks} alt="2NF Books Table" /> |
 | Fig. 3.3.1: 2NF Orders Table| Fig. 3.3.2: 2NF Order Items Table | Fig. 3.3.3: 2NF Books Table |
 
-အခုဆိုရင် table တွေဟာ 2NF စည်းမျဉ်းနဲ့ ကိုက်ညီသွားပါပြီ။ ဒါပေမဲ့ ကျွန်တော်တို့ရဲ့ Orders Table ထဲမှာ ပြဿနာတစ်ခု ကျန်နေပါသေးတယ်။ ဒါကြောင့် Third Normal Form (3NF) ကို ဆက်သွားကြပါမယ်။
+အခုဆိုရင် table တွေဟာ 2NF စည်းမျဉ်းနှင့် ကိုက်ညီသွားပါပြီ။ ဒါပေမဲ့ ကျွန်တော်တို့ရဲ့ Orders Table ထဲမှာ ပြဿနာတစ်ခု ကျန်နေပါသေးတယ်။ ဒါကြောင့် Third Normal Form (3NF) ကို ဆက်သွားကြပါမယ်။
