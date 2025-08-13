@@ -11,8 +11,8 @@ import { Aside } from "@astrojs/starlight/components";
 
 <Aside title="အရေးကြီးသတိပေးချက်">
     DML operations တွေက permanent ဖြစ်ပါတယ်။ 
-SELECT query နဲ့မတူဘဲ ဒီ command တွေက သင့် database ထဲက data တွေကို အမှန်တကယ်ပြောင်းလဲပစ်တာဖြစ်ပြီး
-SQL client အများစုမှာ အလွယ်တကူ "Undo" ပြန်လုပ်လို့မရပါဘူး။ ဒါကြောင့် UPDATE နဲ့ DELETE ကိုသုံးတဲ့အခါ အထူးသတိထားရပါမယ်။
+SELECT query နှင့်မတူဘဲ ဒီ command တွေက သင့် database ထဲက data တွေကို အမှန်တကယ်ပြောင်းလဲပစ်တာဖြစ်ပြီး
+SQL client အများစုမှာ အလွယ်တကူ "Undo" ပြန်လုပ်လို့မရပါဘူး။ ဒါကြောင့် UPDATE နှင့် DELETE ကိုသုံးတဲ့အခါ အထူးသတိထားရပါမယ်။
 </Aside>
 
 ဒီသင်ခန်းစာအတွက် နမူနာ `Products` table တစ်ခုကို အသုံးပြုသွားပါမယ်။
@@ -28,7 +28,7 @@ SQL client အများစုမှာ အလွယ်တကူ "Undo" ပြ
 INSERT INTO statement ကို table တစ်ခုအတွင်းသို့ data row အသစ်တွေထည့်ဖို့ အသုံးပြုပါတယ်။
 
 Syntax:
-စိတ်အချရဆုံးနဲ့ အသုံးအများဆုံး ရေးသားပုံကတော့ သင် data ထည့်ချင်တဲ့ column တွေကို အရင်သတ်မှတ်ပြီးမှ
+စိတ်အချရဆုံးနှင့် အသုံးအများဆုံး ရေးသားပုံကတော့ သင် data ထည့်ချင်တဲ့ column တွေကို အရင်သတ်မှတ်ပြီးမှ
 အဲ့ဒီ column တွေအတွက် သက်ဆိုင်ရာတန်ဖိုး (values) တွေကို ထည့်ရေးပေးရပါမယ်။
 ```
 INSERT INTO table_name (column1, column2, column3) 
@@ -79,7 +79,8 @@ UPDATE Products
 SET Price = 95.00
 WHERE ProductID = 2;
 ```
-UPDATE အပြီး Products Table:
+UPDATE အပြီး Products Table -
+
 | ProductID | ProductName | Category | Price | StockQuantity |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Classic T-Shirt | Apparel | $25.00 | 500 |
@@ -117,7 +118,8 @@ DELETE FROM Products
 WHERE ProductID = 3;
 ```
 
-DELETE အပြီး Products Table:
+DELETE အပြီး Products Table - 
+
 | ProductID | ProductName | Category | Price | StockQuantity |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Classic T-Shirt | Apparel | $22.50 | 500 |
@@ -129,7 +131,8 @@ DELETE အပြီး Products Table:
 UPDATE ဒါမှမဟုတ် DELETE command ကို မ run ခင်မှာ WHERE clause အတူတူသုံးပြီး SELECT statement တစ်ခု အရင်ရေးကြည့်တာက အလွန်ကောင်းတဲ့ အလေ့အကျင့်တစ်ခုဖြစ်ပါတယ်။ 
 ဒီလိုလုပ်ခြင်းအားဖြင့် ဘယ် row တွေ ပြောင်းလဲ (သို့) အဖျက်ခံရမလဲဆိုတာကို ကြိုတင်စစ်ဆေးနိုင်ပြီး အမှားများမဖြစ်အောင် ကာကွယ်ပေးနိုင်ပါတယ်။
 
-အဆင့် ၁ (ကြိုတင်စစ်ဆေးခြင်း) - ဘယ် row အဖျက်ခံရမလဲဆိုတာ SELECT နဲ့ဦးစွာစစ်ဆေးပါ။
+အဆင့် ၁ (ကြိုတင်စစ်ဆေးခြင်း) - ဘယ် row အဖျက်ခံရမလဲဆိုတာ SELECT ဖြင့်ဦးစွာစစ်ဆေးပါ။
+
 ```
 SELECT * FROM Products WHERE ProductID = 4;
 ```

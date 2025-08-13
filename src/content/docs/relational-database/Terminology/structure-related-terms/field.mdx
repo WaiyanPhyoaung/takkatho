@@ -15,7 +15,7 @@ Employees <br />
 | 1	| Alice  | Director | 
 | 2	| Bob |	Manager | 
 
-Employees table တစ်ခုမှာ ID၊ Name၊ Position စတဲ့ column တွေက Field တစ်ခုစီဖြစ်ပါတယ်။ Field တစ်ခုစီက ဝန်ထမ်းတစ်ဦးစီရဲ့ information တစ်ခုစီကို သိမ်းဆည်းပေးပါတယ်။
+Employees table တစ်ခုမှာ ID, Name, Position စတဲ့ column တွေက Field တစ်ခုစီဖြစ်ပါတယ်။ Field တစ်ခုစီက ဝန်ထမ်းတစ်ဦးစီရဲ့ information တစ်ခုစီကို သိမ်းဆည်းပေးပါတယ်။
 
 ## Database ဒီဇိုင်းဆွဲရာတွင် အဖြစ်များသော အမှားများ
 ### Multipart (Composite) Field
@@ -23,7 +23,7 @@ Multipart Field ဆိုတာက information နှစ်ခု (သို့�
 
 #### ဘာကြောင့်မကောင်းတာလဲ။
 
-ဒီလို field မျိုးက data searching၊ sorting နဲ့ data updating လုပ်ဆောင်ရာတွင် ခက်ခဲစေပါတယ်။ 
+ဒီလို field မျိုးက data searching, sorting နှင့် data updating လုပ်ဆောင်ရာတွင် ခက်ခဲစေပါတယ်။ 
 
 **ဥပမာ -**
 
@@ -34,7 +34,7 @@ Multipart Field ဆိုတာက information နှစ်ခု (သို့�
 | 2 | Bob Smith |
 | 3 | Charlie Davis | 
 
-**✅ Good design:** FirstName နဲ့ LastName ဆိုပြီး field နှစ်ခု ခွဲထားခြင်း။ ဒါဆိုရင် LastName နဲ့သာ ရှာဖွေချင်တယ်ဆိုရင် ရှာဖွေရ ပိုလွယ်ကူသွားမှာဖြစ်ပါတယ်။
+**✅ Good design:** FirstName နှင့် LastName ဆိုပြီး field နှစ်ခု ခွဲထားခြင်း။ ဒါဆိုရင် LastName ဖြင့်သာ ရှာဖွေချင်တယ်ဆိုရင် ရှာဖွေရ ပိုလွယ်ကူသွားမှာဖြစ်ပါတယ်။
 | StudentId | FirstName | LastName |
 | ---- | ---- | --- |
 | 1 | Alice | Chen |
@@ -47,7 +47,7 @@ Multivalued Field ဆိုတာ record(column) တစ်ခုတည်းမ�
 
 #### ဘာကြောင့်မကောင်းတာလဲ။
 dabatase ဒီဇိုင်းရဲ့ အခြေခံစည်းမျဉ်းတစ်ခုဖြစ်တဲ့ "field တစ်ခုစီဟာ value တစ်ခုတည်း (atomic value) ကိုသာ သိမ်းဆည်းသင့်တယ်" ဆိုတဲ့အချက်ကို ချိုးဖောက်ရာရောက်ပါတယ်။ 
-ဒါကြောင့် ဒေတာတွေကို query ဒါမှမဟုတ် indexing တွေ လုပ်တဲ့အခါမှာ ခက်ခဲစေပါတယ်။
+ဒါကြောင့် data တွေကို query ဒါမှမဟုတ် indexing တွေ လုပ်တဲ့အခါမှာ ခက်ခဲစေပါတယ်။
 
 **ဥပမာ -**
 
@@ -69,20 +69,20 @@ Calculated Field ဆိုတာက တခြား field တွေကနေ ဆ
 
 #### ဘာကြောင့်မကောင်းတာလဲ။
 
-တွက်ချက်ထားတဲ့ တန်ဖိုးတွေကို သိမ်းဆည်းထားခြင်းဟာ သေချာမစီမံရင် data inconsistency နဲ့ redundancy တွေ ဖြစ်စေနိုင်ပါတယ်။ 
+တွက်ချက်ထားတဲ့ တန်ဖိုးတွေကို သိမ်းဆည်းထားခြင်းဟာ သေချာမစီမံရင် data inconsistency နှင့် redundancy တွေ ဖြစ်စေနိုင်ပါတယ်။ 
 ပုံမှန်အားဖြင့် ဒီလိုတန်ဖိုးတွေကို queries တွေ ဒါမှမဟုတ် application logic တွေထဲမှာ လိုအပ်တဲ့အချိန်မှ တွက်ချက်ထုတ်ယူတာက ပိုကောင်းပါတယ်။ 
 
 **ဥပမာ -**
 
-**❌ Bad design:** Employees table မှာ FirstName နဲ့ LastName ကို ပေါင်းပြီး FullName ဆိုတဲ့ field အသစ်နောက်တစ်ခု ထပ်ထည့်ထားတာမျိုး။ 
-OrderDetails table မှာ Quantity (အရေအတွက်) နဲ့ UnitPrice (ပစ္စည်းတစ်ခုချင်းစီရဲ့ဈေးနှုန်း) ကို မြှောက်ပြီး TotalPrice (စုစုပေါင်းဈေးနှုန်း) ဆိုတဲ့ field ကို ထပ်ထည့်ထားတာမျိုး။
+**❌ Bad design:** Employees table မှာ FirstName နှင့် LastName ကို ပေါင်းပြီး FullName ဆိုတဲ့ field အသစ်နောက်တစ်ခု ထပ်ထည့်ထားတာမျိုး။ 
+OrderDetails table မှာ Quantity (အရေအတွက်) နှင့် UnitPrice (ပစ္စည်းတစ်ခုချင်းစီရဲ့ဈေးနှုန်း) ကို မြှောက်ပြီး TotalPrice (စုစုပေါင်းဈေးနှုန်း) ဆိုတဲ့ field ကို ထပ်ထည့်ထားတာမျိုး။
 | ProductId | Price | Quantity | TotalPrice
 | ---- | ---- | ---- | ----- |
 | 1 | 10 | 2 | 20 |
 | 2 | 20 | 3 | 60 |
 
-**✅ Good design:** FullName လိုအပ်ရင် FirstName နဲ့ LastName field တွေကို query ဒါမှမဟုတ် report ထဲမှာမှ ပေါင်းစပ်ပြီး ဖော်ပြခြင်း။ TotalPrice ကို လိုအပ်ရင် Quantity * UnitPrice ဆိုပြီး query ထဲမှာမှ တွက်ချက်ခြင်း။ 
-ဒီလိုလုပ်ခြင်းအားဖြင့် Quantity ဒါမှမဟုတ် UnitPrice ပြောင်းသွားရင် TotalPrice ကို သက်သက်လိုက်ပြင်နေစရာမလိုတော့ဘဲ၊ query ခေါ်ယူတိုင်း နောက်ဆုံးတန်ဖိုးကို အမြဲတမ်း တွက်ချက်ပေးသွားမှာဖြစ်ပါတယ်။ 
+**✅ Good design:** FullName လိုအပ်ရင် FirstName နှင့် LastName field တွေကို query ဒါမှမဟုတ် report ထဲမှာမှ ပေါင်းစပ်ပြီး ဖော်ပြခြင်း။ TotalPrice ကို လိုအပ်ရင် Quantity * UnitPrice ဆိုပြီး query ထဲမှာမှ တွက်ချက်ခြင်း။ 
+ဒီလိုလုပ်ခြင်းအားဖြင့် Quantity ဒါမှမဟုတ် UnitPrice ပြောင်းသွားရင် TotalPrice ကို သက်သက်လိုက်ပြင်နေစရာမလိုတော့ဘဲ query ခေါ်ယူတိုင်း နောက်ဆုံးတန်ဖိုးကို အမြဲတမ်း တွက်ချက်ပေးသွားမှာဖြစ်ပါတယ်။ 
 | ProductId | Price | Quantity | 
 | ---- | ---- | ---- |
 | 1 | 10 | 2 |

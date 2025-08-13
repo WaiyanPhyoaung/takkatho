@@ -10,7 +10,7 @@ import thirdNFCustomers from "@/assets/relational-database/third-nf-customers.pn
 
 ## Third Normal Form
 
-Relation Schema(table) တစ်ခုဟာ Third Normal Form (3NF) ဖြစ်ဖို့ဆိုရင် အောက်ပါစည်းမျဉ်းနှစ်ခုနဲ့ ကိုက်ညီရပါမယ်။
+Relation Schema(table) တစ်ခုဟာ Third Normal Form (3NF) ဖြစ်ဖို့ဆိုရင် အောက်ပါစည်းမျဉ်းနှစ်ခုဖြင့် ကိုက်ညီရပါမယ်။
 
 > 1. 2NF ဖြစ်ပြီးသားဖြစ်ရပါမယ်။
 > 
@@ -27,7 +27,7 @@ Transitive Dependency ဆိုတာက Primary Key မဟုတ်တဲ့ (n
 
 > `A → B` နှင့် `B → C` ဖြစ်ပါက `A → C` ဖြစ်သည်။ 
 
-A သည် B ကို သတ်မှတ်ပြီး၊ B သည် C ကို သတ်မှတ်ပါက A → C ဆိုတဲ့ တစ်ဆင့်ခံ ဆက်နွယ်မှု (Transitive Dependency) ဖြစ်ပေါ်လာပါတယ်။
+A သည် B ကို သတ်မှတ်ပြီး B သည် C ကို သတ်မှတ်ပါက A → C ဆိုတဲ့ တစ်ဆင့်ခံ ဆက်နွယ်မှု (Transitive Dependency) ဖြစ်ပေါ်လာပါတယ်။
 
 ဥပမာ -
 
@@ -43,18 +43,18 @@ A သည် B ကို သတ်မှတ်ပြီး၊ B သည် C က�
 
 ဒါကြောင့် `transitive dependency` တစ်ခုဖြစ်တဲ့ `EmployeeID → DepartmentManager` ကို ဖန်တီးလိုက်ပါတယ်။
 
-ဒီမှာ ပြဿနာက `DepartmentManager` ဟာ `Primary Key` ဖြစ်တဲ့ `EmployeeID` အပေါ်မှာ တိုက်ရိုက်မှီခိုနေတာမဟုတ်ဘဲ၊ 
-`non-key` ဖြစ်တဲ့ `Department` ကနေတစ်ဆင့် တစ်ဆင့်ခံ မှီခိုနေတာပါ။ ဒါဟာ "မကောင်းတဲ့ မှီခိုမှု (bad dependency)" ဖြစ်ပြီး၊ 
-Table ထဲမှာ John နဲ့ Jane ဆိုတဲ့ Manager နာမည်တွေ ထပ်ခါထပ်ခါဖြစ်နေတဲ့ Data Redundancy ကို ဖြစ်စေပါတယ်။
+ဒီမှာ ပြဿနာက `DepartmentManager` ဟာ `Primary Key` ဖြစ်တဲ့ `EmployeeID` အပေါ်မှာ တိုက်ရိုက်မှီခိုနေတာမဟုတ်ဘဲ
+`non-key` ဖြစ်တဲ့ `Department` ကနေတစ်ဆင့် တစ်ဆင့်ခံ မှီခိုနေတာပါ။ ဒါဟာ "မကောင်းတဲ့ မှီခိုမှု (bad dependency)" ဖြစ်ပြီး
+Table ထဲမှာ John နှင့် Jane ဆိုတဲ့ Manager နာမည်တွေ ထပ်ခါထပ်ခါဖြစ်နေတဲ့ Data Redundancy ကို ဖြစ်စေပါတယ်။
 
 ### Third Normal Form (3NF) သို့ ပြောင်းလဲခြင်း။
 ဒါဆိုရင် ကျွန်တော်တို့ရဲ့ `Fig. 3.3.1` 2NF Order table ကို third normal form ဖြစ်အောင် လုပ်ကြည့်ကြရအောင်။
 အဲဒီ Table မှာ Primary Key က OrderID ဖြစ်ပါတယ်။
 
 1. `OrderID -> CustomerID` (OrderID ကိုသိရင် CustomerID ကို သိနိုင်ပါတယ်။)
-2. `CustomerID -> CustomerName, CustomerAddress` (CustomerID ကိုသိရင် CustomerName နဲ့ CustomerAddress ကို သိနိုင်ပါတယ်။)
+2. `CustomerID -> CustomerName, CustomerAddress` (CustomerID ကိုသိရင် CustomerName နှင့် CustomerAddress ကို သိနိုင်ပါတယ်။)
 
-ဒီနေရာမှာ `CustomerName` နဲ့ `CustomerAddress` တို့ဟာ `Primary Key` ဖြစ်တဲ့ `OrderID` အပေါ် တိုက်ရိုက်မှီခိုမနေဘဲ `non-key` ဖြစ်တဲ့ `CustomerID` ကနေတစ်ဆင့် မှီခိုနေတဲ့အတွက် Transitive Dependency ဖြစ်ပေါ်နေပါတယ်။
+ဒီနေရာမှာ `CustomerName` နှင့် `CustomerAddress` တို့ဟာ `Primary Key` ဖြစ်တဲ့ `OrderID` အပေါ် တိုက်ရိုက်မှီခိုမနေဘဲ `non-key` ဖြစ်တဲ့ `CustomerID` ကနေတစ်ဆင့် မှီခိုနေတဲ့အတွက် Transitive Dependency ဖြစ်ပေါ်နေပါတယ်။
 
 3NF ဖြစ်အောင်လုပ်ဖို့အတွက် ဒီတစ်ဆင့်ခံ ဆက်နွယ်မှုကို ဖယ်ရှားပြီး Customer အချက်အလက်တွေကို သီးခြား table တစ်ခုအဖြစ် ခွဲထုတ်ဖို့ လိုအပ်ပါတယ်။
 
