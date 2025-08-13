@@ -742,56 +742,77 @@ export default defineConfig({
                 {
                   label: "Fifth Normal Form",
                   slug: "relational-database/normalization/fifth-normal-form",
-                }
-              ]
+                },
+              ],
             },
             {
               label: "SQL",
               items: [
                 {
                   label: "SQL",
-                  slug: "relational-database/sql/what-is-sql"
+                  slug: "relational-database/sql/what-is-sql",
                 },
                 {
                   label: "SQL Basic Types",
-                  slug: "relational-database/sql/sql-types"
+                  slug: "relational-database/sql/sql-types",
                 },
                 {
                   label: "Querying Data",
-                  slug: "relational-database/sql/querying-data"
+                  slug: "relational-database/sql/querying-data",
                 },
                 {
                   label: "Filtering and Sorting Data",
-                  slug: "relational-database/sql/filter-and-sort-data"
+                  slug: "relational-database/sql/filter-and-sort-data",
                 },
                 {
                   label: "Joining Tables",
-                  slug: "relational-database/sql/join-tables"
+                  slug: "relational-database/sql/join-tables",
                 },
                 {
                   label: "Data Aggregation and Grouping",
-                  slug: "relational-database/sql/aggregate-and-group"
+                  slug: "relational-database/sql/aggregate-and-group",
                 },
                 {
                   label: "Subqueries and CTEs",
-                  slug: "relational-database/sql/subqueries-cte"
-                }
-                ,
+                  slug: "relational-database/sql/subqueries-cte",
+                },
                 {
                   label: "Data Manipulation Language (DML)",
-                  slug: "relational-database/sql/modifying-data"
+                  slug: "relational-database/sql/modifying-data",
                 },
                 {
                   label: "Data Definition Language (DDL)",
-                  slug: "relational-database/sql/ddl"
+                  slug: "relational-database/sql/ddl",
                 },
                 {
                   label: "Advanced Topics",
-                  slug: "relational-database/sql/advanced-topic"
-                }
-              ]
-            }
+                  slug: "relational-database/sql/advanced-topic",
+                },
+              ],
+            },
+          ],
+        },
 
+        {
+          label: "HTML",
+          items: [
+            {
+              label: "HTML Introduction",
+              items: [
+                {
+                  label: "What is HTML?",
+                  slug: "html/introduction/welcome-to-html",
+                },
+                {
+                  label: "HTML's Structure",
+                  slug: "html/introduction/structure",
+                },
+                {
+                  label: "How Browsers Interpret HTML",
+                  slug: "html/introduction/interpreting-html",
+                },
+              ],
+            },
           ],
         },
         // {
