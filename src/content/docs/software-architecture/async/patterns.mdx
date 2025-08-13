@@ -1,0 +1,39 @@
+---
+title: "Architectural Patterns: Message Queues & Pub/Sub"
+description: "Architectural Patterns: Message Queues & Pub/Sub"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import queueVsPubsub from '@/assets/software-architecture/queue-vs-pubsub.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+Asynchronous communication အတွက် အဓိက pattern နှစ်ခုကို လေ့လာရန်နှင့် ၎င်းတို့၏ မတူညီသော အသုံးပြုပုံများကို နားလည်ရန်။
+</Aside>
+
+### "စာတိုက်ပုံး" - The Message Broker
+ဒီ pattern နှစ်ခုလုံးက Message Broker (ဥပမာ - RabbitMQ, Apache Kafka, AWS SQS) လို့ခေါ်တဲ့ infrastructure software တစ်ခုကို ဗဟိုက "စာတိုက်ပုံး" အဖြစ် အသုံးပြုကြပါတယ်။
+
+#### Pattern 1: Message Queues (တစ်ဦးမှ တစ်ဦးသို့)
+- **ဘာလဲ -** ဒီ pattern မှာ၊ producer က "queue" (တန်းစီ) ထဲကို message တစ်စောင်ပို့လိုက်ပြီး၊ အဲဒီ message ကို လက်ခံသူ (consumer) **တစ်ဦးတည်းကသာ** ယူပြီး အလုပ်လုပ်ပါတယ်။ ဒါက command-based (အမိန့်ပေးခိုင်းစေတဲ့) အလုပ်တွေအတွက် ဒီဇိုင်းဆွဲထားတာပါ။
+
+- **ဥပမာနှိုင်းယှဉ်ချက် - Super Market က ပိုက်ဆံရှင်းတဲ့တန်း -** တန်းစီနေတဲ့ customer တစ်ယောက်ချင်းစီက message တစ်စောင်ပါ။ အဆင်သင့်ဖြစ်နေတဲ့ ငွေရှင်းကောင်တာက consumer ပါ။ ငွေရှင်းကောင်တာတစ်ခုက တစ်ကြိမ်မှာ customer တစ်ယောက်ကိုပဲ ဝန်ဆောင်မှုပေးပါတယ်။ 
+
+> Message ဆိုတာက အလုပ်တစ်ခုလုပ်ဖို့ "အမိန့်ပေးခိုင်းစေချက်" တစ်ခုဖြစ်ပြီး၊ အဲဒီအလုပ်ပြီးသွားရင် queue ထဲကနေ ဖယ်ရှားလိုက်ပါတယ်။
+
+- **အသင့်တော်ဆုံးအသုံးပြုပုံ -** တစ်ကြိမ်ပဲ လုပ်ဖို့လိုတဲ့ background job တွေအတွက် သင့်တော်ပါတယ်။
+
+  - **ဥပမာ -** Image Service က "ProcessThisImage" ဆိုတဲ့ command တစ်ခုကို queue ကနေ လက်ခံရရှိတယ်။ Worker တစ်ခုက message ကိုယူ၊ ပုံကို resize လုပ်၊ ပြီးတော့ message ကို ဖျက်လိုက်ပါတယ်။
+
+#### Pattern 2: Publish/Subscribe (Pub/Sub)
+- **ဘာလဲ -** ဒီ pattern မှာ၊ publisher က message(event) တစ်ခုကို ထုတ်လွှင့် လိုက်ပြီး၊ စိတ်ဝင်စားတဲ့ subscriber (စောင့်ကြည့်သူ) အားလုံး က အဲဒီ message တစ်စောင်စီကို လက်ခံရရှိကြပါတယ်။ ဒါက **သတင်းအချက်အလက်ကို ဖြန့်ဝေ**ဖို့အတွက် ဒီဇိုင်းဆွဲထားတာပါ။
+
+- **ဥပမာနှိုင်းယှဉ်ချက် - မြို့ထဲမှာ သတင်းလိုက်ကြေညာတဲ့သူ -** သတင်းကြေညာသူက မြို့လယ်မှာ သတင်းတစ်ခု ("မင်္ဂလာပွဲတော်ကို နောက်အပတ်ကျင်းပမယ်!") လို့ အော်ဟစ်ကြေညာလိုက်တယ်။ အဲဒီသတင်းကို စိတ်ဝင်စားတဲ့သူတိုင်း—မုန့်ဖုတ်သမား၊ အပ်ချုပ်သမား၊ တည်းခိုခန်းပိုင်ရှင် (subscribers) —က သင့်တော်သလို တုံ့ပြန်နိုင်ကြတယ်။ စိတ်မဝင်စားတဲ့သူတွေကတော့ သတင်းကို လျစ်လျူရှုလိုက်ရုံပါပဲ။ သတင်းက ဘယ်သူတစ်ဦးတစ်ယောက်ကိုမှ သီးသန့်ညွှန်းပြီး ကြေညာတာမဟုတ်ပါဘူး။
+
+- **အသင့်တော်ဆုံးအသုံးပြုပုံ -** System ရဲ့ မတူညီတဲ့ အစိတ်အပိုင်းအများအပြားက စိတ်ဝင်စားနိုင်တဲ့ event တစ်ခုခုဖြစ်ပွားတဲ့အခါ သုံးပါတယ်။ ဒါက **Event-Driven Architecture** ရဲ့ အခြေခံအုတ်မြစ်ပါပဲ။
+
+   - **ဥပမာ -** Order Service က "OrderPlaced" event တစ်ခုကို ထုတ်လွှင့်မယ့်အချိန်ကို Shipping Service က ပစ္စည်းပို့ရန် စောင့်ကြည့်နေနိုင်တယ်၊ Notifications Service က email ပို့ဖို့ စောင့်ကြည့်နေနိုင်တယ်၊ ပြီးတော့ Analytics Service က အရောင်း report တွေကို update လုပ်ဖို့ စောင့်ကြည့်နေနိုင်ပါတယ်။ Service သုံးခုလုံးက **တူညီတဲ့ event တစ်ခုတည်းကို** သင့်တော်သလို တုံ့ပြန်ကြတာပါ။
+
+
+<ContentImage src={queueVsPubsub} alt="Queue vs Pubsub"  />

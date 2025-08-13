@@ -1,0 +1,42 @@
+---
+title: "Architecture ကို အကဲဖြတ်ခြင်း နှင့် Architectural Fitness Functions"
+description: "Architecture ကို အကဲဖြတ်ခြင်း နှင့် Architectural Fitness Functions"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import fitnessFuctions from '@/assets/software-architecture/fitness-functions.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+System တစ်ခု တဖြည်းဖြည်းပြောင်းလဲလာသည်နှင့်အမျှ၊ သင်၏ architecture စည်းမျဉ်းများကို လိုက်နာနေဆဲဟုတ်မဟုတ် အဆက်မပြတ်စစ်ဆေးအတည်ပြုနည်းကို နားလည်ရန်။
+</Aside>
+
+#### ပြဿနာ - Architecture ပုံစံ သွေဖည်သွားခြင်း (Architectural Drift)
+သင်က အကောင်းဆုံး architectural ပုံကြမ်းတွေ၊ ဆုံးဖြတ်ချက်တွေ ချမှတ်ထားနိုင်ပါတယ်။ ဒါပေမဲ့ အချိန်ကြာလာတာနဲ့အမျှ၊ code အသစ်တွေထပ်ထည့်လာတာ၊ deadline တွေနီးကပ်လာတာတွေကြောင့်၊ တကယ့် system က ရည်ရွယ်ထားတဲ့ ဒီဇိုင်းကနေ တဖြည်းဖြည်း **"သွေဖည်"** သွားနိုင်ပါတယ်။ စည်းမျဉ်းတွေ ချိုးဖောက်ခံရပြီး၊ architecture က တဖြည်းဖြည်း ယိုယွင်းလာပါတယ်။
+
+#### ဖြေရှင်းချက် - Architectural Fitness Functions
+Fitness Function ဆိုတာက architectural စည်းမျဉ်းတစ်ခုကို လိုက်နာနေသလားဆိုတာကို စစ်ဆေးပေးတဲ့ automated test တစ်ခုဖြစ်ပါတယ်။ ဒါကို **"ကိုယ့် architecture အတွက် unit test တစ်ခုပဲ"** လို့ မှတ်ယူနိုင်ပါတယ်။
+
+- **ဘယ်လိုအလုပ်လုပ်လဲ -** ဒါတွေက သင့်ရဲ့ ပုံမှန် CI/CD pipeline (သင့် code ကို build လုပ်ပြီး test လုပ်တဲ့ automated process) ရဲ့ အစိတ်အပိုင်းတစ်ခုအနေနဲ့ run တဲ့ automated check တွေပါ။
+
+- **Fitness Function များ၏ ရိုးရှင်းသော ဥပမာများ -**
+
+    - **Dependencies များကို စစ်ဆေးခြင်း -** `Payment Service` code က `User Service` code ကို တိုက်ရိုက်မှီခိုဖို့ ကြိုးစားခဲ့ရင် fail ဖြစ်သွားမယ့် test မျိုး (ဒါက loose coupling စည်းမျဉ်းကို ချိုးဖောက်တာဖြစ်တယ်)။
+
+    - **Metric များကို စစ်ဆေးခြင်း -** Performance scan တစ်ခုကို run ပြီး အရေးကြီးတဲ့ API တစ်ခုရဲ့ response time က **100 milliseconds** ထက်ကျော်သွားရင် fail ဖြစ်သွားမယ့် test မျိုး။
+
+    - **Security ကို စစ်ဆေးခြင်း -** သင့် library တွေမှာ လူသိများတဲ့ security အားနည်းချက်တွေ ရှိမရှိ scan လုပ်တဲ့ test မျိုး။
+
+ဒီ functions တွေက အရေးကြီးတဲ့ architectural နိယာမတစ်ခုကို ချိုးဖောက်မိရင် ချက်ချင်း feedback ပေးပြီး၊ "ဘေးကင်းဖို့ အတွက်ပိုက်ကွန်" တစ်ခုကာထားသလို ဆောင်ရွက်ပေးပါတယ်။
+
+<ContentImage src={fitnessFuctions}  alt='Fitness Functions'/>
+
+<Aside title="အနှစ်ချုပ်">
+- Architect တစ်ယောက်ဖြစ်ရခြင်းဆိုသည်မှာ project ၏ ရည်မှန်းချက်များနှင့် ကန့်သတ်ချက်များကို ထည့်သွင်းစဉ်းစားပြီး၊ စနစ်ကျသော framework များသုံးကာ ခက်ခဲသော **ဆုံးဖြတ်ချက်များ** ကိုချမှတ်ပြီး **အပေးအယူမျှတမှုများ** ကို အကဲဖြတ်ခြင်းဖြစ်သည်။
+
+- **C4 Model** က မတူညီတဲ့ ပရိသတ်အမျိုးမျိုးအတွက် ရှင်းလင်းသော architectural **ပုံကြမ်းများ** ကို ဖန်တီးရန် ရိုးရှင်းပြီး "zoomable" ဖြစ်သော နည်းလမ်းတစ်ခု ဖြစ်သည်။
+
+- **Architectural Decision Records (ADRs)** များသည် အရေးကြီးသော ဆုံးဖြတ်ချက်များနောက်ကွယ်မှ "ဘာကြောင့်" ဆိုသည်ကို မှတ်တမ်းတင်ရန် ပေါ့ပါးသောနည်းလမ်းတစ်ခုဖြစ်ပြီး၊ project ၏ သက်ရှိမှတ်တမ်းတစ်ခု ဖြစ်သည်။
+
+- **Architectural Fitness Functions** များသည် architectural drift ကို ကာကွယ်ရန်နှင့် system က ၎င်း၏ ရည်ရွယ်ထားသော ဒီဇိုင်းကို အချိန်နှင့်အမျှ ဆက်လက်လိုက်နာစေရန် ကူညီပေးသည့် automated test များဖြစ်သည်။
+</Aside>
