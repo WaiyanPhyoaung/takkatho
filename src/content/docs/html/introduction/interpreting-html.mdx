@@ -4,6 +4,8 @@ description: "Browser တွေက HTML ကို ဘယ်လိုနားလ
 ---
 
 import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import structure from "@/assets/html/structure.png"
 
 export const basicHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -33,27 +35,7 @@ export const basicHtml = `<!DOCTYPE html>
 
 Browser တွေမှာ HTML code တွေကို ဖတ်ပြီး သင့် screen ပေါ်မှာ မြင်ရတဲ့ ပုံစံအဖြစ် ပြောင်းပေးတဲ့ **HTML rendering engine** ဆိုတာ ပါလာတဲ့အတွက် HTML ကို ဘယ်လိုပြရမလဲဆိုတာကို သူတို့က သိတာဖြစ်ပါတယ်။
 
-### HTML တည်ဆောက်ပုံ ပုံကြမ်း
-HTML document တစ်ခုရဲ့ အလုံးစုံတည်ဆောက်ပုံကို ပြတဲ့ ရိုးရှင်းတဲ့ ပုံကြမ်းတစ်ခုကို အောက်ပါအတိုင်း ဖန်တီးနိုင်ပါတယ်-
-```
-+-------------------------------+
-|            <!DOCTYPE html>     |  --> DOCTYPE ကြေညာချက်
-+-------------------------------+
-| <html>                         |  --> အဓိကကျဆုံး element (Root)
-|   +------------------------+  |
-|   |      <head>             |  |  --> စာမျက်နှာအချက်အလက်ပိုင်း
-|   |  <meta> <title>         |  |
-|   |      </head>            |  |
-|   +------------------------+  |
-|   +------------------------+  |
-|   |      <body>             |  |  --> အကြောင်းအရာပြသမည့်အပိုင်း
-|   |  <h1> <p> <img> <a>     |  |
-|   |      </body>            |  |
-|   +------------------------+  |
-| </html>                       |
-+-------------------------------+
-```
-
+<ContentImage src={structure} alt="structure of a HTML" height={500} />
 
 
 ### Browser က စာမျက်နှာကို ပြသပုံ အဆင့်ဆင့်
@@ -64,7 +46,7 @@ User က URL ကို ရိုက်ထည့်တယ် → Browser က HTML
 ### ရိုးရှင်းသော HTML ဥပမာ
 ဒီမှာတော့ မရှိမဖြစ်လိုအပ်တဲ့ element အားလုံးကိုသုံးထားတဲ့ အခြေခံကျတဲ့ HTML စာမျက်နှာတစ်ခုရဲ့ ဥပမာဖြစ်ပါတယ်-
 
-<Code code={basicHtml} title="HTML" />
+<Code code={basicHtml} title="HTML"  lang='html'/>
 
 <Aside title="အကျဉ်းချုပ်">
 - Web page တွေ ဖန်တီးပြီး ပြသဖို့အတွက် **HTML က မရှိမဖြစ်လိုအပ်ပါတယ်။**
@@ -72,6 +54,4 @@ User က URL ကို ရိုက်ထည့်တယ် → Browser က HTML
 - Webpage တိုင်းက `<!DOCTYPE html>, <html>, <head>, and <body>` လိုမျိုး tag တွေနဲ့ အတူ **အခြေခံတည်ဆောက်ပုံကို လိုက်နာကြပါတယ်။**
 
 - Browser တွေက စာမျက်နှာကို မှန်မှန်ကန်ကန်ပြသဖို့ **HTML ကို နားလည်ပြီး ဘာသာပြန်ရပါတယ်။**
-
-ဒီအခန်းက နောက်လာမယ့် အခန်းတွေမှာ ပိုမိုအဆင့်မြင့်တဲ့ HTML အကြောင်းအရာတွေအတွက် အခြေခံအုတ်မြစ်ကို ချပေးတာဖြစ်ပါတယ်။
 </Aside>

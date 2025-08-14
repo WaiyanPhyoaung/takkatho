@@ -813,6 +813,28 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Basic HTML Structure",
+              items: [
+                {
+                  label: "Simple HTML Document",
+                  slug: "html/structure/simple",
+                },
+                {
+                  label: "Nesting Elements in HTML",
+                  slug: "html/structure/nested",
+                },
+              ],
+            },
+            {
+              label: "Working with Text",
+              items: [
+                {
+                  label: "Headings",
+                  slug: "html/texts/headings",
+                },
+              ],
+            },
           ],
         },
         // {

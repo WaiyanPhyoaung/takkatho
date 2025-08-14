@@ -1,0 +1,73 @@
+---
+title: "HTML Element တွေကို တစ်ခုထဲတစ်ခု ထပ်ထည့်ခြင်း (Nesting)"
+description: "HTML Element တွေကို တစ်ခုထဲတစ်ခု ထပ်ထည့်ခြင်း (Nesting)"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+
+export const nested = `<div>
+    <h1>ကျွန်တော့် စာမျက်နှာခေါင်းစဉ်</h1>
+    <p>ဒါက div element ထဲမှာရှိတဲ့ စာပိုဒ်တစ်ခုပါ။</p>
+</div>`
+
+export const hrefSample = `<a href="https://www.example.com">Example Website သို့ သွားရန် ဤနေရာကိုနှိပ်ပါ</a>`
+
+export const commentSample = `<!-- This is a comment -->
+`
+
+export const commentSample2 = `<!-- HTML Comment -->
+<p>HTML ဆိုတာ webpage တွေကို တည်ဆောက်ရာမှာသုံးတဲ့ language တစ်ခုဖြစ်ပါတယ်။</p>`
+
+HTML element တွေကို တစ်ခုရဲ့အတွင်းမှာ နောက်တစ်ခုကို ထပ်ပြီးထည့်ရေးလို့ရပါတယ်။ ဒါကို Nesting လုပ်တယ်လို့ခေါ်ပြီး၊ ပိုပြီးရှုပ်ထွေးတဲ့ တည်ဆောက်ပုံတွေ ဖန်တီးတဲ့အခါ အသုံးပြုပါတယ်။
+
+ဥပမာအနေနဲ့၊ သင်က စာပိုဒ်တစ်ခုကို `<div>` (division) element တစ်ခုထဲမှာ ထည့်နိုင်ပြီး၊ အဲဒီ `<div>` ထဲမှာ တခြားစာပိုဒ်တွေ ဒါမှမဟုတ် element တွေ အများကြီး ထပ်ထည့်နိုင်ပါတယ်။
+
+ဥပမာ:
+
+<Code title='HTML' lang='html' code={nested} />
+
+ဒီဥပမာမှာ -
+
+`<div>` element က container တစ်ခုလို အလုပ်လုပ်ပါတယ်။
+
+`<h1>` နဲ့ `<p>` tag တွေက `<div>` ရဲ့ အတွင်းထဲမှာ ထည့်ရေးထားတဲ့အတွက် (nested) elements တွေဖြစ်ပါတယ်။
+
+### Elements နှင့် Attributes များကို နားလည်ခြင်း
+
+Element တွေမှာ သူတို့အကြောင်း ပိုမိုပြည့်စုံအောင် သတ်မှတ်ပေးတဲ့ attributes တွေ မကြာခဏ ပါလာတတ်ပါတယ်။ Attributes တွေကို အဖွင့် tag (opening tag) ထဲမှာ name="value" ပုံစံနဲ့ ရေးရပါတယ်။
+
+ဥပမာ -
+
+`<img>`: src attribute က ပုံဖိုင်က ဘယ်မှာရှိလဲဆိုတာကို browser ကို ပြောပြပါတယ်။
+
+`<a>`: href attribute က link ကိုနှိပ်လိုက်ရင် ဘယ်နေရာကို ရောက်သွားမလဲဆိုတာ သတ်မှတ်ပေးပါတယ်။
+
+ဥပမာ:
+
+<Code title="HTML" lang='html' code={hrefSample} />
+
+
+ဒီမှာဆိုရင် `<a>` element က link တစ်ခုဖန်တီးပေးပြီး၊ `href` attribute က အဲဒီ link က ဘယ်ကိုဦးတည်နေလဲဆိုတာ browser ကို ပြောပြပါတယ်။
+
+### HTML Comments
+တစ်ခါတလေမှာ၊ ကိုယ့် code ကို ပြန်ဖတ်တဲ့အခါ ဒါမှမဟုတ် တခြား developer တွေဖတ်တဲ့အခါ နားလည်လွယ်အောင် မှတ်စုလေးတွေ ရေးထားချင်တဲ့အခါမျိုး ရှိနိုင်ပါတယ်။ HTML comment တွေက browser မှာ လုံးဝမပေါ်ပါဘူး။ သူတို့က developer တွေ code ထဲမှာ ဖတ်ဖို့အတွက်သက်သက်ပါပဲ။
+
+Comment တစ်ခုကို အောက်ပါအတိုင်း ရေးပါတယ်-
+
+<Code title="HTML" lang='html' code={commentSample} />
+
+ဥပမာ:
+
+<Code title='HTML' lang='html' code={commentSample2} />
+
+<Aside title="အကျဉ်းချုပ်">
+- HTML တည်ဆောက်ပုံဆိုတာက element တွေကို တစ်ခုထဲတစ်ခုထည့်သွင်းခြင်း (nesting) နဲ့ attribute တွေနဲ့ ဖွဲ့စည်းထားတာပါ။
+
+- Tag တွေက ဘယ်လို content အမျိုးအစားလဲဆိုတာ သတ်မှတ်ပေးပြီး၊ attribute တွေက အဲ့ဒီ element တွေအကြောင်း အသေးစိတ်အချက်အလက်တွေ ထပ်ဖြည့်ပေးပါတယ်။
+
+- HTML ဆိုတာ အရင်ဆုံး တည်ဆောက်ပုံကို ဆောက်ပြီး စာတွေ၊ ပုံတွေ၊ link တွေကို ပြသတာပါ။
+
+- Comment တွေက ကိုယ့် code ကို နားလည်လွယ်အောင် ကူညီပေးပြီး webpage မှာတော့ မပေါ်ပါဘူး။
+</Aside>
+
+
