@@ -3,6 +3,7 @@ import { Icon } from "@astrojs/starlight/components";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { Steps } from "@astrojs/starlight/components";
 import Waiyanphyoaung from "@/assets/waiyanphyoaung.webp";
+import Phumyathwe from "@/assets/phumyatthwe.png";
 import "../styles/global.css";
 ---
 
@@ -265,30 +266,19 @@ import "../styles/global.css";
       </div>
 
       <!-- Team Member 2 (Placeholder - can be removed or replaced with actual team members) -->
-      <!-- <div class="team-member">
+      <div class="team-member">
         <div class="member-image">
           <img
-            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80"
-            alt="Content Writer"
+            src={Phumyathwe.src}
+            alt="Phu Myat Thwe"
             class="w-full h-auto rounded-lg"
           />
-          <div class="member-overlay">
-            <div class="social-links-hover flex gap-3 justify-center">
-              <a href="#" class="social-icon-hover">
-                <Icon name="github" class="w-6 h-6" />
-              </a>
-              <a href="#" class="social-icon-hover">
-                <Icon name="linkedin" class="w-6 h-6" />
-              </a>
-              <a href="#" class="social-icon-hover">
-                <Icon name="twitter" class="w-6 h-6" />
-              </a>
-            </div>
           </div>
-        </div>
         <div class="member-info text-center mt-4 px-4 pb-4">
-          <h3 class="text-lg md:text-xl font-bold">စုမြတ်ကျော်</h3>
-          <p class="text-sm md:text-base opacity-80">အကြောင်းအရာ ရေးသားသူ</p>
+          <h3 class="text-lg md:text-xl font-bold">ဖူးမြတ်သွယ်</h3>
+          <p class="text-sm md:text-base opacity-80">
+            Sub Instructor & Backend Developer
+          </p>
           <div class="social-links mt-3 flex justify-center gap-3">
             <a href="#" class="social-icon">
               <Icon name="github" class="w-5 h-5" />
@@ -301,7 +291,7 @@ import "../styles/global.css";
             </a>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- You are invited section -->
       <!-- <div
