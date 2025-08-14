@@ -570,6 +570,79 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Asynchronous Architectures",
+              items: [
+                {
+                  label: "Asynchronous Communication",
+                  slug: "software-architecture/async/asynchronous",
+                },
+                {
+                  label: "Architectural Patterns",
+                  slug: "software-architecture/async/patterns",
+                },
+                {
+                  label: "Advanced Patterns",
+                  slug: "software-architecture/async/advanced",
+                },
+              ],
+            },
+            {
+              label: "The Architect's Craft",
+              items: [
+                {
+                  label: "Trade-Off & Making Decisions",
+                  slug: "software-architecture/craft/decisions",
+                },
+                {
+                  label: "C4 Model",
+                  slug: "software-architecture/craft/c4",
+                },
+                {
+                  label: "Architectural Decision Records (ADRs)",
+                  slug: "software-architecture/craft/adr",
+                },
+                {
+                  label:
+                    "Evaluating Architecture & Architectural Fitness Functions",
+                  slug: "software-architecture/craft/evaluation",
+                },
+              ],
+            },
+            {
+              label: "Practical Architecture",
+              items: [
+                {
+                  label: 'Designing a "Ride-Sharing App"',
+                  slug: "software-architecture/practical/design",
+                },
+                {
+                  label: "High-Level Design & Pattern Selection",
+                  slug: "software-architecture/practical/pattern",
+                },
+                {
+                  label: "Detailed Design & Key Decisions",
+                  slug: "software-architecture/practical/decisions",
+                },
+              ],
+            },
+            {
+              label: "The Future of Architecture",
+              items: [
+                {
+                  label: "Current & Future Trends",
+                  slug: "software-architecture/future/current",
+                },
+                {
+                  label: "Software Architect's Role",
+                  slug: "software-architecture/future/role",
+                },
+                {
+                  label: "Course Recap",
+                  slug: "software-architecture/future/recap",
+                },
+              ],
+            },
           ],
         },
         {
@@ -661,6 +734,7 @@ export default defineConfig({
                   label: "Boyce-Codd Normal Form",
                   slug: "relational-database/normalization/bcnf",
                 },
+
                 {
                   label: "Fourth Normal Form",
                   slug: "relational-database/normalization/fourth-normal-form",
@@ -717,6 +791,7 @@ export default defineConfig({
                 }
               ]
             }
+
           ],
         },
         // {

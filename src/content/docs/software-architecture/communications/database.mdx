@@ -5,6 +5,7 @@ description: "မှန်ကန်သော Database ကို ရွေးခ�
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import flowChart from '@/assets/software-architecture/flowchart-database.png'
 
 <Aside title="ရည်ရွယ်ချက်">
   "Polyglot Persistence" ဆိုတဲ့ သဘောတရားကို နားလည်ပြီး၊ မတူညီတဲ့ database အမျိုးအစားတွေ (SQL နှင့် NoSQL အမျိုးမျိုး) ကို ဘယ်အချိန်မှာ ရွေးချယ်သင့်တယ်ဆိုတာ သိရှိရန်။
@@ -45,27 +46,7 @@ Monolith တည်ဆောက်ပုံမှာဆိုရင်၊ သင�
 
   - **ဥပမာ Service -** SocialNetworkService ("သူငယ်ချင်း" နှင့် "follows" ဆက်စပ်မှုတွေကို စီမံခန့်ခွဲခြင်း) သို့မဟုတ် RecommendationEngine ("ဒီပစ္စည်းဝယ်တဲ့သူတွေက ဟိုပစ္စည်းကိုလည်း ဝယ်ကြတယ်" ဆိုတာမျိုး)။
 
-(ပုံသရုပ်ဖော်ရန် - Database ရွေးချယ်မှု Flowchart)
-
-အကြံပြုချက်: ရိုးရှင်းသော flowchart သို့မဟုတ် decision tree တစ်ခု။
-
-အစ: "ကျွန်တော့် service က ဘယ်လို data မျိုးကို ကိုင်တွယ်သလဲ?"
-
-လမ်းကြောင်း ၁: မေးခွန်း: "Data က ဖွဲ့စည်းပုံသေချာပြီး စည်းမျဉ်းတွေ တိတိကျကျရှိလား?" → YES → SQL Database ကို သုံးပါ။
-
-လမ်းကြောင်း ၂: → NO → မေးခွန်း: "သူ့ရဲ့ အဓိကပုံစံက ဘယ်လိုလဲ?"
-
-ရွေးချယ်စရာ သုံးခုသို့ ဦးတည်သည်:
-
-"ပြောင်းလွယ်ပြင်လွယ်ရှိတဲ့ documents/objects" → Document Database ကို သုံးပါ။
-
-"ရိုးရှင်းတဲ့ key နဲ့ရှာဖွေမှုတွေ" → Key-Value Store ကို သုံးပါ။
-
-"ရှုပ်ထွေးတဲ့ ဆက်စပ်မှုတွေ" → Graph Database ကို သုံးပါ။
-
-နေရာချထားမှု: သင်ခန်းစာ ၃.၃ ၏ အဆုံးတွင်၊ ဆုံးဖြတ်ချက်ချသည့် process ကို အနှစ်ချုပ်ရန် ထားပါ။
-
-ခေါင်းစဉ်: "လုပ်ငန်းအတွက် မှန်ကန်သော Database ကို ရွေးချယ်ခြင်း။"
+<ContentImage src={flowChart} alt="Chosing Databases"  />
 
 <Aside title="အနှစ်ချုပ်">
 - Distributed system ထဲက Service တွေက API တွေကနေတစ်ဆင့် ဆက်သွယ်ကြပါတယ်။ REST က web မှာ အသုံးအများဆုံးဖြစ်ပြီး၊ GraphQL က client တွေအတွက် ပြောင်းလွယ်ပြင်လွယ်ရှိစေကာ၊ gRPC ကတော့ အလွန်မြန်တဲ့ အတွင်းပိုင်းဆက်သွယ်မှုတွေအတွက် သုံးပါတယ်။
