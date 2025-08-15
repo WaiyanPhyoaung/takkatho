@@ -1,5 +1,6 @@
 ---
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import "../styles/global.css";
 
 const { frontmatter, headings, slug } = Astro.props;
@@ -14,6 +15,7 @@ const { frontmatter, headings, slug } = Astro.props;
   </head>
   <body class="min-h-screen bg-white text-gray-900">
     <slot />
+    <SpeedInsights />
     <Analytics />
   </body>
 </html>
