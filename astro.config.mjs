@@ -833,6 +833,10 @@ export default defineConfig({
                   label: "Headings",
                   slug: "html/texts/headings",
                 },
+                {
+                  label: "Text Formatting & Line Breaks",
+                  slug: "html/texts/formatting",
+                },
               ],
             },
           ],
