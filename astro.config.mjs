@@ -827,7 +827,7 @@ export default defineConfig({
               ],
             },
             {
-              label: "Working with Text",
+              label: "Text & Formatting",
               items: [
                 {
                   label: "Headings",
@@ -836,6 +836,24 @@ export default defineConfig({
                 {
                   label: "Text Formatting & Line Breaks",
                   slug: "html/texts/formatting",
+                },
+              ],
+            },
+            {
+              label: "Links & Navigation",
+              items: [
+                {
+                  label: "Links",
+                  slug: "html/links/links",
+                },
+              ],
+            },
+            {
+              label: "Images & Media",
+              items: [
+                {
+                  label: "Images",
+                  slug: "html/links/images",
                 },
               ],
             },
