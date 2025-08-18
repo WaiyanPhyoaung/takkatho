@@ -1,0 +1,15 @@
+---
+import { CoursesListing } from "@/components/CoursesListing";
+import "../styles/global.css";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Courses",
+    tableOfContents: false,
+  }}
+  hasSidebar={false}
+>
+  <CoursesListing client:load />
+</StarlightPage>
