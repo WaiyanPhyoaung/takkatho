@@ -1,15 +1,49 @@
 ---
 import { CoursesListing } from "@/components/CoursesListing";
-import "../styles/global.css";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import "../styles/global.css";
 ---
 
 <StarlightPage
   frontmatter={{
-    title: "Courses",
+    title: "Programming Courses",
+    description:
+      "Comprehensive programming courses designed for Myanmar developers - from beginner to advanced level",
     tableOfContents: false,
   }}
   hasSidebar={false}
 >
-  <CoursesListing client:load />
+  <div class="courses-container">
+    <CoursesListing client:load />
+  </div>
 </StarlightPage>
+
+<style>
+  .courses-container {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+  }
+
+  /* Override Starlight's default content padding for courses page */
+  .courses-container :global(.not-content) {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Ensure proper spacing for the main content */
+  .courses-container :global(main) {
+    padding: 0;
+  }
+
+  /* Input placeholder styling */
+  .courses-container :global(input::placeholder) {
+    color: var(--sl-color-text-accent);
+  }
+
+  /* Button hover effects */
+  .courses-container :global(button:hover) {
+    filter: brightness(1.1);
+  }
+</style>

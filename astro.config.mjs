@@ -837,17 +837,13 @@ export default defineConfig({
                   label: "Text Formatting & Line Breaks",
                   slug: "html/texts/formatting",
                 },
-              ],
-            },
-            {
-              label: "Links & Navigation",
-              items: [
                 {
                   label: "Links",
                   slug: "html/links/links",
                 },
               ],
             },
+
             {
               label: "Images & Media",
               items: [
@@ -868,7 +864,10 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      // @ts-ignore - Type mismatch between Vite plugin versions
+      tailwindcss(),
+    ],
     resolve: {
       alias: {
         "@/*": fileURLToPath(new URL("./src/*", import.meta.url)),
