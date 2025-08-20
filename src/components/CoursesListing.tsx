@@ -293,23 +293,23 @@ export function CoursesListing(): JSX.Element {
 
   return (
     <div className="w-full not-content">
-      <div className="max-w-7xl mx-auto px-4 md:py-8 space-y-8">
+      <div className="max-w-7xl mx-auto px-4 md:py-8 ">
         {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           {/* Search Bar */}
-          <div className="relative flex-1 min-w-0 w-full md:w-auto">
+          <div className="relative flex-1 min-w-0 w-full md:w-auto text-sm">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
             <Input
               type="text"
               placeholder="Search courses, topics, or technologies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 h-11"
+              className="w-full pl-10 py-2"
             />
           </div>
 
           {/* Filters */}
-          <div className="w-full md:w-auto flex gap-3">
+          <div className="w-full md:w-auto flex gap-3 text-sm">
             {/* Difficulty Filter */}
             <Select
               value={selectedDifficulty}
@@ -319,7 +319,7 @@ export function CoursesListing(): JSX.Element {
                 )
               }
             >
-              <SelectTrigger className="min-w-[140px] flex-1">
+              <SelectTrigger className="min-w-[150px]">
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
@@ -335,7 +335,7 @@ export function CoursesListing(): JSX.Element {
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="min-w-[160px] flex-1">
+              <SelectTrigger className="min-w-[200px] flex-1 ">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -351,7 +351,7 @@ export function CoursesListing(): JSX.Element {
         </div>
 
         {/* Results Summary & Active Filters */}
-        <div className="flex mt-3 flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex mt-4 md:mt-6 flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-sm">
             <Filter className="w-4 h-4" />
             <span>
@@ -378,10 +378,10 @@ export function CoursesListing(): JSX.Element {
                 setSelectedDifficulty("all");
                 setSelectedCategory("all");
               }}
-              className="hover:bg-opacity-10"
+              className=" flex justify-center items-center"
             >
               <X className="w-4 h-4 mr-2" />
-              Clear all filters
+              <span className="pt-1">Clear all filters</span>
             </Button>
           )}
         </div>
@@ -398,19 +398,19 @@ export function CoursesListing(): JSX.Element {
 
         {/* Courses Grid */}
         {!isLoading && (
-          <div className="grid grid-cols-1 mt-4 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 mt:2 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {paginatedCourses.map((course) => (
               <Card
                 key={course.id}
-                className="group hover:shadow-xl transition-all duration-300 h-full flex flex-col overflow-hidden"
+                className="group transition-all duration-300 h-full flex flex-col overflow-hidden pt-2"
               >
                 {/* Card Header */}
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-xl text-white shadow-lg group-hover:scale-105 transition-transform duration-300">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-center w-14 h-14 rounded-xl group-hover:scale-105 transition-transform duration-300">
                       <CourseIcon
                         icon={course.icon}
-                        className="w-7 h-7 text-accent"
+                        className="w-7 block h-7 text-accent"
                       />
                     </div>
                     <DifficultyBadge difficulty={course.difficulty} />
@@ -422,7 +422,7 @@ export function CoursesListing(): JSX.Element {
                 </CardHeader>
 
                 <CardContent className="flex-1">
-                  <CardDescription className="text-sm text-muted-foreground leading-relaxed line-clamp-3 ">
+                  <CardDescription className="text-sm leading-relaxed line-clamp-3 ">
                     {course.description}
                   </CardDescription>
 
@@ -454,7 +454,7 @@ export function CoursesListing(): JSX.Element {
                 {/* Card Footer */}
                 <CardFooter className="pt-4">
                   <a href={course.href} className="w-full">
-                    <Button className="w-full group/btn text-white border-0 shadow-md hover:shadow-lg transition-all duration-300">
+                    <Button className="w-full cursor-pointer group/btn border-1 shadow-md transition-all duration-300">
                       Start Learning
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-200" />
                     </Button>

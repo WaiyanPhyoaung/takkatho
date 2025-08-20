@@ -804,12 +804,8 @@ export default defineConfig({
                   slug: "html/introduction/welcome-to-html",
                 },
                 {
-                  label: "HTML's Structure",
-                  slug: "html/introduction/structure",
-                },
-                {
-                  label: "How Browsers Interpret HTML",
-                  slug: "html/introduction/interpreting-html",
+                  label: "Setting up Your Editor",
+                  slug: "html/introduction/editor",
                 },
               ],
             },
@@ -837,19 +833,15 @@ export default defineConfig({
                   label: "Text Formatting & Line Breaks",
                   slug: "html/texts/formatting",
                 },
-                {
-                  label: "Links",
-                  slug: "html/links/links",
-                },
               ],
             },
 
             {
-              label: "Images & Media",
+              label: "Links & Navigation",
               items: [
                 {
-                  label: "Images",
-                  slug: "html/links/images",
+                  label: "Links",
+                  slug: "html/links/links",
                 },
               ],
             },
