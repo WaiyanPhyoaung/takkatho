@@ -817,8 +817,12 @@ export default defineConfig({
                   slug: "html/structure/simple",
                 },
                 {
-                  label: "Nesting Elements in HTML",
-                  slug: "html/structure/nested",
+                  label: "The <head> Section",
+                  slug: "html/structure/head",
+                },
+                {
+                  label: "The <body> Section",
+                  slug: "html/structure/body",
                 },
               ],
             },

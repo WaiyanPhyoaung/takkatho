@@ -1,69 +1,92 @@
 ---
-title: "ရိုးရှင်းသော HTML Document တစ်ခု ဖန်တီးခြင်း"
-description: "ရိုးရှင်းသော HTML Document တစ်ခု ဖန်တီးခြင်း"
+title: "HTML ရဲ့ အခြေခံတည်ဆောက်ပုံ"
+description: "HTML ရဲ့ အခြေခံတည်ဆောက်ပုံ"
 ---
 
 import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro'
+import structure from '@/assets/html/structure.png'
 
 export const basicHtml = `<!DOCTYPE html>
-<html>
-    <head>
-        <title>My First Website</title>
-    </head>
-    <body>
-        <h1>Welcome to my website!</h1>
-        <p>This is my first webpage</p>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Webpage</title>
+  </head>
+  <body>
+    <h1>Welcome to My Webpage</h1>
+    <p>This is my first HTML page!</p>
+  </body>
 </html>`
+
+export const h1Tag = `<h1>Welcome to My Webpage</h1>`
 
 export const pTag = `<p>This is a paragraph</p>`
 
 export const imgTag = `<img src="image.jpg" alt="ပုံအကြောင်း ရှင်းပြတဲ့စာ">`
 
+export const selfClosingTag = `<img src="image.jpg" alt="ပုံအကြောင်း ရှင်းပြတဲ့စာ">`
+
 <Aside title="ရည်ရွယ်ချက်">
-    HTML ရဲ့တည်ဆောက်ပုံကို ပိုမိုရှင်းလင်း နားလည်လာရန်။
+   ဒီအခန်းမှာ HTML ရဲ့ အခြေခံတည်ဆောက်ပုံနဲ့ webpage တစ်ခုဖြစ်လာအောင် element တွေ ဘယ်လိုပေါင်းစပ် အလုပ်လုပ်လဲဆိုတာကို လေ့လာကြပါမယ်။
 </Aside>
 
-### ရိုးရှင်းသော HTML Document တစ်ခု ဖန်တီးခြင်း
+### HTML Document ရဲ့ တည်ဆောက်ပုံ
+HTML page တိုင်းမှာ အခြေခံကျတဲ့ တည်ဆောက်ပုံတစ်ခု ရှိပါတယ်။ အဲ့ဒီတည်ဆောက်ပုံက ကိုယ်တည်ဆောက်မယ့် webpage တိုင်းရဲ့ အုတ်မြစ်ပါပဲ။ သူက အထဲက အကြောင်းအရာတွေကို ဘယ်လို စီစဉ်မလဲ၊ ဘယ်လို ပြသမလဲဆိုတာကို သတ်မှတ်ပေးပါတယ်။
 
-ရိုးရှင်းတဲ့ HTML document တစ်ခုမှာ element လို့ခေါ်တဲ့ အစိတ်အပိုင်းလေးတွေ အများကြီးနဲ့ ဖွဲ့စည်းထားပြီး၊ element တစ်ခုချင်းစီမှာ သူ့ရဲ့ သီးသန့်လုပ်ဆောင်ရမယ့် တာဝန်ကိုယ်စီရှိပါတယ်။ အောက်မှာ အခြေခံအကျဆုံး HTML document တစ်ခုရဲ့ ပုံစံကို ကြည့်ရအောင်။
+ဒါကတော့ HTML document တစ်ခုရဲ့ အခြေခံ တည်ဆောက်ပုံ နမူနာ ဖြစ်ပါတယ်-
 
 <Code title="HTML" lang='html' code={basicHtml}/>
 
-- `<!DOCTYPE html>`: ဒါက HTML document တိုင်းရဲ့ ပထမဆုံးလိုင်းမှာ အမြဲရှိရပါတယ်။ သူက browser ကို "ဒီစာမျက်နှာက HTML5 နဲ့ ရေးထားတာနော်" လို့ ပြောလိုက်တာနဲ့ အတူတူပါပဲ။
 
-- `<html>`: ဒါက document တစ်ခုလုံးရဲ့ အဓိကအကျဆုံး tag ဖြစ်ပြီး၊ အရာအားလုံးရဲ့ အခွံကြီးလို့ ပြောလို့ရပါတယ်။ သင့် webpage မှာရှိတဲ့ အရာအားလုံးက ဒီ `<html>` tag အဖွင့်အပိတ်ကြားထဲမှာပဲ ရှိနေရပါမယ်။
+- `<!DOCTYPE html>`:
+ဒါက document အမျိုးအစားကို ကြေညာတာပါ။ ဒီစာမျက်နှာကို နောက်ဆုံး version ဖြစ်တဲ့ HTML5 နဲ့ ရေးထားတယ်ဆိုတာ browser ကို ပြောပြတာဖြစ်ပါတယ်။
 
-- `<head>`: ဒီအပိုင်းကတော့ webpage ရဲ့ အချက်အလက်တွေ ထည့်တဲ့နေရာပါ။ ဥပမာ - စာမျက်နှာရဲ့ ခေါင်းစဉ် (`<title>`)၊ CSS stylesheet တွေ၊ ဒါမှမဟုတ် JavaScript file တွေလို ပြင်ပ file တွေကို ချိတ်ဆက်တာမျိုးတွေ လုပ်ပါတယ်။
+- `<html>`:
+ဒီ tag က document တစ်ခုလုံးကို အုပ်ထားပြီး၊ သူ့အတွင်းမှာရှိတဲ့ အရာအားလုံးက HTML document ဖြစ်တယ်ဆိုတာကို browser ကို သိစေပါတယ်။
 
-- `<title>`: ဒီ tag က webpage ရဲ့ ခေါင်းစဉ်ကို သတ်မှတ်ပေးပြီး၊ browser ရဲ့ tab မှာပေါ်တဲ့ စာသားလေးဖြစ်ပါတယ်။
+- `<head>`:
+head အပိုင်းမှာ webpage နဲ့ပတ်သက်တဲ့ အချက်အလက် (metadata) တွေ ပါပါတယ်။ Metadata ဆိုတာက သုံးစွဲသူတွေ တိုက်ရိုက်မမြင်ရပေမယ့် browser အတွက် အရေးကြီးတဲ့ အချက်အလက်တွေပါ။ ဥပမာ -
 
-- `<body>`: ဒါကတော့ အဓိကအကျဆုံးနေရာပါပဲ။ သင်က user ကို မြင်စေချင်တဲ့ အကြောင်းအရာအကုန်လုံးဖြစ်တဲ့ စာသားတွေ၊ ပုံတွေ၊ link တွေ အစရှိတာတွေကို ဒီနေရာမှာ ထည့်ရပါတယ်။
+    - `<meta charset="UTF-8">`: ဒီ tag က မြန်မာစာလိုမျိုး ဘာသာစကားအစုံနဲ့ အထူးစာလုံးတွေ (é, ©, 💻) ကို ကောင်းကောင်းမွန်မွန် ပေါ်စေဖို့ပါ။
 
-### HTML Tags နှင့် Elements
-HTML မှာ tag ဆိုတာက သင်ဘယ်လို content အမျိုးအစားကို သုံးနေလဲဆိုတာ browser ကို ပြောပြတဲ့ အထူး keyword တစ်ခုပါ။ Tag တွေကိုသုံးပြီး element တွေကို ဖန်တီးရပြီး၊ အဲ့ဒီ element တွေက webpage တစ်ခုရဲ့ အုတ်ချပ်လေးတွေလိုပါပဲ။
+    - `<meta name="viewport" content="width=device-width, initial-scale=1.0">`: ဒီ tag က webpage ကို ဖုန်းလိုမျိုး mobile device တွေမှာ ကြည့်တဲ့အခါ device ရဲ့ screen အကျယ်အလိုက် အဆင်ပြေပြေ ပေါ်အောင် ချိန်ညှိပေးပါတယ်။
 
-Element တစ်ခုတိုင်းကို အဖွင့် tag (opening tag) နဲ့ အပိတ် tag (closing tag) ကြားမှာ ထည့်ရေးရပါတယ်။ ဥပမာ -
+    - `<title>`: Browser ရဲ့ tab မှာ ပေါ်မယ့် စာမျက်နှာရဲ့ ခေါင်းစဉ်ကို သတ်မှတ်ပေးပါတယ်။
 
-- Opening tag: `<p>`
+- `<body>`:
+ဒါကတော့ webpage ရဲ့ အဓိက အပိုင်းဖြစ်ပြီး၊ သုံးစွဲသူတွေ မြင်ရမယ့် အကြောင်းအရာအားလုံးကို ဒီထဲမှာ ထည့်ရပါတယ်။ ခေါင်းစဉ်တွေ၊ စာပိုဒ်တွေ၊ ပုံတွေ၊ link တွေ အားလုံး ဒီထဲမှာပဲ ပါပါတယ်။
 
-- Closing tag: `</p>`
+<ContentImage src={structure} alt="HTML Structure" />
+
+### Tag တွေနဲ့ Element တွေ
+HTML မှာ tag တွေက အဓိက အုတ်မြစ်တွေပါပဲ။ Tag တွေကို စာသား၊ ပုံ၊ link လိုမျိုး မတူညီတဲ့ အကြောင်းအရာအမျိုးအစားတွေကို သတ်မှတ်ဖို့ သုံးပါတယ်။ HTML element တစ်ခုမှာ အဖွင့် tag (opening tag) နဲ့ အပိတ် tag (closing tag) ဆိုပြီး ပါလေ့ရှိပါတယ်။
+
+**ဥပမာ -**
+
+<Code title="HTML" lang='html' code={h1Tag}/>
 
 
+- `<h1>`: ဒါက ခေါင်းစဉ်ရဲ့ အစကို သတ်မှတ်ပေးတဲ့ အဖွင့် tag ပါ။
 
-အဲဒီ အဖွင့်နဲ့ အပိတ် tag ကြားထဲမှာရှိတဲ့ အရာအားလုံးက အဲဒီ element ရဲ့ အစိတ်အပိုင်းဖြစ်ပါတယ်။
+- `</h1>`: ဒါက ခေါင်းစဉ်ရဲ့ အဆုံးကို သတ်မှတ်ပေးတဲ့ အပိတ် tag ပါ။
+
+အဖွင့် tag နဲ့ အပိတ် tag ကြားထဲမှာရှိတဲ့ အရာအားလုံးက အကြောင်းအရာ (content) ဖြစ်ပါတယ်။
+
+### HTML Tag အမျိုးအစားများ
+HTML tag တွေမှာ အဓိကအားဖြင့် အမျိုးအစား နှစ်မျိုးရှိပါတယ်။
+
+#### Paired Tags (အတွဲလိုက် Tag များ):
+ဒီ tag တွေက အဖွင့် tag နဲ့ အပိတ် tag ဆိုပြီး အတွဲလိုက်လာပါတယ်။
 
 ဥပမာ:
+<Code title="HTML" lang='html' code={pTag}/>
 
-<Code title="HTML" lang='html' code={pTag} />
-
-ဒီဥပမာမှာ၊ `<p>` tag က စာပိုဒ် (paragraph) တစ်ခုကို ဖန်တီးပေးပါတယ်။
-
-တချို့ element တွေကတော့ **self-closing** ဖြစ်ပါတယ်၊ ဆိုလိုတာက သူတို့အတွက် အပိတ် tag သီးသန့် ပြန်ထည့်စရာမလိုပါဘူး။ ဥပမာ -
-
-- `<img>`: ဒါက ပုံတွေပြဖို့သုံးပြီး၊ သူ့မှာ အပိတ် `</img>` tag ပြန်ထည့်စရာမလိုတဲ့အတွက် self-closing element တစ်ခုဖြစ်ပါတယ်။
+#### Self-closing Tags (အပိတ်မလိုသော Tag များ):
+ဒီ tag တွေကတော့ အပိတ် tag ပြန်ပိတ်စရာမလိုပါဘူး။ ပုံတွေ ဒါမှမဟုတ် စာကြောင်းဆင်းတာတွေအတွက် သုံးပါတယ်။
 
 ဥပမာ:
+<Code title="HTML" lang='html' code={selfClosingTag}/>
 
-<Code title='HTML' lang='html' code={imgTag} />
-
+`<img>` ဆိုတာ ပုံထည့်ဖို့သုံးတဲ့ self-closing tag တစ်ခု ဖြစ်ပါတယ်။

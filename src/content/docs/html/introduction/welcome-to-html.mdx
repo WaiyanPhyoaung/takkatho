@@ -4,6 +4,9 @@ description: " HTML နဲ့ မိတ်ဆက်ခြင်း"
 ---
 
 import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro'
+import htmlSampleImg  from "@/assets/html/html-sample.png";
+
 
 export const htmlSample = `<h1>Welcome to My Website</h1>
 <p>This is a paragraph of text.</p>`
@@ -34,6 +37,8 @@ HTML က "tags" လို့ခေါ်တဲ့ စနစ်ကိုသုံ
 
 - `<h1>` ဆိုတာက ခေါင်းစဉ်ကြီးတစ်ခုကို သတ်မှတ်ပေးတဲ့ tag ပါ။
 - `<p>` ဆိုတာက စာပိုဒ်တစ်ခုကို သတ်မှတ်ပေးတဲ့ tag ပါ။
+
+<ContentImage src={htmlSampleImg} alt="HTML Sample" />
 
 ### Web Development မှာ HTML ရဲ့ အခန်းကဏ္ဍ
 Web development မှာ HTML က အဓိကကျတဲ့ အခန်းကဏ္ဍကနေ ပါဝင်ပါတယ်။ သင်အင်တာနက်ပေါ်မှာ မြင်တွေ့ရတဲ့ webpage တိုင်းရဲ့ အခြေခံအုတ်မြစ်က HTML ပါပဲ။ သူက ဖွဲ့စည်းပုံနဲ့ အကြောင်းအရာအတွက် ဖြစ်ပါတယ်။
