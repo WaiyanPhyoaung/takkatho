@@ -75,9 +75,21 @@ export const commentSample2 = `<!-- HTML Comment -->
 
 <Code title='HTML' lang='html' code={basicHtml} />
 
-*ရှင်းလင်းချက် -**
+**ရှင်းလင်းချက် -**
 
 - `<!DOCTYPE html>`: Browser ကို HTML5 သုံးထားကြောင်း ပြောပြပါတယ်။
 - `<html>` **tag**: စာမျက်နှာတစ်ခုလုံးကို ခြုံငုံထားပါတယ်။
 - `<head>` **tag**: စာမျက်နှာ ခေါင်းစဉ်နဲ့ meta tag တွေလို metadata တွေ ပါဝင်ပါတယ်။
 - `<body>` **tag**: မြင်ရတဲ့ အကြောင်းအရာတွေ (ခေါင်းစဉ်၊ စာပိုဒ်၊ ပုံ၊ link) တွေ ပါဝင်ပါတယ်။
+
+<Aside title="အကျဉ်းချုပ်" type="tip">
+- `<head>` section ထဲမှာ webpage ရဲ့ metadata (စာမျက်နှာအကြောင်း ဖော်ပြတဲ့ အချက်အလက်တွေ) ဖြစ်တဲ့ ခေါင်းစဉ် (title)၊ character encoding၊ နဲ့ CSS လို ပြင်ပ resource တွေကို ထည့်ပါတယ်။
+
+- `<body>` section မှာတော့ စာသား၊ ပုံ၊ link တွေလိုမျိုး webpage မှာ **မြင်ရတဲ့ အကြောင်းအရာတွေ အကုန်လုံး** ကို ထည့်ရပါတယ်။
+
+- `<head>` ထဲက `<title>` က browser ရဲ့ tab မှာပြသမယ့် **စာမျက်နှာခေါင်းစဉ်** ကို သတ်မှတ်ပေးပါတယ်။
+
+- `<head>` ထဲက `<meta>` tag ကိုတော့ **character encoding၊ စာမျက်နှာအကြောင်းအရာဖော်ပြချက် (descriptions)၊ နဲ့ viewport settings** တွေအတွက် သုံးပါတယ်။
+
+အဓိကကွာခြားချက်ကတော့ `<head>` section ကို user တွေ မမြင်ရဘဲ၊ `<body>` section ကတော့ user တွေ စာမျက်နှာပေါ်မှာ မြင်ရသမျှ အရာအားလုံး ပါဝင်တဲ့ နေရာဖြစ်ပါတယ်။
+</Aside>

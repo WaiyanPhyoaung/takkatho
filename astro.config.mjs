@@ -830,12 +830,16 @@ export default defineConfig({
               label: "Text & Formatting",
               items: [
                 {
-                  label: "Headings",
+                  label: "Headings & Paragraphs",
                   slug: "html/texts/headings",
                 },
                 {
-                  label: "Text Formatting & Line Breaks",
-                  slug: "html/texts/formatting",
+                  label: "Line Breaks, Horizontal Rules & Text Formatting",
+                  slug: "html/texts/line",
+                },
+                {
+                  label: "Lists",
+                  slug: "html/texts/lists",
                 },
               ],
             },
