@@ -851,6 +851,10 @@ export default defineConfig({
                   label: "Links",
                   slug: "html/links/links",
                 },
+                {
+                  label: "Images as Links",
+                  slug: "html/links/images",
+                },
               ],
             },
           ],

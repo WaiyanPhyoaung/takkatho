@@ -486,19 +486,15 @@ export function CoursesListing(): JSX.Element {
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
+                  variant="secondary"
                   onClick={() => {
                     setSearchTerm("");
                     setSelectedDifficulty("all");
                     setSelectedCategory("all");
                   }}
-                  className="text-white shadow-lg"
                 >
                   <GraduationCap className="w-4 h-4 mr-2" />
                   View all courses
-                </Button>
-                <Button variant="outline">
-                  <Search className="w-4 h-4 mr-2" />
-                  Browse categories
                 </Button>
               </div>
             </CardContent>
