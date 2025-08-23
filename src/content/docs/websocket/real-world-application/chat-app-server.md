@@ -1,6 +1,17 @@
 ---
 title: ရိုးရှင်းသော Chat Application - Server
 description: ရိုးရှင်းသော Chat Application (Code Example)
+keywords:
+  - WebSocket server Myanmar
+  - Socket.IO server Myanmar
+  - Node.js WebSocket Myanmar
+  - Chat server development Myanmar
+  - Real-time server Myanmar
+  - Socket.IO backend Myanmar
+  - WebSocket server code Myanmar
+  - Real-time communication server Myanmar
+  - Node.js real-time Myanmar
+  - WebSocket implementation Myanmar
 ---
 
 ### Node.js + Socket.IO

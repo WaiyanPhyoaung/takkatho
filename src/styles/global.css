@@ -575,6 +575,7 @@ html {
 
   .key-features {
     gap: 1.5rem;
+    width: 80%;
   }
 
   .feature {

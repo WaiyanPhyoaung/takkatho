@@ -1,6 +1,17 @@
 ---
 title: နောက်ဆုံးပေါ် အခြေအနေနှင့် အခြားရွေးချယ်စရာများ
 description: နောက်ဆုံးပေါ် အခြေအနေနှင့် အခြားရွေးချယ်စရာများ
+keywords:
+  - WebSocket alternatives Myanmar
+  - Server-Sent Events Myanmar
+  - WebTransport Myanmar
+  - WebRTC Myanmar
+  - Real-time communication Myanmar
+  - WebSocket vs SSE
+  - WebSocket vs WebTransport
+  - Myanmar WebSocket tutorial
+  - HTTP/3 Myanmar
+  - QUIC protocol Myanmar
 ---
 
 WebSocket သည် ခေတ်မီ Real-time Web အတွက် အဓိက ကျဆဲ ဖြစ်သော်လည်း အခြား Related Technology များလည်း ရှိနေသည်။

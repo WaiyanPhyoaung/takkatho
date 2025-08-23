@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import starlight from "@astrojs/starlight";
 import starlightThemeNova from "starlight-theme-nova";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 // import vercelStatic from "@astrojs/vercel/static";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -12,16 +13,25 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://takkatho.dev",
   integrations: [
+    sitemap({
+      changefreq: "weekly",
+      priority: 0.7,
+      lastmod: new Date(),
+      entryLimit: 10000,
+    }),
     react(),
     starlight({
       plugins: [starlightThemeNova()],
       expressiveCode: true,
-      title: "Takkatho",
+      title: "တက္ကသိုလ် (Takkatho) - Myanmar Programming Learning Platform",
+      description:
+        "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။ Myanmar developers များအတွက် အထူးပြုလုပ်ထားသည့် ခေတ်မီ learning platform။",
       logo: {
         replacesTitle: true,
-        light: "/public/favicon.svg",
-        dark: "/public/favicon.svg",
+        light: "public/favicon.svg",
+        dark: "public/favicon.svg",
         alt: "Takkatho University",
       },
       customCss: ["./src/styles/global.css"],
@@ -30,6 +40,240 @@ export default defineConfig({
           icon: "github",
           label: "GitHub",
           href: "https://github.com/WaiyanPhyoaung/takkatho",
+        },
+      ],
+      head: [
+        // Enhanced SEO meta tags for rich search results
+        {
+          tag: "meta",
+          attrs: {
+            name: "keywords",
+            content:
+              "Myanmar programming, မြန်မာ programming, TypeScript Myanmar, WebSocket Myanmar, Git Myanmar, Database Myanmar, Software Architecture Myanmar, Web Performance Myanmar, မြန်မာ developer, programming course Myanmar, tech education Myanmar, coding Myanmar",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "author",
+            content: "Takkatho Team",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "robots",
+            content:
+              "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "googlebot",
+            content:
+              "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:type",
+            content: "website",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:site_name",
+            content: "Takkatho",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:locale",
+            content: "my_MM",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:locale:alternate",
+            content: "en_US",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:card",
+            content: "summary_large_image",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:creator",
+            content: "@takkatho_mm",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "language",
+            content: "Myanmar",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "geo.region",
+            content: "MM",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "geo.country",
+            content: "Myanmar",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "educational-level",
+            content: "intermediate",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "audience",
+            content: "developers,students,programmers",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "content-language",
+            content: "my",
+          },
+        },
+        // JSON-LD structured data for rich search results
+        {
+          tag: "script",
+          attrs: {
+            type: "application/ld+json",
+          },
+          content: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalOrganization",
+            name: "Takkatho",
+            alternateName: "တက္ကသိုလ်",
+            description:
+              "Myanmar Programming Learning Platform - မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ",
+            url: "https://takkatho.dev",
+            logo: "https://takkatho.dev/favicon.svg",
+            sameAs: ["https://github.com/WaiyanPhyoaung/takkatho"],
+            address: {
+              "@type": "PostalAddress",
+              addressCountry: "Myanmar",
+            },
+            areaServed: {
+              "@type": "Country",
+              name: "Myanmar",
+            },
+            teaches: [
+              "Advanced TypeScript",
+              "WebSocket Technology",
+              "Git Version Control",
+              "Web Performance",
+              "Software Architecture",
+              "Relational Database",
+              "HTML & CSS",
+              "JavaScript",
+            ],
+            courseMode: "online",
+            availableLanguage: [
+              {
+                "@type": "Language",
+                name: "Myanmar",
+                alternateName: "Burmese",
+              },
+              {
+                "@type": "Language",
+                name: "English",
+              },
+            ],
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+            },
+            educationalCredentialAwarded: "Certificate of Completion",
+            provider: {
+              "@type": "Organization",
+              name: "Takkatho",
+              url: "https://takkatho.dev",
+            },
+          }),
+        },
+        // Website schema
+        {
+          tag: "script",
+          attrs: {
+            type: "application/ld+json",
+          },
+          content: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Takkatho - Myanmar Programming Learning Platform",
+            alternateName: "တက္ကသိုလ်",
+            description:
+              "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။",
+            url: "https://takkatho.dev",
+            inLanguage: ["my", "en"],
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate:
+                  "https://takkatho.dev/search?q={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Takkatho",
+              url: "https://takkatho.dev",
+            },
+          }),
+        },
+        // Breadcrumb schema
+        {
+          tag: "script",
+          attrs: {
+            type: "application/ld+json",
+          },
+          content: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://takkatho.dev",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Programming Courses",
+                item: "https://takkatho.dev/courses",
+              },
+            ],
+          }),
         },
       ],
 
@@ -854,6 +1098,19 @@ export default defineConfig({
                 {
                   label: "Images as Links",
                   slug: "html/links/images",
+                },
+              ],
+            },
+            {
+              label: "Images & Media",
+              items: [
+                {
+                  label: "Images",
+                  slug: "html/media/images",
+                },
+                {
+                  label: "Videos & Audios",
+                  slug: "html/media/videos",
                 },
               ],
             },

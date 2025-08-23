@@ -1,0 +1,231 @@
+---
+// StructuredData.astro - Component for adding JSON-LD structured data
+export interface Props {
+  type?: "website" | "course" | "article" | "organization";
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  author?: string;
+  datePublished?: string;
+  dateModified?: string;
+  courseData?: {
+    name: string;
+    description: string;
+    provider: string;
+    teaches: string[];
+    educationalLevel: string;
+    timeRequired: string;
+    inLanguage: string;
+  };
+}
+
+const {
+  type = "website",
+  title,
+  description,
+  url,
+  image,
+  author,
+  datePublished,
+  dateModified,
+  courseData,
+} = Astro.props;
+
+const baseUrl = "https://takkatho.dev";
+const defaultImage = `${baseUrl}/favicon.svg`;
+
+// Organization schema
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Takkatho",
+  alternateName: "တက္ကသိုလ်",
+  description:
+    "Myanmar Programming Learning Platform - မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ",
+  url: baseUrl,
+  logo: `${baseUrl}/favicon.svg`,
+  foundingDate: "2024",
+  sameAs: ["https://github.com/WaiyanPhyoaung/takkatho"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    url: `${baseUrl}/contact`,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Myanmar",
+  },
+  knowsLanguage: [
+    {
+      "@type": "Language",
+      name: "Myanmar",
+      alternateName: "Burmese",
+    },
+    {
+      "@type": "Language",
+      name: "English",
+    },
+  ],
+};
+
+// Website schema
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: title || "Takkatho - Myanmar Programming Learning Platform",
+  alternateName: "တက္ကသိုလ်",
+  description:
+    description ||
+    "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။",
+  url: url || baseUrl,
+  image: image || defaultImage,
+  inLanguage: ["my", "en"],
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+  publisher: organizationSchema,
+};
+
+// Course schema
+const courseSchema = courseData
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: courseData.name,
+      description: courseData.description,
+      provider: {
+        "@type": "Organization",
+        name: "Takkatho",
+        url: baseUrl,
+      },
+      teaches: courseData.teaches,
+      educationalLevel: courseData.educationalLevel,
+      timeRequired: courseData.timeRequired,
+      inLanguage: courseData.inLanguage,
+      url: url || baseUrl,
+      image: image || defaultImage,
+      isAccessibleForFree: true,
+      educationalCredentialAwarded: "Certificate of Completion",
+      courseMode: "online",
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: courseData.timeRequired,
+        instructor: {
+          "@type": "Person",
+          name: author || "Takkatho Team",
+        },
+      },
+    }
+  : null;
+
+// Article/Tutorial schema
+const articleSchema =
+  type === "article" && title
+    ? {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        headline: title,
+        description: description,
+        author: {
+          "@type": "Person",
+          name: author || "Takkatho Team",
+        },
+        publisher: organizationSchema,
+        datePublished: datePublished,
+        dateModified: dateModified || datePublished,
+        url: url || baseUrl,
+        image: image || defaultImage,
+        inLanguage: "my",
+        articleSection: "Technology",
+        keywords:
+          "Myanmar programming, TypeScript, WebSocket, Git, Database, Software Architecture",
+        educationalLevel: "intermediate",
+        teaches: "Programming concepts in Myanmar language",
+      }
+    : null;
+
+// Breadcrumb schema for navigation
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: baseUrl,
+    },
+  ],
+};
+
+// Combine schemas
+const schemas = [
+  organizationSchema,
+  websiteSchema,
+  ...(courseSchema ? [courseSchema] : []),
+  ...(articleSchema ? [articleSchema] : []),
+  breadcrumbSchema,
+];
+---
+
+{
+  schemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))
+}
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:type" content={type === "course" ? "article" : "website"} />
+<meta
+  property="og:title"
+  content={title || "Takkatho - Myanmar Programming Learning Platform"}
+/>
+<meta
+  property="og:description"
+  content={description || "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။"}
+/>
+<meta property="og:url" content={url || baseUrl} />
+<meta property="og:image" content={image || defaultImage} />
+<meta property="og:site_name" content="Takkatho" />
+<meta property="og:locale" content="my_MM" />
+<meta property="og:locale:alternate" content="en_US" />
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content={title || "Takkatho - Myanmar Programming Learning Platform"}
+/>
+<meta
+  name="twitter:description"
+  content={description || "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။"}
+/>
+<meta name="twitter:image" content={image || defaultImage} />
+
+<!-- Additional SEO Meta Tags -->
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />
+{author && <meta name="author" content={author} />}
+{
+  datePublished && (
+    <meta name="article:published_time" content={datePublished} />
+  )
+}
+{dateModified && <meta name="article:modified_time" content={dateModified} />}
+
+<!-- Language and Region -->
+<meta name="language" content="Myanmar" />
+<meta name="geo.region" content="MM" />
+<meta name="geo.country" content="Myanmar" />
+
+<!-- Educational Meta Tags -->
+<meta name="educational-level" content="intermediate" />
+<meta name="audience" content="developers,students,programmers" />
+<meta name="content-language" content="my" />

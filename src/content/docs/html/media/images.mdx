@@ -1,0 +1,61 @@
+---
+title: "Images"
+description: "Images"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import format from '@/assets/html/format.png'
+
+export const imgLink = `
+<a href="https://www.example.com">
+  <img src="logo.jpg" alt="Example Logo">
+</a>
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာတော့ HTML မှာ ပုံတွေနဲ့ media (video, audio လိုမျိုး) တွေကို ဘယ်လိုကိုင်တွယ်ရမလဲဆိုတာ လေ့လာကြပါမယ်။ သင့် webpage တွေမှာ ပုံတွေထည့်နည်း၊ video တွေထည့်သွင်းနည်း၊ နဲ့ audio file တွေသုံးနည်းကို သင်ယူရပါလိမ့်မယ်။ Media တွေက web design ရဲ့ အရေးကြီးတဲ့ အစိတ်အပိုင်းတစ်ခုဖြစ်ပြီး user experience ကို ပိုကောင်းအောင် မြှင့်တင်ပေးနိုင်တဲ့အတွက် ဒီ element တွေကို နားလည်ထားဖို့က အလွန်အရေးကြီးပါတယ်။
+</Aside>
+
+### Webpage ထဲသို့ ပုံများ ထည့်သွင်းခြင်း
+ပုံတွေက သင့် webpage ကို ကြည့်လို့လှသွားအောင်လုပ်တဲ့ အကောင်းဆုံးနည်းလမ်းတစ်ခုပါ။ Website ကို ပုံတွေထည့်ဖို့ `<img>` tag ကို သုံးပါတယ်။
+
+**အခြေခံ Image Tag :**
+
+```html
+<img src="image.jpg" alt="Description of image">
+```
+- `<img>`: ပုံထည့်သွင်းဖို့သုံးတဲ့ tag ပါ။
+
+- `src`: **Source attribute** က browser ကို ပုံကဘယ်မှာရှိလဲဆိုတာ (URL) ပြောပြပါတယ်။
+
+- `alt`: **Alt text attribute** က accessibility (လူတိုင်းအသုံးပြုနိုင်မှု) အတွက် ပုံအကြောင်း ရှင်းပြတဲ့စာသားပါ (ပုံက မပေါ်လာခဲ့ရင် ဒီစာသားကိုပြပေးပြီး၊ အမြင်အာရုံမသန်စွမ်းသူတွေအတွက် screen reader တွေက ဖတ်ပြပါတယ်)။
+
+### `alt` Text ကို ဘာကြောင့်သုံးသင့်သလဲ?
+
+- **Accessibility**: Screen reader တွေက alt text ကို သုံးပါတယ်။
+
+- **SEO**: Search engine တွေက ပုံရဲ့အကြောင်းအရာကို နားလည်ဖို့ alt text ကို သုံးပါတယ်။
+
+### ပုံ Format များ
+
+HTML မှာသုံးနိုင်တဲ့ ပုံ format အမျိုးမျိုးရှိပါတယ်။ တစ်ခုချင်းစီမှာ သူ့အားသာချက်နဲ့သူရှိလို့ ဘယ်အချိန် ဘာကိုသုံးရမလဲဆိုတာ သိထားဖို့ အရေးကြီးပါတယ်။
+
+- **JPEG (.jpg):** <br/>
+    ဓာတ်ပုံတွေအတွက် အသင့်တော်ဆုံးပါ။ ပုံကို compress လုပ်ရာမှာ ကောင်းပေမယ့်၊ အသေးစိတ်အချက်အလက်တချို့တော့ ပျောက်သွားနိုင်ပါတယ်။
+
+- **PNG (.png):** <br/>
+    Logo တွေနဲ့ နောက်ခံမပါတဲ့ပုံတွေအတွက် အကောင်းဆုံးပါ။ အရည်အသွေး (quality) လုံးဝမကျသွားတဲ့ format ဖြစ်ပါတယ်။  
+
+- **GIF (.gif):** <br/>
+    ရိုးရှင်းတဲ့ animation လေးတွေအတွက် အကောင်းဆုံးပါ။
+
+- *SVG (.svg):**<br/>
+    ချဲ့ချင်တိုင်းချဲ့လို့ရတဲ့ icon တွေ logo တွေအတွက် သုံးပါတယ်။ ဘယ်လောက်ပဲအရွယ်အစားပြောင်းပြောင်း ပုံက လုံးဝဝါးမသွားပါဘူး။
+
+- **WebP (.webp):**<br/>
+    ခေတ်မီ format ဖြစ်ပြီး ပုံရော animation အတွက်ပါ သုံးနိုင်ပါတယ်။ JPEG/PNG ထက် file size ပိုသေးပြီး quality လည်းကောင်းပါတယ်။ ခေတ်ပေါ် browser အများစုမှာ support လုပ်ပါတယ်။
+
+- **AVIF (.avif):**<br/>
+    နောက်ဆုံးပေါ် image format ဖြစ်ပြီး compress အလွန်ကောင်းပါတယ်။ Quality များများမကျဘဲ file size ကို အများကြီးသေးအောင် လုပ်နိုင်ပါတယ်။ Browser အဟောင်းတွေမှာတော့ support မလုပ်ပါဘူး။
+

@@ -1,0 +1,47 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+User-agent: *
+Disallow: /admin/
+Disallow: /_astro/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://takkatho.dev/sitemap-index.xml
+Sitemap: https://takkatho.dev/sitemap-0.xml
+
+# Crawl delay for polite crawling
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Block AI training bots if desired (optional)
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
