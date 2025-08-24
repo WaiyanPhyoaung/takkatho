@@ -1,0 +1,127 @@
+---
+title: "Images"
+description: "Images"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+
+export const imgLink = `
+<a href="https://www.example.com">
+  <img src="logo.jpg" alt="Example Logo">
+</a>
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာတော့ table တွေ ဘယ်လိုထည့်ရမလဲဆိုတာ လေ့လာကြပါမယ်။ Table ဆိုတာက data တွေကို အလျားလိုက် (rows) နဲ့ ဒေါင်လိုက် (columns) စနစ်တကျ စီစဉ်ပြသတဲ့ နည်းလမ်းတစ်ခုပါ။ Table တွေရဲ့ တည်ဆောက်ပုံ၊ ခေါင်းစဉ်တွေ၊ cell တွေပေါင်းစပ်ပုံနဲ့ အခြေခံ styling လုပ်ပုံတွေကို လေ့လာသွားပါမယ်။ ဒီအခန်းပြီးသွားရင်၊ သင်က ပုံစံကျတဲ့ data တွေကို webpage ပေါ်မှာ သေသပ်လှပအောင် ဘယ်လိုပြရမလဲဆိုတာ သိသွားပါလိမ့်မယ်။
+</Aside>
+
+### Table ဆိုတာဘာလဲ?
+Table ဆိုတာက အချက်အလက်တွေကို ရှင်းရှင်းလင်းလင်းပြသဖို့အတွက် rows တွေ၊ columns တွေနဲ့ ဖွဲ့စည်းထားတဲ့ ဇယားကွက်တစ်ခုပါ။ Table တွေက အောက်ပါအရာတွေအတွက် အလွန်အသုံးဝင်ပါတယ်-
+
+- အချိန်စာရင်းတွေ ပြချင်တဲ့အခါ (ဥပမာ - သင်တန်းအချိန်စာရင်း၊ လေယာဉ်အချိန်စာရင်း)
+
+- ကုန်ပစ္စည်းတွေကို နှိုင်းယှဉ်ပြချင်တဲ့အခါ (ဥပမာ - ဈေးနှုန်း၊ feature တွေ)
+
+- စာရင်းအင်းအချက်အလက်တွေ ဒါမှမဟုတ် dataset တွေကို ပြချင်တဲ့အခါ
+
+**ဥပမာနှိုင်းယှဉ်ချက် -** Table ကို Excel spreadsheet တစ်ခုလိုပဲ သဘောထားလိုက်ပါ။ row တစ်ခုချင်းစီက item တစ်ခုကို ကိုယ်စားပြုပြီး၊ column တစ်ခုချင်းစီက အဲ့ဒီ item ရဲ့ property ကိုယ်စားပြုပါတယ်။
+
+### အခြေခံ Table တည်ဆောက်ပုံ
+HTML table တစ်ခုမှာ အောက်ပါ element တွေကို သုံးပါတယ်-
+
+- `<table>` – Table တစ်ခုလုံးကို အုပ်ထားတဲ့ container ပါ။
+
+- `<tr>` – Table ထဲက row တစ်ခုကို ဖန်တီးပေးပါတယ်။
+
+- `<th>` – Table ရဲ့ ခေါင်းစဉ် cell (header cell) ကို သတ်မှတ်ပေးပါတယ် (ပုံမှန်အားဖြင့် စာလုံးက bold ဖြစ်ပြီး အလယ်မှာ ရှိနေပါတယ်)။
+
+- `<td>` – Data ထည့်ရမယ့် cell ကို သတ်မှတ်ပေးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<table border="1">
+  <tr>
+    <th>Course</th>
+    <th>Duration</th>
+    <th>Level</th>
+  </tr>
+  <tr>
+    <td>HTML Basics</td>
+    <td>2 hours</td>
+    <td>Beginner</td>
+  </tr>
+  <tr>
+    <td>CSS Styling</td>
+    <td>3 hours</td>
+    <td>Beginner</td>
+  </tr>
+</table>
+```
+
+<Aside type="note" title="ရလဒ်">
+<table border="1">
+  <tr>
+    <th>Course</th>
+    <th>Duration</th>
+    <th>Level</th>
+  </tr>
+  <tr>
+    <td>HTML Basics</td>
+    <td>2 hours</td>
+    <td>Beginner</td>
+  </tr>
+  <tr>
+    <td>CSS Styling</td>
+    <td>3 hours</td>
+    <td>Beginner</td>
+  </tr>
+</table>
+</Aside>
+
+ရှင်းလင်းချက်:
+
+- `<table>` က table ရဲ့ အကြောင်းအရာအားလုံးကို အုပ်ထားပါတယ်။
+
+- `<tr>` က row တစ်ခုကို ဖန်တီးပါတယ်။
+
+- `<th>` ကို "Course", "Duration", "Level" လိုမျိုး ခေါင်းစဉ်တွေအတွက် သုံးပါတယ်။
+
+- `<td>` မှာတော့ row တစ်ခုချင်းစီအတွက် data တွေ ပါဝင်ပါတယ်။
+
+### Table ခေါင်းစဉ် (`<caption>`)
+`<caption>` ကို table အတွက် ခေါင်းစဉ် (title) တပ်ဖို့ သုံးပါတယ်။ သူက ပုံမှန်အားဖြင့်တော့ table ရဲ့ အပေါ်မှာ ပေါ်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<table border="1">
+  <caption>Course Schedule</caption>
+  <tr>
+    <th>Course</th>
+    <th>Duration</th>
+    <th>Level</th>
+  </tr>
+  <tr>
+    <td>HTML Basics</td>
+    <td>2 hours</td>
+    <td>Beginner</td>
+  </tr>
+</table>
+```
+<Aside type="note" title="ရလဒ်">
+<table border="1">
+  <caption>Course Schedule</caption>
+  <tr>
+    <th>Course</th>
+    <th>Duration</th>
+    <th>Level</th>
+  </tr>
+  <tr>
+    <td>HTML Basics</td>
+    <td>2 hours</td>
+    <td>Beginner</td>
+  </tr>
+</table>
+</Aside>

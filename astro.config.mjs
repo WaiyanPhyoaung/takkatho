@@ -1114,6 +1114,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Table",
+              items: [
+                {
+                  label: "Table Introduction",
+                  slug: "html/table/table-intro",
+                },
+                {
+                  label: "Merging Cells",
+                  slug: "html/table/merging-cells",
+                },
+              ],
+            },
           ],
         },
         // {
