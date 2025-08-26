@@ -1127,6 +1127,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Forms & Input",
+              items: [
+                {
+                  label: "Form Introduction",
+                  slug: "html/form/form-intro",
+                },
+                {
+                  label: "Dropdowns & Options",
+                  slug: "html/form/dropdown",
+                },
+              ],
+            },
           ],
         },
         // {

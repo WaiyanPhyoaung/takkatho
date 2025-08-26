@@ -1,0 +1,59 @@
+---
+title: "Dropdowns & Options"
+description: "Dropdowns & Options"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import selectImage from '@/assets/html/select.png'
+
+Dropdown menu တွေအတွက် `<select>` ကိုသုံးပြီး၊ ရွေးချယ်စရာတွေအတွက် `<option>` ကို သုံးပါတယ်။
+
+```html
+<label for="country">Country:</label>
+<select id="country" name="country">
+  <option value="hk">Hong Kong</option>
+  <option value="uk">United Kingdom</option>
+  <option value="us">United States</option>
+</select>
+```
+
+### Textareas
+စာကြောင်းအများကြီးထည့်ဖို့အတွက် (ဥပမာ message ဒါမှမဟုတ် comment) `<textarea>` ကို သုံးပါတယ်။
+
+```html
+<label for="message">Message:</label><br>
+<textarea id="message" name="message" rows="5" cols="30"></textarea>
+```
+
+<ContentImage src={selectImage} alt="select, input and textarea" height={400}/>
+
+### Buttons
+Form တွေမှာ data တွေကို submit လုပ်ဖို့ ဒါမှမဟုတ် reset လုပ်ဖို့ button တွေ လိုအပ်ပါတယ်-
+
+- `submit`: Form data တွေကို server ဆီ ပို့ပေးတယ်။
+
+- `reset`: Input field ထဲက data အားလုံးကို ရှင်းပေးတယ်။
+
+- `button`: JavaScript နဲ့ အလုပ်လုပ်ဖို့ စိတ်ကြိုက်ခလုတ်။
+
+```html
+<input type="submit" value="Send">
+<input type="reset" value="Clear">
+```
+
+<Aside type="tip" title="အနှစ်ချုပ်">
+- Form တွေက user data တွေကို စုဆောင်းပြီး server ဆီ ပို့ပေးပါတယ်။
+
+- `<form>` tag က `action` နဲ့ `method` attribute တွေနဲ့အတူ အဓိက container အဖြစ် အလုပ်လုပ်ပါတယ်။
+
+- `<input>` မှာ `text`, `password`, `email` စတဲ့ field အမျိုးအစားမျိုးစုံ ရှိပါတယ်။
+
+- `<label>` က accessibility နဲ့ user experience ကို ပိုကောင်းစေပါတယ်။
+
+- `<select>` နဲ့ `<textarea>` က dropdown တွေနဲ့ စာကြောင်းအများကြီးထည့်တာတွေကို ကိုင်တွယ်ပေးပါတယ်။
+
+- Button တွေ (`submit`, `reset`) က form submit လုပ်တာနဲ့ input value ရှင်းတာတွေ အတွက်ဖြစ်ပါတယ်။
+
+- ရှင်းလင်းလွယ်ကူမှုနဲ့ အသုံးပြုရလွယ်အောင် form field တွေကို label အမြဲတပ်ပြီး validate လုပ်သင့်ပါတယ်။
+</Aside>

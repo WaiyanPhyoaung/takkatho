@@ -2,35 +2,63 @@
 <html>
   <head>
     <title>My First Page</title>
-    <style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-  }
-  th {
-    background-color: lightgray;
-  }
+
+<style>
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+  background: #0056b3;
+}
 </style>
   </head>
   <body>
-<table >
-  <tr>
-  <th colspan="2">Course Info</th>
-    <th>Level</th>
-  </tr>
-  <tr>
-    <td rowspan="2">HTML Basics</td>
-  <td>Duration: 2 hours</td>
-  <td>Level: Beginner</td>
-  </tr>
-  <tr>
-    <td>CSS Styling</td>
-    <td>3 hours</td>
-  </tr>
-</table>
+    <form>
+    <label for="country">Country:</label>
+<select id="country" name="country">
+  <option value="hk">Hong Kong</option>
+  <option value="uk">United Kingdom</option>
+  <option value="us">United States</option>
+</select>
+
+<label for="message">email:</label>
+<input id="message" name="message" />
+
+<label for="message">Message:</label>
+<textarea id="message" name="message" rows="5" cols="30"></textarea>
+    </form>
 </html>
