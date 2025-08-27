@@ -1140,6 +1140,28 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Semantic HTML",
+              items: [
+                {
+                  label: "Semantic HTML Introduction",
+                  slug: "html/semantic/intro",
+                },
+                {
+                  label: "Benefits of Semantic HTML",
+                  slug: "html/semantic/benefits",
+                },
+              ],
+            },
+            {
+              label: "HTML Attributes & Best Practices",
+              items: [
+                {
+                  label: "Attributes",
+                  slug: "html/attributes/intro",
+                },
+              ],
+            },
           ],
         },
         // {
