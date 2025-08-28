@@ -1,0 +1,63 @@
+---
+title: "HTML 5 Features"
+description: "HTML 5 Features"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import formImage from '@/assets/html/form.png'
+import inputsImage from '@/assets/html/inputs.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+HTML5 မှာ web experience ကို ပိုကောင်းစေတဲ့ feature အသစ်တွေ အများကြီး ပါဝင်လာပါတယ်။ ဒီ feature တွေကြောင့် media တွေ ထည့်သွင်းတာ၊ local storage နဲ့ အလုပ်လုပ်တာ၊ ပိုပြီး interactive ဖြစ်တဲ့ web page တွေ ဖန်တီးတာတွေက အရင်ကထက် ပိုလွယ်ကူလာပါတယ်။ ဒီသင်ခန်းစာမှာတော့ input type အသစ်တွေ၊ audio/video element တွေ၊ canvas နဲ့ HTML5 ရဲ့ တခြားအဆင့်မြင့် feature တွေအကြောင်းကို လေ့လာသွားမှာပါ။
+</Aside>
+
+### HTML5 မှာပါဝင်လာတဲ့ Input Type အသစ်များ
+HTML5 မှာ form တွေအတွက် input type အသစ်တွေ အများကြီး ပါဝင်လာပါတယ်။ ဒါကြောင့် user တွေအတွက် အဆင်ပြေတဲ့ form တွေကို code အများကြီးမလိုဘဲ အလွယ်တကူ ဖန်တီးနိုင်လာပါတယ်။
+
+##### 1. Email (`<input type="email">`)
+Email လိပ်စာ ထည့်ခိုင်းဖို့ သုံးပါတယ်။ Browser က ထည့်လိုက်တဲ့ စာသားက email format အမှန် (ဥပမာ - user@example.com) ဟုတ်မဟုတ် အလိုအလျောက် စစ်ပေးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+```
+##### 2. URL (`<input type="url">`)
+URL တွေ ထည့်ဖို့အတွက် သုံးပါတယ်။ ထည့်လိုက်တဲ့ စာသားက web address အမှန် (ဥပမာ - https://www.example.com) ဟုတ်မဟုတ် စစ်ပေးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<label for="website">Website:</label>
+<input type="url" id="website" name="website">
+```
+##### 3. Date (`<input type="date">`)
+User တွေကို ပြက္ခဒိန် (calendar) ကနေ ရက်စွဲတစ်ခု ရွေးခိုင်းနိုင်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<label for="dob">Date of Birth:</label>
+<input type="date" id="dob" name="dob">
+```
+##### 4. Range (`<input type="range">`)
+User တွေကို range အတွင်းက တန်ဖိုးတစ်ခုကို slider ပုံစံနဲ့ ရွေးခိုင်းနိုင်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<label for="volume">Volume:</label>
+<input type="range" id="volume" name="volume" min="0" max="100">
+```
+##### 5. Color (`<input type="color">`)
+အရောင်တစ်ခုကို ရွေးချယ်ဖို့အတွက် color picker တစ်ခု ပေါ်လာစေပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<label for="color">Pick a Color:</label>
+<input type="color" id="color" name="color">
+```

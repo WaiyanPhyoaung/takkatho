@@ -1160,6 +1160,19 @@ export default defineConfig({
                   label: "Attributes",
                   slug: "html/attributes/intro",
                 },
+                {
+                  label: "HTML Best Practices",
+                  slug: "html/attributes/best-practices",
+                },
+              ],
+            },
+            {
+              label: "HTML 5 Features",
+              items: [
+                {
+                  label: "New Input Types",
+                  slug: "html/html5/input",
+                },
               ],
             },
           ],
