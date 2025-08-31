@@ -1173,6 +1173,19 @@ export default defineConfig({
                   label: "New Input Types",
                   slug: "html/html5/input",
                 },
+                {
+                  label: "Other Elements",
+                  slug: "html/html5/other",
+                },
+              ],
+            },
+            {
+              label: "Putting It All Together",
+              items: [
+                {
+                  label: "Structure of a Webpage",
+                  slug: "html/together/structure",
+                },
               ],
             },
           ],

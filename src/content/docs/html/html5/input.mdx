@@ -5,9 +5,9 @@ description: "HTML 5 Features"
 
 import { Aside, Code, } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
-import formImage from '@/assets/html/form.png'
-import inputsImage from '@/assets/html/inputs.png'
-
+import date from '@/assets/html/date.png';
+import range from '@/assets/html/range.png';
+import color from '@/assets/html/colorpicker.png';
 
 <Aside title="ရည်ရွယ်ချက်">
 HTML5 မှာ web experience ကို ပိုကောင်းစေတဲ့ feature အသစ်တွေ အများကြီး ပါဝင်လာပါတယ်။ ဒီ feature တွေကြောင့် media တွေ ထည့်သွင်းတာ၊ local storage နဲ့ အလုပ်လုပ်တာ၊ ပိုပြီး interactive ဖြစ်တဲ့ web page တွေ ဖန်တီးတာတွေက အရင်ကထက် ပိုလွယ်ကူလာပါတယ်။ ဒီသင်ခန်းစာမှာတော့ input type အသစ်တွေ၊ audio/video element တွေ၊ canvas နဲ့ HTML5 ရဲ့ တခြားအဆင့်မြင့် feature တွေအကြောင်းကို လေ့လာသွားမှာပါ။
@@ -43,6 +43,9 @@ User တွေကို ပြက္ခဒိန် (calendar) ကနေ ရက�
 <label for="dob">Date of Birth:</label>
 <input type="date" id="dob" name="dob">
 ```
+
+<ContentImage src={date} alt="date picker"  height={300}/>
+
 ##### 4. Range (`<input type="range">`)
 User တွေကို range အတွင်းက တန်ဖိုးတစ်ခုကို slider ပုံစံနဲ့ ရွေးခိုင်းနိုင်ပါတယ်။
 
@@ -52,6 +55,8 @@ User တွေကို range အတွင်းက တန်ဖိုးတစ�
 <label for="volume">Volume:</label>
 <input type="range" id="volume" name="volume" min="0" max="100">
 ```
+
+<ContentImage src={range} alt="range slider" height={300} width={200} />
 ##### 5. Color (`<input type="color">`)
 အရောင်တစ်ခုကို ရွေးချယ်ဖို့အတွက် color picker တစ်ခု ပေါ်လာစေပါတယ်။
 
@@ -61,3 +66,4 @@ User တွေကို range အတွင်းက တန်ဖိုးတစ�
 <label for="color">Pick a Color:</label>
 <input type="color" id="color" name="color">
 ```
+<ContentImage src={color} alt="color picker" height={300} />
