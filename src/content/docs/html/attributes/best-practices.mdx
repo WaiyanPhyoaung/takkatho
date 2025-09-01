@@ -1,0 +1,110 @@
+---
+title: "HTML Best Practices"
+description: "HTML Best Practices"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import formImage from '@/assets/html/form.png'
+import inputsImage from '@/assets/html/inputs.png'
+
+
+သပ်ရပ်ပြီး သုံးစွဲရလွယ်ကူတဲ့ HTML code တွေရေးဖို့အတွက် ဒီအချက်တွေကို လိုက်နာသင့်ပါတယ်။
+
+#### 1. အဓိပ္ပာယ်ရှိတဲ့ Semantic Tag များကို သုံးပါ
+- `<div>` နဲ့ `<span>` လို ယေဘုယျ tag တွေအစား semantic tag တွေ (`<article>`, `<section>`, `<header>`, `<footer>` စသည်) ကို အမြဲရွေးချယ်သုံးပါ။ 
+- Semantic tag တွေက content ကို အဓိပ္ပာယ်ရှိစေပြီး SEO နဲ့ accessibility ကို ပိုကောင်းစေပါတယ်။
+
+#### 2. ပုံတွေအတွက် alt Attribute ကို အမြဲသုံးပါ
+- `alt` attribute ကိုသုံးပြီး ပုံအတွက် ဖော်ပြချက်စာသားတစ်ခု ပေးပါ။ ဒါက screen reader တွေအတွက် accessibility ကို ပိုကောင်းစေသလို SEO အတွက်လည်း အထောက်အကူပြုပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<img src="logo.png" alt="Company Logo">
+```
+#### 3. id Attribute ကို unqiue ဖြစ်အောင် သုံးပါ
+- `id` attribute ဟာ element တစ်ခုစီတိုင်းအတွက် သီးသန့်ဖြစ်ရပါမယ်။
+- CSS ဒါမှမဟုတ် JavaScript နဲ့ element တွေကို သီးသန့်လှမ်းခေါ်ဖို့ သုံးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<p id="unique-paragraph">This is a unique paragraph.</p>
+```
+
+#### 4. Form တွေမှာ ဆက်စပ်တဲ့ Element တွေကို `<fieldset>` Tag သုံးပြီး အုပ်စုဖွဲ့ပါ
+- Form တွေမှာ accessibility ပိုကောင်းစေဖို့ ဆက်စပ်တဲ့ element တွေကို `<fieldset>` tag သုံးပြီး အုပ်စုဖွဲ့သင့်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<fieldset>
+  <legend>Personal Information</legend>
+  <input type="text" name="name">
+  <input type="email" name="email">
+</fieldset>
+```
+#### 5. Inline Style များကို ရှောင်ကြဉ်ပါ
+- Inline style (ဥပမာ style="color: red;") တွေသုံးမယ့်အစား၊ ပြင်ပ CSS stylesheet ကိုသုံးတာက code တွေကို ခွဲခြားထားနိုင်ပြီး ပြုပြင်ထိန်းသိမ်းရ ပိုလွယ်စေပါတယ်။
+
+**ဥပမာ(မကောင်း) (Inline Style) -**
+
+```html
+<p style="color: red;">This text is red.</p>
+```
+**ဥပမာ(ကောင်း) (External CSS) -**
+
+
+```html
+<p class="red-text">This text is red.</p>
+```
+CSS file ထဲမှာ:
+
+```css
+.red-text {
+  color: red;
+}
+```
+
+#### 6. ရှင်းလင်းပြီး နားလည်လွယ်တဲ့ Link စာသားများ ပေးပါ
+- "Click Here" လိုမျိုး မရှင်းလင်းတဲ့ link စာသားတွေကို ရှောင်ပါ။ Link က ဘယ်ကိုရောက်သွားမလဲဆိုတာကို ဖော်ပြနိုင်တဲ့ စာသားမျိုး ဖြစ်သင့်ပါတယ်။
+
+**ဥပမာ(မကောင်း) -**
+
+```html
+<a href="about.html">Click Here</a>
+```
+**ဥပမာ‌(ကောင်း) -**
+
+```html
+<a href="about.html">Learn more about our company</a>
+```
+#### 7. SEO အတွက် meta Tag များကို သုံးပါ
+`<meta>` tag က search engine တွေကို page description, keywords, viewport settings လိုမျိုး အရေးကြီးတဲ့ အချက်အလက်တွေ ပေးရာမှာ ကူညီပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<meta name="description" content="Learn HTML basics">
+<meta name="keywords" content="HTML, web development, beginner">
+```
+### အဖြစ်များသော HTML အမှားများ
+
+- **Tag များကို မပိတ်မိခြင်း -** `<p>` ဒါမှမဟုတ် `<li>` လို tag တွေကို အမြဲတမ်း ပိတ်ဖို့ မမေ့ပါနဲ့။
+
+- **ပုံတွေမှာ alt စာသားမပါခြင်း -** ပုံတွေအတွက် ဖော်ပြချက် alt text ကို အမြဲထည့်ပါ။
+
+- **`<div>` ကို အလွန်အကျွံသုံးခြင်း -** အရာအားလုံးအတွက် `<div>` ကိုပဲ အားကိုးမယ့်အစား semantic HTML tag တွေကို သုံးပါ။
+
+- **လိပ်စာမပါသော Link များ -** `<a href="#">Click Here</a>` လိုမျိုး ရှောင်ပါ။ တကယ်ရှိတဲ့ လိပ်စာကိုပဲ link ချိတ်ပါ။
+
+<Aside type="tip" title="အနှစ်ချုပ်">
+- **Attributes** တွေက HTML element တွေအတွက် အပိုအချက်အလက်တွေ ပေးပြီး သူတို့ကို ထိန်းချုပ်နိုင်ပါတယ်။
+
+- Accessibility နဲ့ SEO ပိုကောင်းစေဖို့ **semantic HTML tag** တွေကို သုံးပါ။
+
+- ပုံတွေအတွက် **`alt` text** ကို သုံးပြီး link တွေကို **ရှင်းလင်းပြီး အဓိပ္ပာယ်ရှိအောင်** လုပ်ပါ။
+
+- ပြုပြင်ထိန်းသိမ်းရ လွယ်ကူစေဖို့ **inline style တွေရှောင်ပြီး** CSS file ကိုသုံးပါ။
+</Aside>

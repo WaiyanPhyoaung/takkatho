@@ -1,0 +1,54 @@
+---
+title: "စာကြောင်းဆင်းခြင်း၊ မျဉ်းတားခြင်း နှင့် စာလုံးပုံစံပြောင်းတဲ့ Tags များ"
+description: "စာကြောင်းဆင်းခြင်း၊ မျဉ်းတားခြင်း နှင့် စာလုံးပုံစံပြောင်းတဲ့ Tags များ"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro'
+import format from '@/assets/html/format.png'
+
+export const brEg = `
+<p>This is the first line.<br>This is the second line.</p>
+`
+export const hrEg = `
+<p>This is a section.</p>
+<hr>
+<p>This is another section, separated by a line.</p>
+`
+
+တစ်ခါတလေမှာ စာကြောင်းအသစ်တစ်ကြောင်းဆင်းချင်တာ ဒါမှမဟုတ် အပိုင်းတွေကို မျဉ်းတားပြီး ခွဲခြားချင်တာမျိုး ရှိနိုင်ပါတယ်။
+
+#### Line Breaks (`<br>`):
+`<br>` tag က စာပိုဒ်အသစ်မဖြစ်ဘဲ စာသားကို နောက်တစ်ကြောင်းဆင်းစေပါတယ်။
+
+**ဥပမာ**
+
+<Code title='HTML' lang='html' code={brEg} />
+
+#### Horizontal Rules (`<hr>`):
+`<hr>` tag က စာမျက်နှာမှာ အလျားလိုက်မျဉ်းတစ်ကြောင်း ဖန်တီးပေးပါတယ်။ အကြောင်းအရာ အပိုင်းတွေကိုခွဲခြားဖို့ အသုံးဝင်ပါတယ်။
+
+**ဥပမာ**
+
+<Code title='HTML' lang='html' code={hrEg} />
+
+#### စာလုံးပုံစံပြောင်းတဲ့ Tags များ
+HTML မှာ စာသားတွေကို အလေးပေးဖို့၊ ပုံစံလှအောင်လုပ်ဖို့၊ ဒါမှမဟုတ် အရေးကြီးကြောင်းပြဖို့ ကူညီပေးတဲ့ tag အများအပြားရှိပါတယ်။ သူတို့ထဲက တချို့ကို ကြည့်လိုက်ရအောင်။
+
+- **Bold Text (`<b>`):** စာလုံးကို Bold (အထူ) ဖြစ်စေတယ်။
+
+- **Italic Text (`<i>`):** စာလုံးကို Italic (အစောင်း) ဖြစ်စေတယ်။
+
+- **Underlined Text (`<u>`):** စာသားအောက်မှာ <u>မျဉ်းသား</u>ပေးတယ်။
+
+- **Important Text (`<strong>`):** စာသားက အရေးကြီးတယ် ဆိုတဲ့ အဓိပ္ပာယ်ကိုပါ သက်ရောက်စေပြီး၊ များသောအားဖြင့် Bold နဲ့ပြတယ်။
+
+- **Emphasized Text (`<em>`):** စာသားကို အလေးပေးချင်တယ်ဆိုတဲ့ အဓိပ္ပာယ် သက်ရောက်စေပြီး၊ များသောအားဖြင့် Italic နဲ့ပြတယ်။
+
+- **Highlighted Text (`<mark>`):** စာသားကို highlight လုပ်ပေးတယ်၊ များသောအားဖြင့် အဝါရောင်နောက်ခံနဲ့ပါ။
+
+- **Underline (`<u>`):** စာသားအောက်မှာ မျဉ်းတားပေးတယ်။
+
+- **Strikethrough (`<s>`):** စာသားအလယ်ကနေ မျဉ်းဖျက်ပေးတယ်။ ဒါက မှားနေတာ ဒါမှမဟုတ် ဖယ်ရှားလိုက်ပြီဆိုတာကို ပြချင်တဲ့အခါသုံးတယ်။
+
+<ContentImage src={format} alt="Text formatting tags" />

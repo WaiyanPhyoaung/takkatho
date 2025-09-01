@@ -1,0 +1,95 @@
+---
+title: "<body> အပိုင်း"
+description: "<body> အပိုင်း"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+
+export const basicHtml = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Page</title>
+  </head>
+  <body>
+    <h1>Welcome to My Simple Webpage</h1>
+    <p>This is a paragraph of text on my webpage.</p>
+    <img src="example.jpg" alt="An example image">
+    <a href="https://www.example.com">Visit Example</a>
+  </body>
+</html>`
+
+export const heading = `<h1>This is the main heading</h1>
+<h2>This is a subheading</h2>`
+
+export const paragraph = `<p>This is a paragraph of text.</p>`
+
+export const imgTag = `<img src="image.jpg" alt="ပုံအကြောင်း ရှင်းပြတဲ့စာ">`
+
+export const linkTag = `<a href="https://www.example.com">Visit Example</a>`
+
+export const commentSample = `<!-- This is a comment -->
+`
+
+export const commentSample2 = `<!-- HTML Comment -->
+<p>HTML is a markup language</p>`
+
+`<body>` အပိုင်းမှာတော့ သုံးစွဲသူတွေ မြင်ရမယ့် webpage ရဲ့ အကြောင်းအရာ အားလုံး ပါဝင်ပါတယ်။ ခေါင်းစဉ်တွေ၊ စာပိုဒ်တွေ၊ ပုံတွေနဲ့ link တွေလိုမျိုး အရာအားလုံးကို ဒီနေရာမှာပဲ ထည့်ရမှာ ဖြစ်ပါတယ်။
+
+### `<body>` ထဲမှာ အသုံးများတဲ့ element တွေ:
+
+-   #### Headings (`<h1>` to `<h6>`):
+    ခေါင်းစဉ်တွေက စာမျက်နှာရဲ့ တည်ဆောက်ပုံကို သတ်မှတ်ပေးပြီး အကြောင်းအရာတွေကို စနစ်တကျ ဖြစ်အောင် ကူညီပေးပါတယ်။ `<h1>` က အရေးအကြီးဆုံး ခေါင်းစဉ်ဖြစ်ပြီး `<h6>` ကတော့  ခေါင်းစဉ်ငယ် ဖြစ်ပါတယ်။
+
+    ဥပမာ:
+
+    <Code title='HTML' lang='html' code={heading} />
+
+-   #### Paragraphs (`<p>`):
+    စာပိုဒ်တွေ သတ်မှတ်ဖို့အတွက် `<p>` tag ကို သုံးပါတယ်။
+
+    ဥပမာ:
+
+    <Code title='HTML' lang='html' code={paragraph} />
+
+
+-   #### Images (`<img>`):
+    `<img>` tag ကို စာမျက်နှာပေါ်မှာ ပုံတွေဖော်ပြဖို့ သုံးပါတယ်။
+
+    ဥပမာ:
+
+    <Code title='HTML' lang='html' code={imgTag} />
+
+
+-   #### Links (`<a>`):
+    `<a>` tag ကို တခြားစာမျက်နှာတွေကို ချိတ်ဆက်ပေးတဲ့ hyperlink တွေ ဖန်တီးဖို့ သုံးပါတယ်။
+
+    ဥပမာ:
+
+    <Code title='HTML' lang='html' code={linkTag} />
+
+
+### နမူနာ - အခြေခံ HTML Page တစ်ခု
+ခုနက ပြောခဲ့တာတွေအားလုံးကို ပေါင်းစပ်ထားတဲ့ နမူနာတစ်ခုကို ကြည့်လိုက်ရအောင်။
+
+<Code title='HTML' lang='html' code={basicHtml} />
+
+**ရှင်းလင်းချက် -**
+
+- `<!DOCTYPE html>`: Browser ကို HTML5 သုံးထားကြောင်း ပြောပြပါတယ်။
+- `<html>` **tag**: စာမျက်နှာတစ်ခုလုံးကို ခြုံငုံထားပါတယ်။
+- `<head>` **tag**: စာမျက်နှာ ခေါင်းစဉ်နဲ့ meta tag တွေလို metadata တွေ ပါဝင်ပါတယ်။
+- `<body>` **tag**: မြင်ရတဲ့ အကြောင်းအရာတွေ (ခေါင်းစဉ်၊ စာပိုဒ်၊ ပုံ၊ link) တွေ ပါဝင်ပါတယ်။
+
+<Aside title="အကျဉ်းချုပ်" type="tip">
+- `<head>` section ထဲမှာ webpage ရဲ့ metadata (စာမျက်နှာအကြောင်း ဖော်ပြတဲ့ အချက်အလက်တွေ) ဖြစ်တဲ့ ခေါင်းစဉ် (title)၊ character encoding၊ နဲ့ CSS လို ပြင်ပ resource တွေကို ထည့်ပါတယ်။
+
+- `<body>` section မှာတော့ စာသား၊ ပုံ၊ link တွေလိုမျိုး webpage မှာ **မြင်ရတဲ့ အကြောင်းအရာတွေ အကုန်လုံး** ကို ထည့်ရပါတယ်။
+
+- `<head>` ထဲက `<title>` က browser ရဲ့ tab မှာပြသမယ့် **စာမျက်နှာခေါင်းစဉ်** ကို သတ်မှတ်ပေးပါတယ်။
+
+- `<head>` ထဲက `<meta>` tag ကိုတော့ **character encoding၊ စာမျက်နှာအကြောင်းအရာဖော်ပြချက် (descriptions)၊ နဲ့ viewport settings** တွေအတွက် သုံးပါတယ်။
+
+အဓိကကွာခြားချက်ကတော့ `<head>` section ကို user တွေ မမြင်ရဘဲ၊ `<body>` section ကတော့ user တွေ စာမျက်နှာပေါ်မှာ မြင်ရသမျှ အရာအားလုံး ပါဝင်တဲ့ နေရာဖြစ်ပါတယ်။
+</Aside>

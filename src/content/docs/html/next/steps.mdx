@@ -1,0 +1,98 @@
+---
+title: "နောက်ထပ် ဘာတွေဆက်လေ့လာမလဲ"
+description: "နောက်ထပ် ဘာတွေဆက်လေ့လာမလဲ"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import before from '@/assets/html/before.png';
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာကတော့ HTML ကို လေ့လာပြီးတဲ့နောက်မှာ ဘာတွေဆက်လုပ်ရမလဲဆိုတာကို နားလည်အောင် ကူညီပေးမှာပါ။ Webpage တွေ တည်ဆောက်တာ၊ စာသားတွေ၊ ပုံတွေ၊ link တွေ၊ form တွေ၊ table တွေနဲ့ multimedia တွေကို အသုံးပြုတာတွေ လုပ်ခဲ့ပြီးပါပြီ။ အခုတော့ ကိုယ့်ရဲ့ website တွေကို ဘယ်လိုပိုလှအောင်လုပ်မလဲ၊ user တွေနဲ့ interactive ဖြစ်အောင် ဘယ်လိုလုပ်မလဲ၊ device မျိုးစုံမှာ အဆင်ပြေအောင် ဘယ်လိုလုပ်မလဲဆိုတာကို လေ့လာရမယ့်အချိန် ရောက်ပါပြီ။
+</Aside>
+
+### CSS (Cascading Style Sheets) မိတ်ဆက်
+HTML က structure (တည်ဆောက်ပုံ) ကို သတ်မှတ်ပြီး CSS ကတော့ style (အမြင်ပိုင်းဆိုင်ရာ) ကို သတ်မှတ်ပါတယ်။ CSS ကို အောက်ပါကိစ္စတွေအတွက် သုံးပါတယ်:
+
+- စာသားနဲ့ background အရောင်တွေ ပြောင်းလဲဖို့
+
+- Font တွေနဲ့ စာလုံးအရွယ်အစားတွေ သတ်မှတ်ဖို့
+
+- နေရာအကွာအဝေး၊ ဘောင်တွေနဲ့ layout တွေကို ချိန်ညှိဖို့
+
+- Hover effect တွေ၊ animation တွေ ထည့်သွင်းဖို့
+
+**ဥပမာ: ခေါင်းစဉ်အရောင်ပြောင်းခြင်း**
+
+```html
+<h1 style="color: blue;">Hello World</h1>
+```
+ဒီဥပမာကတော့ `style=""` ကိုသုံးထားတဲ့ **inline CSS** ဖြစ်ပါတယ်။ နောက်ပိုင်းမှာတော့ ပိုသပ်ရပ်ပြီး ပြန်လည်အသုံးပြုလို့ရတဲ့ internal နဲ့ external CSS တွေအကြောင်းကို လေ့လာရမှာပါ။
+
+### JavaScript နှင့် မိတ်ဆက်
+JavaScript (JS) က website တွေကို interactive ဖြစ်စေပါတယ် (အပြန်အလှန်တုံ့ပြန်မှုရှိစေပါတယ်)။ JS နဲ့ဆိုရင် အောက်ပါတို့ကို လုပ်ဆောင်နိုင်ပါတယ်:
+
+- Alert တွေ၊ message တွေ ပြဖို့
+
+- Form မှာ ဖြည့်ထားတဲ့ အချက်အလက်တွေကို စစ်ဆေးဖို့
+
+- Page ကို reload မလုပ်ဘဲ content တွေကို ပြောင်းလဲပစ်ဖို့
+
+- Slider တွေ၊ pop-up တွေနဲ့ animation တွေ ထည့်ဖို့
+
+**ဥပမာ: Alert message ပြခြင်း**
+
+```html
+<button onclick="alert('Hello! Welcome to my website')">Click Me</button>
+```
+User က ခလုတ်ကိုနှိပ်လိုက်တဲ့အခါ pop-up message တစ်ခု ပေါ်လာမှာ ဖြစ်ပါတယ်။
+
+### Responsive Web Design
+Website တွေက desktop, tablet, mobile စတဲ့ device အားလုံးမှာ ကောင်းကောင်းမွန်မွန် ပေါ်နေဖို့ လိုအပ်ပါတယ်။
+
+- Responsive design က layout တွေကို device အလိုက် အလိုအလျောက် ပြောင်းလဲသွားစေပါတယ်။
+
+- ဒါကို **CSS media query** တွေသုံးပြီး လုပ်ဆောင်နိုင်ပါတယ်:
+
+```css
+@media screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+```
+အပေါ်က code ကတော့ screen size 600px ထက်ငယ်တဲ့ device တွေမှာ background အရောင်ကို အပြာနုရောင် ပြောင်းသွားစေမှာ ဖြစ်ပါတယ်။
+
+### လေ့ကျင့်ရန်နေရာများနှင့် Resource များ
+HTML လေ့လာခြင်းက ဒီမှာပဲ မပြီးဆုံးသေးပါဘူး။ ကိုယ့်ရဲ့ skill တွေကို တိုးတက်အောင်လုပ်ဖို့နဲ့ စမ်းသပ်ဖို့အတွက် ဒီ site တွေကို အသုံးပြုနိုင်ပါတယ်:
+
+- **W3Schools –** interactive HTML, CSS, JS tutorials
+
+- **MDN Web Docs –** detailed documentation
+
+- **FreeCodeCamp –** project-based learning
+
+
+### Project အသေးစားလေးများ တည်ဆောက်ခြင်း
+အခုဆိုရင် သင်သင်ယူခဲ့သမျှ အားလုံးကို ပေါင်းစပ်ပြီး အောက်ပါ project လေးတွေ စလုပ်နိုင်ပါပြီ:
+
+- ရိုးရှင်းတဲ့ ကိုယ်ပိုင် webpage တစ်ခု
+
+- ပုံတွေ၊ table တွေ၊ contact form တွေပါတဲ့ Portfolio တစ်ခု
+
+- ခေါင်းစဉ်တွေ၊ စာပိုဒ်တွေ၊ link တွေပါတဲ့ Blog page တစ်ခု
+
+
+<Aside title="အနှစ်ချုပ်">
+- CSS ကို HTML element တွေကို style လုပ်ဖို့နဲ့ webpage တွေကို ဆွဲဆောင်မှုရှိအောင်လုပ်ဖို့ သုံးတယ်။
+
+- JavaScript က webpage တွေကို interactivity နဲ့ dynamic behavior တွေ ထည့်ပေးတယ်။
+
+- Responsive design က ကိုယ့် website ဟာ device အားလုံးမှာ အဆင်ပြေစေတယ်။
+
+- အခမဲ့ online resource တွေကိုသုံးပြီး HTML, CSS, JS ကို ဆက်လက်လေ့ကျင့်နေပါ။
+
+- သင်ယူခဲ့သမျှကို ပေါင်းစပ်နိုင်ဖို့ project အသေးစားလေးတွေ စတင်တည်ဆောက်ပါ။
+
+- HTML ကို လေ့လာခြင်းဟာ အစပဲရှိပါသေးတယ်။ နောက်အဆင့်တွေမှာ styling, interactivity, နဲ့ responsive design တို့ ပါဝင်လာမှာ ဖြစ်ပါတယ်။
+</Aside>

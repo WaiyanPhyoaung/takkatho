@@ -7,8 +7,8 @@ hero:
   image:
     file: ../../assets/hero.svg
   actions:
-    - text: Get Started
-      link: /advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript
+    - text: Courses
+      link: /courses
       icon: right-arrow
     - text: About Us
       link: /about
@@ -75,6 +75,12 @@ import { Image } from "astro:assets";
     title="Relational Database"
     description="Database design principles မှ SQL queries များအထိ၊ data ကို စနစ်တကျ သိမ်းဆည်းခြင်းနှင့် စီမံခန့်ခွဲခြင်းဆိုင်ရာ နည်းပညာများကို လေ့လာခြင်း"
     href="/relational-database/introduction/welcome-to-database"
+    icon="open-book"
+  /> 
+   <LinkCard
+    title="HTML"
+    description="Web development အတွက် မရှိမဖြစ် အခြေခံ HTML ကို လွယ်လွယ်နဲ့ လေ့လာခြင်း"
+    href="/html/introduction/welcome-to-html"
     icon="open-book"
   /> 
 </CardGrid>
@@ -168,37 +174,18 @@ import { Image } from "astro:assets";
     <Icon name="rocket" size="1.2em" /> <span>မကြာမီလာမည့် သင်ခန်းစာများ</span>
   </h2>
   <CardGrid class="upcoming-topics">
-    <Card icon="star" title="HTML Forms">
-      <p>"A complex concept explained simply is the hallmark of true
-      understanding."</p>
+    <Card icon="star" title="HTML">
+      <p>"Website တစ်ခုကို တည်ဆောက်ရန်အတွက် မရှိမဖြစ်လိုအပ်သော အခြေခံ HTML ကို လွယ်ကူရိုးရှင်းစွာ လေ့လာခြင်း"</p>
     </Card>
-    <Card icon="star" title="Javascript" >
-    <p>"A complex concept explained simply is the hallmark of true
-      understanding."</p>
+    <Card icon="star" title="CSS" >
+    <p>Webpage များ၏ အသွင်အပြင် (ဒီဇိုင်း၊ layout) ကို လှပသပ်ရပ်အောင် တည်ဆောက်ခြင်းဆိုင်ရာ နည်းပညာများကို လေ့လာခြင်း"</p>
       </Card>
-    <Card icon="star" title="Advanced CSS" ><p>"A complex concept explained simply is the hallmark of true
-      understanding."</p></Card>
+    <Card icon="star" title="Javascript" ><p>Website များအား အပြန်အလှန်တုံ့ပြန်မှုရှိသော (interactive) ဖြစ်အောင် တည်ဆောက်ခြင်းဆိုင်ရာ အခြေခံ နည်းပညာများကို လေ့လာခြင်း"</p></Card>
 
   </CardGrid>
   
 </section>
 
-{/* <section class="community-section">
-  <h2>Connect With Us</h2>
-  <div class="community-links">
-    <a href="#" class="community-link">
-      <Icon name="discord" size="1.5em" />
-      <span>Discord</span>
-    </a>
-    <a href="#" class="community-link">
-      <Icon name="github" size="1.5em" />
-      <span>GitHub</span>
-    </a>
-    <a href="#" class="community-link">
-      <Icon name="twitter" size="1.5em" />
-      <span>Twitter</span>
-    </a>
-  </div>
-</section> */}
+
 
 <Analytics />

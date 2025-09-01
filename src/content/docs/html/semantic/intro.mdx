@@ -1,0 +1,122 @@
+---
+title: "Semantic HTML"
+description: "Semantic HTML"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import formImage from '@/assets/html/form.png'
+import inputsImage from '@/assets/html/inputs.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ Semantic HTML အကြောင်းကို အဓိကပြောသွားမှာပါ။ Semantic HTML ဆိုတာက HTML tag တွေကို သူ့ရဲ့ content နဲ့ လိုက်ဖက်တဲ့၊ အဓိပ္ပာယ်ရှိတဲ့ tag မျိုးကို ရွေးသုံးတာကို ဆိုလိုပါတယ်။ အဓိပ္ပာယ်ရှိတဲ့ tag တွေကို သုံးခြင်းအားဖြင့် accessibility ၊ SEO  နဲ့ maintainability တွေကို ပိုကောင်းစေပါတယ်။ ဒီသင်ခန်းစာမှာ `<header>`, `<nav>`, `<section>` လိုမျိုး အရေးပါတဲ့ semantic tag တွေအကြောင်းကို လေ့လာသွားရမှာပါ။
+</Aside>
+
+
+### Semantic HTML ဆိုတာ ဘာလဲ?
+Semantic HTML ဆိုတာက ကိုယ့်ရဲ့ content တွေကို ပုံစံချဖို့အတွက်ပဲမဟုတ်ဘဲ၊ အဲ့ဒီ content ရဲ့ **အဓိပ္ပာယ်ကိုပါ ဖော်ပြပေးနိုင်တဲ့** tag တွေကို သုံးတာကို ခေါ်တာပါ။ ဒီလို tag တွေက ကိုယ့်ရဲ့ webpage ကို structure ပိုကောင်းစေပြီးတော့ browser တွေ၊ search engine တွေနဲ့ screen reader တွေက ကိုယ့် content ကို ပိုပြီးနားလည်လွယ်စေပါတယ်။
+
+> ဥပမာအနေနဲ့ အရာအားလုံးအတွက် `<div>` tag တစ်ခုတည်းကိုပဲ သုံးမယ့်အစား၊ အကြောင်းအရာရဲ့ ရည်ရွယ်ချက်ကို ဖော်ပြပေးနိုင်တဲ့ `<header>`, `<footer>`, `<article>` လိုမျိုး အဓိပ္ပာယ်ရှိတဲ့ tag တွေကို သုံးသင့်ပါတယ်။
+
+#### Semantic HTML ကို ဘာကြောင့်သုံးသင့်လဲ?
+- **သုံးစွဲရလွယ်ကူမှု (Accessibility) -** အမြင်အာရုံ ချို့ယွင်းသူတွေအတွက် screen reader တွေက content တွေကို ပိုနားလည်လွယ်အောင် ကူညီပေးပါတယ်။
+
+- **SEO ပိုကောင်းမွန်စေခြင်း -** Search Engine တွေက content ရဲ့ အကြောင်းအရာကို ပိုနားလည်တဲ့အတွက် search ranking တွေမှာ ပိုကောင်းတဲ့နေရာ ရစေပါတယ်။
+
+- **ထိန်းသိမ်းရလွယ်ကူခြင်း (Maintainability) -** Element တစ်ခုချင်းစီမှာ သူ့ရည်ရွယ်ချက်နဲ့သူ ရှင်းရှင်းလင်းလင်းရှိနေတဲ့အတွက် ကိုယ့်ရဲ့ code ကို ဖတ်ရ၊ ပြန်ပြင်ရတာ ပိုလွယ်ကူစေပါတယ်။
+
+### အသုံးများတဲ့ Semantic HTML Tag များ
+Content တွေကို အဓိပ္ပာယ်ရှိရှိ စုဖွဲ့ဖို့ သုံးသင့်တဲ့ semantic tag တစ်ချို့ကို အောက်မှာ ဖော်ပြပေးထားပါတယ်။
+
+#### 1. `<header>`
+စာမျက်နှာတစ်ခုရဲ့ အဖွင့်ပိုင်း ဒါမှမဟုတ် navigation ပိုင်းကို ကိုယ်စားပြုပါတယ်။ များသောအားဖြင့် **logo, website နာမည်၊ navigation link တွေ** ပါဝင်တတ်ပါတယ်။
+
+    **ဥပမာ:**
+
+    ```html
+    <header>
+      <h1>My Website</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    ```
+#### 2. `<nav>`
+ကိုယ့် website မှာရှိတဲ့ **navigation link တွေ (menu တွေ၊ page list တွေ)** ကို သတ်မှတ်ပေးပါတယ်။ Navigation link တွေအားလုံးကို `<nav>` tag နဲ့ စုစည်းထားတာက အကောင်းဆုံးပါပဲ။
+
+  **ဥပမာ:**
+
+  ```html
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  ```
+#### 3. `<section>`
+စာမျက်နှာတစ်ခုထဲမှာ **ဆက်စပ်မှုရှိတဲ့ content တွေကို အုပ်စုဖွဲ့ဖို့** သုံးပါတယ်။ ခေါင်းစဉ်တစ်ခုအောက်မှာ စုစည်းထားတဲ့ "အပိုင်း" တစ်ခုလိုမျိုး စဉ်းစားလို့ရပါတယ်။
+
+**ဥပမာ:**
+
+```html
+<section>
+  <h2>About Us</h2>
+  <p>This is a paragraph about our company.</p>
+</section>
+```
+
+#### 4. `<article>`
+တစ်ခြားနေရာမှာ ပြန်လည်အသုံးပြုနိုင်တဲ့ သီးခြားလွတ်လပ်တဲ့ content တွေကို ကိုယ်စားပြုပါတယ်။ `<article>` တစ်ခုချင်းစီက **blog post, သတင်း, ဒါမှမဟုတ် product အကြောင်းအရာတွေလိုမျိုး ပြီးပြည့်စုံတဲ့ content တစ်ခု** ဖြစ်သင့်ပါတယ်။
+
+**ဥပမာ:**
+
+```html
+<article>
+  <h2>Understanding HTML</h2>
+  <p>HTML is the structure of a webpage...</p>
+</article>
+```
+
+#### 5. `<footer>`
+စာမျက်နှာရဲ့ အောက်ခြေပိုင်းကို ကိုယ်စားပြုပြီး များသောအားဖြင့် **ဆက်သွယ်ရန်အချက်အလက်၊ မူပိုင်ခွင့်၊ ဒါမှမဟုတ် social media link တွေ** ထည့်လေ့ရှိပါတယ်။
+
+**ဥပမာ:**
+
+```html
+<footer>
+  <p>&copy; 2023 My Website. All rights reserved.</p>
+</footer>
+```
+#### 6. `<aside>`
+အဓိက content နဲ့ ဆက်စပ်မှုရှိပေမဲ့ အရေးအကြီးဆုံးမဟုတ်တဲ့ content တွေကို ကိုယ်စားပြုပါတယ်။ များသောအားဖြင့် **sidebar တွေ၊ ဆက်စပ် link တွေ၊ ဒါမှမဟုတ် ကြော်ငြာတွေအတွက်** သုံးပါတယ်။
+
+**ဥပမာ:**
+
+```html
+<aside>
+  <h3>Related Articles</h3>
+  <ul>
+    <li><a href="#">Article 1</a></li>
+    <li><a href="#">Article 2</a></li>
+  </ul>
+</aside>
+```
+
+#### 7. `<main>`
+စာမျက်နှာရဲ့ **အဓိက content** ကို သတ်မှတ်ပါတယ်။ စာမျက်နှာတစ်ခုမှာ `<main>` element တစ်ခုပဲ ရှိသင့်ပါတယ်။
+
+**ဥပမာ:**
+
+```html
+<main>
+  <h2>Welcome to Our Services</h2>
+  <p>We offer a range of services...</p>
+</main>
+```

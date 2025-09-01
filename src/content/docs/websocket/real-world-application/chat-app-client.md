@@ -1,6 +1,17 @@
 ---
 title: ရိုးရှင်းသော Chat Application - Client
 description: ရိုးရှင်းသော Chat Application (Socket.IO Client)
+keywords:
+  - WebSocket chat application Myanmar
+  - Socket.IO client Myanmar
+  - Real-time chat Myanmar
+  - JavaScript WebSocket Myanmar
+  - Chat app development Myanmar
+  - Socket.IO tutorial Myanmar
+  - WebSocket client code Myanmar
+  - Bidirectional communication Myanmar
+  - Real-time messaging Myanmar
+  - Socket programming Myanmar
 ---
 
 **Client နှင့် Server နှစ်ခုလုံးအတွက် Socket.IO Library ကို အသုံးပြုပါမည်။**
