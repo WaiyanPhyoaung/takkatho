@@ -1188,6 +1188,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Next Steps",
+              items: [
+                {
+                  label: "Next Steps",
+                  slug: "html/next/steps",
+                },
+              ],
+            },
           ],
         },
         // {

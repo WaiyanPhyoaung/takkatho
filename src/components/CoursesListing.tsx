@@ -60,6 +60,21 @@ type Course = {
 // Course data
 const coursesData: Course[] = [
   {
+    id: "html",
+    title: "HTML",
+    description:
+      "Web development အတွက် မရှိမဖြစ် အခြေခံ HTML ကို လွယ်လွယ်နဲ့ လေ့လာခြင်း",
+    difficulty: "beginner",
+    category: "Web Development",
+    icon: "globe",
+    href: "/html/introduction/welcome-to-html",
+    lessons: 8,
+    tags: ["HTML", "Web Basics", "Markup"],
+    estimatedTime: "2 weeks",
+    rating: 4.4,
+    students: 4200,
+  },
+  {
     id: "websocket",
     title: "WebSocket နည်းပညာ",
     description:
@@ -148,21 +163,7 @@ const coursesData: Course[] = [
     rating: 4.5,
     students: 1650,
   },
-  {
-    id: "html",
-    title: "HTML",
-    description:
-      "Web development အတွက် မရှိမဖြစ် အခြေခံ HTML ကို လွယ်လွယ်နဲ့ လေ့လာခြင်း",
-    difficulty: "beginner",
-    category: "Web Development",
-    icon: "globe",
-    href: "/html/introduction/welcome-to-html",
-    lessons: 8,
-    tags: ["HTML", "Web Basics", "Markup"],
-    estimatedTime: "2 weeks",
-    rating: 4.4,
-    students: 4200,
-  },
+  
 ];
 
 const difficultyConfig: Record<
