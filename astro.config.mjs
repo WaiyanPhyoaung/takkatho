@@ -100,6 +100,42 @@ export default defineConfig({
             content: "#111827",
           },
         },
+        {
+          tag: "meta",
+          attrs: {
+            name: "msapplication-TileColor",
+            content: "#111827",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "msapplication-config",
+            content: "/browserconfig.xml",
+          },
+        },
+        // Additional meta for rich snippets
+        {
+          tag: "meta",
+          attrs: {
+            name: "application-name",
+            content: "Takkatho",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "mobile-web-app-capable",
+            content: "yes",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "apple-mobile-web-app-title",
+            content: "Takkatho",
+          },
+        },
         // Enhanced SEO meta tags for rich search results
         {
           tag: "meta",
@@ -259,6 +295,7 @@ export default defineConfig({
               "Myanmar Programming Learning Platform - မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ",
             url: "https://takkatho.dev",
             logo: "https://takkatho.dev/android-chrome-512x512.png",
+            image: "https://takkatho.dev/og-image.png",
             sameAs: ["https://github.com/WaiyanPhyoaung/takkatho"],
             address: {
               "@type": "PostalAddress",
@@ -270,7 +307,7 @@ export default defineConfig({
             },
             teaches: [
               "Advanced TypeScript",
-              "WebSocket Technology",
+              "WebSocket Technology", 
               "Git Version Control",
               "Web Performance",
               "Software Architecture",
@@ -302,9 +339,117 @@ export default defineConfig({
               name: "Takkatho",
               url: "https://takkatho.dev",
             },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://takkatho.dev/courses?q={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+            numberOfEmployees: "1-5",
+            foundingDate: "2024",
+            keywords: "Myanmar programming, TypeScript, WebSocket, Git, Database, Software Architecture, Web Performance, မြန်မာ programming",
           }),
         },
-        // Website schema
+        // Course catalog structured data for rich snippets
+        {
+          tag: "script",
+          attrs: {
+            type: "application/ld+json",
+          },
+          content: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Programming Courses",
+            description: "Free programming courses in Myanmar language",
+            url: "https://takkatho.dev/courses",
+            numberOfItems: 7,
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                item: {
+                  "@type": "Course",
+                  name: "Advanced TypeScript",
+                  description: "Master advanced TypeScript concepts including generics, utility types, and satisfies keyword",
+                  url: "https://takkatho.dev/advanced-typescript/",
+                  provider: {
+                    "@type": "Organization",
+                    name: "Takkatho",
+                  },
+                  courseMode: "online",
+                  educationalLevel: "intermediate",
+                },
+              },
+              {
+                "@type": "ListItem", 
+                position: 2,
+                item: {
+                  "@type": "Course",
+                  name: "WebSocket Technology",
+                  description: "Learn real-time web communication with WebSocket protocol",
+                  url: "https://takkatho.dev/websocket/",
+                  provider: {
+                    "@type": "Organization",
+                    name: "Takkatho",
+                  },
+                  courseMode: "online",
+                  educationalLevel: "intermediate",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                item: {
+                  "@type": "Course",
+                  name: "Git Version Control",
+                  description: "Complete Git course from basics to advanced techniques",
+                  url: "https://takkatho.dev/git-course/",
+                  provider: {
+                    "@type": "Organization",
+                    name: "Takkatho",
+                  },
+                  courseMode: "online",
+                  educationalLevel: "beginner",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                item: {
+                  "@type": "Course",
+                  name: "Web Performance",
+                  description: "Optimize web performance with Core Web Vitals and modern techniques",
+                  url: "https://takkatho.dev/web-performance/",
+                  provider: {
+                    "@type": "Organization",
+                    name: "Takkatho",
+                  },
+                  courseMode: "online",
+                  educationalLevel: "intermediate",
+                },
+              },
+              {
+                "@type": "ListItem",
+                position: 5,
+                item: {
+                  "@type": "Course",
+                  name: "Software Architecture",
+                  description: "Learn software architecture patterns and design principles",
+                  url: "https://takkatho.dev/software-architecture/",
+                  provider: {
+                    "@type": "Organization",
+                    name: "Takkatho",
+                  },
+                  courseMode: "online",
+                  educationalLevel: "advanced",
+                },
+              },
+            ],
+          }),
+        },
+        // Website schema with sitelinks search box
         {
           tag: "script",
           attrs: {
@@ -319,19 +464,52 @@ export default defineConfig({
               "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။",
             url: "https://takkatho.dev",
             inLanguage: ["my", "en"],
-            potentialAction: {
-              "@type": "SearchAction",
-              target: {
-                "@type": "EntryPoint",
-                urlTemplate:
-                  "https://takkatho.dev/search?q={search_term_string}",
+            potentialAction: [
+              {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://takkatho.dev/courses?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
               },
-              "query-input": "required name=search_term_string",
-            },
+            ],
             publisher: {
               "@type": "Organization",
               name: "Takkatho",
               url: "https://takkatho.dev",
+              logo: "https://takkatho.dev/android-chrome-512x512.png",
+            },
+            mainEntity: {
+              "@type": "ItemList",
+              name: "Popular Programming Courses",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  url: "https://takkatho.dev/advanced-typescript/",
+                  name: "Advanced TypeScript Course",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  url: "https://takkatho.dev/websocket/",
+                  name: "WebSocket Technology Course",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  url: "https://takkatho.dev/git-course/",
+                  name: "Git Version Control Course",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 4,
+                  url: "https://takkatho.dev/web-performance/",
+                  name: "Web Performance Course",
+                },
+              ],
             },
           }),
         },

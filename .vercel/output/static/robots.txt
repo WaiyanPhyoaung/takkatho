@@ -11,6 +11,15 @@ Disallow: /api/
 Sitemap: https://takkatho.dev/sitemap-index.xml
 Sitemap: https://takkatho.dev/sitemap-0.xml
 
+# Allow crawling of favicon and icon assets
+Allow: /favicon.svg
+Allow: /favicon-*.png
+Allow: /android-chrome-*.png
+Allow: /apple-touch-icon.png
+Allow: /og-image.png
+Allow: /site.webmanifest
+Allow: /browserconfig.xml
+
 # Crawl delay for polite crawling
 Crawl-delay: 1
 
