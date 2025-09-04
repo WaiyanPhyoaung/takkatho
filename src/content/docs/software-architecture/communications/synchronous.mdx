@@ -21,7 +21,7 @@ import restvsgraphql from "@/assets/software-architecture/restvsgraphql.png"
 
 - **အဓိက သဘောတရားများ -**
 
-  1. **Resources -** အရာအားလုံးက "အရာဝတ္ထု" (resource) တစ်ခုဖြစ်ပြီး၊ သူ့မှာ သီးခြားလိပ်စာ (URL) တစ်ခုရှိပါတယ်။ ဥပမာ - /users/123 ဆိုတာ သီးသန့် user တစ်ယောက်အတွက် resource ပါ။ /orders ဆိုတာက order အားလုံးရဲ့ collection ပါ။
+  1. **Resources -** အရာအားလုံးက resource ဖြစ်ပြီး၊ သူ့မှာ သီးခြားလိပ်စာ (URL) တစ်ခုရှိပါတယ်။ ဥပမာ - /users/123 ဆိုတာ သီးသန့် user တစ်ယောက်အတွက် resource ပါ။ /orders ဆိုတာက order အားလုံးရဲ့ collection ပါ။
 
   2. **HTTP Verbs (Methods) -** ဒီ resource တွေအပေါ်မှာ အလုပ်လုပ်ဖို့အတွက် standard HTTP method တွေကို သုံးပါတယ်။
 
@@ -33,7 +33,7 @@ import restvsgraphql from "@/assets/software-architecture/restvsgraphql.png"
 
     - `DELETE`: Resource တစ်ခုကို ဖယ်ရှားဖို့ (ဥပမာ - DELETE /users/123)။
 
-  3. Statelessness (အရင် request တွေကို မှတ်မထားခြင်း): ဒါက အလွန်အရေးကြီးတဲ့ စည်းမျဉ်းတစ်ခုပါ။ Client က ပို့လိုက်တဲ့ request တစ်ခုချင်းစီမှာ server က အလုပ်လုပ်ဖို့လိုအပ်တဲ့ အချက်အလက်အားလုံး ပါဝင်ရပါမယ်။ Server က အဲဒီ client ဆီက အရင်က ပို့ခဲ့တဲ့ request တွေကို ဘာတစ်ခုမှ ပြန်မမှတ်ထားပါဘူး။
+  3. **Statelessness (အရင် request တွေကို မှတ်မထားခြင်း):** ဒါက အလွန်အရေးကြီးတဲ့ စည်းမျဉ်းတစ်ခုပါ။ Client က ပို့လိုက်တဲ့ request တစ်ခုချင်းစီမှာ server က အလုပ်လုပ်ဖို့လိုအပ်တဲ့ အချက်အလက်အားလုံး ပါဝင်ရပါမယ်။ Server က အဲဒီ client ဆီက အရင်က ပို့ခဲ့တဲ့ request တွေကို ဘာတစ်ခုမှ မမှတ်ထားပါဘူး။
 
 > **အကြွေစေ့ထည့်ပြီး ပစ္စည်းထုတ်တဲ့စက် (Vending Machine) -** REST API က Vending Machine တစ်လုံးနဲ့တူပါတယ်။ သင်က သီးခြားလိပ်စာတစ်ခု (C4) ကိုသွားတယ်၊ လုပ်ဆောင်ချက်တစ်ခုအတွက် ခလုတ် (GET) ကိုနှိပ်တယ်၊ ပြီးတော့ ပစ္စည်းကို ရတယ်။ စက်က သင်ဘယ်သူလဲ၊ အရင်တစ်ခေါက် ဘာဝယ်သွားလဲဆိုတာကို မသိပါဘူး။ အရောင်းအဝယ်တစ်ခုချင်းစီက သီးခြားလွတ်လပ်ပါတယ်။
 

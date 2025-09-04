@@ -8,29 +8,29 @@ import ContentImage from '@/components/Content-image.astro';
 import layered from '@/assets/software-architecture/layered.png'
 
 <Aside title="ရည်ရွယ်ချက်">
- Layered architecture pattern က monolithic application တစ်ခုကို မည်သို့ စနစ်တကျဖြစ်စေပြီး ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူအောင် ပြုလုပ်ပေးသည်ကို လေ့လာရန်။
+  ဒီသင်ခန်းစာပြီးသွားရင် Layered Architecture Pattern က Monolithic Application တစ်ခုကို ဘယ်လိုစနစ်တကျဖြစ်စေပြီး ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူအောင် လုပ်ပေးသလဲဆိုတာကို လေ့လာရပါမယ်။
 </Aside>
 
-### ရှုပ်ထွေးမှုများအား စနစ်တကျဖြစ်စေခြင်း
-Monolith တစ်ခုသည် လုံးဝရှုပ်ပွ မနေသင့်ပါ။ Layered Architecture (N-Tier Architecture ဟုလည်းခေါ်သည်) သည် monolith တစ်ခုအတွင်းရှိ code များကို စနစ်တကျဖြစ်စေရန် အသုံးပြုသည့် အလွန်အသုံးများသော pattern တစ်ခုဖြစ်သည်။ ၎င်းက code များကို ၎င်းတို့၏ တာဝန်အလိုက် သီးခြားအလွှာများ အဖြစ် ခွဲခြားပေးသည်။
+### ရှုပ်ထွေးမှုတွေကို စနစ်တကျဖြစ်အောင် စီစဉ်ခြင်း
+Monolith တစ်ခုက လုံးဝရှုပ်ပွနေရမယ်လို့ မဆိုလိုပါဘူး။ Layered Architecture (N-Tier Architecture လို့လည်းခေါ်တယ်) ဆိုတာ Monolith တစ်ခုအတွင်းက code တွေကို စနစ်တကျဖြစ်အောင် စီစဉ်ဖို့သုံးတဲ့ အလွန်အသုံးများတဲ့ pattern တစ်ခုပါ။ သူက code တွေကို သူတို့ရဲ့ တာဝန်အလိုက် သီးခြားအလွှာတွေ (layers) အဖြစ် ခွဲခြားပေးပါတယ်။
 
-### အလွှာများကို ရှင်းလင်းချက်
-ပုံမှန် web application တစ်ခုတွင် အဓိကအလွှာ သုံးခုရှိသည်:
+### အလွှာတွေကို ရှင်းပြခြင်း
+ပုံမှန် web application တစ်ခုမှာ အဓိကအလွှာ သုံးခုရှိပါတယ်:
 
-- **Presentation Layer (UI) -** ဤသည်မှာ အသုံးပြုသူ မြင်တွေ့ထိတွေ့ရသော အလွှာဖြစ်သည်။ ၎င်းတွင် အသုံးပြုသူ၏ browser ထဲတွင် run သော HTML, CSS, နှင့် frontend JavaScript တို့ ပါဝင်သည်။ ၎င်း၏အလုပ်မှာ data များကို ပြသရန်နှင့် user input များကို ဖမ်းယူရန်ဖြစ်သည်။
+-   **Presentation Layer (UI):** ဒါက user တွေမြင်တွေ့ထိတွေ့ရတဲ့ အလွှာပါ။ User ရဲ့ browser ထဲမှာ run တဲ့ HTML, CSS, နဲ့ frontend JavaScript တွေပါဝင်တယ်။ သူ့ရဲ့အလုပ်က data တွေကို ပြသဖို့နဲ့ user input တွေကို ဖမ်းယူဖို့ပါပဲ။
 
-- **Business Logic Layer (Application Layer) -** ဤသည်မှာ application ၏ "ဦးနှောက်" ဖြစ်သည်။ ၎င်းတွင် အဓိက business rule များ၊ logic များ၊ နှင့် workflow များ ပါဝင်သည်။ ၎င်းက UI မှလာသော user request များကို process လုပ်ခြင်း၊ ဆုံးဖြတ်ချက်ချခြင်း၊ နှင့် data layer နှင့် ချိတ်ဆက်ညှိနှိုင်းခြင်းတို့ကို ပြုလုပ်သည်။
+-   **Business Logic Layer (Application Layer):** ဒါက application ရဲ့ "ဦးနှောက်" ပါ။ အဓိက business rule တွေ၊ logic တွေ၊ workflow တွေပါဝင်တယ်။ သူက UI ကနေလာတဲ့ user request တွေကို process လုပ်တာ၊ ဆုံးဖြတ်ချက်ချတာ၊ data layer နဲ့ ချိတ်ဆက်ညှိနှိုင်းတာတွေ လုပ်ပါတယ်။
 
-- **Data Access Layer (Persistence Layer) -** ဤအလွှာ၏ တစ်ခုတည်းသောတာဝန်မှာ database နှင့် ဆက်သွယ်ရန်ဖြစ်သည်။ ၎င်းက data များကို ဖတ်ခြင်း၊ ရေးခြင်းအားလုံး (ဥပမာ - SQL query များ) ကို ကိုင်တွယ်သည်။
+-   **Data Access Layer (Persistence Layer):** ဒီအလွှာရဲ့ တစ်ခုတည်းသောတာဝန်က database နဲ့ ဆက်သွယ်ဖို့ပါပဲ။ သူက data တွေကို ဖတ်တာ၊ ရေးတာအားလုံး (ဥပမာ - SQL query တွေ) ကို ကိုင်တွယ်ပါတယ်။
 
-### The Golden Rule of Layers
-အရေးအကြီးဆုံးစည်းမျဉ်းမှာ အလွှာများသည် တစ်ခုတည်းသော ဆက်သွယ်မှုလမ်းကြောင်း ရှိသင့်သည်။ အလွှာတစ်ခုသည် ၎င်း၏ တိုက်ရိုက်အောက်ရှိ အလွှာကိုသာ စကားပြောနိုင်သည်။
+### Layer တွေရဲ့ ရွှေစည်းမျဉ်း (The Golden Rule of Layers)
+အရေးအကြီးဆုံးစည်းမျဉ်းကတော့ အလွှာတွေက တစ်လမ်းသွားဆက်သွယ်မှုပုံစံ (one-way communication) ရှိသင့်တယ်ဆိုတာပါပဲ။ အလွှာတစ်ခုက သူ့ရဲ့ တိုက်ရိုက်အောက်က အလွှာကိုပဲ စကားပြောသင့်ပါတယ်။
 
-Presentation Layer က Business Logic Layer ကို စကားပြောသည်။
-Business Logic Layer က Data Access Layer ကို စကားပြောသည်။
+-   Presentation Layer က Business Logic Layer ကို စကားပြောတယ်။
+-   Business Logic Layer က Data Access Layer ကို စကားပြောတယ်။
 
-> **အလွန်အရေးကြီးသည်မှာ Presentation Layer သည် Data Access Layer ကို တိုက်ရိုက် ဘယ်တော့မှ စကားမပြောသင့်ပါ။**
+> **အရမ်းအရေးကြီးတာက Presentation Layer က Data Access Layer ကို တိုက်ရိုက် ဘယ်တော့မှ စကားမပြောသင့်ပါဘူး။**
 
-ဤသို့ခွဲခြားထားခြင်းက code များ ရှုပ်ထွေးနေခြင်းမှ ကာကွယ်ပေးပြီး system ကို ပြင်ဆင်ထိန်းသိမ်းရန် အလွန်လွယ်ကူစေသည်။
+ဒီလိုခွဲခြားထားခြင်းက code တွေ ရှုပ်ထွေးနေတာကို ကာကွယ်ပေးပြီး system ကို ပြင်ဆင်ထိန်းသိမ်းရတာ အလွန်လွယ်ကူစေပါတယ်။
 
 <ContentImage src={layered} alt="Layered Architecture" height={300} />
