@@ -307,7 +307,7 @@ export default defineConfig({
             },
             teaches: [
               "Advanced TypeScript",
-              "WebSocket Technology", 
+              "WebSocket Technology",
               "Git Version Control",
               "Web Performance",
               "Software Architecture",
@@ -343,13 +343,15 @@ export default defineConfig({
               "@type": "SearchAction",
               target: {
                 "@type": "EntryPoint",
-                urlTemplate: "https://takkatho.dev/courses?q={search_term_string}",
+                urlTemplate:
+                  "https://takkatho.dev/courses?q={search_term_string}",
               },
               "query-input": "required name=search_term_string",
             },
             numberOfEmployees: "1-5",
             foundingDate: "2024",
-            keywords: "Myanmar programming, TypeScript, WebSocket, Git, Database, Software Architecture, Web Performance, မြန်မာ programming",
+            keywords:
+              "Myanmar programming, TypeScript, WebSocket, Git, Database, Software Architecture, Web Performance, မြန်မာ programming",
           }),
         },
         // Course catalog structured data for rich snippets
@@ -372,7 +374,8 @@ export default defineConfig({
                 item: {
                   "@type": "Course",
                   name: "Advanced TypeScript",
-                  description: "Master advanced TypeScript concepts including generics, utility types, and satisfies keyword",
+                  description:
+                    "Master advanced TypeScript concepts including generics, utility types, and satisfies keyword",
                   url: "https://takkatho.dev/advanced-typescript/",
                   provider: {
                     "@type": "Organization",
@@ -383,12 +386,13 @@ export default defineConfig({
                 },
               },
               {
-                "@type": "ListItem", 
+                "@type": "ListItem",
                 position: 2,
                 item: {
                   "@type": "Course",
                   name: "WebSocket Technology",
-                  description: "Learn real-time web communication with WebSocket protocol",
+                  description:
+                    "Learn real-time web communication with WebSocket protocol",
                   url: "https://takkatho.dev/websocket/",
                   provider: {
                     "@type": "Organization",
@@ -404,7 +408,8 @@ export default defineConfig({
                 item: {
                   "@type": "Course",
                   name: "Git Version Control",
-                  description: "Complete Git course from basics to advanced techniques",
+                  description:
+                    "Complete Git course from basics to advanced techniques",
                   url: "https://takkatho.dev/git-course/",
                   provider: {
                     "@type": "Organization",
@@ -420,7 +425,8 @@ export default defineConfig({
                 item: {
                   "@type": "Course",
                   name: "Web Performance",
-                  description: "Optimize web performance with Core Web Vitals and modern techniques",
+                  description:
+                    "Optimize web performance with Core Web Vitals and modern techniques",
                   url: "https://takkatho.dev/web-performance/",
                   provider: {
                     "@type": "Organization",
@@ -436,7 +442,8 @@ export default defineConfig({
                 item: {
                   "@type": "Course",
                   name: "Software Architecture",
-                  description: "Learn software architecture patterns and design principles",
+                  description:
+                    "Learn software architecture patterns and design principles",
                   url: "https://takkatho.dev/software-architecture/",
                   provider: {
                     "@type": "Organization",
@@ -1294,6 +1301,20 @@ export default defineConfig({
                 {
                   label: "Advanced Topics",
                   slug: "relational-database/sql/advanced-topic",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Frontend Architecture Patterns",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is Frontend Architecture?",
+                  slug: "fe-architecture/introduction/welcome",
                 },
               ],
             },

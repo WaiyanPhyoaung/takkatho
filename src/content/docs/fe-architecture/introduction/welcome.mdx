@@ -1,0 +1,100 @@
+---
+title: "Frontend Architecture Patterns"
+description: "Frontend Architecture Patterns"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro'
+import htmlSampleImg from "@/assets/html/html-sample.png";
+
+
+export const htmlSample = `<h1>Welcome to My Website</h1>
+<p>This is a paragraph of text.</p>`
+
+<Aside title='ရည်ရွယ်ချက်'> 
+ဒီ course မှာတော့ ခေတ်မီ web application တွေ တည်ဆောက်တဲ့အခါ အသုံးပြုတဲ့ အကောင်းဆုံးနည်းလမ်းတွေနဲ့ တည်ဆောက်ပုံတွေဖြစ်တဲ့ **Frontend Architecture Patterns** အကြောင်းကို လေ့လာသွားမှာပါ။
+</Aside>
+
+Frontend application တွေကို ဘယ်လိုဖွဲ့စည်းထားသလဲ၊ architecture က ဘာကြောင့်အရေးကြီးသလဲ၊ ပြီးတော့ monolithic, component-based, micro-frontends လိုမျိုး pattern တွေက development, maintainability (ထိန်းသိမ်းရလွယ်ကူမှု) နဲ့ scalability (တိုးချဲ့နိုင်မှု) အပေါ် ဘယ်လိုသက်ရောက်မှုရှိလဲဆိုတာတွေကို သင်ယူရမှာ ဖြစ်ပါတယ်။
+
+> ဒီ course ကိုတော့ UI ရဲ့နောက်ကွယ်က structure ကို နားလည်ချင်တဲ့၊ web application တွေ တည်ဆောက်တဲ့အခါ ဒါမှမဟုတ် ထိန်းသိမ်းတဲ့အခါ ပိုကောင်းတဲ့ ဆုံးဖြတ်ချက်တွေ ချတတ်စေရန် ရည်ရွယ်ထားပါတယ်။
+
+### Frontend Architecture က ဘာကြောင့် အရေးကြီးတာလဲ
+Frontend architecture ဆိုတာ အဆောက်အအုံတစ်လုံးရဲ့ **blueprint** (အဆောက်အအုံဒီဇိုင်းပုံစံ) နဲ့ တူပါတယ်။ ဗိသုကာပညာရှင်တစ်ယောက်က အိမ်မဆောက်ခင် အခန်းတွေ၊ အထပ်တွေ၊ ဆက်သွယ်မှုတွေကို ကြိုတင်စီစဉ်သလိုပဲ၊ frontend architecture ကလည်း developer တွေ web app မတည်ဆောက်ခင် folder တွေ၊ component တွေ၊ logic တွေနဲ့ asset တွေကို ကြိုတင်စီစဉ်ရာမှာ ကူညီပေးပါတယ်။
+
+#### Architecture မကောင်းရင် -
+
+- Code တွေ ထိန်းသိမ်းရခက်လာမယ်။
+
+- Feature အသစ်တွေထည့်ရတာ နှေးပြီး အမှားများလာမယ်။
+
+- Developer တွေကြား ပူးပေါင်းဆောင်ရွက်ရတာ ခက်ခဲလာမယ်။
+
+- App က နှေးကွေးပြီး တသမတ်တည်းမဖြစ်တော့ဘူး။
+
+#### Architecture ကောင်းရင်:
+
+- Code တွေက စနစ်တကျနဲ့ ဖတ်ရလွယ်ကူမယ်။
+
+- Feature တွေကို ထိထိရောက်ရောက် ထပ်ထည့်နိုင်မယ်။
+
+- Developer အများအပြား အတူတကွ အလွယ်တကူ အလုပ်လုပ်နိုင်မယ်။
+
+- App က တိုးချဲ့နိုင်ပြီး (scalable)၊ performance ကောင်းကာ တသမတ်တည်းဖြစ်မယ်။
+
+### ဒီသင်ခန်းစာမှာ ဘာတွေလေ့လာရမလဲ
+- Frontend architecture ဆိုတာ ဘာလဲ။
+
+- Frontend architecture က maintainability, scalability နဲ့ collaboration အတွက် ဘာကြောင့်အရေးကြီးသလဲ။
+
+- Pattern တွေက application တွေကို စနစ်တကျတည်ဆောက်ဖို့ developer တွေကို ဘယ်လိုလမ်းညွှန်ပေးသလဲ။
+
+- ဒီ course မှာ ပါဝင်မယ့် frontend architecture အမျိုးအစားများ အကျဉ်းချုပ်:
+
+    - Monolithic architecture
+
+    - Component-based architecture
+
+    - Micro-frontend architecture
+
+    - Server-Side Rendering (SSR)
+
+- Frontend architecture ကို နားလည်ခြင်းက ဘယ်သူတွေအတွက် အကျိုးရှိသလဲ။
+
+### လက်တွေ့ဘဝနဲ့ နှိုင်းယှဉ်ချက်
+Web application တစ်ခုကို စားသောက်ဆိုင်တစ်ဆိုင်လို သဘောထားကြည့်ပါ -
+
+| အစိတ်အပိုင်း | Web Application မှာဆိုရင် |
+|---------------|-----------------------------|
+| မီးဖိုချောင် | Application logic (JS, services) |
+| မီနူး | Components/UI |
+| စားပွဲထိုး | Routing/navigation |
+
+
+စားသောက်ဆိုင်တစ်ဆိုင်မှာ ကောင်းမွန်စွာစီစဉ်ထားတဲ့ မီးဖိုချောင်၊ အလုပ်လုပ်ပုံအဆင့်ဆင့်နဲ့ ဝန်ထမ်းတွေရဲ့တာဝန်တွေ လိုအပ်သလိုပဲ၊ web application တစ်ခုမှာလည်း ချောမွေ့ပြီး ထိရောက်စွာလည်ပတ်နိုင်ဖို့ **ခိုင်မာတဲ့ architecture တစ်ခု** လိုအပ်ပါတယ်။
+
+### Frontend Architecture မှာ Pattern တွေရဲ့ အရေးပါပုံ
+Frontend pattern တွေက လမ်းညွှန်ချက်တွေ နဲ့ တူပါတယ်။ သူတို့က web application တွေမှာ အဖြစ်များတဲ့ ပြဿနာတွေကို ဖြေရှင်းဖို့ ကူညီပေးပါတယ်။ ဥပမာ -
+
+- Component တွေကို ဘယ်လို စနစ်တကျ ဖွဲ့စည်းမလဲ။
+
+- App ရဲ့ မတူညီတဲ့ အစိတ်အပိုင်းတွေကြားမှာ state ကို ဘယ်လို share လုပ်မလဲ။
+
+- Application အကြီးကြီးတွေကို user experience မနှေးကွေးသွားအောင် ဘယ်လို load လုပ်မလဲ။
+
+- Team အကြီးကြီးတွေ ဒါမှမဟုတ် project အကြီးကြီးတွေအတွက် app ကို ဘယ်လို scale လုပ်မလဲ။
+
+- Pattern တွေမရှိရင် developer တိုင်းက app ကို ကိုယ့်နည်းကိုယ့်ဟန်နဲ့ တည်ဆောက်နိုင်ပြီး၊ အဲ့ဒါက code တွေ ရှုပ်ထွေးတာ၊ bug တွေများတာနဲ့ development နှေးကွေးတာတွေကို ဖြစ်စေနိုင်ပါတယ်။
+
+
+<Aside title="အကျဉ်းချုပ်" type="tip">
+- Frontend architecture ဆိုတာ web app တစ်ခုရဲ့ blueprint ဖြစ်ပြီး စနစ်တကျဖြစ်မှု၊ တိုးချဲ့နိုင်မှုနဲ့ ထိန်းသိမ်းရလွယ်ကူစေတယ်။
+
+- Pattern တွေက frontend development မှာ အဖြစ်များတဲ့ ပြဿနာတွေကို ဖြေရှင်းဖို့ အကောင်းဆုံးနည်းလမ်းတွေကို ပေးတယ်။
+
+- Architecture ကောင်းတစ်ခုက ထိရောက်တဲ့ ပူးပေါင်းဆောင်ရွက်မှု၊ ပိုမြန်တဲ့ development နဲ့ ပိုလွယ်တဲ့ maintenance ကို ရရှိစေတယ်။
+
+- React, Angular, Vue တို့လို Framework တွေက architecture pattern တွေကနေ အကျိုးကျေးဇူးရရှိပေမယ့် သေချာတဲ့ planning တော့ လိုအပ်နေတုန်းပါပဲ။
+
+- Monolithic, component-based, micro-frontend နဲ့ SSR လိုမျိုး သီးခြား pattern တွေကို မလေ့လာခင် architecture ဆိုတာကို နားလည်ထားဖို့က အရေးကြီးဆုံးဖြစ်တယ်။
+</Aside>

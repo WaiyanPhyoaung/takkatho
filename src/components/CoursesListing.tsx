@@ -163,7 +163,21 @@ const coursesData: Course[] = [
     rating: 4.5,
     students: 1650,
   },
-  
+  {
+    id: "frontend-architecture",
+    title: "Frontend Architecture Patterns",
+    description:
+      "Frontend application များကို စနစ်တကျ ဒီဇိုင်းဆွဲခြင်း၊ scalable နှင့် maintainable ဖြစ်အောင် တည်ဆောက်ခြင်းဆိုင်ရာ နည်းပညာများကို လေ့လာခြင်း",
+    difficulty: "intermediate",
+    category: "Web Development",
+    icon: "code",
+    href: "/fe-architecture/introduction/welcome",
+    lessons: 15,
+    tags: ["Frontend", "Architecture", "Patterns"],
+    estimatedTime: "8 weeks",
+    rating: 4.7,
+    students: 1200,
+  },
 ];
 
 const difficultyConfig: Record<
