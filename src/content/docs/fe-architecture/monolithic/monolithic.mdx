@@ -1,0 +1,58 @@
+---
+title: "Monolithic Architecture"
+description: "Monolithic Architecture"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+
+<Aside title='ရည်ရွယ်ချက်'> 
+- ဒီသင်ခန်းစာမှာတော့ Application တစ်ခုလုံး (UI, logic, assets အားလုံး) ကို project တစ်ခုတည်းမှာပဲ ထည့်သွင်းတည်ဆောက်တဲ့ Monolithic Frontend Architecture အကြောင်းကို လေ့လာသွားမှာပါ။
+
+- သူ့ရဲ့ အသုံးဝင်ပုံတွေ၊ အားသာချက်တွေ၊ အားနည်းချက်တွေနဲ့ ဘယ်လိုအချိန်တွေမှာ ပိုပြီးထိထိရောက်ရောက် scale လုပ်နိုင်မလဲ၊ စနစ်တကျဖွဲ့စည်းနိုင်မလဲဆိုတာတွေကို လေ့လာပါမယ်။ 
+
+- React နဲ့ Angular လိုမျိုး ခေတ်မီ framework တွေမှာ monolithic architecture ကို ဘယ်လိုသုံးနေကြသလဲ၊ project တစ်ခုတည်းမှာပဲ ပိုကောင်းတဲ့ modularity (ခွဲခြားထားနိုင်မှု)  ကို သုံးပြီး ဘယ်လိုတည်ဆောက်ထားလဲဆိုတာကိုလည်း ဆွေးနွေးသွားမှာပါ။
+</Aside>
+
+### Monolithic Architecture ဆိုတာ ဘာလဲ
+Monolithic Frontend Architecture ဆိုတာက web application ရဲ့ အစိတ်အပိုင်းအားလုံးကို **project တစ်ခုတည်း** ဒါမှမဟုတ် **codebase တစ်ခုတည်းမှာပဲ** စုစည်းထားတဲ့ design pattern တစ်ခုကို ဆိုလိုပါတယ်။
+
+> ဒါက အရာအားလုံးကို file တစ်ခုတည်းမှာ ရေးရမယ်လို့ ဆိုလိုတာမဟုတ်ပါဘူး။ ဒါပေမဲ့ app တစ်ခုလုံး (UI, business logic, assets အပါအဝင်) ဟာ **စုစည်းထားတဲ့ structure တစ်ခုတည်းမှာ** ရှိနေတာကို ဆိုလိုတာပါ။
+
+### ခေတ်မီ Framework များတွင် အသုံးပြုပုံ
+React, Angular, Vue တို့လို ခေတ်မီ frontend framework တွေမှာလည်း monolithic architecture ကို သုံးနေကြတာပါပဲ။ React app တွေမှာ component တွေ၊ asset တွေ၊ style တွေအတွက် folder တွေ သီးခြားခွဲထားနိုင်ပေမယ့် ဒီ file အားလုံးက codebase တစ်ခုတည်းရဲ့ အစိတ်အပိုင်းတွေပါပဲ။
+
+**အဓိကအချက်ကတော့ app ကို component လေးတွေ module လေးတွေအဖြစ် ခွဲထားရင်တောင်မှ ဒါဟာ project တစ်ခုတည်းပဲ ဖြစ်နေတာပါပဲ။**
+
+### Monolithic Frontend Architecture ရဲ့ တည်ဆောက်ပုံ
+Monolithic architecture မှာလည်း folder တွေကို စနစ်တကျ ဖွဲ့စည်းတည်ဆောက်ထားနိုင်ပါတယ်။ ဥပမာ -
+
+```
+/website
+  /public              <-- Static assets (images, fonts)
+  /src
+    /components        <-- Reusable components (buttons, form fields)
+    /styles            <-- Global styles or theme settings
+    /services          <-- Business logic (API calls, authentication)
+    /App.js            <-- Root component or main logic
+  index.html           <-- Main HTML page
+  package.json         <-- Project dependencies and scripts
+```
+Component တွေ service တွေ style တွေလိုမျိုး modularity အတွက် folder တွေ အများကြီးခွဲထားပေမဲ့ အရာအားလုံးက project တစ်ခုတည်းရဲ့ အစိတ်အပိုင်းဖြစ်နေတဲ့အတွက် ဒါကို monolithic app လို့ပဲ ခေါ်ပါတယ်။
+
+### Monolithic Architecture ကို ဘယ်အချိန်မှာ သုံးသင့်သလဲ
+Monolithic architecture က အောက်ပါအခြေအနေတွေမှာ အသင့်တော်ဆုံး ဖြစ်ပါတယ်:
+
+- Application က အသေးစား ဒါမှမဟုတ် အလတ်စားဖြစ်ပြီး team က သေးငယ်တဲ့အခါ။
+
+- App ကို server တွေ platform တွေ အများကြီးပေါ်မှာ ဖြန့်ကျက်ဖို့ ဒါမှမဟုတ် scale လုပ်ဖို့ အစီအစဉ်မရှိတဲ့အခါ။
+
+- Application က အနာဂတ်မှာ အလွန်ရှုပ်ထွေးတဲ့ system ကြီးတစ်ခု ဖြစ်လာဖို့ မမျှော်မှန်းထားတဲ့အခါ။
+
+### အသုံးပြုနိုင်တဲ့ နေရာများ ဥပမာ -
+- လုပ်ငန်း ငယ်/အလယ်အလတ် များအတွက် website များ။
+
+- ကိုယ်ပိုင် portfolio သို့မဟုတ် blog များ။
+
+- ရိုးရှင်းသော landing pages websites များ။
+
+- ရှုပ်ထွေးသော scaling များ မလိုအပ်သည့် dashboard app များ။

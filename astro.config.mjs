@@ -1318,6 +1318,23 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Monolithic Architecture",
+              items: [
+                {
+                  label: "What is Monolithic Architecture?",
+                  slug: "fe-architecture/monolithic/monolithic",
+                },
+                {
+                  label: "Advantages & Disadvantages",
+                  slug: "fe-architecture/monolithic/advantages",
+                },
+                {
+                  label: "Monolithic in Modern Frameworks",
+                  slug: "fe-architecture/monolithic/modern",
+                },
+              ],
+            },
           ],
         },
 

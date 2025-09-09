@@ -1,0 +1,41 @@
+---
+title: "ခေတ်မီ Framework များတွင် Monolithic Architecture အသုံးပြုပုံ"
+description: "ခေတ်မီ Framework များတွင် Monolithic Architecture အသုံးပြုပုံ"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+
+React, Angular, Vue တို့က သင့် app ကို component တွေသုံးပြီး modular ပုံစံနဲ့ တည်ဆောက်ခွင့်ပေးပေမယ့်၊ codebase ကို project အများကြီးအဖြစ် ခွဲမထားတဲ့အတွက် ဒီ application တွေက monolithic application တွေပါပဲ။
+
+- ##### React:
+  App logic ကို project တစ်ခုတည်းအတွင်းမှာ component တွေအဖြစ် ခွဲခြားထားပါတယ်။ project က components, assets, services စတဲ့ folder တွေအများကြီးနဲ့ ကြီးမားလာနိုင်ပေမယ့် အရာအားလုံးက project structure တစ်ခုတည်းရဲ့ အစိတ်အပိုင်းတွေပါပဲ။
+
+- ##### Angular:
+  Angular က module system ကို သုံးပေမယ့် အရာအားလုံးက project တစ်ခုတည်းမှာပဲ ရှိပါတယ်။ App တစ်ခုတည်းမှာ feature တွေကို ခွဲခြားဖို့ Angular module တွေကို သုံးပါတယ်။
+
+- ##### Vue:
+  React နဲ့ဆင်တူပြီး Vue က component-based architecture ကို အသုံးပြုနိုင်ပေမယ့် app က codebase တစ်ခုတည်းရဲ့ အစိတ်အပိုင်း ဖြစ်နေတုန်းပါပဲ။
+
+### Monolithic Architecture ကို ဘယ်အချိန်မှာ မသုံးသင့်ဘူးလဲ
+Monolithic architecture က အောက်ပါတို့အတွက် မသင့်တော်ပါဘူး:
+
+- အရမ်းရှုပ်ထွေးတဲ့ feature တွေ၊ လိုအပ်ချက်တွေပါတဲ့ အကြီးစား application တွေ။
+
+- Team အများအပြားက မကြာခဏ update လုပ်ဖို့လိုတဲ့ Project တွေ။
+
+- E-commerce platform အကြီးကြီးတွေ ဒါမှမဟုတ် enterprise-level app တွေလိုမျိုး သီးခြားစီ scale လုပ်နိုင်ဖို့ လိုအပ်တဲ့ Application တွေ။
+
+- ဒီလို project မျိုးတွေအတွက်တော့ Micro-Frontends ဒါမှမဟုတ် Modular Design လို architecture မျိုးတွေက ပိုပြီး သင့်တော်ပါတယ်။
+
+
+<Aside title="အနှစ်ချုပ်" type='tip'>
+- Monolithic frontend architecture ဆိုတာ folder တွေခွဲပြီး စုစည်းထားရင်တောင် အရာအားလုံးက project တစ်ခုတည်းမှာ ရှိနေတာကို ဆိုလိုတယ်။
+
+- **အားသာချက်များ -** ရိုးရှင်းမှု၊ development မြန်ဆန်မှု၊ application အသေးစားတွေအတွက် debugging လွယ်ကူမှု။
+
+- **အားနည်းချက်များ -** app ကြီးထွားလာတဲ့အခါ scaling ပြဿနာများ၊ tight coupling နှင့် ပြောင်းလွယ်ပြင်လွယ်မရှိခြင်း။
+
+- React, Angular, Vue တို့လို ခေတ်မီ framework တွေက monolithic အခြေခံကို သုံးနေပေမယ့် component တွေနဲ့ file တွေကို ပိုကောင်းအောင် စုစည်းထားနိုင်တယ်။
+
+- **ဘယ်အချိန်မှာမသုံးသင့်ဘူးလဲ -** ရှုပ်ထွေးပြီးလိုအပ်ချက်များတဲ့ အကြီးစား application တွေ ဒါမှမဟုတ် team အများအပြားနဲ့ update လုပ်ရတဲ့ project တွေအတွက် မသင့်တော်ပါဘူး။
+</Aside>
