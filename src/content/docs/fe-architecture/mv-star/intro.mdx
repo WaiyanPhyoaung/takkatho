@@ -1,0 +1,42 @@
+---
+title: "MV* Architecture Patterns"
+description: "MVC, MVVM, and MVP Patterns"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ရည်ရွယ်ချက်">
+  ဒီသင်ခန်းစာမှာတော့ Frontend Development မှာသုံးတဲ့ MV* (MVC, MVVM, MVP) architecture patterns တွေအကြောင်း လေ့လာရမှာပါ။ ဒီ pattern တွေက code တွေကို အလွှာတွေခွဲခြားပြီး ရေးသားစေတဲ့အတွက် ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူပြီး၊ တိုးချဲ့ရလွယ်ကူတဲ့၊ test လုပ်ရလွယ်ကူတဲ့ application တွေ တည်ဆောက်နိုင်အောင် ကူညီပေးပါလိမ့်မယ်။
+</Aside>
+
+### MV* Architecture ဆိုတာဘာလဲ။
+
+MV* ဆိုတာက data (အချက်အလက်)၊ UI (မြင်တွေ့ရတဲ့အပိုင်း) နဲ့ control logic (ထိန်းချုပ်တဲ့အပိုင်း) တွေကို သီးခြားအလွှာတွေအဖြစ် ခွဲထုတ်ပေးတဲ့ architecture patterns အုပ်စုတစ်ခုဖြစ်ပါတယ်။ ဒီလိုခွဲလိုက်ခြင်းရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ application တွေကို အစိတ်အပိုင်းလေးတွေနဲ့ တည်ဆောက်ထားသလိုဖြစ်အောင်၊ ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူအောင်နဲ့ test လုပ်ရလွယ်ကူအောင် ပြုလုပ်ဖို့ပါပဲ။
+
+---
+
+### MVC (Model-View-Controller)
+
+MVC မှာ အဓိက အစိတ်အပိုင်း ၃ ခု ပါဝင်ပါတယ်။
+
+-   **Model:** App ရဲ့ data နဲ့ business logic တွေကို ကိုင်တွယ်တယ်။
+-   **View:** User မြင်တွေ့ရတဲ့ UI အပိုင်း။
+-   **Controller:** User input တွေကို လက်ခံပြီး Model ကို update လုပ်ပေးတယ်။
+
+**အလုပ်လုပ်ပုံ:** User က View မှာ action တစ်ခုလုပ်လိုက်ရင် Controller က Model ကိုပြောင်းလဲစေပြီး၊ Model က View ကို အသစ်ပြန်ဆွဲဖို့ အချက်ပြပါတယ်။
+
+**ဥပမာ Framework:** Backbone.js
+
+---
+
+### MVVM (Model-View-ViewModel)
+
+MVVM မှာလည်း အဓိက အစိတ်အပိုင်း ၃ ခု ပါဝင်ပါတယ်။
+
+-   **Model:** Data နဲ့ business logic တွေကို သိမ်းဆည်းတယ်။
+-   **View:** User မြင်တွေ့ရတဲ့ UI အပိုင်း။
+-   **ViewModel:** Model နဲ့ View ကြားမှာ ကြားခံအနေနဲ့ အလုပ်လုပ်ပြီး data တွေကို UI မှာ အလိုအလျောက် ချိတ်ဆက်ပေး (binding) ပါတယ်။
+
+**အဓိကအချက်:** **Two-way binding** ကြောင့် View နဲ့ Model ကြားက data တွေ အလိုအလျောက် sync ဖြစ်နေပါတယ်။
+
+**ဥပမာ Framework များ:** Angular, Vue

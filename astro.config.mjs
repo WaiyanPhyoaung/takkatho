@@ -1335,6 +1335,45 @@ export default defineConfig({
                 },
               ],
             },
+
+            {
+              label: "Component-Based Architecture",
+              items: [
+                {
+                  label: "Component-Based Architecture",
+                  slug: "fe-architecture/component/component-based",
+                },
+                {
+                  label: "Advantages & Disadvantages",
+                  slug: "fe-architecture/component/advantages",
+                },
+              ],
+            },
+            {
+              label: "MV* Architecture (MVC, MVVM, MVP)",
+              items: [
+                {
+                  label: "Introduction to MV*",
+                  slug: "fe-architecture/mv-star/intro",
+                },
+                {
+                  label: "MVC (Model-View-Controller)",
+                  slug: "fe-architecture/mv-star/mvc",
+                },
+                {
+                  label: "MVVM (Model-View-ViewModel)",
+                  slug: "fe-architecture/mv-star/mvvm",
+                },
+                {
+                  label: "MVP (Model-View-Presenter)",
+                  slug: "fe-architecture/mv-star/mvp",
+                },
+                {
+                  label: "Summary & Comparison",
+                  slug: "fe-architecture/mv-star/summary",
+                },
+              ],
+            },
           ],
         },
 
