@@ -1,42 +1,62 @@
 ---
-title: "MV* Architecture Patterns"
+title: "MV* Architecture Patterns (MVC, MVVM, MVP) "
 description: "MVC, MVVM, and MVP Patterns"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import mvc from '@/assets/frontend-architecture/mvc.png'
 
 <Aside title="ရည်ရွယ်ချက်">
-  ဒီသင်ခန်းစာမှာတော့ Frontend Development မှာသုံးတဲ့ MV* (MVC, MVVM, MVP) architecture patterns တွေအကြောင်း လေ့လာရမှာပါ။ ဒီ pattern တွေက code တွေကို အလွှာတွေခွဲခြားပြီး ရေးသားစေတဲ့အတွက် ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူပြီး၊ တိုးချဲ့ရလွယ်ကူတဲ့၊ test လုပ်ရလွယ်ကူတဲ့ application တွေ တည်ဆောက်နိုင်အောင် ကူညီပေးပါလိမ့်မယ်။
+  ဒီသင်ခန်းစာမှာတော့ Frontend Development မှာသုံးတဲ့ **MVC, MVVM, MVP architecture patterns** တွေအကြောင်း လေ့လာရမှာပါ။ ဒီ pattern တွေက code တွေကို အလွှာတွေခွဲခြားပြီး ရေးသားတဲ့အတွက် ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူခြင်း၊ တိုးချဲ့ရလွယ်ကူခြင်း၊ test လုပ်ရလွယ်ကူခြင်း စသည့် အကျိုးကျေးဇူးတွေ ရရှိနိုင်ပါတယ်။ 
 </Aside>
 
-### MV* Architecture ဆိုတာဘာလဲ။
+### ဒီသင်ခန်းစာမှာ ဘာတွေလေ့လာရမလဲ
+- MVC, MVVM, MVP pattern တွေဆိုတာ ဘာလဲ။
+- Model, View နဲ့ Controller/Presenter/ViewModel တို့ရဲ့ အခန်းကဏ္ဍ။
+- ဒီ pattern တွေက UI, logic နဲ့ data ကို ဘယ်လို ခွဲထုတ်ပေးသလဲ။
+- ဒီ pattern တွေကို သုံးထားတဲ့ framework ဥပမာတွေ (Angular, React)။
+- လက်တွေ့ project တွေမှာ ဘယ် pattern ကို ဘယ်အချိန်မှာ သုံးသင့်သလဲ။
 
-MV* ဆိုတာက data (အချက်အလက်)၊ UI (မြင်တွေ့ရတဲ့အပိုင်း) နဲ့ control logic (ထိန်းချုပ်တဲ့အပိုင်း) တွေကို သီးခြားအလွှာတွေအဖြစ် ခွဲထုတ်ပေးတဲ့ architecture patterns အုပ်စုတစ်ခုဖြစ်ပါတယ်။ ဒီလိုခွဲလိုက်ခြင်းရဲ့ အဓိကရည်ရွယ်ချက်ကတော့ application တွေကို အစိတ်အပိုင်းလေးတွေနဲ့ တည်ဆောက်ထားသလိုဖြစ်အောင်၊ ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူအောင်နဲ့ test လုပ်ရလွယ်ကူအောင် ပြုလုပ်ဖို့ပါပဲ။
+### MV Architecture ဆိုတာ ဘာလဲ။
+ဒီ Architecture က application တစ်ခုရဲ့ **data** (အချက်အလက်), **UI** (မြင်တွေ့ရတဲ့အပိုင်း), နဲ့ **control logic** (ထိန်းချုပ်တဲ့အပိုင်း) တွေကို သီးခြား layer တွေအဖြစ် ခွဲထုတ်ပေးတဲ့ architecture pattern အုပ်စုတစ်ခု ဖြစ်ပါတယ်။
+
+အဓိက ရည်ရွယ်ချက်ကတော့ application ကို အစိတ်အပိုင်းလေးတွေနဲ့ ဖွဲ့စည်းတည်ဆောက်ဖို့၊ ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူစေဖို့နဲ့ စမ်းသပ်ရလွယ်ကူစေဖို့ ဖြစ်ပါတယ်။
 
 ---
+
+<Aside >
+  တစ်ခုရှိတာက ဒီ Pattern တွေက အတိအကျ ဖြစ်စရာ မလိုပါဘူး။ အနည်းငယ် အပြောင်းအလဲ ရှိနိုင်ပါတယ်။ အလွှာလေးတွေခွဲပြီး ရေးသားတဲ့ အခြေခံသဘောတရားကို နားလည်ရင် ရပါပြီ။
+</Aside>
 
 ### MVC (Model-View-Controller)
+  - **Model:** Application ရဲ့ **data နဲ့ business logic** တွေ ရှိတဲ့နေရာ။
+  - **View:** User မြင်တွေ့ရပြီး **အပြန်အလှန်သုံးစွဲရတဲ့** UI အပိုင်း။
+  - **Controller:** User ရဲ့ input တွေကို လက်ခံပြီး Model သို့မဟုတ် တခါတလေ တိုက်ရိုက် View ကို **update လုပ်ပေးတဲ့** အပိုင်း။
 
-MVC မှာ အဓိက အစိတ်အပိုင်း ၃ ခု ပါဝင်ပါတယ်။
+  #### MVC ရဲ့ အလုပ်လုပ်ပုံ
+    1. User က View မှာ တစ်ခုခုလုပ်လိုက်တယ်။
+    2. Controller က အဲ့ဒီ input ကို နားလည်ပြီး Model ကို update လုပ်တယ်။
+    3. Model က View ကို UI update လုပ်ဖို့ အကြောင်းကြားတယ်။
 
--   **Model:** App ရဲ့ data နဲ့ business logic တွေကို ကိုင်တွယ်တယ်။
--   **View:** User မြင်တွေ့ရတဲ့ UI အပိုင်း။
--   **Controller:** User input တွေကို လက်ခံပြီး Model ကို update လုပ်ပေးတယ်။
+    > တချို့ MVC တွေမှာတော့ model က controller ကိုပဲ data ပြန်ပို့ပြီး controller က View ကို data ပေးပြီး UI ကို update လုပ်စေပါတယ်။
 
-**အလုပ်လုပ်ပုံ:** User က View မှာ action တစ်ခုလုပ်လိုက်ရင် Controller က Model ကိုပြောင်းလဲစေပြီး၊ Model က View ကို အသစ်ပြန်ဆွဲဖို့ အချက်ပြပါတယ်။
+**ဥပမာ Frameworks:** Backbone.js
 
-**ဥပမာ Framework:** Backbone.js
-
----
+<ContentImage src={mvc} alt="MVC diagram" />
 
 ### MVVM (Model-View-ViewModel)
+  - **Model:** Data နဲ့ business logic တွေကို သိမ်းထားတဲ့နေရာ။
+  - **View:** User မြင်တွေ့ရတဲ့ UI အပိုင်း။
+  - **ViewModel:** Model နဲ့ View ကို ချိတ်ဆက်ပေးတယ်။ Data တွေကို UI မှာ အလိုအလျောက် ချိတ်ဆက်ပြသပေးတယ် (binding)။
 
-MVVM မှာလည်း အဓိက အစိတ်အပိုင်း ၃ ခု ပါဝင်ပါတယ်။
+**အဓိက အချက် -** Two-way binding ပါ။ View မှာဖြစ်တဲ့ အပြောင်းအလဲက Model ကို အလိုအလျောက် update လုပ်သလို၊ Model မှာဖြစ်တဲ့ အပြောင်းအလဲကလည်း View ကို အလိုအလျောက် update လုပ်ပေးပါတယ်။
 
--   **Model:** Data နဲ့ business logic တွေကို သိမ်းဆည်းတယ်။
--   **View:** User မြင်တွေ့ရတဲ့ UI အပိုင်း။
--   **ViewModel:** Model နဲ့ View ကြားမှာ ကြားခံအနေနဲ့ အလုပ်လုပ်ပြီး data တွေကို UI မှာ အလိုအလျောက် ချိတ်ဆက်ပေး (binding) ပါတယ်။
+**ဥပမာ Frameworks:** Angular, Vue
 
-**အဓိကအချက်:** **Two-way binding** ကြောင့် View နဲ့ Model ကြားက data တွေ အလိုအလျောက် sync ဖြစ်နေပါတယ်။
+### MVP (Model-View-Presenter)
+  - **Model:** Data နဲ့ business logic တွေ ရှိတဲ့နေရာ။
+  - **View:** User ကို ပြသထားတဲ့ UI အပိုင်း။
+  - **Presenter:** User interaction အားလုံးကို ကိုင်တွယ်ပြီး View နဲ့ Model နှစ်ခုလုံးကို update လုပ်ပေးတယ်။
 
-**ဥပမာ Framework များ:** Angular, Vue
+**MVC နဲ့ ဘာကွာလဲဆိုတော့** Presenter က View နဲ့ တိုက်ရိုက်ချိတ်ဆက်ပြီး UI update တွေကို ပိုပြီး ထိန်းချုပ်နိုင်စွမ်း ရှိပါတယ်။ MVC မှာတော့ Controller က Model ကိုပဲ အဓိကထား update လုပ်ပါတယ်။

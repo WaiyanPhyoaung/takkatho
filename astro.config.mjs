@@ -1357,20 +1357,8 @@ export default defineConfig({
                   slug: "fe-architecture/mv-star/intro",
                 },
                 {
-                  label: "MVC (Model-View-Controller)",
-                  slug: "fe-architecture/mv-star/mvc",
-                },
-                {
-                  label: "MVVM (Model-View-ViewModel)",
-                  slug: "fe-architecture/mv-star/mvvm",
-                },
-                {
-                  label: "MVP (Model-View-Presenter)",
-                  slug: "fe-architecture/mv-star/mvp",
-                },
-                {
-                  label: "Summary & Comparison",
-                  slug: "fe-architecture/mv-star/summary",
+                  label: "Comparison",
+                  slug: "fe-architecture/mv-star/patterns-comparison",
                 },
               ],
             },
