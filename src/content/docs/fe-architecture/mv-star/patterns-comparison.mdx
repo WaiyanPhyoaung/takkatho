@@ -5,33 +5,33 @@ description: MVP (Model-View-Presenter) နဲ့ MVVM (Model-View-ViewModel) �
 
 import { Aside } from '@astrojs/starlight/components';
 
-## MVP (Model-View-Presenter)
 
-MVP Pattern မှာတော့ View ဟာ User Interface (UI) နဲ့ User တွေရဲ့ Actions တွေကိုပဲ တာဝန်ယူပါတယ်။ UI မှာ ဘာတွေပြရမလဲ၊ User က ဘာလုပ်လိုက်လဲဆိုတာကို Presenter ကို အကြောင်းကြားပေးပါတယ်။
+### Pattern များကြား အဓိကကွာခြားချက်များ
 
-Presenter ကတော့ View ကနေရလာတဲ့ User Actions တွေပေါ်မူတည်ပြီး Model ကိုခိုင်းစေကာ Data တွေတောင်းပါတယ်။ ရလာတဲ့ Data တွေကို UI မှာပြသနိုင်အောင် ပြင်ဆင်ပြီး View ကိုပြန်ပေးပါတယ်။ View နဲ့ Model ကြားမှာကြားခံအနေနဲ့ရှိနေပြီး Business Logic တွေကိုကိုင်တွယ်ဖြေရှင်းပေးပါတယ်။
+| Pattern | Logic | Data ချိတ်ဆက်ပုံ | အသုံးပြုရန် သင့်တော်သည့်နေရာ |
+|---|---|---|---|
+| MVC | Controller | Manual | UI သိပ်မရှုပ်ထွေးတဲ့ app အသေးများ |
+| MVVM | ViewModel | Automatic | Dynamic UI နှင့် two-way binding လိုအပ်သော app များ |
+| MVP | Presenter | Manual | UI ကို တိုက်ရိုက်ထိန်းချုပ်လိုသော app များ |
 
-Model ကတော့ Application ရဲ့ Data နဲ့ Business Logic အပိုင်းကိုကိုင်တွယ်ပါတယ်။ Data တွေကို သိမ်းဆည်းခြင်း၊ ပြင်ဆင်ခြင်း၊ ဖတ်ခြင်းစတဲ့အလုပ်တွေကိုလုပ်ဆောင်ပါတယ်။
 
-<Aside type="note">
-MVP မှာ View နဲ့ Presenter ဟာ တစ်ခုနဲ့တစ်ခု တိုက်ရိုက်ချိတ်ဆက်ထားပြီး၊ Presenter က View ကို Update လုပ်ပေးပါတယ်။
-</Aside>
+### Frontend မှာ MV Pattern တွေကို ဘာကြောင့်သုံးသင့်လဲ
+- **တာဝန်ခွဲဝေနိုင်ခြင်း -** UI, data နဲ့ logic ကို သီးခြားစီခွဲထားနိုင်တယ်။
 
-## နှိုင်းယှဉ်ချက်
+- **ထိန်းသိမ်းရလွယ်ကူခြင်း -** App တစ်ခုလုံးကို မထိခိုက်စေဘဲ အစိတ်အပိုင်းတွေကို ပြင်ဆင်ရ၊ အစားထိုးရ လွယ်ကူတယ်။
 
-| Feature | MVP (Model-View-Presenter) | MVVM (Model-View-ViewModel) |
-| :--- | :--- | :--- |
-| **View** | Passive View။ User Actions တွေကို Presenter ကိုလက်ဆင့်ကမ်းပေးတယ်။ | Active View။ Data Binding ကနေတစ်ဆင့် ViewModel နဲ့ချိတ်ဆက်ထားတယ်။ |
-| **ချိတ်ဆက်ပုံ** | View နဲ့ Presenter က Interface ကနေတစ်ဆင့် တိုက်ရိုက်ချိတ်ဆက်ထားတယ်။ | View နဲ့ ViewModel က Data Binding နဲ့ Commands တွေကနေတစ်ဆင့် ချိတ်ဆက်ထားတယ်။ |
-| **Testability** | Presenter ကို Test လုပ်ရတာလွယ်ကူတယ်။ View ကို Mock လုပ်ဖို့လိုတယ်။ | ViewModel ကို Test လုပ်ရတာလွယ်ကူတယ်။ View ကို Test လုပ်စရာမလိုဘူး။ |
-| **Coupling** | View နဲ့ Presenter ကြားမှာ Coupling ရှိတယ်။ | View နဲ့ ViewModel ကြားမှာ Decoupled ဖြစ်တယ်။ |
+- **Test လုပ်ရလွယ်ကူခြင်း -** Layer တစ်ခုချင်းစီကို သီးခြားစီ test လုပ်နိုင်တယ်။
 
-## ဘယ် Pattern ကို ဘယ်အချိန်သုံးမလဲ
+- **တိုးချဲ့ရလွယ်ကူခြင်း -** Application အကြီးကြီးတွေကို ထိထိရောက်ရောက် စုဖွဲ့နိုင်တယ်။
 
-- **MVP** ကို View နဲ့ Business Logic ကို တိတိကျကျခွဲခြားချင်တဲ့အချိန်၊ Testability ကိုအလေးထားတဲ့အချိန်တွေမှာ သုံးနိုင်ပါတယ်။ View ကိုအလွယ်တကူ Mock လုပ်နိုင်တဲ့အတွက် Unit Test တွေရေးရတာလွယ်ကူစေပါတယ်။
+<Aside title="အနှစ်ချုပ်">
+- MV* pattern တွေက data, UI နဲ့ control logic ကို ခွဲခြားပေးတဲ့အတွက် ထိန်းသိမ်းရ တိုးချဲ့ရလွယ်ကူစေတယ်။
 
-- **MVVM** ကိုတော့ Data Binding ပါတဲ့ Framework တွေ (ဥပမာ - WPF, Angular, Vue, React) နဲ့အလုပ်လုပ်တဲ့အခါ၊ View နဲ့ Business Logic ကို Decouple လုပ်ချင်တဲ့အခါတွေမှာ သုံးနိုင်ပါတယ်။ Code တွေကို ပိုပြီးရှင်းလင်းအောင်၊ Maintain လုပ်ရလွယ်အောင် ကူညီပေးပါတယ်။
+- **MVC:** Controller က Model ကို update လုပ်ပြီး View က Model ကို စောင့်ကြည့်တယ်။ ရိုးရှင်းတဲ့ app တွေအတွက် ကောင်းတယ်။
 
-<Aside type="tip">
-သင့် Project ရဲ့လိုအပ်ချက်၊ သုံးမယ့် Framework နဲ့ Team ရဲ့ Skill Set တွေပေါ်မူတည်ပြီး သင့်တော်တဲ့ Pattern ကိုရွေးချယ်အသုံးပြုနိုင်ပါတယ်။
+- **MVVM:** ViewModel က data တွေကို UI နဲ့ အလိုအလျောက် ချိတ်ဆက်ပေးတယ်။ Dynamic ဖြစ်ပြီး interactive ဖြစ်တဲ့ UI တွေအတွက် အကောင်းဆုံးပဲ။
+
+- **MVP:** Presenter က View နဲ့ Model နှစ်ခုလုံးကို စီမံခန့်ခွဲပြီး UI update တွေကို ပိုပြီးထိန်းချုပ်နိုင်တယ်။
+
+- MV* pattern တွေကို သုံးခြင်းက အထူးသဖြင့် frontend project အကြီးကြီးတွေမှာ app တွေကို test လုပ်ရ၊ ထိန်းသိမ်းရ၊ တိုးချဲ့ရ ပိုလွယ်ကူစေတယ်။
 </Aside>

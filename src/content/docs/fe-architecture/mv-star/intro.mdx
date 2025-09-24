@@ -6,6 +6,8 @@ description: "MVC, MVVM, and MVP Patterns"
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import mvc from '@/assets/frontend-architecture/mvc.png'
+import mvvm from '@/assets/frontend-architecture/mvvm.png'
+import mvp from '@/assets/frontend-architecture/mvp.png'
 
 <Aside title="ရည်ရွယ်ချက်">
   ဒီသင်ခန်းစာမှာတော့ Frontend Development မှာသုံးတဲ့ **MVC, MVVM, MVP architecture patterns** တွေအကြောင်း လေ့လာရမှာပါ။ ဒီ pattern တွေက code တွေကို အလွှာတွေခွဲခြားပြီး ရေးသားတဲ့အတွက် ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူခြင်း၊ တိုးချဲ့ရလွယ်ကူခြင်း၊ test လုပ်ရလွယ်ကူခြင်း စသည့် အကျိုးကျေးဇူးတွေ ရရှိနိုင်ပါတယ်။ 
@@ -54,9 +56,13 @@ import mvc from '@/assets/frontend-architecture/mvc.png'
 
 **ဥပမာ Frameworks:** Angular, Vue
 
+<ContentImage src={mvvm} alt="MVVM diagram" />
+
 ### MVP (Model-View-Presenter)
   - **Model:** Data နဲ့ business logic တွေ ရှိတဲ့နေရာ။
   - **View:** User ကို ပြသထားတဲ့ UI အပိုင်း။
   - **Presenter:** User interaction အားလုံးကို ကိုင်တွယ်ပြီး View နဲ့ Model နှစ်ခုလုံးကို update လုပ်ပေးတယ်။
 
 **MVC နဲ့ ဘာကွာလဲဆိုတော့** Presenter က View နဲ့ တိုက်ရိုက်ချိတ်ဆက်ပြီး UI update တွေကို ပိုပြီး ထိန်းချုပ်နိုင်စွမ်း ရှိပါတယ်။ MVC မှာတော့ Controller က Model ကိုပဲ အဓိကထား update လုပ်ပါတယ်။
+
+<ContentImage src={mvp} alt="MVP diagram" />
