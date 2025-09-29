@@ -1362,6 +1362,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Flux/Redux Architecture",
+              items: [
+                {
+                  label: "Flux Architecture",
+                  slug: "fe-architecture/redux/flux",
+                },
+                {
+                  label: "Benefits",
+                  slug: "fe-architecture/redux/benefits",
+                },
+              ],
+            },
           ],
         },
 
