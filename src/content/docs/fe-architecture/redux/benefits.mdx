@@ -1,146 +1,36 @@
 ---
-title: "MV* Architecture Patterns (MVC, MVVM, MVP) "
-description: "MVC, MVVM, and MVP Patterns"
+title: "Flux/Redux ရဲ့ အကျိိုးကျေးဇူးများ"
+description: "Flux/Redux ရဲ့ အကျိိုးကျေးဇူးများ"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
-import mvc from '@/assets/frontend-architecture/mvc.png'
-import mvvm from '@/assets/frontend-architecture/mvvm.png'
-import mvp from '@/assets/frontend-architecture/mvp.png'
+import flux from '@/assets/frontend-architecture/flux.png'
 
-export const sliceExample = `import { createSlice } from '@reduxjs/toolkit';
+<ContentImage src={flux} alt="Flux Architecture" />
 
- const productsSlice = createSlice({
-  name: 'products',
-  initialState: [],
-  reducers: {
-    addProduct: (state, action) => {
-      // Immer library ပါဝင်တဲ့အတွက် state ကို တိုက်ရိုက်ပြင်နိုင်
-      state.push(action.payload);
-    },
-    removeProduct: (state, action) => {
-      return state.filter(product => product.id !== action.payload.id);
-    }
-  }
-});
+---
+<br/>
 
-// Action creators တွေကို အလိုအလျောက် generate လုပ်ပေးပြီးသား
-export const { addProduct, removeProduct } = productsSlice.actions;
+- **ကြိုတင်ခန့်မှန်းနိုင်သော State (Predictable state) -** Data flow က **unidirectional** ဖြစ်တဲ့အတွက် app ရဲ့ state က အမြဲတမ်း ကြိုတင်ခန့်မှန်းနိုင်ပါတယ်။
 
-// Reducer ကို store မှာ သုံးဖို့ export လုပ်
-export default productsSlice.reducer;
-`
+- **Debugging ပိုမိုလွယ်ကူခြင်း -** Redux DevTools လိုမျိုး tool တွေသုံးပြီး state အပြောင်းအလဲတွေကို အလွယ်တကူ ခြေရာခံနိုင်ပါတယ်။
 
-<Aside title="ရည်ရွယ်ချက်">
-ဒီသင်ခန်းစာမှာတော့ frontend development မှာ လူကြိုက်များတဲ့ state management pattern နှစ်ခုဖြစ်တဲ့ Flux နဲ့ Redux အကြောင်းကို လေ့လာသွားမှာပါ။ ဒီ pattern တွေက application ရဲ့ state ကို ကြိုတင်ခန့်မှန်းနိုင်ပြီး လွယ်ကူစွာ စီမံခန့်ခွဲနိုင်အောင် ကူညီပေးပါတယ်။
+- **Test လုပ်ရလွယ်ကူခြင်း (Testability) -** Reducer တွေက pure function တွေဖြစ်တဲ့အတွက် test လုပ်ရတာ အလွန်လွယ်ကူပါတယ်။
 
-Unidirectional data flow (တစ်လမ်းသွား data စီးဆင်းမှု) အကြောင်း၊ state ကို actions, stores, dispatchers တွေကနေတစ်ဆင့် ဘယ်လိုကိုင်တွယ်သလဲဆိုတာကို လေ့လာရမှာပါ။ Redux ကို လက်တွေ့ရေးသားရာမှာတော့ ခေတ်မီပြီး official အကြံပြုထားတဲ့ Redux Toolkit ကို အသုံးပြုပုံကို အဓိကထားရှင်းပြသွားမှာပါ။
+- **Boilerplate Code နည်းပါးခြင်း (Redux Toolkit ကြောင့်) -** Redux Toolkit က action တွေ၊ reducer တွေကို အလိုအလျောက် generate လုပ်ပေးတဲ့အတွက် code ရေးရတာ အများကြီး သက်သာစေပါတယ်။
+
+### Redux မှာ Asynchronous Action များကို ကိုင်တွယ်ခြင်း 
+**Redux Toolkit** မှာ **Redux Thunk** ဟာ အသင့်ပါဝင်လာပြီးသားဖြစ်တဲ့အတွက် API call တွေလိုမျိုး asynchronous အလုပ်တွေကို ကိုင်တွယ်ဖို့ ထပ်ပြီး install လုပ်စရာမလိုပါဘူး။ Thunk ကိုသုံးပြီး async logic တွေကို reducer logic တွေနဲ့ သီးခြားခွဲထားနိုင်ပါတယ်။
+
+<Aside title="အနှစ်ချုပ်" type="tip">
+- **Flux Architecture** က state ကို စီမံခန့်ခွဲဖို့နဲ့ အပြောင်းအလဲတွေကို ကြိုတင်ခန့်မှန်းနိုင်စေဖို့ **unidirectional data flow** ကို အသုံးပြုတယ်။
+
+- **Redux** က Flux pattern ကို အကောင်အထည်ဖော်ထားပြီး ခေတ်မီရေးသားနည်းဖြစ်တဲ့ **Redux Toolkit** က code တွေကို အများကြီး ပိုရိုးရှင်းစေတယ်။
+
+- `createSlice` ကိုသုံးပြီး state, reducers, နဲ့ actions တွေကို feature တစ်ခုအတွက် တစ်နေရာတည်းမှာ စုစည်းနိုင်တယ်။
+
+- Redux က ကြိုတင်ခန့်မှန်းနိုင်တဲ့ state၊ လွယ်ကူတဲ့ debugging နဲ့ testability ကို ပေးစွမ်းတယ်။
+
+- **Redux Toolkit** မှာ **Redux Thunk** အသင့်ပါဝင်လာတဲ့အတွက် API call တွေလိုမျိုး asynchronous action တွေကို အလွယ်တကူ စီမံခန့်ခွဲနိုင်တယ်။
 </Aside>
-  
-### ဘာတွေလေ့လာရမလဲ
-- Flux architecture ဆိုတာ ဘာလဲ။
-- Flux ရဲ့ အဓိကအချက်ဖြစ်တဲ့ unidirectional data flow အကြောင်း။
-- Redux က Flux pattern ကို ဘယ်လိုအခြေခံထားသလဲ။
-- Redux Toolkit ရဲ့ အဓိက အယူအဆများ: configureStore, createSlice။
-- Flux/Redux ရဲ့ အကျိုးကျေးဇူးများ: ကြိုတင်ခန့်မှန်းနိုင်တဲ့ state၊ debugging လွယ်ကူခြင်း။
-- Redux Toolkit မှာ asynchronous action တွေကို ဘယ်လိုကိုင်တွယ်မလဲ။
-
-### Flux Architecture ဆိုတာ ဘာလဲ
-Flux ဆိုတာက single-page application (SPA) တွေမှာ state ကို စီမံခန့်ခွဲဖို့အတွက် **architectural pattern** တစ်ခုဖြစ်ပါတယ်။ ရှုပ်ထွေးတဲ့ app state တွေကို ကိုင်တွယ်ဖြေရှင်းဖို့ Facebook က ဖန်တီးခဲ့တာပါ။
-
-Flux က **unidirectional data flow** (တစ်လမ်းသွား) ကို အခြေခံထားပါတယ်။ ဆိုလိုတာက data တွေက လမ်းကြောင်းတစ်ခုတည်းပဲ စီးဆင်းပါတယ်: **actions** ကနေ **dispatchers** ကို၊ **dispatchers** ကနေ **stores** ကို၊ နောက်ဆုံး **stores** ကနေ **view (UI)** ကို ရောက်ပါတယ်။
-
-#### Flux အလုပ်လုပ်ပုံ:
-1. **Action:** User တစ်ယောက်က ခလုတ်နှိပ်လိုက်တာလိုမျိုး event တစ်ခုက action တစ်ခု ကို ဖြစ်ပေါ်စေတယ်။
-2. **Dispatcher:** Dispatcher က ဒီ action ကို store အားလုံးဆီ ပို့ပေးတယ်။
-3. **Store:** Store က data logic တွေကို ကိုင်တွယ်ပြီး action အပေါ်မူတည်ပြီး update လုပ်တယ်။
-4. **View:** Store မှာ အပြောင်းအလဲဖြစ်သွားတဲ့အခါ UI (View) ကလည်း update ဖြစ်သွားတယ်။
-
-### Redux: Flux ကိုအခြေခံထားတဲ့ ခေတ်မီ State Management 
-Redux ဆိုတာ Flux pattern ကို အကောင်အထည်ဖော်ထားတဲ့ state management library တစ်ခုဖြစ်ပါတယ်။ ယနေ့ခေတ်မှာ Redux ကို ရေးသားတဲ့အခါ code အများကြီးရေးရတာမျိုး (boilerplate) ကိုလျှော့ချပြီး အကောင်းဆုံး practice တွေကို အသင့်သုံးနိုင်အောင်လုပ်ပေးထားတဲ့ **Redux Toolkit (RTK)** ကိုပဲ official အနေနဲ့ အသုံးပြုကြပါတယ်။
-
-Redux Toolkit ရဲ့ အဓိက feature ကတော့ `createSlice` ဖြစ်ပါတယ်။ **Slice** ဆိုတာက application state တွေထဲက အပိုင်းတစ်ခု (ဥပမာ- product state) အတွက် လိုအပ်တဲ့ **state, reducers,** နဲ့ **actions** တွေကို တစ်နေရာတည်းမှာ စုစည်းထားတာပါ။
-
-`createSlice` ဥပမာ:
-
-<Code code={sliceExample} lang="javascript" title="product.js" />
-
-
-ဒီနည်းလမ်းက action တွေနဲ့ reducer တွေကို တစ်နေရာတည်းမှာပဲ စုစည်းထားတဲ့အတွက် ပိုပြီးရှင်းလင်းပြီး စီမံခန့်ခွဲရ လွယ်ကူစေပါတယ်။
-
-### `productsSlice.actions` ဆိုတာ ဘာလဲ?
-`createSlice` က `reducers` object ထဲမှာ သင်ရေးထားသည့် method တစ်ခုချင်းစီအတွက် **action creator function** ကို အလိုအလျောက် generate လုပ်ပေးပါတယ်။
-
-ဥပမာ:
-- သင် `reducers` ထဲမှာ `addProduct(state, action)` လို့ ရေးရင် ⇒ `productsSlice.actions.addProduct` ဆိုတဲ့ function တစ်ခု ရရှိလာမယ်
-- `removeProduct` လည်း အတူတူပဲ ⇒ `productsSlice.actions.removeProduct`
-
-ဒီ generated action creator တွေကို **destructure** လုပ်ပြီး export လုပ်ချင်လို့ သုံးထားတာက `export const { addProduct, removeProduct } = productsSlice.actions;` ဖြစ်ပါတယ်။
-
-#### Action Creator က ဘာလုပ်ပေးတာလဲ?
-`addProduct({ id: 1, name: 'Book' })` လို့ ခေါ်လိုက်သွားရင် Redux က အောက်ကလို action object တစ်ခုအဖြစ် အလိုအလျောက် ပြောင်းပေးတယ်:
-```js
-{ type: 'products/addProduct', payload: { id: 1, name: 'Book' } }
-```
-အဲဒီ `type` ကို သင်ကိုယ်တိုင် ရေးစရာမလိုတော့တဲ့ အတွက် Typo ပြဿနာ၊ duplication ပြဿနာတွေ လျော့နည်းစေတယ်။
-
-#### ဘယ်နေရာမှာ သုံးလဲ?
-UI component ထဲက event မှာ dispatch လုပ်ဖို့သုံးတယ်
-```js
-import { useDispatch } from 'react-redux';
-import { addProduct } from './productSlice';
-
-function AddButton() {
-  const dispatch = useDispatch();
-  return (
-    <button onClick={() => dispatch(addProduct({ id: Date.now(), name: 'Pen' }))}>
-      Add
-    </button>
-  );
-}
-```
-
-### `productsSlice.reducer` ကို ဘာကြောင့် export default လုပ်ရတာလဲ?
-Redux store တည်ဆောက်တဲ့အချိန်မှာ slice တစ်ခုချင်းစီရဲ့ reducer ကို store ကိုပေးရတယ်။ ဥပမာ -
-
-```js
-import { configureStore } from '@reduxjs/toolkit';
-import productsReducer from './productSlice';
-
-export const store = configureStore({
-  reducer: {
-    products: productsReducer
-  }
-});
-```
-
-### State ကို Component မှာ ဘယ်လို ဖတ်မလဲ?
-```js
-import { useSelector } from 'react-redux';
-
-function ProductList() {
-  const products = useSelector(state => state.products); // products slice state
-  return (
-    <ul>
-      {products.map(p => <li key={p.id}>{p.name}</li>)}
-    </ul>
-  );
-}
-```
-
-### Flow တစ်ခုလုံး Recap
-1. User → Button နှိပ် = dispatch(addProduct(payload))
-2. Redux → slice reducer ထဲက addProduct run
-3. Immer → state ကို immutable နည်းလမ်းနဲ့ update
-4. Store state အသစ် ပြင်ဆင်ပြီး
-5. useSelector သုံးထားသော component တွေ re-render
-
-### အကျဉ်းချုံး Key Points
-- `productsSlice.actions` = action creator collection (type string တွေကို auto generate)
-- `addProduct(payload)` ခေါ်တိုင်း `{ type: 'products/addProduct', payload }`
-- `productsSlice.reducer` သည် slice state logic အားလုံးကို handle
-- Store တွင် `{ products: productsSlice.reducer }` အနေနဲ့ တည်ဆောက်
-- Component တွေက `useDispatch + useSelector` နဲ့ အသုံးပြု
-
-

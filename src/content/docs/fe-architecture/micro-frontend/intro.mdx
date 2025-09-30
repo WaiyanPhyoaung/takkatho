@@ -1,0 +1,44 @@
+---
+title: "Micro-Frontend Architecture"
+description: "Micro-Frontend Architecture"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ application အကြီးကြီးတွေကို တည်ဆောက်တဲ့အခါသုံးတဲ့ ခေတ်မီနည်းလမ်းတစ်ခုဖြစ်တဲ့ **Micro-Frontend Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။ ဒီနည်းလမ်းက application ကြီးတစ်ခုကို **micro-frontend** လို့ခေါ်တဲ့ သေးငယ်ပြီး၊ သီးခြားလွတ်လပ်ကာ deploy လုပ်နိုင်တဲ့ unit လေးတွေအဖြစ် ခွဲထုတ်လိုက်တာ ဖြစ်ပါတယ်။
+
+ဒီ architecture က team တွေက သီးခြားစီ development လုပ်တာ၊ test လုပ်တာနဲ့ deploy လုပ်တာတွေကို ခွင့်ပြုတဲ့အတွက် application အကြီးကြီးတွေကို စီမံခန့်ခွဲရ ပိုလွယ်ကူပြီး တိုးချဲ့ရ လွယ်ကူစေပါတယ်။
+</Aside>
+
+
+### ဘာတွေလေ့လာရမလဲ
+- Micro-frontend ဆိုတာ ဘာလဲ။
+- Application အကြီးကြီးတွေမှာ micro-frontend သုံးခြင်းရဲ့ အကျိုးကျေးဇူးများ။
+- သီးခြား team တွေက micro-frontend တွေကို ဘယ်လို develop လုပ်ပြီး deploy လုပ်နိုင်သလဲ။
+- Micro-frontend တွေတည်ဆောက်ဖို့ tool တွေနဲ့ framework တွေ (Webpack Module Federation, Single SPA)။
+- Micro-frontend တွေကြား ဆက်သွယ်မှုနဲ့ ပေါင်းစပ်မှုအတွက် စိန်ခေါ်မှုများနဲ့ အကောင်းဆုံး practice များ။
+
+### Micro-Frontend Architecture ဆိုတာ ဘာလဲ
+
+**Micro-frontend** ဆိုတာက frontend application အကြီးကြီးတစ်ခုကို သေးငယ်ပြီး သီးခြားလွတ်လပ်တဲ့ application လေးတွေ **(micro-frontend)** အဖြစ် ခွဲထုတ်လိုက်တာပါ။
+
+**Micro-frontend** တစ်ခုချင်းစီက သီးခြား feature တစ်ခု (ဥပမာ- product catalog, cart, user profile) ကို တာဝန်ယူပြီး framework မတူတာတွေနဲ့တောင် တည်ဆောက်နိုင်ပါတယ်။ အဓိက shell ဒါမှမဟုတ် container app က ဒီ micro-frontend တွေအားလုံးကို UI တစ်ခုတည်းအဖြစ် ပေါင်းစပ်ပြသပေးပါတယ်။
+
+**ဥပမာ:** E-commerce app တစ်ခုကို စဉ်းစားကြည့်ပါ-
+
+- **Micro-frontend 1:** Product Listing (ကုန်ပစ္စည်းစာရင်း)
+- **Micro-frontend 2:** Shopping Cart (ဈေးဝယ်ခြင်းတောင်း)
+- **Micro-frontend 3:** User Profile (သုံးစွဲသူအချက်အလက်)
+
+တစ်ခုချင်းစီက သီးခြား module တွေဖြစ်ပြီး သီးခြားစီ develop လုပ်၊ test လုပ်၊ deploy လုပ်နိုင်ပါတယ်။
+
+### Micro-Frontend များ အလုပ်လုပ်ပုံ
+- **Container/Shell App:** Header, footer, routing လိုမျိုး အားလုံးမျှသုံးတဲ့ layout တွေကို ထိန်းသိမ်းပေးတယ်။
+
+- **Feature Micro-Frontends:** Application ရဲ့ အစိတ်အပိုင်းတစ်ခုစီကို ကိုယ်စားပြုပြီး လိုအပ်မှ dynamically load လုပ်တယ်။
+
+- **Communication:** Micro-frontend တွေက အဓိက shell နဲ့ ဆက်သွယ်ပြီး၊ လိုအပ်ရင် custom event တွေ၊ shared state library တွေသုံးပြီး အချင်းချင်းလည်း ဆက်သွယ်နိုင်ပါတယ်။
+
+### Modern Practice များ:
+Micro-frontend တွေကြားမှာ code တွေ share လုပ်ဖို့ **Module Federation (Webpack 5)** ကို သုံးကြပါတယ်။ Micro-frontend တွေကို စုစည်းထိန်းချုပ်ဖို့ **Single SPA** က လူကြိုက်များတဲ့ framework တစ်ခုပါ။ 

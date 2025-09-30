@@ -1375,6 +1375,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Micro-Frontend Architecture",
+              items: [
+                {
+                  label: "Micro-Frontend Architecture",
+                  slug: "fe-architecture/micro-frontend/intro",
+                },
+                {
+                  label: "Benefits",
+                  slug: "fe-architecture/micro-frontend/benefits",
+                },
+              ],
+            },
           ],
         },
 

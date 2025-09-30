@@ -1,0 +1,39 @@
+---
+title: "Mico-Frontend ရဲ့ အကျိိုးကျေးဇူးများ"
+description: "Mico-Frontend ရဲ့ အကျိိုးကျေးဇူးများ"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+
+
+- **သီးခြားလွတ်လပ်သော Team များ -** Team တစ်ခုချင်းစီက တခြားသူတွေကို မထိခိုက်စေဘဲ ကိုယ့်ရဲ့ micro-frontend ကို ကိုယ်ပိုင်လုပ်နိုင်တယ်။
+
+- **တိုးချဲ့ရလွယ်ကူခြင်း -** App တစ်ခုလုံးကို ပြန်ပြင်စရာမလိုဘဲ feature အသစ်တွေကို ထပ်ထည့်နိုင်တယ်။
+
+- **Technology အမျိုးမျိုးသုံးနိုင်ခြင်း -** လိုအပ်ရင် micro-frontend တစ်ခုဆီက framework ဒါမှမဟုတ် library မတူတာတွေ သုံးနိုင်တယ်။
+
+- **သီးခြားစီ Deploy လုပ်နိုင်ခြင်း -** App တစ်ခုလုံးကို redeploy လုပ်စရာမလိုဘဲ micro-frontend တစ်ခုတည်းကိုပဲ update လုပ်နိုင်တယ်။
+
+- **ထိန်းသိမ်းရလွယ်ကူခြင်း -** Micro-frontend တစ်ခုချင်းစီရဲ့ codebase က သေးငယ်တဲ့အတွက် ထိန်းသိမ်းရ test လုပ်ရ ပိုလွယ်ကူတယ်။
+
+### Micro-Frontend များ၏ စိန်ခေါ်မှုများ
+- **ပေါင်းစပ်ရာတွင် ရှုပ်ထွေးနိုင်ခြင်း -** Micro-frontend အများကြီးကို ချောချောမွေ့မွေ့ ပေါင်းစပ်ဖို့က စိန်ခေါ်မှုရှိနိုင်တယ်။
+
+- **Performance ကျနိုင်ခြင်း -** Micro-frontend အများကြီးကို load လုပ်ရတာက optimize ကောင်းကောင်းမလုပ်ရင် load time တွေကို ပိုကြာစေနိုင်တယ်။
+
+- **Shared State စီမံခန့်ခွဲရခြင်း -** Micro-frontend တွေကြားမှာ state တွေကို တသမတ်တည်းဖြစ်အောင် ထိန်းသိမ်းရတာ ရှုပ်ထွေးနိုင်တယ်။
+
+- **UI တသမတ်တည်းဖြစ်စေရန် -** Micro-frontend အများကြီးမှာ ဒီဇိုင်းတစ်ခုတည်းဖြစ်အောင် ထိန်းသိမ်းဖို့ design system တွေ shared component တွေ လိုအပ်တယ်။
+
+<Aside title="အနှစ်ချုပ်" type="tip">
+- **Micro-frontend** တွေက application အကြီးကြီးတွေကို သေးငယ်ပြီး သီးခြားစီ deploy လုပ်နိုင်တဲ့ unit လေးတွေအဖြစ် ခွဲထုတ်ပေးတယ်။
+
+- Micro-frontend တစ်ခုချင်းစီကို team မတူတာတွေက **သီးခြားစီ develop လုပ်၊ test လုပ်၊ deploy လုပ်** နိုင်တယ်။
+
+- **အကျိုးကျေးဇူးများ -** တိုးချဲ့ရလွယ်ကူခြင်း၊ သီးခြား deploy လုပ်နိုင်ခြင်း၊ team collaboration ကောင်းခြင်း၊ technology အမျိုးမျိုးသုံးနိုင်ခြင်း။
+
+- **စိန်ခေါ်မှုများ -** ပေါင်းစပ်ရခက်ခဲခြင်း၊ performance၊ shared state စီမံခန့်ခွဲရခြင်းနဲ့ UI တသမတ်တည်းဖြစ်အောင်ထိန်းသိမ်းရခြင်း။
+
+- **Webpack Module Federation နဲ့ Single SPA** တို့လို ခေတ်မီ tool တွေက micro-frontend တွေကို ထိထိရောက်ရောက် စီမံခန့်ခွဲပေါင်းစပ်ဖို့ ပိုလွယ်ကူစေတယ်။
+</Aside>
