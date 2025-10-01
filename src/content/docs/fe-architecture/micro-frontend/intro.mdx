@@ -4,6 +4,8 @@ description: "Micro-Frontend Architecture"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
 
 <Aside title="ရည်ရွယ်ချက်">
 ဒီသင်ခန်းစာမှာတော့ application အကြီးကြီးတွေကို တည်ဆောက်တဲ့အခါသုံးတဲ့ ခေတ်မီနည်းလမ်းတစ်ခုဖြစ်တဲ့ **Micro-Frontend Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။ ဒီနည်းလမ်းက application ကြီးတစ်ခုကို **micro-frontend** လို့ခေါ်တဲ့ သေးငယ်ပြီး၊ သီးခြားလွတ်လပ်ကာ deploy လုပ်နိုင်တဲ့ unit လေးတွေအဖြစ် ခွဲထုတ်လိုက်တာ ဖြစ်ပါတယ်။
@@ -25,6 +27,7 @@ import { Code, Aside } from "@astrojs/starlight/components";
 
 **Micro-frontend** တစ်ခုချင်းစီက သီးခြား feature တစ်ခု (ဥပမာ- product catalog, cart, user profile) ကို တာဝန်ယူပြီး framework မတူတာတွေနဲ့တောင် တည်ဆောက်နိုင်ပါတယ်။ အဓိက shell ဒါမှမဟုတ် container app က ဒီ micro-frontend တွေအားလုံးကို UI တစ်ခုတည်းအဖြစ် ပေါင်းစပ်ပြသပေးပါတယ်။
 
+
 **ဥပမာ:** E-commerce app တစ်ခုကို စဉ်းစားကြည့်ပါ-
 
 - **Micro-frontend 1:** Product Listing (ကုန်ပစ္စည်းစာရင်း)
@@ -32,6 +35,10 @@ import { Code, Aside } from "@astrojs/starlight/components";
 - **Micro-frontend 3:** User Profile (သုံးစွဲသူအချက်အလက်)
 
 တစ်ခုချင်းစီက သီးခြား module တွေဖြစ်ပြီး သီးခြားစီ develop လုပ်၊ test လုပ်၊ deploy လုပ်နိုင်ပါတယ်။
+
+<ContentImage src={microFrontend} alt="Micro frontend Architecture" />
+
+> အပေါ်က ပုံမှာ micro-frontend architecture ရဲ့ အခြေခံဖွဲ့စည်းပုံကို မြင်ရမှာဖြစ်ပြီး- မြင်သာအောင် Team တစ်ခုချင်းစီက မတူညီတဲ့ framework တစ်ခုကို သုံးနိုင်ကြောင်း ပြသထားတာဖြစ်ပါတယ်။ ဒါ့အပြင် Micro-frontend တွေကို အသုံးပြုတဲ့အခါမှာလည်း Page တစ်ခုတည်းမှာ ပေါင်းပြီးသုံးလို့ရသလို micro-frontend တစ်ခုကို Page တစ်ခုအဖြစ်လည်း သက်သက်စီ သုံးလို့ရပါတယ်။ 
 
 ### Micro-Frontend များ အလုပ်လုပ်ပုံ
 - **Container/Shell App:** Header, footer, routing လိုမျိုး အားလုံးမျှသုံးတဲ့ layout တွေကို ထိန်းသိမ်းပေးတယ်။

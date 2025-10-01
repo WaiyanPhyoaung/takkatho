@@ -194,7 +194,7 @@
   width: auto;
 }
 blockquote {
-  @apply text-gray-3 bg-gray-6;
+  @apply text-gray-1 bg-gray-6;
   border-left: 4px solid var(--color-gray-4); /* muted accent bar    */
   padding: 1rem 1.25rem; /* 16 px × 20 px space */
   margin: 1rem 0; /* breathing room      */

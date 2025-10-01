@@ -1388,6 +1388,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Modular Architecture",
+              items: [
+                {
+                  label: "Modular Architecture",
+                  slug: "fe-architecture/modular/intro",
+                },
+                {
+                  label: "Benefits",
+                  slug: "fe-architecture/modular/benefits",
+                },
+              ],
+            },
           ],
         },
 

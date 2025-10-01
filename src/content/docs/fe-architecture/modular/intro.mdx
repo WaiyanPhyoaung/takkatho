@@ -1,0 +1,44 @@
+---
+title: "Micro-Frontend Architecture"
+description: "Micro-Frontend Architecture"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ frontend code ကို ကိုယ်ပိုင်ပြီးပြည့်စုံတဲ့ ပြန်သုံးနိုင်တဲ့ module လေးတွေအဖြစ် ခွဲထုတ်စုဖွဲ့တဲ့ **Modular Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။ Module တစ်ခုချင်းစီက သီးခြား feature တစ်ခုကို တာဝန်ယူတဲ့အတွက် application တွေကို ထိန်းသိမ်းရ၊ တိုးချဲ့ရ လွယ်ကူစေပါတယ်။
+
+အရင်သင်ခန်းစာက Micro-Frontend နဲ့ ဆင်တူတယ်လို့ထင်ရပေမယ့်၊ အဓိကကွာခြားချက်ကတော့ Modular Architecture ဟာ **project တစ်ခုတည်းအတွင်းမှာ** code တွေကို စနစ်တကျဖြစ်အောင် အဓိကထားပြီး၊ Micro-Frontend ကတော့ **application အသေးလေးတွေအများကြီးနဲ့ သီးခြားစီ deploy လုပ်နိုင်ဖို့** အဓိကထားတာ ဖြစ်ပါတယ်။
+</Aside>
+
+
+### ဘာတွေလေ့လာရမလဲ
+- Modular Architecture ဆိုတာ ဘာလဲ၊ ဘာကြောင့်အရေးကြီးသလဲ။
+- Code တွေကို ကိုယ်ပိုင် module တွေအဖြစ် ဘယ်လိုစုဖွဲ့မလဲ။
+- ES Modules (`import`/`export`) ကိုသုံးပြီး code တွေကို ဘယ်လိုစုဖွဲ့မလဲ။
+- Performance ပိုကောင်းအောင် lazy loading နဲ့ code splitting လုပ်ပုံ။
+- Modular code ရဲ့ အကျိုးကျေးဇူးများ: scalability, maintainability, and testability။
+
+### Modular Architecture ဆိုတာ ဘာလဲ
+Modular architecture ဆိုတာ frontend application တစ်ခုအတွင်းမှာပဲ သီးခြားလွတ်လပ်တဲ့ module တွေအဖြစ် ခွဲထုတ်လိုက်တာပါ။ Module တစ်ခုချင်းစီမှာ **သူ့ feature နဲ့သက်ဆိုင်တဲ့** component တွေ၊ logic တွေ၊ style တွေ အားလုံးပါဝင်ပါတယ်။ ရည်ရွယ်ချက်ကတော့ သီးခြားစီ ပြန်သုံးနိုင်၊ ပြင်ဆင်နိုင်၊ test လုပ်နိုင်တဲ့ unit လေးတွေ ဖန်တီးဖို့ပါပဲ။
+
+### Modular Architecture နှင့် Micro-Frontend ကွာခြားချက်
+ဒီနှစ်ခုရဲ့ အဓိကကွာခြားချက်ကို ရှင်းရှင်းလင်းလင်း နားလည်ထားဖို့ အရေးကြီးပါတယ်။
+
+- **Modular Architecture** ဆိုတာ code တွေကို စုဖွဲ့တဲ့ပုံစံ ဖြစ်ပါတယ်။ Application တစ်ခုလုံးက codebase တစ်ခုတည်းမှာပဲ ရှိပြီး deploy လုပ်တဲ့အခါမှာလည်း တစ်ခုလုံးကို တစ်ခါတည်း deploy လုပ်ရပါတယ်။ အဓိကကတော့ project ကို သန့်ရှင်းပြီး ထိန်းသိမ်းရလွယ်အောင် စီမံခန့်ခွဲတာပါ။
+
+- **Micro-Frontend** ကတော့ **deployment strategy** ဖြစ်ပါတယ်။ Application ကြီးတစ်ခုကို သီးခြားစီ deploy လုပ်လို့ရတဲ့ application အသေးလေးတွေအဖြစ် ခွဲထုတ်လိုက်တာပါ။ Team တစ်ခုက ကိုယ့် feature ကို တခြား team ကို စောင့်စရာမလိုဘဲ deploy လုပ်နိုင်ပါတယ်။
+
+> **အတိုချုပ်ပြောရရင် -** Modular က project တစ်ခုတည်းကို စနစ်တကျဖြစ်အောင် အပိုင်းတွေခွဲတာဖြစ်ပြီး၊ Micro-Frontend က application အများကြီးကို ပေါင်းပြီး တစ်ခုတည်းလိုဖြစ်အောင် လုပ်ဆောင်တာပါ။
+
+### ES Modules နဲ့ Module တွေကို စုဖွဲ့ခြင်း
+ES Modules (`import`/`export`) က file တွေကြားမှာ code တွေကို မျှဝေသုံးစွဲခွင့်ပေးတဲ့အတွက် module တွေကို သီးခြားစီဖြစ်အောင် ထိန်းသိမ်းပေးနိုင်ပါတယ်။ တစ်နည်းအားဖြင့် file တစ်ခုက function ဒါမှမဟုတ် component ကို export လုပ်ပြီး တခြား file က import နဲ့ ပြန်ယူသုံးတာ ဖြစ်ပါတယ်။
+
+### Lazy Loading နှင့် Code Splitting
+ဒါတွေက performance ပိုကောင်းအောင်လုပ်တဲ့ နည်းလမ်းတွေပါ။
+
+- **Lazy Loading -** Module တွေကို user က လိုအပ်တဲ့အချိန်မှသာ load လုပ်တာဖြစ်တဲ့အတွက် app စဖွင့်ဖွင့်ချင်း load လုပ်ရတာ မြန်ဆန်စေပါတယ်။
+
+- **Code Splitting -** Application တစ်ခုလုံးကို bundle အကြီးကြီးတစ်ခုတည်းမလုပ်ဘဲ၊ လိုအပ်တဲ့ module တွေအလိုက် bundle အသေးလေးတွေ ခွဲထုတ်တာ ဖြစ်ပါတယ်။
