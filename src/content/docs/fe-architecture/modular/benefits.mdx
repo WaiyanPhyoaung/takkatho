@@ -7,41 +7,42 @@ import { Code, Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 
 
-**တိုးချဲ့ရလွယ်ကူခြင်း (Scalability) -** App ရဲ့ တခြားအစိတ်အပိုင်းတွေကို မกระทบခိုက်စေဘဲ feature အသစ်တွေ အလွယ်တကူ ထပ်ထည့်နိုင်တယ်။
+- **တိုးချဲ့ရလွယ်ကူခြင်း (Scalability) -** App ရဲ့ တခြားအစိတ်အပိုင်းတွေကို မထိခိုက်စေဘဲ feature အသစ်တွေ အလွယ်တကူ ထပ်ထည့်နိုင်တယ်။
 
-**ထိန်းသိမ်းရလွယ်ကူခြင်း (Maintainability) -** Module တွေက သီးခြားစီဖြစ်တဲ့အတွက် bug ရှာရတာနဲ့ update လုပ်ရတာ ပိုလွယ်ကူတယ်။
+- **ထိန်းသိမ်းရလွယ်ကူခြင်း (Maintainability) -** Module တွေက သီးခြားစီဖြစ်တဲ့အတွက် bug ရှာရတာနဲ့ update လုပ်ရတာ ပိုလွယ်ကူတယ်။
 
-**ပြန်လည်အသုံးပြုနိုင်ခြင်း (Reusability) -** Module တွေကို တခြား project တွေ၊ page တွေမှာ ပြန်သုံးနိုင်တယ်။
+- **ပြန်လည်အသုံးပြုနိုင်ခြင်း (Reusability) -** Module တွေကို တခြား project တွေ၊ page တွေမှာ ပြန်သုံးနိုင်တယ်။
 
-**Test လုပ်ရလွယ်ကူခြင်း (Testability) -** Module အသေးလေးတွေက သီးခြားစီ test လုပ်ရ ပိုလွယ်တယ်။
+- **Test လုပ်ရလွယ်ကူခြင်း (Testability) -** Module အသေးလေးတွေက သီးခြားစီ test လုပ်ရ ပိုလွယ်တယ်။
 
-**Team Collaboration -** Developer တွေက module မတူတာတွေကို တစ်ချိန်တည်းမှာ အတူတူလုပ်ဆောင်နိုင်တယ်။
+- **Team Collaboration -** Developer တွေက module မတူတာတွေကို တစ်ချိန်တည်းမှာ အတူတူလုပ်ဆောင်နိုင်တယ်။
 
 ## လက်တွေ့ Project များတွင် အသုံးပြုပုံနှင့် SPA Application များ
-လက်တွေ့ project အကြီးကြီးတွေမှာတော့ component တွေကို components ဆိုတဲ့ folder တစ်ခုတည်းမှာပဲ အကုန်စုထည့်ထားတာမျိုး မလုပ်ကြပါဘူး။ အဲ့ဒီအစား feature-based (ဒါမှမဟုတ် domain-based) ပုံစံနဲ့ ဖွဲ့စည်းကြပါတယ်။
+- လက်တွေ့ project အကြီးကြီးတွေမှာတော့ component တွေကို components ဆိုတဲ့ folder တစ်ခုတည်းမှာပဲ အကုန်စုထည့်ထားတာမျိုး မလုပ်ကြပါဘူး။ အဲ့ဒီအစား **feature-based** (ဒါမှမဟုတ် **domain-based**) ပုံစံနဲ့ ဖွဲ့စည်းကြပါတယ်။
 
-ဆိုလိုတာက feature တစ်ခုနဲ့ဆိုင်တဲ့ component, logic, style အားလုံးကို module တစ်ခုအနေနဲ့ folder တစ်ခုတည်းမှာ စုစည်းထားတာပါ။
+- ဆိုလိုတာက feature တစ်ခုနဲ့ဆိုင်တဲ့ component, logic, style အားလုံးကို module တစ်ခုအနေနဲ့ folder တစ်ခုတည်းမှာ စုစည်းထားတာပါ။
 
-ဥပမာ၊ e-commerce app တစ်ခုမှာဆိုရင် products module folder, cart module folder, user module folder ဆိုပြီး သီးခြားစီခွဲထားပါတယ်။ ဒါက project ကို ပိုပြီး နားလည်ရလွယ်ကူသလို၊ team အလိုက် တာဝန်ခွဲလုပ်ဆောင်တဲ့အခါမှာလည်း အလွန်အဆင်ပြေစေပါတယ်။
+- ဥပမာ - E-commerce app တစ်ခုမှာဆိုရင် `products module folder`, `cart module folder`, `user module folder` ဆိုပြီး သီးခြားစီခွဲထားပါတယ်။ ဒါက project ကို ပိုပြီး နားလည်ရလွယ်ကူသလို၊ team အလိုက် တာဝန်ခွဲလုပ်ဆောင်တဲ့အခါမှာလည်း အလွန်အဆင်ပြေစေပါတယ်။
 
 ### SPA တိုင်းက Modular Architecture ကို သုံးကြသလား။
-SPA (Single-Page Application) အားလုံးနီးပါးက Modular Architecture ကို အသုံးပြုကြပါသလား။ ဟုတ်ကဲ့၊ အသုံးပြုကြပါတယ်။ ✅
+- SPA (Single-Page Application) အားလုံးနီးပါးက Modular Architecture ကို အသုံးပြုကြပါသလား။ များသောအားဖြင့် အသုံးပြုကြပါတယ်။ ✅
 
-React, Angular, Vue တို့လို ခေတ်မီ SPA framework တွေအားလုံးက component-based ဖြစ်တဲ့အတွက် modularity က သူတို့ရဲ့ အခြေခံအုတ်မြစ်ပါပဲ။
+- React, Angular, Vue တို့လို ခေတ်မီ SPA framework တွေအားလုံးက component-based ဖြစ်တဲ့အတွက် **modularity** က သူတို့ရဲ့ အခြေခံအုတ်မြစ်ပါပဲ။
 
-Project သေးသေးလေးတွေမှာတောင် component တွေကို ခွဲရေးတာက modular ဖြစ်ခြင်းရဲ့ အခြေခံပါပဲ။ Project ကြီးလာတာနဲ့အမျှ စနစ်တကျရှိတဲ့ modular structure မရှိရင် code တွေက ရှုပ်ထွေးပြီး ထိန်းသိမ်းလို့မရတော့ပါဘူး (spaghetti code ဖြစ်သွားပါတယ်)။
+- Project သေးသေးလေးတွေမှာတောင် component တွေကို ခွဲရေးတာက modular ဖြစ်ခြင်းရဲ့ အခြေခံပါပဲ။ Project ကြီးလာတာနဲ့အမျှ စနစ်တကျရှိတဲ့ modular structure မရှိရင် code တွေက ရှုပ်ထွေးပြီး ထိန်းသိမ်းလို့မရတော့ပါဘူး (spaghetti code ဖြစ်သွားပါတယ်)။
 
-ဒါကြောင့် Modular Architecture က SPA တွေအတွက် မရှိမဖြစ်လိုအပ်တဲ့ best practice တစ်ခုလို့ ပြောနိုင်ပါတယ်။
+- ဒါကြောင့် Modular Architecture က SPA တွေအတွက် မရှိမဖြစ်လိုအပ်တဲ့ best practice တစ်ခုလို့ ပြောနိုင်ပါတယ်။
 
-### အဓိကမှတ်သားစရာများ
-Modular architecture က frontend app တွေကို စနစ်တကျဖြစ်စေဖို့ ကိုယ်ပိုင် module တွေအဖြစ် ခွဲထုတ်တာ ဖြစ်တယ်။
+<Aside title="အနှစ်ချုပ်" type="tip">
+- Modular architecture က frontend app တွေကို စနစ်တကျဖြစ်စေဖို့ ကိုယ်ပိုင် module တွေအဖြစ် ခွဲထုတ်တာ ဖြစ်တယ်။
 
-ဒါဟာ project တစ်ခုတည်း အတွင်းက code organization ပုံစံဖြစ်ပြီး၊ Micro-Frontend လို သီးခြားစီ deploy လုပ်တာမျိုး မဟုတ်ပါဘူး။
+- ဒါဟာ project တစ်ခုတည်း အတွင်းက code organization ပုံစံဖြစ်ပြီး၊ Micro-Frontend လို သီးခြားစီ deploy လုပ်တာမျိုး မဟုတ်ပါဘူး။
 
-Module တွေက သီးခြား feature တစ်ခုအတွက် လိုအပ်တဲ့ component, logic, asset တွေကို စုစည်းထားတယ်။
+- Module တွေက သီးခြား feature တစ်ခုအတွက် လိုအပ်တဲ့ component, logic, asset တွေကို စုစည်းထားတယ်။
 
-ES Modules (import/export) က module တွေကို ပြန်လည်အသုံးပြုနိုင်အောင် ကူညီပေးတယ်။
+- ES Modules (import/export) က module တွေကို ပြန်လည်အသုံးပြုနိုင်အောင် ကူညီပေးတယ်။
 
-Lazy loading နဲ့ code splitting က app performance ကို ပိုကောင်းစေတယ်။
+- Lazy loading နဲ့ code splitting က app performance ကို ပိုကောင်းစေတယ်။
 
-အကျိုးကျေးဇူးတွေကတော့: scalability, maintainability, reusability နဲ့ testability တို့ ဖြစ်ပါတယ်။
+- အကျိုးကျေးဇူးတွေကတော့: scalability, maintainability, reusability နဲ့ testability တို့ ဖြစ်ပါတယ်။
+</Aside>

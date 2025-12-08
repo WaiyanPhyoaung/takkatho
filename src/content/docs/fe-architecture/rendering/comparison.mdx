@@ -1,0 +1,32 @@
+---
+title: "Rendering Strategies နှိုင်းယှဉ်ချက်"
+description: "Rendering Strategies နှိုင်းယှဉ်ချက်"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+
+| Method | Speed (Initial Load) | For SEO | Data Freshness | Server Cost |
+|--------|----------------------|---------|----------------|-------------|
+| CSR    | Slow (wait for JS)   | Poor    | High           | Low         |
+| SSR    | Fast                 | Good    | Always fresh   | High        |
+| SSG    | Fastest              | Best    | Only Fresh after build | Lowest      |
+| ISR    | Fast (like SSG)      | Best    | Fresh at intervals | Lowest      |
+
+
+#### Next.js လို Framework များ၏ အခန်းကဏ္ဍ
+- ခေတ်မီ Framework တွေဖြစ်တဲ့ Next.js လိုမျိုးတွေက ဒီနည်းလမ်းအားလုံးကို Page အလိုက် ရွေးချယ်အသုံးပြုခွင့် ပေးထားပါတယ်။
+
+- ဥပမာ - Company Website တစ်ခုမှာ `About Us` page ကို **SSG** နဲ့ တည်ဆောက်ပြီး၊ `News Feed` ကို **SSR** နဲ့ တည်ဆောက်ကာ၊ `Product Catalog` ကိုတော့ **ISR** နဲ့ တည်ဆောက်တာမျိုးတွေ လုပ်နိုင်ပါတယ်။ ဒီလိုမျိုး နည်းလမ်းများစွာကို ပေါင်းစပ်အသုံးပြုခြင်းက Website တစ်ခုလုံးကို အမြန်ဆုံးနဲ့ အထိရောက်ဆုံးဖြစ်အောင် ကူညီပေးပါတယ်။
+
+<Aside title="အနှစ်ချုပ်" type="tip">
+- **CSR** က Browser မှာ render လုပ်တယ်။ App လိုသုံးရတာကောင်းပေမယ့် SEO အားနည်းတယ်။
+
+- **SSR** က Server မှာ render လုပ်တယ်။ SEO ကောင်းပြီး ဖွင့်တာမြန်ပေမယ့် Server ဝန်ပိစေတယ်။
+
+- **SSG** က Build time မှာ render လုပ်တယ်။ အမြန်ဆုံးနဲ့ စရိတ်အသက်သာဆုံးဖြစ်ပေမယ့် Content အသစ်တင်ရင် Build ပြန်လုပ်ရတယ်။
+
+- **ISR** က SSG ရဲ့ အားသာချက်ကို ယူပြီး Website တစ်ခုလုံးကို ပြန်မလုပ်ဘဲ စာမျက်နှာတစ်ခုချင်းစီကို သတ်မှတ်ချိန်အလိုက် update လုပ်နိုင်တဲ့ ခေတ်မီနည်းလမ်း ဖြစ်ပါတယ်။
+
+- Project ရဲ့ လိုအပ်ချက်ပေါ်မူတည်ပြီး **CSR, SSR, SSG, ISR** တို့ကို ရောစပ်ရွေးချယ်အသုံးပြုရပါမယ်။
+</Aside>

@@ -1401,6 +1401,19 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Rendering Strategies (CSR, SSR, SSG, ISR)",
+              items: [
+                {
+                  label: "CSR, SSR, SSG, ISR",
+                  slug: "fe-architecture/rendering/intro",
+                },
+                {
+                  label: "Comparison",
+                  slug: "fe-architecture/rendering/comparison",
+                },
+              ],
+            },
           ],
         },
 
