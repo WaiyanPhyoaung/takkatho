@@ -1414,6 +1414,15 @@ export default defineConfig({
                 },
               ],
             },
+            {
+              label: "Conclusion & Future Trends",
+              items: [
+                {
+                  label: "Conclusion",
+                  slug: "fe-architecture/conclusion/conclusion",
+                },
+              ],
+            },
           ],
         },
 
