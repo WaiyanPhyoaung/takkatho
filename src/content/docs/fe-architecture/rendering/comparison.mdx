@@ -3,30 +3,44 @@ title: "Rendering Strategies နှိုင်းယှဉ်ချက်"
 description: "Rendering Strategies နှိုင်းယှဉ်ချက်"
 ---
 
-import { Code, Aside } from "@astrojs/starlight/components";
-import ContentImage from '@/components/Content-image.astro';
+import { Aside } from "@astrojs/starlight/components";
 
-| Method | Speed (Initial Load) | For SEO | Data Freshness | Server Cost |
-|--------|----------------------|---------|----------------|-------------|
-| CSR    | Slow (wait for JS)   | Poor    | High           | Low         |
-| SSR    | Fast                 | Good    | Always fresh   | High        |
-| SSG    | Fastest              | Best    | Only Fresh after build | Lowest      |
-| ISR    | Fast (like SSG)      | Best    | Fresh at intervals | Lowest      |
+| Method | Analogy | Speed (Initial) | SEO | Data Freshness |
+|--------|---------|-----------------|-----|----------------|
+| **CSR** | Meal Kit | 🐢 Slow | ❌ Poor | ✅ High |
+| **SSR** | Delivery | 🐇 Fast | ✅ Good | ✅ Always Fresh |
+| **SSG** | Frozen Food | 🚀 Fastest | ✅ Best | ❌ Stale (until rebuild) |
+| **ISR** | Bakery | 🚀 Fast | ✅ Best | ⚠️ Fresh (periodically) |
 
+### ဘယ်ဟာကို ရွေးမလဲ?
 
-#### Next.js လို Framework များ၏ အခန်းကဏ္ဍ
-- ခေတ်မီ Framework တွေဖြစ်တဲ့ Next.js လိုမျိုးတွေက ဒီနည်းလမ်းအားလုံးကို Page အလိုက် ရွေးချယ်အသုံးပြုခွင့် ပေးထားပါတယ်။
+#### 1. Admin Dashboard / User Profile
+**CSR** ကို သုံးပါ။
+- SEO မလိုဘူး။
+- User က Login ဝင်ပြီးမှ သုံးတာဖြစ်လို့ Initial Load နည်းနည်းကြာလည်း ကိစ္စမရှိဘူး။
+- Data တွေက အမြဲတမ်း Update ဖြစ်နေဖို့ လိုတယ်။
 
-- ဥပမာ - Company Website တစ်ခုမှာ `About Us` page ကို **SSG** နဲ့ တည်ဆောက်ပြီး၊ `News Feed` ကို **SSR** နဲ့ တည်ဆောက်ကာ၊ `Product Catalog` ကိုတော့ **ISR** နဲ့ တည်ဆောက်တာမျိုးတွေ လုပ်နိုင်ပါတယ်။ ဒီလိုမျိုး နည်းလမ်းများစွာကို ပေါင်းစပ်အသုံးပြုခြင်းက Website တစ်ခုလုံးကို အမြန်ဆုံးနဲ့ အထိရောက်ဆုံးဖြစ်အောင် ကူညီပေးပါတယ်။
+#### 2. News Portal / Social Media Feed
+**SSR** ကို သုံးပါ။
+- သတင်းတွေက အချိန်နဲ့ တပြေးညီ တက်နေဖို့ လိုတယ်။
+- Google News မှာ ပါဖို့ SEO ကောင်းဖို့ လိုတယ်။
 
-<Aside title="အနှစ်ချုပ်" type="tip">
-- **CSR** က Browser မှာ render လုပ်တယ်။ App လိုသုံးရတာကောင်းပေမယ့် SEO အားနည်းတယ်။
+#### 3. Personal Blog / Documentation
+**SSG** ကို သုံးပါ။
+- Content တွေက သိပ်မပြောင်းလဲဘူး။
+- အမြန်ဆုံး ဖြစ်ချင်တယ်။
+- Hosting စရိတ် သက်သာချင်တယ်။
 
-- **SSR** က Server မှာ render လုပ်တယ်။ SEO ကောင်းပြီး ဖွင့်တာမြန်ပေမယ့် Server ဝန်ပိစေတယ်။
+#### 4. E-commerce Product Listing
+**ISR** ကို သုံးပါ။
+- ပစ္စည်းဈေးနှုန်းတွေက ပြောင်းလဲနိုင်တယ်။
+- ဒါပေမဲ့ SSR လောက် Server ဝန်မပိချင်ဘူး။
+- ၁ နာရီ တစ်ခါလောက် Price Update ဖြစ်ရင် လုံလောက်ပြီ။
 
-- **SSG** က Build time မှာ render လုပ်တယ်။ အမြန်ဆုံးနဲ့ စရိတ်အသက်သာဆုံးဖြစ်ပေမယ့် Content အသစ်တင်ရင် Build ပြန်လုပ်ရတယ်။
-
-- **ISR** က SSG ရဲ့ အားသာချက်ကို ယူပြီး Website တစ်ခုလုံးကို ပြန်မလုပ်ဘဲ စာမျက်နှာတစ်ခုချင်းစီကို သတ်မှတ်ချိန်အလိုက် update လုပ်နိုင်တဲ့ ခေတ်မီနည်းလမ်း ဖြစ်ပါတယ်။
-
-- Project ရဲ့ လိုအပ်ချက်ပေါ်မူတည်ပြီး **CSR, SSR, SSG, ISR** တို့ကို ရောစပ်ရွေးချယ်အသုံးပြုရပါမယ်။
+<Aside title="Next.js ၏ အားသာချက်">
+Next.js လို Framework မျိုးက ဒီ (၄) မျိုးလုံးကို **Hybrid** အနေနဲ့ သုံးခွင့်ပေးထားပါတယ်။
+- `About Us` page ကို **SSG** နဲ့ လုပ်မယ်။
+- `Product Detail` page ကို **ISR** နဲ့ လုပ်မယ်။
+- `Cart` page ကို **CSR** နဲ့ လုပ်မယ်။
+ဒါက Modern Web Development ရဲ့ အနှစ်သာရပါပဲ။
 </Aside>

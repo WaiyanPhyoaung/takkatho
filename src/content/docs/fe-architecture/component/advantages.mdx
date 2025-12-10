@@ -1,43 +1,35 @@
 ---
-title: "Component-Based Architecture ရဲ့ အားသာချက်များ နဲ့ အားနည်းချက်များ"
-description: "Component-Based Architecture ရဲ့ အားသာချက်များ နဲ့ အားနည်းချက်များ"
+title: "Component-Based Architecture ရဲ့ အားသာချက်များ"
+description: "Component-Based Architecture ရဲ့ အားသာချက်များ"
 ---
 
-import { Aside, Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
 
-### Component-Based Architecture ရဲ့ အားသာချက်များ
-- **ပြန်လည်အသုံးပြုနိုင်ခြင်း (Reusability):** Component တစ်ခုကို မတူညီတဲ့ စာမျက်နှာတွေမှာ အကြိမ်ကြိမ် ပြန်သုံးနိုင်တယ်။
+Component-Based Architecture ကို ဘာကြောင့် လူကြိုက်များရတာလဲ? အဓိက အားသာချက် (၄) ချက် ရှိပါတယ်။
 
-- **ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူခြင်း (Maintainability):** Component တစ်ခုမှာ bug ဖြစ်ရင် အဲ့ဒီတစ်ခုကိုပဲ ပြင်လိုက်တာနဲ့ သူ့ကိုသုံးထားတဲ့ နေရာတိုင်းမှာ အလိုလို ပြင်ပြီးသားဖြစ်သွားတယ်။
+### ၁။ ပြန်လည်အသုံးပြုနိုင်ခြင်း (Reusability)
+ဒါက အထင်ရှားဆုံး အားသာချက်ပါ။ `Button` Component တစ်ခု ရေးထားပြီးရင်၊ Login page မှာလည်း သုံးလို့ရသလို၊ Register page မှာလည်း သုံးလို့ရပါတယ်။ Payment page မှာလည်း သုံးလို့ရပါတယ်။
+ကုဒ်တွေ ထပ်ခါထပ်ခါ ရေးနေစရာ မလိုတော့ပါဘူး။ **"Write Once, Use Everywhere"** ပါ။
 
-- **တိုးချဲ့ရလွယ်ကူခြင်း (Scalability):** Component အသစ်တွေ ထပ်ထည့်ပြီး app ကို အလွယ်တကူ တိုးချဲ့နိုင်တယ်။
+### ၂။ ပြုပြင်ထိန်းသိမ်းရ လွယ်ကူခြင်း (Maintainability)
+ဆိုပါစို့... ဝဘ်ဆိုက်တစ်ခုလုံးမှာ ရှိတဲ့ Button တွေကို အပြာရောင် ကနေ အနီရောင် ပြောင်းချင်တယ်။
+- **Old Way:** HTML file တိုင်းကို လိုက်ဖွင့်၊ Button ကုဒ်တွေ လိုက်ရှာပြီး အရောင်လိုက်ပြောင်းရမယ်။ (အခု ၁၀၀ ရှိရင် အခါ ၁၀၀ ပြင်ရမယ်)
+- **Component Way:** `Button` Component ဖိုင်တစ်ခုတည်းကို ဖွင့်၊ အရောင်ပြောင်းလိုက်တာနဲ့ တခြားနေရာ အားလုံးမှာ အလိုလို လိုက်ပြောင်းသွားမယ်။
 
-- **အဖွဲ့လိုက်လုပ်ဆောင်ရလွယ်ကူခြင်း (Team Collaboration):** Developer တွေက မတူညီတဲ့ Component တွေကို တစ်ချိန်တည်းမှာ သီးခြားစီ လုပ်ဆောင်နိုင်တယ်။
+### ၃။ သီးခြားခွဲထုတ်ထားခြင်း (Encapsulation)
+Component တစ်ခုဟာ သူ့ကမ္ဘာနဲ့သူ ရှိပါတယ်။ `Navbar` Component ထဲက CSS က `Footer` Component ကို သွားပြီး သက်ရောက်မှု မရှိပါဘူး။
+အရင်တုန်းက CSS file တစ်ခုတည်းမှာ အကုန်ရေးရင် class name တွေ တူပြီး ဒီဇိုင်းတွေ ပျက်စီးတတ်ပါတယ်။ Component တွေကတော့ ကိုယ့်စည်း ကိုယ့်ဘောင်နဲ့မို့လို့ ပိုပြီး စိတ်ချရပါတယ်။
 
-### အားနည်းချက်များ နှင့် ထည့်သွင်းစဉ်းစားရန်များ
-- Component တွေ သေးလွန်း၊ များလွန်းသွားရင် project က ပိုရှုပ်ထွေးသွားနိုင်တယ်။
+### ၄။ ပူးပေါင်းဆောင်ရွက်ရ လွယ်ကူခြင်း (Collaboration)
+Team နဲ့ အလုပ်လုပ်တဲ့အခါ အရမ်း အဆင်ပြေပါတယ်။
+- Developer A က `Header` ကို ရေးနေချိန်မှာ
+- Developer B က `Sidebar` ကို ရေးလို့ရတယ်။
+- Developer C က `Content` ကို ရေးလို့ရတယ်။
 
-- Application ကြီးတွေမှာ Component တစ်ခုနဲ့တစ်ခုကြား data ပေးပို့တာ (State/Props Management) ရှုပ်ထွေးနိုင်တယ်။
+ဖိုင်တစ်ခုတည်းမှာ လူတွေ ဝိုင်းရေးပြီး ကုဒ်တွေ ငြိတာ (Merge Conflict) မျိုးတွေ သက်သာသွားပါတယ်။
 
-- Component တွေ အားလုံးက မျှသုံးရမယ့် data တွေအတွက် React Context, Redux, Vuex တို့လို state management နည်းလမ်းတွေ လိုအပ်လာတယ်။
-
-### ဥပမာ
-E-commerce ဝဘ်ဆိုဒ်တစ်ခုကို ဥပမာအနေနဲ့ ကြည့်ကြရအောင်။
-
-- **ProductCard Component:** ကုန်ပစ္စည်းရဲ့ ပုံ၊ နာမည်၊ ဈေးနှုန်းကို ပြပေးတဲ့ အပိုင်း။
-
-- **Navbar Component:** Logo နဲ့ menu တွေကို ပြပေးတဲ့ အပိုင်း။
-
-- **Footer Component:** ဆက်သွယ်ရန်လိပ်စာနဲ့ link တွေကို ပြပေးတဲ့ အပိုင်း။
-
-အပေါ်က **ProductCard Component** တစ်ခုတည်းကိုပဲ homepage, category page, search results page တွေမှာ ပြန်မရေးဘဲ အကြိမ်ကြိမ် ပြန်သုံးလို့ရပါတယ်။
-
-<Aside title="အနှစ်ချုပ်" type='tip'>
-- Component-based architecture ဆိုတာ UI ကို ပြန်သုံးလို့ရတဲ့ သီးခြားအစိတ်အပိုင်း (component) လေးတွေအဖြစ် ခွဲထုတ်တာ ဖြစ်တယ်။
-
-- ဒါက app ကို ပြင်ဆင်ထိန်းသိမ်းဖို့၊ ပြန်သုံးဖို့၊ တိုးချဲ့ဖို့နဲ့ အဖွဲ့လိုက်လုပ်ဆောင်ဖို့ လွယ်ကူစေတယ်။
-
-- Folder တွေကို စနစ်တကျဖွဲ့စည်းထားခြင်းက component တွေ အများကြီးကို ထိန်းချုပ်ရလွယ်ကူစေတယ်။
-
-- Component တွေ သေးလွန်းများလွန်းတာ၊ state management နဲ့ props ပေးပို့တာတွေကိုတော့ သတိပြုရမယ်။
+<Aside title="သတိပြုရန် (Trade-offs)" type="danger">
+ကောင်းကွက်တွေ ရှိသလို သတိထားရမယ့် အချက်တွေလည်း ရှိပါတယ်။
+1. **Complexity**: Component တွေ အရမ်းများလာရင် ဘယ် Component က ဘယ်မှာလဲ ဆိုတာ ရှာရခက်လာနိုင်ပါတယ်။
+2. **Data Flow**: Component တစ်ခုနဲ့ တစ်ခု Data ပို့ရတာ (Props Drilling) နည်းနည်း ရှုပ်ထွေးနိုင်ပါတယ်။ (ဒါကို ဖြေရှင်းဖို့ State Management တွေ ပေါ်လာတာပါ)
 </Aside>

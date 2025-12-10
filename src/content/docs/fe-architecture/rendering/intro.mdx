@@ -7,20 +7,36 @@ import { Code, Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
 
-<Aside title="ရည်ရွယ်ချက်">
-ဒီသင်ခန်းစာမှာတော့ Webpage တွေကို User တွေဆီ ဘယ်လိုပြသပေးသလဲဆိုတဲ့ နည်းလမ်းတွေဖြစ်တဲ့ **Client-Side Rendering (CSR)**, **Server-Side Rendering (SSR)**, **Static Site Generation (SSG)** နဲ့ **Incremental Static Regeneration (ISR)** တို့အကြောင်းကို လေ့လာသွားမှာပါ။
 
-ကိုယ့် Website က ဘယ်လိုပုံစံမျိုးလဲ (ဥပမာ - Dashboard လား၊ News Site လား၊ Blog လား) ဆိုတာပေါ်မူတည်ပြီး ဘယ်နည်းလမ်းကို ရွေးချယ်ရမလဲဆိုတာ ဆုံးဖြတ်တတ်ဖို့ အရေးကြီးပါတယ်။ မှန်ကန်တဲ့နည်းလမ်းကို ရွေးချယ်ခြင်းက Website ကို မြန်ဆန်စေပြီး User တွေအတွက် သုံးရအဆင်ပြေစေပါတယ်။
+<Aside title="မိတ်ဆက်">
+Webpage တစ်ခုကို User ဆီ ဘယ်လို ပို့ပေးမလဲ? ဒီမေးခွန်းအတွက် အဖြေ (၄) မျိုး ရှိပါတယ်။
+ဒါကို **"အစားအသောက် မှာစားခြင်း"** နဲ့ နှိုင်းယှဉ်ကြည့်ရအောင်။
 </Aside>
 
+### 1. Client-Side Rendering (CSR) - "Meal Kit (HelloFresh)"
+ပါဝင်ပစ္စည်းတွေ (Ingredients) ပဲ အိမ်ကို ပို့ပေးတယ်။ ကိုယ့်ဘာသာ ချက်စားရတယ်။
+- **Web:** Server က HTML အလွတ်နဲ့ JS Code (Ingredients) တွေ ပို့ပေးတယ်။ Browser (Client) ကမှ အဲ့ဒါတွေကို ယူပြီး Website ဖြစ်အောင် တည်ဆောက် (Cook) ရတယ်။
+- **Pros:** တစ်ခါ ချက်ပြီးရင် ထပ်ချက်စရာ မလိုတော့ဘူး (Page transition မြန်)။
+- **Cons:** စစချင်း ချက်ရလို့ ကြာတယ် (Initial Load ကြာ)။ ဗိုက်ဆာနေတဲ့သူ (SEO Bot) က မစောင့်နိုင်ဘူး။
 
-### Rendering ဆိုတာ ဘာလဲ။
+### 2. Server-Side Rendering (SSR) - "Restaurant Delivery"
+ဆိုင်မှာ ချက်ပြီးသား အစားအသောက်ကို ပူပူနွေးနွေး လာပို့ပေးတယ်။ ရောက်တာနဲ့ တန်းစားလို့ ရတယ်။
+- **Web:** User ဝင်လာတိုင်း Server က HTML အပြည့်အစုံ (Cooked Food) ကို ချက်ချင်း ဖန်တီးပြီး ပို့ပေးတယ်။
+- **Pros:** ရောက်တာနဲ့ စားလို့ရ (First Contentful Paint မြန်)။ SEO Bot တွေ ကြိုက်တယ်။
+- **Cons:** Order တက်တိုင်း ချက်ရလို့ စားဖိုမှူး (Server) အလုပ်ရှုပ်တယ်။
 
-- Client-Side Rendering (CSR) ဆိုတာ ဘာလဲ၊ ဘာကြောင့် React လို Framework တွေက ဒါကို အဓိကသုံးတာလဲ။
-- Server-Side Rendering (SSR) ဆိုတာ ဘာလဲ၊ SEO အတွက် ဘာကြောင့်ကောင်းတာလဲ။
-- Static Site Generation (SSG) ဆိုတာ ဘာလဲ၊ ဘယ်အချိန်မှာ သုံးသင့်လဲ။
-- Incremental Static Regeneration (ISR) ဆိုတာ ဘာလဲ၊ SSG ထက် ဘယ်လိုပိုကောင်းလဲ။
-- နည်းလမ်းတစ်ခုချင်းစီရဲ့ အားသာချက်၊ အားနည်းချက်နဲ့ ဘယ်အချိန်မှာ ဘယ်ဟာကို သုံးသင့်လဲ။
+### 3. Static Site Generation (SSG) - "Frozen Food / Canned Food"
+စက်ရုံမှာ ကြိုချက်၊ ပါကင်ပိတ်ထားပြီးသား။ ဝယ်သူလာမှ ထုတ်ပေးလိုက်ရုံပဲ။
+- **Web:** Code ရေးပြီး Build လုပ်တဲ့ အချိန်မှာကတည်းက HTML (Frozen Food) တွေကို ကြိုထုတ်ထားတယ်။ User လာရင် အဲ့ဒါကိုပဲ ပေးလိုက်တယ်။
+- **Pros:** အမြန်ဆုံးပဲ။ Server က ဘာမှ လုပ်စရာ မလိုဘူး။
+- **Cons:** ဟင်းအသစ် စားချင်ရင် စက်ရုံကနေ အသစ်ပြန်ထုတ်ရတယ် (Rebuild လုပ်ရတယ်)။
+
+### 4. Incremental Static Regeneration (ISR) - "Bakery Shop"
+မုန့်တွေကို မနက်ကတည်းက ဖုတ်ထားတယ်။ ဒါပေမဲ့ ၁ နာရီ တစ်ခါ မုန့်အသစ် ထပ်ဖုတ်တယ်။
+- **Web:** SSG လိုပဲ Static File တွေ ပေးတယ်။ ဒါပေမဲ့ သတ်မှတ်ထားတဲ့ အချိန် (ဥပမာ - ၁၀ မိနစ်) ပြည့်ရင် နောက်ကွယ်မှာ Page အသစ် ပြန်တည်ဆောက်တယ်။
+- **Pros:** SSG လို မြန်တယ်၊ ဒါပေမဲ့ Data က SSR လိုမျိုး (နီးပါး) Fresh ဖြစ်တယ်။
+- **Cons:** ပထမဆုံး လူကတော့ မုန့်အဟောင်း (Stale Data) ရနိုင်တယ်။ ဒုတိယလူမှ အသစ် ရမယ်။
+
 
 ### အသေးစိတ်ရှင်းလင်းချက်
 ### 1. Client-Side Rendering (CSR)

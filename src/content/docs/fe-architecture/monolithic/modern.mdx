@@ -1,41 +1,37 @@
 ---
-title: "ခေတ်မီ Framework များတွင် Monolithic Architecture အသုံးပြုပုံ"
-description: "ခေတ်မီ Framework များတွင် Monolithic Architecture အသုံးပြုပုံ"
+title: "Modern Frameworks & Monolith"
+description: "Modern Frameworks & Monolith"
 ---
 
-import { Aside, Code } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
 
-React, Angular, Vue တို့က သင့် app ကို component တွေသုံးပြီး modular ပုံစံနဲ့ တည်ဆောက်ခွင့်ပေးပေမယ့်၊ codebase ကို project အများကြီးအဖြစ် ခွဲမထားတဲ့အတွက် ဒီ application တွေက monolithic application တွေပါပဲ။
+<Aside title="ခေတ်သစ် Monolith">
+Next.js, Remix, Angular တို့လို Modern Framework တွေက Monolith ကို အားပေးပါတယ်။ ဒါပေမဲ့ သူတို့သွားနေတာက **"Modular Monolith"** ပါ။
+ဒါကို **"Modern Car (Tesla)"** နဲ့ နှိုင်းယှဉ်ကြည့်ရအောင်။
+</Aside>
 
-- ##### React:
-  App logic ကို project တစ်ခုတည်းအတွင်းမှာ component တွေအဖြစ် ခွဲခြားထားပါတယ်။ project က components, assets, services စတဲ့ folder တွေအများကြီးနဲ့ ကြီးမားလာနိုင်ပေမယ့် အရာအားလုံးက project structure တစ်ခုတည်းရဲ့ အစိတ်အပိုင်းတွေပါပဲ။
+### Modern Frameworks = Modern Cars
+Tesla ကားတစ်စီးဟာ အပြင်ကကြည့်ရင် တစ်စီးတည်း (One Unit) ပါ။ ဒါပေမဲ့ အတွင်းပိုင်းမှာ Battery Module, Motor Module, AI Module ဆိုပြီး သီးခြားစီ ဖွဲ့စည်းထားပါတယ်။
 
-- ##### Angular:
-  Angular က module system ကို သုံးပေမယ့် အရာအားလုံးက project တစ်ခုတည်းမှာပဲ ရှိပါတယ်။ App တစ်ခုတည်းမှာ feature တွေကို ခွဲခြားဖို့ Angular module တွေကို သုံးပါတယ်။
+- **Next.js / Remix:**
+  Page တွေ၊ Component တွေ ခွဲရေးထားပေမယ့်၊ နောက်ဆုံး Deploy လုပ်ရင် Server တစ်လုံးတည်း (သို့မဟုတ် Lambda Function တစ်စု) အနေနဲ့ တက်သွားပါတယ်။ ဒါဟာ **Monolith** ပါ။ ဒါပေမဲ့ အရမ်း စနစ်ကျတဲ့ Monolith ပါ။
 
-- ##### Vue:
-  React နဲ့ဆင်တူပြီး Vue က component-based architecture ကို အသုံးပြုနိုင်ပေမယ့် app က codebase တစ်ခုတည်းရဲ့ အစိတ်အပိုင်း ဖြစ်နေတုန်းပါပဲ။
+- **Angular:**
+  Module System (NgModules) နဲ့ Feature တွေကို သီးခြားစီ ခွဲထုတ်ထားပါတယ်။ ဒါပေမဲ့ နောက်ဆုံးမှာ `main.js` bundle တစ်ခုတည်း ထွက်လာပါတယ်။
 
-### Monolithic Architecture ကို ဘယ်အချိန်မှာ မသုံးသင့်ဘူးလဲ
-Monolithic architecture က အောက်ပါတို့အတွက် မသင့်တော်ပါဘူး:
+### ဘယ်အချိန်မှာ Monolith မသုံးသင့်ဘူးလဲ? (Micro-Frontends သုံးသင့်ချိန်)
+Tesla ကားတစ်စီး ဝယ်စီးတာက လူတိုင်းအတွက် အဆင်ပြေပါတယ်။ ဒါပေမဲ့ အောက်ပါ အခြေအနေတွေမှာတော့ မရတော့ပါဘူး။
 
-- အရမ်းရှုပ်ထွေးတဲ့ feature တွေ၊ လိုအပ်ချက်တွေပါတဲ့ အကြီးစား application တွေ။
+1.  **Team Scale အရမ်းကြီးလာတဲ့အခါ:**
+    Developer ၁၀၀ ကျော်လောက် ရှိလာပြီး၊ Team တစ်ခုချင်းစီက သီးခြား Feature တွေကို တာဝန်ယူရတဲ့အခါ (ဥပမာ - Checkout Team, Search Team, User Profile Team)။
 
-- Team အများအပြားက မကြာခဏ update လုပ်ဖို့လိုတဲ့ Project တွေ။
+2.  **Independent Deployment လိုအပ်တဲ့အခါ:**
+    Checkout Team က သူတို့ Feature ကို ပြင်လိုက်ရင်၊ Search Team ရဲ့ Code ကို ပြန် Build/Deploy လုပ်စရာ မလိုချင်တဲ့အခါ။
 
-- E-commerce platform အကြီးကြီးတွေ ဒါမှမဟုတ် enterprise-level app တွေလိုမျိုး သီးခြားစီ scale လုပ်နိုင်ဖို့ လိုအပ်တဲ့ Application တွေ။
-
-- ဒီလို project မျိုးတွေအတွက်တော့ Micro-Frontends ဒါမှမဟုတ် Modular Design လို architecture မျိုးတွေက ပိုပြီး သင့်တော်ပါတယ်။
-
+3.  **Technology Diversity လိုချင်တဲ့အခါ:**
+    Legacy Code တွေကို Angular နဲ့ ဆက်ထားပြီး၊ Feature အသစ်တွေကို React နဲ့ ရေးချင်တဲ့အခါမျိုး။
 
 <Aside title="အနှစ်ချုပ်" type='tip'>
-- Monolithic frontend architecture ဆိုတာ folder တွေခွဲပြီး စုစည်းထားရင်တောင် အရာအားလုံးက project တစ်ခုတည်းမှာ ရှိနေတာကို ဆိုလိုတယ်။
-
-- **အားသာချက်များ -** ရိုးရှင်းမှု၊ development မြန်ဆန်မှု၊ application အသေးစားတွေအတွက် debugging လွယ်ကူမှု။
-
-- **အားနည်းချက်များ -** app ကြီးထွားလာတဲ့အခါ scaling ပြဿနာများ၊ tight coupling နှင့် ပြောင်းလွယ်ပြင်လွယ်မရှိခြင်း။
-
-- React, Angular, Vue တို့လို ခေတ်မီ framework တွေက monolithic အခြေခံကို သုံးနေပေမယ့် component တွေနဲ့ file တွေကို ပိုကောင်းအောင် စုစည်းထားနိုင်တယ်။
-
-- **ဘယ်အချိန်မှာမသုံးသင့်ဘူးလဲ -** ရှုပ်ထွေးပြီးလိုအပ်ချက်များတဲ့ အကြီးစား application တွေ ဒါမှမဟုတ် team အများအပြားနဲ့ update လုပ်ရတဲ့ project တွေအတွက် မသင့်တော်ပါဘူး။
+- **Monolith** ဆိုတာ Deployment Unit တစ်ခုတည်း ဖြစ်ခြင်းကို ဆိုလိုတာပါ။ Code တွေ ရှုပ်ပွနေတာကို ဆိုလိုတာ မဟုတ်ပါဘူး။
+- **Micro-Frontend** ဆိုတာ Team တွေ၊ Deployment တွေကို ခွဲထုတ်ချင်မှသာ သုံးသင့်တဲ့ Advanced Pattern တစ်ခုပါ။ မလိုအပ်ဘဲ သုံးရင် ရှုပ်ထွေးမှု (Complexity) သာ တိုးလာပါလိမ့်မယ်။
 </Aside>

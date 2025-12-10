@@ -1,6 +1,6 @@
 ---
-title: "Micro-Frontend Architecture"
-description: "Micro-Frontend Architecture"
+title: "Modular Architecture ဆိုတာ ဘာလဲ"
+description: "Modular Architecture ဆိုတာ ဘာလဲ"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
@@ -8,33 +8,52 @@ import ContentImage from '@/components/Content-image.astro';
 import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
 
 <Aside title="ရည်ရွယ်ချက်">
-ဒီသင်ခန်းစာမှာတော့ frontend code ကို ကိုယ်ပိုင်ပြီးပြည့်စုံပြီး ပြန်သုံးနိုင်တဲ့ module လေးတွေအဖြစ် ခွဲထုတ်တဲ့ **Modular Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။ Module တစ်ခုချင်းစီက သီးခြား feature တစ်ခုကို တာဝန်ယူတဲ့အတွက် application တွေကို ထိန်းသိမ်းရ၊ တိုးချဲ့ရ လွယ်ကူစေပါတယ်။
-
-အရင်သင်ခန်းစာက Micro-Frontend နဲ့ ဆင်တူတယ်လို့ထင်ရပေမယ့် အဓိကကွာခြားချက်ကတော့ Modular Architecture ဟာ **project တစ်ခုတည်းအတွင်းမှာ** code တွေကို စနစ်တကျဖြစ်အောင် အဓိကထားပြီး၊ Micro-Frontend ကတော့ **application အသေးလေးတွေအများကြီးနဲ့ သီးခြားစီ deploy လုပ်နိုင်ဖို့** အဓိကထားတာ ဖြစ်ပါတယ်။
+ဒီသင်ခန်းစာမှာတော့ Frontend Code တွေကို သီးခြားလွတ်လပ်တဲ့ အစိတ်အပိုင်း (Modules) တွေအဖြစ် ခွဲထုတ်ပြီး စနစ်တကျ ဖွဲ့စည်းတဲ့ **Modular Architecture** အကြောင်း လေ့လာသွားမှာပါ။
 </Aside>
 
+### Modular Architecture ဆိုတာ ဘာလဲ?
+Modular Architecture ဆိုတာ **"စမတ်ဖုန်း (Smartphone)"** တစ်လုံးလိုပါပဲ။
+ဖုန်းတစ်လုံးထဲမှာ -
+- 📷 **Camera Module** (ကင်မရာပိုင်း)
+- 🔋 **Battery Module** (ပါဝါပိုင်း)
+- 📶 **Network Module** (အင်တာနက်ပိုင်း)
+ဆိုပြီး အပိုင်းလိုက် ရှိကြပါတယ်။ ဒါပေမယ့် အားလုံးက ဖုန်းတစ်လုံးတည်း (Single Device) အနေနဲ့ အလုပ်လုပ်ကြပါတယ်။
 
-### ဘာတွေလေ့လာရမလဲ
-- Modular Architecture ဆိုတာ ဘာလဲ၊ ဘာကြောင့်အရေးကြီးသလဲ။
-- Code တွေကို ကိုယ်ပိုင် module တွေအဖြစ် ဘယ်လိုစုဖွဲ့မလဲ။
-- ES Modules (`import`/`export`) ကိုသုံးပြီး code တွေကို ဘယ်လိုစုဖွဲ့မလဲ။
-- Performance ပိုကောင်းအောင် lazy loading နဲ့ code splitting လုပ်ပုံ။
-- Modular code ရဲ့ အကျိုးကျေးဇူးများ: scalability, maintainability, and testability။
+Software မှာလည်း ဒီလိုပါပဲ။ Web App တစ်ခုလုံးကို ကုဒ်တွေ ရောရေးမယ့်အစား၊ Feature အလိုက် Module လေးတွေ ခွဲထုတ်လိုက်တာပါ။
+- `User` Module (Login, Register, Profile)
+- `Product` Module (List, Detail, Search)
+- `Cart` Module (Add to cart, Checkout)
 
-### Modular Architecture ဆိုတာ ဘာလဲ
-Modular architecture ဆိုတာ frontend application တစ်ခုအတွင်းမှာပဲ သီးခြားလွတ်လပ်တဲ့ module တွေအဖြစ် ခွဲထုတ်လိုက်တာပါ။ Module တစ်ခုချင်းစီမှာ **သူ့ feature နဲ့သက်ဆိုင်တဲ့** component တွေ၊ logic တွေ၊ style တွေ အားလုံးပါဝင်ပါတယ်။ ရည်ရွယ်ချက်ကတော့ သီးခြားစီ ပြန်သုံးနိုင်၊ ပြင်ဆင်နိုင်၊ test လုပ်နိုင်တဲ့ unit လေးတွေ ဖန်တီးဖို့ပါပဲ။
+### Modular vs Micro-Frontend: ဘာကွာလဲ?
+ဒါက လူမှားအများဆုံး အပိုင်းပါ။ ဥပမာလေးနဲ့ ကြည့်ရအောင်။
 
-### Modular Architecture နှင့် Micro-Frontend ကွာခြားချက်
-ဒီနှစ်ခုရဲ့ အဓိကကွာခြားချက်ကို ရှင်းရှင်းလင်းလင်း နားလည်ထားဖို့ အရေးကြီးပါတယ်။
+| Architecture | ဥပမာ | ရှင်းလင်းချက် |
+|---|---|---|
+| **Modular** | **Swiss Army Knife** (ဓားမြှောင်) | ဓား၊ ကတ်ကြေး၊ ဝက်အူလှည့် အားလုံးက **တစ်ခုတည်း** မှာ ပေါင်းစပ်ပါဝင်နေတယ်။ (Single Codebase, Single Deployment) |
+| **Micro-Frontend** | **Toolbox** (ကိရိယာသေတ္တာ) | တူ၊ လွှ၊ ဂွ အားလုံးက **သီးခြားစီ** ဖြစ်နေတယ်။ တူ ပျောက်သွားလည်း လွှ သုံးလို့ရတယ်။ (Multiple Codebases, Multiple Deployments) |
 
-- **Modular Architecture** ဆိုတာ code တွေကို စုဖွဲ့တဲ့ပုံစံ ဖြစ်ပါတယ်။ Application တစ်ခုလုံးက codebase တစ်ခုတည်းမှာပဲ ရှိပြီး deploy လုပ်တဲ့အခါမှာလည်း တစ်ခုလုံးကို တစ်ခါတည်း deploy လုပ်ရပါတယ်။ အဓိကကတော့ project ကို သန့်ရှင်းပြီး ထိန်းသိမ်းရလွယ်အောင် စီမံခန့်ခွဲတာပါ။
+> **အတိုချုပ်:** Modular ဆိုတာ Project တစ်ခုတည်းမှာ အခန်းကန့်တာ။ Micro-Frontend ဆိုတာ Project အသေးလေးတွေ ခွဲပြီး ပြန်ဆက်တာ။
 
-- **Micro-Frontend** ကတော့ **deployment strategy** ဖြစ်ပါတယ်။ Application ကြီးတစ်ခုကို သီးခြားစီ deploy လုပ်လို့ရတဲ့ application အသေးလေးတွေအဖြစ် ခွဲထုတ်လိုက်တာပါ။ Team တစ်ခုက ကိုယ့် feature ကို တခြား team ကို စောင့်စရာမလိုဘဲ deploy လုပ်နိုင်ပါတယ်။
+### ဘာကြောင့် Modular သုံးသင့်တာလဲ?
+1.  **Organization:** ကုဒ်တွေ ရှာရလွယ်တယ်။ `Cart` နဲ့ ပတ်သက်ရင် `Cart` Module ထဲ သွားရှာလိုက်ရုံပဲ။
+2.  **Lazy Loading:** လိုအပ်မှ Load လုပ်လို့ရတယ်။ (ဥပမာ - Admin Page ကို Admin ဝင်မှ Load လုပ်မယ်)
+3.  **Encapsulation:** Module တစ်ခုက ပြဿနာတက်ရင် တခြား Module ကို သိပ်မထိခိုက်ဘူး။
 
-> **အတိုချုပ်ပြောရရင် -** Modular က project တစ်ခုတည်းကို စနစ်တကျဖြစ်အောင် အပိုင်းတွေခွဲတာဖြစ်ပြီး၊ Micro-Frontend က application အများကြီးကို ပေါင်းပြီး တစ်ခုတည်းလိုဖြစ်အောင် လုပ်ဆောင်တာပါ။
+### ES Modules (The Standard Way)
+JavaScript မှာ `import` / `export` ကို သုံးပြီး Module တွေ ခွဲတာဟာ Standard ဖြစ်ပါတယ်။
 
-### ES Modules နဲ့ Module တွေကို စုဖွဲ့ခြင်း
-ES Modules (`import`/`export`) က file တွေကြားမှာ code တွေကို မျှဝေသုံးစွဲခွင့်ပေးတဲ့အတွက် module တွေကို သီးခြားစီဖြစ်အောင် ထိန်းသိမ်းပေးနိုင်ပါတယ်။ တစ်နည်းအားဖြင့် file တစ်ခုက function ဒါမှမဟုတ် component ကို export လုပ်ပြီး တခြား file က import နဲ့ ပြန်ယူသုံးတာ ဖြစ်ပါတယ်။
+```javascript
+// math.js (Module)
+export function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import { add } from './math.js';
+console.log(add(1, 2));
+```
+
+ဒီနည်းနဲ့ ကုဒ်တွေကို သန့်ရှင်းသပ်ရပ်စွာ ထိန်းသိမ်းနိုင်ပါတယ်။
 
 ### Lazy Loading နှင့် Code Splitting
 ဒါတွေက performance ပိုကောင်းအောင်လုပ်တဲ့ နည်းလမ်းတွေပါ။

@@ -8,44 +8,37 @@ import ContentImage from '@/components/Content-image.astro';
 import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
 
 <Aside title="ရည်ရွယ်ချက်">
-ဒီသင်ခန်းစာမှာတော့ application အကြီးကြီးတွေကို တည်ဆောက်တဲ့အခါသုံးတဲ့ ခေတ်မီနည်းလမ်းတစ်ခုဖြစ်တဲ့ **Micro-Frontend Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။ ဒီနည်းလမ်းက application ကြီးတစ်ခုကို **micro-frontend** လို့ခေါ်တဲ့ သေးငယ်ပြီး၊ သီးခြားလွတ်လပ်ကာ deploy လုပ်နိုင်တဲ့ unit လေးတွေအဖြစ် ခွဲထုတ်လိုက်တာ ဖြစ်ပါတယ်။
-
-ဒီ architecture က team တွေက သီးခြားစီ development လုပ်တာ၊ test လုပ်တာနဲ့ deploy လုပ်တာတွေကို ခွင့်ပြုတဲ့အတွက် application အကြီးကြီးတွေကို စီမံခန့်ခွဲရ ပိုလွယ်ကူပြီး တိုးချဲ့ရ လွယ်ကူစေပါတယ်။
+Application အကြီးကြီးတွေကို Team အများကြီးနဲ့ ဝိုင်းရေးတဲ့အခါ၊ တစ်ယောက်ရေးတာ တစ်ယောက်စောင့်နေရတာမျိုး မဖြစ်ရအောင် **Micro-Frontend Architecture** ကို အသုံးပြုကြပါတယ်။
 </Aside>
 
+### Micro-Frontend ဆိုတာ ဘာလဲ?
+Micro-Frontend ဆိုတာ **"Shopping Mall (ကုန်တိုက်ကြီး)"** တစ်ခုနဲ့ တူပါတယ်။
+ကုန်တိုက်ကြီး (Shell App) တစ်ခုထဲမှာ -
+- 🍔 **Food Court** (ဆိုင်တစ်ဆိုင်)
+- 🎬 **Cinema** (ဆိုင်တစ်ဆိုင်)
+- 👗 **Clothing Store** (ဆိုင်တစ်ဆိုင်)
 
-### ဘာတွေလေ့လာရမလဲ
-- Micro-frontend ဆိုတာ ဘာလဲ။
-- Application အကြီးကြီးတွေမှာ micro-frontend သုံးခြင်းရဲ့ အကျိုးကျေးဇူးများ။
-- သီးခြား team တွေက micro-frontend တွေကို ဘယ်လို develop လုပ်ပြီး deploy လုပ်နိုင်သလဲ။
-- Micro-frontend တွေတည်ဆောက်ဖို့ tool တွေနဲ့ framework တွေ (Webpack Module Federation, Single SPA)။
-- Micro-frontend တွေကြား ဆက်သွယ်မှုနဲ့ ပေါင်းစပ်မှုအတွက် စိန်ခေါ်မှုများနဲ့ အကောင်းဆုံး practice များ။
+ဒီဆိုင်တွေ အားလုံးဟာ ကုန်တိုက်ကြီး တစ်ခုတည်း အောက်မှာ ရှိနေပေမယ့်၊ ဆိုင်တစ်ဆိုင်ချင်းစီမှာ ကိုယ်ပိုင် မန်နေဂျာ၊ ကိုယ်ပိုင် ဝန်ထမ်း၊ ကိုယ်ပိုင် စည်းမျဉ်းတွေ ရှိကြပါတယ်။
+Food Court ပိတ်ထားလို့ Cinema ပါ လိုက်ပိတ်စရာ မလိုပါဘူး။
 
-### Micro-Frontend Architecture ဆိုတာ ဘာလဲ
+Software မှာလည်း ဒီလိုပါပဲ။
+- `Team A` က **Checkout** အပိုင်းကို React နဲ့ ရေးမယ်။
+- `Team B` က **User Profile** အပိုင်းကို Vue နဲ့ ရေးမယ်။
+- `Team C` က **Product List** အပိုင်းကို Angular နဲ့ ရေးမယ်။
 
-**Micro-frontend** ဆိုတာက frontend application အကြီးကြီးတစ်ခုကို သေးငယ်ပြီး သီးခြားလွတ်လပ်တဲ့ application လေးတွေ **(micro-frontend)** အဖြစ် ခွဲထုတ်လိုက်တာပါ။
-
-**Micro-frontend** တစ်ခုချင်းစီက သီးခြား feature တစ်ခု (ဥပမာ- product catalog, cart, user profile) ကို တာဝန်ယူပြီး framework မတူတာတွေနဲ့တောင် တည်ဆောက်နိုင်ပါတယ်။ အဓိက shell ဒါမှမဟုတ် container app က ဒီ micro-frontend တွေအားလုံးကို UI တစ်ခုတည်းအဖြစ် ပေါင်းစပ်ပြသပေးပါတယ်။
-
-
-**ဥပမာ:** E-commerce app တစ်ခုကို စဉ်းစားကြည့်ပါ-
-
-- **Micro-frontend 1:** Product Listing (ကုန်ပစ္စည်းစာရင်း)
-- **Micro-frontend 2:** Shopping Cart (ဈေးဝယ်ခြင်းတောင်း)
-- **Micro-frontend 3:** User Profile (သုံးစွဲသူအချက်အလက်)
-
-တစ်ခုချင်းစီက သီးခြား module တွေဖြစ်ပြီး သီးခြားစီ develop လုပ်၊ test လုပ်၊ deploy လုပ်နိုင်ပါတယ်။
+နောက်ဆုံးကျမှ ဒီ (၃) ခုလုံးကို Web Page တစ်ခုတည်းမှာ ပေါင်းစည်းပြီး ပြလိုက်တာပါ။ User အနေနဲ့ကတော့ App တစ်ခုတည်းလို့ပဲ မြင်ရမှာပါ။
 
 <ContentImage src={microFrontend} alt="Micro frontend Architecture" />
 
-> အပေါ်က ပုံမှာ micro-frontend architecture ရဲ့ အခြေခံဖွဲ့စည်းပုံကို မြင်ရမှာဖြစ်ပြီး- မြင်သာအောင် Team တစ်ခုချင်းစီက မတူညီတဲ့ framework တစ်ခုကို သုံးနိုင်ကြောင်း ပြသထားတာဖြစ်ပါတယ်။ ဒါ့အပြင် Micro-frontend တွေကို အသုံးပြုတဲ့အခါမှာလည်း Page တစ်ခုတည်းမှာ ပေါင်းပြီးသုံးလို့ရသလို micro-frontend တစ်ခုကို Page တစ်ခုအဖြစ်လည်း သက်သက်စီ သုံးလို့ရပါတယ်။ 
+### ဘယ်လို အလုပ်လုပ်သလဲ?
+1.  **The Shell (Container):** ဒါက ကုန်တိုက်ရဲ့ အဆောက်အဦးပါ။ Header, Footer နဲ့ Navigation ကို ကိုင်တွယ်ပါတယ်။
+2.  **The Micro-Frontends:** ဒါက ဆိုင်ခန်းတွေပါ။ (Checkout, Profile, Product List)
+3.  **Integration:** Shell ကနေ လိုအပ်တဲ့ Micro-Frontend ကို လှမ်းခေါ်ပြီး ပြပေးတာပါ။
 
-### Micro-Frontend များ အလုပ်လုပ်ပုံ
-- **Container/Shell App:** Header, footer, routing လိုမျိုး အားလုံးမျှသုံးတဲ့ layout တွေကို ထိန်းသိမ်းပေးတယ်။
+### ဘယ်အချိန်မှာ သုံးသင့်လဲ?
+- 🏢 **Enterprise Level:** ကုမ္ပဏီ အရမ်းကြီးပြီး Developer ရာချီ ရှိတဲ့အခါ။
+- 🚀 **Independent Deployment:** Team တစ်ခုက တခြား Team ကို စောင့်စရာ မလိုဘဲ ကိုယ့်အပိုင်း ကိုယ် Deploy လုပ်ချင်တဲ့အခါ။
+- 🛠 **Legacy Migration:** Code အဟောင်းကြီးကို တဖြည်းဖြည်းချင်း အသစ်ပြောင်းချင်တဲ့အခါ (ဥပမာ - jQuery ကနေ React ကို တစ်စစီ ပြောင်းတာမျိုး)။
 
-- **Feature Micro-Frontends:** Application ရဲ့ အစိတ်အပိုင်းတစ်ခုစီကို ကိုယ်စားပြုပြီး လိုအပ်မှ dynamically load လုပ်တယ်။
+> **သတိပြုရန်:** Project သေးရင် Micro-Frontend မသုံးပါနဲ့။ "ယင်ကောင်ကို တူနဲ့ ထု" သလို ဖြစ်နေပါလိမ့်မယ်။ Complexity အရမ်းများပါတယ်။
 
-- **Communication:** Micro-frontend တွေက အဓိက shell နဲ့ ဆက်သွယ်ပြီး၊ လိုအပ်ရင် custom event တွေ၊ shared state library တွေသုံးပြီး အချင်းချင်းလည်း ဆက်သွယ်နိုင်ပါတယ်။
-
-### Modern Practice များ:
-Micro-frontend တွေကြားမှာ code တွေ share လုပ်ဖို့ **Module Federation (Webpack 5)** ကို သုံးကြပါတယ်။ Micro-frontend တွေကို စုစည်းထိန်းချုပ်ဖို့ **Single SPA** က လူကြိုက်များတဲ့ framework တစ်ခုပါ။ 

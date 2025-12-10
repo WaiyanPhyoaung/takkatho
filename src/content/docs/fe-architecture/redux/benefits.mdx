@@ -1,36 +1,43 @@
 ---
-title: "Flux/Redux ရဲ့ အကျိိုးကျေးဇူးများ"
-description: "Flux/Redux ရဲ့ အကျိိုးကျေးဇူးများ"
+title: "Redux ရဲ့ အားသာချက်များ"
+description: "Redux ရဲ့ အားသာချက်များ"
 ---
 
-import { Code, Aside } from "@astrojs/starlight/components";
-import ContentImage from '@/components/Content-image.astro';
-import flux from '@/assets/frontend-architecture/flux.png'
+import { Aside } from "@astrojs/starlight/components";
 
-<ContentImage src={flux} alt="Flux Architecture" />
-
----
-<br/>
-
-- **ကြိုတင်ခန့်မှန်းနိုင်သော State (Predictable state) -** Data flow က **unidirectional** ဖြစ်တဲ့အတွက် app ရဲ့ state က အမြဲတမ်း ကြိုတင်ခန့်မှန်းနိုင်ပါတယ်။
-
-- **Debugging ပိုမိုလွယ်ကူခြင်း -** Redux DevTools လိုမျိုး tool တွေသုံးပြီး state အပြောင်းအလဲတွေကို အလွယ်တကူ ခြေရာခံနိုင်ပါတယ်။
-
-- **Test လုပ်ရလွယ်ကူခြင်း (Testability) -** Reducer တွေက pure function တွေဖြစ်တဲ့အတွက် test လုပ်ရတာ အလွန်လွယ်ကူပါတယ်။
-
-- **Boilerplate Code နည်းပါးခြင်း (Redux Toolkit ကြောင့်) -** Redux Toolkit က action တွေ၊ reducer တွေကို အလိုအလျောက် generate လုပ်ပေးတဲ့အတွက် code ရေးရတာ အများကြီး သက်သာစေပါတယ်။
-
-### Redux မှာ Asynchronous Action များကို ကိုင်တွယ်ခြင်း 
-**Redux Toolkit** မှာ **Redux Thunk** ဟာ အသင့်ပါဝင်လာပြီးသားဖြစ်တဲ့အတွက် API call တွေလိုမျိုး asynchronous အလုပ်တွေကို ကိုင်တွယ်ဖို့ ထပ်ပြီး install လုပ်စရာမလိုပါဘူး။ Thunk ကိုသုံးပြီး async logic တွေကို reducer logic တွေနဲ့ သီးခြားခွဲထားနိုင်ပါတယ်။
-
-<Aside title="အနှစ်ချုပ်" type="tip">
-- **Flux Architecture** က state ကို စီမံခန့်ခွဲဖို့နဲ့ အပြောင်းအလဲတွေကို ကြိုတင်ခန့်မှန်းနိုင်စေဖို့ **unidirectional data flow** ကို အသုံးပြုတယ်။
-
-- **Redux** က Flux pattern ကို အကောင်အထည်ဖော်ထားပြီး ခေတ်မီရေးသားနည်းဖြစ်တဲ့ **Redux Toolkit** က code တွေကို အများကြီး ပိုရိုးရှင်းစေတယ်။
-
-- `createSlice` ကိုသုံးပြီး state, reducers, နဲ့ actions တွေကို feature တစ်ခုအတွက် တစ်နေရာတည်းမှာ စုစည်းနိုင်တယ်။
-
-- Redux က ကြိုတင်ခန့်မှန်းနိုင်တဲ့ state၊ လွယ်ကူတဲ့ debugging နဲ့ testability ကို ပေးစွမ်းတယ်။
-
-- **Redux Toolkit** မှာ **Redux Thunk** အသင့်ပါဝင်လာတဲ့အတွက် API call တွေလိုမျိုး asynchronous action တွေကို အလွယ်တကူ စီမံခန့်ခွဲနိုင်တယ်။
+<Aside title="ဘာကြောင့် Redux သုံးသင့်လဲ?">
+Redux သုံးရတာ Code ပိုရေးရပေမယ့်၊ သူပေးတဲ့ အကျိုးကျေးဇူးက အများကြီးပါ။ အထူးသဖြင့် **"CCTV Camera"** လိုမျိုး အရာအားလုံးကို မှတ်တမ်းတင်ထားနိုင်တာပါပဲ။
 </Aside>
+
+### ၁. Predictable State (ခန့်မှန်းရ လွယ်ကူခြင်း)
+Redux မှာ State တစ်ခု ပြောင်းလဲဖို့အတွက် Action တစ်ခု မဖြစ်မနေ လိုပါတယ်။
+- ဘယ်သူက ပြောင်းလိုက်တာလဲ?
+- ဘယ်အချိန်မှာ ပြောင်းလိုက်တာလဲ?
+- ဘာကြောင့် ပြောင်းလိုက်တာလဲ?
+
+ဒါတွေအားလုံးကို တိတိကျကျ သိနိုင်ပါတယ်။ CCTV မှတ်တမ်း ပြန်ကြည့်သလိုပါပဲ။ "ပိုက်ဆံ ပျောက်သွားတယ်" ဆိုရင် ဘယ်သူ ယူသွားလဲ ချက်ချင်း သိနိုင်သလို၊ Bug ဖြစ်ရင်လည်း ဘယ် Action ကြောင့် ဖြစ်လဲ ချက်ချင်း သိနိုင်ပါတယ်။
+
+### ၂. Debugging (Time Travel Debugging)
+Redux DevTools ကို သုံးပြီး **"Time Travel"** လုပ်လို့ ရပါတယ်။
+- လွန်ခဲ့တဲ့ ၅ မိနစ်က State ကို ပြန်သွားကြည့်မလား?
+- Action တစ်ခုချင်းစီကို ပြန် Play ကြည့်မလား?
+
+Video Tape ကို အနောက်ပြန်ရစ် (Rewind) လုပ်သလိုမျိုး Application ရဲ့ အခြေအနေကို စိတ်ကြိုက် ပြန်ကြည့်လို့ ရတာက Redux ရဲ့ Superpower ပါပဲ။
+
+### ၃. Centralized State (တစ်နေရာတည်းမှာ စုစည်းထားခြင်း)
+Data အားလုံးကို Store တစ်ခုတည်းမှာ သိမ်းထားတဲ့အတွက်:
+- Data တွေကို နေရာတကာ လိုက်ရှာစရာ မလိုတော့ဘူး။
+- Server ကနေ လာတဲ့ Data တွေကို Cache လုပ်ထားဖို့ လွယ်တယ်။
+- App တစ်ခုလုံးရဲ့ အရောင် (Theme) ပြောင်းချင်ရင် တစ်နေရာတည်း ပြင်ရုံနဲ့ ရတယ်။
+
+### ၄. Testing (စမ်းသပ်ရ လွယ်ကူခြင်း)
+Redux ရဲ့ Reducer တွေက **Pure Functions** တွေ ဖြစ်ပါတယ်။
+- Input (Old State + Action) ပေးလိုက်ရင် Output (New State) အမြဲတမ်း တူတူပဲ ထွက်ပါတယ်။
+- ဒါကြောင့် Test ရေးရတာ အရမ်း လွယ်ကူပါတယ်။ "ဒီ Action ပေးရင် ဒီ State ထွက်လား" ဆိုတာ စစ်ဆေးရုံပါပဲ။
+
+### ဘယ်အချိန်မှာ Redux မသုံးသင့်ဘူးလဲ?
+- Project အသေးလေးတွေ (To-Do List လောက်ပဲ)
+- State တွေ သိပ်မရှုပ်ထွေးတဲ့ App တွေ
+- Team Member တွေက Redux မကျွမ်းကျင်သေးရင်
+
+"ယင်ကောင်ကို ပုဆိန်နဲ့ ပေါက်" သလို မဖြစ်စေဖို့ လိုအပ်မှသာ Redux ကို သုံးသင့်ပါတယ်။

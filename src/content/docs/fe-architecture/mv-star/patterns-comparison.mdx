@@ -1,12 +1,34 @@
 ---
-title: Patterns Comparison
-description: MVP (Model-View-Presenter) နဲ့ MVVM (Model-View-ViewModel) တို့ရဲ့ ကွာခြားချက်များနဲ့ အားသာချက်၊ အားနည်းချက်တွေကို နှိုင်းယှဉ်ကြည့်ပါမယ်။
+title: "Patterns နှိုင်းယှဉ်ချက်"
+description: "Patterns နှိုင်းယှဉ်ချက်"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
+ဘယ် Pattern က အကောင်းဆုံးလဲ? အဖြေကတော့ **"Project ပေါ် မူတည်ပါတယ်"**။
 
-### Pattern များကြား အဓိကကွာခြားချက်များ
+### နှိုင်းယှဉ်ချက် ဇယား
+
+| Pattern | အဓိက မင်းသား | Data ချိတ်ဆက်ပုံ | ဘယ်မှာ သုံးလဲ? |
+|---|---|---|---|
+| **MVC** | Controller | Manual (Controller က လုပ်ပေးရ) | Backend Frameworks (Laravel, Rails) |
+| **MVP** | Presenter | Manual (Presenter က အကုန်လုပ်) | Desktop Apps, Legacy Android |
+| **MVVM** | ViewModel | Automatic (Data Binding) | Modern Frontend (Vue, Angular, React*) |
+
+> *React က တိတိကျကျ ပြောရင် MVVM မဟုတ်ပါဘူး။ "Component-Based" ပါ။ ဒါပေမယ့် Concept ကတော့ MVVM နဲ့ ဆင်တူပါတယ်။
+
+### ဘာကြောင့် MV* Patterns တွေကို သုံးတာလဲ?
+1.  **Separation of Concerns:** "ထမင်းချက်တဲ့သူ" နဲ့ "ဧည့်ခံတဲ့သူ" ကို ခွဲထားချင်လို့ပါ။ (Logic နဲ့ UI မရောချင်လို့)
+2.  **Testability:** UI မပါဘဲ Logic သက်သက်ကို စစ်ဆေးရ လွယ်ကူစေပါတယ်။
+3.  **Maintainability:** ကုဒ်တွေ ရှင်းလင်းပြီး ပြင်ဆင်ရ လွယ်ကူစေပါတယ်။
+
+<Aside title="အနှစ်ချုပ်" type="tip">
+- **MVC:** Controller က Boss။
+- **MVP:** Presenter က Middleman (ကြားခံ)။
+- **MVVM:** ViewModel က Auto-Sync (အလိုအလျောက် ချိတ်ဆက်)။
+
+ခေတ်မီ Frontend Development မှာတော့ **MVVM** (သို့မဟုတ် Component-Based) က အသုံးအများဆုံး ဖြစ်ပါတယ်။
+</Aside>
 
 | Pattern | Logic | Data ချိတ်ဆက်ပုံ | အသုံးပြုရန် သင့်တော်သည့်နေရာ |
 |---|---|---|---|

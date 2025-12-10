@@ -1,62 +1,49 @@
 ---
-title: "Component-Based Architecture"
-description: "Component-Based Architecture"
+title: "Component-Based Architecture ဆိုတာဘာလဲ"
+description: "Component-Based Architecture ဆိုတာဘာလဲ"
 ---
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import componentBased from '@/assets/frontend-architecture/component-based.png'
 
-<Aside title='ရည်ရွယ်ချက်'> 
-- ဒီသင်ခန်းစာမှာတော့ Component-Based Architecture အကြောင်းကို လေ့လာရမှာပါ။ ဒါက UI ကုဒ်တွေကို Component လို့ခေါ်တဲ့ သီးခြားပြန်လည်အသုံးပြုလို့ရတဲ့ အစိတ်အပိုင်းလေးတွေအဖြစ် ခွဲထုတ်ပြီး စုစည်းတည်ဆောက်တဲ့ နည်းလမ်းတစ်ခု ဖြစ်ပါတယ်။
-- ဒီပုံစံကို React, Angular, Vue တို့လို ခေတ်မှီ framework တွေမှာ ကျယ်ကျယ်ပြန့်ပြန့် အသုံးပြုကြပါတယ်။ 
-- Component တွေကို နားလည်ထားခြင်းက သင့်ကို ပြင်ဆင်ထိန်းသိမ်းရလွယ်ကူပြီး တိုးချဲ့ရလွယ်ကူတဲ့ frontend application တွေ တည်ဆောက်နိုင်အောင် ကူညီပေးပါလိမ့်မယ်။
+<Aside title="ရည်ရွယ်ချက်">
+  ခေတ်မီ Frontend Development မှာ Component ဆိုတာ အခြေခံအကျဆုံး Unit ပါ။ React, Vue, Angular, Svelte စတဲ့ Framework အားလုံးဟာ ဒီ Concept ပေါ်မှာ အခြေခံထားပါတယ်။ ဒီသင်ခန်းစာမှာ Component ဆိုတာ ဘာလဲ၊ ဘာကြောင့် ဒီလောက် အရေးပါရတာလဲ ဆိုတာကို ရှင်းလင်းစွာ နားလည်သွားပါလိမ့်မယ်။
 </Aside>
 
-### ဒီသင်ခန်းစာမှာ ဘာတွေလေ့လာရမလဲ
-- Component-based architecture ဆိုတာ ဘာလဲ။
+### Component ဆိုတာ ဘာလဲ?
+Component ဆိုတာ **"LEGO တုံးလေးများ"** နဲ့ တူပါတယ်။
 
-- Component နဲ့ Monolithic code (အားလုံးကို တစ်နေရာတည်းမှာ ရေးတဲ့ code) ဘာကွာလဲ။
+LEGO ရဲတိုက်ကြီးတစ်ခု ဆောက်မယ်ဆိုပါစို့။ ရဲတိုက်ကြီးတစ်ခုလုံးကို ပလပ်စတစ်အကြီးကြီး တစ်တုံးတည်းနဲ့ ပုံလောင်းပြီး ထုတ်လုပ်လိုက်တာမျိုး မဟုတ်ပါဘူး။ အစားထိုးလို့ရတဲ့၊ နေရာရွှေ့လို့ရတဲ့၊ ပုံစံတူ ပြန်သုံးလို့ရတဲ့ အတုံးလေးတွေ (Bricks) နဲ့ စုစည်း တည်ဆောက်ထားတာပါ။
 
-- Component code တွေက ပြန်သုံးဖို့နဲ့ ပြင်ဆင်ထိန်းသိမ်းဖို့အတွက် ဘယ်လို လွယ်ကူစေသလဲ။
+Software မှာလည်း ဒီလိုပါပဲ။ Web Page တစ်ခုလုံးကို HTML file အရှည်ကြီး တစ်ခုတည်းနဲ့ ရေးမယ့်အစား၊ သေးငယ်တဲ့ အစိတ်အပိုင်းလေးတွေ (Components) အဖြစ် ခွဲထုတ်လိုက်ပါတယ်။
+- `Button` Component
+- `Navbar` Component
+- `ProductCard` Component
 
-- Component တွေကို project ထဲမှာ ဘယ်လို စုစည်းထားမလဲ။
-
-### Component-Based Architecture ဆိုတာဘာလဲ။
-- UI code အားလုံးကို file တစ်ခုတည်းမှာ အကုန်စုရေးမယ့်အစား၊ သီးခြားလည်ပတ်နိုင်တဲ့ အစိတ်ပိုင်းငယ်လေးတွေအဖြစ် ခွဲထုတ်လိုက်တာကို Component လို့ခေါ်ပါတယ်။
-
-- Component တစ်ခုချင်းစီမှာ UI ရဲ့ သတ်မှတ်ထားတဲ့ အပိုင်းတစ်ခုကိုပဲ တာဝန်ယူပြီး နေရာတော်တော်များများမှာ ပြန်ပြန်သုံးလို့ရပါတယ်။
-
-- **ဥပမာ -** ဝဘ်ဆိုဒ်တစ်ခုရဲ့ navbar, footer, login form နဲ့ product card တွေဟာ သီးခြား Component တွေအနေနဲ့ တည်ဆောက်လို့ရပါတယ်။
+ဒီ Component လေးတွေကို ပေါင်းစပ် (Compose) လိုက်တဲ့အခါ Web Page ကြီးတစ်ခု ဖြစ်လာပါတယ်။
 
 <ContentImage src={componentBased} alt='component based architecture' />
 
-### Component နဲ့ Monolithic Code ဘာကွာလဲ။
+### Component တစ်ခုရဲ့ အနှစ်သာရ (The Core Concept)
+Component တစ်ခုမှာ အဓိက အချက် (၃) ချက် ပါဝင်လေ့ ရှိပါတယ် (Encapsulation):
 
-| Monolithic (အားလုံးစုရေးတဲ့ ပုံစံ) | Component-Based (အစိတ်အပိုင်းတွေခွဲရေးတဲ့ ပုံစံ) |
-|---|---|
-| UI အားလုံးကို ဖိုင်ကြီးတစ်ခုတည်းမှာ စုရေးထားတယ်။ | UI ကို သီးခြားအစိတ်အပိုင်းလေးတွေအဖြစ် ခွဲရေးထားတယ်။ |
-| Application ကြီးလာရင် ပြင်ဆင်ထိန်းသိမ်းဖို့ ခက်ခဲတယ်။ | ပြင်ဆင်ထိန်းသိမ်းဖို့နဲ့ update လုပ်ဖို့ ပိုလွယ်ကူတယ်။ |
-| ကုဒ်တွေ ထပ်ခါထပ်ခါ ရေးရနိုင်တယ်။ | ပြန်သုံးလို့ရတဲ့ Component တွေကြောင့် ကုဒ်ထပ်တာ နည်းသွားတယ်။ |
+1.  **Structure (HTML)**: သူ ဘယ်လို ပုံစံ ရှိမလဲ? (ဥပမာ - Button ဆိုရင် `<button>` tag ပါမယ်)
+2.  **Style (CSS)**: သူ ဘယ်လို အရောင်၊ ဘယ်လို ဒီဇိုင်း ရှိမလဲ? (ဥပမာ - အပြာရောင်၊ ထောင့်ကွေးကွေး)
+3.  **Behavior (JavaScript)**: သူ ဘာလုပ်နိုင်မလဲ? (ဥပမာ - နှိပ်လိုက်ရင် Form တင်မယ်)
 
-Component တွေကို ပြန်သုံးလို့ ရတဲ့အတွက် UI တစ်ခုတည်းကို အကြိမ်ကြိမ်ပြန်ရေးစရာ မလိုတော့ပါဘူး။
+အရင်ခေတ်က HTML, CSS, JS ကို File ခွဲရေးကြပေမယ့်၊ Component ခေတ်မှာတော့ ဒီ ၃ ခုလုံးကို **"Component တစ်ခု"** အနေနဲ့ စုစည်းထားလိုက်ပါတယ်။ ဒါကြောင့် `Button` Component ကို ယူသုံးလိုက်တာနဲ့ သူ့ရဲ့ ဒီဇိုင်း၊ သူ့ရဲ့ အလုပ်လုပ်ပုံတွေပါ တပါတည်း ပါလာပါတယ်။
 
-### Project ထဲမှာ Component တွေကို ဘယ်လို စုစည်းမလဲ။
-Project တစ်ခုလုံးကို Component-Based ပုံစံနဲ့ မတည်ဆောက်ထားရင်တောင်မှ Component တွေကို `components` ဆိုတဲ့ folder တစ်ခုထဲမှာ စုစည်းထားလေ့ရှိပါတယ်။
+### Monolithic vs Component-Based
 
-```
-/src
-  /components
-    Navbar.js
-    Footer.js
-    ProductCard.js
-    Button.js
-  /pages
-    Home.js
-    Products.js
-  /services
-    api.js
-```
-Component file တွေထဲမှာ HTML structure (React မှာဆို JSX, Angular/Vue မှာဆို templates), logic နဲ့ တစ်ခါတလေ style တွေ ပါဝင်ပါတယ်။ ထပ်ပြီး navbar folder ဆိုပြီး components folder ထဲမှာ ထပ်ခွဲထားလို့လည်း ရပါတယ်။
+| အကြောင်းအရာ | Monolithic (Old Way) | Component-Based (Modern Way) |
+|---|---|---|
+| **ဖွဲ့စည်းပုံ** | Page တစ်ခုလုံးကို HTML file တစ်ခုတည်းမှာ ရေးတယ် | Page ကို Component အသေးလေးတွေနဲ့ ဖွဲ့စည်းတယ် |
+| **ပြုပြင်ခြင်း** | တစ်နေရာ ပြင်ရင် တခြားနေရာတွေပါ ထိခိုက်နိုင်တယ် | Component တစ်ခု ပြင်ရင် အဲ့ဒီ Component သုံးထားတဲ့ နေရာတိုင်း ပြောင်းသွားတယ် |
+| **ပြန်လည်အသုံးပြုမှု** | Copy-Paste လုပ်ရတယ် | `<Button />` ဆိုပြီး ခေါ်သုံးလိုက်ရုံပဲ |
+| **ပူးပေါင်းဆောင်ရွက်မှု** | File တစ်ခုတည်းမှာ လူတွေ ဝိုင်းရေးရလို့ ရှုပ်တယ် | တယောက်က Navbar ရေး၊ တယောက်က Sidebar ရေးလို့ ရတယ် |
+
+### နိဂုံးချုပ်
+Component-Based Architecture ဆိုတာ "Divide and Conquer" (ခွဲခြားပြီး အုပ်ချုပ်ခြင်း) ဗျူဟာပါပဲ။ ပြဿနာအကြီးကြီး (Web Page) ကို ပြဿနာအသေးလေးတွေ (Components) အဖြစ် ခွဲထုတ်ပြီး ဖြေရှင်းတဲ့ နည်းလမ်း ဖြစ်ပါတယ်။
 
 
