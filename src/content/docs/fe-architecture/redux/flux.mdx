@@ -123,18 +123,11 @@ function ProductList() {
 }
 ```
 
-### Flow တစ်ခုလုံး Recap
+<Aside title="Key Points" type="tip">
 1. User → Button နှိပ် = dispatch(addProduct(payload))
 2. Redux → slice reducer ထဲက addProduct run
 3. Immer → state ကို immutable နည်းလမ်းနဲ့ update
 4. Store state အသစ် ပြင်ဆင်ပြီး
 5. useSelector သုံးထားသော component တွေ re-render
-
-### အကျဉ်းချုံး Key Points
-- `productsSlice.actions` = action creator collection (type string တွေကို auto generate)
-- `addProduct(payload)` ခေါ်တိုင်း `{ type: 'products/addProduct', payload }`
-- `productsSlice.reducer` သည် slice state logic အားလုံးကို handle
-- Store တွင် `{ products: productsSlice.reducer }` အနေနဲ့ တည်ဆောက်
-- Component တွေက `useDispatch + useSelector` နဲ့ အသုံးပြု
-
+</Aside>
 
