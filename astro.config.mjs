@@ -550,6 +550,100 @@ export default defineConfig({
       routeMiddleware: "./src/routeMiddleware.ts",
       sidebar: [
         {
+          label: "AI Proficiency",
+          items: [
+            {
+              label: "Introduction & Tools",
+              items: [
+                {
+                  label: "AI for Developers",
+                  slug: "ai-proficiency/foundations/introduction",
+                },
+                {
+                  label: "The AI Toolkit",
+                  slug: "ai-proficiency/data-fundamentals/introduction",
+                },
+              ],
+            },
+            {
+              label: "Core Skills",
+              items: [
+                {
+                  label: "Prompt Engineering for Code",
+                  slug: "ai-proficiency/ml-basics/introduction",
+                },
+                {
+                  label: "Debugging & Refactoring",
+                  slug: "ai-proficiency/deep-learning/introduction",
+                },
+                {
+                  label: "Generating Code",
+                  slug: "ai-proficiency/generative-ai/introduction",
+                },
+                {
+                  label: "Docs & Explanation",
+                  slug: "ai-proficiency/prompt-engineering/introduction",
+                },
+              ],
+            },
+            {
+              label: "Building with AI",
+              items: [
+                {
+                  label: "Integrating AI APIs",
+                  slug: "ai-proficiency/apis-sdks/introduction",
+                },
+                {
+                  label: "Building Chat Interfaces",
+                  slug: "ai-proficiency/building-apps/introduction",
+                },
+                {
+                  label: "RAG Concepts",
+                  slug: "ai-proficiency/rag/introduction",
+                },
+                {
+                  label: "AI Agents",
+                  slug: "ai-proficiency/agents/introduction",
+                },
+              ],
+            },
+            {
+              label: "Best Practices",
+              items: [
+                {
+                  label: "AI-Assisted Testing",
+                  slug: "ai-proficiency/mlops/introduction",
+                },
+                {
+                  label: "Security & Privacy",
+                  slug: "ai-proficiency/responsible-ai/introduction",
+                },
+                {
+                  label: "Productivity Hacks",
+                  slug: "ai-proficiency/performance/introduction",
+                },
+                {
+                  label: "Learning with AI",
+                  slug: "ai-proficiency/testing/introduction",
+                },
+              ],
+            },
+            {
+              label: "Conclusion",
+              items: [
+                {
+                  label: "Real World Use Cases",
+                  slug: "ai-proficiency/capstone/introduction",
+                },
+                {
+                  label: "The Future Developer",
+                  slug: "ai-proficiency/future/introduction",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "WebSocket",
           // autogenerate: { directory: "websocket" },
           items: [

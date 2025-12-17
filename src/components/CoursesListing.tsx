@@ -178,6 +178,21 @@ const coursesData: Course[] = [
     rating: 4.7,
     students: 1200,
   },
+  {
+    id: "ai-proficiency",
+    title: "AI Proficiency for Developers",
+    description:
+      "Developer များအတွက် AI နည်းပညာများကို အခြေခံမှစ၍ လက်တွေ့လုပ်ငန်းခွင်အသုံးချနိုင်သည်အထိ လေ့လာခြင်း",
+    difficulty: "intermediate",
+    category: "Artificial Intelligence",
+    icon: "sparkles",
+    href: "/ai-proficiency/foundations/introduction",
+    lessons: 16,
+    tags: ["AI", "Machine Learning", "LLM", "RAG"],
+    estimatedTime: "12 weeks",
+    rating: 4.8,
+    students: 500,
+  },
 ];
 
 const difficultyConfig: Record<
@@ -212,6 +227,7 @@ const icons = {
   users: Users,
   database: Database,
   globe: Globe,
+  sparkles: Sparkles,
 };
 
 type CourseIconProps = {

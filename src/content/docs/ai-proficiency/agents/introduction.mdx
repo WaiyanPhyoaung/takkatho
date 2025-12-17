@@ -1,0 +1,30 @@
+---
+title: "AI Agents for Automation (AI ဖြင့် အလုပ်များ အလိုအလျောက် လုပ်ခြင်း)"
+description: "AI ကို စာမေးရုံတင် မဟုတ်ဘဲ၊ လက်တွေ့ အလုပ်တွေ လုပ်ခိုင်းမယ်။"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Agent ဆိုတာ">
+Chatbot က စကားပဲ ပြောတတ်ပါတယ်။
+**Agent** ကတော့ လက်တွေ့ အလုပ်လုပ်တတ်ပါတယ်။ (Internet ရှာမယ်၊ Email ပို့မယ်၊ File ဖတ်မယ်)
+</Aside>
+
+### Use Cases for Developers
+
+1.  **Code Review Agent:** GitHub မှာ PR တက်လာရင် အလိုအလျောက် စစ်ဆေးပြီး Comment ပေးတာ။
+2.  **Documentation Agent:** Code အသစ်ရေးလိုက်ရင် Documentation ကို အလိုအလျောက် သွားပြင်ပေးတာ။
+3.  **Scraping Agent:** Website တွေကနေ Data တွေကို နေ့တိုင်း သွားကောက်ခိုင်းတာ။
+
+### Tools
+
+*   **LangChain:** Agent တွေ တည်ဆောက်ဖို့ နာမည်အကြီးဆုံး Framework ပါ။
+*   **AutoGPT / BabyAGI:** Autonomous Agent (သူ့ဘာသာ စဉ်းစားပြီး လုပ်တဲ့ Agent) တွေပါ။
+
+### Simple Example
+
+User: "ဒီ Website ကို ဖတ်ပြီး အနှစ်ချုပ်ကို ငါ့ဆီ Email ပို့ပေး"
+Agent:
+1.  `browser_tool` ကို သုံးပြီး Website ကို ဖတ်မယ်။
+2.  `summarizer_tool` (LLM) ကို သုံးပြီး အနှစ်ချုပ်မယ်။
+3.  `email_tool` ကို သုံးပြီး Email ပို့လိုက်မယ်။
