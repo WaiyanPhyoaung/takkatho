@@ -561,7 +561,7 @@ export default defineConfig({
                 },
                 {
                   label: "The AI Toolkit",
-                  slug: "ai-proficiency/data-fundamentals/introduction",
+                  slug: "ai-proficiency/tools/introduction",
                 },
               ],
             },
@@ -570,49 +570,29 @@ export default defineConfig({
               items: [
                 {
                   label: "Prompt Engineering for Code",
-                  slug: "ai-proficiency/ml-basics/introduction",
+                  slug: "ai-proficiency/core-skills/prompt-engineering",
                 },
                 {
                   label: "Debugging & Refactoring",
-                  slug: "ai-proficiency/deep-learning/introduction",
+                  slug: "ai-proficiency/core-skills/debugging",
                 },
                 {
                   label: "Generating Code",
-                  slug: "ai-proficiency/generative-ai/introduction",
+                  slug: "ai-proficiency/core-skills/generating-code",
                 },
                 {
                   label: "Docs & Explanation",
-                  slug: "ai-proficiency/prompt-engineering/introduction",
+                  slug: "ai-proficiency/core-skills/documentation",
                 },
               ],
             },
-            {
-              label: "Building with AI",
-              items: [
-                {
-                  label: "Integrating AI APIs",
-                  slug: "ai-proficiency/apis-sdks/introduction",
-                },
-                {
-                  label: "Building Chat Interfaces",
-                  slug: "ai-proficiency/building-apps/introduction",
-                },
-                {
-                  label: "RAG Concepts",
-                  slug: "ai-proficiency/rag/introduction",
-                },
-                {
-                  label: "AI Agents",
-                  slug: "ai-proficiency/agents/introduction",
-                },
-              ],
-            },
+
             {
               label: "Best Practices",
               items: [
                 {
                   label: "AI-Assisted Testing",
-                  slug: "ai-proficiency/mlops/introduction",
+                  slug: "ai-proficiency/testing/introduction",
                 },
                 {
                   label: "Security & Privacy",
@@ -620,11 +600,11 @@ export default defineConfig({
                 },
                 {
                   label: "Productivity Hacks",
-                  slug: "ai-proficiency/performance/introduction",
+                  slug: "ai-proficiency/productivity/introduction",
                 },
                 {
                   label: "Learning with AI",
-                  slug: "ai-proficiency/testing/introduction",
+                  slug: "ai-proficiency/learning/introduction",
                 },
               ],
             },

@@ -1,27 +1,30 @@
 ---
-title: "Learning New Tech with AI (နည်းပညာသစ်များ လေ့လာခြင်း)"
-description: "ဆရာတစ်ယောက်လို သင်ပေးမယ့် AI"
+title: "AI-Assisted Testing (AI ဖြင့် Test ရေးခြင်း)"
+description: "Test ရေးရတာ ပျင်းစရာ မကောင်းတော့ပါဘူး။"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="Personal Tutor">
-နည်းပညာသစ်တစ်ခု လေ့လာရင် Documentation ဖတ်ရတာ ပျင်းစရာ ကောင်းပါတယ်။
-AI ကို ကိုယ်ပိုင် ဆရာတစ်ယောက်လို သဘောထားပြီး မေးမြန်း လေ့လာပါ။
+<Aside title="Testing Made Easy">
+Developer တိုင်း သိပါတယ်၊ Test ရေးရတာ ပျင်းဖို့ ကောင်းတယ်ဆိုတာ။
+ဒါပေမယ့် Test မရှိရင် Code က ယုံကြည်စိတ်ချရမှု မရှိပါဘူး။
+AI က Test ရေးတဲ့ နေရာမှာ အတော်ဆုံးပါပဲ။
 </Aside>
 
-### 1. Roadmap ဆွဲခိုင်းပါ
+### Generating Unit Tests
 
-*   **Prompt:** "I know React. I want to learn Next.js. Create a 2-week learning roadmap for me. Focus on the differences between React and Next.js."
+Function တစ်ခု ရေးပြီးရင် AI ကို Test ရေးခိုင်းလိုက်ပါ။
 
-### 2. Comparison (နှိုင်းယှဉ်လေ့လာခြင်း)
+*   **Prompt:** "Write Jest unit tests for this `calculateTax` function. Include edge cases like negative numbers and zero."
 
-*   **Prompt:** "What is the difference between `useEffect` and `useLayoutEffect`? Give me a code example where `useLayoutEffect` is necessary."
+### Generating E2E Tests (End-to-End)
 
-### 3. Quiz (စာမေးပွဲ စစ်ခိုင်းခြင်း)
+Playwright သို့မဟုတ် Cypress နဲ့ ရေးမယ့် Test Scenario တွေကို AI ကို ရေးခိုင်းပါ။
 
-*   **Prompt:** "Ask me 5 interview questions about TypeScript Generics. Don't give me the answers yet. Wait for my response."
+*   **Prompt:** "Write a Playwright test script that goes to the login page, enters valid credentials, and checks if the dashboard is visible."
 
-### 4. Explain Errors
+### Fixing Broken Tests
 
-Code ရေးရင်း Error တက်ရင်၊ အဲ့ဒီ Error က ဘာလဲဆိုတာ သေချာ မေးပြီး နားလည်အောင် လုပ်ပါ။ Copy-Paste ပြီး ပြင်ရုံနဲ့ မပြီးပါစေနဲ့။
+Test တွေ ကျနေရင် (Fail)၊ Error Message ကို AI ပြပြီး ဘာမှားနေလဲ မေးလို့ ရပါတယ်။
+
+*   **Prompt:** "This test is failing with 'Element not found'. Here is the HTML and the test code. How do I fix it?"

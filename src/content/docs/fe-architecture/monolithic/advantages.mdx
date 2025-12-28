@@ -4,10 +4,14 @@ description: "အားသာချက် အားနည်းချက်မ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import studio from "@/assets/frontend-architecture/studio.jpeg"
 
 <Aside title="Studio Apartment vs Mansion">
 Monolith ကို **"Studio Apartment (အခန်းကျဉ်း)"** နဲ့ နှိုင်းယှဉ်နိုင်ပြီး၊ Micro-Frontend ကို **"Mansion (အိမ်ကြီး)"** နဲ့ နှိုင်းယှဉ်နိုင်ပါတယ်။
 </Aside>
+
+<ContentImage src={studio} alt='studio apartment' width='400' />
 
 ### အားသာချက်များ (Studio Apartment ၏ ကောင်းကွက်များ)
 

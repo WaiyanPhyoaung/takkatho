@@ -4,6 +4,8 @@ description: "MVC, MVVM, and MVP Patterns"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+import redux from '../../../../assets/frontend-architecture/redux.gif';
+import ContentImage from '@/components/Content-image.astro';
 
 export const sliceExample = `
 import { createSlice } from '@reduxjs/toolkit';
@@ -37,8 +39,10 @@ Application ကြီးလာရင် Data တွေ ဘယ်ကလာပြ�
 Flux ဆိုတာ Facebook က တီထွင်ခဲ့တဲ့ Pattern ပါ။ သူ့ရဲ့ အဓိက သဘောတရားက **"One Way Traffic"** (တစ်လမ်းသွား) ပါ။
 ဘဏ်တစ်ခုကို မြင်ယောင်ကြည့်ပါ။
 
+<ContentImage src={redux} alt='flux architecture' width='500' />
+
 1.  **View (Customer):** ငွေထုတ်ချင်တယ်။ (Button နှိပ်)
-2.  **Action (Withdrawal Slip):** "ငွေ ၁ သိန်း ထုတ်မည်" ဆိုတဲ့ စာရွက် (Slip) ဖြည့်ရတယ်။
+2.  **Action (Withdrawal Slip):** "10$ ထုတ်မည်" ဆိုတဲ့ စာရွက် (Slip) ဖြည့်ရတယ်။
 3.  **Dispatcher (Bank Teller):** စာရွက်ကို လက်ခံပြီး စစ်ဆေးတယ်။
 4.  **Store (Vault):** ငွေတိုက်ထဲက ပိုက်ဆံ လျော့သွားတယ်။ (State Update)
 5.  **View (Balance Screen):** လက်ကျန်ငွေ ပြောင်းသွားတာကို မြင်ရတယ်။

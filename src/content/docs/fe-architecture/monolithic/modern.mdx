@@ -4,6 +4,8 @@ description: "Modern Frameworks & Monolith"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import carModule from "@/assets/frontend-architecture/car-module.jpeg"
 
 <Aside title="ခေတ်သစ် Monolith">
 Next.js, Remix, Angular တို့လို Modern Framework တွေက Monolith ကို အားပေးပါတယ်။ ဒါပေမဲ့ သူတို့သွားနေတာက **"Modular Monolith"** ပါ။
@@ -12,6 +14,8 @@ Next.js, Remix, Angular တို့လို Modern Framework တွေက Mono
 
 ### Modern Frameworks = Modern Cars
 Tesla ကားတစ်စီးဟာ အပြင်ကကြည့်ရင် တစ်စီးတည်း (One Unit) ပါ။ ဒါပေမဲ့ အတွင်းပိုင်းမှာ Battery Module, Motor Module, AI Module ဆိုပြီး သီးခြားစီ ဖွဲ့စည်းထားပါတယ်။
+
+<ContentImage src={carModule} alt='car modules' width='400' />
 
 - **Next.js / Remix:**
   Page တွေ၊ Component တွေ ခွဲရေးထားပေမယ့်၊ နောက်ဆုံး Deploy လုပ်ရင် Server တစ်လုံးတည်း (သို့မဟုတ် Lambda Function တစ်စု) အနေနဲ့ တက်သွားပါတယ်။ ဒါဟာ **Monolith** ပါ။ ဒါပေမဲ့ အရမ်း စနစ်ကျတဲ့ Monolith ပါ။

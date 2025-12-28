@@ -1,14 +1,39 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
   width?: number;
   height?: number;
 }
-import { Image } from "astro:assets";
+
 const { src, alt, width, height } = Astro.props;
+
+const isGif =
+  (typeof src === "string" && src.toLowerCase().endsWith(".gif")) ||
+  (typeof src === "object" && "format" in src && src.format === "gif");
+
+const imageSrc = typeof src === "string" ? src : src.src;
 ---
 
 <div class="flex justify-center p-4">
-  <Image src={src} alt={alt} width={Number(width)} height={Number(height)} />
+  {
+    isGif ? (
+      <img
+        src={imageSrc}
+        alt={alt}
+        width={width ? Number(width) : undefined}
+        height={height ? Number(height) : undefined}
+      />
+    ) : (
+      <Image
+        src={src}
+        alt={alt}
+        width={width ? Number(width) : undefined}
+        height={height ? Number(height) : undefined}
+      />
+    )
+  }
 </div>

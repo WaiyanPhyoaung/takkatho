@@ -24,6 +24,7 @@ import {
   TabItem,
   Icon,
   LinkCard,
+  Aside,
 } from "@astrojs/starlight/components";
 import { Image } from "astro:assets";
 
@@ -34,11 +35,21 @@ import { Image } from "astro:assets";
     ခက်ခဲသော နည်းပညာ သဘောတရားများကို ရိုးရှင်းလွယ်ကူစွာ ရှင်းလင်းထားသော သင်ခန်းစာများဖြင့်
     နက်နက်နဲနဲ လေ့လာနိုင်ပါပြီ
   </p>
+  
+  <div style="background-color: var(--sl-color-gray-6); color: var(--sl-color-black); padding: 1rem 2rem; border-radius: 0.5rem; font-size: 0.75rem; margin-top: 2rem; width: fit-content; border-left: 3px solid var(--sl-color-accent);">
+    Course updates များအတွက် <a href="https://www.facebook.com/share/1DDxrT1dja/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Page</a> ကို Follow လုပ်ထားပေးပါ။
+  </div>
 </section>
 <hr/ >
 ## Popular Courses
 
 <CardGrid className="concepts-grid">
+ <LinkCard
+    title="AI Proficiency"
+    description="AI Tools များကို ထိရောက်စွာ အသုံးပြုပြီး Developer တစ်ယောက်အနေဖြင့် စွမ်းဆောင်ရည် မြှင့်တင်နည်းများကို လေ့လာခြင်း"
+    href="/ai-proficiency/foundations/introduction"
+    icon="rocket"
+  />
  <LinkCard
     title="Frontend Architecture"
     description="Frontend applications များအတွက် Architecture Pattern များနှင့် အကောင်းဆုံးများကို လေ့လာခြင်း"
@@ -51,12 +62,7 @@ import { Image } from "astro:assets";
     href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript"
     icon="puzzle"
   />
-  <LinkCard
-    title="WebSocket နည်းပညာ"
-    description="Real-time communication အတွက် WebSocket နည်းပညာကို အခြေခံမှ အဆင့်မြင့်သဘောတရားများအထိ လေ့လာခြင်း"
-    href="/websocket/introduction/what-is-websocket"
-    icon="rocket"
-  />
+ 
 
   <LinkCard
     title="Git Version Control"

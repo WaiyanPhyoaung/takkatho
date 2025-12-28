@@ -4,6 +4,9 @@ description: "Monolithic Architecture ဆိုတာဘာလဲ"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import armyKnife from "@/assets/frontend-architecture/army-knife.jpeg"
+import spaghetti from '@/assets/frontend-architecture/spaghetti.jpg'
 
 <Aside title="မိတ်ဆက်">
 Frontend လောကမှာ Monolith ဆိုတာ "ခေတ်ဟောင်း" မဟုတ်ပါဘူး။ React, Vue, Angular နဲ့ ရေးသားထားတဲ့ Web Application ၉၀% လောက်ဟာ Monolith တွေပါပဲ။
@@ -12,6 +15,8 @@ Frontend လောကမှာ Monolith ဆိုတာ "ခေတ်ဟော�
 
 ### Monolith ဆိုတာ တကယ်တမ်း ဘာလဲ?
 Frontend Monolithic Architecture ဆိုတာ **"Single Deployment Unit"** ပါ။
+
+<ContentImage src={armyKnife} alt='swiss army knife' width='400' />
 
 Swiss Army Knife တစ်ချောင်းကို မြင်ယောင်ကြည့်ပါ။
 - ဓားပါတယ်၊ ကတ်ကြေးပါတယ်၊ ဝက်အူလှည့်ပါတယ်၊ ဖောက်တံပါတယ်။
@@ -24,6 +29,9 @@ Web Development မှာလည်း ဒီသဘောပါပဲ။
 - Server ပေါ်တင်ရင် အကုန်လုံး တပြိုင်တည်း တင်ရတယ်။ **"တခါပြင် တခါတင် (All-or-Nothing Deployment)"** ဖြစ်နေရင် ဒါဟာ Monolith ပါ။
 
 ### Monolith vs Spaghetti Code
+
+<ContentImage src={spaghetti} alt='spaghetti' width='400' />
+
 လူတော်တော်များများက Monolith ဆိုရင် "ရှုပ်ပွနေတဲ့ Code တွေ (Spaghetti Code)" လို့ မှားမြင်တတ်ကြပါတယ်။
 - **Monolith:** ဓားစုံတစ်ချောင်း (Deployment ပုံစံ)။
 - **Spaghetti Code:** သံချေးတက်ပြီး ဖွင့်ရခက်နေတဲ့ ဓားစုံ (Code အရည်အသွေး ညံ့ဖျင်းခြင်း)။
