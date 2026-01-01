@@ -1,0 +1,45 @@
+---
+title: "The Box Model"
+description: "CSS ၏ အရေးအကြီးဆုံး သဘောတရား"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="သေတ္တာလေးများ">
+Webpage ပေါ်က Element တိုင်းဟာ **လေးထောင့်သေတ္တာ (Box)** လေးတွေ ဖြစ်ပါတယ်။
+ဒီသဘောတရားကို နားလည်မှ Layout ချရတာ အဆင်ပြေမှာပါ။
+</Aside>
+
+### Box Model ဆိုတာ ဘာလဲ?
+Element တစ်ခုမှာ အလွှာ (၄) ခု ရှိပါတယ်။ အတွင်းဆုံးကနေ အပြင်ဘက်ကို ကြည့်မယ်ဆိုရင်:
+
+1.  **Content:** စာသား သို့မဟုတ် ပုံ ရှိတဲ့ နေရာ (အနှစ်)။
+2.  **Padding:** Content နဲ့ Border ကြားက အကွာအဝေး (အသား)။
+3.  **Border:** ဘောင် (အခွံ)။
+4.  **Margin:** တခြား Box တွေနဲ့ ကိုယ့် Box ကြားက အကွာအဝေး (အပြင်စည်း)။
+
+### ဥပမာ မြင်ကွင်း
+
+```css
+.box {
+  width: 200px;      /* Content အကျယ် */
+  padding: 20px;     /* Content ဘေးက အသား */
+  border: 5px solid black; /* ဘောင် */
+  margin: 30px;      /* ဘေးက Box တွေနဲ့ ကွာမယ့် အကွာအဝေး */
+}
+```
+
+### Box Sizing (အရေးကြီး!)
+ပုံမှန်အားဖြင့် `width` သတ်မှတ်ရင် Content ရဲ့ အကျယ်ပဲ ဖြစ်ပါတယ်။ Padding နဲ့ Border ပေါင်းလိုက်ရင် Box က ကြီးသွားတတ်ပါတယ်။
+ဒါကို ဖြေရှင်းဖို့ `box-sizing: border-box;` ကို သုံးသင့်ပါတယ်။
+
+```css
+* {
+  box-sizing: border-box; /* Padding နဲ့ Border ကို width ထဲမှာပဲ ထည့်တွက်မယ် */
+}
+```
+
+<Aside type="tip">
+Project စစချင်းမှာ `* { box-sizing: border-box; }` လို့ ကြေညာထားတာ အကောင်းဆုံး Practice ပါ။
+Layout တွေ တွက်ရတာ ပိုလွယ်ကူသွားပါလိမ့်မယ်။
+</Aside>

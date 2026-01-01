@@ -1,0 +1,67 @@
+---
+title: "Flexbox"
+description: "ခေတ်မီ Layout ချနည်း (၁)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Layout ဘုရင်">
+အရင်တုန်းက Layout ချရတာ အရမ်းခက်ပါတယ်။ **Flexbox** ပေါ်လာတော့မှ ဘယ်ညာ ညှိတာ၊ အလယ်ပို့တာတွေ အရမ်းလွယ်သွားပါတယ်။
+**1D Layout** (အတန်းလိုက် သို့မဟုတ် ဒေါင်လိုက် တစ်မျိုးတည်း) အတွက် အကောင်းဆုံးပါ။
+</Aside>
+
+### Flexbox စသုံးမယ်
+Parent element (Container) မှာ `display: flex;` လို့ ကြေညာလိုက်တာနဲ့ children items တွေ က ဘေးချင်းယှဉ်လျက် ဖြစ်သွားပါမယ်။
+
+```css
+.container {
+  display: flex;
+}
+```
+
+### အဓိက Properties များ
+
+#### 1. Justify Content (ဘယ်ညာ ညှိခြင်း - Main Axis)
+Item တွေကို ဘယ်၊ ညာ၊ အလယ် ဘယ်နားထားမလဲ ဆုံးဖြတ်တာပါ။
+
+```css
+.container {
+  display: flex;
+  justify-content: center; /* အလယ်တည့်တည့် */
+  /* justify-content: space-between; (ဘယ်ညာ ကပ်ပြီး ကြားထဲမှာ နေရာခွဲမယ်) */
+  /* justify-content: flex-end; (ညာဘက် ကပ်မယ်) */
+}
+```
+
+#### 2. Align Items (အပေါ်အောက် ညှိခြင်း - Cross Axis)
+Item တွေကို ဒေါင်လိုက် ဘယ်နားထားမလဲ ဆုံးဖြတ်တာပါ။
+
+```css
+.container {
+  display: flex;
+  height: 200px;
+  align-items: center; /* ဒေါင်လိုက် အလယ်တည့်တည့် */
+}
+```
+
+#### 3. Flex Direction (ဦးတည်ချက်)
+ပုံမှန်က ဘေးတိုက် (Row) ပါ။ ဒေါင်လိုက် (Column) စီချင်ရင် ပြောင်းလို့ရပါတယ်။
+
+```css
+.container {
+  display: flex;
+  flex-direction: column; /* အပေါ်ကနေ အောက် စီမယ် */
+}
+```
+
+<Aside type="tip">
+**အလယ်တည့်တည့် ပို့နည်း (Holy Grail):**
+Element တစ်ခုကို Screen အလယ်တည့်တည့် ပို့ချင်ရင် ဒါကို သုံးပါ။
+```css
+.center-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+```
+</Aside>

@@ -1,0 +1,56 @@
+---
+title: "Margin & Padding"
+description: "အကွာအဝေးများ သတ်မှတ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဘယ်ဟာ သုံးရမလဲ?">
+Margin နဲ့ Padding က ကြည့်ရင် တူသလိုလိုနဲ့ မတူပါဘူး။
+**Padding** က ကိုယ့်အိမ်ခြံစည်းရိုး **အတွင်းဘက်** က မြေကွက်လပ်။
+**Margin** က ကိုယ့်အိမ်ခြံစည်းရိုး **အပြင်ဘက်** က လမ်းကြား။
+</Aside>
+
+### Padding (အတွင်းအကွာအဝေး)
+Content နဲ့ Border ကြားက နေရာလွတ်ပါ။ Background Color ထည့်ရင် Padding နေရာပါ အရောင်ဝင်ပါတယ်။
+
+```css
+.button {
+  padding: 10px 20px; /* အပေါ်အောက် 10px, ဘယ်ညာ 20px */
+  background-color: blue;
+  color: white;
+}
+```
+
+### Margin (အပြင်အကွာအဝေး)
+Element တစ်ခုနဲ့ တစ်ခု ကြားက နေရာလွတ်ပါ။ Background Color မဝင်ပါဘူး (အဖြူထည် နေရာလွတ်)။
+
+```css
+.card {
+  margin-bottom: 20px; /* အောက်ဘက်မှာ 20px ခွာမယ် */
+}
+```
+
+### ရေးနည်း အတိုကောက် (Shorthand)
+တန်ဖိုး (၄) ခု ပေးရင် **နာရီလက်တံ အတိုင်း** (အပေါ်၊ ညာ၊ အောက်၊ ဘယ်) သွားပါတယ်။
+
+```css
+/* Top Right Bottom Left */
+margin: 10px 20px 15px 5px;
+
+/* Top/Bottom | Left/Right */
+padding: 10px 20px;
+
+/* All sides */
+margin: 10px;
+```
+
+### Auto Margin (အလယ်ပို့ခြင်း)
+Block element တစ်ခုကို ဘယ်ညာ အလယ်တည့်တည့် ရောက်ချင်ရင် `margin: 0 auto;` သုံးလို့ ရပါတယ်။
+
+```css
+.container {
+  width: 800px;
+  margin: 0 auto; /* အပေါ်အောက် 0, ဘယ်ညာ Auto (အလယ်ရောက်မယ်) */
+}
+```

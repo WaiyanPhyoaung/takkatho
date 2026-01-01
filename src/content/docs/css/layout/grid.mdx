@@ -1,0 +1,48 @@
+---
+title: "CSS Grid"
+description: "ခေတ်မီ Layout ချနည်း (၂)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="2D Layout">
+Flexbox က တစ်တန်းတည်းစာ ကောင်းပေမယ့်၊ Grid ကတော့ **အတန်းရော ဒေါင်လိုက်ရော (Rows & Columns)** ပါတဲ့ ရှုပ်ထွေးတဲ့ Layout တွေအတွက် အကောင်းဆုံးပါ။
+</Aside>
+
+### Grid စသုံးမယ်
+Parent element မှာ `display: grid;` လို့ ကြေညာရပါတယ်။
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* ၃ ကော်လံ ခွဲမယ်၊ ညီတူညီမျှ */
+  gap: 20px; /* ကော်လံတွေကြား 20px ခွာမယ် */
+}
+```
+
+### Columns & Rows သတ်မှတ်ခြင်း
+`fr` (fraction) unit က Grid မှာ အရမ်းအသုံးဝင်ပါတယ်။ "ရှိတဲ့နေရာကို အချိုးကျ ခွဲယူမယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။
+
+```css
+.layout {
+  display: grid;
+  /* ဘယ်ဘက်က 200px, ညာဘက်က ကျန်တဲ့နေရာအကုန် (Sidebar + Content ပုံစံ) */
+  grid-template-columns: 200px 1fr; 
+}
+```
+
+### Grid Gap (ကွက်လပ်)
+Margin တွေ တွက်နေစရာ မလိုပါဘူး။ `gap` သုံးလိုက်ရင် ကွက်လပ်တွေ အလိုလို ခြားပေးပါတယ်။
+
+```css
+.gallery {
+  display: grid;
+  gap: 1rem;
+}
+```
+
+<Aside type="tip">
+**Flexbox vs Grid:**
+*   ရိုးရှင်းတဲ့ အတန်းလိုက် Layout (Navbar, Button Group) ဆို **Flexbox** သုံးပါ။
+*   ရှုပ်ထွေးတဲ့ တစ်မျက်နှာလုံးစာ Layout (Photo Gallery, Dashboard) ဆို **Grid** သုံးပါ။
+</Aside>

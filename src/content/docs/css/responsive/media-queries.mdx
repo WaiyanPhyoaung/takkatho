@@ -1,0 +1,52 @@
+---
+title: "Responsive Design"
+description: "Device မျိုးစုံအတွက် အဆင်ပြေစေခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဖုန်းနဲ့ ကြည့်မလား?">
+ဒီနေ့ခေတ်မှာ လူတွေက ဖုန်းနဲ့ပဲ အင်တာနက် သုံးကြတာ များပါတယ်။
+ဒါကြောင့် ကိုယ့် Website က ဖုန်းမှာလည်း ကြည့်ကောင်းဖို့ အရမ်းအရေးကြီးပါတယ်။
+</Aside>
+
+### Media Queries ဆိုတာ ဘာလဲ?
+"Screen Size က ဘယ်လောက်ဆိုရင်၊ ဒီ Style ကို သုံးမယ်" လို့ မှာထားတာပါ။
+
+```css
+/* ပုံမှန် (Desktop) အတွက် */
+body {
+  background-color: white;
+  font-size: 18px;
+}
+
+/* Screen အကျယ် 600px အောက် (ဖုန်းများ) အတွက် */
+@media (max-width: 600px) {
+  body {
+    background-color: lightblue; /* ဖုန်းမှာဆို အပြာနုရောင် ဖြစ်သွားမယ် */
+    font-size: 16px; /* စာလုံး နည်းနည်း သေးမယ် */
+  }
+}
+```
+
+### Mobile First Approach
+Desktop အတွက် အရင်ရေးပြီးမှ ဖုန်းအတွက် လိုက်ပြင်တာထက်၊ **ဖုန်းအတွက် အရင်ရေးပြီးမှ Desktop အတွက် ချဲ့တာ** က ပိုကောင်းပါတယ်။
+
+```css
+/* 1. ဖုန်းအတွက် အရင်ရေး (Base Styles) */
+.container {
+  flex-direction: column; /* ဖုန်းမှာ ဒေါင်လိုက် စီမယ် */
+}
+
+/* 2. Tablet နဲ့ အထက် (min-width) */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row; /* Tablet နဲ့ PC မှာ ဘေးတိုက် စီမယ် */
+  }
+}
+```
+
+<Aside type="tip">
+Responsive လုပ်တဲ့အခါ `px` အစား `%` သို့မဟုတ် `rem` ကို သုံးတာ ပိုကောင်းပါတယ်။
+Layout တွေအတွက် Flexbox နဲ့ Grid က Responsive လုပ်ရတာ အရမ်းလွယ်ကူစေပါတယ်။
+</Aside>

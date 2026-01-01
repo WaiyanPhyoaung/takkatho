@@ -1,0 +1,51 @@
+---
+title: "Gradients (အရောင်ပြေး)"
+description: "အရောင်များကို ရောစပ် အသုံးပြုခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="အရောင်စုံ">
+အရောင်တစ်ရောင်တည်း (Solid Color) အစား၊ အရောင်နှစ်ရောင် (သို့) ပိုပြီး ရောစပ်ထားတဲ့ Gradient တွေက ဒီဇိုင်းကို ပိုပြီး ဆွဲဆောင်မှု ရှိစေပါတယ်။
+</Aside>
+
+### Linear Gradient (အတန်းလိုက် အရောင်ပြေး)
+အရောင်တစ်ခုကနေ နောက်တစ်ခုကို ဖြည်းဖြည်းချင်း ပြောင်းသွားတာပါ။
+`background-image` မှာ သုံးရပါတယ်။
+
+```css
+.box {
+  /* အပေါ်ကနေ အောက် (Default) */
+  background-image: linear-gradient(red, yellow);
+}
+
+.box-right {
+  /* ဘယ်ကနေ ညာ */
+  background-image: linear-gradient(to right, blue, purple);
+}
+
+.box-diagonal {
+  /* ထောင့်ဖြတ် (၄၅ ဒီဂရီ) */
+  background-image: linear-gradient(45deg, #ff9a9e, #fad0c4);
+}
+```
+
+### Radial Gradient (အဝိုင်းလိုက် အရောင်ပြေး)
+အလယ်ကနေ ဘေးကို ဖြာထွက်သွားတဲ့ ပုံစံပါ။
+
+```css
+.circle {
+  background-image: radial-gradient(circle, yellow, red);
+}
+```
+
+<Aside type="tip">
+**Text Gradient:** စာသားကို Gradient လုပ်ချင်ရင် နည်းနည်း ရှုပ်ပါတယ်။
+```css
+h1 {
+  background: linear-gradient(to right, red, blue);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+```
+</Aside>

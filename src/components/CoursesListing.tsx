@@ -1,4 +1,11 @@
-import React, { useState, useMemo, useEffect, type JSX } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useCallback,
+  type JSX,
+} from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
@@ -22,7 +29,6 @@ import {
   BookOpen,
   Clock,
   ArrowRight,
-  ArrowLeft,
   Filter,
   Users,
   Star,
@@ -39,6 +45,7 @@ import {
   GraduationCap,
   PlayCircle,
   X,
+  Palette,
 } from "lucide-react";
 
 // Type definitions
@@ -73,6 +80,21 @@ const coursesData: Course[] = [
     estimatedTime: "2 weeks",
     rating: 4.4,
     students: 4200,
+  },
+  {
+    id: "css",
+    title: "CSS",
+    description:
+      "Webpage များကို လှပအောင် ဒီဇိုင်းဆွဲခြင်း၊ Layout ချခြင်းနှင့် Responsive ဖြစ်အောင် ဖန်တီးခြင်း",
+    difficulty: "beginner",
+    category: "Web Development",
+    icon: "palette",
+    href: "/css/introduction/welcome",
+    lessons: 11,
+    tags: ["CSS", "Design", "Responsive"],
+    estimatedTime: "3 weeks",
+    rating: 4.5,
+    students: 3500,
   },
   {
     id: "websocket",
@@ -227,6 +249,7 @@ const icons = {
   users: Users,
   database: Database,
   globe: Globe,
+  palette: Palette,
   sparkles: Sparkles,
 };
 
@@ -270,8 +293,10 @@ export function CoursesListing(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  // Scroll-based pagination: how many "pages" worth of courses are visible.
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const coursesPerPage: number = 9;
 
   // Get unique categories
@@ -299,12 +324,37 @@ export function CoursesListing(): JSX.Element {
     });
   }, [searchTerm, selectedDifficulty, selectedCategory]);
 
-  // Pagination
+  // Scroll-based pagination
   const totalPages: number = Math.ceil(filteredCourses.length / coursesPerPage);
-  const startIndex: number = (currentPage - 1) * coursesPerPage;
-  const paginatedCourses: Course[] = filteredCourses.slice(
-    startIndex,
-    startIndex + coursesPerPage
+  const visibleCount: number = Math.min(
+    filteredCourses.length,
+    currentPage * coursesPerPage
+  );
+  const visibleCourses: Course[] = filteredCourses.slice(0, visibleCount);
+  const hasMore: boolean = visibleCount < filteredCourses.length;
+
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastCourseElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading || isLoadingMore) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            setIsLoadingMore(true);
+            setTimeout(() => {
+              setCurrentPage((prev) => prev + 1);
+              setIsLoadingMore(false);
+            }, 250);
+          }
+        },
+        { rootMargin: "200px" }
+      );
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isLoadingMore, hasMore]
   );
 
   // Reset to first page when filters change
@@ -430,7 +480,7 @@ export function CoursesListing(): JSX.Element {
         {/* Courses Grid */}
         {!isLoading && (
           <div className="grid grid-cols-1 mt:2 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {paginatedCourses.map((course) => (
+            {visibleCourses.map((course) => (
               <Card
                 key={course.id}
                 className="group transition-all duration-300 h-full flex flex-col overflow-hidden pt-2"
@@ -496,6 +546,29 @@ export function CoursesListing(): JSX.Element {
           </div>
         )}
 
+        {/* Scroll-based pagination footer */}
+        {!isLoading && filteredCourses.length > 0 && (
+          <div className="flex flex-col items-center gap-3 pt-8">
+            <p className="text-sm">
+              Showing {visibleCount} of {filteredCourses.length} courses
+            </p>
+
+            {hasMore && (
+              <div className="flex items-center gap-3" aria-live="polite">
+                {isLoadingMore && <Loader2 className="w-5 h-5 animate-spin" />}
+                <span className="text-sm">
+                  {isLoadingMore ? "Loading more..." : "Scroll to load more"}
+                </span>
+              </div>
+            )}
+
+            {/* Sentinel element observed by IntersectionObserver */}
+            {hasMore && (
+              <div ref={lastCourseElementRef} className="h-1 w-full" />
+            )}
+          </div>
+        )}
+
         {/* Empty State */}
         {!isLoading && filteredCourses.length === 0 && (
           <Card className="text-center py-20 border-2 border-dashed">
@@ -530,69 +603,6 @@ export function CoursesListing(): JSX.Element {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {/* Pagination */}
-        {!isLoading && totalPages > 1 && (
-          <div className="flex flex-col items-center gap-6 pt-8">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Previous
-              </Button>
-
-              <div className="flex items-center gap-2">
-                {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-                  let pageNum = i + 1;
-                  if (totalPages > 5) {
-                    if (currentPage <= 3) {
-                      pageNum = i + 1;
-                    } else if (currentPage >= totalPages - 2) {
-                      pageNum = totalPages - 4 + i;
-                    } else {
-                      pageNum = currentPage - 2 + i;
-                    }
-                  }
-
-                  return (
-                    <Button
-                      key={pageNum}
-                      variant={currentPage === pageNum ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setCurrentPage(pageNum)}
-                      className="w-10 h-10"
-                    >
-                      {pageNum}
-                    </Button>
-                  );
-                })}
-              </div>
-
-              <Button
-                variant="outline"
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Next
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-
-            <div className="text-center">
-              <p className="text-sm">
-                Page {currentPage} of {totalPages} • {filteredCourses.length}{" "}
-                total courses
-              </p>
-            </div>
-          </div>
         )}
       </div>
     </div>

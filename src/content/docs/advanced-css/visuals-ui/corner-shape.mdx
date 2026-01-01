@@ -1,0 +1,31 @@
+---
+title: "corner-shape Property"
+description: "Border Radius ထက်ပိုသော ထောင့်ချိုးပုံစံများ (Squircles)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Beyond Rounded Corners">
+`border-radius` က စက်ဝိုင်းခြမ်း (Circle) ပုံစံပဲ ရပါတယ်။ iOS Icon တွေလိုမျိုး ပြေပြစ်တဲ့ "Squircle" (Superellipse) ပုံစံ လိုချင်ရင် `corner-shape` လိုပါတယ်။
+</Aside>
+
+### အသုံးပြုပုံ
+
+```css
+.card {
+  /* ထောင့်ချိုး အရွယ်အစား */
+  border-radius: 20px;
+  
+  /* ထောင့်ချိုး ပုံစံ */
+  corner-shape: super-ellipse; /* သို့မဟုတ် squircle */
+}
+```
+
+### ရရှိနိုင်သော ပုံစံများ
+*   `round`: ပုံမှန် border-radius (စက်ဝိုင်းခြမ်း)။
+*   `angle`: ထောင့်ချိုး အတိ (Diamond shape ဆန်ဆန် ဖြစ်သွားမယ်)။
+*   `super-ellipse`: Apple App Icon တွေလို ပြေပြစ်တဲ့ ထောင့်ချိုး။
+
+<Aside type="tip">
+ဒီ Feature က ဒီဇိုင်းပိုင်းမှာ အသေးစိတ် ဂရုစိုက်တဲ့ UI Designer တွေအတွက် အရမ်း အသုံးဝင်ပါတယ်။ Button တွေ၊ Card တွေက ပိုပြီး Modern ဖြစ်သွားပါလိမ့်မယ်။
+</Aside>

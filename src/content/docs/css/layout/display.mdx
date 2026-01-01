@@ -1,0 +1,53 @@
+---
+title: "Display Property"
+description: "Element များ၏ အပြုအမူကို ပြောင်းလဲခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="နေရာယူပုံ">
+Element တိုင်းမှာ သူတို့ရဲ့ မူလ နေရာယူပုံ (Default Display) ရှိပါတယ်။
+ဒါကို နားလည်မှ Layout ချရတာ အဆင်ပြေမှာပါ။
+</Aside>
+
+### 1. Block Elements (တစ်ကြောင်းလုံး ယူသူများ)
+သူတို့က တစ်ကြောင်းလုံး နေရာယူပါတယ်။ ဘေးမှာ ဘယ်သူ့ကိုမှ ပေးမနေပါဘူး။
+ဥပမာ: `<div>`, `<h1>`, `<p>`, `<ul>`
+
+```css
+.block-item {
+  display: block; /* Default for div, p, etc. */
+}
+```
+
+### 2. Inline Elements (စာသားလောက်သာ နေရာယူသူများ)
+သူတို့က စာသားရှိသလောက်ပဲ နေရာယူပါတယ်။ ဘေးချင်းယှဉ်နေလို့ ရပါတယ်။
+Width နဲ့ Height သတ်မှတ်လို့ **မရပါဘူး**။
+ဥပမာ: `<span>`, `<a>`, `<b>`
+
+```css
+.inline-item {
+  display: inline; /* Default for span, a, etc. */
+}
+```
+
+### 3. Inline-Block (နှစ်မျိုးစပ်)
+Inline လိုမျိုး ဘေးချင်းယှဉ်နေလို့ရတယ်၊ ဒါပေမယ့် Block လိုမျိုး Width/Height သတ်မှတ်လို့ ရတယ်။
+Button တွေမှာ အသုံးများပါတယ်။
+
+```css
+.button {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+}
+```
+
+### 4. None (ဖျောက်ထားခြင်း)
+Element ကို လုံးဝ ဖျောက်ထားချင်ရင် သုံးပါတယ်။ နေရာပါ ပျောက်သွားပါတယ်။
+
+```css
+.hidden {
+  display: none; /* လုံးဝ မရှိတော့သလို ဖြစ်သွားမယ် */
+}
+```

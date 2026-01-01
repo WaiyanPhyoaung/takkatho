@@ -1,0 +1,39 @@
+---
+title: "field-sizing Property"
+description: "Form element များ၏ အရွယ်အစားကို Content အလိုက် အလိုအလျောက် ချိန်ညှိခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="No More JavaScript Hacks">
+အရင်တုန်းက Textarea တစ်ခုကို စာရိုက်ရင် အလိုအလျောက် ကြီးလာအောင်လုပ်ဖို့ JavaScript တွေ သုံးခဲ့ရပါတယ်။ အခု CSS တစ်ကြောင်းတည်းနဲ့ ရပါပြီ။
+</Aside>
+
+### အသုံးပြုပုံ
+
+`field-sizing` property ဟာ input, textarea နဲ့ select element တွေရဲ့ အရွယ်အစားကို သူတို့ရဲ့ content ပေါ်မူတည်ပြီး ပြောင်းလဲပေးပါတယ်။
+
+*   `fixed`: (Default) ပုံသေ အရွယ်အစား (အရင်လိုပဲ)။
+*   `content`: အတွင်းက စာသား (Content) အနည်းအများပေါ် မူတည်ပြီး ကြီးမယ်၊ သေးမယ်။
+
+```css
+textarea {
+  /* စာရိုက်လိုက်ရင် အောက်ကို ရှည်ထွက်လာမယ် */
+  field-sizing: content;
+  
+  /* အနည်းဆုံးနဲ့ အများဆုံး အမြင့် သတ်မှတ်ပေးသင့်ပါတယ် */
+  min-height: 40px;
+  max-height: 200px;
+}
+
+input[type="text"] {
+  /* စာရိုက်ရင် ဘေးကို ရှည်ထွက်လာမယ် */
+  field-sizing: content;
+  min-width: 100px;
+}
+```
+
+### ဘာတွေ ကောင်းသွားလဲ?
+1.  **Performance:** JavaScript event listener တွေ မလိုတော့လို့ ပိုမြန်တယ်။
+2.  **UX:** User က စာရိုက်နေရင်း scroll bar ပေါ်လာတာမျိုး မကြုံရတော့ဘူး။
+3.  **Simplicity:** Code တစ်ကြောင်းတည်းနဲ့ ပြီးတယ်။

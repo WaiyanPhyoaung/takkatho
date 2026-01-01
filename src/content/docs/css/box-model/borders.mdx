@@ -1,0 +1,47 @@
+---
+title: "Borders (ဘောင်များ)"
+description: "ဘောင်ခတ်ခြင်းနှင့် ထောင့်ကွေးခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဘောင်ခတ်မယ်">
+Element တွေကို နယ်နိမိတ် သတ်မှတ်ဖို့ Border တွေ သုံးပါတယ်။
+</Aside>
+
+### Border Style
+Border တစ်ခုမှာ အနည်းဆုံး (၃) ချက် ပြောပြရပါတယ်:
+1.  **Width:** ဘောင်အထူ (ဥပမာ - `1px`)
+2.  **Style:** ဘောင်ပုံစံ (`solid`, `dashed`, `dotted`)
+3.  **Color:** ဘောင်အရောင် (`red`, `#000`)
+
+```css
+.box {
+  border: 2px solid black; /* 2px အထူ၊ မျဉ်းဖြောင့်၊ အမည်းရောင် */
+}
+
+.dashed-box {
+  border: 2px dashed red; /* မျဉ်းပြတ် */
+}
+```
+
+### Border Radius (ထောင့်ကွေးခြင်း)
+လေးထောင့်စွန်းတွေကို ဝိုင်းချင်ရင် `border-radius` သုံးပါတယ်။
+
+```css
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px; /* ထောင့်တွေကို 10px စာ ဝိုင်းမယ် */
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* လုံးဝ အဝိုင်းဖြစ်သွားမယ် */
+}
+```
+
+<Aside type="tip">
+ခေတ်မီတဲ့ ဒီဇိုင်းတွေမှာ `border-radius` ကို သုံးပြီး နူးညံ့တဲ့ ခံစားမှု ပေးလေ့ရှိပါတယ်။
+Button တွေ၊ Card တွေမှာ အသုံးများပါတယ်။
+</Aside>

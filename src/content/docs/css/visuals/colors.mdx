@@ -1,0 +1,59 @@
+---
+title: "Colors & Backgrounds"
+description: "အရောင်များနှင့် နောက်ခံများ အသုံးပြုခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="အရောင်များ">
+Website တစ်ခုရဲ့ စိတ်ခံစားမှု (Mood) ကို အရောင်တွေက ဖန်တီးပေးပါတယ်။
+</Aside>
+
+### Colors (စာလုံးအရောင်)
+စာသားတွေရဲ့ အရောင်ကို ပြောင်းဖို့ `color` property ကို သုံးပါတယ်။
+
+အရောင်သတ်မှတ်နည်း (၃) မျိုး ရှိပါတယ်:
+
+1.  **Color Name:** `red`, `blue`, `green` (အလွယ်တကူ စမ်းဖို့ ကောင်း)
+2.  **Hex Code:** `#FF0000`, `#000000` (အတိအကျ လိုချင်ရင် သုံး)
+3.  **RGB:** `rgb(255, 0, 0)` (အနီ၊ အစိမ်း၊ အပြာ ရောစပ်ပုံ)
+
+```css
+h1 {
+  color: tomato; /* Color Name */
+}
+
+p {
+  color: #333333; /* Hex Code */
+}
+```
+
+### Backgrounds (နောက်ခံ)
+Element တစ်ခုရဲ့ နောက်ခံကို ပြောင်းဖို့ `background-color` သို့မဟုတ် `background-image` ကို သုံးပါတယ်။
+
+#### Background Color
+```css
+body {
+  background-color: #f0f0f0; /* တစ်မျက်နှာလုံး မီးခိုးရောင်ဖျော့ဖျော့ */
+}
+
+.card {
+  background-color: white;
+}
+```
+
+#### Background Image
+ပုံတစ်ပုံကို နောက်ခံအဖြစ် ထားချင်ရင် `url()` နဲ့ ညွှန်းပေးရပါတယ်။
+
+```css
+.hero-section {
+  background-image: url('hero-bg.jpg');
+  background-size: cover; /* ပုံကို အပြည့်ဖြန့်မယ် */
+  background-position: center; /* ပုံကို အလယ်တည့်တည့် ထားမယ် */
+}
+```
+
+<Aside type="tip">
+စာလုံးအရောင်နဲ့ နောက်ခံအရောင်ကို **Contrast** (ကွဲပြားမှု) ရှိအောင် ထားပါ။
+ဥပမာ - နောက်ခံ အမည်းဆိုရင် စာလုံး အဖြူ ထားမှ ဖတ်ရ လွယ်ပါမယ်။
+</Aside>

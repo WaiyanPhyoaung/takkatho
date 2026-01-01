@@ -1,0 +1,63 @@
+---
+title: "CSS Variables"
+description: "တန်ဖိုးများကို သိမ်းဆည်းပြီး ပြန်လည်အသုံးပြုခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="တစ်နေရာတည်း ပြင်၊ အကုန်ပြောင်း">
+Website တစ်ခုလုံးရဲ့ အရောင် (Theme Color) ကို ပြောင်းချင်တယ် ဆိုပါစို့။
+နေရာတိုင်းမှာ လိုက်ပြင်နေမယ့်အစား၊ Variable တစ်ခုထဲမှာ သိမ်းထားပြီး အဲဒါကိုပဲ ပြင်လိုက်ရင် အကုန် လိုက်ပြောင်းသွားမှာပါ။
+</Aside>
+
+### ကြေညာခြင်း
+Variable တွေကို `--` (dash နှစ်ခု) နဲ့ စပြီး နာမည်ပေးရပါတယ်။
+များသောအားဖြင့် `:root` (HTML တစ်ခုလုံး) မှာ ကြေညာလေ့ ရှိပါတယ်။
+
+```css
+:root {
+  --primary-color: #007bff; /* အဓိက အပြာရောင် */
+  --text-color: #333;
+  --spacing-md: 16px;
+}
+```
+
+### ပြန်သုံးခြင်း
+`var()` function ကို သုံးပြီး ပြန်ခေါ်ရပါတယ်။
+
+```css
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--spacing-md);
+}
+
+h1 {
+  color: var(--primary-color); /* ဒီမှာလည်း အပြာရောင်ပဲ သုံးထားတယ် */
+}
+```
+
+### ဘာလို့ သုံးသင့်လဲ?
+1.  **Maintainability:** ပြင်ရ လွယ်ကူတယ်။ (Dark Mode လုပ်ရင် အရမ်း အသုံးဝင်ပါတယ်)
+2.  **Readability:** `#007bff` လို့ မြင်တာထက် `--primary-color` လို့ မြင်တာက နားလည်ရ ပိုလွယ်တယ်။
+
+<Aside type="tip">
+**Dark Mode ဥပမာ:**
+```css
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+/* Dark theme class ထည့်လိုက်ရင် တန်ဖိုးတွေ ပြောင်းသွားမယ် */
+body.dark {
+  --bg-color: black;
+  --text-color: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+```
+</Aside>

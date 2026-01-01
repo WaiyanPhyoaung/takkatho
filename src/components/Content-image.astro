@@ -29,7 +29,7 @@ const imageSrc = typeof src === "string" ? src : src.src;
       />
     ) : (
       <Image
-        src={src}
+        src={src as any}
         alt={alt}
         width={width ? Number(width) : undefined}
         height={height ? Number(height) : undefined}

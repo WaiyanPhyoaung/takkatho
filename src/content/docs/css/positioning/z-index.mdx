@@ -1,0 +1,63 @@
+---
+title: "Z-Index Property"
+description: "Element များကို အထပ်လိုက် နေရာချထားခြင်း (Stacking Order)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဘယ်သူ အပေါ်က နေမလဲ?">
+Element တွေ တစ်ခုနဲ့ တစ်ခု ထပ်နေတဲ့အခါ (Overlapping) ဘယ် Element က အပေါ်က နေမလဲ ဆိုတာ `z-index` နဲ့ သတ်မှတ်ရပါတယ်။
+စာရွက်တွေ တစ်ရွက်ပေါ် တစ်ရွက် ထပ်ထားသလို သဘောတရား ဖြစ်ပါတယ်။
+</Aside>
+
+### အခြေခံ သဘောတရား
+`z-index` တန်ဖိုး များတဲ့ Element က အပေါ်မှာ ရှိနေမှာ ဖြစ်ပြီး၊ တန်ဖိုး နည်းတဲ့ Element က အောက်မှာ ရှိနေမှာ ဖြစ်ပါတယ်။
+
+- **Positive Value (ဥပမာ `1`, `10`, `100`)**: ပုံမှန်ထက် ပိုမြင့်တဲ့ အထပ်။
+- **Negative Value (ဥပမာ `-1`)**: ပုံမှန်ထက် နိမ့်တဲ့ အထပ် (စာသားတွေရဲ့ နောက်ခံ Background အဖြစ် ထားချင်တဲ့အခါ သုံးပါတယ်)။
+- **Auto**: Default တန်ဖိုးပါ။ မိဘရဲ့ Stack level အတိုင်း နေပါတယ်။
+
+### အရေးကြီးဆုံး အချက် ⚠️
+`z-index` အလုပ်လုပ်ဖို့အတွက် အဲဒီ Element မှာ `position` property တစ်ခုခု (`relative`, `absolute`, `fixed`, `sticky`) ပေးထားဖို့ လိုပါတယ်။
+(`static` ဖြစ်နေရင် z-index အလုပ်မလုပ်ပါဘူး)
+
+> **Note:** Flexbox သို့မဟုတ် Grid item တွေမှာတော့ `position` မပေးထားလည်း `z-index` သုံးလို့ ရပါတယ်။
+
+### ဥပမာ
+
+```css
+.box-bottom {
+  position: relative;
+  z-index: 1; /* အောက်ဆုံးမှာ နေမယ် */
+  background-color: red;
+}
+
+.box-middle {
+  position: absolute;
+  z-index: 5; /* အလယ်မှာ နေမယ် */
+  background-color: yellow;
+  top: 20px;
+  left: 20px;
+}
+
+.box-top {
+  position: absolute;
+  z-index: 10; /* အပေါ်ဆုံးမှာ နေမယ် */
+  background-color: blue;
+  top: 40px;
+  left: 40px;
+}
+```
+
+### Stacking Context (အထပ်များ ဖွဲ့စည်းပုံ)
+ဒါက နည်းနည်း ရှုပ်ထွေးပေမယ့် သိထားသင့်ပါတယ်။
+**"Parent Element ရဲ့ z-index က နိမ့်နေရင်၊ သားသမီး Element က z-index ဘယ်လောက်များများ မိဘရဲ့ အပေါ်က Element ကို ကျော်တက်လို့ မရပါဘူး"**
+
+ဥပမာ -
+- **Parent A** (`z-index: 1`)
+    - Child A1 (`z-index: 9999`)
+- **Parent B** (`z-index: 2`)
+    - Child B1 (`z-index: 1`)
+
+ဒီနေရာမှာ **Parent B** က **Parent A** ထက် မြင့်တဲ့အတွက်၊ Parent B ရဲ့ သားသမီး **Child B1** (z-index: 1) က **Child A1** (z-index: 9999) ထက် အပေါ်မှာ ရှိနေမှာ ဖြစ်ပါတယ်။
+

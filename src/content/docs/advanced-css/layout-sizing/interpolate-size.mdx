@@ -1,0 +1,60 @@
+---
+title: "interpolate-size Property"
+description: "Auto အရွယ်အစားများသို့ Smooth Transition ပြုလုပ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="The Holy Grail of CSS Animation">
+`height: 0` ကနေ `height: auto` ကို animate လုပ်ဖို့ဆိုတာ CSS ရဲ့ နှစ်ပေါင်းများစွာ မဖြေရှင်းနိုင်ခဲ့တဲ့ ပြဿနာပါ။ အခု `interpolate-size` နဲ့ ဖြေရှင်းလိုက်ပါပြီ။
+</Aside>
+
+### ပြဿနာ
+အရင်က `height: auto` ကို transition လုပ်ရင် ချက်ချင်းကြီး ခုန်ပြီး ပွင့်သွားတတ်ပါတယ်။
+
+```css
+/* အရင်က အလုပ်မလုပ်သော Code */
+.accordion-content {
+  height: 0;
+  transition: height 0.3s;
+}
+
+.accordion-content.open {
+  height: auto; /* Transition မဖြစ်ဘဲ ချက်ချင်း ပွင့်သွားမယ် */
+}
+```
+
+### ဖြေရှင်းနည်း (`interpolate-size`)
+Browser ကို `auto` တန်ဖိုးတွေကြားမှာ transition လုပ်ခွင့်ပြုလိုက်တာပါ။
+
+```css
+:root {
+  /* Website တစ်ခုလုံးအတွက် ဖွင့်လိုက်ခြင်း */
+  interpolate-size: allow-keywords;
+}
+
+.accordion-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.accordion-content.open {
+  height: auto; /* အခုဆိုရင် ဖြည်းဖြည်းချင်း ပွင့်လာပါလိမ့်မယ် */
+}
+```
+
+### `calc-size()` Function
+ပိုပြီး ထိန်းချုပ်ချင်ရင် `calc-size()` ကို သုံးလို့ရပါတယ်။
+
+```css
+.element {
+  width: 100px;
+  transition: width 0.5s;
+}
+
+.element:hover {
+  /* auto ထက် 20px ပိုကြီးချင်ရင် */
+  width: calc-size(auto, size + 20px);
+}
+```

@@ -1,0 +1,52 @@
+---
+title: "Animations (လှုပ်ရှားမှုများ)"
+description: "Keyframes အသုံးပြု၍ Animation ဖန်တီးခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ရုပ်ရှင်ရိုက်မယ်">
+Transition က A ကနေ B ကို ပြောင်းရုံပဲ ရပါတယ်။
+Animation ကတော့ A -> B -> C -> D ဆိုပြီး အဆင့်ဆင့် ပြောင်းလဲလို့ ရပါတယ်။
+</Aside>
+
+### Step 1: Keyframes ကြေညာခြင်း
+အရင်ဆုံး Animation ဇာတ်ညွှန်း (Keyframes) ရေးရပါတယ်။ နာမည်တစ်ခု ပေးရပါမယ်။
+
+```css
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px); /* အပေါ် ခုန်တက် */
+  }
+  100% {
+    transform: translateY(0); /* ပြန်ကျ */
+  }
+}
+```
+
+### Step 2: Animation ကို ခေါ်သုံးခြင်း
+Element မှာ `animation` property နဲ့ ချိတ်ဆက်ရပါမယ်။
+
+```css
+.ball {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  border-radius: 50%;
+  
+  /* Name, Duration, Timing, Iteration */
+  animation: bounce 1s infinite; 
+}
+```
+
+*   **bounce:** Keyframe နာမည်။
+*   **1s:** တစ်ခါလုပ်ရင် ၁ စက္ကန့် ကြာမယ်။
+*   **infinite:** အဆုံးမရှိ လုပ်နေမယ် (Loop)။
+*   **alternate:** (Optional) အသွားအပြန် လုပ်မယ် (ဥပမာ - ကြီးလိုက် သေးလိုက်)။
+
+<Aside type="tip">
+Animation တွေက CPU/GPU ကို သုံးတဲ့အတွက် လိုအပ်မှသာ သုံးပါ။ အများကြီးသုံးရင် Site လေးသွားနိုင်ပါတယ်။
+</Aside>

@@ -1662,6 +1662,240 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "CSS",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is CSS?",
+                  slug: "css/introduction/welcome",
+                },
+                {
+                  label: "Selectors",
+                  slug: "css/introduction/selectors",
+                },
+              ],
+            },
+            {
+              label: "Advanced Selectors",
+              items: [
+                {
+                  label: "Pseudo-classes",
+                  slug: "css/advanced-selectors/pseudo-classes",
+                },
+                {
+                  label: "Pseudo-elements",
+                  slug: "css/advanced-selectors/pseudo-elements",
+                },
+              ],
+            },
+            {
+              label: "Visuals",
+              items: [
+                {
+                  label: "Colors & Backgrounds",
+                  slug: "css/visuals/colors",
+                },
+                {
+                  label: "Fonts & Text",
+                  slug: "css/visuals/fonts",
+                },
+              ],
+            },
+            {
+              label: "Box Model",
+              items: [
+                {
+                  label: "The Box Model",
+                  slug: "css/box-model/box-model",
+                },
+                {
+                  label: "Margin & Padding",
+                  slug: "css/box-model/spacing",
+                },
+                {
+                  label: "Borders",
+                  slug: "css/box-model/borders",
+                },
+              ],
+            },
+            {
+              label: "Layout",
+              items: [
+                {
+                  label: "Display Property",
+                  slug: "css/layout/display",
+                },
+                {
+                  label: "Flexbox",
+                  slug: "css/layout/flexbox",
+                },
+                {
+                  label: "CSS Grid",
+                  slug: "css/layout/grid",
+                },
+              ],
+            },
+            {
+              label: "Responsive Design",
+              items: [
+                {
+                  label: "Media Queries",
+                  slug: "css/responsive/media-queries",
+                },
+              ],
+            },
+            {
+              label: "Positioning",
+              items: [
+                {
+                  label: "Position Property",
+                  slug: "css/positioning/position",
+                },
+                {
+                  label: "Z-Index",
+                  slug: "css/positioning/z-index",
+                },
+              ],
+            },
+            {
+              label: "Effects",
+              items: [
+                {
+                  label: "Shadows",
+                  slug: "css/effects/shadows",
+                },
+                {
+                  label: "Gradients",
+                  slug: "css/effects/gradients",
+                },
+              ],
+            },
+            {
+              label: "Interactivity",
+              items: [
+                {
+                  label: "Transitions",
+                  slug: "css/interactivity/transitions",
+                },
+                {
+                  label: "Transforms",
+                  slug: "css/interactivity/transforms",
+                },
+                {
+                  label: "Animations",
+                  slug: "css/interactivity/animations",
+                },
+              ],
+            },
+            {
+              label: "Modern Practices",
+              items: [
+                {
+                  label: "CSS Variables",
+                  slug: "css/modern-practices/variables",
+                },
+                {
+                  label: "CSS Units",
+                  slug: "css/modern-practices/units",
+                },
+              ],
+            },
+            {
+              label: "Next Steps",
+              items: [
+                {
+                  label: "What is Next?",
+                  slug: "css/next/steps",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Advanced CSS",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "advanced-css/introduction/welcome",
+                },
+              ],
+            },
+            {
+              label: "Core Logic & Functions",
+              items: [
+                {
+                  label: "Logic & Functions",
+                  slug: "advanced-css/core-logic/functions",
+                },
+              ],
+            },
+            {
+              label: "Layout & Sizing",
+              items: [
+                {
+                  label: "Field Sizing",
+                  slug: "advanced-css/layout-sizing/field-sizing",
+                },
+                {
+                  label: "Interpolate Size",
+                  slug: "advanced-css/layout-sizing/interpolate-size",
+                },
+                {
+                  label: "Container Queries",
+                  slug: "advanced-css/layout-sizing/container-queries",
+                },
+                {
+                  label: "Anchor Positioning",
+                  slug: "advanced-css/layout-sizing/anchor-positioning",
+                },
+              ],
+            },
+            {
+              label: "Visuals & UI Components",
+              items: [
+                {
+                  label: "Custom Select",
+                  slug: "advanced-css/visuals-ui/custom-select",
+                },
+                {
+                  label: "Corner Shape",
+                  slug: "advanced-css/visuals-ui/corner-shape",
+                },
+                {
+                  label: "Scroll Markers",
+                  slug: "advanced-css/visuals-ui/scroll-markers",
+                },
+                {
+                  label: "View Transitions",
+                  slug: "advanced-css/visuals-ui/view-transitions",
+                },
+              ],
+            },
+            {
+              label: "Developer Ergonomics",
+              items: [
+                {
+                  label: "@property",
+                  slug: "advanced-css/ergonomics/at-property",
+                },
+                {
+                  label: "Cascade Layers",
+                  slug: "advanced-css/ergonomics/cascade-layers",
+                },
+                {
+                  label: "Enhanced attr()",
+                  slug: "advanced-css/ergonomics/attr-function",
+                },
+              ],
+            },
+          ],
+        },
         // {
         // 	label: 'Reference',
         // 	autogenerate: { directory: 'reference' },

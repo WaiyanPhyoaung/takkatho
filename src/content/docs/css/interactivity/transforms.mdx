@@ -1,0 +1,61 @@
+---
+title: "Transforms (ပုံသဏ္ဍာန်ပြောင်းခြင်း)"
+description: "Element များကို လှည့်ခြင်း၊ ချဲ့ခြင်း၊ ရွှေ့ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ပုံစံပြောင်းမယ်">
+Element တွေကို နေရာမရွှေ့ဘဲ ပုံစံပြောင်းချင်ရင် (လှည့်တာ၊ ကြီးတာ) `transform` ကို သုံးပါတယ်။
+ဒါက Layout ကို မထိခိုက်စေပါဘူး။
+</Aside>
+
+### 1. Rotate (လှည့်ခြင်း)
+ဒီဂရီ (`deg`) နဲ့ သတ်မှတ်ရပါတယ်။
+
+```css
+.box:hover {
+  transform: rotate(45deg); /* ၄၅ ဒီဂရီ လှည့်မယ် */
+}
+```
+
+### 2. Scale (ချဲ့ခြင်း/ချုံ့ခြင်း)
+မူလအရွယ်အစားက `1` ပါ။ `1` ထက်ကြီးရင် ကြီးမယ်၊ ငယ်ရင် သေးမယ်။
+
+```css
+.box:hover {
+  transform: scale(1.2); /* ၂၀% ပိုကြီးသွားမယ် */
+}
+```
+
+### 3. Translate (နေရာရွှေ့ခြင်း)
+`position: relative` နဲ့ ရွှေ့တာနဲ့ တူပေမယ့်၊ `transform` က Performance ပိုကောင်းပါတယ်။ Animation လုပ်ရင် ဒါကို သုံးသင့်ပါတယ်။
+
+```css
+.box:hover {
+  transform: translateY(-10px); /* အပေါ်ကို 10px တက်သွားမယ် */
+}
+```
+
+### 4. Skew (ရွဲ့ခြင်း)
+Element ကို စောင်းသွားအောင် လုပ်တာပါ။
+
+```css
+.box {
+  transform: skewX(20deg);
+}
+```
+
+<Aside type="tip">
+**Transition နဲ့ တွဲသုံးပါ:**
+Transform တွေကို Transition နဲ့ တွဲသုံးလိုက်ရင် အရမ်းမိုက်တဲ့ Effect တွေ ရပါတယ်။
+ဥပမာ - Card ကို Hover လုပ်ရင် အပေါ်နည်းနည်း ကြွတက်လာတာမျိုး။
+```css
+.card {
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-10px);
+}
+```
+</Aside>

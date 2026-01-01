@@ -1,0 +1,67 @@
+---
+title: "Pseudo-elements"
+description: "CSS ဖြင့် Element အသစ် ဖန်တီးခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="တစ္ဆေ Element များ">
+HTML မှာ မရှိဘဲ CSS ကနေ Element အတုတွေ ဖန်တီးပြီး ထည့်ပေးလို့ ရပါတယ်။
+Selector နောက်မှာ ကော်လံနှစ်ခု (`::`) ခံပြီး ရေးရပါတယ်။
+</Aside>
+
+### ::before နှင့် ::after
+Element ရဲ့ အရှေ့ (`::before`) နဲ့ အနောက် (`::after`) မှာ Content ထည့်ပေးတာပါ။
+`content: ""` property မပါမဖြစ် ပါရပါမယ်။
+
+```css
+/* ခေါင်းစဉ်ရှေ့မှာ မီးတောက်လေး ထည့်မယ် */
+h1::before {
+  content: "🔥";
+  margin-right: 10px;
+}
+
+/* စာကြောင်းဆုံးရင် "Read More" လို့ ထည့်မယ် */
+.excerpt::after {
+  content: " Read More...";
+  color: blue;
+  font-size: 0.8em;
+}
+```
+
+### အလှဆင်ရာတွင် အသုံးပြုခြင်း
+`content: ""` ကို အလွတ်ထားပြီး၊ Width/Height ပေးကာ ဒီဇိုင်းဆွဲလို့ ရပါတယ်။
+
+```css
+/* Button ပေါ်မှာ Mouse တင်ရင် အောက်က မျဉ်းကြောင်းလေး ပြေးလာတာမျိုး */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: red;
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Hover လုပ်ရင် မျဉ်းကြောင်းက အပြည့် ဖြစ်သွားမယ် */
+}
+```
+
+### အခြား Pseudo-elements
+*   `::first-letter` - ပထမဆုံး စာလုံး (Drop cap လုပ်ချင်ရင် သုံး)။
+*   `::first-line` - ပထမဆုံး စာကြောင်း။
+*   `::selection` - စာသားကို Mouse နဲ့ Select မှတ်လိုက်ရင် ပေါ်မယ့် အရောင်။
+
+```css
+p::selection {
+  background-color: yellow;
+  color: black;
+}
+```

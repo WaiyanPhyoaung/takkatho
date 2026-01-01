@@ -1,0 +1,35 @@
+---
+title: "Enhanced attr() Function"
+description: "HTML Attribute များကို CSS တွင် တိုက်ရိုက်အသုံးပြုခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="HTML to CSS Bridge">
+အရင်က `attr()` ကို `content` property တစ်ခုတည်းမှာပဲ သုံးလို့ရပါတယ်။ အခုတော့ နေရာတိုင်းမှာ သုံးလို့ရပါပြီ။
+</Aside>
+
+### အသုံးပြုပုံ
+HTML မှာ ရေးထားတဲ့ တန်ဖိုးတွေကို CSS ကနေ လှမ်းယူပြီး Style လုပ်လို့ရပါတယ်။
+
+```html
+<div class="grid" data-columns="3" data-gap="20px">
+  <!-- Items -->
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  
+  /* HTML attribute 'data-columns' ကို နံပါတ်အနေနဲ့ ယူမယ် */
+  grid-template-columns: repeat(attr(data-columns type(<number>), 1), 1fr);
+  
+  /* HTML attribute 'data-gap' ကို length အနေနဲ့ ယူမယ် */
+  gap: attr(data-gap type(<length>), 10px);
+}
+```
+
+### ဘာတွေ ကောင်းသွားလဲ?
+*   **Dynamic Styling:** HTML ဘက်ကနေ Style တွေကို ထိန်းချုပ်လို့ ရသွားတယ်။
+*   **Component Libraries:** React/Vue component တွေမှာ prop တွေကို CSS variable အနေနဲ့ pass စရာမလိုဘဲ attribute အနေနဲ့ တိုက်ရိုက် pass လို့ ရနိုင်တယ်။

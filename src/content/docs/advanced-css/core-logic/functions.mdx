@@ -1,0 +1,76 @@
+---
+title: "Core Logic & Functions"
+description: "CSS တွင် Logic နှင့် Function များ အသုံးပြုခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="CSS is Programming?">
+CSS ဟာ အရင်ကလို ပုံသေ Style တွေ ပေးတာတင် မဟုတ်တော့ပါဘူး။ Logic တွေ၊ Calculation တွေ လုပ်နိုင်တဲ့ အဆင့်ကို ရောက်လာပါပြီ။
+</Aside>
+
+### 1. CSS if() Function
+Style တွေကို Condition ပေါ်မူတည်ပြီး တိုက်ရိုက် ပြောင်းလဲနိုင်ပါပြီ။ Preprocessor (Sass/Less) မလိုတော့ပါဘူး။
+
+```css
+.card {
+  /* --variant က 'featured' ဖြစ်ရင် gold အရောင်၊ မဟုတ်ရင် gray */
+  border-color: if(var(--variant) = 'featured', gold, gray);
+  
+  /* နောက်ခံအရောင်ကိုလည်း Logic နဲ့ ရွေးလို့ရ */
+  background-color: if(style(--theme: dark), #333, #fff);
+}
+```
+
+### 2. Custom Functions
+Developer တွေက ကိုယ်ပိုင် Function တွေ တည်ဆောက်ပြီး ပြန်လည်အသုံးပြုနိုင်ပါပြီ။
+
+```css
+@function --calculate-shadow(--elevation) {
+  result: 0 var(--elevation) calc(var(--elevation) * 2) rgba(0,0,0,0.2);
+}
+
+.button {
+  box-shadow: --calculate-shadow(4px);
+}
+
+.card {
+  box-shadow: --calculate-shadow(8px);
+}
+```
+
+### 3. Sibling Functions
+Element တစ်ခုက သူ့ရဲ့ ညီအစ်ကို (Sibling) တွေကြားမှာ ဘယ်နေရာ ရောက်နေလဲ၊ စုစုပေါင်း ဘယ်နှခု ရှိလဲ ဆိုတာကို မူတည်ပြီး Style လုပ်လို့ရပါတယ်။
+
+*   `sibling-count()`: Sibling စုစုပေါင်း အရေအတွက်
+*   `sibling-index()`: ကိုယ်ရောက်နေတဲ့ အစဉ် (1-based index)
+
+```css
+/* List item တွေ များရင် (၅ ခုထက်များရင်) စာလုံးသေးမယ် */
+li {
+  font-size: if(sibling-count() > 5, 14px, 18px);
+}
+
+/* Rainbow effect: Index ပေါ်မူတည်ပြီး အရောင်ပြောင်းမယ် */
+div {
+  background-color: hsl(calc(sibling-index() * 30), 70%, 50%);
+}
+```
+
+### 4. Stepped Value Functions
+Mathematical operation တွေကို တိတိကျကျ တွက်ချက်နိုင်ဖို့ Function အသစ်တွေ ပါလာပါတယ်။
+
+*   `round(strategy, value, interval)`: တန်ဖိုးကို အနီးစပ်ဆုံး ကိန်းပြည့် သို့မဟုတ် interval ဆီ ဖြတ်မယ်။
+*   `mod(value, divisor)`: အကြွင်းရှာမယ် (Modulus)။
+*   `rem(value, divisor)`: Remainder ရှာမယ် (Negative number တွေအတွက် mod နဲ့ ကွာခြားပါတယ်)။
+
+```css
+.element {
+  /* 100px ကို 33px အဆတွေနဲ့ အနီးဆုံးဖြစ်အောင် ဖြတ်မယ် (99px ဖြစ်သွားမယ်) */
+  width: round(nearest, 100px, 33px);
+  
+  /* အလှည့်ကျ အရောင်ပြောင်းဖို့ mod သုံးခြင်း */
+  --hue: mod(sibling-index() * 10, 360);
+  color: hsl(var(--hue), 50%, 50%);
+}
+```

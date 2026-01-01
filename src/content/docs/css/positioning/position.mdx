@@ -1,0 +1,69 @@
+---
+title: "Position Property"
+description: "Element များကို စိတ်ကြိုက် နေရာချထားခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="နေရာရွှေ့မယ်">
+ပုံမှန် Layout (Block/Inline) နဲ့ မရတဲ့ နေရာတွေ (ဥပမာ - ပုံပေါ်မှာ စာထပ်ရေးတာ၊ Menu bar ကို အပေါ်မှာ ကပ်ထားတာ) အတွက် `position` ကို သုံးရပါတယ်။
+</Aside>
+
+### 1. Static (ပုံမှန်)
+ဒါက Default ပါ။ ဘာမှ ထူးခြားမှု မရှိပါဘူး။ `top`, `left` တို့ ပေးလို့ မရပါဘူး။
+
+```css
+.box {
+  position: static;
+}
+```
+
+### 2. Relative (မူလနေရာမှ ရွှေ့ခြင်း)
+သူ့ရဲ့ **မူလ ရှိနေတဲ့ နေရာကနေ** ဘယ်၊ ညာ၊ အပေါ်၊ အောက် ရွှေ့တာပါ။
+တခြား Element တွေကတော့ သူ မူလနေရာမှာ ရှိနေတယ်လို့ပဲ ထင်ပြီး နေရာဆက်ယူထားပါလိမ့်မယ်။
+
+```css
+.box {
+  position: relative;
+  top: 20px;  /* မူလနေရာကနေ အောက်ကို 20px ဆင်းမယ် */
+  left: 10px; /* မူလနေရာကနေ ညာဘက်ကို 10px တိုးမယ် */
+}
+```
+
+### 3. Absolute (Container ကို အမှီပြု၍ ရွှေ့ခြင်း)
+ဒါက အရမ်း အသုံးဝင်ပါတယ်။ သူက **အနီးဆုံး `relative` ဖြစ်တဲ့ container element** ကို ရှာပြီး အဲဒီကောင်ရဲ့ ဘောင်အတွင်းမှာ နေရာယူပါတယ်။
+relative container မရှိရင်တော့ Page တစ်ခုလုံး (Body) ကို အမှီပြုပါတယ်။
+
+```css
+.parent {
+  position: relative; /* Parent Container မှာ relative ပေးထားရမယ် */
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  right: 0; /* Parent Container ရဲ့ ညာဘက်ထောင့်စွန်းမှာ ကပ်နေမယ် */
+}
+```
+
+### 4. Fixed (မျက်နှာပြင်မှာ ကပ်ထားခြင်း)
+Scroll ဆွဲလည်း ပါမသွားပါဘူး။ မျက်နှာပြင် (Viewport) ပေါ်မှာ အသေ ကပ်နေတာပါ။
+ဥပမာ - Chat Button လေးတွေ၊ Header Bar တွေ။
+
+```css
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+```
+
+### 5. Sticky (ကပ်စေးနဲ)
+Scroll ဆွဲလို့ တစ်နေရာ ရောက်ရင် `fixed` လိုမျိုး ကပ်ကျန်ခဲ့တာပါ။
+
+```css
+.sidebar {
+  position: sticky;
+  top: 10px; /* Scroll ဆွဲလို့ Top 10px ရောက်ရင် ကပ်နေမယ် */
+}
+```

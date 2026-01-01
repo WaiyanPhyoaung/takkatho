@@ -1,0 +1,46 @@
+---
+title: "Container Scroll State Queries"
+description: "Container ၏ Scroll အနေအထားပေါ်မူတည်ပြီး Style ပြောင်းခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Scroll Aware Styling">
+Container Queries က Element ရဲ့ Size ကို သိသလို၊ Scroll State Queries က Element ရဲ့ "Scroll နေလား?၊ ထိပ်ဆုံးရောက်နေလား?" ဆိုတာကို သိပါတယ်။
+</Aside>
+
+### အသုံးပြုပုံ
+Container တစ်ခုကို `container-type: scroll-state` လို့ သတ်မှတ်ပြီး၊ အတွင်းက Element တွေကို `@container` နဲ့ ဖမ်းရေးရပါတယ်။
+
+```css
+.scroll-container {
+  overflow-y: auto;
+  container-type: scroll-state; /* Scroll state ကို စောင့်ကြည့်မယ် */
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  background: white;
+  transition: box-shadow 0.3s;
+}
+
+/* Container က Scroll လုပ်နေတဲ့ အချိန် (ထိပ်ဆုံးမှာ မဟုတ်တော့ရင်) */
+@container scroll-state(stuck: top) {
+  .sticky-header {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Shadow လေး ပေါ်လာမယ် */
+    background: rgba(255, 255, 255, 0.9);
+  }
+}
+```
+
+### Query လုပ်နိုင်သော State များ
+*   `scroll-state(stuck: top)`: Sticky element က အပေါ်မှာ ကပ်နေချိန်။
+*   `scroll-state(stuck: bottom)`: Sticky element က အောက်မှာ ကပ်နေချိန်။
+*   `scroll-state(snapped: x)`: Scroll snap point တစ်ခုခုမှာ ရပ်နေချိန်။
+*   `scroll-state(overflowing: block)`: Content တွေ များလွန်းလို့ Scroll bar ပေါ်နေချိန်။
+
+<Aside type="tip">
+JavaScript (IntersectionObserver) သုံးပြီး လုပ်ရတဲ့ Sticky Header Shadow effect တွေကို CSS သက်သက်နဲ့ လုပ်လို့ရသွားပါပြီ။
+</Aside>
