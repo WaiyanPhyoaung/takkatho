@@ -4,6 +4,11 @@ description: "ခေတ်မီ Layout ချနည်း (၁)"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import flexDirection from '@/assets/css/flex-directions.png'
+import justifyContent from '@/assets/css/justify-content.png'
+import alignItems from '@/assets/css/align-items.png'
+import alignSelf from '@/assets/css/align-self.png'
 
 <Aside title="Layout ဘုရင်">
 အရင်တုန်းက Layout ချရတာ အရမ်းခက်ပါတယ်။ **Flexbox** ပေါ်လာတော့မှ ဘယ်ညာ ညှိတာ၊ အလယ်ပို့တာတွေ အရမ်းလွယ်သွားပါတယ်။
@@ -19,40 +24,146 @@ Parent element (Container) မှာ `display: flex;` လို့ ကြေည�
 }
 ```
 
-### အဓိက Properties များ
+### Container Properties (Parent Element တွင် သုံးရန်)
 
-#### 1. Justify Content (ဘယ်ညာ ညှိခြင်း - Main Axis)
-Item တွေကို ဘယ်၊ ညာ၊ အလယ် ဘယ်နားထားမလဲ ဆုံးဖြတ်တာပါ။
+#### 1. Flex Direction (ဦးတည်ချက်)
+Item တွေကို ဘယ်ဘက်ကနေ ညာဘက် စီမလား၊ အပေါ်ကနေ အောက် စီမလား ဆိုတာပါ။
 
 ```css
 .container {
   display: flex;
-  justify-content: center; /* အလယ်တည့်တည့် */
-  /* justify-content: space-between; (ဘယ်ညာ ကပ်ပြီး ကြားထဲမှာ နေရာခွဲမယ်) */
-  /* justify-content: flex-end; (ညာဘက် ကပ်မယ်) */
+  flex-direction: row; /* (Default) ဘယ်မှ ညာသို့ */
+  /* flex-direction: column; (အပေါ်မှ အောက်သို့) */
+  /* flex-direction: row-reverse; (ညာမှ ဘယ်သို့ ပြောင်းပြန်) */
+  /* flex-direction: column-reverse; (အောက်မှ အပေါ်သို့ ပြောင်းပြန်) */
 }
 ```
 
-#### 2. Align Items (အပေါ်အောက် ညှိခြင်း - Cross Axis)
-Item တွေကို ဒေါင်လိုက် ဘယ်နားထားမလဲ ဆုံးဖြတ်တာပါ။
+<ContentImage src={flexDirection} alt="CSS Flex Direction" height='300'  />
+
+#### 2. Flex Wrap (အောက်တစ်ကြောင်း ဆင်းခြင်း)
+Item တွေ များလာတဲ့အခါ တစ်ကြောင်းတည်းမှာပဲ ကျပ်သိပ်နေမလား၊ အောက်တစ်ကြောင်း ဆင်းမလား ဆိုတာပါ။
+
+```css
+.container {
+  display: flex;
+  flex-wrap: nowrap; /* (Default) မဆံ့လည်း တစ်ကြောင်းတည်းမှာပဲ နေမယ် (ကျုံ့သွားမယ်) */
+  /* flex-wrap: wrap; (မဆံ့ရင် အောက်တစ်ကြောင်း ဆင်းမယ်) */
+  /* flex-wrap: wrap-reverse; (အောက်ကနေ အပေါ် ပြန်တက်မယ်) */
+}
+```
+
+#### 3. Justify Content (Main Axis ညှိခြင်း)
+`flex-direction` ပေါ်မူတည်ပြီး Item တွေကို ဘယ်လို နေရာချမလဲ ဆုံးဖြတ်တာပါ။ (ဥပမာ - Row ဆိုရင် ဘယ်ညာ၊ Column ဆိုရင် အပေါ်အောက်)
+
+```css
+.container {
+  display: flex;
+  justify-content: flex-start; /* (Default) အစဘက် ကပ်မယ် */
+  /* justify-content: flex-end; (အဆုံးဘက် ကပ်မယ်) */
+  /* justify-content: center; (အလယ်တည့်တည့်) */
+  /* justify-content: space-between; (ဘယ်ညာ ကပ်ပြီး ကြားထဲမှာ နေရာခွဲမယ်) */
+  /* justify-content: space-around; (ဘေးဘက်တွေမှာပါ နေရာခွဲမယ်) */
+  /* justify-content: space-evenly; (နေရာလွတ် အားလုံး တူညီမယ်) */
+}
+```
+<ContentImage src={justifyContent} alt="CSS Justify Content" height='300'  />
+
+#### 4. Align Items (Cross Axis ညှိခြင်း)
+Main Axis နဲ့ ဆန့်ကျင်ဘက် ဝင်ရိုးမှာ ဘယ်လို နေမလဲ ဆုံးဖြတ်တာပါ။ (ဥပမာ - Row ဆိုရင် အပေါ်အောက်၊ Column ဆိုရင် ဘယ်ညာ)
 
 ```css
 .container {
   display: flex;
   height: 200px;
-  align-items: center; /* ဒေါင်လိုက် အလယ်တည့်တည့် */
+  align-items: stretch; /* (Default) အပြည့် ဆွဲဆန့်မယ် */
+  /* align-items: flex-start; (အပေါ် ကပ်မယ်) */
+  /* align-items: flex-end; (အောက် ကပ်မယ်) */
+  /* align-items: center; (အလယ်တည့်တည့်) */
+  /* align-items: baseline; (စာသား မျဉ်းကြောင်းအတိုင်း ညှိမယ်) */
 }
 ```
+<ContentImage src={alignItems} alt="CSS Align Items" width='400' />
 
-#### 3. Flex Direction (ဦးတည်ချက်)
-ပုံမှန်က ဘေးတိုက် (Row) ပါ။ ဒေါင်လိုက် (Column) စီချင်ရင် ပြောင်းလို့ရပါတယ်။
+#### 5. Gap (ကွာဟချက်)
+Item တွေကြား အကွာအဝေး (Space) ထည့်တာပါ။ `margin` လိုက်ထည့်စရာ မလိုတော့ပါဘူး။
 
 ```css
 .container {
   display: flex;
-  flex-direction: column; /* အပေါ်ကနေ အောက် စီမယ် */
+  gap: 10px; /* Item တွေကြား 10px ကွာမယ် */
+  /* gap: 10px 20px; (Row gap 10px, Column gap 20px) */
 }
 ```
+
+---
+
+### Item Properties (Child Element များတွင် သုံးရန်)
+
+Container မှာတင်မကဘဲ၊ အထဲက Item တစ်ခုချင်းစီမှာလည်း သတ်မှတ်လို့ရပါတယ်။
+
+#### 1. Flex Grow (နေရာလွတ် ယူခြင်း)
+Container မှာ နေရာလွတ် ကျန်ရင် ဒီ Item က ဘယ်လောက် ပိုယူမလဲ။
+
+```css
+.item {
+  flex-grow: 1; /* ရှိသမျှ နေရာလွတ်ကို ယူမယ် */
+  /* flex-grow: 0; (Default - မယူဘူး) */
+}
+```
+
+#### 2. Flex Shrink (ကျုံ့ခြင်း)
+နေရာကျပ်ရင် ဘယ်လောက် ကျုံ့မလဲ။
+
+```css
+.item {
+  flex-shrink: 1; /* (Default) နေရာမဆံ့ရင် ကျုံ့မယ် */
+  /* flex-shrink: 0; (လုံးဝ မကျုံ့ဘူး - Size အတိုင်း နေမယ်) */
+}
+```
+
+#### 3. Flex Basis (မူလ အရွယ်အစား)
+Item ရဲ့ မူလ Size က ဘယ်လောက်လဲ။ (`width` သဘောတရားနဲ့ ဆင်တူပါတယ်)
+
+```css
+.item {
+  flex-basis: auto; /* (Default) Content အတိုင်း */
+  /* flex-basis: 200px; (200px ယူမယ်) */
+}
+```
+
+#### 4. Flex (Shorthand)
+`flex-grow`, `flex-shrink`, `flex-basis` ၃ ခုပေါင်းရေးတာပါ။ အသုံးအများဆုံး ဖြစ်ပါတယ်။
+
+```css
+.item {
+  flex: 1; /* flex-grow: 1; flex-shrink: 1; flex-basis: 0% */
+  /* flex: initial; (0 1 auto) - Default */
+  /* flex: none; (0 0 auto) - မကြီးဘူး၊ မကျုံ့ဘူး */
+}
+```
+
+#### 5. Align Self (သီးသန့် နေရာယူခြင်း)
+Container ရဲ့ `align-items` ကို မလိုက်နာဘဲ ကိုယ့်ဘာသာ သီးသန့် နေချင်ရင် သုံးပါတယ်။
+
+```css
+.item-special {
+  align-self: flex-end; /* တခြားသူတွေ ဘယ်လိုနေနေ ကိုယ်က အောက်ဆုံးမှာ နေမယ် */
+}
+```
+
+<ContentImage src={alignSelf} alt="CSS Align Self" width='300'  />
+
+#### 6. Order (အစီအစဉ်)
+Item တွေရဲ့ အစီအစဉ်ကို ပြောင်းချင်ရင် သုံးပါတယ်။ (HTML မှာ ပြင်စရာမလိုဘဲ နေရာရွှေ့လို့ရပါတယ်)
+
+```css
+.item {
+  order: 1; /* ဂဏန်း ငယ်ရင် ရှေ့ရောက်မယ်၊ ကြီးရင် နောက်ရောက်မယ် */
+  /* Default က 0 ပါ */
+}
+```
+
 
 <Aside type="tip">
 **အလယ်တည့်တည့် ပို့နည်း (Holy Grail):**

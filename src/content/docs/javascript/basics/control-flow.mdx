@@ -1,0 +1,45 @@
+---
+title: "Control Flow"
+description: "ဆုံးဖြတ်ချက်ချခြင်းနှင့် ထပ်ခါလုပ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="လမ်းခွဲများ">
+Program တစ်ခုမှာ အခြေအနေပေါ် မူတည်ပြီး လုပ်ဆောင်ချက်တွေ ကွဲသွားတာမျိုး ရှိပါတယ်။
+</Aside>
+
+### If...Else (အကယ်၍)
+"အကယ်၍ ဒီလိုဖြစ်ရင် ဒါလုပ်မယ်၊ မဟုတ်ရင် ဟိုဟာလုပ်မယ်" ဆိုတဲ့ Logic ပါ။
+
+```javascript
+let hour = 14; // နေ့လည် ၂ နာရီ
+
+if (hour < 12) {
+  console.log("Good Morning");
+} else if (hour < 18) {
+  console.log("Good Afternoon");
+} else {
+  console.log("Good Evening");
+}
+```
+
+### Loops (ထပ်ခါထပ်ခါ လုပ်ခြင်း)
+အလုပ်တစ်ခုကို အကြိမ်အရေအတွက် တစ်ခုအထိ ထပ်ခါထပ်ခါ လုပ်ချင်ရင် Loop သုံးပါတယ်။
+
+#### For Loop
+အသုံးအများဆုံး Loop ပါ။
+
+```javascript
+// ၁ ကနေ ၅ အထိ ထုတ်ပြမယ်
+for (let i = 1; i <= 5; i++) {
+  console.log(`Number: ${i}`);
+}
+```
+*   `let i = 1`: စမှတ်
+*   `i <= 5`: ဆုံးမှတ် (Condition)
+*   `i++`: တစ်ဆင့်ချင်း တိုးမယ်
+
+<Aside type="tip">
+Loop တွေကို Array (စာရင်း) တွေထဲက Data တွေကို တစ်ခုချင်းစီ ထုတ်ကြည့်တဲ့အခါ အရမ်းသုံးပါတယ်။
+</Aside>

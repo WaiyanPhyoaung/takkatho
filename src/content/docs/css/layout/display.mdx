@@ -4,6 +4,8 @@ description: "Element များ၏ အပြုအမူကို ပြေ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import displayExample from '@/assets/css/display.png'
 
 <Aside title="နေရာယူပုံ">
 Element တိုင်းမှာ သူတို့ရဲ့ မူလ နေရာယူပုံ (Default Display) ရှိပါတယ်။
@@ -51,3 +53,5 @@ Element ကို လုံးဝ ဖျောက်ထားချင်ရင�
   display: none; /* လုံးဝ မရှိတော့သလို ဖြစ်သွားမယ် */
 }
 ```
+
+<ContentImage src={displayExample} alt="CSS Display Example" height="200" />

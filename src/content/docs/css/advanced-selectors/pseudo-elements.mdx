@@ -4,6 +4,10 @@ description: "CSS ဖြင့် Element အသစ် ဖန်တီးခြ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import before from '@/assets/css/before.png'
+import content from '@/assets/css/content.png'
+import selection from '@/assets/css/selection.png'
 
 <Aside title="တစ္ဆေ Element များ">
 HTML မှာ မရှိဘဲ CSS ကနေ Element အတုတွေ ဖန်တီးပြီး ထည့်ပေးလို့ ရပါတယ်။
@@ -28,6 +32,8 @@ h1::before {
   font-size: 0.8em;
 }
 ```
+
+<ContentImage src={before} alt="before sample"  />
 
 ### အလှဆင်ရာတွင် အသုံးပြုခြင်း
 `content: ""` ကို အလွတ်ထားပြီး၊ Width/Height ပေးကာ ဒီဇိုင်းဆွဲလို့ ရပါတယ်။
@@ -54,6 +60,8 @@ h1::before {
 }
 ```
 
+<ContentImage src={content} alt="content sample"  />
+
 ### အခြား Pseudo-elements
 *   `::first-letter` - ပထမဆုံး စာလုံး (Drop cap လုပ်ချင်ရင် သုံး)။
 *   `::first-line` - ပထမဆုံး စာကြောင်း။
@@ -65,3 +73,4 @@ p::selection {
   color: black;
 }
 ```
+<ContentImage src={selection} alt="selection sample"  />

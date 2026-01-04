@@ -4,6 +4,9 @@ description: "အခြေအနေအလိုက် ဒီဇိုင်း�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import hover from '@/assets/css/hover.png'
+import pseudoClasses from '@/assets/css/pseudo-classes.png'
 
 <Aside title="အခြေအနေများ">
 Element တစ်ခုရဲ့ "အခြေအနေ" (State) ပေါ်မူတည်ပြီး ဒီဇိုင်းပြောင်းချင်ရင် Pseudo-classes ကို သုံးပါတယ်။
@@ -16,6 +19,14 @@ User က တစ်ခုခု လုပ်လိုက်တဲ့အချိ�
 *   `:hover` - Mouse တင်လိုက်တဲ့အချိန်။
 *   `:active` - Mouse နှိပ်ထားတဲ့အချိန် (Click နှိပ်ပြီး မလွှတ်ခင်)။
 *   `:focus` - Input box ထဲကို စာရိုက်ဖို့ နှိပ်လိုက်တဲ့အချိန် (Keyboard focus ရချိန်)။
+*   `:focus-within` - ကိုယ်တိုင် (သို့) ကိုယ့်ရဲ့ Child တစ်ခုခု Focus ရနေတဲ့အချိန်။
+*   `:focus-visible` - Keyboard မှာ Tab နှိပ်ပြီး သွားတဲ့အချိန်မှာပဲ Focus ပြချင်တဲ့အခါ (Mouse နဲ့ နှိပ်ရင် မပြဘူး)။
+
+<Aside type="tip" title="Focus ကွာခြားချက်များ">
+*   **:focus** - Focus ရတာနဲ့ အလုပ်လုပ်ပါတယ်။ (Mouse နဲ့ နှိပ်နှိပ်၊ Keyboard နဲ့ သွားသွား)
+*   **:focus-within** - Parent Element တစ်ခုက သူ့အထဲက Child တစ်ခုခု Focus ရသွားရင် Parent ပါ Style ပြောင်းချင်တဲ့အခါ သုံးပါတယ်။ (ဥပမာ - Form တစ်ခုလုံးကို Highlight လုပ်တာမျိုး)
+*   **:focus-visible** - User က Keyboard သုံးနေမှ (Tab နှိပ်မှ) Focus Ring ပြပြီး၊ Mouse နဲ့ နှိပ်ရင် မပြချင်တဲ့အခါ သုံးပါတယ်။ (UX ပိုကောင်းပါတယ်)
+</Aside>
 
 ```css
 button:hover {
@@ -28,6 +39,8 @@ input:focus {
 }
 ```
 
+<ContentImage src={hover} alt="pseudo classes"  />
+
 ### Structural Pseudo-classes
 Element တွေရဲ့ အစီအစဉ်ပေါ် မူတည်ပြီး ရွေးတာပါ။
 
@@ -39,13 +52,16 @@ Element တွေရဲ့ အစီအစဉ်ပေါ် မူတည်ပ�
 /* စာရင်းထဲက ပထမဆုံး item */
 li:first-child {
   font-weight: bold;
+  color : red;
 }
 
 /* မ (1, 3, 5...) တွေကို အရောင်ပြောင်း */
 tr:nth-child(odd) {
-  background-color: #f2f2f2;
+  background-color: purple;
 }
 ```
+
+<ContentImage src={pseudoClasses} alt="pseudo classes"  />
 
 ### Link Pseudo-classes
 Link (`<a>`) တွေအတွက် သီးသန့်ပါ။

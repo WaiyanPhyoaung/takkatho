@@ -4,6 +4,10 @@ description: "အရောင်များနှင့် နောက်ခ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import color from '@/assets/css/color.png'
+import card from '@/assets/css/card.png'
+import background from '@/assets/css/bg-img.png'
 
 <Aside title="အရောင်များ">
 Website တစ်ခုရဲ့ စိတ်ခံစားမှု (Mood) ကို အရောင်တွေက ဖန်တီးပေးပါတယ်။
@@ -28,6 +32,8 @@ p {
 }
 ```
 
+<ContentImage src={color} alt="color examples"  />
+
 ### Backgrounds (နောက်ခံ)
 Element တစ်ခုရဲ့ နောက်ခံကို ပြောင်းဖို့ `background-color` သို့မဟုတ် `background-image` ကို သုံးပါတယ်။
 
@@ -42,6 +48,8 @@ body {
 }
 ```
 
+<ContentImage src={card} alt="card background"  />
+
 #### Background Image
 ပုံတစ်ပုံကို နောက်ခံအဖြစ် ထားချင်ရင် `url()` နဲ့ ညွှန်းပေးရပါတယ်။
 
@@ -52,6 +60,8 @@ body {
   background-position: center; /* ပုံကို အလယ်တည့်တည့် ထားမယ် */
 }
 ```
+
+<ContentImage src={background} alt="background image"  />
 
 <Aside type="tip">
 စာလုံးအရောင်နဲ့ နောက်ခံအရောင်ကို **Contrast** (ကွဲပြားမှု) ရှိအောင် ထားပါ။

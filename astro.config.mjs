@@ -1678,19 +1678,7 @@ export default defineConfig({
                 },
               ],
             },
-            {
-              label: "Advanced Selectors",
-              items: [
-                {
-                  label: "Pseudo-classes",
-                  slug: "css/advanced-selectors/pseudo-classes",
-                },
-                {
-                  label: "Pseudo-elements",
-                  slug: "css/advanced-selectors/pseudo-elements",
-                },
-              ],
-            },
+
             {
               label: "Visuals",
               items: [
@@ -1791,6 +1779,19 @@ export default defineConfig({
               ],
             },
             {
+              label: "Advanced Selectors",
+              items: [
+                {
+                  label: "Pseudo-classes",
+                  slug: "css/advanced-selectors/pseudo-classes",
+                },
+                {
+                  label: "Pseudo-elements",
+                  slug: "css/advanced-selectors/pseudo-elements",
+                },
+              ],
+            },
+            {
               label: "Modern Practices",
               items: [
                 {
@@ -1877,6 +1878,7 @@ export default defineConfig({
                 },
               ],
             },
+
             {
               label: "Developer Ergonomics",
               items: [
@@ -1891,6 +1893,77 @@ export default defineConfig({
                 {
                   label: "Enhanced attr()",
                   slug: "advanced-css/ergonomics/attr-function",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "JavaScript",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "javascript/introduction/welcome",
+                },
+              ],
+            },
+            {
+              label: "Basics",
+              items: [
+                {
+                  label: "Variables & Data Types",
+                  slug: "javascript/basics/variables",
+                },
+                {
+                  label: "Operators",
+                  slug: "javascript/basics/operators",
+                },
+                {
+                  label: "Control Flow",
+                  slug: "javascript/basics/control-flow",
+                },
+              ],
+            },
+            {
+              label: "Functions",
+              items: [
+                {
+                  label: "Functions",
+                  slug: "javascript/functions/functions",
+                },
+              ],
+            },
+            {
+              label: "DOM Manipulation",
+              items: [
+                {
+                  label: "Selectors",
+                  slug: "javascript/dom/selectors",
+                },
+                {
+                  label: "Manipulation",
+                  slug: "javascript/dom/manipulation",
+                },
+              ],
+            },
+            {
+              label: "Events",
+              items: [
+                {
+                  label: "Events",
+                  slug: "javascript/events/events",
+                },
+              ],
+            },
+            {
+              label: "Project",
+              items: [
+                {
+                  label: "Counter App",
+                  slug: "javascript/project/counter",
                 },
               ],
             },

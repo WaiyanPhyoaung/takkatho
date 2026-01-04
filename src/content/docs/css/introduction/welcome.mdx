@@ -4,10 +4,15 @@ description: "Beginner CSS ၏ အခြေခံ သဘောတရားမျ
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import htmlCss from '@/assets/css/html-css.jpg'
+
 
 <Aside title="မိတ်ဆက်">
 HTML က အိမ်တစ်လုံးရဲ့ **"အရိုးစု"** ဆိုရင်၊ CSS ကတော့ အိမ်ကို လှပအောင် မွမ်းမံပေးတဲ့ **"အလှဆင်ပစ္စည်း"** တွေနဲ့ တူပါတယ်။
 </Aside>
+
+<ContentImage src={htmlCss} alt="HTML and CSS" height='400' />
 
 ### CSS ဆိုတာ ဘာလဲ?
 **CSS (Cascading Style Sheets)** ဆိုတာ Webpage တွေကို လှပအောင် ဒီဇိုင်းဆွဲပေးတဲ့ ဘာသာစကား တစ်ခုပါ။

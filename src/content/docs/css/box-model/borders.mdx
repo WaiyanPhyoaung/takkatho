@@ -4,6 +4,8 @@ description: "ဘောင်ခတ်ခြင်းနှင့် ထော�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import borderExample from '@/assets/css/border.png'
 
 <Aside title="ဘောင်ခတ်မယ်">
 Element တွေကို နယ်နိမိတ် သတ်မှတ်ဖို့ Border တွေ သုံးပါတယ်။
@@ -40,6 +42,8 @@ Border တစ်ခုမှာ အနည်းဆုံး (၃) ချက် �
   border-radius: 50%; /* လုံးဝ အဝိုင်းဖြစ်သွားမယ် */
 }
 ```
+
+<ContentImage src={borderExample} alt="CSS Border Example"  />
 
 <Aside type="tip">
 ခေတ်မီတဲ့ ဒီဇိုင်းတွေမှာ `border-radius` ကို သုံးပြီး နူးညံ့တဲ့ ခံစားမှု ပေးလေ့ရှိပါတယ်။

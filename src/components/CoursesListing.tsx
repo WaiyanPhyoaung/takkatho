@@ -97,6 +97,36 @@ const coursesData: Course[] = [
     students: 3500,
   },
   {
+    id: "javascript",
+    title: "Interactive JavaScript",
+    description:
+      "Website များကို အသက်ဝင်လှုပ်ရှားစေရန် JavaScript ကို အခြေခံမှစ၍ လက်တွေ့ Project များဖြင့် လေ့လာခြင်း",
+    difficulty: "beginner",
+    category: "Web Development",
+    icon: "code",
+    href: "/javascript/introduction/welcome",
+    lessons: 9,
+    tags: ["JavaScript", "DOM", "Interactivity"],
+    estimatedTime: "4 weeks",
+    rating: 4.8,
+    students: 2800,
+  },
+  {
+    id: "advanced-css",
+    title: "Advanced CSS",
+    description:
+      "Modern CSS Features, Logic, Layouts နှင့် Architecture များကို နက်နက်နဲနဲ လေ့လာခြင်း",
+    difficulty: "advanced",
+    category: "Web Development",
+    icon: "palette",
+    href: "/advanced-css/introduction/welcome",
+    lessons: 15,
+    tags: ["CSS", "Advanced", "Architecture"],
+    estimatedTime: "5 weeks",
+    rating: 4.9,
+    students: 1500,
+  },
+  {
     id: "websocket",
     title: "WebSocket နည်းပညာ",
     description:
@@ -385,12 +415,12 @@ export function CoursesListing(): JSX.Element {
               placeholder="Search courses, topics, or technologies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 py-2"
+              className="w-full pl-10 py-2 text-base md:text-sm"
             />
           </div>
 
           {/* Filters */}
-          <div className="w-full md:w-auto flex gap-3 text-sm">
+          <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3 text-sm">
             {/* Difficulty Filter */}
             <Select
               value={selectedDifficulty}
@@ -400,7 +430,7 @@ export function CoursesListing(): JSX.Element {
                 )
               }
             >
-              <SelectTrigger className="min-w-[150px]">
+              <SelectTrigger className="w-full sm:w-auto sm:min-w-[150px]">
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
@@ -416,7 +446,7 @@ export function CoursesListing(): JSX.Element {
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="min-w-[200px] flex-1 ">
+              <SelectTrigger className="w-full sm:w-auto sm:min-w-[200px]">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>

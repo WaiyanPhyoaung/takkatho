@@ -1,0 +1,49 @@
+---
+title: "Events"
+description: "User ၏ လုပ်ဆောင်ချက်များကို တုံ့ပြန်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="နားစွင့်ခြင်း">
+Website က User ဘာလုပ်လဲဆိုတာကို အမြဲ "နားစွင့်" (Listen) နေဖို့ လိုပါတယ်။
+Click နှိပ်လိုက်တာ၊ စာရိုက်လိုက်တာ၊ Scroll ဆွဲလိုက်တာ... ဒါတွေကို **Event** လို့ ခေါ်ပါတယ်။
+</Aside>
+
+### Event Listener
+Event တစ်ခု ဖြစ်သွားရင် ဘာလုပ်မလဲဆိုတာ `addEventListener` နဲ့ ချိတ်ဆက်ရပါတယ်။
+
+```javascript
+const button = document.querySelector("button");
+
+// "click" ဆိုတဲ့ event ကို နားထောင်မယ်
+button.addEventListener("click", () => {
+  alert("ခလုတ်နှိပ်လိုက်ပြီ!");
+});
+```
+
+### အသုံးများသော Event များ
+
+*   `click`: Mouse နဲ့ နှိပ်လိုက်ရင်
+*   `submit`: Form တင်လိုက်ရင်
+*   `input`: Input box ထဲ စာရိုက်နေရင်
+*   `keydown`: Keyboard ခလုတ် နှိပ်လိုက်ရင်
+
+### Event Object
+Event ဖြစ်တဲ့အကြောင်းအရာ အသေးစိတ်ကို သိချင်ရင် Function ထဲမှာ `event` (သို့မဟုတ် `e`) ဆိုပြီး လက်ခံလို့ ရပါတယ်။
+
+```javascript
+const input = document.querySelector("input");
+
+input.addEventListener("keydown", (e) => {
+  console.log(`နှိပ်လိုက်တဲ့ ခလုတ်က: ${e.key}`);
+  
+  if (e.key === "Enter") {
+    console.log("Enter ခေါက်လိုက်ပြီ!");
+  }
+});
+```
+
+<Aside type="tip">
+HTML ထဲမှာ `onclick="..."` ဆိုပြီး ရေးလို့ရပေမယ့်၊ JS ဖိုင်ထဲမှာ `addEventListener` နဲ့ ရေးတာက ပိုသပ်ရပ်ပြီး စနစ်ကျပါတယ်။
+</Aside>

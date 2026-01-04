@@ -4,6 +4,8 @@ description: "CSS ၏ အရေးအကြီးဆုံး သဘောတရ
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import boxModel from '@/assets/css/box.jpg'
 
 <Aside title="သေတ္တာလေးများ">
 Webpage ပေါ်က Element တိုင်းဟာ **လေးထောင့်သေတ္တာ (Box)** လေးတွေ ဖြစ်ပါတယ်။
@@ -17,6 +19,8 @@ Element တစ်ခုမှာ အလွှာ (၄) ခု ရှိပါတ
 2.  **Padding:** Content နဲ့ Border ကြားက အကွာအဝေး (အသား)။
 3.  **Border:** ဘောင် (အခွံ)။
 4.  **Margin:** တခြား Box တွေနဲ့ ကိုယ့် Box ကြားက အကွာအဝေး (အပြင်စည်း)။
+
+<ContentImage src={boxModel} alt="CSS Box Model"  />
 
 ### ဥပမာ မြင်ကွင်း
 
