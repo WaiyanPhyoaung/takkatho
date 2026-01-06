@@ -4,45 +4,165 @@ description: "ခေတ်မီ Layout ချနည်း (၂)"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import gridLayout from '@/assets/css/grid.png'
+import gridGap from '@/assets/css/grid-gap.png'
+import gridArea from '@/assets/css/span.png'
+import gridNamed from '@/assets/css/named-grid.png'
+import gridAlignment from '@/assets/css/grid-layout.jpeg'
 
 <Aside title="2D Layout">
-Flexbox က တစ်တန်းတည်းစာ ကောင်းပေမယ့်၊ Grid ကတော့ **အတန်းရော ဒေါင်လိုက်ရော (Rows & Columns)** ပါတဲ့ ရှုပ်ထွေးတဲ့ Layout တွေအတွက် အကောင်းဆုံးပါ။
+Flexbox က တစ်တန်းတည်းစာ (1D) ကောင်းပေမယ့်၊ Grid ကတော့ **အတန်းရော ဒေါင်လိုက်ရော (Rows & Columns)** ပါတဲ့ ရှုပ်ထွေးတဲ့ Layout တွေအတွက် အကောင်းဆုံးပါ။
+Web Page တစ်ခုလုံးရဲ့ Layout ကို ချမယ်ဆိုရင် Grid က ပိုသင့်တော်ပါတယ်။
 </Aside>
 
 ### Grid စသုံးမယ်
-Parent element မှာ `display: grid;` လို့ ကြေညာရပါတယ်။
+Parent element (Container) မှာ `display: grid;` လို့ ကြေညာရပါတယ်။
 
 ```css
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* ၃ ကော်လံ ခွဲမယ်၊ ညီတူညီမျှ */
-  gap: 20px; /* ကော်လံတွေကြား 20px ခွာမယ် */
 }
 ```
 
-### Columns & Rows သတ်မှတ်ခြင်း
-`fr` (fraction) unit က Grid မှာ အရမ်းအသုံးဝင်ပါတယ်။ "ရှိတဲ့နေရာကို အချိုးကျ ခွဲယူမယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။
+### Container Properties (Parent Element တွင် သုံးရန်)
+
+#### 1. Columns & Rows သတ်မှတ်ခြင်း
+Grid တစ်ခုမှာ ကော်လံ (Column) ဘယ်နှခု၊ အတန်း (Row) ဘယ်နှခု ပါမလဲဆိုတာ သတ်မှတ်ရပါမယ်။
 
 ```css
-.layout {
+.container {
   display: grid;
-  /* ဘယ်ဘက်က 200px, ညာဘက်က ကျန်တဲ့နေရာအကုန် (Sidebar + Content ပုံစံ) */
-  grid-template-columns: 200px 1fr; 
+  /* 200px စီရှိတဲ့ ကော်လံ ၃ ခု */
+  grid-template-columns: 200px 200px 200px; 
+  
+  /* 100px စီရှိတဲ့ အတန်း ၂ ခု */
+  grid-template-rows: 100px 100px;
 }
 ```
 
-### Grid Gap (ကွက်လပ်)
+<ContentImage src={gridLayout} alt="CSS Grid Layout Example"  />
+
+#### 2. Fraction Unit (fr)
+Pixel အသေမပေးချင်ရင် `fr` (fraction) unit ကို သုံးနိုင်ပါတယ်။ "ရှိတဲ့နေရာကို အချိုးကျ ခွဲယူမယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။
+
+```css
+.container {
+  display: grid;
+  /* ပထမကော်လံက 1 ပုံ၊ ဒုတိယကော်လံက 2 ပုံ (စုစုပေါင်း 3 ပုံ) */
+  grid-template-columns: 1fr 2fr; 
+}
+```
+
+#### 3. Repeat Function
+တူညီတဲ့ Size တွေ အများကြီး ရေးရတာ သက်သာအောင် `repeat()` ကို သုံးနိုင်ပါတယ်။
+
+```css
+.container {
+  /* 1fr ရှိတဲ့ ကော်လံ ၃ ခု (1fr 1fr 1fr နဲ့ အတူတူပါပဲ) */
+  grid-template-columns: repeat(3, 1fr); 
+}
+```
+
+#### 4. Grid Gap (ကွက်လပ်)
 Margin တွေ တွက်နေစရာ မလိုပါဘူး။ `gap` သုံးလိုက်ရင် ကွက်လပ်တွေ အလိုလို ခြားပေးပါတယ်။
 
 ```css
-.gallery {
-  display: grid;
-  gap: 1rem;
+.container {
+  column-gap: 1rem; /* ကော်လံတွေကြားက ကွက်လပ် */
+  row-gap: 10px;    /* အတန်းတွေကြားက ကွက်လပ် */
+  /* shorthand */
+  gap: 10px 1rem;   /* ပထမတန်ဖိုး = row-gap, ဒုတိယတန်ဖိုး = column-gap */
 }
 ```
 
+<ContentImage src={gridGap} alt="grid gap"  />
+
+#### 5. Grid Template Areas (ဧရိယာ သတ်မှတ်ခြင်း)
+Layout ကို နာမည်ပေးပြီး စီမံချင်ရင် အရမ်းအသုံးဝင်ပါတယ်။
+
+```css
+.container {
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "sidebar content content"
+    "footer footer footer";
+}
+```
+
+---
+
+### Item Properties (Child Element များတွင် သုံးရန်)
+
+Grid Item တွေက ဘယ်နေရာမှာ နေရမလဲဆိုတာ သတ်မှတ်နိုင်ပါတယ်။
+
+#### 1. Grid Column & Row (နေရာယူခြင်း)
+ဘယ်လိုင်းကနေ ဘယ်လိုင်းအထိ နေရာယူမလဲ ဆိုတာပါ။ (Grid Line တွေက 1 ကနေ စပါတယ်)
+
+```css
+.item-1 {
+  /* Column Line 1 ကနေ 3 အထိ (ကော်လံ ၂ ခုစာ နေရာယူမယ်) */
+  grid-column-start: 1;
+  grid-column-end: 3;
+  
+  /* Shorthand: grid-column: 1 / 3; */
+}
+
+.item-2 {
+  /* Row Line 2 ကနေ 4 အထိ */
+  grid-row: 2 / 4;
+}
+```
+
+<ContentImage src={gridArea} alt="grid area"  />
+
+#### 2. Span (ထပ်ပေါင်းခြင်း)
+Line နံပါတ် မမှတ်မိရင် ဘယ်နှကွက် ယူမလဲဆိုတာ `span` နဲ့ ပြောလို့ရပါတယ်။
+
+```css
+.item {
+  grid-column: span 2; /* ကော်လံ ၂ ခုစာ နေရာယူမယ် */
+}
+```
+
+#### 3. Grid Area (နာမည်ဖြင့် နေရာချခြင်း)
+Container မှာ `grid-template-areas` နဲ့ ဧရိယာနာမည်တွေ သတ်မှတ်ခဲ့တယ်နော် (အပေါ်က နံပါတ် ၅ မှာ)။
+အဲဒီ နာမည်တွေကို Item တွေမှာ ပြန်ခေါ်သုံးတာပါ။
+
+ဥပမာ - Container မှာ `"header header header"` လို့ သတ်မှတ်ခဲ့ရင်၊ Header element မှာ `grid-area: header;` လို့ ပေးလိုက်တာနဲ့ အဲဒီနေရာကို အလိုလို ရောက်သွားပါမယ်။ Line နံပါတ်တွေ လိုက်မှတ်နေစရာ မလိုတော့ပါဘူး။
+> header class ရှိတဲ့ html element က header လို့ သတ်မှတ်ထားတဲ့ နေရာအကုန် (ဒီမှာဆိုရင် Container ရဲ့ အပေါ်ဆုံး အတန်း)ကို နေရာယူပါမယ်။
+
+```css
+.header {
+  grid-area: header; /* Container မှာ သတ်မှတ်ခဲ့တဲ့ နာမည် */
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.content {
+  grid-area: content;
+}
+.footer {
+  grid-area: footer;
+}
+```
+<ContentImage src={gridNamed} alt="named grid areas"  />
+
+### Alignment (ညှိခြင်း)
+
+Flexbox လိုပဲ Grid မှာလည်း ညှိလို့ရပါတယ်။
+
+*   `justify-content`: Grid တစ်ခုလုံးကို Container အတွင်း ဘယ်ညာ ညှိခြင်း
+*   `align-content`: Grid တစ်ခုလုံးကို Container အတွင်း အပေါ်အောက် ညှိခြင်း
+*   `justify-items`: Cell အတွင်းက Content ကို ဘယ်ညာ ညှိခြင်း (start, end, center, stretch)
+*   `align-items`: Cell အတွင်းက Content ကို အပေါ်အောက် ညှိခြင်း (start, end, center, stretch)
+
+<ContentImage src={gridAlignment} alt="grid alignment"  />
+
+
 <Aside type="tip">
 **Flexbox vs Grid:**
-*   ရိုးရှင်းတဲ့ အတန်းလိုက် Layout (Navbar, Button Group) ဆို **Flexbox** သုံးပါ။
-*   ရှုပ်ထွေးတဲ့ တစ်မျက်နှာလုံးစာ Layout (Photo Gallery, Dashboard) ဆို **Grid** သုံးပါ။
+*   **Flexbox:** ရိုးရှင်းတဲ့ အတန်းလိုက် Layout (Navbar, Button Group)၊ Content ပေါ်မူတည်ပြီး အကြီးအသေး ပြောင်းစေချင်ရင် သုံးပါ။
+*   **Grid:** ရှုပ်ထွေးတဲ့ 2D Layout (Photo Gallery, Dashboard, Page Layout)၊ အတိအကျ Layout ချချင်ရင် သုံးပါ။
 </Aside>

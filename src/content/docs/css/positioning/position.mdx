@@ -4,6 +4,8 @@ description: "Element များကို စိတ်ကြိုက် န�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import positionImg from '@/assets/css/positions.webp'
 
 <Aside title="နေရာရွှေ့မယ်">
 ပုံမှန် Layout (Block/Inline) နဲ့ မရတဲ့ နေရာတွေ (ဥပမာ - ပုံပေါ်မှာ စာထပ်ရေးတာ၊ Menu bar ကို အပေါ်မှာ ကပ်ထားတာ) အတွက် `position` ကို သုံးရပါတယ်။
@@ -67,3 +69,5 @@ Scroll ဆွဲလို့ တစ်နေရာ ရောက်ရင် `fix
   top: 10px; /* Scroll ဆွဲလို့ Top 10px ရောက်ရင် ကပ်နေမယ် */
 }
 ```
+
+<ContentImage src={positionImg} alt="Position Property Example" />

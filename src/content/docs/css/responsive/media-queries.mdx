@@ -4,6 +4,9 @@ description: "Device မျိုးစုံအတွက် အဆင်ပြ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import maxWidth from "@/assets/css/max-width.png";
+import minWidth from "@/assets/css/min-width.png";
 
 <Aside title="ဖုန်းနဲ့ ကြည့်မလား?">
 ဒီနေ့ခေတ်မှာ လူတွေက ဖုန်းနဲ့ပဲ အင်တာနက် သုံးကြတာ များပါတယ်။
@@ -20,7 +23,7 @@ body {
   font-size: 18px;
 }
 
-/* Screen အကျယ် 600px အောက် (ဖုန်းများ) အတွက် */
+/* Screen အကျယ် 600px နှင့် အောက် (ဖုန်းများ) အတွက် */
 @media (max-width: 600px) {
   body {
     background-color: lightblue; /* ဖုန်းမှာဆို အပြာနုရောင် ဖြစ်သွားမယ် */
@@ -28,6 +31,7 @@ body {
   }
 }
 ```
+<ContentImage src={maxWidth} alt="Media Queries Example" />
 
 ### Mobile First Approach
 Desktop အတွက် အရင်ရေးပြီးမှ ဖုန်းအတွက် လိုက်ပြင်တာထက်၊ **ဖုန်းအတွက် အရင်ရေးပြီးမှ Desktop အတွက် ချဲ့တာ** က ပိုကောင်းပါတယ်။
@@ -43,6 +47,53 @@ Desktop အတွက် အရင်ရေးပြီးမှ ဖုန်း�
   .container {
     flex-direction: row; /* Tablet နဲ့ PC မှာ ဘေးတိုက် စီမယ် */
   }
+}
+```
+
+<ContentImage src={minWidth} alt="Mobile First Media Queries Example" />
+
+### Common Breakpoints (အသုံးများသော Size များ)
+Device တွေ အများကြီးရှိပေမယ့်၊ အဓိက Breakpoint တွေကို မှတ်ထားရင် အဆင်ပြေပါတယ်။
+
+*   **Mobile:** < 640px (Default styles)
+*   **Tablet:** >= 768px
+*   **Laptop:** >= 1024px
+*   **Desktop:** >= 1280px
+
+```css
+/* Mobile (Default) */
+.card { width: 100%; }
+
+/* Tablet */
+@media (min-width: 768px) {
+  .card { width: 50%; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .card { width: 33.33%; }
+}
+```
+
+### Advanced Media Queries
+
+#### 1. Logical Operators (and)
+အခြေအနေ နှစ်ခုလုံး ပြည့်မှ အလုပ်လုပ်စေချင်ရင် `and` ကို သုံးပါတယ်။
+
+```css
+/* Width က 600px နဲ့ 900px ကြားဖြစ်မှ */
+@media (min-width: 600px) and (max-width: 900px) {
+  body { background: yellow; }
+}
+```
+
+#### 2. Orientation (အလျားလိုက်/ဒေါင်လိုက်)
+ဖုန်းကို လှဲကြည့်တာ (Landscape) လား၊ ထောင်ကြည့်တာ (Portrait) လား ခွဲခြားနိုင်ပါတယ်။
+
+```css
+@media (orientation: landscape) {
+  /* ဖုန်းလှဲကြည့်ရင် Video ကို အပြည့်ပြမယ် */
+  .video-player { height: 100vh; }
 }
 ```
 

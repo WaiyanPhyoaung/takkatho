@@ -4,6 +4,9 @@ description: "အရောင်များကို ရောစပ် အသ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import gradientExample from '@/assets/css/gradients.png'
+import textGradientImg from '@/assets/css/text-gradient.png'
 
 <Aside title="အရောင်စုံ">
 အရောင်တစ်ရောင်တည်း (Solid Color) အစား၊ အရောင်နှစ်ရောင် (သို့) ပိုပြီး ရောစပ်ထားတဲ့ Gradient တွေက ဒီဇိုင်းကို ပိုပြီး ဆွဲဆောင်မှု ရှိစေပါတယ်။
@@ -39,13 +42,17 @@ import { Aside } from "@astrojs/starlight/components";
 }
 ```
 
+<ContentImage src={gradientExample} alt="Gradient Example" />
+
 <Aside type="tip">
 **Text Gradient:** စာသားကို Gradient လုပ်ချင်ရင် နည်းနည်း ရှုပ်ပါတယ်။
 ```css
 h1 {
   background: linear-gradient(to right, red, blue);
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 ```
+<ContentImage src={textGradientImg} alt="Text Gradient Example" />
 </Aside>

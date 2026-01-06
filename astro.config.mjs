@@ -1815,89 +1815,89 @@ export default defineConfig({
             },
           ],
         },
-        {
-          label: "Advanced CSS",
-          items: [
-            {
-              label: "Introduction",
-              items: [
-                {
-                  label: "Welcome",
-                  slug: "advanced-css/introduction/welcome",
-                },
-              ],
-            },
-            {
-              label: "Core Logic & Functions",
-              items: [
-                {
-                  label: "Logic & Functions",
-                  slug: "advanced-css/core-logic/functions",
-                },
-              ],
-            },
-            {
-              label: "Layout & Sizing",
-              items: [
-                {
-                  label: "Field Sizing",
-                  slug: "advanced-css/layout-sizing/field-sizing",
-                },
-                {
-                  label: "Interpolate Size",
-                  slug: "advanced-css/layout-sizing/interpolate-size",
-                },
-                {
-                  label: "Container Queries",
-                  slug: "advanced-css/layout-sizing/container-queries",
-                },
-                {
-                  label: "Anchor Positioning",
-                  slug: "advanced-css/layout-sizing/anchor-positioning",
-                },
-              ],
-            },
-            {
-              label: "Visuals & UI Components",
-              items: [
-                {
-                  label: "Custom Select",
-                  slug: "advanced-css/visuals-ui/custom-select",
-                },
-                {
-                  label: "Corner Shape",
-                  slug: "advanced-css/visuals-ui/corner-shape",
-                },
-                {
-                  label: "Scroll Markers",
-                  slug: "advanced-css/visuals-ui/scroll-markers",
-                },
-                {
-                  label: "View Transitions",
-                  slug: "advanced-css/visuals-ui/view-transitions",
-                },
-              ],
-            },
+        // {
+        //   label: "Advanced CSS",
+        //   items: [
+        //     {
+        //       label: "Introduction",
+        //       items: [
+        //         {
+        //           label: "Welcome",
+        //           slug: "advanced-css/introduction/welcome",
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       label: "Core Logic & Functions",
+        //       items: [
+        //         {
+        //           label: "Logic & Functions",
+        //           slug: "advanced-css/core-logic/functions",
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       label: "Layout & Sizing",
+        //       items: [
+        //         {
+        //           label: "Field Sizing",
+        //           slug: "advanced-css/layout-sizing/field-sizing",
+        //         },
+        //         {
+        //           label: "Interpolate Size",
+        //           slug: "advanced-css/layout-sizing/interpolate-size",
+        //         },
+        //         {
+        //           label: "Container Queries",
+        //           slug: "advanced-css/layout-sizing/container-queries",
+        //         },
+        //         {
+        //           label: "Anchor Positioning",
+        //           slug: "advanced-css/layout-sizing/anchor-positioning",
+        //         },
+        //       ],
+        //     },
+        //     {
+        //       label: "Visuals & UI Components",
+        //       items: [
+        //         {
+        //           label: "Custom Select",
+        //           slug: "advanced-css/visuals-ui/custom-select",
+        //         },
+        //         {
+        //           label: "Corner Shape",
+        //           slug: "advanced-css/visuals-ui/corner-shape",
+        //         },
+        //         {
+        //           label: "Scroll Markers",
+        //           slug: "advanced-css/visuals-ui/scroll-markers",
+        //         },
+        //         {
+        //           label: "View Transitions",
+        //           slug: "advanced-css/visuals-ui/view-transitions",
+        //         },
+        //       ],
+        //     },
 
-            {
-              label: "Developer Ergonomics",
-              items: [
-                {
-                  label: "@property",
-                  slug: "advanced-css/ergonomics/at-property",
-                },
-                {
-                  label: "Cascade Layers",
-                  slug: "advanced-css/ergonomics/cascade-layers",
-                },
-                {
-                  label: "Enhanced attr()",
-                  slug: "advanced-css/ergonomics/attr-function",
-                },
-              ],
-            },
-          ],
-        },
+        //     {
+        //       label: "Developer Ergonomics",
+        //       items: [
+        //         {
+        //           label: "@property",
+        //           slug: "advanced-css/ergonomics/at-property",
+        //         },
+        //         {
+        //           label: "Cascade Layers",
+        //           slug: "advanced-css/ergonomics/cascade-layers",
+        //         },
+        //         {
+        //           label: "Enhanced attr()",
+        //           slug: "advanced-css/ergonomics/attr-function",
+        //         },
+        //       ],
+        //     },
+        //   ],
+        // },
         {
           label: "JavaScript",
           items: [

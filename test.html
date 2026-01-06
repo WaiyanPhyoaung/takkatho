@@ -6,63 +6,51 @@
     <title>My First Webpage</title>
     <style>
       .box {
-        border: 2px solid black; /* 2px အထူ၊ မျဉ်းဖြောင့်၊ အမည်းရောင် */
-        display: flex;
-        justify-content: ce;
+        /* အပေါ်ကနေ အောက် (Default) */
+        background-image: linear-gradient(red, yellow);
       }
 
-      .dashed-box {
-        border: 2px dashed red; /* မျဉ်းပြတ် */
-      }
-      .card {
-        border: 1px solid #ccc;
-        border-radius: 10px; /* ထောင့်တွေကို 10px စာ ဝိုင်းမယ် */
+      .box-right {
+        /* ဘယ်ကနေ ညာ */
+        background-image: linear-gradient(to right, blue, purple);
       }
 
+      .box-diagonal {
+        /* ထောင့်ဖြတ် (၄၅ ဒီဂရီ) */
+        background-image: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      }
       .circle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%; /* လုံးဝ အဝိုင်းဖြစ်သွားမယ် */
+        background-image: radial-gradient(circle, yellow, red);
+      }
+      .flex {
+        display: flex;
+        gap: 10px;
       }
     </style>
   </head>
   <body>
-    <p class="dashed-box">
-      This is a sample paragraph with a dashed red border.
-    </p>
-    <br />
-    <div class="card">
-      <h2>Card Title</h2>
-      <p>This is some content inside a card with rounded corners.</p>
+    <h1>Gradient Examples</h1>
+    <div class="flex">
+      <div class="box" style="width: 200px; height: 100px; margin-bottom: 20px">
+        Default Gradient (Top to Bottom)
+      </div>
+      <div
+        class="box-right"
+        style="width: 200px; height: 100px; margin-bottom: 20px"
+      >
+        Right Direction Gradient
+      </div>
+      <div
+        class="box-diagonal"
+        style="width: 200px; height: 100px; margin-bottom: 20px"
+      >
+        Diagonal Gradient (45 degrees)
+      </div>
+      <div
+        class="circle"
+        style="width: 200px; height: 100px; margin-bottom: 20px"
+      >
+        Radial Gradient (Circle)  
     </div>
-    <br />
-    <div
-      class="circle"
-      style="background-color: lightblue; border: 2px solid blue"
-    ></div>
-    <!-- <button class="button">submit</button>
-    <br />
-    <input class="input" type="text" />
-    <br />
-    <ul>
-      <li>First item</li>
-      <li>Second item</li>
-      <li>Third item</li>
-    </ul>
-    <br />
-    <table>
-      <tr>
-        <td>Row 1, Cell 1</td>
-        <td>Row 1, Cell 2</td>
-      </tr>
-      <tr>
-        <td>Row 2, Cell 1</td>
-        <td>Row 2, Cell 2</td>
-      </tr>
-      <tr>
-        <td>Row 3, Cell 1</td>
-        <td>Row 3, Cell 2</td>
-      </tr>
-    </table> -->
   </body>
 </html>

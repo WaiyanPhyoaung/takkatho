@@ -4,6 +4,8 @@ description: "Element များကို အထပ်လိုက် နေ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import zIndexImg from '@/assets/css/z-index.png'
 
 <Aside title="ဘယ်သူ အပေါ်က နေမလဲ?">
 Element တွေ တစ်ခုနဲ့ တစ်ခု ထပ်နေတဲ့အခါ (Overlapping) ဘယ် Element က အပေါ်က နေမလဲ ဆိုတာ `z-index` နဲ့ သတ်မှတ်ရပါတယ်။
@@ -48,6 +50,7 @@ Element တွေ တစ်ခုနဲ့ တစ်ခု ထပ်နေတဲ
   left: 40px;
 }
 ```
+<ContentImage src={zIndexImg} alt="Z-Index Property Example" height='300' />
 
 ### Stacking Context (အထပ်များ ဖွဲ့စည်းပုံ)
 ဒါက နည်းနည်း ရှုပ်ထွေးပေမယ့် သိထားသင့်ပါတယ်။
