@@ -104,7 +104,7 @@ const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "code",
-    href: "/javascript/introduction/welcome",
+    href: "/javascript/introduction/intro",
     lessons: 9,
     tags: ["JavaScript", "DOM", "Interactivity"],
     estimatedTime: "4 weeks",

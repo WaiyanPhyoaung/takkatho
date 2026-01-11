@@ -1,0 +1,37 @@
+---
+title: "Arrow Functions"
+description: "ခေတ်မီ Function ရေးနည်း (Modern Syntax)"
+---
+
+ES6 (2015) ဗားရှင်းမှာ Function ရေးနည်းအသစ် တစ်ခု ပေါ်လာပါတယ်။ အဲဒါကတော့ **Arrow Function** ပါ။ ပိုတိုတယ်၊ ပိုသပ်ရပ်တယ်။ `=>` (မြှားပုံလေး) ကို သုံးထားလို့ Arrow Function လို့ ခေါ်တာပါ။
+
+## Regular vs Arrow Function
+
+### ရိုးရိုး Function
+```javascript
+function sayHi() {
+  return "Hi!";
+}
+```
+
+### Arrow Function
+```javascript
+const sayHi = () => {
+  return "Hi!";
+}
+```
+
+## ပိုတိုအောင် ရေးနည်း
+
+Code က တစ်ကြောင်းတည်း၊ `return` ပဲ လုပ်မယ်ဆိုရင် `{}` နဲ့ `return` ဖြုတ်လိုက်လို့ ရပါတယ်။
+
+```javascript
+// အတိုဆုံး ပုံစံ
+const add = (a, b) => a + b;
+
+console.log(add(5, 10)); // 15
+```
+
+## ဘယ်အချိန်မှာ သုံးမလဲ?
+
+`this` keyword နဲ့ ပတ်သက်တဲ့ ကိစ္စတွေ လွဲရင် ကျန်တဲ့ နေရာအတော်များများမှာ Arrow Function ကို သုံးလေ့ ရှိကြပါတယ်။ React လို Framework တွေမှာ Arrow Function ကို အဓိက သုံးပါတယ်။

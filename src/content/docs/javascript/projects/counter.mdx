@@ -1,0 +1,52 @@
+---
+title: "Project 1: Interactive Counter"
+description: "ရိုးရှင်းသော ရေတွက်စက် (Counter) တည်ဆောက်ခြင်း"
+---
+
+သင်ခန်းစာတွေ လေ့လာပြီးပြီဆိုတော့ လက်တွေ့ Project လေး စရေးကြည့်ရအောင်။
+"အပေါင်း" ခလုတ်နှိပ်ရင် ဂဏန်းတိုးမယ်၊ "အနှုတ်" ခလုတ်နှိပ်ရင် လျော့မယ်၊ "Reset" နှိပ်ရင် သုည ပြန်ဖြစ်မယ်။
+
+## ၁. HTML တည်ဆောက်ခြင်း
+
+```html
+<div class="counter-container">
+    <h1 id="count">0</h1>
+    <button id="decrease-btn">-</button>
+    <button id="reset-btn">Reset</button>
+    <button id="increase-btn">+</button>
+</div>
+```
+
+## ၂. JavaScript ရေးသားခြင်း
+
+1.  **Select Elements:** လိုအပ်တဲ့ Element တွေကို အရင် ဖမ်းပါ။ (`h1`, `button` ၃ ခု)
+2.  **State Variable:** လက်ရှိ ဂဏန်းတန်ဖိုးကို သိမ်းထားဖို့ Variable တစ်ခု လိုပါမယ်။ (`let count = 0;`)
+3.  **Event Listeners:** ခလုတ် ၁ ခုချင်းစီအတွက် listener တပ်ပါ။
+    *   `+` နှိပ်ရင် `count` ကို ၁ တိုး၊ ပြီးရင် `h1` မှာ ပြန်ပြ။
+    *   `-` နှိပ်ရင် `count` ကို ၁ လျော့၊ `h1` မှာ ပြန်ပြ။
+    *   `Reset` နှိပ်ရင် `count` ကို ၀ လုပ်၊ `h1` မှာ ပြန်ပြ။
+
+```javascript
+// ၁. Select Elements
+const value = document.querySelector("#count");
+const btns = document.querySelectorAll("button"); 
+// querySelectorAll နဲ့ ဖမ်းပြီး forEach နဲ့ ပတ်ရေးရင် ပို Professional ဆန်ပါတယ်။
+// ဒါပေမဲ့ လောလောဆယ် ရိုးရိုး ID နဲ့ပဲ တစ်ခုချင်း ဖမ်းရေးကြည့်ပါ။
+
+let count = 0;
+
+const increaseBtn = document.querySelector("#increase-btn");
+// ... select other buttons
+
+increaseBtn.addEventListener("click", function() {
+    count++;
+    value.innerText = count;
+    
+    // အရောင်လေးပါ ပြောင်းကြည့်ရအောင်
+    if (count > 0) {
+        value.style.color = "green";
+    }
+});
+```
+
+👉 **မေးခွန်း:** Decrease နဲ့ Reset အတွက် ကိုယ့်ဘာသာ ဆက်ရေးကြည့်ပါ။

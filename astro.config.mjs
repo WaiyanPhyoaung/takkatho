@@ -1902,28 +1902,82 @@ export default defineConfig({
           label: "JavaScript",
           items: [
             {
-              label: "Introduction",
+              label: "Introduction & Setup",
               items: [
                 {
-                  label: "Welcome",
-                  slug: "javascript/introduction/welcome",
+                  label: "What This Course Covers",
+                  slug: "javascript/introduction/intro",
+                },
+                {
+                  label: "Tools & Environment Setup",
+                  slug: "javascript/introduction/setup",
                 },
               ],
             },
             {
-              label: "Basics",
+              label: "Fundamentals",
               items: [
                 {
+                  label: "What Is JavaScript?",
+                  slug: "javascript/fundamentals/what-is-js",
+                },
+                {
                   label: "Variables & Data Types",
-                  slug: "javascript/basics/variables",
+                  slug: "javascript/fundamentals/variables",
                 },
                 {
                   label: "Operators",
-                  slug: "javascript/basics/operators",
+                  slug: "javascript/fundamentals/operators",
                 },
                 {
-                  label: "Control Flow",
-                  slug: "javascript/basics/control-flow",
+                  label: "Strings & Numbers",
+                  slug: "javascript/fundamentals/strings-numbers",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/fundamentals/interactive",
+                },
+              ],
+            },
+            {
+              label: "Control Flow",
+              items: [
+                {
+                  label: "Conditional Statements",
+                  slug: "javascript/control-flow/conditionals",
+                },
+                {
+                  label: "Switch Statements",
+                  slug: "javascript/control-flow/switch",
+                },
+                {
+                  label: "Loops",
+                  slug: "javascript/control-flow/loops",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/control-flow/interactive",
+                },
+              ],
+            },
+            {
+              label: "Arrays & Objects",
+              items: [
+                {
+                  label: "Arrays",
+                  slug: "javascript/arrays-objects/arrays",
+                },
+                {
+                  label: "Objects",
+                  slug: "javascript/arrays-objects/objects",
+                },
+                {
+                  label: "Arrays of Objects",
+                  slug: "javascript/arrays-objects/arrays-of-objects",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/arrays-objects/interactive",
                 },
               ],
             },
@@ -1931,39 +1985,113 @@ export default defineConfig({
               label: "Functions",
               items: [
                 {
-                  label: "Functions",
-                  slug: "javascript/functions/functions",
+                  label: "What Are Functions?",
+                  slug: "javascript/functions/intro",
+                },
+                {
+                  label: "Parameters & Return Values",
+                  slug: "javascript/functions/parameters",
+                },
+                {
+                  label: "Arrow Functions",
+                  slug: "javascript/functions/arrow-functions",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/functions/interactive",
                 },
               ],
             },
             {
-              label: "DOM Manipulation",
+              label: "Introduction to the DOM",
               items: [
                 {
-                  label: "Selectors",
-                  slug: "javascript/dom/selectors",
+                  label: "What Is the DOM?",
+                  slug: "javascript/dom-intro/what-is-dom",
                 },
                 {
-                  label: "Manipulation",
-                  slug: "javascript/dom/manipulation",
+                  label: "Selecting Elements",
+                  slug: "javascript/dom-intro/selecting",
                 },
-              ],
-            },
-            {
-              label: "Events",
-              items: [
                 {
-                  label: "Events",
-                  slug: "javascript/events/events",
+                  label: "Interactive Section",
+                  slug: "javascript/dom-intro/interactive",
                 },
               ],
             },
             {
-              label: "Project",
+              label: "DOM Manipulation Basics",
               items: [
                 {
-                  label: "Counter App",
-                  slug: "javascript/project/counter",
+                  label: "Changing Content",
+                  slug: "javascript/dom-manipulation/content",
+                },
+                {
+                  label: "Changing Styles",
+                  slug: "javascript/dom-manipulation/styles",
+                },
+                {
+                  label: "Working with Attributes",
+                  slug: "javascript/dom-manipulation/attributes",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/dom-manipulation/interactive",
+                },
+              ],
+            },
+            {
+              label: "Events & Event Handling",
+              items: [
+                {
+                  label: "What Are Events?",
+                  slug: "javascript/events/intro",
+                },
+                {
+                  label: "Event Listeners",
+                  slug: "javascript/events/listeners",
+                },
+                {
+                  label: "Event Flow",
+                  slug: "javascript/events/flow",
+                },
+                {
+                  label: "Interactive Section",
+                  slug: "javascript/events/interactive",
+                },
+              ],
+            },
+            {
+              label: "DOM Projects (Hands-On)",
+              items: [
+                {
+                  label: "Project 1: Interactive Counter",
+                  slug: "javascript/projects/counter",
+                },
+                {
+                  label: "Project 2: To-Do List",
+                  slug: "javascript/projects/todo-list",
+                },
+                {
+                  label: "Project 3: Theme Switcher",
+                  slug: "javascript/projects/theme-switcher",
+                },
+              ],
+            },
+            {
+              label: "Best Practices & Next Steps",
+              items: [
+                {
+                  label: "Writing Clean JavaScript",
+                  slug: "javascript/best-practices/clean-code",
+                },
+                {
+                  label: "Debugging Basics",
+                  slug: "javascript/best-practices/debugging",
+                },
+                {
+                  label: "What to Learn Next",
+                  slug: "javascript/best-practices/next-steps",
                 },
               ],
             },

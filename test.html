@@ -6,51 +6,15 @@
     <title>My First Webpage</title>
     <style>
       .box {
-        /* အပေါ်ကနေ အောက် (Default) */
-        background-image: linear-gradient(red, yellow);
+        transform: rotate(45deg) translateX(600px) translateY(500px); /* ၄၅ ဒီဂရီ လှည့်မယ် */
       }
-
-      .box-right {
-        /* ဘယ်ကနေ ညာ */
-        background-image: linear-gradient(to right, blue, purple);
-      }
-
-      .box-diagonal {
-        /* ထောင့်ဖြတ် (၄၅ ဒီဂရီ) */
-        background-image: linear-gradient(45deg, #ff9a9e, #fad0c4);
-      }
-      .circle {
-        background-image: radial-gradient(circle, yellow, red);
-      }
-      .flex {
-        display: flex;
-        gap: 10px;
+      .box1 {
+        transform: skewX(20deg);
       }
     </style>
   </head>
   <body>
-    <h1>Gradient Examples</h1>
-    <div class="flex">
-      <div class="box" style="width: 200px; height: 100px; margin-bottom: 20px">
-        Default Gradient (Top to Bottom)
-      </div>
-      <div
-        class="box-right"
-        style="width: 200px; height: 100px; margin-bottom: 20px"
-      >
-        Right Direction Gradient
-      </div>
-      <div
-        class="box-diagonal"
-        style="width: 200px; height: 100px; margin-bottom: 20px"
-      >
-        Diagonal Gradient (45 degrees)
-      </div>
-      <div
-        class="circle"
-        style="width: 200px; height: 100px; margin-bottom: 20px"
-      >
-        Radial Gradient (Circle)  
-    </div>
+    <p class="box">Hello, World!</p>
+    <p class="box1">This is my first webpage with rotated and skewed text.</p>
   </body>
 </html>

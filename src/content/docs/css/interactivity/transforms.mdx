@@ -4,6 +4,8 @@ description: "Element များကို လှည့်ခြင်း၊ �
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import transformExample from "@/assets/css/transform.png";
 
 <Aside title="ပုံစံပြောင်းမယ်">
 Element တွေကို နေရာမရွှေ့ဘဲ ပုံစံပြောင်းချင်ရင် (လှည့်တာ၊ ကြီးတာ) `transform` ကို သုံးပါတယ်။
@@ -45,6 +47,7 @@ Element ကို စောင်းသွားအောင် လုပ်တ�
   transform: skewX(20deg);
 }
 ```
+<ContentImage src={transformExample} alt="CSS Transform Examples" />
 
 <Aside type="tip">
 **Transition နဲ့ တွဲသုံးပါ:**

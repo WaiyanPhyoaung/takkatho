@@ -1,0 +1,43 @@
+---
+title: "Working with Attributes"
+description: "HTML Attribute များ (src, href, class, id) ကို ပြင်ဆင်ခြင်း"
+---
+
+Image ရဲ့ `src` ပြောင်းမလား? Link ရဲ့ `href` ပြောင်းမလား?
+`getAttribute`, `setAttribute` နဲ့ `removeAttribute` တို့ကို သုံးနိုင်ပါတယ်။
+
+## 1. getAttribute (တန်ဖိုး ယူမယ်)
+Attribute တစ်ခုရဲ့ တန်ဖိုးကို လိုချင်ရင် သုံးပါတယ်။
+
+```javascript
+let link = document.querySelector("a");
+let url = link.getAttribute("href");
+console.log(url); // "https://google.com"
+```
+
+## 2. setAttribute (တန်ဖိုး အသစ်သတ်မှတ်မယ်)
+ရှိပြီးသား တန်ဖိုးကို ပြင်ချင်ရင် (သို့) အသစ်ထည့်ချင်ရင် သုံးပါတယ်။
+
+```javascript
+let img = document.querySelector("img");
+// ပုံ ပြောင်းလိုက်မယ်
+img.setAttribute("src", "new-image.png");
+```
+
+## 3. removeAttribute (ဖျက်မယ်)
+Attribute တစ်ခုလုံးကို ဖျက်ပစ်ချင်ရင် သုံးပါတယ်။
+
+```javascript
+let btn = document.querySelector("button");
+// disabled="true" ကို ဖျက်လိုက်ရင် ခလုတ်နှိပ်လို့ ရသွားမယ်
+btn.removeAttribute("disabled");
+```
+
+## Direct Property Access (ပိုလွယ်သော နည်းလမ်း)
+Standard attribute အများစုကို `.` ခံပြီး တိုက်ရိုက် ခေါ်လို့လည်း ရပါတယ်။
+
+```javascript
+img.src = "pic.jpg";
+input.value = "Hello";
+link.href = "https://facebook.com";
+```

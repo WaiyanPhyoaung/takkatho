@@ -1,0 +1,66 @@
+---
+title: "Project 3: Theme Switcher"
+description: "Dark Mode / Light Mode ပြောင်းလဲခြင်း"
+---
+
+ပတ်ဝန်းကျင်က Dark Mode ခေတ်စားနေတာဆိုတော့ ကိုယ့် Website မှာလည်း ထည့်တတ်ရမှာပေါ့။
+
+## ၁. CSS Setup
+
+အရင်ဆုံး CSS Variable တွေ သုံးပြီး အရောင်တွေ သတ်မှတ်ထားရပါမယ်။
+
+```css
+/* Default (Light Mode) */
+body {
+    background-color: white;
+    color: black;
+    transition: 0.3s; /* ဖြည်းဖြည်းချင်း ပြောင်းအောင် */
+}
+
+/* Dark Mode Class */
+body.dark-mode {
+    background-color: #333;
+    color: white;
+}
+```
+
+## ၂. HTML Button
+
+```html
+<button id="theme-toggle">Switch Theme 🌙</button>
+```
+
+## ၃. JavaScript Magic
+
+`body` မှာ `dark-mode` class ရှိ၊ မရှိကို Toggle လုပ်ပေးရုံပါပဲ။
+
+```javascript
+const toggleBtn = document.getElementById("theme-toggle");
+const body = document.body;
+
+toggleBtn.addEventListener("click", function() {
+    // classList.toggle က ရှိရင် ဖျက်၊ မရှိရင် ထည့် ပေးပါတယ်
+    body.classList.toggle("dark-mode");
+
+    // Button စာသားပါ ပြောင်းချင်ရင်
+    if (body.classList.contains("dark-mode")) {
+        toggleBtn.innerText = "Switch to Light ☀️";
+    } else {
+        toggleBtn.innerText = "Switch to Dark 🌙";
+    }
+});
+```
+
+## Extra Credit: User Preference သိမ်းဆည်းခြင်း (LocalStorage)
+
+Browser ပိတ်ပြီး ပြန်ဖွင့်ရင် မူရင်းတိုင်း ပြန်ဖြစ်နေပါလိမ့်မယ်။ User ရွေးထားတာကို မှတ်ထားစေချင်ရင် `localStorage` ကို သုံးရပါတယ်။
+
+```javascript
+// Save
+localStorage.setItem("theme", "dark");
+
+// Get
+let savedTheme = localStorage.getItem("theme");
+```
+
+ဒါကို သုံးပြီး Project ကို Upgrade လုပ်ကြည့်ပါ။

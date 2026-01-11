@@ -1,0 +1,35 @@
+---
+title: "Changing Content"
+description: "စာသားနှင့် HTML ပြောင်းလဲခြင်း"
+---
+
+Element တစ်ခုကို ဖမ်းလို့ ရပြီဆိုရင် သူ့ထဲက စာတွေကို ပြင်လို့ရပါပြီ။
+
+## 1. `innerText`
+Element ထဲက **စာသား (Text)** ကိုပဲ ယူတယ်၊ ပြင်တယ်။ HTML tag တွေကို နားမလည်ပါဘူး။ လူမျက်စိနဲ့ မြင်ရတဲ့ စာသားကိုပဲ ဦးစားပေးတယ်။
+
+```javascript
+let title = document.querySelector("h1");
+title.innerText = "New Title"; // စာပြောင်းသွားမယ်
+```
+
+## 2. `textContent`
+`innerText` နဲ့ တူပေမယ့်၊ သူက CSS နဲ့ ဖျောက်ထားတဲ့ (`display: none`) စာတွေကိုပါ ယူပေးနိုင်တယ်။ နည်းနည်းပိုမြန်တယ်။
+
+```javascript
+title.textContent = "Another Title";
+```
+
+## 3. `innerHTML` (Powerful but Dangerous ⚠️)
+HTML tag တွေပါ ထည့်ရေးလို့ ရတယ်။
+
+```javascript
+let container = document.querySelector("div");
+container.innerHTML = "<h1>This is bold!</h1>"; // Bold စာလုံးကြီး ဖြစ်သွားမယ်
+```
+
+**သတိထားရန်:** User ဆီက Input ယူပြီး `innerHTML` နဲ့ တိုက်ရိုက် ပြန်မပြရပါဘူး။ Hacker တွေ Script တွေ ထည့်ပြီး တိုက်ခိုက် (XSS Attack) လို့ ရသွားနိုင်ပါတယ်။
+
+### ဘယ်ဟာ သုံးမလဲ?
+*   စာသားသက်သက်ဆိုရင် `textContent` (သို့) `innerText` သုံးပါ။
+*   HTML tag တွေပါ လိုအပ်မှ `innerHTML` သုံးပါ။

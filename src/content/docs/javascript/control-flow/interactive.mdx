@@ -1,0 +1,40 @@
+---
+title: "Interactive Section - Control Flow"
+description: "Control Flow အတွက် လက်တွေ့စမ်းသပ်ရန်"
+---
+
+## Exercise 1: Number Checker
+
+number တစ်ခု ပေးလိုက်ရင် Positive (အပေါင်း), Negative (အနှုတ်)၊ ဒါမှမဟုတ် Zero (သုည) ဟုတ်မဟုတ် စစ်ပေးတဲ့ Code ရေးပါ။
+
+```javascript
+let number = -5;
+
+// သင့် Code ကို ဒီအောက်မှာ ရေးပါ
+if (number > 0) {
+    console.log("Positive");
+} // continue...
+```
+
+## Exercise 2: Even or Odd? (စုံ လား၊ မ လား)
+
+Loop ပတ်ပြီး ၁ ကနေ ၁၀ အထိ ဂဏန်းတွေကို ထုတ်ပြပါ။ ဒါပေမဲ့ ထူးခြားတာက -
+*   စုံကိန်း (Even) ဆိုရင် "2 is Even"
+*   မကိန်း (Odd) ဆိုရင် "1 is Odd" လို့ ထွက်ရမယ်။
+
+*Hint: `%` (Remainder operator) ကို သုံးပါ။ `num % 2 === 0` ဆိုရင် စုံကိန်း ဖြစ်ပါတယ်။*
+
+```javascript
+for (let i = 1; i <= 10; i++) {
+    // Check if i is even or odd here
+}
+```
+
+## Mini Challenge: Password Checker 
+
+`password` ဆိုတဲ့ variable တစ်ခု ကြေညာပါ။
+*   စာလုံးရေ ၆ လုံးထက် နည်းရင် "Password too short"
+*   စာလုံးရေ ၂၀ ထက် များရင် "Password too long"
+*   ကြားထဲမှာ ဆိုရင် "Password valid" လို့ ပြပေးပါ။
+
+*Hint: `password.length` နဲ့ စာလုံးရေကို ရယူနိုင်ပါတယ်။*

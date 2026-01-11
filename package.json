@@ -13,17 +13,17 @@
     "@rollup/rollup-linux-x64-gnu": "4.6.1"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/sitemap": "^3.5.0",
-    "@astrojs/starlight": "^0.34.4",
-    "@astrojs/vercel": "^8.2.1",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.6.1",
+    "@astrojs/starlight": "^0.37.2",
+    "@astrojs/vercel": "^9.0.3",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.12",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "@vitejs/plugin-react": "^4.7.0",
-    "astro": "^5.11.0",
+    "astro": "^5.16.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.503.0",
@@ -38,7 +38,7 @@
     "vite": "^5.4.19"
   },
   "devDependencies": {
-    "@astrojs/starlight-tailwind": "^4.0.1",
+    "@astrojs/starlight-tailwind": "^4.0.2",
     "svgexport": "^0.4.2",
     "tw-animate-css": "^1.3.7"
   }

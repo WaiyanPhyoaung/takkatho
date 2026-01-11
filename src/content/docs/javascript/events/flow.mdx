@@ -1,0 +1,33 @@
+---
+title: "Event Flow (Bubbling)"
+description: "Event များ ပြန့်ကားသွားခြင်း သဘောတရား"
+---
+
+ဒါက Beginner Level အတွက် နည်းနည်း ရှုပ်နိုင်ပေမယ့် သိထားရင် ကောင်းပါတယ်။
+
+## Event Bubbling ဆိုတာ ဘာလဲ?
+
+ရေပူဖောင်းလေးတွေ အောက်ကနေ အပေါ်ကို တက်လာသလိုပါပဲ။
+Element တစ်ခုမှာ Event တစ်ခု (ဥပမာ click) ဖြစ်လိုက်ရင်၊ အဲဒီ Event က သူ့ရဲ့ မိဘ (Parent)၊ ပြီးရင် မိဘရဲ့ မိဘ (Grandparent) .. အဲဒီလို အဆင့်ဆင့် အပေါ်ကို တက်သွားပါတယ်။
+
+```html
+<div id="parent">
+    <button id="child">Click Me</button>
+</div>
+```
+
+`button` ကို နှိပ်လိုက်ရင် -
+1.  `button` ရဲ့ click event အရင် အလုပ်လုပ်မယ်။
+2.  ပြီးရင် `div` (parent) ရဲ့ click event ဆက် အလုပ်လုပ်မယ်။
+3.  ပြီးရင် `body`, `html` အထိ တက်သွားမယ်။
+
+## `stopPropagation()`
+
+ဒီလို အပေါ်ကို ဆက်မတက်စေချင်ရင် `e.stopPropagation()` နဲ့ တားလို့ ရပါတယ်။
+
+```javascript
+child.addEventListener("click", function(e) {
+    e.stopPropagation(); // ဒီမှာပဲ ရပ်တော့! အပေါ်ကို မတက်နဲ့တော့။
+    console.log("Child Clicked");
+});
+```

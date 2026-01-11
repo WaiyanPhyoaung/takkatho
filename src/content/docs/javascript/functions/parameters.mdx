@@ -1,0 +1,36 @@
+---
+title: "Parameters & Return Values"
+description: "Data ပေးပို့ခြင်းနှင့် ရလဒ် ပြန်ယူခြင်း"
+---
+
+Function တွေက ပိုပြီး စွမ်းဆောင်ရည် ရှိစေဖို့အတွက် အပြင်ကနေ Data လက်ခံနိုင်သလို၊ တွက်ချက်ပြီး ရလဒ်ကိုလည်း ပြန်ပေးနိုင်ပါတယ်။
+
+## Parameters (လက်ခံသူများ)
+
+Function ခေါ်တဲ့အချိန်မှာ Data ထည့်ပေးလိုက်တာပါ။
+
+```javascript
+function greet(name) {
+  console.log("Hello " + name + "!");
+}
+
+greet("Mg Mg"); // "Hello Mg Mg!"
+greet("Hla Hla"); // "Hello Hla Hla!"
+```
+
+ဒီမှာ `name` ဆိုတာ **Parameter** ပါ။ "Mg Mg" နဲ့ "Hla Hla" က **Argument** လို့ ခေါ်ပါတယ်။
+
+## Return Values (ရလဒ် ပြန်ပေးခြင်း)
+
+`console.log` က စာထုတ်ပြရုံပဲ ရှိတာပါ။ တကယ့်လက်တွေ့မှာ တွက်ချက်ပြီးရတဲ့ အဖြေကို ပြန်လိုချင်တာ များပါတယ်။ အဲဒီအခါ `return` ကို သုံးပါတယ်။
+
+```javascript
+function add(num1, num2) {
+  return num1 + num2; // အဖြေကို ပြန်ပေးမယ်
+}
+
+let result = add(10, 20); // result ထဲမှာ 30 ရောက်သွားမယ်
+console.log(result); // 30
+```
+
+🚨 **သတိပြုရန်:** `return` ရောက်တာနဲ့ Function က ချက်ချင်း ရပ်သွားပါလိမ့်မယ်။ သူ့အောက်က Code တွေ ဆက်မလုပ်တော့ပါဘူး။
