@@ -13,7 +13,7 @@ let title = document.querySelector("h1");
 title.innerText = "New Title"; // စာပြောင်းသွားမယ်
 ```
 
-## 2. `textContent`
+## 2. `textContent` (အသုံးအများဆုံး)
 `innerText` နဲ့ တူပေမယ့်၊ သူက CSS နဲ့ ဖျောက်ထားတဲ့ (`display: none`) စာတွေကိုပါ ယူပေးနိုင်တယ်။ နည်းနည်းပိုမြန်တယ်။
 
 ```javascript
@@ -28,8 +28,8 @@ let container = document.querySelector("div");
 container.innerHTML = "<h1>This is bold!</h1>"; // Bold စာလုံးကြီး ဖြစ်သွားမယ်
 ```
 
-**သတိထားရန်:** User ဆီက Input ယူပြီး `innerHTML` နဲ့ တိုက်ရိုက် ပြန်မပြရပါဘူး။ Hacker တွေ Script တွေ ထည့်ပြီး တိုက်ခိုက် (XSS Attack) လို့ ရသွားနိုင်ပါတယ်။
+**သတိထားရန်:** တတ်နိုင်ရင် မသုံးသင့်ပါဘူး။ Hacker တွေ Script တွေ ထည့်ပြီး တိုက်ခိုက် (XSS Attack) လို့ ရသွားနိုင်ပါတယ်။
 
 ### ဘယ်ဟာ သုံးမလဲ?
-*   စာသားသက်သက်ဆိုရင် `textContent` (သို့) `innerText` သုံးပါ။
+*   စာသားသက်သက်ဆိုရင် `textContent` သုံးပါ။
 *   HTML tag တွေပါ လိုအပ်မှ `innerHTML` သုံးပါ။

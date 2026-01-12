@@ -3,7 +3,7 @@ title: "နောက်ထပ် ဘာတွေဆက်လေ့လာမလ�
 description: "နောက်ထပ် ဘာတွေဆက်လေ့လာမလဲ"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code, LinkCard } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import before from '@/assets/html/before.png';
 
@@ -22,6 +22,13 @@ HTML က structure (တည်ဆောက်ပုံ) ကို သတ်မှ
 
 - Hover effect တွေ၊ animation တွေ ထည့်သွင်းဖို့
 
+<LinkCard
+  title="CSS Course"
+  description="Website တွေလှပဖို့ CSS ကို လေ့လာရန်"
+  href="/css/introduction/welcome"
+  icon="seti:css"
+/>
+
 **ဥပမာ: ခေါင်းစဉ်အရောင်ပြောင်းခြင်း**
 
 ```html
@@ -39,6 +46,13 @@ JavaScript (JS) က website တွေကို interactive ဖြစ်စေပ
 - Page ကို reload မလုပ်ဘဲ content တွေကို ပြောင်းလဲပစ်ဖို့
 
 - Slider တွေ၊ pop-up တွေနဲ့ animation တွေ ထည့်ဖို့
+
+<LinkCard
+  title="JavaScript Course"
+  description="Web ၏ Programming Language ဖြစ်သော JavaScript ကို လေ့လာရန်"
+  href="/javascript/introduction/intro"
+  icon="seti:javascript"
+/>
 
 **ဥပမာ: Alert message ပြခြင်း**
 

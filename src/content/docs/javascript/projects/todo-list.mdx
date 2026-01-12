@@ -11,7 +11,7 @@ description: "စာရင်းမှတ်သားသော Application တ�
 2.  Task ပြီးသွားရင် နှိပ်လိုက်တာနဲ့ မျဉ်းသား (Line-through) သွားရမယ်။
 3.  Delete ခလုတ် နှိပ်ရင် ပျက်သွားရမယ်။
 
-## ၁. HTML Structure
+## 1. HTML Structure
 
 ```html
 <input type="text" id="todo-input" placeholder="Add a new task...">
@@ -22,7 +22,19 @@ description: "စာရင်းမှတ်သားသော Application တ�
 </ul>
 ```
 
-## ၂. JavaScript Logic
+### ကြိုတင် သိထားသင့်သော အချက်: createElement
+
+ဒီ Project မှာ HTML ထဲမှာ `<li>` တွေကို ကြိုရေးမထားပါဘူး။ User က Add နှိပ်လိုက်မှသာ JavaScript နဲ့ element အသစ် ဖန်တီးမှာ ဖြစ်ပါတယ်။
+အဲ့ဒီအတွက် `document.createElement("TAG_NAME")` ကို သုံးရပါတယ်။
+
+Example:
+```javascript
+const li = document.createElement("li"); // <li></li> အသစ်တစ်ခု ဖန်တီးလိုက်တာပါ
+// သတိပြုရန် - ဖန်တီးရုံပဲ ရှိသေးပြီး screen ပေါ်မှာ မပေါ်သေးပါဘူး။ 
+// appendChild နဲ့ ထည့်ပေးမှ ပေါ်မှာ ဖြစ်ပါတယ်။
+```
+
+## 2. JavaScript Logic
 
 ```javascript
 const input = document.getElementById("todo-input");
@@ -30,29 +42,29 @@ const addBtn = document.getElementById("add-btn");
 const todoList = document.getElementById("todo-list");
 
 addBtn.addEventListener("click", function() {
-    // ၁. Input ထဲက စာကို ယူမယ်
+    // 1. Input ထဲက စာကို ယူမယ်
     const taskText = input.value;
 
     if (taskText === "") return; // ဘာမှ မရေးထားရင် မလုပ်ဘူး
 
-    // ၂. List Item (li) အသစ် တည်ဆောက်မယ်
+    // 2. List Item (li) အသစ် တည်ဆောက်မယ်
     const li = document.createElement("li");
-    li.innerText = taskText;
+    li.textContent = taskText;
 
-    // ၃. Click နှိပ်ရင် ပြီးစီးကြောင်း မှတ်မယ် (Toggle class)
+    // 3. Click နှိပ်ရင် ပြီးစီးကြောင်း မှတ်မယ် (Toggle class)
     li.addEventListener("click", function() {
         li.classList.toggle("completed"); // CSS မှာ .completed { text-decoration: line-through } ရေးထားရမယ်
     });
 
-    // ၄. Double Click နှိပ်ရင် ဖျက်မယ်
+    // 4. Double Click နှိပ်ရင် ဖျက်မယ်
     li.addEventListener("dblclick", function() {
         todoList.removeChild(li);
     });
 
-    // ၅. ul ထဲကို ထည့်မယ်
+    // 5. ul ထဲကို ထည့်မယ်
     todoList.appendChild(li);
 
-    // ၆. Input box ကို ပြန်ရှင်းမယ်
+    // 6. Input box ကို ပြန်ရှင်းမယ်
     input.value = "";
 });
 ```
