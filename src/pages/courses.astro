@@ -1,49 +1,106 @@
 ---
 import { CoursesListing } from "@/components/CoursesListing";
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import "../styles/global.css";
+import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 ---
 
-<StarlightPage
-  frontmatter={{
-    title: "Programming Courses",
-    description:
-      "Comprehensive programming courses designed for Myanmar developers - from beginner to advanced level",
-    tableOfContents: false,
-  }}
-  hasSidebar={false}
+<StandaloneLayout
+  title="Programming Courses"
+  description="Comprehensive programming courses designed for Myanmar developers - from beginner to advanced level"
 >
-  <div class="courses-container">
-    <CoursesListing client:load />
-  </div>
-</StarlightPage>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-amber-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 pt-8 pb-12">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 dot-pattern opacity-50"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 dark:bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-orange-400/10 dark:bg-orange-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 mb-6">
+          <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span class="text-sm font-medium text-amber-700 dark:text-amber-300">12+ Courses Available</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          Programming 
+          <span class="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">သင်တန်းများ</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+          Beginner မှ Advanced အဆင့်အထိ စနစ်တကျ တည်ဆောက်ထားသော သင်တန်းများဖြင့် 
+          သင့်ရဲ့ programming journey ကို စတင်လိုက်ပါ
+        </p>
+
+        <!-- Quick Stats -->
+        <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>အခမဲ့ လေ့လာနိုင်</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>မိမိနှုန်းဖြင့် လေ့လာပါ</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span>မြန်မာဘာသာဖြင့်</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Listing -->
+  <section class="py-8 bg-white dark:bg-gray-950">
+    <div class="courses-wrapper">
+      <CoursesListing client:load />
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 mb-6">
+        <svg class="w-8 h-8 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        မသေချာသေးဘူးလား?
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
+        ကျွန်ုပ်တို့အကြောင်း ပိုမို လေ့လာပြီး ဘာကြောင့် Takkatho ကို ရွေးချယ်သင့်လဲဆိုတာ သိရှိလိုက်ပါ
+      </p>
+      <a 
+        href="/about" 
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+      >
+        <span>ကျွန်ုပ်တို့အကြောင်း</span>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</StandaloneLayout>
 
 <style>
-  .courses-container {
+  .courses-wrapper {
     width: 100%;
-    min-height: 100vh;
-    background: var(--sl-color-bg);
-    color: var(--sl-color-text);
   }
-
-  /* Override Starlight's default content padding for courses page */
-  .courses-container :global(.not-content) {
+  
+  .courses-wrapper :global(.not-content) {
     max-width: none;
-    padding: 0;
-  }
-
-  /* Ensure proper spacing for the main content */
-  .courses-container :global(main) {
-    padding: 0;
-  }
-
-  /* Input placeholder styling */
-  .courses-container :global(input::placeholder) {
-    color: var(--sl-color-text-accent);
-  }
-
-  /* Button hover effects */
-  .courses-container :global(button:hover) {
-    filter: brightness(1.1);
   }
 </style>
