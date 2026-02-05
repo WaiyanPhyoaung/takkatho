@@ -126,8 +126,9 @@
   }
 
   code * {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      "Liberation Mono", "Courier New", monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
   }
 
   .main-pane ul,
@@ -298,7 +299,9 @@ blockquote {
   border-radius: 12px;
   background-color: var(--color-bg-nav);
   border: 1px solid var(--color-gray-6);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
   cursor: default;
   transition: box-shadow 0.1s;
 }
