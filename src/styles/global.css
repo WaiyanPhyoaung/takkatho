@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 @layer base, starlight, theme, components, utilities;
 
@@ -120,6 +121,10 @@
     font-style: normal;
   }
 
+  body {
+    margin: 0;
+  }
+
   html body[data-scroll-locked] {
     overflow: visible !important;
     margin-right: 0 !important;
@@ -190,6 +195,403 @@
   }
   .path-card {
     margin-top: 0;
+  }
+
+  /* Neo brutalism theme for standalone pages only */
+  .neo-page {
+    --neo-ink: #121212;
+    --neo-paper: #fff6d6;
+    --neo-cream: #fffdf4;
+    --neo-lemon: #ffe44d;
+    --neo-coral: #ff6b5a;
+    --neo-mint: #35e0a1;
+    --neo-sky: #64a5ff;
+    --neo-lilac: #c17bff;
+    font-family: "Space Grotesk", "Noto Sans Myanmar", sans-serif;
+    color: var(--neo-ink);
+    background: var(--neo-cream);
+    overflow-x: hidden;
+  }
+
+  .dark .neo-page {
+    --neo-ink: #f6f1e6;
+    --neo-paper: #151515;
+    --neo-cream: #0f0f0f;
+    --neo-lemon: #f4d34e;
+    --neo-coral: #ff7b6a;
+    --neo-mint: #39e6a8;
+    --neo-sky: #6fb0ff;
+    --neo-lilac: #c78bff;
+    color: var(--neo-ink);
+    background: var(--neo-cream);
+  }
+
+  .neo-page h1,
+  .neo-page h2,
+  .neo-page h3,
+  .neo-page h4 {
+    letter-spacing: -0.02em;
+  }
+
+  .neo-page section {
+    background: var(--neo-cream);
+    border-top: 3px solid var(--neo-ink);
+  }
+
+  .neo-page section.neo-alt {
+    background: var(--neo-paper);
+  }
+
+  .neo-hero {
+    background: linear-gradient(135deg, #fff36a 0%, #ffb86b 55%, #ff7eb6 100%);
+    border-bottom: 4px solid var(--neo-ink);
+  }
+
+  .dark .neo-hero {
+    background: linear-gradient(135deg, #2b2200 0%, #4a1e00 55%, #3a0025 100%);
+  }
+
+  .neo-page .dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.12) 2px,
+      transparent 2px
+    );
+    background-size: 28px 28px;
+  }
+
+  .dark .neo-page .dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.12) 2px,
+      transparent 2px
+    );
+  }
+
+  .neo-badge {
+    border: 3px solid var(--neo-ink);
+    background: var(--neo-lemon);
+    color: var(--neo-ink);
+    font-weight: 700;
+    box-shadow: 4px 4px 0 var(--neo-ink);
+  }
+
+  .neo-btn {
+    border: 3px solid var(--neo-ink);
+    border-radius: 999px;
+    box-shadow: 6px 6px 0 var(--neo-ink);
+    font-weight: 700;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .neo-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--neo-ink);
+  }
+
+  .neo-btn-secondary {
+    background: var(--neo-lemon);
+    color: var(--neo-ink);
+  }
+
+  .neo-btn-ghost {
+    background: #fff;
+    color: var(--neo-ink);
+  }
+
+  .neo-card-grid {
+    gap: 2.5rem;
+    padding: 0.25rem;
+  }
+
+  .neo-card,
+  .neo-card-grid > div.neo-card,
+  .neo-card-grid > a > div.neo-card {
+    border: 3px solid var(--neo-ink);
+    box-shadow: 8px 8px 0 var(--neo-ink);
+    border-radius: 1rem;
+    background: #fff;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .dark .neo-card,
+  .dark .neo-card-grid > div.neo-card,
+  .dark .neo-card-grid > a > div.neo-card {
+    background: #171717;
+  }
+
+  .neo-card-grid > a {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: block;
+  }
+
+  .neo-card-grid > a > div.neo-card {
+    height: 100%;
+  }
+
+  .neo-stats {
+    border: 3px solid var(--neo-ink);
+    box-shadow: 6px 6px 0 var(--neo-ink);
+    background: #fff;
+  }
+
+  .dark .neo-stats {
+    background: #121212;
+  }
+
+  .neo-cta-panel {
+    border: 4px solid var(--neo-ink);
+    box-shadow: 10px 10px 0 var(--neo-ink);
+  }
+
+  .neo-page .rounded-2xl,
+  .neo-page .rounded-3xl,
+  .neo-page .rounded-xl {
+    border-radius: 1rem;
+  }
+
+  .neo-page .shadow-xl,
+  .neo-page .shadow-lg,
+  .neo-page .shadow-sm,
+  .neo-page .shadow {
+    box-shadow: 8px 8px 0 var(--neo-ink) !important;
+  }
+
+  .neo-page .text-gray-600,
+  .neo-page .text-gray-500,
+  .neo-page .text-gray-400 {
+    color: #2b2b2b !important;
+  }
+
+  .dark .neo-page .text-gray-600,
+  .dark .neo-page .text-gray-500,
+  .dark .neo-page .text-gray-400 {
+    color: #e5dccd !important;
+  }
+
+  .dark .neo-page .text-gray-900,
+  .dark .neo-page .text-gray-800,
+  .dark .neo-page .text-gray-700 {
+    color: var(--neo-ink) !important;
+  }
+
+  .neo-courses [data-slot="card"],
+  .neo-courses [data-slot="card-header"],
+  .neo-courses [data-slot="card-content"],
+  .neo-courses [data-slot="card-footer"] {
+    border-color: var(--neo-ink);
+  }
+
+  .neo-courses [data-slot="card"] {
+    box-shadow: 8px 8px 0 var(--neo-ink);
+    border-width: 3px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .neo-courses [data-slot="badge"] {
+    border: 2px solid var(--neo-ink);
+    box-shadow: 3px 3px 0 var(--neo-ink);
+    background: var(--neo-lemon);
+    color: var(--neo-ink);
+  }
+
+  .neo-courses [data-slot="button"] {
+    border: 3px solid var(--neo-ink);
+    box-shadow: 6px 6px 0 var(--neo-ink);
+    border-radius: 999px;
+    font-weight: 700;
+  }
+
+  .neo-courses [data-slot="input"],
+  .neo-courses [data-slot="select-trigger"] {
+    border: 3px solid var(--neo-ink);
+    box-shadow: 4px 4px 0 var(--neo-ink);
+    background: #fff;
+    color: var(--neo-ink);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dark .neo-courses [data-slot="input"],
+  .dark .neo-courses [data-slot="select-trigger"] {
+    background: #121212;
+    color: var(--neo-ink);
+  }
+
+  .neo-courses [data-slot="select-content"] {
+    border: 3px solid var(--neo-ink);
+    box-shadow: 6px 6px 0 var(--neo-ink);
+    background: #fff;
+  }
+
+  .dark .neo-courses [data-slot="select-content"] {
+    background: #121212;
+  }
+
+  .neo-courses .courses-wrapper {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .neo-courses .courses-search {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .neo-courses .courses-search [data-slot="input"] {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .neo-courses .courses-grid {
+    row-gap: 2.75rem !important;
+    column-gap: 2.5rem !important;
+    padding: 0.5rem;
+    align-items: stretch;
+  }
+
+  .neo-courses .courses-grid [data-slot="card"] {
+    margin: 0;
+    box-sizing: border-box;
+    border: 3px solid var(--neo-ink);
+    box-shadow: 6px 6px 0 var(--neo-ink) !important;
+  }
+
+  .neo-page img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .standalone-header-search site-search {
+    display: contents;
+  }
+
+  .standalone-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .standalone-header-logo {
+    flex-shrink: 0;
+    justify-self: start;
+  }
+
+  .standalone-header-search {
+    justify-self: center;
+    width: 100%;
+    max-width: 18rem;
+  }
+
+  .standalone-header-actions {
+    flex-shrink: 0;
+    justify-self: end;
+  }
+
+  .standalone-header-search {
+    min-width: 0;
+  }
+
+  .standalone-header-search button[data-close-modal] {
+    display: none;
+  }
+
+  .standalone-header-search button[data-open-modal] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid #1b1b1b;
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    background: #fff;
+    color: #1b1b1b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 100%;
+    flex-grow: 1;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .standalone-header-search button[data-open-modal] > :last-child {
+    margin-left: auto;
+  }
+
+  .standalone-header-search button[data-open-modal] kbd {
+    border-radius: 0.35rem;
+    padding: 0.15rem 0.35rem;
+    background: #111111;
+    color: #ffffff;
+    font-size: 0.65rem;
+  }
+
+  .dark .standalone-header-search button[data-open-modal] {
+    background: #111111;
+    color: #f6f1e6;
+    border-color: #f6f1e6;
+  }
+
+  @media (max-width: 768px) {
+    .standalone-header {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .standalone-header-search {
+      max-width: 14rem;
+    }
+
+    .standalone-header-search button[data-open-modal] {
+      max-width: 100%;
+    }
+
+    .standalone-header-search button[data-open-modal] {
+      width: 100%;
+      max-width: 100%;
+    }
+    .neo-page section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .neo-home .neo-hero {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .neo-home .hero-cta {
+      width: 100%;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .neo-home .hero-cta .neo-btn {
+      max-width: 100%;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .neo-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .standalone-header-search {
+      max-width: 22rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .standalone-header-search {
+      max-width: 30rem;
+    }
   }
 }
 .tagline {

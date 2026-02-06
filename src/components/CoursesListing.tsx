@@ -341,7 +341,7 @@ export function CoursesListing(): JSX.Element {
         course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         course.tags.some((tag: string) =>
-          tag.toLowerCase().includes(searchTerm.toLowerCase())
+          tag.toLowerCase().includes(searchTerm.toLowerCase()),
         );
 
       const matchesDifficulty =
@@ -358,7 +358,7 @@ export function CoursesListing(): JSX.Element {
   const totalPages: number = Math.ceil(filteredCourses.length / coursesPerPage);
   const visibleCount: number = Math.min(
     filteredCourses.length,
-    currentPage * coursesPerPage
+    currentPage * coursesPerPage,
   );
   const visibleCourses: Course[] = filteredCourses.slice(0, visibleCount);
   const hasMore: boolean = visibleCount < filteredCourses.length;
@@ -379,12 +379,12 @@ export function CoursesListing(): JSX.Element {
             }, 250);
           }
         },
-        { rootMargin: "200px" }
+        { rootMargin: "200px" },
       );
 
       if (node) observer.current.observe(node);
     },
-    [isLoading, isLoadingMore, hasMore]
+    [isLoading, isLoadingMore, hasMore],
   );
 
   // Reset to first page when filters change
@@ -406,9 +406,9 @@ export function CoursesListing(): JSX.Element {
     <div className="w-full not-content">
       <div className="max-w-7xl mx-auto px-4 md:py-8 ">
         {/* Search and Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap gap-4 items-start lg:items-center">
           {/* Search Bar */}
-          <div className="relative flex-1 min-w-0 w-full md:w-auto text-sm">
+          <div className="courses-search relative flex-1 min-w-0 w-full lg:w-auto text-sm">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
             <Input
               type="text"
@@ -420,17 +420,17 @@ export function CoursesListing(): JSX.Element {
           </div>
 
           {/* Filters */}
-          <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3 text-sm">
+          <div className="w-full lg:w-auto grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             {/* Difficulty Filter */}
             <Select
               value={selectedDifficulty}
               onValueChange={(value) =>
                 setSelectedDifficulty(
-                  value as "beginner" | "intermediate" | "advanced" | "all"
+                  value as "beginner" | "intermediate" | "advanced" | "all",
                 )
               }
             >
-              <SelectTrigger className="w-full sm:w-auto sm:min-w-[150px]">
+              <SelectTrigger className="w-full sm:min-w-[150px]">
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
@@ -446,7 +446,7 @@ export function CoursesListing(): JSX.Element {
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="w-full sm:w-auto sm:min-w-[200px]">
+              <SelectTrigger className="w-full sm:min-w-[200px]">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -509,7 +509,7 @@ export function CoursesListing(): JSX.Element {
 
         {/* Courses Grid */}
         {!isLoading && (
-          <div className="grid grid-cols-1 mt:2 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="courses-grid grid grid-cols-1 mt:2 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {visibleCourses.map((course) => (
               <Card
                 key={course.id}
