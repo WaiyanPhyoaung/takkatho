@@ -1,0 +1,30 @@
+---
+title: "Backtracking"
+description: "Solving Sudoku and Mazes by trying paths."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Backtracking
+
+"စမ်းကြည့်မယ်၊ မှားသွားရင် ပြန်ပြင်ပြီး နောက်တစ်နည်း စမ်းမယ်။"
+ဒါက Backtracking ရဲ့ အနှစ်သာရပါပဲ။
+Recursion ကို သုံးပြီး လမ်းကြောင်းတွေ အကုန်လုံးကို လိုက်စမ်းကြည့်တဲ့ Bruteforce နည်းလမ်း တစ်မျိုးပါ။ ဒါပေမယ့် စမတ်ကျတဲ့ အချက်က "လမ်းမှားရောက်ရင် ချက်ချင်း လှည့်ပြန် (Backtrack)" တာပါပဲ။
+
+### Try a path, if fails, go back!
+DFS (Depth-First Search) Algorithm က Backtracking ကို အသုံးချထားတာပါ။
+
+### Project: Sudoku Solver
+Sudoku ကွက်လပ် ဖြည့်တာကို စဉ်းစားကြည့်ပါ။
+1.  ကွက်လပ် တစ်ခုမှာ '1' ထည့်ကြည့်မယ်။
+2.  Rule နဲ့ ညီရင် ရှေ့ဆက်သွားမယ်။
+3.  Rule နဲ့ မညီရင် (Row တူ၊ Column တူ ဖြစ်ရင်) လှည့်ပြန်မယ်။ '2' ထည့်ကြည့်မယ်။
+4.  '9' အထိ ထည့်လို့ မရရင်၊ ရှေ့က အကွက်ဆီ ပြန်သွားပြီး ဂဏန်း ပြောင်းထည့်ကြည့်မယ်။
+
+ဒီလို နည်းလမ်းနဲ့ အဖြေမှန် ရတဲ့အထိ လိုက်စမ်းသွားတာ ဖြစ်ပါတယ်။
+ကွန်ပျူတာအတွက် အချိန်အနည်းငယ် ကြာနိုင်ပေမယ့်၊ လူသားတွေအတွက် မဖြစ်နိုင်တဲ့ ရှုပ်ထွေးတဲ့ ပုစ္ဆာတွေကို ဖြေရှင်းပေးနိုင်ပါတယ်။
+
+### Image/Diagram Suggestion
+- Maze Backtracking Path: dead-end ရောက်တိုင်း ပြန်လှည့်တဲ့ route ကို color နဲ့ပြထားတဲ့ visual
+- Sudoku Decision Flow: cell တစ်ခုချင်း ရွေးပြီး fail ဖြစ်ရင် backtrack လုပ်ပုံ flowchart
+- Recursion Stack + Board State: call stack frame နဲ့ puzzle state ကို တပြိုင်နက်ပြတဲ့ split diagram

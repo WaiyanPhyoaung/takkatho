@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Padauk:wght@400;700&display=swap");
 
 @layer base, starlight, theme, components, utilities;
 
@@ -61,6 +61,11 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
+    --font-ui-latin:
+      "Geist", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-ui-myanmar:
+      "Noto Sans Myanmar", "Myanmar Text", "Pyidaungsu", sans-serif;
+    --font-ui: var(--font-ui-latin), var(--font-ui-myanmar);
   }
 
   .dark {
@@ -117,8 +122,24 @@
 
 @layer base {
   * {
-    font-family: "Noto Sans Myanmar", sans-serif;
+    font-family: var(--font-ui);
     font-style: normal;
+  }
+
+  .sidebar-pane,
+  .sidebar-content,
+  .main-pane,
+  .right-sidebar-panel,
+  nav[aria-label="Main"],
+  nav[aria-label="Table of contents"] {
+    font-family: var(--font-ui);
+  }
+
+  .sidebar-pane a,
+  .sidebar-pane summary,
+  .sidebar-pane button {
+    font-family: var(--font-ui-latin), var(--font-ui-myanmar);
+    font-weight: 500;
   }
 
   body {
@@ -207,7 +228,6 @@
     --neo-mint: #35e0a1;
     --neo-sky: #64a5ff;
     --neo-lilac: #c17bff;
-    font-family: "Space Grotesk", "Noto Sans Myanmar", sans-serif;
     color: var(--neo-ink);
     background: var(--neo-cream);
     overflow-x: hidden;

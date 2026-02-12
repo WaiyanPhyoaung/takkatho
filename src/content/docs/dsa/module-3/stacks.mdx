@@ -1,0 +1,28 @@
+---
+title: "Stacks"
+description: "Last-In, First-Out concept and Undo features."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Stacks (LIFO)
+
+Stack ဆိုတာ ပန်းကန်ပြား ဆေးဖို့ ပုံထားတာကို မြင်ယောင်ကြည့်ပါ။
+-   ဆေးမယ့် ပန်းကန်ကို အပေါ်ဆုံးမှာ တင်မယ် (**Push**).
+-   ဆေးပြီးရင် အပေါ်ဆုံးက ဟာကိုပဲ အရင်ယူမယ် (**Pop**).
+-   အောက်ဆုံးက ပန်းကန်ကို ယူချင်ရင် အပေါ်က ပန်းကန်တွေ အကုန်ဖယ်မှ ရမယ်။
+
+ဒါကို **Last-In, First-Out (LIFO)** ၊ "နောက်ဆုံးဝင်၊ အရင်ထွက်" လို့ ခေါ်ပါတယ်။
+
+### Real World Use: The "Undo" Button
+Microsoft Word သို့မဟုတ် Code Editor တွေမှာ စာရိုက်နေရင်း `Ctrl + Z` (Undo) နှိပ်လိုက်ရင် ဘာဖြစ်သွားလဲ?
+1.  သင်လုပ်လိုက်တဲ့ Action တိုင်းကို Stack ထဲ ထည့်ထားတယ်။ (Push)
+2.  Undo နှိပ်လိုက်တဲ့အခါ နောက်ဆုံးလုပ်ခဲ့တဲ့ Action ကို Stack ပေါ်ကနေ ယူထုတ်ပြီး ပြန်ဖျက်လိုက်တယ်။ (Pop)
+
+### Browser History
+ဘရောက်ဇာမှာ Back button နှိပ်တာဟာလည်း Stack သဘောတရားပါပဲ။ လက်ရှိ Page ကနေ နောက်တစ်မျက်နှာ နှိပ်လိုက်ရင်၊ လက်ရှိ Page ကို Stack ထဲ ထည့်ခဲ့ပြီး ရှေ့ဆက်သွားတာပါ။
+
+### Image/Diagram Suggestion
+- Stack Push/Pop Animation: ပန်းကန်ပုံကနေ push/pop ကို step-by-step ပြတဲ့ visual
+- Undo Timeline Diagram: action history stack ထဲ push/popup လုပ်သွားပုံ
+- Browser Back Stack Flow: Page A -> B -> C သွားပြီး Back လုပ်တဲ့ state transition ပုံ

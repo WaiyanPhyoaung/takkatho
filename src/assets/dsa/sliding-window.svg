@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" fill="none">
+  <rect width="1200" height="560" fill="#0B1220"/>
+  <text x="70" y="70" fill="#F8FAFC" font-size="34" font-family="Arial, sans-serif" font-weight="700">Sliding Window Pattern</text>
+
+  <text x="70" y="120" fill="#9CA3AF" font-size="22" font-family="Arial, sans-serif">string: a b c a b c b b</text>
+
+  <g transform="translate(70,170)">
+    <rect x="0" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="100" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="200" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="300" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="400" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="500" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="600" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+    <rect x="700" y="0" width="90" height="90" fill="#1F2937" stroke="#4B5563"/>
+
+    <text x="35" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">a</text>
+    <text x="135" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">b</text>
+    <text x="235" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">c</text>
+    <text x="335" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">a</text>
+    <text x="435" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">b</text>
+    <text x="535" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">c</text>
+    <text x="635" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">b</text>
+    <text x="735" y="58" fill="#E5E7EB" font-size="40" font-family="Arial, sans-serif">b</text>
+
+    <rect x="200" y="-8" width="390" height="106" rx="12" fill="none" stroke="#22D3EE" stroke-width="6"/>
+    <text x="210" y="140" fill="#22D3EE" font-size="24" font-family="Arial, sans-serif">current window</text>
+  </g>
+
+  <line x1="320" y1="430" x2="620" y2="430" stroke="#34D399" stroke-width="5"/>
+  <polygon points="620,430 600,420 600,440" fill="#34D399"/>
+  <text x="330" y="470" fill="#34D399" font-size="24" font-family="Arial, sans-serif">window slides right</text>
+</svg>

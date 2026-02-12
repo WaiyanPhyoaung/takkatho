@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <rect width="1200" height="700" fill="#111827"/>
+  <text x="70" y="80" fill="#F9FAFB" font-size="34" font-family="Arial, sans-serif" font-weight="700">Search Race: Linear vs Binary</text>
+
+  <rect x="80" y="130" width="500" height="480" rx="14" fill="#1F2937" stroke="#374151"/>
+  <text x="250" y="175" fill="#FCA5A5" font-size="28" font-family="Arial, sans-serif" font-weight="700">Linear Search</text>
+  <text x="130" y="230" fill="#E5E7EB" font-size="22" font-family="Arial, sans-serif">Data size: 1,000,000</text>
+  <text x="130" y="275" fill="#E5E7EB" font-size="22" font-family="Arial, sans-serif">Worst case checks: 1,000,000</text>
+  <rect x="130" y="320" width="390" height="30" rx="8" fill="#374151"/>
+  <rect x="130" y="320" width="350" height="30" rx="8" fill="#EF4444"/>
+  <text x="130" y="390" fill="#FCA5A5" font-size="24" font-family="Arial, sans-serif">O(n)</text>
+
+  <rect x="620" y="130" width="500" height="480" rx="14" fill="#1F2937" stroke="#374151"/>
+  <text x="790" y="175" fill="#86EFAC" font-size="28" font-family="Arial, sans-serif" font-weight="700">Binary Search</text>
+  <text x="670" y="230" fill="#E5E7EB" font-size="22" font-family="Arial, sans-serif">Data size: 1,000,000 (sorted)</text>
+  <text x="670" y="275" fill="#E5E7EB" font-size="22" font-family="Arial, sans-serif">Worst case checks: ~20</text>
+  <rect x="670" y="320" width="390" height="30" rx="8" fill="#374151"/>
+  <rect x="670" y="320" width="28" height="30" rx="8" fill="#10B981"/>
+  <text x="670" y="390" fill="#86EFAC" font-size="24" font-family="Arial, sans-serif">O(log n)</text>
+
+  <text x="70" y="660" fill="#D1D5DB" font-size="20" font-family="Arial, sans-serif">Key point: Data စီထားနိုင်ရင် Binary Search က အဆများစွာ မြန်တယ်</text>
+</svg>

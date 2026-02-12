@@ -1,0 +1,39 @@
+---
+title: "Graphs"
+description: "Nodes and Edges, BFS vs. DFS, and finding the shortest path."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Graphs
+
+Graph ဆိုတာ Node (Vertex) တွေနဲ့ သူတို့ကို ဆက်ထားတဲ့ မျဉ်းကြောင်း (Edge) တွေရဲ့ စုစည်းမှုပါပဲ။
+Tree ဆိုတာ တကယ်တော့ Cycle (ပတ်လမ်း) မပါတဲ့ Graph တစ်မျိုးပါပဲ။
+
+### Directed vs. Undirected
+1.  **Undirected Graph:** လမ်းသွားလမ်းလာ နှစ်ဖက်သွား လမ်းလိုပဲ။
+    *   Example: Facebook Friends (ငါက မင်း friend ဆိုရင်၊ မင်းကလည်း ငါ့ friend ပဲ။)
+2.  **Directed Graph:** One-way လမ်းလိုပဲ။
+    *   Example: Instagram/Twitter Follows (ငါက မင်းကို Follow ပေမယ့်၊ မင်းက ငါ့ကို Follow ချင်မှ လုပ်မယ်။ Arrow လေးတွေ ပါမယ်။)
+
+### The "GPS" Algorithms
+
+မြို့တစ်မြို့ကနေ နောက်တစ်မြို့ကို သွားချင်တဲ့အခါ ဘယ်လို လမ်းကြောင်း ရှာမလဲ?
+
+**1. BFS (Breadth-First Search - ဗြက်လိုက် ရှာခြင်း):**
+-   ကိုယ့် အနီးနား ပတ်ဝန်းကျင်ကို အရင် စုံစမ်းတယ်။ ပြီးမှ တဆင့် ဝေးတဲ့နေရာကို သွားတယ်။
+-   **Use Case:** Google Maps မှာ Shortest Path (အနီးဆုံး လမ်းကြောင်း) ရှာချင်တဲ့အခါ သုံးတယ်။ "လှည်းတန်း" ကနေ "မြေနီကုန်း" ကို ဘယ်ကား စီးရင် အမြန်ဆုံး ရောက်မလဲ?
+
+**2. DFS (Depth-First Search - အနက်လိုက် ရှာခြင်း):**
+-   လမ်းတစ်လမ်းထဲကို ဆုံးတဲ့အထိ လျှောက်သွားလိုက်တယ်။ လမ်းဆုံးမှ နောက်ပြန်လှည့် (Backtrack) ပြီး အခြားလမ်းကို စမ်းတယ်။
+-   **Use Case:** Maze (ဝင်္ကပါ) ထဲကနေ ထွက်ပေါက် ရှာတာမျိုး၊ Puzzle ဖြေရှင်းတာမျိုးမှာ သုံးတယ်။
+
+<Aside title="Weighted Graphs">
+Edge တွေမှာ တန်ဖိုး (Weight) တွေ ရှိနိုင်ပါတယ်။ (ဥပမာ - လမ်းအကွာအဝေး၊ ကားစီးရမယ့် ကြာချိန်)။ ဒီလို Graph မျိုးမှာ အကောင်းဆုံး လမ်းကြောင်းရှာဖို့ Dijkstra's Algorithm လိုမျိုး နည်းလမ်းတွေ သုံးရပါတယ်။
+</Aside>
+
+### Image/Diagram Suggestion
+- Directed vs Undirected Graph: arrow ပါ/မပါ node network ကို ယှဉ်ပြထားတဲ့ diagram
+- BFS Layer Traversal: level-by-level အလွှာလိုက် ဖြတ်သန်းပုံ
+- DFS Backtrack Path: လမ်းဆုံးရောက်ပြီး ပြန်လှည့်လာပုံကို color path နဲ့ ပြထားတဲ့ visual
+- Map Route Graph: node=နေရာ, edge=လမ်းကြောင်း, weight=အချိန်/အကွာအဝေး ပုံစံ mock map

@@ -1,0 +1,38 @@
+---
+title: "Recursion"
+description: "The Russian Nesting Doll mental model and Call Stack."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Recursion: The "Russian Nesting Doll"
+
+Recursion ဆိုတာ Function တစ်ခုက သူ့ကိုယ်သူ ပြန်ခေါ်တာကို ခေါ်တာပါ။
+ရုရှား အရုပ်မလေးတွေလိုပဲ၊ အရုပ်ဖွင့်လိုက်ရင် အရုပ်ထွက်လာ၊ ထပ်ဖွင့်ရင် ထပ်ထွက်လာ၊ နောက်ဆုံး အသေးဆုံးအရုပ် ရောက်မှ ရပ်သွားတာမျိုးပါ။
+
+### Base Cases vs. Recursive Cases
+Recursion ရေးတော့မယ်ဆိုရင် အရေးကြီးဆုံးက **"ဘယ်တော့ ရပ်မလဲ?"** (STOP Condition) ပါပဲ။ မဟုတ်ရင် အဆုံးမရှိ ပတ်နေပါလိမ့်မယ် (Infinite Loop)။
+
+1.  **Base Case (ရပ်မယ့် အခြေအနေ):** အသေးဆုံး ပြဿနာ။ ချက်ချင်း အဖြေပေးနိုင်တဲ့ အခြေအနေ။
+2.  **Recursive Case (ဆက်သွားမယ့် အခြေအနေ):** ပြဿနာကို နည်းနည်းချင်း ချုံ့ပြီး ကိုယ့်ကိုယ်ကို ပြန်ခေါ်တဲ့ အဆင့်။
+
+```javascript
+function count_down(n) {
+  if (n <= 0) { // Base Case
+    console.log("Happy New Year!");
+    return;
+  }
+  console.log(n);
+  count_down(n - 1); // Recursive Case
+}
+```
+
+### Visual: The Call Stack Animation
+Recursion သုံးတဲ့အခါ Function တွေ ထပ်ထပ် ခေါ်သွားတာ ဖြစ်တဲ့အတွက် Memory ပေါ်က **Call Stack** မှာ သွားပြီး ထပ်နေပါတယ်။
+`count_down(3)` ခေါ်ရင် Stack ပေါ်မှာ `count_down(3)` -> `count_down(2)` -> `count_down(1)` ဆိုပြီး ဆင့်သွားပါတယ်။
+Base case ရောက်မှ Stack ပေါ်ကနေ တစ်ခုချင်း ပြန်ပြုတ်ကျ (Pop) လာတာ ဖြစ်ပါတယ်။
+
+### Image/Diagram Suggestion
+- Russian Doll Analogy Art: recursion nesting ကို အရုပ်အကြီး/အသေးနဲ့ ပြထားတဲ့ visual
+- Call Stack Frame Diagram: function call frame တွေ push/pop လုပ်သွားပုံ
+- Recursion Tree: Fibonacci/Count-down call tree ကို branch ပုံနဲ့ပြထားတဲ့ diagram

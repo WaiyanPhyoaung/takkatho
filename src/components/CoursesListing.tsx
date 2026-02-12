@@ -111,6 +111,21 @@ const coursesData: Course[] = [
     rating: 4.8,
     students: 2800,
   },
+  {
+    id: "dsa",
+    title: "Data Structures & Algorithms",
+    description:
+      "Brute force ကနေ Optimized thinking ကို ကူးပြောင်းကြမယ်။ Patterns တွေနဲ့ Visuals တွေကို သုံးပြီး လေ့လာကြမယ်။",
+    difficulty: "intermediate",
+    category: "Computer Science",
+    icon: "trending",
+    href: "/dsa",
+    lessons: 20,
+    tags: ["Algorithms", "Optimization", "Problem Solving"],
+    estimatedTime: "8 weeks",
+    rating: 4.9,
+    students: 100,
+  },
   // {
   //   id: "advanced-css",
   //   title: "Advanced CSS",
@@ -281,6 +296,7 @@ const icons = {
   globe: Globe,
   palette: Palette,
   sparkles: Sparkles,
+  trending: TrendingUp,
 };
 
 type CourseIconProps = {

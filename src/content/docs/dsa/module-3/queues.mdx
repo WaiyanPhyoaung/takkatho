@@ -1,0 +1,30 @@
+---
+title: "Queues"
+description: "First-In, First-Out concept and Printer jobs."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Queues (FIFO)
+
+Queue (တန်းစီခြင်း) ကတော့ လက်တွေ့ဘဝနဲ့ အနီးစပ်ဆုံးပါပဲ။ ဘဏ်မှာ ပိုက်ဆံထုတ်ဖို့ တန်းစီသလိုပေါ့။
+-   အရင်ရောက်တဲ့လူ၊ အရင်ရမယ်။
+-   နောက်မှ ရောက်တဲ့လူ၊ နောက်ဆုံးကနေ တန်းစီရမယ်။
+
+ဒါကို **First-In, First-Out (FIFO)** ၊ "အရင်ဝင်၊ အရင်ထွက်" လို့ ခေါ်ပါတယ်။
+
+### Real World Use: Printer Job Lines
+ရုံးခန်းတစ်ခုမှာ Printer က တစ်လုံးတည်းရှိတယ်။ လူ (၅) ယောက်က Print `Ctrl + P` တပြိုင်နက် နှိပ်လိုက်တယ်။ Printer က ဘယ်လို လုပ်မလဲ?
+သူ့ဆီ ရောက်လာတဲ့ Order တွေကို Queue ထဲ ထည့်ထားလိုက်တယ်။ ပြီးမှ တစ်ယောက်ချင်းစီ အလှည့်ကျ ထုတ်ပေးသွားတာ ဖြစ်ပါတယ်။
+
+### Ticketmaster Waiting Rooms
+Concert လက်မှတ် ဝယ်တဲ့အခါမှာလည်း "You are number 534 in line" ဆိုပြီး ပြနေတာ မြင်ဖူးမှာပါ။ ဒါဟာ Server က လူတွေကို Queue စနစ်နဲ့ စီမံခန့်ခွဲနေခြင်း ဖြစ်ပါတယ်။
+
+<Aside title="Deque (Double-Ended Queue)">
+ပုံမှန် Queue က ရှေ့ကထွက်၊ နောက်ကဝင် ပုံစံပါ။ Deque ကတော့ ရှေ့ရော နောက်ရော ဝင်လို့ထွက်လို့ ရတဲ့ Hybrid ပုံစံလေးပါ။
+</Aside>
+
+### Image/Diagram Suggestion
+- FIFO Queue Line: လူတန်းစီပုံနဲ့ enqueue/dequeue ကို arrow နဲ့ပြထားတဲ့ diagram
+- Printer Queue Dashboard: pending jobs စာရင်းက အစီအစဉ်လိုက် ထုတ်သွားပုံ visual
+- Deque Comparison: Queue vs Deque operations table/diagram (front/rear add-remove)

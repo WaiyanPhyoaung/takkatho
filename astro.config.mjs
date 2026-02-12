@@ -624,6 +624,110 @@ export default defineConfig({
           ],
         },
         {
+          label: "Data Structures & Algorithms",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "dsa",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Foundations",
+              items: [
+                {
+                  label: "The Big O & Memory",
+                  slug: "dsa/module-1/foundations",
+                },
+              ],
+            },
+            {
+              label: "Module 2: Linear Data Structures",
+              items: [
+                {
+                  label: "Arrays",
+                  slug: "dsa/module-2/arrays",
+                },
+                {
+                  label: "Strings",
+                  slug: "dsa/module-2/strings",
+                },
+                {
+                  label: "Linked Lists",
+                  slug: "dsa/module-2/linked-lists",
+                },
+              ],
+            },
+            {
+              label: "Module 3: LIFO & FIFO",
+              items: [
+                {
+                  label: "Stacks",
+                  slug: "dsa/module-3/stacks",
+                },
+                {
+                  label: "Queues",
+                  slug: "dsa/module-3/queues",
+                },
+                {
+                  label: "Hash Maps",
+                  slug: "dsa/module-3/hash-maps",
+                },
+              ],
+            },
+            {
+              label: "Module 4: Recursion & Sorting",
+              items: [
+                {
+                  label: "Recursion",
+                  slug: "dsa/module-4/recursion",
+                },
+                {
+                  label: "Sorting Algorithms",
+                  slug: "dsa/module-4/sorting",
+                },
+              ],
+            },
+            {
+              label: "Module 5: Trees & Graphs",
+              items: [
+                {
+                  label: "Trees & BST",
+                  slug: "dsa/module-5/trees",
+                },
+                {
+                  label: "Heaps",
+                  slug: "dsa/module-5/heaps",
+                },
+                {
+                  label: "Graphs",
+                  slug: "dsa/module-5/graphs",
+                },
+              ],
+            },
+            {
+              label: "Module 6: Advanced Problem Solving",
+              items: [
+                {
+                  label: "Dynamic Programming",
+                  slug: "dsa/module-6/dynamic-programming",
+                },
+                {
+                  label: "Greedy Algorithms",
+                  slug: "dsa/module-6/greedy",
+                },
+                {
+                  label: "Backtracking",
+                  slug: "dsa/module-6/backtracking",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "WebSocket",
           // autogenerate: { directory: "websocket" },
           items: [

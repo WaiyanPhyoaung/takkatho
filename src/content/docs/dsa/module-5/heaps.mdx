@@ -1,0 +1,29 @@
+---
+title: "Heaps (Priority Queues)"
+description: "Min-Heaps vs. Max-Heaps and Emergency Room logic."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Heaps
+
+Heap ဆိုတာလည်း Tree တစ်မျိုးပါပဲ။ ဒါပေမယ့် BST နဲ့ မတူတာက ဘယ်ညာ ခွဲမထားပါဘူး။ အပေါ်နဲ့ အောက်ပဲ ခွဲပါတယ်။
+**အဓိက ရည်ရွယ်ချက်:** "အကြီးဆုံး" သို့မဟုတ် "အငယ်ဆုံး" ကို ချက်ချင်း ရချင်တဲ့အခါ သုံးပါတယ်။ ($O(1)$)
+
+### Min-Heaps vs. Max-Heaps
+1.  **Min-Heap:** အငယ်ဆုံး တန်ဖိုးက အမြဲတမ်း ထိပ်ဆုံး (Root) မှာ ရှိတယ်။ (Child တွေက Parent ထက် ကြီးတယ်။)
+2.  **Max-Heap:** အကြီးဆုံး တန်ဖိုးက အမြဲတမ်း ထိပ်ဆုံး မှာ ရှိတယ်။ (Child တွေက Parent ထက် ငယ်တယ်။)
+
+### Real World Use: Emergency Room Triage
+ဆေးရုံ အရေးပေါ်ဌာန ရောက်ဖူးလား?
+-   လူနာ A: လက်မ ပြတ်သွားတယ်။ (Critical Level: 10)
+-   လူနာ B: ဗိုက်အောင့်တယ်။ (Critical Level: 3)
+-   လူနာ C: ဖျားချင်နေတယ်။ (Critical Level: 1)
+
+ဆရာဝန် ဘယ်သူ့ကို အရင် ကုမလဲ? အရင်ရောက်တဲ့ လူနာ C ကို အရင်ကုမှာ မဟုတ်ပါဘူး။ အရေးအကြီးဆုံး (Priority အမြင့်ဆုံး) လူနာ A ကို အရင်ကုမှာပါ။
+ဒါကို **Priority Queue** လို့ခေါ်တယ်။ နောက်ကွယ်မှာ Heap (Max-Heap) ကို သုံးပြီး တည်ဆောက်ထားပါတယ်။ အရေးကြီးဆုံး လူနာက Root မှာ အမြဲ ရောက်နေမှာပါ။
+
+### Image/Diagram Suggestion
+- Min-Heap vs Max-Heap Tree: root rule မတူတာကို side-by-side diagram
+- Heap Array Mapping: tree node index နဲ့ array index ဆက်နွယ်မှု visual
+- Hospital Triage Queue Board: severity score အလိုက် patient order update ဖြစ်သွားပုံ

@@ -1,0 +1,34 @@
+---
+title: "Greedy Algorithms"
+description: "Locally optimal choices and The Coin Change problem."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Greedy Algorithms
+
+Greedy (လောဘကြီးသော) ဆိုတဲ့အတိုင်း၊ ရှေ့မှာ မြင်နေရတဲ့ အကောင်းဆုံး အရာကိုပဲ ချက်ချင်း ရွေးချယ်လိုက်တဲ့ နည်းလမ်း ဖြစ်ပါတယ်။
+အနာဂတ်မှာ ဘာဖြစ်မယ်၊ နောက်ကြောင်းပြန်လှည့်မယ် ဆိုတာတွေ မစဉ်းစားပါဘူး။ လက်ရှိ အခြေအနေမှာ အကောင်းဆုံး (Locally Optimal) ဟာကို ရွေးချယ်လိုက်ခြင်းဖြင့် အဖြေမှန် (Global Optimum) ရမယ်လို့ ယူဆပါတယ်။
+
+### Example: The Coin Change Problem
+မုန့်ဖိုး ၁၈၀ ကျပ် ပေးရမယ်။ ၁၀၀ တန်၊ ၅၀ တန်၊ ၁၀ တန် တွေ ရှိတယ်။ အနည်းဆုံး အရေအတွက်နဲ့ ဘယ်လို ပေးမလဲ?
+
+1.  ရှိတဲ့အထဲမှာ အကြီးဆုံး ၁၀၀ တန်ကို ယူလိုက်မယ်။ (ကျန်ငွေ ၈၀)
+2.  နောက်ထပ် အကြီးဆုံး ၅၀ တန်ကို ယူလိုက်မယ်။ (ကျန်ငွေ ၃၀)
+3.  နောက်ထပ် တန်ဖိုးအကြီးဆုံး ၁၀ တန် ၃ ရွက် ယူလိုက်မယ်။ (ကျန်ငွေ ၀)
+
+စုစုပေါင်း ၅ ရွက် (၁၀၀ + ၅၀ + ၁၀ + ၁၀ + ၁၀)။
+ဒါ Greedy Approach ပါ။ အမြဲတမ်း အကြီးဆုံးကို အရင် ရွေးပါတယ်။
+
+<Aside type="caution" title="Greedy Trap">
+Greedy က အမြဲတမ်း အဖြေမှန် မထွက်နိုင်ပါဘူး။
+ဥပမာ - ၁၂ ကျပ် ပေးရမယ်။ (၁၀ တန်၊ ၆ တန်၊ ၁ တန် ရှိရင်)
+Greedy: ၁၀ + ၁ + ၁ (၃ ရွက်)
+Optimal: ၆ + ၆ (၂ ရွက်)
+ဒီလို အခြေအနေမျိုးမှာ DP (Dynamic Programming) ကို သုံးရပါမယ်။
+</Aside>
+
+### Image/Diagram Suggestion
+- Coin Change Decision Tree: greedy ရွေးချယ်မှုနဲ့ optimal ရွေးချယ်မှုကို branch ပုံနဲ့ နှိုင်းပြ
+- Local vs Global Optimum Illustration: “အခုကောင်း” နဲ့ “စုစုပေါင်းကောင်း” ကို scenario နှစ်ခုနဲ့ပြ
+- Activity Card: currency set ပြောင်းလိုက်ရင် greedy မှန်/မမှန် စမ်းကြည့်နိုင်တဲ့ worksheet-style image

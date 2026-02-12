@@ -1,0 +1,31 @@
+---
+title: "Hash Maps (The King of Speed)"
+description: "Key-Value pairs, O(1) lookups and handling collisions."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Hash Maps (Objects / Dictionaries)
+
+Data Structure လောကမှာ "အမြန်ဆုံး" ဆုကို ပေးရမယ်ဆိုရင် **Hash Map** က ဗိုလ်စွဲမှာ သေချာပါတယ်။
+Array တွေလို Index `0, 1, 2` နဲ့ မဟုတ်ဘဲ၊ ကိုယ်ပိုင်နာမည် (Key) နဲ့ သိမ်းလို့ရပါတယ်။
+
+-   `phone_book["Mg Mg"]` = "0912345678"
+-   `menu["Burger"]` = "$5"
+
+### Constant Time $O(1)$ Lookup
+Array တွေမှာ "Mg Mg" ကို ရှာချင်ရင် ခေါင်းကနေ အဆုံးထိ လိုက်မွှေရနိုင်တယ်။ ($O(n)$)
+Hash Map မှာတော့ "Mg Mg" ဆိုတာ ဘယ်နေရာမှာ ရှိလဲဆိုတာကို **Hash Function** က တန်းတွက်ပေးလိုက်တဲ့အတွက် ချက်ချင်း ရှာတွေ့ပါတယ်။ ($O(1)$)
+
+### Handling Collisions
+မတူညီတဲ့ Key နှစ်ခု (ဥပမာ "Apple" နဲ့ "Ava") ကို Hash လုပ်လိုက်တဲ့အခါ တိုက်ဆိုင်စွာနဲ့ နေရာတစ်ခုတည်း (Index တူတူ) သွားကျနေတာမျိုး ဖြစ်တတ်ပါတယ်။ ဒါကို **Collision** လို့ခေါ်တယ်။
+ဒါကို ဖြေရှင်းဖို့ နည်းလမ်းတွေ (ဥပမာ - ကြပ်နေတဲ့ အခန်းမှာ Linked List လေး ထပ်ချိတ်လိုက်တာမျိုး) ရှိပါတယ်။ ဒါပေမယ့် Programming Language တော်တော်များများက နောက်ကွယ်မှာ အလိုလို ဖြေရှင်းပေးထားပြီးသားပါ။
+
+### Project: Spell Checker
+Dictionary တစ်ခု တည်ဆောက်မယ်။ စာလုံးပေါင်း မှန်/မမှန် စစ်ချင်တယ်။
+English Dictionary ထဲမှာ စာလုံးပေါင်း သိန်းချီ ရှိနိုင်တယ်။ Array နဲ့ ရှာရင် အရမ်းကြာမယ်။ Hash Map (Set) ထဲမှာ ထည့်ထားရင် `if word in dictionary:` ဆိုပြီး စစ်လိုက်တာနဲ့ ချက်ချင်း အဖြေထွက်ပါတယ်။
+
+### Image/Diagram Suggestion
+- Hash Function Flow: key -> hash -> index -> bucket သွားတဲ့ pipeline diagram
+- Collision Handling Visual: key နှစ်ခု index တူသွားတဲ့အခါ chaining/open addressing ဖြေရှင်းပုံ
+- Dictionary Lookup UI: user type လုပ်တဲ့ စကားလုံးကို valid/invalid instant check ပြတဲ့ mockup

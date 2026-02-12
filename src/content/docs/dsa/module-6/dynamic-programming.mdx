@@ -1,0 +1,36 @@
+---
+title: "Dynamic Programming (DP)"
+description: "Memoization and filling grids."
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Dynamic Programming (DP)
+
+DP ဆိုတာ နာမည်ကြီးလွန်းလို့ ကြောက်စရာ ကောင်းတယ်လို့ ထင်ရပေမယ့်၊ တကယ်တော့ **Recursion + Caching** ပါပဲ။
+ဆိုလိုတာက၊ ပြဿနာ တစ်ခုခုကို ဖြေရှင်းတဲ့အခါ၊ တွက်ချက်ထားပြီးသား အဖြေတွေကို မှတ်ထား (Memoization) ပြီး၊ နောက်တစ်ခါ ထပ်လိုရင် ပြန်မတွက်ဘဲ ထုတ်သုံးတာပါပဲ။
+
+### Concept: "Don't Repeat Yourself" (DRY)
+1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = ?
+(8)
+
+ဒါဆို ညာဖက်မှာ `+ 1` ထပ်ထည့်လိုက်ရင် ဘယ်လောက်လဲ?
+(9)
+
+ဥပမာလေးမှာ `1` ကနေ `8` အထိ ပြန်ပေါင်းစရာ မလိုပါဘူး။ "ရှစ်" လို့ သိထားပြီးသားမို့၊ `8 + 1 = 9` ဆိုပြီး ချက်ချင်း ဖြေနိုင်ပါတယ်။ ဒါ DP ပါပဲ။
+
+### The Fibonacci Sequence
+Fibonacci (0, 1, 1, 2, 3, 5, 8, ...) ကို Recursion နဲ့ ရေးရင် `fib(n-1) + fib(n-2)` ဆိုပြီး သူ့ကိုသူ ခဏခဏ ပြန်ခေါ်ပါတယ်။
+Data တွေ ထပ်နေတာ အများကြီး ဖြစ်တတ်တယ်။
+DP သုံးလိုက်ရင် `fib(5)` ကို တွက်ထားပြီးသားဆိုရင်၊ နောက်တစ်ခါ `fib(6)` တွက်ဖို့အတွက် `fib(5)` ကို ပြန်တွက်စရာ မလိုတော့ပါဘူး။ ဇယား (Table) လေးထဲမှာ မှတ်ထားလိုက်ရုံပါပဲ။
+
+<Aside title="Steps">
+1.  ပြဿနာကို အပိုင်းသေးတွေ ခွဲပါ။
+2.  အပိုင်းသေး အဖြေကို သိမ်းထား (Memoize) ပါ။
+3.  သိမ်းထားတဲ့ အဖြေကို ပြန်သုံးပြီး အဖြေကြီး ထုတ်ပါ။
+</Aside>
+
+### Image/Diagram Suggestion
+- Overlapping Subproblems Tree: recursion tree ထဲက ထပ်ခါထပ်ခါတွက်နေတဲ့ node တွေ highlight လုပ်ထားတဲ့ visual
+- Memoization Cache Table: `fib(n)` value တွေ cache ထဲ သိမ်းသွားပုံ
+- Bottom-up DP Grid: table fill order ကို arrow နဲ့ပြထားတဲ့ diagram

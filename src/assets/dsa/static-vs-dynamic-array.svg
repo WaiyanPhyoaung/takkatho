@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <rect width="1200" height="700" fill="#0B1020"/>
+  <text x="60" y="80" fill="#F8FAFC" font-size="34" font-family="Arial, sans-serif" font-weight="700">Static Array vs Dynamic Array</text>
+
+  <rect x="60" y="130" width="520" height="500" rx="14" fill="#111827" stroke="#334155"/>
+  <text x="220" y="175" fill="#FCA5A5" font-size="28" font-family="Arial, sans-serif" font-weight="700">Static</text>
+  <rect x="110" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="200" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="290" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="380" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <text x="110" y="380" fill="#FCA5A5" font-size="22" font-family="Arial, sans-serif">No free slot -> grow မရ</text>
+
+  <rect x="620" y="130" width="520" height="500" rx="14" fill="#111827" stroke="#334155"/>
+  <text x="760" y="175" fill="#86EFAC" font-size="28" font-family="Arial, sans-serif" font-weight="700">Dynamic</text>
+  <rect x="670" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="760" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="850" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+  <rect x="940" y="240" width="80" height="80" fill="#1F2937" stroke="#64748B"/>
+
+  <line x1="845" y1="370" x2="845" y2="430" stroke="#93C5FD" stroke-width="4"/>
+  <polygon points="845,430 835,412 855,412" fill="#93C5FD"/>
+
+  <rect x="670" y="450" width="80" height="80" fill="#0F172A" stroke="#38BDF8"/>
+  <rect x="760" y="450" width="80" height="80" fill="#0F172A" stroke="#38BDF8"/>
+  <rect x="850" y="450" width="80" height="80" fill="#0F172A" stroke="#38BDF8"/>
+  <rect x="940" y="450" width="80" height="80" fill="#0F172A" stroke="#38BDF8"/>
+  <rect x="1030" y="450" width="80" height="80" fill="#0F172A" stroke="#38BDF8"/>
+
+  <text x="670" y="560" fill="#86EFAC" font-size="22" font-family="Arial, sans-serif">Resize + Copy -> Grow</text>
+</svg>
