@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <rect width="1200" height="700" fill="#0F172A"/>
+  <text x="70" y="80" fill="#E2E8F0" font-size="34" font-family="Arial, sans-serif" font-weight="700">Big O Growth Comparison</text>
+  <text x="70" y="115" fill="#94A3B8" font-size="20" font-family="Arial, sans-serif">Input Size (n) တိုးလာတဲ့အခါ Runtime ဘယ်လို တက်သွားလဲ</text>
+
+  <line x1="120" y1="590" x2="1080" y2="590" stroke="#475569" stroke-width="3"/>
+  <line x1="120" y1="590" x2="120" y2="140" stroke="#475569" stroke-width="3"/>
+  <text x="1030" y="630" fill="#CBD5E1" font-size="20" font-family="Arial, sans-serif">n</text>
+  <text x="45" y="160" fill="#CBD5E1" font-size="20" font-family="Arial, sans-serif">time</text>
+
+  <polyline points="120,560 240,535 360,515 480,500 600,488 720,478 840,470 960,463 1080,457" stroke="#22D3EE" stroke-width="5" fill="none"/>
+  <text x="930" y="440" fill="#22D3EE" font-size="22" font-family="Arial, sans-serif" font-weight="700">O(log n)</text>
+
+  <polyline points="120,560 240,530 360,500 480,470 600,440 720,410 840,380 960,350 1080,320" stroke="#34D399" stroke-width="5" fill="none"/>
+  <text x="980" y="305" fill="#34D399" font-size="22" font-family="Arial, sans-serif" font-weight="700">O(n)</text>
+
+  <polyline points="120,560 220,555 320,540 420,510 520,465 620,405 720,330 820,240 920,135" stroke="#FB7185" stroke-width="5" fill="none"/>
+  <text x="900" y="110" fill="#FB7185" font-size="22" font-family="Arial, sans-serif" font-weight="700">O(n²)</text>
+
+  <rect x="730" y="545" width="340" height="90" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="755" y="580" fill="#E5E7EB" font-size="18" font-family="Arial, sans-serif">Tip: n ကြီးလာတဲ့အခါ O(n²) က</text>
+  <text x="755" y="607" fill="#E5E7EB" font-size="18" font-family="Arial, sans-serif">မမြန်တော့ဘဲ ပြဿနာ ဖြစ်လာတတ်တယ်</text>
+</svg>
