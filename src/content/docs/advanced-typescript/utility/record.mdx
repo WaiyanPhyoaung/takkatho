@@ -25,7 +25,7 @@ const cache: UserCache = {
 "user-456": { id: 456, username: "anotherCached", email: "c@ex.com", bio: "Bio here", isActive: false, lastLogin: new Date() }
 };
 `
-export const css =`// CSSProperties ဆိုတဲ့ Type အသစ် လုပ်မယ်။ Key တွေက string၊ Value တွေက string ဒါမှမဟုတ် number ဖြစ်ရမယ်။
+export const css = `// CSSProperties ဆိုတဲ့ Type အသစ် လုပ်မယ်။ Key တွေက string၊ Value တွေက string ဒါမှမဟုတ် number ဖြစ်ရမယ်။
 type CSSProperties = Record<string, string | number>;
 
 const styles: CSSProperties = {
@@ -59,3 +59,16 @@ color: "blue", // Key က string၊ Value က string
           - JavaScript ထဲမှာ CSS (Cascading Style Sheets) ရဲ့ ပုံစံတွေ သတ်မှတ်တဲ့ Object တွေ လုပ်တဲ့အခါ သုံးနိုင်တယ်။ Key က CSS Property နာမည် (string)၊ Value က CSS တန်ဖိုး (string ဒါမှမဟုတ် number) ဖြစ်မယ်။
 
 <Code lang="typescript" code={css} title="index.ts" />
+
+### Video Lesson
+
+<div style="position: relative; width: 100%; padding-top: 56.25%;">
+  <iframe
+    src="https://www.youtube.com/embed/pKT-_XgZ2do"
+    title="YouTube video player"
+    style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>
