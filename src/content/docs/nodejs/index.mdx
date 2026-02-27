@@ -1,0 +1,39 @@
+---
+title: "Node.js မိတ်ဆက်"
+description: "Node.js အကြောင်း မိတ်ဆက်"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import nodejsArchitecture from "@/assets/nodejs/nodejs-architecture.svg";
+
+<Aside title="မင်္ဂလာပါ">
+Node.js Course ကနေ ကြိုဆိုပါတယ်။ ဒီ Course မှာ JavaScript ကို Browser ပြင်ပမှာ အလုပ်လုပ်စေတဲ့ Node.js ကို အခြေခံကနေ စပြီး လေ့လာသွားမှာ ဖြစ်ပါတယ်။
+</Aside>
+
+### Node.js ဆိုတာ ဘာလဲ?
+
+အရင်တုန်းက JavaScript ကို Web Browser (Chrome, Firefox) တွေထဲမှာပဲ အလုပ်လုပ်လို့ ရပါတယ်။ ဒါပေမယ့် ၂၀၀၉ ခုနှစ်မှာ Ryan Dahl ဆိုတဲ့သူက Google Chrome ရဲ့ **V8 JavaScript Engine** ကို ယူပြီး Browser ပြင်ပမှာပါ အလုပ်လုပ်လို့ရအောင် ဖန်တီးလိုက်ပါတယ်။ အဲ့ဒါကို **Node.js** လို့ ခေါ်ပါတယ်။
+
+Node.js ဟာ Programming Language အသစ် မဟုတ်ပါဘူး။ JavaScript ကို Server ပေါ်မှာ (Backend အနေနဲ့) အလုပ်လုပ်စေတဲ့ **Runtime Environment** တစ်ခု ဖြစ်ပါတယ်။
+
+<ContentImage src={nodejsArchitecture} alt="Node.js Architecture" />
+
+### ဘာလို့ Node.js ကို လေ့လာသင့်တာလဲ?
+
+- **JavaScript တစ်ခုတည်းနဲ့ အကုန်ရ:** Frontend (React, Vue) မှာရော၊ Backend (Node.js) မှာပါ JavaScript တစ်မျိုးတည်းကိုပဲ သုံးလို့ရတဲ့အတွက် Full-stack Developer ဖြစ်ဖို့ အရမ်းလွယ်ကူသွားပါတယ်။
+- **မြန်ဆန်မှု (Fast):** V8 Engine ကို သုံးထားတဲ့အတွက် Code တွေကို အလွန်မြန်ဆန်စွာ အလုပ်လုပ်ပေးနိုင်ပါတယ်။
+- **Asynchronous & Non-blocking:** အလုပ်တစ်ခု ပြီးမှ နောက်တစ်ခု လုပ်တာမျိုး မဟုတ်ဘဲ၊ အလုပ်တွေကို တစ်ပြိုင်နက်တည်း လုပ်ဆောင်နိုင်တဲ့အတွက် User အများကြီး ဝင်လာတဲ့အခါ (High Traffic) မှာ အရမ်း အဆင်ပြေပါတယ်။
+- **NPM (Node Package Manager):** ကမ္ဘာပေါ်မှာ အကြီးဆုံး Open-source Library စုစည်းမှုကြီး ရှိတဲ့အတွက် ကိုယ်လိုချင်တဲ့ လုပ်ဆောင်ချက်တွေကို အလွယ်တကူ ယူသုံးလို့ ရပါတယ်။
+
+### ဒီ Course မှာ ဘာတွေ သင်ရမလဲ?
+
+1. **Node.js Basics & Modules:** Node.js ရဲ့ အခြေခံနဲ့ ဖိုင်တွေကို ဘယ်လို ချိတ်ဆက်မလဲ။
+2. **File System & Path:** ကွန်ပျူတာထဲက ဖိုင်တွေကို ဖတ်ခြင်း၊ ရေးခြင်း။
+3. **Asynchronous Programming:** Callbacks, Promises နဲ့ Async/Await အကြောင်း။
+4. **NPM:** Package တွေကို ဘယ်လို Install လုပ်ပြီး သုံးမလဲ။
+5. **Web Server:** ကိုယ်ပိုင် Web Server တစ်ခု ဘယ်လို တည်ဆောက်မလဲ။
+6. **Express.js:** Node.js အတွက် အသုံးအများဆုံး Framework အကြောင်း။
+7. **Mini Project:** Express.js ကို သုံးပြီး ရိုးရှင်းတဲ့ REST API တစ်ခု ရေးကြည့်ခြင်း။
+
+ကဲ... Node.js လောကထဲကို ဝင်ရောက်ကြည့်ကြရအောင်!

@@ -1,0 +1,101 @@
+---
+title: "Objects & Interfaces"
+description: "Object များ၏ ပုံစံကြမ်း (Blueprint) ဖန်တီးခြင်း"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import interfacesSvg from "@/assets/typescript/interfaces.svg";
+
+JavaScript မှာ Object တွေက အရမ်း အသုံးများပါတယ်။ ဒါပေမယ့် Object ထဲမှာ ဘာ Data တွေ ပါရမယ် ဆိုတာကို ကြိုတင် သတ်မှတ်ထားလို့ မရပါဘူး။ TypeScript မှာတော့ **Interface** သို့မဟုတ် **Type Alias** ကို သုံးပြီး Object တွေရဲ့ ပုံစံကြမ်း (Blueprint) ကို ဖန်တီးလို့ ရပါတယ်။
+
+<ContentImage src={interfacesSvg} alt="TypeScript Interfaces" />
+
+---
+
+### 1. Interface အသုံးပြုခြင်း
+
+`interface` ဆိုတာ Object တစ်ခုမှာ ဘာ Properties တွေ ပါရမယ်၊ အဲ့ဒီ Properties တွေက ဘာ Type ဖြစ်ရမယ် ဆိုတာကို သတ်မှတ်ပေးတာပါ။
+
+```typescript
+// User ဆိုတဲ့ ပုံစံကြမ်း ဖန်တီးခြင်း
+interface User {
+    name: string;
+    age: number;
+}
+
+// User ပုံစံအတိုင်း Object တည်ဆောက်ခြင်း
+let user1: User = {
+    name: "Aung Aung",
+    age: 25
+};
+
+// ❌ Error: 'age' မပါလို့ လက်မခံပါဘူး
+let user2: User = {
+    name: "Su Su" 
+};
+```
+
+---
+
+### 2. Optional Properties (မပါလည်းရသော အချက်အလက်များ)
+
+Object ထဲမှာ တချို့ အချက်အလက်တွေက မပါလည်း ရတယ်ဆိုရင် `?` လေး ထည့်ပေးရပါတယ်။
+
+```typescript
+interface Product {
+    id: number;
+    name: string;
+    description?: string; // ? ပါတဲ့အတွက် မထည့်လည်း ရပါတယ်
+}
+
+let item1: Product = {
+    id: 1,
+    name: "Laptop",
+    description: "Gaming Laptop"
+};
+
+let item2: Product = {
+    id: 2,
+    name: "Mouse"
+    // description မပါလည်း မှန်ပါတယ်
+};
+```
+
+---
+
+### 3. Readonly Properties (ပြင်လို့မရသော အချက်အလက်များ)
+
+တစ်ခါတလေမှာ Object ရဲ့ အချက်အလက် တချို့ကို စဖန်တီးတုန်းကပဲ ထည့်ခွင့်ပေးပြီး၊ နောက်ပိုင်း ပြန်ပြင်ခွင့် မပေးချင်တာမျိုး ရှိပါတယ်။ အဲ့ဒီအခါ `readonly` ကို သုံးပါတယ်။
+
+```typescript
+interface Employee {
+    readonly id: number; // ပြင်လို့ မရပါ
+    name: string;
+}
+
+let emp: Employee = {
+    id: 101,
+    name: "Kyaw Kyaw"
+};
+
+emp.name = "Kyaw Gyi"; // ✅ ပြင်လို့ ရပါတယ်
+emp.id = 102;          // ❌ Error: Cannot assign to 'id' because it is a read-only property.
+```
+
+---
+
+### 4. Type Alias (Type အမည်ဝှက်)
+
+`interface` နဲ့ အလုပ်လုပ်ပုံ အရမ်းဆင်တူတဲ့ နောက်တစ်နည်းကတော့ `type` ကို သုံးတာပါ။
+
+```typescript
+type Point = {
+    x: number;
+    y: number;
+};
+
+let p1: Point = { x: 10, y: 20 };
+```
+
+**Interface နဲ့ Type ဘာကွာလဲ?**
+အခြေခံအားဖြင့်တော့ အတူတူပါပဲ။ Object တွေအတွက်ဆိုရင် `interface` ကို ပိုသုံးလေ့ရှိပြီး၊ တခြား ရှုပ်ထွေးတဲ့ Type တွေ ပေါင်းစပ်တဲ့အခါ `type` ကို ပိုသုံးလေ့ ရှိပါတယ်။ (နောက်သင်ခန်းစာတွေမှာ ဆက်လေ့လာရပါမယ်)။

@@ -1,0 +1,100 @@
+---
+title: "Module 5: Pointers & Structs"
+description: "Memory Addresses များနှင့် Custom Data Types များ တည်ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Pointers (မှတ်ဉာဏ် လိပ်စာများ)
+
+Pointer ဆိုတာ Variable တစ်ခုရဲ့ **Memory Address (မှတ်ဉာဏ် လိပ်စာ)** ကို သိမ်းဆည်းပေးတဲ့ Variable အမျိုးအစား ဖြစ်ပါတယ်။
+
+- `&` operator ကို သုံးပြီး Variable ရဲ့ Address ကို ယူနိုင်ပါတယ်။
+- `*` operator ကို သုံးပြီး Pointer ညွှန်ပြနေတဲ့ နေရာက တန်ဖိုးကို ယူနိုင်/ပြင်နိုင်ပါတယ်။
+
+```go
+func main() {
+    i := 42
+
+    p := &i         // p သည် i ၏ memory address ကို သိမ်းထားသည်
+    fmt.Println(*p) // p ညွှန်ပြနေသော တန်ဖိုး (42) ကို ဖတ်မည်
+
+    *p = 21         // p ညွှန်ပြနေသော နေရာမှ တန်ဖိုးကို 21 သို့ ပြောင်းမည်
+    fmt.Println(i)  // i ၏ တန်ဖိုး 21 ဖြစ်သွားမည်
+}
+```
+
+### ဘာကြောင့် Pointer ကို သုံးတာလဲ?
+
+Function တွေဆီကို Data အကြီးကြီးတွေ ပေးပို့တဲ့အခါ Data ကို Copy ကူးမယ့်အစား Address ကိုပဲ ပေးလိုက်ရင် Memory သက်သာပြီး ပိုမြန်ပါတယ်။ နောက်ပြီး Function ထဲကနေ မူလ Variable ရဲ့ တန်ဖိုးကို ပြင်ချင်တဲ့အခါမှာလည်း သုံးပါတယ်။
+
+## Structs (Custom Data Types)
+
+Go မှာ Class တွေ မရှိပါဘူး။ အဲဒီအစား `struct` ကို သုံးပြီး ကိုယ်ပိုင် Data Type တွေ တည်ဆောက်နိုင်ပါတယ်။ Struct ဆိုတာ မတူညီတဲ့ Data Type တွေကို တစ်စုတစ်စည်းတည်း သိမ်းဆည်းပေးတဲ့ အရာပါ။
+
+```go
+// User ဆိုသော struct ကို တည်ဆောက်ခြင်း
+type User struct {
+    Name  string
+    Age   int
+    Email string
+}
+
+func main() {
+    // Struct ကို အသုံးပြုခြင်း
+    user1 := User{
+        Name:  "Mg Mg",
+        Age:   25,
+        Email: "mgmg@example.com",
+    }
+
+    // Data များကို ခေါ်ယူခြင်း
+    fmt.Println(user1.Name) // Mg Mg
+    
+    // Data ပြင်ဆင်ခြင်း
+    user1.Age = 26
+}
+```
+
+## Methods (Struct ၏ လုပ်ဆောင်ချက်များ)
+
+Go မှာ Class မရှိပေမယ့် Struct တွေအတွက် Method တွေ ရေးလို့ရပါတယ်။ Method ဆိုတာ သီးသန့် Struct တစ်ခုအတွက်ပဲ အလုပ်လုပ်တဲ့ Function ပါ။
+
+```go
+type Rectangle struct {
+    Width  float64
+    Height float64
+}
+
+// Rectangle အတွက် Area တွက်ပေးမည့် Method
+// (r Rectangle) ကို Receiver ဟု ခေါ်သည်
+func (r Rectangle) Area() float64 {
+    return r.Width * r.Height
+}
+
+func main() {
+    rect := Rectangle{Width: 10, Height: 5}
+    fmt.Println("Area:", rect.Area()) // 50
+}
+```
+
+### Pointer Receivers
+
+Method ထဲကနေ Struct ရဲ့ Data ကို ပြင်ချင်ရင် Pointer Receiver ကို သုံးရပါတယ်။
+
+```go
+// Pointer Receiver အသုံးပြုထားခြင်း
+func (r *Rectangle) Scale(factor float64) {
+    r.Width = r.Width * factor
+    r.Height = r.Height * factor
+}
+
+func main() {
+    rect := Rectangle{Width: 10, Height: 5}
+    rect.Scale(2) // Width 20, Height 10 ဖြစ်သွားမည်
+}
+```
+
+<Aside type="tip" title="မှတ်သားရန်">
+Method တွေ ရေးတဲ့အခါ များသောအားဖြင့် **Pointer Receiver** ကိုပဲ အသုံးပြုလေ့ရှိပါတယ်။ ဘာကြောင့်လဲဆိုတော့ Data ကို Copy မကူးဘဲ တိုက်ရိုက်ပြင်နိုင်လို့ပါ။
+</Aside>

@@ -1,0 +1,131 @@
+---
+title: "Express.js Basics"
+description: "Node.js အတွက် အသုံးအများဆုံး Web Framework ဖြစ်သော Express.js အကြောင်း"
+---
+
+အရင်သင်ခန်းစာမှာ `http` module ကို သုံးပြီး Server ရေးခဲ့ပါတယ်။ ဒါပေမယ့် လမ်းကြောင်း (Route) တွေ များလာတဲ့အခါ `if/else` တွေ အများကြီး ရေးရပြီး Code တွေ ရှုပ်ထွေးလာပါတယ်။
+
+အဲ့ဒီ ပြဿနာကို ဖြေရှင်းဖို့ **Express.js** ဆိုတဲ့ Framework ကို သုံးကြပါတယ်။ Express ဟာ Node.js အတွက် အလွယ်ကူဆုံး၊ အမြန်ဆန်ဆုံးနဲ့ အသုံးအများဆုံး Web Framework ဖြစ်ပါတယ်။
+
+---
+
+### 1. Express ကို Install လုပ်ခြင်း
+
+အရင်ဆုံး သင့် Project ထဲမှာ Express ကို Install လုပ်ရပါမယ်။ Terminal မှာ အောက်ပါအတိုင်း ရိုက်ပါ။
+
+```bash
+npm init -y
+npm install express
+```
+
+---
+
+### 2. Express ဖြင့် Server တည်ဆောက်ခြင်း
+
+`app.js` ဖိုင်တစ်ခု ဖန်တီးပြီး အောက်ပါ Code တွေကို ရေးပါ။
+
+```javascript
+// 1. Express ကို ခေါ်ယူခြင်း
+const express = require('express');
+
+// 2. Express App တစ်ခု ဖန်တီးခြင်း
+const app = express();
+
+// 3. Route များ သတ်မှတ်ခြင်း
+// GET request ဖြင့် '/' (Home Page) ကို လာသောအခါ
+app.get('/', (req, res) => {
+    res.send('<h1>Hello from Express!</h1>');
+});
+
+app.get('/about', (req, res) => {
+    res.send('<h1>About Page</h1>');
+});
+
+// 4. Server ကို ဖွင့်ခြင်း
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+```
+
+`http` module နဲ့ ရေးတာထက် အများကြီး ပိုတိုပြီး ဖတ်ရလွယ်သွားတာကို တွေ့ရပါလိမ့်မယ်။
+
+---
+
+### 3. JSON Data ပြန်ပို့ခြင်း (API)
+
+Express မှာ JSON Data ပြန်ပို့ချင်ရင် `res.json()` ကို သုံးလိုက်ရုံပါပဲ။ `JSON.stringify()` တွေ ပြောင်းနေစရာ မလိုတော့ပါဘူး။
+
+```javascript
+app.get('/api/users', (req, res) => {
+    const users = [
+        { id: 1, name: 'Aung Aung' },
+        { id: 2, name: 'Su Su' }
+    ];
+    
+    // JSON အဖြစ် အလိုအလျောက် ပြောင်းပြီး ပို့ပေးပါတယ်
+    res.json(users); 
+});
+```
+
+---
+
+### 4. URL Parameters (ပြောင်းလဲနိုင်သော လမ်းကြောင်းများ)
+
+User တစ်ယောက်ချင်းစီရဲ့ အချက်အလက်ကို ယူချင်တဲ့အခါ (ဥပမာ - `/api/users/1`, `/api/users/2`) URL မှာ ပါလာတဲ့ ဂဏန်းကို ဖမ်းယူဖို့ `req.params` ကို သုံးပါတယ်။
+
+```javascript
+// :id ဆိုတာက ပြောင်းလဲနိုင်တဲ့ တန်ဖိုး (Parameter) ပါ
+app.get('/api/users/:id', (req, res) => {
+    // URL ကနေ id ကို ဖမ်းယူခြင်း
+    const userId = req.params.id;
+    
+    res.json({
+        message: `User ID ${userId} ၏ အချက်အလက်များ`,
+        id: userId
+    });
+});
+```
+
+---
+
+### 5. Middleware (ကြားခံ လုပ်ဆောင်ချက်များ)
+
+Middleware ဆိုတာ Request ဝင်လာတဲ့အချိန်နဲ့ Response ပြန်မပို့ခင် ကြားထဲမှာ အလုပ်လုပ်ပေးတဲ့ Function တွေပါ။ ဥပမာ - User က Login ဝင်ထားလား စစ်ဆေးတာ၊ ဝင်လာတဲ့ Data တွေကို ပြင်ဆင်ပေးတာ မျိုးတွေမှာ သုံးပါတယ်။
+
+```javascript
+// ရိုးရှင်းတဲ့ Middleware တစ်ခု ဖန်တီးခြင်း
+const logger = (req, res, next) => {
+    console.log(`${req.method} request လာပါသည်: ${req.url}`);
+    
+    // နောက်ထပ် အလုပ်တွေ ဆက်လုပ်ဖို့ next() ကို မဖြစ်မနေ ခေါ်ပေးရပါတယ်
+    next(); 
+};
+
+// Middleware ကို App တစ်ခုလုံးမှာ အသုံးပြုခြင်း
+app.use(logger);
+
+app.get('/', (req, res) => {
+    res.send('Home Page');
+});
+```
+
+#### Built-in Middleware (အသင့်ပါဝင်သော Middleware)
+
+User ဆီကနေ (ဥပမာ - Form ကနေ) ပို့လိုက်တဲ့ JSON Data တွေကို လက်ခံရယူဖို့ Express မှာ အသင့်ပါဝင်တဲ့ Middleware ကို သုံးပေးရပါတယ်။
+
+```javascript
+// User ပို့လိုက်တဲ့ JSON Data တွေကို ဖတ်လို့ရအောင် လုပ်ပေးခြင်း
+app.use(express.json());
+
+// POST request ဖြင့် Data အသစ် ထည့်ခြင်း
+app.post('/api/users', (req, res) => {
+    // User ပို့လိုက်တဲ့ Data ကို req.body ကနေ ယူလို့ရပါပြီ
+    const newUser = req.body;
+    
+    console.log(newUser);
+    res.send('User အသစ် ထည့်သွင်းပြီးပါပြီ။');
+});
+```
+
+Express.js ဟာ အလွန်စွမ်းဆောင်ရည်ကောင်းပြီး၊ နောက်သင်ခန်းစာမှာ ဒီ Express ကို သုံးပြီး တကယ့် API အသေးစားလေး တစ်ခု ရေးကြည့်ပါမယ်။

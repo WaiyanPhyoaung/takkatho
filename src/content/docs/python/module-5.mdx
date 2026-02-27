@@ -1,0 +1,92 @@
+---
+title: "Object-Oriented Programming (OOP)"
+description: "Python တွင် Classes နှင့် Objects များ အသုံးပြုခြင်း"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import oopConcept from "@/assets/python/oop-concept.svg";
+
+Object-Oriented Programming (OOP) ဆိုတာ Code တွေကို **"အရာဝတ္ထု (Objects)"** လေးတွေ အနေနဲ့ မြင်ပြီး ရေးတဲ့ ပုံစံပါ။ လက်တွေ့ကမ္ဘာက အရာတွေ (ဥပမာ - ကား၊ လူ၊ ဘဏ်အကောင့်) ကို Code အဖြစ် ပြောင်းလဲရေးသားတဲ့အခါ အရမ်း အသုံးဝင်ပါတယ်။
+
+---
+
+### Class နှင့် Object ဆိုတာ ဘာလဲ?
+
+- **Class:** အိမ်ဆောက်တဲ့ **"ပုံစံကြမ်း (Blueprint)"** ပါ။ အိမ်မှာ ဘာတွေ ပါရမယ် ဆိုတာကိုပဲ ရေးထားတာပါ။ တကယ့် အိမ် မဟုတ်သေးပါဘူး။
+- **Object:** အဲ့ဒီ ပုံစံကြမ်းကို ကြည့်ပြီး ဆောက်ထားတဲ့ **"တကယ့် အိမ်"** ပါ။ ပုံစံကြမ်း တစ်ခုတည်းကနေ အိမ် (Object) တွေ အများကြီး ဆောက်လို့ ရပါတယ်။
+
+<ContentImage src={oopConcept} alt="OOP Concept Diagram" />
+
+---
+
+### Class ဘယ်လို တည်ဆောက်မလဲ?
+
+ခွေးလေးတွေအတွက် Class တစ်ခု တည်ဆောက်ကြည့်ရအောင်။
+
+```python
+class Dog:
+    # __init__ ဆိုတာ Object စဆောက်တဲ့အခါ အလိုအလျောက် အလုပ်လုပ်မယ့် အပိုင်းပါ (Constructor)
+    # self ဆိုတာ "ငါ့ရဲ့" လို့ အဓိပ္ပာယ်ရပါတယ်။ Object ကိုယ်တိုင်ကို ရည်ညွှန်းတာပါ။
+    def __init__(self, name, breed):
+        self.name = name   # ငါ့ရဲ့ နာမည်ကတော့ (ပေးလိုက်တဲ့ name) ပါ
+        self.breed = breed # ငါ့ရဲ့ အမျိုးအစားကတော့ (ပေးလိုက်တဲ့ breed) ပါ
+    
+    # ဒါက ခွေးလေး လုပ်နိုင်တဲ့ အလုပ်ပါ (Method လို့ ခေါ်ပါတယ်)
+    def bark(self):
+        print(f"{self.name} က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။")
+```
+
+**`self` ဆိုတာ ဘာလဲ?**
+`self` ဆိုတာ Object တစ်ခုနဲ့ တစ်ခု မရောသွားအောင် ခွဲခြားပေးတာပါ။ "Aung Net" က ဟောင်ရင် "Aung Net က ဟောင်တယ်" လို့ ထွက်ရမယ်၊ "Phoe Wa" က ဟောင်ရင် "Phoe Wa က ဟောင်တယ်" လို့ ထွက်ရပါမယ်။ အဲ့ဒါကို `self` က တာဝန်ယူပေးပါတယ်။
+
+---
+
+### Object ဘယ်လို ဖန်တီးမလဲ?
+
+အပေါ်က `Dog` Class (ပုံစံကြမ်း) ကို သုံးပြီး တကယ့် ခွေးလေးတွေ (Objects) ဖန်တီးကြည့်ပါမယ်။
+
+```python
+# ခွေးလေး နှစ်ကောင် ဖန်တီးခြင်း (Objects ဆောက်ခြင်း)
+dog1 = Dog("Aung Net", "Golden Retriever")
+dog2 = Dog("Phoe Wa", "Bulldog")
+
+# သူတို့ရဲ့ အချက်အလက် (Attributes) တွေကို ကြည့်ခြင်း
+print(dog1.name) # Aung Net
+print(dog2.breed) # Bulldog
+
+# သူတို့ကို အလုပ်လုပ်ခိုင်းခြင်း (Methods တွေကို ခေါ်သုံးခြင်း)
+dog1.bark() # Aung Net က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။
+dog2.bark() # Phoe Wa က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။
+```
+
+---
+
+### Inheritance (အမွေဆက်ခံခြင်း)
+
+OOP ရဲ့ အကောင်းဆုံး အချက်တစ်ခုကတော့ ရှိပြီးသား Class ကို အခြေခံပြီး အသစ်တစ်ခု ထပ်ချဲ့လို့ ရတာပါပဲ။ ဒါကို Inheritance လို့ ခေါ်ပါတယ်။
+
+ဥပမာ - `Animal` ဆိုတဲ့ Class အကြီးကြီး ရှိမယ်။ အဲ့ဒီကနေ `Cat` နဲ့ `Dog` ဆိုပြီး ခွဲထွက်သွားမယ်။
+
+```python
+# Parent Class (မိဘ)
+class Animal:
+    def __init__(self, name):
+        self.name = name
+        
+    def eat(self):
+        print(f"{self.name} က အစာစားနေပါတယ်။")
+
+# Child Class (သားသမီး) - Animal ဆီကနေ အမွေဆက်ခံထားပါတယ်
+class Cat(Animal):
+    def meow(self):
+        print(f"{self.name} က မြောင် လို့ အော်နေပါတယ်။")
+
+# Cat Object ဆောက်ကြည့်မယ်
+my_cat = Cat("ရွှေဝါ")
+
+# Animal ဆီက ရထားတဲ့ eat() ကိုလည်း သုံးလို့ရသလို၊ သူ့ကိုယ်ပိုင် meow() ကိုလည်း သုံးလို့ရပါတယ်
+my_cat.eat()  # ရွှေဝါ က အစာစားနေပါတယ်။
+my_cat.meow() # ရွှေဝါ က မြောင် လို့ အော်နေပါတယ်။
+```
+
+OOP ကို သုံးခြင်းအားဖြင့် Code တွေကို ပြန်သုံးရ လွယ်ကူစေပြီး၊ Project အကြီးကြီးတွေ ရေးတဲ့အခါ ပိုမို စနစ်ကျစေပါတယ်။

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ADD8" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#00ADD8" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="goroutine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ADD8"/>
+      <stop offset="100%" stop-color="#007A99"/>
+    </linearGradient>
+    <linearGradient id="channel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F6D365"/>
+      <stop offset="100%" stop-color="#FDA085"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" rx="20" fill="url(#bg)"/>
+  
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#333" text-anchor="middle">Golang Concurrency Model</text>
+  <text x="400" y="80" font-family="Arial, sans-serif" font-size="16" fill="#666" text-anchor="middle">Goroutines communicating via Channels</text>
+
+  <!-- Main Process -->
+  <rect x="50" y="150" width="150" height="100" rx="10" fill="#333" filter="url(#shadow)"/>
+  <text x="125" y="195" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Main</text>
+  <text x="125" y="220" font-family="Arial, sans-serif" font-size="14" fill="#ccc" text-anchor="middle">Goroutine</text>
+
+  <!-- Goroutine 1 -->
+  <rect x="600" y="100" width="150" height="80" rx="10" fill="url(#goroutine)" filter="url(#shadow)"/>
+  <text x="675" y="135" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Worker 1</text>
+  <text x="675" y="160" font-family="Arial, sans-serif" font-size="14" fill="#e0e0e0" text-anchor="middle">Goroutine</text>
+
+  <!-- Goroutine 2 -->
+  <rect x="600" y="220" width="150" height="80" rx="10" fill="url(#goroutine)" filter="url(#shadow)"/>
+  <text x="675" y="255" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Worker 2</text>
+  <text x="675" y="280" font-family="Arial, sans-serif" font-size="14" fill="#e0e0e0" text-anchor="middle">Goroutine</text>
+
+  <!-- Channels -->
+  <path d="M 200 180 L 350 140 L 600 140" fill="none" stroke="url(#channel)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 200 220 L 350 260 L 600 260" fill="none" stroke="url(#channel)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Data Packets -->
+  <circle cx="450" cy="140" r="15" fill="white" filter="url(#shadow)"/>
+  <text x="450" y="145" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">D1</text>
+
+  <circle cx="450" cy="260" r="15" fill="white" filter="url(#shadow)"/>
+  <text x="450" y="265" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">D2</text>
+
+  <!-- Labels -->
+  <rect x="380" y="115" width="80" height="24" rx="12" fill="#fff" opacity="0.8"/>
+  <text x="420" y="132" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FDA085" text-anchor="middle">Channel</text>
+
+  <rect x="380" y="275" width="80" height="24" rx="12" fill="#fff" opacity="0.8"/>
+  <text x="420" y="292" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FDA085" text-anchor="middle">Channel</text>
+
+  <!-- Arrows -->
+  <polygon points="580,130 600,140 580,150" fill="url(#channel)"/>
+  <polygon points="580,250 600,260 580,270" fill="url(#channel)"/>
+
+  <!-- Note -->
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#555" text-anchor="middle">"Do not communicate by sharing memory; instead, share memory by communicating."</text>
+</svg>

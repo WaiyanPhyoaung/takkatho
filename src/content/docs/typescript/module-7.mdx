@@ -1,0 +1,95 @@
+---
+title: "Generics"
+description: "ပြန်လည်အသုံးပြုနိုင်သော (Reusable) Type များ ဖန်တီးခြင်း"
+---
+
+Generics ဆိုတာ TypeScript ရဲ့ အဆင့်မြင့်ဆုံးနဲ့ အသုံးအဝင်ဆုံး လုပ်ဆောင်ချက်တွေထဲက တစ်ခုပါ။ သူက **"Type တွေကို Variable လိုမျိုး အသုံးပြုခွင့်"** ပေးပါတယ်။
+
+---
+
+### 1. Generics ဘာကြောင့် လိုအပ်တာလဲ?
+
+ဥပမာ - ဝင်လာတဲ့ တန်ဖိုးကို အဲ့ဒီအတိုင်း ပြန်ထုတ်ပေးတဲ့ Function တစ်ခု ရေးကြည့်ရအောင်။
+
+```typescript
+// number အတွက်
+function returnNumber(val: number): number {
+    return val;
+}
+
+// string အတွက်
+function returnString(val: string): string {
+    return val;
+}
+```
+
+ဒီလိုမျိုး Type တစ်ခုချင်းစီအတွက် Function တွေ လိုက်ရေးနေရရင် အဆင်မပြေပါဘူး။ `any` သုံးလိုက်ရင်လည်း Type စစ်ဆေးတဲ့ စည်းကမ်းတွေ ပျက်သွားပါမယ်။
+
+အဲ့ဒီ ပြဿနာကို ဖြေရှင်းဖို့ **Generics** ကို သုံးပါတယ်။
+
+---
+
+### 2. Generics အသုံးပြုခြင်း
+
+Generics ကို သုံးဖို့ `<T>` (Type ရဲ့ အတိုကောက်) ကို သုံးလေ့ရှိပါတယ်။ `T` နေရာမှာ ကြိုက်တဲ့ နာမည် ပေးလို့ ရပါတယ်။
+
+```typescript
+// <T> ဆိုတာက "ငါ့ကို ဘာ Type ပေးမလဲ၊ အဲ့ဒီ Type အတိုင်း ငါအလုပ်လုပ်မယ်" လို့ ပြောတာပါ
+function returnAnything<T>(val: T): T {
+    return val;
+}
+
+// အသုံးပြုတဲ့အခါ ဘာ Type လဲဆိုတာ ထည့်ပေးရပါတယ်
+let numResult = returnAnything<number>(100);      // T က number ဖြစ်သွားပါပြီ
+let strResult = returnAnything<string>("Hello");  // T က string ဖြစ်သွားပါပြီ
+
+// Type Inference ကြောင့် <Type> မထည့်လည်း သူဘာသာ သိပါတယ်
+let boolResult = returnAnything(true); // T က boolean မှန်း အလိုအလျောက် သိပါတယ်
+```
+
+---
+
+### 3. Arrays များတွင် Generics သုံးခြင်း
+
+Array တွေမှာလည်း Generics ကို သုံးလို့ ရပါတယ်။
+
+```typescript
+// ဝင်လာတဲ့ Array ရဲ့ ပထမဆုံး အခန်းကို ပြန်ထုတ်ပေးမယ့် Function
+function getFirstElement<T>(arr: T[]): T {
+    return arr[0];
+}
+
+let firstNum = getFirstElement([1, 2, 3]);       // အဖြေ: 1 (Type: number)
+let firstStr = getFirstElement(["A", "B", "C"]); // အဖြေ: "A" (Type: string)
+```
+
+---
+
+### 4. Interfaces များတွင် Generics သုံးခြင်း
+
+API ကနေ Data တွေ လှမ်းယူတဲ့အခါ (Response) ပုံစံက အတူတူပဲ ဖြစ်ပေမယ့်၊ အထဲမှာ ပါလာမယ့် Data အမျိုးအစားက မတူညီတတ်ပါဘူး။ အဲ့ဒီအခါ Generics က အရမ်း အသုံးဝင်ပါတယ်။
+
+```typescript
+// Data နေရာမှာ ဘာလာမလဲ မသိသေးတဲ့အတွက် <T> လို့ ပေးထားပါတယ်
+interface ApiResponse<T> {
+    status: number;
+    message: string;
+    data: T;
+}
+
+// User Data အတွက်
+let userResponse: ApiResponse<{ name: string }> = {
+    status: 200,
+    message: "Success",
+    data: { name: "Aung Aung" }
+};
+
+// Product Data အတွက်
+let productResponse: ApiResponse<string[]> = {
+    status: 200,
+    message: "Success",
+    data: ["Laptop", "Mouse", "Keyboard"]
+};
+```
+
+Generics ကို နားလည်သွားရင် React လို Framework တွေမှာ TypeScript သုံးတဲ့အခါ အရမ်းကို အဆင်ပြေ ချောမွေ့သွားပါလိမ့်မယ်။

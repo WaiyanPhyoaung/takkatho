@@ -1,0 +1,148 @@
+---
+title: "Exceptions & File Handling"
+description: "Java တွင် အမှားများကို ကိုင်တွယ်ခြင်းနှင့် ဖိုင်များကို အသုံးပြုခြင်း"
+---
+
+Program တစ်ခု ရေးတဲ့အခါ အမှား (Error) တွေ ဖြစ်တတ်ပါတယ်။ အဲ့ဒီ အမှားတွေကို စနစ်တကျ မကိုင်တွယ်ရင် Program ကြီး ရပ်သွားပါလိမ့်မယ်။ Java မှာ အဲ့ဒီလို အမှားတွေကို **Exceptions** လို့ ခေါ်ပြီး၊ သူတို့ကို ဘယ်လို ဖြေရှင်းမလဲ ဆိုတာ လေ့လာကြည့်ရအောင်။
+
+---
+
+### 1. Try-Catch (အမှားကို ဖမ်းခြင်း)
+
+အမှားဖြစ်နိုင်တဲ့ Code တွေကို `try` block ထဲမှာ ထည့်ရေးပြီး၊ အမှားဖြစ်လာရင် ဘာလုပ်မလဲ ဆိုတာကို `catch` block ထဲမှာ ရေးရပါတယ်။
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            // အမှားဖြစ်နိုင်တဲ့ Code
+            int[] myNumbers = {1, 2, 3};
+            System.out.println(myNumbers[10]); // Index 10 မရှိလို့ Error တက်ပါမယ်
+        } catch (Exception e) {
+            // အမှားဖြစ်ရင် အလုပ်လုပ်မယ့် Code
+            System.out.println("တစ်ခုခု မှားယွင်းနေပါတယ်။");
+        } finally {
+            // အမှားဖြစ်ဖြစ်၊ မဖြစ်ဖြစ် အမြဲတမ်း အလုပ်လုပ်မယ့် Code
+            System.out.println("Try-Catch ပြီးဆုံးသွားပါပြီ။");
+        }
+    }
+}
+```
+
+---
+
+### 2. Throw (အမှားကို ကိုယ်တိုင် ဖန်တီးခြင်း)
+
+တစ်ခါတစ်လေမှာ ကိုယ်တိုင် သတ်မှတ်ထားတဲ့ စည်းကမ်းနဲ့ မကိုက်ညီရင် Error တက်စေချင်တာမျိုး ရှိပါတယ်။ အဲ့ဒီအခါ `throw` ကို သုံးပါတယ်။
+
+```java
+public class Main {
+    // အသက် ၁၈ နှစ် မပြည့်ရင် Error တက်မယ့် Method
+    static void checkAge(int age) {
+        if (age < 18) {
+            // ကိုယ်တိုင် Error ဖန်တီးခြင်း
+            throw new ArithmeticException("အသက် ၁၈ နှစ် မပြည့်သေးပါ။");
+        } else {
+            System.out.println("ဝင်ခွင့်ပြုပါတယ်။");
+        }
+    }
+
+    public static void main(String[] args) {
+        checkAge(15); // Error တက်ပါမယ်
+    }
+}
+```
+
+---
+
+### 3. File Handling (ဖိုင်များကို အသုံးပြုခြင်း)
+
+Java မှာ ဖိုင်တွေကို ဖတ်ဖို့၊ ရေးဖို့၊ ဖျက်ဖို့ `java.io.File` class ကို သုံးပါတယ်။
+
+#### ဖိုင်အသစ် ဖန်တီးခြင်း
+
+```java
+import java.io.File;
+import java.io.IOException; // Error ကိုင်တွယ်ဖို့ လိုပါတယ်
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            File myObj = new File("filename.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("ဖိုင် ဖန်တီးပြီးပါပြီ: " + myObj.getName());
+            } else {
+                System.out.println("ဖိုင် ရှိပြီးသားပါ။");
+            }
+        } catch (IOException e) {
+            System.out.println("အမှားဖြစ်သွားပါတယ်။");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### ဖိုင်ထဲသို့ စာရေးခြင်း
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write("Java က တကယ်ကို စိတ်ဝင်စားဖို့ ကောင်းပါတယ်။");
+            myWriter.close(); // ရေးပြီးရင် ပိတ်ပေးရပါတယ်
+            System.out.println("စာရေးတာ အောင်မြင်ပါတယ်။");
+        } catch (IOException e) {
+            System.out.println("အမှားဖြစ်သွားပါတယ်။");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### ဖိုင်ထဲမှ စာဖတ်ခြင်း
+
+```java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner; // ဖတ်ဖို့ Scanner ကို သုံးပါတယ်
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            File myObj = new File("filename.txt");
+            Scanner myReader = new Scanner(myObj);
+            
+            // စာကြောင်းတွေ ရှိနေသရွေ့ ဖတ်ပါမယ်
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("ဖိုင် ရှာမတွေ့ပါ။");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### ဖိုင်ကို ဖျက်ခြင်း
+
+```java
+import java.io.File;
+
+public class Main {
+    public static void main(String[] args) {
+        File myObj = new File("filename.txt");
+        if (myObj.delete()) {
+            System.out.println("ဖျက်လိုက်တဲ့ ဖိုင်: " + myObj.getName());
+        } else {
+            System.out.println("ဖိုင် ဖျက်လို့ မရပါ။");
+        }
+    }
+}
+```

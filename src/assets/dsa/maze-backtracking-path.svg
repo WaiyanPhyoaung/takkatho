@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Backtracking in a Maze</text>
+    
+    <rect x="250" y="100" width="300" height="200" fill="none" stroke="#334155" stroke-width="2" rx="0"/>
+    <rect x="350" y="100" width="100" height="100" fill="#cbd5e1" stroke="#cbd5e1" stroke-width="2" rx="0"/>
+    <rect x="250" y="200" width="100" height="100" fill="#cbd5e1" stroke="#cbd5e1" stroke-width="2" rx="0"/>
+    
+    <text x="220" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#22c55e" text-anchor="end" dominant-baseline="middle">Start</text>
+    <text x="580" y="250" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3b82f6" text-anchor="start" dominant-baseline="middle">End</text>
+    
+    <path d="M 220 150 L 300 150 L 300 250 L 400 250 L 400 150" stroke="#ef4444" stroke-width="4" fill="none" marker-end="url(#arrow-red)"/>
+    <text x="400" y="120" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle" dominant-baseline="middle">Dead End!</text>
+    
+    <path d="M 400 250 L 580 250" stroke="#22c55e" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <text x="400" y="330" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Try path -&gt; Hit wall -&gt; Backtrack -&gt; Try another path</text>
+
+    </svg>

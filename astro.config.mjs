@@ -624,6 +624,427 @@ export default defineConfig({
           ],
         },
         {
+          label: "Python",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "python",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Variables & Data Types",
+              items: [
+                {
+                  label: "Variables & Data Types",
+                  slug: "python/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 2: Control Flow",
+              items: [
+                {
+                  label: "If/Else & Loops",
+                  slug: "python/module-2",
+                },
+              ],
+            },
+            {
+              label: "Module 3: Functions",
+              items: [
+                {
+                  label: "Functions",
+                  slug: "python/module-3",
+                },
+              ],
+            },
+            {
+              label: "Module 4: Data Structures",
+              items: [
+                {
+                  label: "Lists, Dicts, Tuples, Sets",
+                  slug: "python/module-4",
+                },
+              ],
+            },
+            {
+              label: "Module 5: OOP",
+              items: [
+                {
+                  label: "Object-Oriented Programming",
+                  slug: "python/module-5",
+                },
+              ],
+            },
+            {
+              label: "Module 6: File & Error Handling",
+              items: [
+                {
+                  label: "File & Error Handling",
+                  slug: "python/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 7: Modules & Packages",
+              items: [
+                {
+                  label: "Modules & Packages",
+                  slug: "python/module-7",
+                },
+              ],
+            },
+            {
+              label: "Module 8: Mini Project",
+              items: [
+                {
+                  label: "Number Guessing Game",
+                  slug: "python/module-8",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Java",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "java",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Syntax & Data Types",
+              items: [
+                {
+                  label: "Syntax & Data Types",
+                  slug: "java/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 2: Control Flow",
+              items: [
+                {
+                  label: "If/Else & Loops",
+                  slug: "java/module-2",
+                },
+              ],
+            },
+            {
+              label: "Module 3: Methods",
+              items: [
+                {
+                  label: "Methods",
+                  slug: "java/module-3",
+                },
+              ],
+            },
+            {
+              label: "Module 4: OOP",
+              items: [
+                {
+                  label: "Object-Oriented Programming",
+                  slug: "java/module-4",
+                },
+              ],
+            },
+            {
+              label: "Module 5: Collections",
+              items: [
+                {
+                  label: "Collections Framework",
+                  slug: "java/module-5",
+                },
+              ],
+            },
+            {
+              label: "Module 6: Exceptions & Files",
+              items: [
+                {
+                  label: "Exceptions & File Handling",
+                  slug: "java/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 7: Mini Project",
+              items: [
+                {
+                  label: "Student Management System",
+                  slug: "java/module-7",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Node.js",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "nodejs",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Basics & Modules",
+              items: [
+                {
+                  label: "Node.js Basics & Modules",
+                  slug: "nodejs/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 2: File System",
+              items: [
+                {
+                  label: "File System & Path",
+                  slug: "nodejs/module-2",
+                },
+              ],
+            },
+            {
+              label: "Module 3: Async Programming",
+              items: [
+                {
+                  label: "Asynchronous Programming",
+                  slug: "nodejs/module-3",
+                },
+              ],
+            },
+            {
+              label: "Module 4: NPM",
+              items: [
+                {
+                  label: "NPM & Package Management",
+                  slug: "nodejs/module-4",
+                },
+              ],
+            },
+            {
+              label: "Module 5: Web Server",
+              items: [
+                {
+                  label: "Building a Web Server",
+                  slug: "nodejs/module-5",
+                },
+              ],
+            },
+            {
+              label: "Module 6: Express.js",
+              items: [
+                {
+                  label: "Express.js Basics",
+                  slug: "nodejs/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 7: Mini Project",
+              items: [
+                {
+                  label: "Simple REST API",
+                  slug: "nodejs/module-7",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "TypeScript",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "typescript",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Basic Types",
+              items: [
+                {
+                  label: "Basic Types",
+                  slug: "typescript/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 2: Functions",
+              items: [
+                {
+                  label: "Functions",
+                  slug: "typescript/module-2",
+                },
+              ],
+            },
+            {
+              label: "Module 3: Objects & Interfaces",
+              items: [
+                {
+                  label: "Objects & Interfaces",
+                  slug: "typescript/module-3",
+                },
+              ],
+            },
+            {
+              label: "Module 4: Union & Intersection",
+              items: [
+                {
+                  label: "Union & Intersection Types",
+                  slug: "typescript/module-4",
+                },
+              ],
+            },
+            {
+              label: "Module 5: Enums & Tuples",
+              items: [
+                {
+                  label: "Enums & Tuples",
+                  slug: "typescript/module-5",
+                },
+              ],
+            },
+            {
+              label: "Module 6: Classes & OOP",
+              items: [
+                {
+                  label: "Classes & OOP",
+                  slug: "typescript/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 7: Generics",
+              items: [
+                {
+                  label: "Generics",
+                  slug: "typescript/module-7",
+                },
+              ],
+            },
+            {
+              label: "Module 8: Mini Project",
+              items: [
+                {
+                  label: "Todo List Logic",
+                  slug: "typescript/module-8",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Golang",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "golang",
+                },
+              ],
+            },
+            {
+              label: "Module 1: Setup",
+              items: [
+                {
+                  label: "Introduction & Setup",
+                  slug: "golang/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 2: Basics",
+              items: [
+                {
+                  label: "Variables, Types & Functions",
+                  slug: "golang/module-2",
+                },
+              ],
+            },
+            {
+              label: "Module 3: Control Structures",
+              items: [
+                {
+                  label: "If, For & Switch",
+                  slug: "golang/module-3",
+                },
+              ],
+            },
+            {
+              label: "Module 4: Data Structures",
+              items: [
+                {
+                  label: "Arrays, Slices & Maps",
+                  slug: "golang/module-4",
+                },
+              ],
+            },
+            {
+              label: "Module 5: Pointers & Structs",
+              items: [
+                {
+                  label: "Pointers & Structs",
+                  slug: "golang/module-5",
+                },
+              ],
+            },
+            {
+              label: "Module 6: Interfaces & Errors",
+              items: [
+                {
+                  label: "Interfaces & Error Handling",
+                  slug: "golang/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 7: Concurrency",
+              items: [
+                {
+                  label: "Goroutines & Channels",
+                  slug: "golang/module-7",
+                },
+              ],
+            },
+            {
+              label: "Module 8: Standard Library",
+              items: [
+                {
+                  label: "Packages & HTTP",
+                  slug: "golang/module-8",
+                },
+              ],
+            },
+            {
+              label: "Module 9: Mini Project",
+              items: [
+                {
+                  label: "Bookstore REST API",
+                  slug: "golang/module-9",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "Data Structures & Algorithms",
           items: [
             {

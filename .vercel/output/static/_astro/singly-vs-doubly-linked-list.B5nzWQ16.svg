@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Singly vs Doubly Linked List</text>
+    
+    <text x="100" y="100" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#334155" text-anchor="start" dominant-baseline="middle">Singly Linked List (One Way)</text>
+    <circle cx="150" cy="150" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="150" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">A</text> <line x1="175" y1="150" x2="275" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    <circle cx="300" cy="150" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="300" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">B</text> <line x1="325" y1="150" x2="425" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    <circle cx="450" cy="150" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="450" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">C</text> <line x1="475" y1="150" x2="575" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="610" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle">Null</text>
+    
+    <text x="100" y="250" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#334155" text-anchor="start" dominant-baseline="middle">Doubly Linked List (Two Way)</text>
+    <circle cx="150" cy="300" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="150" y="300" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">A</text> 
+    <line x1="175" y1="290" x2="275" y2="290" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <line x1="275" y1="310" x2="175" y2="310" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <circle cx="300" cy="300" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="300" y="300" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">B</text> 
+    <line x1="325" y1="290" x2="425" y2="290" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <line x1="425" y1="310" x2="325" y2="310" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+    <circle cx="450" cy="300" r="25" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/><text x="450" y="300" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">C</text>
+
+    </svg>

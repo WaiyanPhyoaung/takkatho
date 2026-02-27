@@ -1,0 +1,112 @@
+---
+title: "Module 4: Data Structures (Arrays, Slices & Maps)"
+description: "Go တွင် Data များကို သိမ်းဆည်းရန် အသုံးပြုသော Arrays, Slices နှင့် Maps များအကြောင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Arrays (ပုံသေ အရွယ်အစားရှိသော စာရင်းများ)
+
+Array ဆိုတာ တူညီတဲ့ Data Type တွေကို စုစည်းသိမ်းဆည်းပေးတဲ့ အရာပါ။ Go မှာ Array ရဲ့ အရွယ်အစား (Size) ဟာ **ပုံသေ (Fixed)** ဖြစ်ပါတယ်။ တစ်ခါသတ်မှတ်ပြီးရင် ပြောင်းလို့မရပါဘူး။
+
+```go
+// အရွယ်အစား 5 ရှိသော integer array
+var numbers [5]int
+numbers[0] = 10
+numbers[1] = 20
+
+fmt.Println(numbers) // [10 20 0 0 0]
+
+// တန်ဖိုးများကို တစ်ခါတည်း ထည့်သွင်းခြင်း
+primes := [6]int{2, 3, 5, 7, 11, 13}
+fmt.Println(primes)
+```
+
+## Slices (ပြောင်းလဲနိုင်သော စာရင်းများ)
+
+Array တွေက Size ပုံသေဖြစ်နေတဲ့အတွက် လက်တွေ့မှာ အသုံးပြုရ ခက်ပါတယ်။ ဒါကြောင့် Go မှာ **Slice** တွေကို အသုံးများပါတယ်။ Slice တွေက Size ကို လိုသလို အတိုးအလျှော့ လုပ်နိုင်ပါတယ်။
+
+```go
+// Slice ကြေညာခြင်း (Size မပါပါ)
+var names []string
+
+// တန်ဖိုးများ တစ်ခါတည်း ထည့်သွင်းခြင်း
+fruits := []string{"Apple", "Banana", "Mango"}
+```
+
+### `append` ဖြင့် Data အသစ်ထည့်ခြင်း
+
+Slice ထဲကို Data အသစ်ထည့်ချင်ရင် `append` function ကို သုံးရပါတယ်။
+
+```go
+fruits = append(fruits, "Orange")
+fmt.Println(fruits) // [Apple Banana Mango Orange]
+```
+
+### Array မှ Slice ခွဲထုတ်ခြင်း
+
+```go
+primes := [6]int{2, 3, 5, 7, 11, 13}
+
+// index 1 မှ 3 အထိ (4 မပါ) ယူမည်
+var s []int = primes[1:4] 
+fmt.Println(s) // [3 5 7]
+```
+
+## Maps (Key-Value တွဲများ)
+
+Map ဆိုတာ Key နဲ့ Value တွဲပြီး သိမ်းဆည်းပေးတဲ့ Data Structure ပါ။ (Python ရဲ့ Dictionary, JavaScript ရဲ့ Object နဲ့ ဆင်တူပါတယ်)။
+
+```go
+// string key နှင့် int value ရှိသော map ကို ဖန်တီးခြင်း
+ages := make(map[string]int)
+
+// Data ထည့်ခြင်း
+ages["Mg Mg"] = 20
+ages["Aung Aung"] = 25
+
+fmt.Println(ages["Mg Mg"]) // 20
+
+// Data ဖျက်ခြင်း
+delete(ages, "Aung Aung")
+```
+
+### Map ကို တစ်ခါတည်း ကြေညာခြင်း
+
+```go
+scores := map[string]int{
+    "Math": 90,
+    "English": 85,
+    "Science": 95,
+}
+```
+
+### Map ထဲတွင် Key ရှိမရှိ စစ်ဆေးခြင်း
+
+```go
+score, exists := scores["History"]
+
+if exists {
+    fmt.Println("History score is", score)
+} else {
+    fmt.Println("History score not found")
+}
+```
+
+## `range` ဖြင့် Loop ပတ်ခြင်း
+
+Slice တွေ၊ Map တွေကို Loop ပတ်ချင်ရင် `range` ကို သုံးတာ အကောင်းဆုံးပါ။
+
+```go
+// Slice ကို Loop ပတ်ခြင်း
+fruits := []string{"Apple", "Banana", "Mango"}
+for index, value := range fruits {
+    fmt.Printf("Index: %d, Value: %s\n", index, value)
+}
+
+// Map ကို Loop ပတ်ခြင်း
+scores := map[string]int{"Math": 90, "English": 85}
+for key, value := range scores {
+    fmt.Printf("Subject: %s, Score: %d\n", key, value)
+}
+```

@@ -1,0 +1,119 @@
+---
+title: "Classes & OOP"
+description: "TypeScript တွင် Object-Oriented Programming ရေးသားခြင်း"
+---
+
+JavaScript မှာ Class တွေ ရေးလို့ရပေမယ့်၊ TypeScript က Class တွေကို ပိုပြီး စနစ်ကျအောင် **Access Modifiers** (အသုံးပြုခွင့် ကန့်သတ်ချက်များ) ထပ်ပေါင်းထည့်ပေးထားပါတယ်။
+
+---
+
+### 1. Class တည်ဆောက်ခြင်း
+
+```typescript
+class Person {
+    // Properties တွေကို Type သတ်မှတ်ပေးရပါတယ်
+    name: string;
+    age: number;
+
+    // Constructor (Object စဆောက်တဲ့အခါ အလုပ်လုပ်မယ့် Method)
+    constructor(n: string, a: number) {
+        this.name = n;
+        this.age = a;
+    }
+
+    // Method
+    greet() {
+        console.log(`Hello, my name is ${this.name}`);
+    }
+}
+
+let p1 = new Person("Aung Aung", 25);
+p1.greet(); // Hello, my name is Aung Aung
+```
+
+---
+
+### 2. Access Modifiers (အသုံးပြုခွင့် ကန့်သတ်ခြင်း)
+
+TypeScript မှာ Class ရဲ့ Properties တွေကို ဘယ်သူတွေ သုံးခွင့်ရှိလဲ ဆိုတာကို သတ်မှတ်လို့ ရပါတယ်။
+
+1. **`public` (ပုံမှန်):** ဘယ်နေရာကနေမဆို လှမ်းခေါ်သုံးလို့ ရပါတယ်။ (မရေးထားရင် အလိုအလျောက် public ဖြစ်ပါတယ်)
+2. **`private`:** Class ရဲ့ အတွင်းမှာပဲ သုံးလို့ရပါတယ်။ အပြင်ကနေ လှမ်းခေါ်လို့ မရပါဘူး။
+3. **`protected`:** Class အတွင်းနဲ့၊ သူ့ကို ဆက်ခံထားတဲ့ (Inherit လုပ်ထားတဲ့) Child Class တွေမှာပဲ သုံးလို့ရပါတယ်။
+
+```typescript
+class BankAccount {
+    public ownerName: string;
+    private balance: number; // အပြင်ကနေ လှမ်းကြည့်လို့/ပြင်လို့ မရပါ
+
+    constructor(name: string, initialBalance: number) {
+        this.ownerName = name;
+        this.balance = initialBalance;
+    }
+
+    // Private property ကို Class အတွင်းက Method တွေကနေပဲ သုံးလို့ရပါတယ်
+    public deposit(amount: number) {
+        this.balance += amount;
+        console.log(`ငွေသွင်းပြီးပါပြီ။ လက်ကျန်ငွေ: ${this.balance}`);
+    }
+}
+
+let myAccount = new BankAccount("Kyaw Kyaw", 1000);
+
+console.log(myAccount.ownerName); // ✅ ရပါတယ်
+// console.log(myAccount.balance); // ❌ Error: Property 'balance' is private.
+
+myAccount.deposit(500); // ✅ Method ကနေတဆင့် သုံးတာမို့ ရပါတယ်
+```
+
+---
+
+### 3. Constructor Shorthand (အတိုကောက် ရေးနည်း)
+
+Properties တွေကို အပေါ်မှာ ကြေညာပြီး Constructor ထဲမှာ ပြန်ထည့်နေမယ့်အစား၊ Constructor ရဲ့ Parameter တွေမှာတင် Modifier (`public`, `private`) တွေ တပ်ပေးလိုက်ရင် TypeScript က အလိုအလျောက် Property အဖြစ် ဖန်တီးပေးပါတယ်။
+
+```typescript
+// အရှည်ရေးနည်း
+class Car1 {
+    public brand: string;
+    private price: number;
+    constructor(brand: string, price: number) {
+        this.brand = brand;
+        this.price = price;
+    }
+}
+
+// အတိုကောက် ရေးနည်း (ပိုရှင်းလင်းပါတယ်)
+class Car2 {
+    constructor(public brand: string, private price: number) {
+        // ဘာမှ ထပ်ရေးစရာ မလိုတော့ပါဘူး
+    }
+}
+```
+
+---
+
+### 4. Interfaces ဖြင့် Class များကို ထိန်းချုပ်ခြင်း (Implements)
+
+Class တစ်ခုက သတ်မှတ်ထားတဲ့ စည်းကမ်း (Interface) အတိုင်း ရေးထားရဲ့လား ဆိုတာကို `implements` သုံးပြီး စစ်ဆေးလို့ ရပါတယ်။
+
+```typescript
+interface Animal {
+    name: string;
+    makeSound(): void;
+}
+
+// Dog Class ဟာ Animal ရဲ့ စည်းကမ်းအတိုင်း ရေးရပါမယ်
+class Dog implements Animal {
+    constructor(public name: string) {}
+
+    makeSound() {
+        console.log("Woof! Woof!");
+    }
+}
+
+// ❌ Error: makeSound() မပါလို့ လက်မခံပါဘူး
+class Cat implements Animal {
+    constructor(public name: string) {}
+}
+```

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 8; }
+      .text-title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #212529; text-anchor: middle; }
+      .text-desc { font-family: Arial, sans-serif; font-size: 14px; fill: #495057; text-anchor: middle; }
+      .arrow { stroke: #68a063; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #e8f5e9; stroke: #68a063; stroke-width: 2; rx: 8; }
+      .v8 { fill: #fff3cd; stroke: #ffc107; stroke-width: 2; rx: 8; }
+      .libuv { fill: #cce5ff; stroke: #004085; stroke-width: 2; rx: 8; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#68a063" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="40" class="text-title" style="font-size: 24px;">Node.js Architecture</text>
+
+  <!-- JavaScript Code -->
+  <rect x="50" y="150" width="150" height="100" class="box" />
+  <text x="125" y="190" class="text-title">JavaScript Code</text>
+  <text x="125" y="215" class="text-desc">app.js</text>
+
+  <!-- Node.js Bindings -->
+  <rect x="250" y="150" width="150" height="100" class="highlight" />
+  <text x="325" y="190" class="text-title">Node.js API</text>
+  <text x="325" y="215" class="text-desc">(C++ Bindings)</text>
+
+  <!-- V8 Engine -->
+  <rect x="450" y="100" width="150" height="80" class="v8" />
+  <text x="525" y="135" class="text-title">V8 Engine</text>
+  <text x="525" y="160" class="text-desc">(Compiles JS to C++)</text>
+
+  <!-- libuv -->
+  <rect x="450" y="220" width="150" height="80" class="libuv" />
+  <text x="525" y="255" class="text-title">libuv</text>
+  <text x="525" y="280" class="text-desc">(Event Loop & I/O)</text>
+
+  <!-- OS / Hardware -->
+  <rect x="650" y="150" width="120" height="100" class="box" />
+  <text x="710" y="190" class="text-title">OS / Hardware</text>
+  <text x="710" y="215" class="text-desc">File System,</text>
+  <text x="710" y="235" class="text-desc">Network, etc.</text>
+
+  <!-- Arrows -->
+  <path d="M 200 200 L 240 200" class="arrow" />
+  <path d="M 400 180 L 440 140" class="arrow" />
+  <path d="M 400 220 L 440 260" class="arrow" />
+  <path d="M 600 260 L 640 220" class="arrow" />
+
+</svg>

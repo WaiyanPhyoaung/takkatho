@@ -1,0 +1,82 @@
+---
+title: "Functions"
+description: "Function များတွင် Types များ သတ်မှတ်ခြင်း"
+---
+
+Function တွေ ရေးတဲ့အခါ အဓိက သတ်မှတ်ပေးရမယ့် နေရာ (၂) ခု ရှိပါတယ်။
+1. **Parameters (ဝင်လာမည့် တန်ဖိုးများ):** ဘာ Type တွေ လက်ခံမလဲ?
+2. **Return Type (ပြန်ထွက်မည့် တန်ဖိုး):** ဘာ Type ပြန်ထုတ်ပေးမလဲ?
+
+---
+
+### 1. Parameters နှင့် Return Type သတ်မှတ်ခြင်း
+
+```typescript
+// a နဲ့ b က number ဖြစ်ရမယ်။ ပြန်ထွက်လာမယ့် အဖြေကလည်း number ဖြစ်ရမယ်။
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+let result = add(5, 10); // ✅ မှန်ပါတယ်
+let wrong = add(5, "10"); // ❌ Error: Argument of type 'string' is not assignable to parameter of type 'number'.
+```
+
+Arrow Function တွေမှာလည်း အတူတူပါပဲ။
+
+```typescript
+const multiply = (x: number, y: number): number => {
+    return x * y;
+};
+```
+
+---
+
+### 2. Void Type (ဘာမှ ပြန်မထုတ်ပေးသော Function)
+
+Function တစ်ခုကနေ ဘာတန်ဖိုးမှ ပြန်မထုတ်ပေးဘူး (ဥပမာ - `return` မပါဘူး၊ စာသားပဲ Print ထုတ်ပြတယ်) ဆိုရင် Return Type ကို `void` လို့ သတ်မှတ်ရပါတယ်။
+
+```typescript
+function greet(name: string): void {
+    console.log("Hello, " + name);
+    // return မပါပါဘူး
+}
+```
+
+---
+
+### 3. Optional Parameters (မထည့်လည်းရသော တန်ဖိုးများ)
+
+Function တစ်ခုကို ခေါ်တဲ့အခါ Parameter တချို့ကို မထည့်ဘဲ ချန်ထားခဲ့ချင်ရင် `?` လေး ထည့်ပေးရပါတယ်။
+
+```typescript
+// lastName ရဲ့ နောက်မှာ ? ပါတဲ့အတွက် မထည့်လည်း ရပါတယ်
+function getFullName(firstName: string, lastName?: string): string {
+    if (lastName) {
+        return firstName + " " + lastName;
+    }
+    return firstName;
+}
+
+console.log(getFullName("Aung", "Kyaw")); // ✅ "Aung Kyaw"
+console.log(getFullName("Su"));           // ✅ "Su" (lastName မပါလည်း ရပါတယ်)
+```
+
+**မှတ်ချက်:** Optional Parameter (`?`) တွေကို အမြဲတမ်း နောက်ဆုံးမှာပဲ ထားရပါတယ်။
+
+---
+
+### 4. Default Parameters (ကြိုတင်သတ်မှတ်ထားသော တန်ဖိုးများ)
+
+Parameter မထည့်ပေးလိုက်ရင် အလိုအလျောက် ဝင်သွားမယ့် တန်ဖိုး (Default Value) ကိုလည်း သတ်မှတ်လို့ ရပါတယ်။
+
+```typescript
+// greeting အတွက် ဘာမှ မထည့်ပေးရင် "Hello" လို့ ယူပါမယ်
+function sayHi(name: string, greeting: string = "Hello"): string {
+    return greeting + ", " + name;
+}
+
+console.log(sayHi("Aung Aung"));               // ✅ "Hello, Aung Aung"
+console.log(sayHi("Su Su", "Good Morning"));   // ✅ "Good Morning, Su Su"
+```
+
+Default Parameter သုံးထားရင် `?` ထည့်စရာ မလိုတော့ပါဘူး။ TypeScript က အလိုအလျောက် Optional အဖြစ် သတ်မှတ်ပေးပါတယ်။

@@ -1,0 +1,137 @@
+---
+title: "Module 9: Mini Project (Bookstore REST API)"
+description: "Go ၏ Standard Library ကို အသုံးပြု၍ Bookstore RESTful API တစ်ခု တည်ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+ဒီ Project မှာတော့ အခုထိ သင်ခဲ့တဲ့ Go ရဲ့ အခြေခံတွေ၊ Struct တွေ၊ Slice တွေနဲ့ `net/http`, `encoding/json` တွေကို ပေါင်းစပ်ပြီး **Bookstore REST API** တစ်ခု တည်ဆောက်သွားပါမယ်။
+
+## Project Setup
+
+ပထမဆုံး Folder အသစ်တစ်ခု ဖန်တီးပြီး Go Module ကို Initialize လုပ်ပါ။
+
+```bash
+mkdir bookstore-api
+cd bookstore-api
+go mod init bookstore-api
+```
+
+`main.go` ဖိုင်ကို ဖန်တီးပြီး အောက်ပါ Code များကို ရေးသားပါ။
+
+## ၁. Data Model နှင့် Mock Data တည်ဆောက်ခြင်း
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "strconv"
+    "strings"
+)
+
+// Book Struct တည်ဆောက်ခြင်း
+type Book struct {
+    ID     int     `json:"id"`
+    Title  string  `json:"title"`
+    Author string  `json:"author"`
+    Price  float64 `json:"price"`
+}
+
+// Database အစား Slice ကို အသုံးပြုမည်
+var books = []Book{
+    {ID: 1, Title: "Go Programming", Author: "John Doe", Price: 29.99},
+    {ID: 2, Title: "Clean Code", Author: "Robert C. Martin", Price: 35.50},
+}
+```
+
+## ၂. Handlers များ ရေးသားခြင်း
+
+### စာအုပ်အားလုံးကို ပြသခြင်း (GET /books)
+
+```go
+func getBooks(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(books)
+}
+```
+
+### စာအုပ်အသစ် ထည့်ခြင်း (POST /books)
+
+```go
+func createBook(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    
+    var newBook Book
+    // Request Body မှ JSON ကို Struct သို့ ပြောင်းခြင်း
+    err := json.NewDecoder(r.Body).Decode(&newBook)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    // ID အသစ် သတ်မှတ်ခြင်း
+    newBook.ID = len(books) + 1
+    books = append(books, newBook)
+
+    w.WriteHeader(http.StatusCreated)
+    json.NewEncoder(w).Encode(newBook)
+}
+```
+
+## ၃. Router နှင့် Server တည်ဆောက်ခြင်း
+
+Go ရဲ့ Standard `http.ServeMux` ကို သုံးပြီး Route တွေကို ခွဲခြားပါမယ်။
+
+```go
+func main() {
+    // Router အသစ် ဖန်တီးခြင်း
+    mux := http.NewServeMux()
+
+    // Route များ သတ်မှတ်ခြင်း
+    mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
+        if r.Method == http.MethodGet {
+            getBooks(w, r)
+        } else if r.Method == http.MethodPost {
+            createBook(w, r)
+        } else {
+            http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+        }
+    })
+
+    // Server စတင်ခြင်း
+    fmt.Println("Server is running on http://localhost:8080")
+    err := http.ListenAndServe(":8080", mux)
+    if err != nil {
+        fmt.Println("Server failed to start:", err)
+    }
+}
+```
+
+## ၄. API ကို စမ်းသပ်ခြင်း
+
+Terminal တွင် Server ကို Run ပါ။
+
+```bash
+go run main.go
+```
+
+### GET Request စမ်းသပ်ရန် (Browser သို့မဟုတ် cURL)
+
+```bash
+curl http://localhost:8080/books
+```
+
+### POST Request စမ်းသပ်ရန် (စာအုပ်အသစ် ထည့်ရန်)
+
+```bash
+curl -X POST http://localhost:8080/books \
+-H "Content-Type: application/json" \
+-d '{"title": "Concurrency in Go", "author": "Katherine Cox-Evans", "price": 40.00}'
+```
+
+<Aside title="ဂုဏ်ယူပါတယ်!">
+သင်ဟာ Go ရဲ့ Standard Library ကိုပဲ အသုံးပြုပြီး ပြင်ပ Framework တွေ မလိုဘဲ အလုပ်လုပ်တဲ့ RESTful API တစ်ခုကို အောင်မြင်စွာ တည်ဆောက်နိုင်ခဲ့ပါပြီ။ ဒါဟာ Go ရဲ့ ရိုးရှင်းမှုနဲ့ စွမ်းအားကို ပြသနေတာပဲ ဖြစ်ပါတယ်။
+</Aside>

@@ -1,0 +1,160 @@
+---
+title: "Mini Project: Simple REST API"
+description: "Express.js ကို အသုံးပြု၍ စာအုပ်များ စီမံခန့်ခွဲသည့် REST API အသေးစား ရေးသားခြင်း"
+---
+
+ဒီ Course မှာ သင်ယူခဲ့တဲ့ Node.js နဲ့ Express.js အခြေခံတွေကို ပေါင်းစပ်ပြီး **Book Management API** (စာအုပ်များ စီမံခန့်ခွဲသည့် API) အသေးစားလေး တစ်ခု ရေးကြည့်ရအောင်။
+
+ဒီ API မှာ အောက်ပါ လုပ်ဆောင်ချက် (၄) ခု (CRUD Operations) ပါဝင်ပါမယ်။
+1. **C**reate: စာအုပ်အသစ် ထည့်ခြင်း (`POST`)
+2. **R**ead: စာအုပ်စာရင်း ကြည့်ခြင်း (`GET`)
+3. **U**pdate: စာအုပ် အချက်အလက် ပြင်ခြင်း (`PUT`)
+4. **D**elete: စာအုပ် ဖျက်ခြင်း (`DELETE`)
+
+---
+
+### အဆင့် (၁): Project Setup
+
+အရင်ဆုံး Project အသစ်တစ်ခု စတင်ပြီး လိုအပ်တဲ့ Package တွေ Install လုပ်ပါမယ်။
+
+```bash
+mkdir book-api
+cd book-api
+npm init -y
+npm install express
+npm install nodemon --save-dev
+```
+
+`package.json` ထဲမှာ `dev` script လေး ထည့်ပေးပါ။
+
+```json
+"scripts": {
+  "dev": "nodemon app.js"
+}
+```
+
+---
+
+### အဆင့် (၂): API ရေးသားခြင်း
+
+`app.js` ဖိုင်တစ်ခု ဖန်တီးပြီး အောက်ပါ Code တွေကို ရေးပါ။ (Database အစစ် မသုံးသေးဘဲ Array ထဲမှာပဲ ယာယီ သိမ်းထားပါမယ်)။
+
+```javascript
+// app.js
+const express = require('express');
+const app = express();
+
+// JSON Data တွေကို လက်ခံနိုင်အောင် Middleware ထည့်ခြင်း
+app.use(express.json());
+
+// ယာယီ Database (Array)
+let books = [
+    { id: 1, title: "Node.js အခြေခံ", author: "Aung Aung" },
+    { id: 2, title: "Express.js လမ်းညွှန်", author: "Su Su" }
+];
+
+// ---------------------------------------------------------
+// 1. READ: စာအုပ် အားလုံးကို ယူခြင်း (GET /api/books)
+// ---------------------------------------------------------
+app.get('/api/books', (req, res) => {
+    res.json(books);
+});
+
+// ---------------------------------------------------------
+// 2. READ: စာအုပ် တစ်အုပ်တည်းကို ယူခြင်း (GET /api/books/:id)
+// ---------------------------------------------------------
+app.get('/api/books/:id', (req, res) => {
+    const bookId = parseInt(req.params.id);
+    const book = books.find(b => b.id === bookId);
+
+    if (!book) {
+        return res.status(404).json({ message: "စာအုပ် ရှာမတွေ့ပါ" });
+    }
+    res.json(book);
+});
+
+// ---------------------------------------------------------
+// 3. CREATE: စာအုပ်အသစ် ထည့်ခြင်း (POST /api/books)
+// ---------------------------------------------------------
+app.post('/api/books', (req, res) => {
+    const newBook = {
+        id: books.length + 1, // ID အသစ် ဖန်တီးခြင်း
+        title: req.body.title,
+        author: req.body.author
+    };
+
+    // Array ထဲကို ထည့်ခြင်း
+    books.push(newBook);
+    
+    // Status 201 (Created) နဲ့ အတူ ထည့်လိုက်တဲ့ စာအုပ်ကို ပြန်ပို့ခြင်း
+    res.status(201).json(newBook);
+});
+
+// ---------------------------------------------------------
+// 4. UPDATE: စာအုပ် အချက်အလက် ပြင်ခြင်း (PUT /api/books/:id)
+// ---------------------------------------------------------
+app.put('/api/books/:id', (req, res) => {
+    const bookId = parseInt(req.params.id);
+    const book = books.find(b => b.id === bookId);
+
+    if (!book) {
+        return res.status(404).json({ message: "စာအုပ် ရှာမတွေ့ပါ" });
+    }
+
+    // အချက်အလက် အသစ်များဖြင့် အစားထိုးခြင်း
+    book.title = req.body.title || book.title;
+    book.author = req.body.author || book.author;
+
+    res.json({ message: "စာအုပ် ပြင်ဆင်ပြီးပါပြီ", book: book });
+});
+
+// ---------------------------------------------------------
+// 5. DELETE: စာအုပ် ဖျက်ခြင်း (DELETE /api/books/:id)
+// ---------------------------------------------------------
+app.delete('/api/books/:id', (req, res) => {
+    const bookId = parseInt(req.params.id);
+    const bookIndex = books.findIndex(b => b.id === bookId);
+
+    if (bookIndex === -1) {
+        return res.status(404).json({ message: "စာအုပ် ရှာမတွေ့ပါ" });
+    }
+
+    // Array ထဲကနေ ဖျက်ထုတ်ခြင်း
+    books.splice(bookIndex, 1);
+    
+    res.json({ message: "စာအုပ် ဖျက်လိုက်ပါပြီ" });
+});
+
+// ---------------------------------------------------------
+// Server စတင်ခြင်း
+// ---------------------------------------------------------
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`API Server is running on http://localhost:${PORT}`);
+});
+```
+
+---
+
+### အဆင့် (၃): API ကို စမ်းသပ်ခြင်း
+
+Terminal မှာ `npm run dev` လို့ ရိုက်ပြီး Server ကို ဖွင့်ပါ။
+
+ဒီ API ကို စမ်းသပ်ဖို့ Browser ကနေ `GET` request တွေကိုပဲ စမ်းလို့ရပါတယ်။ `POST`, `PUT`, `DELETE` တွေကို စမ်းဖို့အတွက် **Postman** သို့မဟုတ် **Thunder Client** (VS Code Extension) လိုမျိုး API Testing Tool တစ်ခုခုကို အသုံးပြုရပါမယ်။
+
+ဥပမာ - Postman ဖြင့် စာအုပ်အသစ် ထည့်ကြည့်ခြင်း (POST):
+- URL: `http://localhost:3000/api/books`
+- Method: `POST`
+- Body (JSON):
+  ```json
+  {
+      "title": "React အခြေခံ",
+      "author": "Kyaw Kyaw"
+  }
+  ```
+
+### နိဂုံးချုပ်
+
+ဂုဏ်ယူပါတယ်။ သင်ဟာ Node.js နဲ့ Express.js ကို သုံးပြီး တကယ့် လက်တွေ့အသုံးဝင်တဲ့ REST API တစ်ခုကို ကိုယ်တိုင် ရေးသားနိုင်သွားပါပြီ။ 
+
+ဒီ Project လေးကို ဆက်ပြီး တိုးချဲ့ချင်ရင် Array အစား **MongoDB** လိုမျိုး တကယ့် Database တစ်ခုခုနဲ့ ချိတ်ဆက်ပြီး Data တွေကို အမြဲတမ်း သိမ်းဆည်းထားနိုင်အောင် ကြိုးစားကြည့်ဖို့ တိုက်တွန်းပါတယ်။ Node.js လောကထဲကို ဝင်ရောက်လာတဲ့အတွက် ကြိုဆိုပါတယ်။

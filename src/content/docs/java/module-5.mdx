@@ -1,0 +1,116 @@
+---
+title: "Collections Framework"
+description: "Java တွင် Data များကို စနစ်တကျ သိမ်းဆည်းခြင်း"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import collectionsFramework from "@/assets/java/collections-framework.svg";
+
+Data အများကြီးကို သိမ်းချင်တဲ့အခါ Array တွေကို သုံးလို့ရပေမယ့်၊ Array တွေက အရွယ်အစား (Size) ကို ကြိုသတ်မှတ်ပေးရပြီး နောက်မှ ပြင်လို့မရတဲ့ အားနည်းချက် ရှိပါတယ်။ အဲ့ဒီ ပြဿနာကို ဖြေရှင်းဖို့ Java က **Collections Framework** ဆိုတာကို ထည့်ပေးထားပါတယ်။
+
+<ContentImage src={collectionsFramework} alt="Java Collections Framework" />
+
+---
+
+### 1. ArrayList (အရွယ်အစား ပြောင်းလဲနိုင်သော စာရင်း)
+
+Python ရဲ့ List နဲ့ အတူတူပါပဲ။ Data တွေကို အစီအစဉ်တကျ သိမ်းပေးပြီး၊ လိုသလောက် အတိုးအလျှော့ လုပ်လို့ ရပါတယ်။
+
+```java
+import java.util.ArrayList; // အရင်ဆုံး Import လုပ်ရပါတယ်
+
+public class Main {
+    public static void main(String[] args) {
+        // String တွေ သိမ်းမယ့် ArrayList တစ်ခု တည်ဆောက်ခြင်း
+        ArrayList<String> cars = new ArrayList<String>();
+        
+        // Data ထည့်ခြင်း
+        cars.add("Volvo");
+        cars.add("BMW");
+        cars.add("Ford");
+        
+        // Data ယူခြင်း (Index 0 ကနေ စပါတယ်)
+        System.out.println(cars.get(0)); // Volvo
+        
+        // Data ပြင်ခြင်း
+        cars.set(0, "Toyota");
+        
+        // Data ဖျက်ခြင်း
+        cars.remove(1); // BMW ကို ဖျက်လိုက်ပါတယ်
+        
+        // အရေအတွက်ကို ကြည့်ခြင်း
+        System.out.println(cars.size()); // 2
+    }
+}
+```
+
+---
+
+### 2. HashMap (Key-Value ဖြင့် သိမ်းဆည်းခြင်း)
+
+Python ရဲ့ Dictionary နဲ့ အတူတူပါပဲ။ Data တွေကို နာမည် (Key) နဲ့ တန်ဖိုး (Value) တွဲပြီး သိမ်းပါတယ်။
+
+```java
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        // Key က String, Value က Integer ဖြစ်တဲ့ HashMap တည်ဆောက်ခြင်း
+        HashMap<String, Integer> people = new HashMap<String, Integer>();
+        
+        // Data ထည့်ခြင်း (put ကို သုံးပါတယ်)
+        people.put("Aung Aung", 20);
+        people.put("Su Su", 22);
+        people.put("Kyaw Kyaw", 25);
+        
+        // Data ယူခြင်း (Key ကို သုံးပြီး ယူပါတယ်)
+        System.out.println(people.get("Su Su")); // 22
+        
+        // Data ဖျက်ခြင်း
+        people.remove("Kyaw Kyaw");
+        
+        // Loop ပတ်ပြီး အကုန်ထုတ်ကြည့်ခြင်း
+        for (String i : people.keySet()) {
+            System.out.println("နာမည်: " + i + " အသက်: " + people.get(i));
+        }
+    }
+}
+```
+
+---
+
+### 3. HashSet (တူညီတာ မပါသော စုစည်းမှု)
+
+Data တွေကို စုသိမ်းပေးပေမယ့်၊ **တူညီတဲ့ Data နှစ်ခု လုံးဝ မပါနိုင်ပါဘူး**။ အစီအစဉ်လည်း မရှိပါဘူး။
+
+```java
+import java.util.HashSet;
+
+public class Main {
+    public static void main(String[] args) {
+        HashSet<String> fruits = new HashSet<String>();
+        
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Apple"); // ဒါကို ထပ်ထည့်ပေမယ့် လက်မခံပါဘူး
+        
+        System.out.println(fruits); // [Apple, Banana] ပဲ ထွက်ပါမယ်
+        
+        // Data ပါ/မပါ စစ်ဆေးခြင်း
+        if (fruits.contains("Banana")) {
+            System.out.println("ငှက်ပျောသီး ပါပါတယ်။");
+        }
+    }
+}
+```
+
+### Wrapper Classes အကြောင်း သိကောင်းစရာ
+
+Collections တွေ (ArrayList, HashMap စတာတွေ) ထဲမှာ `int`, `double`, `boolean` စတဲ့ Primitive Type တွေကို တိုက်ရိုက် ထည့်လို့ မရပါဘူး။ အဲ့ဒီအစား သူတို့ရဲ့ Object ပုံစံဖြစ်တဲ့ **Wrapper Classes** တွေကို သုံးပေးရပါတယ်။
+
+- `int` အစား `Integer`
+- `double` အစား `Double`
+- `boolean` အစား `Boolean`
+- `char` အစား `Character`
+
+ဥပမာ - `ArrayList<int>` လို့ ရေးလို့မရဘဲ `ArrayList<Integer>` လို့ ရေးရပါတယ်။

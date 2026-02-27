@@ -1,0 +1,103 @@
+---
+title: "Data Structures (ဒေတာ ဖွဲ့စည်းပုံများ)"
+description: "Python တွင် Lists, Dictionaries, Tuples နှင့် Sets များ အသုံးပြုခြင်း"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import dataStructuresImg from "@/assets/python/data-structures.svg";
+
+Data အများကြီးကို စနစ်တကျ သိမ်းဆည်းဖို့ Data Structures တွေကို သုံးပါတယ်။ Variable တစ်ခုတည်းမှာ Data တစ်ခုတည်း သိမ်းမယ့်အစား၊ Data အများကြီးကို စုပြီး သိမ်းချင်တဲ့အခါ သုံးပါတယ်။ Python မှာ အသုံးအများဆုံး (၄) မျိုး ရှိပါတယ်။
+
+<ContentImage src={dataStructuresImg} alt="Python Data Structures" />
+
+---
+
+### 1. Lists (စာရင်းများ)
+
+List ဆိုတာ Data တွေကို အစီအစဉ်တကျ စုသိမ်းထားတာပါ။ `[]` (Square brackets) ကို သုံးပါတယ်။ အထဲက Data တွေကို အချိန်မရွေး ပြင်လို့၊ ဖျက်လို့၊ အသစ်ထပ်ထည့်လို့ ရပါတယ်။
+
+```python
+fruits = ["Apple", "Banana", "Orange"]
+
+# Index (နေရာ) ကို သုံးပြီး ယူခြင်း (0 ကနေ စပါတယ်)
+print(fruits[0]) # Apple
+print(fruits[-1]) # Orange (အနောက်ဆုံးက ကောင်ကို ယူတာပါ)
+
+# အသစ် ထပ်ထည့်ခြင်း
+fruits.append("Mango") # အနောက်ဆုံးမှာ သွားဆက်ပါတယ်
+fruits.insert(1, "Grape") # Index 1 နေရာမှာ သွားထည့်ပါတယ်
+
+# ဖျက်ထုတ်ခြင်း
+fruits.remove("Banana") # နာမည်နဲ့ ရှာဖျက်တာပါ
+popped_fruit = fruits.pop() # အနောက်ဆုံးက ကောင်ကို ဖယ်ထုတ်ပြီး ယူလိုက်တာပါ
+
+# အရေအတွက်ကို ရေတွက်ခြင်း
+print(len(fruits)) # List ထဲမှာ ဘယ်နှစ်ခု ရှိလဲ ဆိုတာ ပြပါတယ်
+```
+
+#### Slicing (ပိုင်းဖြတ်ခြင်း)
+List ထဲကနေ အပိုင်းလိုက်လေးတွေ ဖြတ်ယူလို့ ရပါတယ်။
+```python
+numbers = [0, 1, 2, 3, 4, 5]
+print(numbers[1:4]) # [1, 2, 3] (Index 1 ကနေ 3 အထိ ယူပါတယ်၊ 4 မပါပါဘူး)
+```
+
+---
+
+### 2. Dictionaries (အဘိဓာန်များ)
+
+Dictionary က Data တွေကို **Key-Value (နာမည်-တန်ဖိုး)** အတွဲလိုက် သိမ်းပါတယ်။ `{}` (Curly braces) ကို သုံးပါတယ်။ အဘိဓာန်မှာ စကားလုံး (Key) ကို ရှာပြီး အဓိပ္ပာယ် (Value) ကို ဖတ်သလိုမျိုးပါပဲ။
+
+```python
+student = {
+    "name": "Aung Aung",
+    "age": 20,
+    "major": "Computer Science"
+}
+
+# Key ကို သုံးပြီး Value ကို ယူခြင်း
+print(student["name"]) # Aung Aung
+
+# အသစ်ထည့်ခြင်း (သို့) ပြင်ခြင်း
+student["age"] = 21    # ရှိပြီးသားဆိုရင် ပြင်လိုက်ပါတယ်
+student["grade"] = "A" # မရှိသေးရင် အသစ် ထပ်ထည့်ပါတယ်
+
+# Dictionary ထဲက Data တွေကို ထုတ်ကြည့်ခြင်း
+print(student.keys())   # Key တွေချည်းပဲ ထုတ်ပေးပါတယ်
+print(student.values()) # Value တွေချည်းပဲ ထုတ်ပေးပါတယ်
+print(student.items())  # Key-Value အတွဲလိုက် ထုတ်ပေးပါတယ်
+```
+
+---
+
+### 3. Tuples
+
+Tuple က List နဲ့ တူပါတယ်။ ဒါပေမယ့် အဓိက ကွာခြားချက်က **တစ်ခါ ဖန်တီးပြီးရင် အထဲက Data တွေကို ပြင်လို့၊ ဖျက်လို့၊ အသစ်ထည့်လို့ မရတော့ပါဘူး (Immutable)**။ `()` (Parentheses) ကို သုံးပါတယ်။
+
+ဘာလို့ သုံးတာလဲ? ပြင်လို့မရတဲ့အတွက် List ထက် ပိုမြန်ပါတယ်။ ပြီးတော့ လုံးဝ ပြောင်းလဲသွားလို့ မဖြစ်တဲ့ Data တွေ (ဥပမာ - မြေပုံပေါ်က လတ္တီကျု၊ လောင်ဂျီကျု နေရာတွေ) ကို သိမ်းဖို့ သုံးပါတယ်။
+
+```python
+colors = ("Red", "Green", "Blue")
+print(colors[0]) # Red
+
+# colors[0] = "Yellow" # ဒါမျိုး လုပ်လို့ မရပါဘူး၊ Error တက်ပါမယ်။
+```
+
+---
+
+### 4. Sets
+
+Set က Data တွေကို စုသိမ်းပေးပါတယ်။ ဒါပေမယ့် **တူညီတဲ့ Data နှစ်ခု မပါနိုင်ပါဘူး**။ ပြီးတော့ အစီအစဉ်လည်း မရှိပါဘူး (Index နဲ့ လှမ်းခေါ်လို့ မရပါဘူး)။ `{}` ကို သုံးပါတယ်။
+
+List တစ်ခုထဲမှာ တူနေတဲ့ Data တွေကို ဖယ်ထုတ်ချင်တဲ့အခါ Set ကို ပြောင်းလိုက်တာက အလွယ်ဆုံး နည်းလမ်းပါပဲ။
+
+```python
+numbers = {1, 2, 2, 3, 4, 4, 5}
+print(numbers) # {1, 2, 3, 4, 5} (တူနေတာတွေကို အလိုလို ဖယ်ထုတ်လိုက်ပါတယ်)
+
+# အသစ်ထည့်ခြင်း
+numbers.add(6)
+
+# ဖျက်ခြင်း
+numbers.remove(3)
+```

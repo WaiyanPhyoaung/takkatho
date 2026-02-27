@@ -1,0 +1,94 @@
+---
+title: "Node.js Basics & Modules"
+description: "Node.js ၏ အခြေခံနှင့် Module များအကြောင်း"
+---
+
+Node.js ကို သင့်ကွန်ပျူတာမှာ Install လုပ်ပြီးပြီဆိုရင် စပြီး ရေးလို့ရပါပြီ။ (Install မလုပ်ရသေးရင် [nodejs.org](https://nodejs.org/) မှာ ဒေါင်းလုဒ်ဆွဲပြီး Install လုပ်နိုင်ပါတယ်)။
+
+---
+
+### 1. ပထမဆုံး Node.js Program
+
+ဖိုင်အသစ်တစ်ခု ဖန်တီးပြီး `app.js` လို့ နာမည်ပေးလိုက်ပါ။ ပြီးရင် အောက်ပါ Code ကို ရေးပါ။
+
+```javascript
+// app.js
+console.log("Hello, Node.js!");
+```
+
+ဒီ Code ကို Run ဖို့အတွက် Terminal (သို့) Command Prompt ကို ဖွင့်ပြီး အောက်ပါအတိုင်း ရိုက်ထည့်ပါ။
+
+```bash
+node app.js
+```
+
+Terminal မှာ `Hello, Node.js!` ဆိုပြီး ထွက်လာပါလိမ့်မယ်။ ဒါဟာ သင့်ရဲ့ ပထမဆုံး Node.js Program ပါပဲ။
+
+---
+
+### 2. Global Objects
+
+Browser မှာဆိုရင် `window` ဆိုတဲ့ Global Object ရှိပါတယ်။ Node.js မှာတော့ `window` မရှိပါဘူး။ အဲ့ဒီအစား `global` ဆိုတာ ရှိပါတယ်။
+
+ဒါ့အပြင် Node.js မှာ အသုံးများတဲ့ Global Variables တချို့ ရှိပါတယ်။
+
+```javascript
+// လက်ရှိ အလုပ်လုပ်နေတဲ့ ဖိုင်ရဲ့ လမ်းကြောင်း အပြည့်အစုံ
+console.log(__filename); 
+
+// လက်ရှိ အလုပ်လုပ်နေတဲ့ ဖိုင်ရှိတဲ့ Folder ရဲ့ လမ်းကြောင်း
+console.log(__dirname); 
+
+// ၃ စက္ကန့်ကြာရင် အလုပ်လုပ်မယ့် Function
+setTimeout(() => {
+    console.log("၃ စက္ကန့် ပြည့်သွားပါပြီ!");
+}, 3000);
+```
+
+---
+
+### 3. Modules (ဖိုင်များကို ခွဲခြားရေးသားခြင်း)
+
+Project ကြီးလာတဲ့အခါ Code တွေ အားလုံးကို ဖိုင်တစ်ဖိုင်တည်းမှာ ရေးလို့ အဆင်မပြေတော့ပါဘူး။ ဒါကြောင့် ဖိုင်တွေကို ခွဲရေးရပါတယ်။ အဲ့ဒီလို ခွဲရေးထားတဲ့ ဖိုင်တွေကို **Modules** လို့ ခေါ်ပါတယ်။
+
+Node.js မှာ Module စနစ် (၂) မျိုး ရှိပါတယ်။
+1. **CommonJS (CJS):** Node.js ရဲ့ မူလ Module စနစ် (`require` နဲ့ `module.exports` ကို သုံးပါတယ်)။
+2. **ES Modules (ESM):** JavaScript ရဲ့ စံသတ်မှတ်ချက် အသစ် (`import` နဲ့ `export` ကို သုံးပါတယ်)။
+
+ဒီ Course မှာတော့ အသုံးအများဆုံးဖြစ်တဲ့ **CommonJS** ကို အဓိကထား ရှင်းပြသွားပါမယ်။
+
+#### Module တစ်ခု ဖန်တီးခြင်း (Export)
+
+`math.js` ဆိုတဲ့ ဖိုင်တစ်ခု ဖန်တီးပြီး အောက်ပါအတိုင်း ရေးပါ။
+
+```javascript
+// math.js
+const add = (a, b) => {
+    return a + b;
+};
+
+const subtract = (a, b) => {
+    return a - b;
+};
+
+// တခြားဖိုင်တွေကနေ လှမ်းသုံးလို့ရအောင် Export လုပ်ပေးရပါတယ်
+module.exports = {
+    add,
+    subtract
+};
+```
+
+#### Module ကို အသုံးပြုခြင်း (Import / Require)
+
+အခု `app.js` ထဲမှာ စောစောက `math.js` ကို လှမ်းခေါ်သုံးကြည့်ရအောင်။
+
+```javascript
+// app.js
+// math.js ကို လှမ်းခေါ်ခြင်း (require ကို သုံးပါတယ်)
+const math = require('./math');
+
+console.log(math.add(5, 3));      // အဖြေ: 8
+console.log(math.subtract(10, 4)); // အဖြေ: 6
+```
+
+ဒါဆိုရင် ဖိုင်တွေကို ဘယ်လို ခွဲရေးရမလဲ၊ ဘယ်လို ပြန်ခေါ်သုံးရမလဲ ဆိုတာကို နားလည်သွားပါပြီ။

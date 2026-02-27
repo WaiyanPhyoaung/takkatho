@@ -1,0 +1,120 @@
+---
+title: "Building a Web Server"
+description: "Node.js ၏ http module ကို အသုံးပြု၍ Web Server တည်ဆောက်ခြင်း"
+---
+
+Node.js ရဲ့ အဓိက အလုပ်က Web Server တွေ တည်ဆောက်ဖို့ပါ။ Web Server ဆိုတာ User (Client) ဆီကနေ တောင်းဆိုမှု (Request) တွေကို လက်ခံပြီး၊ လိုအပ်တဲ့ အချက်အလက် (Response) တွေကို ပြန်ပို့ပေးတဲ့ အရာပါ။
+
+Node.js မှာ အသင့်ပါဝင်တဲ့ `http` module ကို သုံးပြီး ရိုးရှင်းတဲ့ Web Server တစ်ခု တည်ဆောက်ကြည့်ရအောင်။
+
+---
+
+### 1. ရိုးရှင်းသော Web Server တည်ဆောက်ခြင်း
+
+`server.js` ဆိုတဲ့ ဖိုင်တစ်ခု ဖန်တီးပြီး အောက်ပါ Code တွေကို ရေးပါ။
+
+```javascript
+// 1. http module ကို ခေါ်ယူခြင်း
+const http = require('http');
+
+// 2. Server ဖန်တီးခြင်း
+// req (Request) = User ဆီက လာတဲ့ အချက်အလက်များ
+// res (Response) = User ဆီ ပြန်ပို့မယ့် အချက်အလက်များ
+const server = http.createServer((req, res) => {
+    
+    // Status Code 200 (OK) နဲ့ Content Type ကို သတ်မှတ်ခြင်း
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    
+    // User ဆီ စာသား ပြန်ပို့ခြင်း
+    res.write('Hello, Welcome to my Node.js Server!');
+    
+    // အလုပ်ပြီးဆုံးကြောင်း ပြောခြင်း
+    res.end();
+});
+
+// 3. Server ကို ဖွင့်ထားခြင်း (Port 3000 မှာ နားထောင်နေပါမယ်)
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+```
+
+Terminal မှာ `node server.js` လို့ ရိုက်ပြီး Run လိုက်ပါ။ ပြီးရင် Browser ကို ဖွင့်ပြီး `http://localhost:3000` ကို သွားကြည့်ရင် သင်ရေးထားတဲ့ စာသားကို တွေ့ရပါလိမ့်မယ်။
+
+---
+
+### 2. Routing (လမ်းကြောင်းများ ခွဲခြားခြင်း)
+
+User က ဘယ်လမ်းကြောင်း (URL) ကို လာသလဲဆိုတာပေါ် မူတည်ပြီး မတူညီတဲ့ စာမျက်နှာတွေ ပြန်ပြချင်ရင် `req.url` ကို သုံးရပါတယ်။
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    // HTML ပြန်ပို့မယ်လို့ သတ်မှတ်ခြင်း
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+
+    // User လာတဲ့ လမ်းကြောင်းကို စစ်ဆေးခြင်း
+    if (req.url === '/') {
+        res.write('<h1>Home Page</h1><p>Welcome to our website.</p>');
+        res.end();
+    } 
+    else if (req.url === '/about') {
+        res.write('<h1>About Us</h1><p>We are learning Node.js.</p>');
+        res.end();
+    } 
+    else if (req.url === '/contact') {
+        res.write('<h1>Contact Us</h1><p>Email: test@example.com</p>');
+        res.end();
+    } 
+    else {
+        // မရှိတဲ့ လမ်းကြောင်းကို လာရင် 404 Not Found ပြပါမယ်
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.write('<h1>404 Page Not Found</h1>');
+        res.end();
+    }
+});
+
+server.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+```
+
+---
+
+### 3. JSON Data ပြန်ပို့ခြင်း (API တည်ဆောက်ခြင်း)
+
+Web Server တွေဟာ HTML စာမျက်နှာတွေချည်းပဲ ပြန်ပို့တာ မဟုတ်ပါဘူး။ Frontend (React, Vue) တွေ၊ Mobile App တွေကနေ လှမ်းခေါ်တဲ့အခါ **JSON** (JavaScript Object Notation) Data တွေကို ပြန်ပို့ပေးရပါတယ်။ ဒါကို API (Application Programming Interface) လို့ ခေါ်ပါတယ်။
+
+```javascript
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    
+    if (req.url === '/api/users') {
+        // JSON ပြန်ပို့မယ်လို့ သတ်မှတ်ခြင်း
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        
+        // ပို့ချင်တဲ့ Data (Array of Objects)
+        const users = [
+            { id: 1, name: 'Aung Aung', age: 20 },
+            { id: 2, name: 'Su Su', age: 22 }
+        ];
+        
+        // JavaScript Object ကို JSON String အဖြစ် ပြောင်းပြီး ပို့ခြင်း
+        res.write(JSON.stringify(users));
+        res.end();
+    } else {
+        res.writeHead(404);
+        res.end('Not Found');
+    }
+});
+
+server.listen(3000, () => {
+    console.log('API Server is running on port 3000');
+});
+```
+
+Browser မှာ `http://localhost:3000/api/users` ကို သွားကြည့်ရင် JSON Data တွေကို တွေ့ရပါလိမ့်မယ်။
+
+**မှတ်ချက်:** `http` module ကို သုံးပြီး Server ရေးရတာ အခြေခံကို နားလည်ဖို့ ကောင်းပေမယ့်၊ တကယ့် Project အကြီးတွေမှာတော့ ဒီထက် ပိုလွယ်ကူပြီး စွမ်းဆောင်ရည်ကောင်းတဲ့ **Express.js** ဆိုတဲ့ Framework ကို အသုံးပြုကြပါတယ်။ နောက်သင်ခန်းစာမှာ Express.js အကြောင်း ဆက်လေ့လာပါမယ်။

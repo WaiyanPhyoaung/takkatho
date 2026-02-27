@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 8; }
+      .text-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #212529; text-anchor: middle; }
+      .text-desc { font-family: Arial, sans-serif; font-size: 12px; fill: #495057; text-anchor: middle; }
+      .arrow { stroke: #6c757d; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #e2e3e5; stroke: #6c757d; stroke-width: 2; rx: 8; }
+      .interface { fill: #cce5ff; stroke: #004085; stroke-width: 2; rx: 8; }
+      .class { fill: #d4edda; stroke: #155724; stroke-width: 2; rx: 8; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6c757d" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="40" class="text-title" style="font-size: 24px;">Java Collections Framework</text>
+
+  <!-- Iterable -->
+  <rect x="325" y="80" width="150" height="50" class="interface" />
+  <text x="400" y="110" class="text-title">Iterable (Interface)</text>
+
+  <!-- Collection -->
+  <rect x="325" y="160" width="150" height="50" class="interface" />
+  <text x="400" y="190" class="text-title">Collection (Interface)</text>
+
+  <path d="M 400 130 L 400 160" class="arrow" />
+
+  <!-- List, Queue, Set -->
+  <rect x="100" y="240" width="150" height="50" class="interface" />
+  <text x="175" y="270" class="text-title">List (Interface)</text>
+
+  <rect x="325" y="240" width="150" height="50" class="interface" />
+  <text x="400" y="270" class="text-title">Queue (Interface)</text>
+
+  <rect x="550" y="240" width="150" height="50" class="interface" />
+  <text x="625" y="270" class="text-title">Set (Interface)</text>
+
+  <path d="M 350 210 L 175 240" class="arrow" />
+  <path d="M 400 210 L 400 240" class="arrow" />
+  <path d="M 450 210 L 625 240" class="arrow" />
+
+  <!-- Classes -->
+  <rect x="50" y="320" width="120" height="50" class="class" />
+  <text x="110" y="350" class="text-title">ArrayList</text>
+
+  <rect x="180" y="320" width="120" height="50" class="class" />
+  <text x="240" y="350" class="text-title">LinkedList</text>
+
+  <rect x="340" y="320" width="120" height="50" class="class" />
+  <text x="400" y="350" class="text-title">PriorityQueue</text>
+
+  <rect x="500" y="320" width="120" height="50" class="class" />
+  <text x="560" y="350" class="text-title">HashSet</text>
+
+  <rect x="630" y="320" width="120" height="50" class="class" />
+  <text x="690" y="350" class="text-title">TreeSet</text>
+
+  <path d="M 150 290 L 110 320" class="arrow" />
+  <path d="M 200 290 L 240 320" class="arrow" />
+  <path d="M 400 290 L 400 320" class="arrow" />
+  <path d="M 600 290 L 560 320" class="arrow" />
+  <path d="M 650 290 L 690 320" class="arrow" />
+
+  <!-- Map (Separate Hierarchy) -->
+  <rect x="325" y="400" width="150" height="50" class="interface" />
+  <text x="400" y="430" class="text-title">Map (Interface)</text>
+
+  <rect x="200" y="470" width="120" height="50" class="class" />
+  <text x="260" y="500" class="text-title">HashMap</text>
+
+  <rect x="480" y="470" width="120" height="50" class="class" />
+  <text x="540" y="500" class="text-title">TreeMap</text>
+
+  <path d="M 350 450 L 260 470" class="arrow" />
+  <path d="M 450 450 L 540 470" class="arrow" />
+
+</svg>

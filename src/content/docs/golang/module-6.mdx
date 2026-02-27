@@ -1,0 +1,100 @@
+---
+title: "Module 6: Interfaces & Error Handling"
+description: "Go ၏ ထူးခြားသော OOP ပုံစံနှင့် Error ဖြေရှင်းနည်းများ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Interfaces (လုပ်ဆောင်ချက် စည်းမျဉ်းများ)
+
+Interface ဆိုတာ "ဒီ Type တစ်ခုမှာ ဘာ Method တွေ ပါရမယ်" လို့ သတ်မှတ်ပေးတဲ့ စည်းမျဉ်း (Contract) တစ်ခုပါ။ Go ရဲ့ Interface တွေက **Implicit** ဖြစ်ပါတယ်။ ဆိုလိုတာက `implements` ဆိုတဲ့ keyword သုံးစရာမလိုဘဲ၊ Interface မှာပါတဲ့ Method တွေကို ရေးထားရင် အလိုအလျောက် အဲဒီ Interface ကို လိုက်နာပြီးသား ဖြစ်သွားပါတယ်။
+
+```go
+// Shape ဆိုတဲ့ Interface ကို တည်ဆောက်ခြင်း
+type Shape interface {
+    Area() float64
+}
+
+// Circle Struct
+type Circle struct {
+    Radius float64
+}
+
+// Circle အတွက် Area Method ရေးခြင်း (Shape Interface ကို အလိုအလျောက် လိုက်နာသွားသည်)
+func (c Circle) Area() float64 {
+    return 3.14 * c.Radius * c.Radius
+}
+
+// Rectangle Struct
+type Rectangle struct {
+    Width, Height float64
+}
+
+// Rectangle အတွက် Area Method ရေးခြင်း
+func (r Rectangle) Area() float64 {
+    return r.Width * r.Height
+}
+
+// Interface ကို အသုံးပြုသော Function
+func printArea(s Shape) {
+    fmt.Println("Area:", s.Area())
+}
+
+func main() {
+    c := Circle{Radius: 5}
+    r := Rectangle{Width: 4, Height: 5}
+
+    printArea(c) // Circle ကို ထည့်လို့ရတယ်
+    printArea(r) // Rectangle ကိုလည်း ထည့်လို့ရတယ်
+}
+```
+
+### Empty Interface (`interface{}`)
+
+Method တစ်ခုမှ မပါတဲ့ Interface ကို Empty Interface လို့ ခေါ်ပါတယ်။ သူက မည်သည့် Data Type ကိုမဆို လက်ခံနိုင်ပါတယ်။ (TypeScript ရဲ့ `any` နဲ့ ဆင်တူပါတယ်)။
+
+```go
+func printAnything(i interface{}) {
+    fmt.Println(i)
+}
+
+printAnything(42)
+printAnything("Hello")
+printAnything(true)
+```
+
+## Error Handling (အမှားများကို ကိုင်တွယ်ခြင်း)
+
+Go မှာ `try-catch` လိုမျိုး Exception Handling မရှိပါဘူး။ အဲဒီအစား Error တွေကို ပုံမှန် Return Value တစ်ခုအနေနဲ့ ပြန်ပေးပါတယ်။
+
+```go
+import (
+    "errors"
+    "fmt"
+)
+
+// Error ပြန်ပေးနိုင်သော Function
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        // Error အသစ် ဖန်တီးခြင်း
+        return 0, errors.New("cannot divide by zero")
+    }
+    return a / b, nil // nil ဆိုသည်မှာ Error မရှိပါ ဟုဆိုလိုသည်
+}
+
+func main() {
+    result, err := divide(10, 0)
+    
+    // Error ရှိမရှိ စစ်ဆေးခြင်း (Go တွင် အလွန်အသုံးများသော ပုံစံ)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    
+    fmt.Println("Result:", result)
+}
+```
+
+<Aside type="tip" title="Go ၏ ရွှေစည်းမျဉ်း">
+`if err != nil { ... }` ဆိုတဲ့ စာကြောင်းဟာ Go Code တွေမှာ အများဆုံး တွေ့ရမယ့် စာကြောင်းပါ။ Error တွေကို လျစ်လျူမရှုဘဲ ချက်ချင်း ဖြေရှင်းဖို့ Go က အားပေးပါတယ်။
+</Aside>

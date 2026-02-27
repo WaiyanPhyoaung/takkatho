@@ -1,0 +1,70 @@
+---
+title: "Modules နှင့် Packages များ"
+description: "Python တွင် အခြားသူများ ရေးသားထားသော Code များကို အသုံးပြုခြင်း"
+---
+
+Programming လုပ်တဲ့အခါ အရာအားလုံးကို ကိုယ်တိုင် အစကနေ ရေးစရာ မလိုပါဘူး။ တခြားသူတွေ ရေးထားပြီးသား၊ စမ်းသပ်ပြီးသား Code တွေကို ယူသုံးလို့ ရပါတယ်။ အဲ့ဒါကို Modules နဲ့ Packages တွေလို့ ခေါ်ပါတယ်။
+
+---
+
+### Module ဆိုတာ ဘာလဲ?
+
+Module ဆိုတာ Python Code တွေ ရေးထားတဲ့ `.py` ဖိုင် တစ်ခုပါပဲ။ အဲ့ဒီထဲမှာ Functions တွေ၊ Classes တွေ အများကြီး ပါဝင်ပါတယ်။ ကိုယ့်ရဲ့ Program ထဲမှာ အဲ့ဒီ Module ကို `import` လုပ်ပြီး အလွယ်တကူ ခေါ်သုံးလို့ ရပါတယ်။
+
+#### Built-in Modules (Python မှာ အသင့်ပါပြီးသားများ)
+
+Python ကို Install လုပ်ကတည်းက အသင့်ပါလာတဲ့ Module တွေ အများကြီး ရှိပါတယ်။ ဥပမာ - သင်္ချာတွက်ဖို့ `math`၊ ကျပန်းဂဏန်းတွေ ထုတ်ဖို့ `random`၊ အချိန်နဲ့ ရက်စွဲအတွက် `datetime` စသဖြင့်ပေါ့။
+
+**`math` Module အသုံးပြုပုံ:**
+```python
+import math
+
+# Pi တန်ဖိုးကို ယူခြင်း
+print(math.pi) # 3.141592653589793
+
+# Square root (နှစ်ထပ်ကိန်းရင်း) ရှာခြင်း
+print(math.sqrt(16)) # 4.0
+```
+
+**`random` Module အသုံးပြုပုံ:**
+```python
+import random
+
+# 1 ကနေ 10 ကြား ကျပန်းဂဏန်း တစ်ခု ထုတ်ပေးမယ်
+lucky_number = random.randint(1, 10)
+print(f"သင့်ရဲ့ ကံစမ်းမဲဂဏန်းကတော့ {lucky_number} ပါ။")
+
+# List ထဲကနေ ကျပန်း ရွေးချယ်မယ်
+fruits = ["Apple", "Banana", "Orange", "Mango"]
+random_fruit = random.choice(fruits)
+print(f"ဒီနေ့ စားရမယ့် အသီးကတော့ {random_fruit} ပါ။")
+```
+
+---
+
+### Package ဆိုတာ ဘာလဲ?
+
+Package ဆိုတာ Module တွေ အများကြီးကို Folder တစ်ခုထဲမှာ စုထားတာပါ။ Python ရဲ့ အားသာချက်က ကမ္ဘာတစ်ဝှမ်းက Developer တွေ ရေးထားတဲ့ Package တွေ အများကြီး ရှိနေတာပါပဲ။
+
+ဥပမာ - Data တွေ ခွဲခြမ်းစိတ်ဖြာဖို့ `pandas`၊ AI ရေးဖို့ `tensorflow`၊ Website ရေးဖို့ `django` စသဖြင့် ရှိပါတယ်။
+
+#### `pip` ကို အသုံးပြုခြင်း
+
+အပြင်က Package တွေကို သုံးချင်ရင် အရင်ဆုံး Install လုပ်ရပါတယ်။ အဲ့ဒီအတွက် `pip` (Python Package Installer) ကို သုံးပါတယ်။ Terminal (သို့) Command Prompt မှာ အောက်ပါအတိုင်း ရိုက်ထည့်ရပါတယ်။
+
+```bash
+# requests ဆိုတဲ့ Package ကို Install လုပ်ခြင်း
+pip install requests
+```
+
+Install လုပ်ပြီးသွားရင် ကိုယ့်ရဲ့ Code ထဲမှာ `import` လုပ်ပြီး သုံးလို့ ရပါပြီ။
+
+```python
+# requests ကို သုံးပြီး အင်တာနက်ပေါ်က Data တွေကို လှမ်းယူလို့ ရပါတယ်
+import requests
+
+response = requests.get("https://api.github.com")
+print(response.status_code) # 200 (အောင်မြင်တယ်လို့ ဆိုလိုပါတယ်)
+```
+
+Modules နဲ့ Packages တွေကို သုံးတတ်သွားရင် သင့်အနေနဲ့ Code အနည်းငယ် ရေးရုံနဲ့ အလုပ်တွေ အများကြီး လုပ်နိုင်တဲ့ Program တွေကို ဖန်တီးနိုင်မှာ ဖြစ်ပါတယ်။

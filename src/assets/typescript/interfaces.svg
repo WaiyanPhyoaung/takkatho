@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .box { fill: #f8f9fa; stroke: #343a40; stroke-width: 2; rx: 8; }
+      .text-title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #212529; text-anchor: middle; }
+      .text-desc { font-family: Arial, sans-serif; font-size: 14px; fill: #495057; text-anchor: middle; }
+      .arrow { stroke: #6f42c1; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .interface-box { fill: #f3e5f5; stroke: #6f42c1; stroke-width: 2; rx: 8; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6f42c1" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="40" class="text-title" style="font-size: 24px;">Interfaces (Object Blueprints)</text>
+
+  <!-- Interface -->
+  <rect x="300" y="80" width="200" height="120" class="interface-box" />
+  <text x="400" y="110" class="text-title" style="fill: #6f42c1;">Interface: User</text>
+  <text x="400" y="140" class="text-desc">name: string</text>
+  <text x="400" y="160" class="text-desc">age: number</text>
+  <text x="400" y="180" class="text-desc">email?: string</text>
+
+  <!-- Object 1 -->
+  <rect x="150" y="260" width="180" height="100" class="box" />
+  <text x="240" y="290" class="text-title">Object 1 (Valid)</text>
+  <text x="240" y="320" class="text-desc">name: "Aung"</text>
+  <text x="240" y="340" class="text-desc">age: 25</text>
+
+  <!-- Object 2 -->
+  <rect x="470" y="260" width="180" height="100" class="box" />
+  <text x="560" y="290" class="text-title">Object 2 (Valid)</text>
+  <text x="560" y="320" class="text-desc">name: "Su"</text>
+  <text x="560" y="340" class="text-desc">age: 22</text>
+  <text x="560" y="360" class="text-desc">email: "su@mail.com"</text>
+
+  <!-- Arrows -->
+  <path d="M 350 200 L 240 250" class="arrow" />
+  <path d="M 450 200 L 560 250" class="arrow" />
+
+</svg>

@@ -1,0 +1,56 @@
+---
+title: "TypeScript မိတ်ဆက်"
+description: "TypeScript ဆိုတာ ဘာလဲ၊ ဘာကြောင့် သုံးသင့်တာလဲ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import tsVsJs from "@/assets/typescript/ts-vs-js.svg";
+
+<Aside title="မင်္ဂလာပါ">
+TypeScript Course ကနေ ကြိုဆိုပါတယ်။ ဒီ Course မှာ JavaScript ကို ပိုမို စနစ်ကျပြီး အမှားကင်းအောင် ရေးနိုင်မယ့် TypeScript ကို အခြေခံကနေ စပြီး လေ့လာသွားမှာ ဖြစ်ပါတယ်။
+</Aside>
+
+### TypeScript ဆိုတာ ဘာလဲ?
+
+TypeScript ဆိုတာ Microsoft ကနေ ဖန်တီးထားတဲ့ Programming Language တစ်ခုပါ။ သူ့ကို **"JavaScript with Syntax for Types"** လို့ ခေါ်ပါတယ်။ 
+
+ရိုးရှင်းအောင် ပြောရရင် TypeScript ဆိုတာ JavaScript ပါပဲ။ ဒါပေမယ့် JavaScript မှာ မပါတဲ့ **"စည်းကမ်းချက်တွေ (Types)"** ကို ထပ်ပေါင်းထည့်ထားတာ ဖြစ်ပါတယ်။
+
+<ContentImage src={tsVsJs} alt="How TypeScript Works" />
+
+### ဘာလို့ TypeScript ကို သုံးသင့်တာလဲ?
+
+JavaScript ဟာ အရမ်း လွတ်လပ်လွန်းတဲ့ Language တစ်ခုပါ။ Variable တစ်ခုကို ဂဏန်း (Number) ထည့်ထားပြီး၊ နောက်တစ်ကြောင်းမှာ စာသား (String) ပြောင်းထည့်လိုက်လည်း ရပါတယ်။ အဲ့ဒီလို လွတ်လပ်လွန်းတဲ့အတွက် Project ကြီးလာတဲ့အခါ **မထင်မှတ်ထားတဲ့ အမှား (Bugs) တွေ** အများကြီး တက်တတ်ပါတယ်။
+
+TypeScript က အဲ့ဒီ ပြဿနာကို ဖြေရှင်းပေးပါတယ်။
+- **အမှားများကို ကြိုသိနိုင်ခြင်း:** Code ရေးနေတုန်းမှာတင် (Compile Time) မှားနေရင် မျဉ်းနီလေးတွေ တားပြီး သတိပေးပါတယ်။ Browser ပေါ်ရောက်မှ Error တက်တာမျိုးကို လျှော့ချပေးပါတယ်။
+- **Auto-completion ပိုကောင်းခြင်း:** VS Code လို Editor တွေမှာ Code ရိုက်တဲ့အခါ ဘာတွေ ဆက်ရိုက်လို့ရလဲ ဆိုတာကို အတိအကျ ပြပေးနိုင်ပါတယ်။
+- **Code ဖတ်ရလွယ်ခြင်း:** တခြားသူ ရေးထားတဲ့ Code ကို ဖတ်တဲ့အခါ ဒီ Variable က ဘာအမျိုးအစားလဲ ဆိုတာ ချက်ချင်း သိနိုင်ပါတယ်။
+
+### JavaScript နဲ့ ဘာကွာလဲ?
+
+**JavaScript:**
+```javascript
+let age = 20;
+age = "Twenty"; // JS မှာ ဒါမျိုး လုပ်လို့ရပါတယ်။ (ဒါပေမယ့် ပြဿနာ တက်နိုင်ပါတယ်)
+```
+
+**TypeScript:**
+```typescript
+let age: number = 20; // ဂဏန်းပဲ လက်ခံမယ်လို့ စည်းကမ်း သတ်မှတ်လိုက်ပါပြီ
+age = "Twenty"; // ❌ Error: Type 'string' is not assignable to type 'number'.
+```
+
+### ဒီ Course မှာ ဘာတွေ သင်ရမလဲ?
+
+1. **Basic Types:** String, Number, Boolean စတဲ့ အခြေခံ အမျိုးအစားများ။
+2. **Functions:** Function တွေမှာ Type တွေ ဘယ်လို သတ်မှတ်မလဲ။
+3. **Interfaces & Objects:** Object တွေရဲ့ ပုံစံကြမ်း (Blueprint) ဖန်တီးခြင်း။
+4. **Union & Intersection:** Type တွေကို ပေါင်းစပ် အသုံးပြုခြင်း။
+5. **Enums & Tuples:** တိကျတဲ့ တန်ဖိုးတွေနဲ့ Array တွေကို သတ်မှတ်ခြင်း။
+6. **Classes (OOP):** TypeScript မှာ Object-Oriented ရေးသားခြင်း။
+7. **Generics:** ပြန်လည်အသုံးပြုလို့ရတဲ့ (Reusable) Type များ ဖန်တီးခြင်း။
+8. **Mini Project:** TypeScript ကို သုံးပြီး ရိုးရှင်းတဲ့ Todo List Logic ရေးကြည့်ခြင်း။
+
+ကဲ... TypeScript လောကထဲကို ဝင်ရောက်ကြည့်ကြရအောင်!
