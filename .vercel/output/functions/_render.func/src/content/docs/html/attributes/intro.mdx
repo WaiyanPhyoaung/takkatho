@@ -1,0 +1,88 @@
+---
+title: "HTML Attributes"
+description: "HTML Attributes"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import formImage from '@/assets/html/form.png'
+import inputsImage from '@/assets/html/inputs.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ HTML element တွေအတွက် အပိုအချက်အလက်တွေ ပေးဖို့သုံးတဲ့ **HTML attribute** တွေအကြောင်းကို လေ့လာသွားမှာပါ။ ဒါ့အပြင် ကိုယ့်ရဲ့ code တွေက သပ်ရပ်ဖို့၊ သုံးစွဲရလွယ်ကူဖို့ (accessible) နဲ့ SEO-friendly ဖြစ်ဖို့အတွက် HTML ရေးသားရာမှာ လိုက်နာသင့်တဲ့ အကောင်းဆုံးနည်းလမ်းတွေကိုလည်း ပြောပြသွားမှာပါ။
+</Aside>
+
+### HTML Attributes ဆိုတာ ဘာလဲ?
+Attribute ဆိုတာက HTML tag တွေရဲ့ အပြုအမူ (behavior) ကို ထိန်းချုပ်ဖို့ ဒါမှမဟုတ် element တစ်ခုအကြောင်း အသေးစိတ်အချက်အလက်တွေ ထပ်ထည့်ပေးဖို့ သုံးတဲ့ **အပိုအချက်အလက်တွေ** ဖြစ်ပါတယ်။ သူတို့ကို အမြဲတမ်း element တစ်ခုရဲ့ အဖွင့် tag (opening tag) ထဲမှာ ထည့်ရေးရပါတယ်။
+
+**Attribute တစ်ခုရဲ့ တည်ဆောက်ပုံ**<br/>
+`Attribute Name` = `"Attribute Value"`
+
+**ဥပမာ -**
+
+```html
+<a href="https://www.example.com">Visit Example</a>
+```
+
+- `href` က **attribute name** ဖြစ်ပါတယ်။
+- `"https://www.example.com"` က **attribute value** ဖြစ်ပါတယ်။
+
+### အသုံးများတဲ့ HTML Attribute များ
+HTML မှာ အသုံးများတဲ့ attribute တစ်ချို့ကို အောက်မှာ ဖော်ပြပေးထားပါတယ်။
+
+##### 1. `id` Attribute
+Element တစ်ခုကို သီးသန့်အမှတ်အသား (unique identifier) ပေးဖို့ သုံးပါတယ်။ CSS ဒါမှမဟုတ် JavaScript နဲ့ အဲ့ဒီ element ကို လှမ်းခေါ်သုံးဖို့ အသုံးဝင်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<h1 id="main-title">Welcome to My Website</h1>
+```
+
+##### 2. `class` Attribute
+Element တစ်ခုကို css class တစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုပြီး သတ်မှတ်ပေးဖို့ သုံးပါတယ်။ 
+
+**ဥပမာ -**
+
+```html
+<p class="highlighted-text">This is a highlighted paragraph.</p>
+```
+
+##### 3. `src` Attribute
+ပုံတွေ၊ video တွေလိုမျိုး ပြင်ပက file တွေရဲ့ source ကို သတ်မှတ်ပေးဖို့ သုံးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<img src="image.jpg" alt="A beautiful scenery">
+```
+##### 4. `alt` Attribute
+ပုံတွေနဲ့တွဲသုံးပြီး၊ accessibility အတွက် ပုံရဲ့အကြောင်းအရာကို စာသားနဲ့ ဖော်ပြပေးဖို့ သုံးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<img src="logo.png" alt="Website Logo">
+```
+#### 5. `href` Attribute
+`<a>` (anchor) tag မှာသုံးပြီး၊ အဲ့ဒီ link ကို နှိပ်လိုက်ရင် ဘယ် URL ကို သွားရမလဲဆိုတာ သတ်မှတ်ပေးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<a href="https://www.example.com">Visit Example</a>
+```
+
+##### 6. `target` Attribute
+`<a>` tag နဲ့ တွဲသုံးပြီး နှိပ်လိုက်တဲ့ link ကို ဘယ်နေရာမှာ ဖွင့်မလဲဆိုတာ သတ်မှတ်ပေးပါတယ်။
+
+- `"_blank"` က link ကို tab အသစ်မှာ ဖွင့်ပေးပါတယ်။
+
+- `"_self"` က link ကို လက်ရှိ tab မှာပဲ ဖွင့်ပေးပါတယ် (default)။
+
+**ဥပမာ -**
+
+```html
+<a href="https://www.example.com" target="_blank">Open in new tab</a>
+```

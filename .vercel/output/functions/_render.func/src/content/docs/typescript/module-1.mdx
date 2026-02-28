@@ -1,0 +1,79 @@
+---
+title: "Basic Types"
+description: "TypeScript တွင် အသုံးပြုသော အခြေခံ Data Types များ"
+---
+
+TypeScript ရဲ့ အဓိက ရည်ရွယ်ချက်က Variable တွေ၊ Function တွေမှာ **"ဘာအမျိုးအစား (Type) လဲ"** ဆိုတာကို အတိအကျ သတ်မှတ်ပေးဖို့ပါ။ အဲ့ဒါကို Type Annotation လို့ ခေါ်ပါတယ်။
+
+---
+
+### 1. အခြေခံ Types များ (Primitives)
+
+JavaScript မှာ ရှိတဲ့ အခြေခံ Type တွေကို TypeScript မှာ အောက်ပါအတိုင်း သတ်မှတ်လို့ ရပါတယ်။
+
+```typescript
+// 1. String (စာသား)
+let myName: string = "Aung Aung";
+
+// 2. Number (ဂဏန်း - အပြည့်ရော၊ ဒသမကိန်းရော ရပါတယ်)
+let age: number = 25;
+let price: number = 99.99;
+
+// 3. Boolean (မှန်/မှား)
+let isStudent: boolean = true;
+```
+
+အကယ်၍ သတ်မှတ်ထားတဲ့ Type မဟုတ်တာ သွားထည့်ရင် TypeScript က Error ပြပါလိမ့်မယ်။
+
+```typescript
+let count: number = 10;
+count = "Ten"; // ❌ Error: Type 'string' is not assignable to type 'number'.
+```
+
+---
+
+### 2. Type Inference (အလိုအလျောက် သိရှိခြင်း)
+
+TypeScript က အရမ်း စမတ်ကျပါတယ်။ Variable တစ်ခုကို ကြေညာတဲ့အချိန်မှာ တန်ဖိုး (Value) တစ်ခါတည်း ထည့်ပေးလိုက်ရင်၊ အဲ့ဒီ Variable ရဲ့ Type ကို သူဘာသာ အလိုအလျောက် သိသွားပါတယ်။ အဲ့ဒါကို **Type Inference** လို့ ခေါ်ပါတယ်။
+
+```typescript
+// : string လို့ ရေးစရာ မလိုပါဘူး။ TypeScript က string မှန်း သိသွားပါပြီ။
+let city = "Yangon"; 
+
+city = 123; // ❌ Error: Type 'number' is not assignable to type 'string'.
+```
+
+ဒါကြောင့် တန်ဖိုး တစ်ခါတည်း ထည့်မယ့် နေရာတွေမှာ Type ကို ကိုယ်တိုင် လိုက်ရေးနေစရာ မလိုပါဘူး။
+
+---
+
+### 3. Arrays (စာရင်းများ)
+
+Array တွေမှာလည်း ဘာ Data တွေ ထည့်မလဲ ဆိုတာကို သတ်မှတ်လို့ ရပါတယ်။ ရေးနည်း (၂) မျိုး ရှိပါတယ်။
+
+```typescript
+// နည်းလမ်း (၁): Type နောက်မှာ [] ထည့်ခြင်း (အသုံးများပါတယ်)
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: string[] = ["Aung", "Kyaw", "Su"];
+
+// နည်းလမ်း (၂): Array<Type> လို့ ရေးခြင်း
+let scores: Array<number> = [100, 90, 85];
+
+// မှားယွင်းစွာ ထည့်သွင်းခြင်း
+numbers.push("Six"); // ❌ Error: Argument of type 'string' is not assignable to parameter of type 'number'.
+```
+
+---
+
+### 4. Any Type (ရှောင်ကြဉ်ရမည့် Type)
+
+`any` ဆိုတာကတော့ "ဘာပဲလာလာ လက်ခံတယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။ `any` ကို သုံးလိုက်ရင် TypeScript ရဲ့ စည်းကမ်းတွေ အားလုံး ပျက်ပြယ်သွားပြီး၊ ရိုးရိုး JavaScript လိုပဲ ဖြစ်သွားပါမယ်။
+
+```typescript
+let something: any = "Hello";
+something = 123;      // ✅ ရပါတယ်
+something = true;     // ✅ ရပါတယ်
+something.push(10);   // ✅ Compile Time မှာ Error မပြပါဘူး (ဒါပေမယ့် Run ရင် Error တက်ပါမယ်)
+```
+
+**အကြံပြုချက်:** `any` ကို တတ်နိုင်သမျှ မသုံးပါနဲ့။ တကယ်လို့ ဘာ Type လာမလဲ လုံးဝ မသိတဲ့ အခြေအနေမျိုးမှာပဲ သုံးပါ။

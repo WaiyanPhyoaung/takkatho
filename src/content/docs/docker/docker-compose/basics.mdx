@@ -1,0 +1,63 @@
+---
+title: "Docker Compose နှင့် ချိတ်ဆက်အလုပ်လုပ်ခြင်း"
+description: "Containers အများကြီးကို တစ်ပြိုင်နက်တည်း Run နိုင်ရန် Docker Compose အသုံးပြုပုံ"
+---
+
+ပရောဂျက်တစ်ခုမှာ Backend Server က သပ်သပ်တစ်ဘူး၊ Database က သပ်သပ်တစ်ဘူး၊ Frontend က သပ်သပ်တစ်ဘူး ခွဲပြီး Run ရတာမျိုးတွေ ရှိလာပါပြီ။ အဲ့ဒီဘူး (Container) ၃ ခုလုံးကို Terminal ကနေ တစ်ခုချင်းစီ လိုက် Run နေရင် Command တွေ အများကြီး ရိုက်နေရမှာပါ။
+
+အဲဒီလို Container အများကြီး (Multi-containers) ကို ဖိုင်တစ်ဖိုင်တည်းမှာ စာရင်းလုပ်ထားပြီး "တစ်ချက်တည်းနဲ့ အကုန် Run လိုက်!" လို့ အမိန့်ပေးချင်ရင် **Docker Compose** ကို သုံးပါတယ်။
+
+### `docker-compose.yml` ဖိုင်
+Docker Compose ကို သုံးဖို့ဆိုရင် `docker-compose.yml` (YAML format) ဆိုတဲ့ ဖိုင်လေးတစ်ခု ဆောက်ရပါတယ်။ 
+
+**ဥပမာ:** Backend Node.js နဲ့ MongoDB ကို တွဲပြီး Run ချင်တဲ့အခါ-
+
+```yaml
+version: '3.8'
+
+services:
+  # 1) Database Service
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017" # မိမိစက် Port နဲ့ Container Port ချိတ်ဆက်ခြင်း
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+
+  # 2) မိမိ၏ Backend App Service
+  backend-api:
+    build: . # လက်ရှိ Data ထဲက Dockerfile ကို ခေါ်သုံးမည်
+    ports:
+      - "3000:3000"
+    environment:
+      # အောက်ပါအတိုင်း DB name နေရာတွင် mongodb ဟု လွယ်ကူစွာ ချိတ်ဆက်နိုင်သည်
+      DB_URL: mongodb://admin:password123@mongodb:27017/ 
+    depends_on:
+      - mongodb # Database အရင် Run ပြီးမှ Backend ကို Run မည်
+```
+
+### Magic ချိတ်ဆက်မှု (Network)
+ပုံမှန်ဆိုရင် ကွန်ပျူတာ ၂ လုံး ချိတ်ဆက်ဖို့ IP Address တွေ သိဖို့လိုပါတယ်။ ဒါပေမယ့် Compose ထဲမှာ ရေးလိုက်ရင် သူတပ်ပေးထားတဲ့ နာမည် (ဥပမာ: `mongodb`) ဟာ အလိုအလျောက် Domain Naming ဖြစ်သွားပါတယ်။
+ဒါကြောင့် သင့် Backend ကနေ Database ကို ချိတ်ချင်ရင် `localhost` အစား `mongodb:27017` လို့ ရေးလိုက်ရုံပါပဲ။
+
+### Compose Command များ
+
+Compose ဖိုင်ရေးပြီးသွားရင် Command တစ်ကြောင်းတည်းနဲ့ အားလုံးကို မောင်းနှင်လည်ပတ်လို့ ရပါပြီ။
+
+```bash
+# Services တွေအားလုံးကို Background ကနေ စတင် Run မည်
+docker-compose up -d
+
+# Run နေတဲ့ Services တွေ ဘာဖြစ်နေလဲ ကြည့်မည်
+docker-compose ps
+
+# ပြဿနာတစ်ခုခုတက်ရင် Log တွေကို ကြည့်မည်
+docker-compose logs -f
+
+# Services တွေအားလုံးကို ရပ်တန့်ပြီး Container တွေကိုပါ ပြန်ဖျက်ပစ်မည်
+docker-compose down
+```
+
+### အနှစ်ချုပ်
+`docker build` နဲ့ `docker run` တွေကို လက်နဲ့ လိုက်ရိုက်မယ့်အစား၊ လိုအပ်တဲ့ Setting တွေ အားလုံးကို `docker-compose.yml` ဖိုင်ထဲမှာ မှတ်တမ်းတင်ထားလိုက်တာဟာ အကောင်းဆုံး Best Practice ဖြစ်ပါတယ်။ Code ကို GitHub ပေါ်တင်လိုက်ရင်လည်း အခြား Programmer က ဒီဖိုင်ကို တွေ့တာနဲ့ `docker-compose up` လို့ အလွယ်တကူ ရိုက်ပြီး သင့် Project ကို ဆက်လက် အလုပ်လုပ်နိုင်ပါလိမ့်မယ်။

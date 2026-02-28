@@ -1,0 +1,27 @@
+---
+title: "Security & Privacy (လုံခြုံရေးနှင့် သတိပြုစရာများ)"
+description: "AI သုံးတဲ့အခါ ကိုယ့် Data တွေ မပေါက်ကြားအောင် ဘယ်လို ကာကွယ်မလဲ။"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Safety First">
+AI က အသုံးဝင်ပေမယ့်၊ သတိမထားရင် ကိုယ့် Company ရဲ့ လျှို့ဝှက်ချက်တွေ ပေါက်ကြားနိုင်ပါတယ်။
+</Aside>
+
+### 1. Don't Paste Secrets (လျှို့ဝှက်ချက်များ မထည့်ရ)
+
+*   **API Keys:** AWS Key, Database Password တွေကို Chatbox ထဲ လုံးဝ (လုံးဝ) မထည့်ပါနဲ့။ AI က အဲ့ဒါတွေကို မှတ်ထားနိုင်ပါတယ်။
+*   **PII (Personal Data):** User တွေရဲ့ ဖုန်းနံပါတ်၊ မှတ်ပုံတင် နံပါတ်တွေကို မထည့်ပါနဲ့။
+*   **Proprietary Code:** Company ရဲ့ အရမ်းအရေးကြီးတဲ့ Algorithm တွေကို Public AI (Free ChatGPT) မှာ သွားမစစ်ပါနဲ့။ Enterprise Version သုံးပါ။
+
+### 2. Hallucinations (လျှောက်ပြောခြင်း)
+
+AI ပေးတဲ့ Code တိုင်းကို မျက်စိမှိတ် မယုံပါနဲ့။
+*   မရှိတဲ့ Library တွေကို သုံးခိုင်းတတ်ပါတယ်။ (Package Hallucination)
+*   လုံခြုံရေး အားနည်းတဲ့ Code တွေ ပေးတတ်ပါတယ်။
+
+### 3. Code Ownership
+
+AI ရေးပေးတဲ့ Code က ဘယ်သူပိုင်လဲ?
+လက်ရှိမှာတော့ AI ရေးတဲ့ Code ကို Copyright ယူလို့ မရသေးပါဘူး။ ဒါပေမယ့် လုပ်ငန်းခွင်မှာ သုံးဖို့အတွက်ကတော့ ပြဿနာ မရှိပါဘူး။

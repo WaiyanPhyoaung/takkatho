@@ -1,0 +1,94 @@
+---
+title: "Videos & Audios"
+description: "Videos & Audios"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import colspan from '@/assets/html/colspan.png'
+import rowspan from '@/assets/html/rowspan.png'
+import style from '@/assets/html/style.png'
+
+### Cell များကို ပေါင်းစပ်ခြင်း (Merging Cells)
+တစ်ခါတလေမှာ cell တစ်ခုတည်းကို column တွေ ဒါမှမဟုတ် row တွေ ၂ ခု စာ၊ ၃ ခုစာအထိ နေရာယူစေချင်တဲ့အခါ ရှိနိုင်ပါတယ်။
+
+#### Column Span (colspan)
+- Cell တွေကို အလျားလိုက် (horizontally) ပေါင်းစပ်ပေးပါတယ်။
+
+```html
+<tr>
+  <th colspan="2">Course Info</th>
+  <th>Level</th>
+</tr>
+```
+<ContentImage src={colspan} alt="colspan example" />
+
+#### Row Span (rowspan)
+Cell တွေကို ဒေါင်လိုက် (vertically) ပေါင်းစပ်ပေးပါတယ်။
+
+```html
+<tr>
+  <td rowspan="2">HTML Basics</td>
+  <td>Duration: 2 hours</td>
+  <td>Level: Beginner</td>
+</tr>
+<tr>
+  <td>Duration: 3 hours</td>
+  <td>Level: Intermediate</td>
+</tr>
+```
+<ContentImage src={rowspan} alt="rowspan example" />
+
+### Table Styling အခြေခံများ
+Table တွေကို CSS သုံးပြီး လှအောင်လုပ်နိုင်ပါတယ်-
+
+- `border`: table/cell တွေရဲ့ ဘေးမှာ ဘောင်တွေထည့်ပေးတယ်။
+
+- `padding`: cell တွေရဲ့ အတွင်းထဲမှာ နေရာလပ် ထည့်ပေးတယ်။
+
+- `text-align`: cell ထဲက စာသားကို နေရာချပေးတယ်။
+
+- `background-color`: row တွေ ဒါမှမဟုတ် header တွေအတွက် background color ထည့်ပေးတယ်။
+
+**ဥပမာ -**
+
+```css
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: lightgray;
+  }
+</style>
+```
+<ContentImage src={style} alt="table styling example" />
+
+### အကောင်းဆုံးအလေ့အကျင့်များ (Best Practices)
+
+- **Accessibility ပိုကောင်းအောင်** ခေါင်းစဉ်တွေအတွက် `<th>` ကို သုံးပါ။
+
+- Table တွေကို ရိုးရှင်းအောင်ထားပြီး၊ table ထဲမှာ table တွေ အများကြီးထပ်ထည့်တာမျိုး ရှောင်ပါ။
+
+- Table က ဘာအကြောင်းလဲဆိုတာ ဖော်ပြဖို့ `<caption>` ကို သုံးပါ။
+
+
+<Aside type="tip" title="အကျဉ်းချုပ်">
+- Table တွေက data တွေကို rows တွေ columns တွေနဲ့ ဖော်ပြပေးပါတယ်။
+
+- `<table>` က အဓိက container ဖြစ်ပြီး၊ `<tr>` က rows တွေဖန်တီးတယ်၊ `<th>` နဲ့ `<td>` က ခေါင်းစဉ်နဲ့ data cell တွေကို သတ်မှတ်ပေးပါတယ်။
+
+- `<caption>` က သင့် table ကို ခေါင်းစဉ်တပ်ပေးပါတယ်။
+
+- `colspan` နဲ့ `rowspan` က cell တွေကို column တွေ၊ row တွေကို ပေါင်းစပ်ပေးနိုင်ပါတယ်။
+
+- CSS က table တွေကို ပိုဖတ်လို့ကောင်းပြီး ကြည့်လို့လှအောင် ကူညီပေးပါတယ်။
+
+- Table တွေ ထည့်တဲ့အခါ **accessibility နဲ့ mobile responsiveness** ကို အမြဲထည့်သွင်းစဉ်းစားပါ။
+</Aside>

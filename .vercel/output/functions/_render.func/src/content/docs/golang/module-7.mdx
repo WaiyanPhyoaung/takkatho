@@ -1,0 +1,121 @@
+---
+title: "Module 7: Concurrency (Goroutines & Channels)"
+description: "Go ၏ အင်အားအကြီးဆုံး Feature ဖြစ်သော ပြိုင်တူအလုပ်လုပ်ခြင်း (Concurrency) အကြောင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Concurrency ဆိုတာ ဘာလဲ?
+
+Concurrency ဆိုတာ အလုပ်တွေကို တစ်ပြိုင်နက်တည်း (သို့မဟုတ် တစ်လှည့်စီ အလွန်မြန်ဆန်စွာ) လုပ်ဆောင်ခြင်း ဖြစ်ပါတယ်။ Go ဟာ Concurrency အတွက် အထူးရည်ရွယ်ပြီး ဖန်တီးထားတဲ့ Language ဖြစ်ပါတယ်။
+
+## Goroutines (ပေါ့ပါးသော Threads များ)
+
+Goroutine ဆိုတာ Go ရဲ့ Runtime က စီမံပေးတဲ့ အလွန်ပေါ့ပါးတဲ့ Thread လေးတွေပါ။ Function တစ်ခုကို `go` ဆိုတဲ့ keyword လေးခံပြီး ခေါ်လိုက်တာနဲ့ အဲဒီ Function ဟာ သီးခြား Goroutine တစ်ခုအနေနဲ့ ပြိုင်တူ အလုပ်လုပ်သွားပါပြီ။
+
+```go
+import (
+    "fmt"
+    "time"
+)
+
+func printNumbers() {
+    for i := 1; i <= 5; i++ {
+        time.Sleep(100 * time.Millisecond)
+        fmt.Println(i)
+    }
+}
+
+func main() {
+    // Goroutine ဖြင့် ခေါ်ခြင်း (Background တွင် အလုပ်လုပ်မည်)
+    go printNumbers()
+    
+    // Main Goroutine မှ အလုပ်လုပ်ခြင်း
+    for i := 1; i <= 5; i++ {
+        time.Sleep(150 * time.Millisecond)
+        fmt.Println("Main:", i)
+    }
+}
+```
+
+<Aside type="caution" title="သတိပြုရန်">
+`main` function ပြီးဆုံးသွားရင် အခြား Goroutine တွေ အလုပ်မပြီးသေးရင်တောင် Program ကြီး တစ်ခုလုံး ရပ်တန့်သွားပါလိမ့်မယ်။ ဒါကြောင့် Goroutine တွေကို စောင့်ဖို့ နည်းလမ်းတွေ လိုအပ်ပါတယ်။
+</Aside>
+
+## Channels (Goroutine များအကြား ဆက်သွယ်ခြင်း)
+
+Goroutine တွေ တစ်ခုနဲ့တစ်ခု Data တွေ ပေးပို့ချင်တဲ့အခါ **Channel** တွေကို အသုံးပြုရပါတယ်။
+
+- `make(chan Type)` ဖြင့် Channel ဖန်တီးပါ။
+- `channel <- data` ဖြင့် Channel ထဲသို့ Data ထည့်ပါ။
+- `data := <- channel` ဖြင့် Channel ထဲမှ Data ကို ယူပါ။
+
+```go
+func calculateSum(numbers []int, ch chan int) {
+    sum := 0
+    for _, num := range numbers {
+        sum += num
+    }
+    ch <- sum // ရလဒ်ကို Channel ထဲသို့ ထည့်မည်
+}
+
+func main() {
+    numbers := []int{1, 2, 3, 4, 5}
+    
+    // Integer Channel တစ်ခု ဖန်တီးခြင်း
+    ch := make(chan int)
+    
+    // Goroutine ဖြင့် တွက်ချက်ခြင်း
+    go calculateSum(numbers, ch)
+    
+    // Channel မှ Data ပြန်ထွက်လာမည့် အချိန်ကို စောင့်ပြီး ယူမည်
+    result := <-ch 
+    
+    fmt.Println("Total Sum:", result)
+}
+```
+
+### Buffered Channels
+
+ပုံမှန် Channel တွေက Data ထည့်လိုက်တာနဲ့ တစ်ဖက်က ယူမယ့်သူရှိမှ အလုပ်ဆက်လုပ်ပါတယ်။ Buffered Channel တွေကတော့ သတ်မှတ်ထားတဲ့ အရေအတွက်အထိ Data တွေကို ယာယီ သိမ်းထားပေးနိုင်ပါတယ်။
+
+```go
+// Data ၂ ခု သိမ်းနိုင်သော Buffered Channel
+ch := make(chan string, 2)
+
+ch <- "Hello"
+ch <- "World"
+
+fmt.Println(<-ch)
+fmt.Println(<-ch)
+```
+
+## Select Statement
+
+Channel အများကြီးကနေ Data တွေကို တစ်ပြိုင်နက်တည်း စောင့်ချင်တဲ့အခါ `select` ကို သုံးပါတယ်။
+
+```go
+func main() {
+    ch1 := make(chan string)
+    ch2 := make(chan string)
+
+    go func() {
+        time.Sleep(1 * time.Second)
+        ch1 <- "Message from Channel 1"
+    }()
+
+    go func() {
+        time.Sleep(2 * time.Second)
+        ch2 <- "Message from Channel 2"
+    }()
+
+    for i := 0; i < 2; i++ {
+        select {
+        case msg1 := <-ch1:
+            fmt.Println(msg1)
+        case msg2 := <-ch2:
+            fmt.Println(msg2)
+        }
+    }
+}
+```

@@ -1,0 +1,42 @@
+---
+title: "Transitions (အကူးအပြောင်း)"
+description: "အပြောင်းအလဲများကို ချောမွေ့စေခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ရုတ်တရက် မဟုတ်ဘူး">
+Button တစ်ခုကို Mouse တင်လိုက်ရင် အရောင် ချက်ချင်း ပြောင်းသွားတာထက်၊ ဖြည်းဖြည်းချင်း ပြောင်းသွားတာက ပိုပြီး ကြည့်ကောင်းပါတယ်။ အဲဒါကို **Transition** လို့ ခေါ်ပါတယ်။
+</Aside>
+
+### ဘယ်လို သုံးမလဲ?
+Transition လုပ်ချင်တဲ့ Element မှာ `transition` property ထည့်ပေးရပါတယ်။
+Hover (Mouse တင်တဲ့အချိန်) မှာ မဟုတ်ဘဲ၊ **မူလ Class** မှာ ထည့်ရပါမယ်။
+
+```css
+.button {
+  background-color: blue;
+  color: white;
+  /* Property, Duration, Timing-Function */
+  transition: background-color 0.3s ease; 
+}
+
+.button:hover {
+  background-color: darkblue; /* Mouse တင်ရင် ဒီအရောင်ကို 0.3 စက္ကန့်အတွင်း ပြောင်းသွားမယ် */
+}
+```
+
+### Transition Properties
+1.  **Property:** ဘာကို ပြောင်းမှာလဲ? (`all`, `background-color`, `width`, `transform`)
+2.  **Duration:** ဘယ်လောက် ကြာမှာလဲ? (`0.3s`, `1s`, `500ms`)
+3.  **Timing Function:** ဘယ်လို နှုန်းနဲ့ သွားမှာလဲ?
+    *   `linear`: အစအဆုံး တူတူပဲ။
+    *   `ease`: အစနှေး၊ အလယ်မြန်၊ အဆုံးနှေး (သဘာဝ အကျဆုံး)။
+    *   `ease-in`: အစ နှေးမယ်။
+    *   `ease-out`: အဆုံး နှေးမယ်။
+
+```css
+.card {
+  transition: all 0.5s ease-in-out;
+}
+```

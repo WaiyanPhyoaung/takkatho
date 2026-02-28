@@ -1,0 +1,69 @@
+---
+title: "Fonts & Text"
+description: "စာသားများကို ဒီဇိုင်းဆင်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="စာစီစာရိုက်">
+စာဖတ်ရ လွယ်ကူပြီး မျက်စိပသာဒ ဖြစ်ဖို့ Font တွေ၊ စာလုံးအရွယ်အစားတွေကို သေချာ ရွေးချယ်ရပါမယ်။
+</Aside>
+
+### အရေးကြီးသော Font Properties
+
+#### 1. Font Family (ဖောင့်အမျိုးအစား)
+ဘယ် Font သုံးမလဲ သတ်မှတ်တာပါ။ ကွန်ပျူတာမှာ မရှိရင် အဆင်ပြေအောင် အရန် Font တွေပါ ထည့်ရေးလေ့ ရှိပါတယ်။
+
+```css
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+```
+
+#### 2. Font Size (စာလုံးအရွယ်အစား)
+စာလုံး အကြီးအသေး သတ်မှတ်တာပါ။ `px` (pixels) သို့မဟုတ် `rem` (relative unit) ကို သုံးလေ့ရှိပါတယ်။
+
+```css
+h1 {
+  font-size: 32px; /* ခေါင်းစဉ်ကြီး */
+}
+
+p {
+  font-size: 16px; /* ပုံမှန် စာသား */
+}
+```
+
+#### 3. Font Weight (စာလုံးအထူအပါး)
+စာလုံးကို **Bold** (အထူ) လုပ်ချင်ရင် သုံးပါတယ်။
+
+```css
+.bold-text {
+  font-weight: bold; /* သို့မဟုတ် 700 */
+}
+```
+
+### Text Alignment (စာသား နေရာချခြင်း)
+စာသားတွေကို ဘယ်၊ ညာ၊ အလယ် ထားဖို့ `text-align` ကို သုံးပါတယ်။
+
+```css
+h1 {
+  text-align: center; /* အလယ်တည့်တည့် */
+}
+
+p {
+  text-align: justify; /* ဘယ်ညာ ညီအောင် ညှိမယ် */
+}
+```
+
+### Text Decoration (စာသား အလှဆင်ခြင်း)
+Link တွေအောက်က မျဉ်းကြောင်း (Underline) ကို ဖျောက်ချင်ရင် အသုံးများပါတယ်။
+
+```css
+a {
+  text-decoration: none; /* မျဉ်းကြောင်း ဖျောက်မယ် */
+}
+
+a:hover {
+  text-decoration: underline; /* Mouse တင်မှ မျဉ်းကြောင်း ပေါ်မယ် */
+}
+```

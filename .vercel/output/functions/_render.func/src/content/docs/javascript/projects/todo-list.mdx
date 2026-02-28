@@ -1,0 +1,79 @@
+---
+title: "Project 2: To-Do List"
+description: "စာရင်းမှတ်သားသော Application တည်ဆောက်ခြင်း"
+---
+
+ဒါကတော့ Beginner တိုင်း မဖြစ်မနေ ရေးကြည့်ရမယ့် Project ပါပဲ။
+
+## လိုအပ်ချက်များ
+
+1.  Input box မှာ စာရိုက်ပြီး Enter (သို့) Add ခလုတ်နှိပ်ရင် List ထဲ ရောက်သွားရမယ်။
+2.  Task ပြီးသွားရင် နှိပ်လိုက်တာနဲ့ မျဉ်းသား (Line-through) သွားရမယ်။
+3.  Delete ခလုတ် နှိပ်ရင် ပျက်သွားရမယ်။
+
+## 1. HTML Structure
+
+```html
+<input type="text" id="todo-input" placeholder="Add a new task...">
+<button id="add-btn">Add</button>
+
+<ul id="todo-list">
+    <!-- Tasks will go here -->
+</ul>
+```
+
+### ကြိုတင် သိထားသင့်သော အချက်: createElement
+
+ဒီ Project မှာ HTML ထဲမှာ `<li>` တွေကို ကြိုရေးမထားပါဘူး။ User က Add နှိပ်လိုက်မှသာ JavaScript နဲ့ element အသစ် ဖန်တီးမှာ ဖြစ်ပါတယ်။
+အဲ့ဒီအတွက် `document.createElement("TAG_NAME")` ကို သုံးရပါတယ်။
+
+Example:
+```javascript
+const li = document.createElement("li"); // <li></li> အသစ်တစ်ခု ဖန်တီးလိုက်တာပါ
+// သတိပြုရန် - ဖန်တီးရုံပဲ ရှိသေးပြီး screen ပေါ်မှာ မပေါ်သေးပါဘူး။ 
+// appendChild နဲ့ ထည့်ပေးမှ ပေါ်မှာ ဖြစ်ပါတယ်။
+```
+
+## 2. JavaScript Logic
+
+```javascript
+const input = document.getElementById("todo-input");
+const addBtn = document.getElementById("add-btn");
+const todoList = document.getElementById("todo-list");
+
+addBtn.addEventListener("click", function() {
+    // 1. Input ထဲက စာကို ယူမယ်
+    const taskText = input.value;
+
+    if (taskText === "") return; // ဘာမှ မရေးထားရင် မလုပ်ဘူး
+
+    // 2. List Item (li) အသစ် တည်ဆောက်မယ်
+    const li = document.createElement("li");
+    li.textContent = taskText;
+
+    // 3. Click နှိပ်ရင် ပြီးစီးကြောင်း မှတ်မယ် (Toggle class)
+    li.addEventListener("click", function() {
+        li.classList.toggle("completed"); // CSS မှာ .completed { text-decoration: line-through } ရေးထားရမယ်
+    });
+
+    // 4. Double Click နှိပ်ရင် ဖျက်မယ်
+    li.addEventListener("dblclick", function() {
+        todoList.removeChild(li);
+    });
+
+    // 5. ul ထဲကို ထည့်မယ်
+    todoList.appendChild(li);
+
+    // 6. Input box ကို ပြန်ရှင်းမယ်
+    input.value = "";
+});
+```
+
+### CSS အနည်းငယ် (ထပ်ဖြည့်ရန်)
+
+```css
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+```

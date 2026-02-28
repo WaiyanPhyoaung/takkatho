@@ -1,0 +1,74 @@
+---
+title: "Forms"
+description: "Forms"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import formImage from '@/assets/html/form.png'
+import inputsImage from '@/assets/html/inputs.png'
+
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာတော့ user တွေဆီက data တွေကို website ဆီ ပို့ပေးနိုင်တဲ့ HTML form တွေ ဘယ်လိုဖန်တီးရမလဲဆိုတာ လေ့လာကြပါမယ်။ Form တွေက contact page တွေ၊ စစ်တမ်းတွေ၊ register လုပ်တာတွေ၊ နဲ့ login ဝင်တာတွေအတွက် မရှိမဖြစ်လိုအပ်ပါတယ်။ Form element တွေ၊ input တွေ၊ label တွေ၊ dropdown တွေ၊ textarea တွေ၊ နဲ့ button တွေအကြောင်း သင်ယူရပါမယ်။
+</Aside>
+
+### Form ဆိုတာဘာလဲ?
+Form ဆိုတာက user ဆီက အချက်အလက်တွေကို စုဆောင်းပြီး server ဆီကို ပို့ပေးတဲ့ HTML element တစ်ခုပါ။
+
+##### အသုံးပြုပုံများ -
+
+- Website ပေါ်က Contact form တွေ
+- User register လုပ်ခြင်း သို့မဟုတ် login ဝင်ခြင်း
+- Feedback များ
+- Booking form များ
+
+**ဥပမာနှိုင်းယှဉ်ချက် -** Form ဆိုတာက လူတစ်ယောက်က ဖြည့်စွက်ပြီး တင်သွင်းရတဲ့ digital စာရွက်စာတမ်းတစ်ခုလိုပါပဲ။
+
+<ContentImage src={formImage} alt="form sample" height={350} />
+
+### Form တည်ဆောက်ပုံ
+Form တစ်ခုကို `<form>` tag နဲ့ ဖန်တီးပါတယ်။ အဓိကကျတဲ့ attribute တွေကတော့-
+
+- `action` – Form data တွေကို ဘယ်ကိုပို့ရမလဲ ဆိုတဲ့ URL။
+
+- `method` – Data တွေကို ဘယ်လိုပို့မလဲ ဆိုတဲ့ နည်းလမ်း (GET or POST)။
+
+```html
+<form action="submit_form.php" method="post">
+  </form>
+```
+##### ရှင်းလင်းချက်:
+
+- `action="submit_form.php"`: form data တွေကို `submit_form.php` ဆိုတဲ့ file ဆီ ပို့ပေးပါလိမ့်မယ်။
+
+- `method="post"`: data တွေကို လုံလုံခြုံခြုံပို့ပေးပြီး၊ data အများကြီးအတွက် သင့်တော်ပါတယ်။
+
+### Input Fields
+**Input field** တွေက user တွေ data ထည့်ဖို့ အတွက်သုံးတာပါ။ `<input>` tag ကို `type` attribute အမျိုးမျိုးနဲ့ တွဲသုံးပါတယ်-
+
+| Input Type | ရှင်းလင်းချက် |
+|------------|-------------------------------------------------------------------|
+| text       | text ထည့်ရန် (ဥပမာ - name)။            |
+| password   | စကားဝှက်ထည့်ရန် (စာလုံးတွေက ဖျောက်ထားပေးတယ်)။                  |
+| email      | Email လိပ်စာထည့်ရန်။                                            |
+| number     | number သီးသန့်ထည့်ရန် (ဥပမာ - အသက်)။                            |
+| date       | ရက်စွဲရွေးရန်။                                                  |
+| checkbox   | ရွေးချယ်စရာအများကြီးကို ရွေးနိုင်ရန် (ဥပမာ - ဝါသနာ)။           |
+| radio      | ရွေးချယ်စရာထဲက တစ်ခုတည်းကိုသာ ရွေးနိုင်ရန် (ဥပမာ - ကျား/မ)။    |
+| file       | File တင်ရန် (ဥပမာ - Profile ပုံ)။                                |
+
+<ContentImage src={inputsImage} alt="inputs sample" height={300} />
+
+### Labels
+`<label>` tag က input ခေါင်းစဉ်လိုမျိုး input field တွေနဲ့ ချိတ်ဆက်ပေးပြီး၊ သုံးရတာလွယ်ပြီး accessibility ကို တိုးတက်စေပါတယ်။
+
+```html
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+```
+##### ရှင်းလင်းချက် 
+
+- label မှာ `for="email"` ကို `id="email"` ရှိတဲ့ input နဲ့ ချိတ်ဆက်ပေးပါတယ်။
+
+- Label ကို နှိပ်လိုက်တာနဲ့ သက်ဆိုင်ရာ input field ကို အလိုအလျောက် focus လုပ်ပေးပါတယ်။

@@ -1,0 +1,130 @@
+---
+title: "Object-Oriented Programming (OOP)"
+description: "Java ၏ အသက်သွေးကြောဖြစ်သော OOP သဘောတရားများ"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import oopConcept from "@/assets/java/oop-concept.svg";
+
+Java ဟာ အရာအားလုံးကို Object အနေနဲ့ မြင်တဲ့ (Object-Oriented) Language တစ်ခုပါ။ ဒါကြောင့် OOP သဘောတရားတွေကို နားလည်ဖို့ အရမ်း အရေးကြီးပါတယ်။
+
+<ContentImage src={oopConcept} alt="OOP Concepts" />
+
+---
+
+### Class နှင့် Object
+
+- **Class:** အိမ်ဆောက်တဲ့ **"ပုံစံကြမ်း (Blueprint)"** ပါ။
+- **Object:** အဲ့ဒီ ပုံစံကြမ်းကို ကြည့်ပြီး ဆောက်ထားတဲ့ **"တကယ့် အိမ်"** ပါ။
+
+```java
+// 1. Class (ပုံစံကြမ်း) တည်ဆောက်ခြင်း
+public class Car {
+    // Attributes (အချက်အလက်များ)
+    String color;
+    int speed;
+    
+    // Methods (လုပ်ဆောင်ချက်များ)
+    void drive() {
+        System.out.println("ကားမောင်းနေပါတယ်။ အမြန်နှုန်း: " + speed);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // 2. Object (တကယ့်ကား) ဖန်တီးခြင်း
+        Car myCar = new Car(); // new ဆိုတဲ့ Keyword ကို သုံးရပါတယ်
+        
+        // 3. Object ကို အသုံးပြုခြင်း
+        myCar.color = "Red";
+        myCar.speed = 100;
+        myCar.drive(); // ကားမောင်းနေပါတယ်။ အမြန်နှုန်း: 100
+    }
+}
+```
+
+---
+
+### Constructor (အစပြုခြင်း)
+
+Object တစ်ခု စဆောက်ဆောက်ချင်းမှာ အလိုအလျောက် အလုပ်လုပ်မယ့် Method ကို Constructor လို့ ခေါ်ပါတယ်။ **သူ့နာမည်က Class နာမည်နဲ့ အတိအကျ တူရပါမယ်။** ပြီးတော့ Return Type (ဥပမာ - `void`, `int`) မပါပါဘူး။
+
+```java
+public class Person {
+    String name;
+    
+    // ဒါက Constructor ပါ
+    public Person(String personName) {
+        name = personName;
+        System.out.println(name + " ကို ဖန်တီးလိုက်ပါပြီ။");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Object ဆောက်တာနဲ့ Constructor က ချက်ချင်း အလုပ်လုပ်ပါတယ်
+        Person p1 = new Person("Aung Aung"); 
+    }
+}
+```
+
+---
+
+### OOP ရဲ့ အဓိက မဏ္ဍိုင်ကြီး (၄) ရပ်
+
+Java မှာ OOP ကို အပြည့်အဝ အသုံးချဖို့ အောက်ပါ သဘောတရား (၄) ခုကို သုံးပါတယ်။
+
+#### 1. Encapsulation (ဖုံးကွယ်ထားခြင်း)
+Data တွေကို အပြင်ကနေ တိုက်ရိုက် ဝင်ပြင်လို့ မရအောင် ဖုံးကွယ်ထားတာပါ။ `private` ဆိုတဲ့ Keyword ကို သုံးပါတယ်။ အပြင်ကနေ ယူချင်/ပြင်ချင်ရင် Getter နဲ့ Setter Methods တွေကို သုံးရပါတယ်။
+
+```java
+public class BankAccount {
+    // အပြင်ကနေ တိုက်ရိုက် ကြည့်လို့/ပြင်လို့ မရပါဘူး
+    private double balance = 1000; 
+    
+    // ပိုက်ဆံကြည့်ဖို့ (Getter)
+    public double getBalance() {
+        return balance;
+    }
+    
+    // ပိုက်ဆံထည့်ဖို့ (Setter)
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+}
+```
+
+#### 2. Inheritance (အမွေဆက်ခံခြင်း)
+ရှိပြီးသား Class (Parent) ဆီကနေ အချက်အလက်တွေ၊ လုပ်ဆောင်ချက်တွေကို Class အသစ် (Child) ကနေ အမွေဆက်ခံ ယူသုံးတာပါ။ `extends` ဆိုတဲ့ Keyword ကို သုံးပါတယ်။
+
+```java
+// မိဘ Class
+class Animal {
+    void eat() {
+        System.out.println("အစာစားနေပါတယ်။");
+    }
+}
+
+// သားသမီး Class (Animal ဆီက အမွေယူထားတယ်)
+class Dog extends Animal {
+    void bark() {
+        System.out.println("ဝုတ် ဝုတ်");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.eat();  // မိဘဆီက Method ကို သုံးလို့ရတယ်
+        myDog.bark(); // ကိုယ်ပိုင် Method ကိုလည်း သုံးလို့ရတယ်
+    }
+}
+```
+
+#### 3. Polymorphism (ပုံစံပြောင်းလဲနိုင်ခြင်း)
+နာမည်တူ Method တစ်ခုတည်းကနေ အခြေအနေပေါ် မူတည်ပြီး အလုပ်လုပ်ပုံ မတူတာကို ဆိုလိုပါတယ်။ (ဥပမာ - Animal ရဲ့ `makeSound()` က ခွေးဆိုရင် "ဝုတ်"၊ ကြောင်ဆိုရင် "မြောင်" လို့ ထွက်တာမျိုးပါ)။
+
+#### 4. Abstraction (အကြမ်းဖျင်း ပြသခြင်း)
+အထဲမှာ ဘယ်လို အလုပ်လုပ်နေလဲ ဆိုတဲ့ အသေးစိတ်တွေကို ဖျောက်ထားပြီး၊ အပြင်ကိုတော့ သုံးလို့ရမယ့် ခလုတ်လေးတွေပဲ ပြထားတာပါ။ (ဥပမာ - ကားမောင်းတဲ့အခါ အင်ဂျင်ဘယ်လို အလုပ်လုပ်လဲ မသိပေမယ့်၊ လီဗာနင်းရင် ရှေ့သွားတယ် ဆိုတာ သိသလိုမျိုးပါ)။ `abstract` class တွေ၊ `interface` တွေကို သုံးပြီး တည်ဆောက်ပါတယ်။

@@ -1,0 +1,97 @@
+---
+title: "Asynchronous Programming"
+description: "Callbacks, Promises နှင့် Async/Await အကြောင်း"
+---
+
+Node.js ရဲ့ အဓိက အားသာချက်က **Asynchronous (Non-blocking)** ဖြစ်တာပါ။ ဆိုလိုတာက အချိန်ကြာမယ့် အလုပ်တစ်ခု (ဥပမာ - Database ထဲက Data ယူတာ၊ ဖိုင်ဖတ်တာ) ကို လုပ်နေတုန်းမှာ၊ အဲ့ဒီအလုပ် ပြီးတဲ့အထိ ထိုင်မစောင့်ဘဲ နောက်အလုပ်တွေကို ဆက်လုပ်သွားတာ ဖြစ်ပါတယ်။
+
+ဒီလို Asynchronous အလုပ်တွေကို ကိုင်တွယ်ဖို့ နည်းလမ်း (၃) မျိုး ရှိပါတယ်။
+
+---
+
+### 1. Callbacks (ရှေးအကျဆုံး နည်းလမ်း)
+
+Callback ဆိုတာ Function တစ်ခုထဲကို နောက်ထပ် Function တစ်ခု ထည့်ပေးလိုက်တာပါ။ ပထမ Function အလုပ်လုပ်ပြီးသွားရင်၊ ဒုတိယ Function (Callback) ကို ပြန်ခေါ် (Call back) ပေးပါတယ်။
+
+```javascript
+const fs = require('fs');
+
+console.log("၁. အလုပ်စတင်ပါပြီ");
+
+// fs.readFile က Asynchronous ဖြစ်ပါတယ်။
+// ဖတ်လို့ ပြီးသွားရင် နောက်က (err, data) => {} ဆိုတဲ့ Callback Function ကို အလုပ်လုပ်ပေးပါတယ်။
+fs.readFile('example.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.log("အမှားဖြစ်သွားပါတယ်");
+    } else {
+        console.log("၃. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+    }
+});
+
+console.log("၂. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+```
+
+**ပြဿနာ:** Callback တွေ အများကြီး ဆင့်ကဲ ဆင့်ကဲ ရေးလာရတဲ့အခါ Code တွေ ရှုပ်ထွေးပြီး ဖတ်ရခက်သွားပါတယ်။ အဲ့ဒါကို **Callback Hell** လို့ ခေါ်ပါတယ်။
+
+---
+
+### 2. Promises (ပိုကောင်းသော နည်းလမ်း)
+
+Callback Hell ကို ဖြေရှင်းဖို့ Promises တွေ ပေါ်လာပါတယ်။ Promise ဆိုတာ "အနာဂတ်မှာ အဖြေတစ်ခု ရလာမယ်" လို့ ကတိပေးထားတာပါ။
+
+Promise မှာ အခြေအနေ (၃) မျိုး ရှိပါတယ်။
+1. **Pending:** အလုပ်လုပ်နေဆဲ (စောင့်နေဆဲ)
+2. **Resolved (Fulfilled):** အလုပ် အောင်မြင်စွာ ပြီးဆုံးသွားခြင်း (`.then()` နဲ့ ဖမ်းပါတယ်)
+3. **Rejected:** အလုပ် မအောင်မြင်ခြင်း/Error တက်ခြင်း (`.catch()` နဲ့ ဖမ်းပါတယ်)
+
+```javascript
+const fs = require('fs').promises; // fs ကို Promise အနေနဲ့ သုံးဖို့
+
+console.log("၁. အလုပ်စတင်ပါပြီ");
+
+fs.readFile('example.txt', 'utf8')
+    .then((data) => {
+        // အောင်မြင်ရင် ဒီထဲ ရောက်လာပါမယ်
+        console.log("၃. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+    })
+    .catch((err) => {
+        // Error တက်ရင် ဒီထဲ ရောက်လာပါမယ်
+        console.log("အမှားဖြစ်သွားပါတယ်");
+    });
+
+console.log("၂. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+```
+
+---
+
+### 3. Async / Await (အကောင်းဆုံးနှင့် ခေတ်အမီဆုံး နည်းလမ်း)
+
+Promises တွေကို ပိုပြီး ဖတ်ရလွယ်အောင်၊ ရေးရလွယ်အောင် (Synchronous Code တွေလိုမျိုး) ရေးလို့ရအောင် `async` နဲ့ `await` ကို ထပ်မံ မိတ်ဆက်ခဲ့ပါတယ်။
+
+- `async`: Function တစ်ခုရဲ့ ရှေ့မှာ ရေးရပါတယ်။ ဒီ Function ဟာ Asynchronous ဖြစ်တယ်လို့ ကြေညာတာပါ။
+- `await`: Promise တစ်ခုရဲ့ အဖြေကို စောင့်ဖို့ သုံးပါတယ်။ `async` Function ထဲမှာပဲ သုံးလို့ ရပါတယ်။
+
+```javascript
+const fs = require('fs').promises;
+
+// async function ကြေညာခြင်း
+async function readMyFile() {
+    try {
+        console.log("၁. ဖိုင်စဖတ်ပါမယ်");
+        
+        // await ကို သုံးပြီး ဖိုင်ဖတ်တာ ပြီးတဲ့အထိ စောင့်ပါမယ်
+        // ဒါပေမယ့် ဒီ Function အပြင်ဘက်က Code တွေကိုတော့ ရပ်မထားပါဘူး
+        const data = await fs.readFile('example.txt', 'utf8');
+        
+        console.log("၂. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+    } catch (err) {
+        // Error တွေကို try-catch နဲ့ ဖမ်းပါတယ်
+        console.log("အမှားဖြစ်သွားပါတယ်:", err);
+    }
+}
+
+readMyFile();
+console.log("၃. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+```
+
+**အနှစ်ချုပ်:** Node.js မှာ Code ရေးတဲ့အခါ တတ်နိုင်သမျှ **Async/Await** ကို အသုံးပြုဖို့ အကြံပြုပါတယ်။ Code က ရှင်းလင်းပြီး နားလည်ရ လွယ်ကူလို့ပါ။

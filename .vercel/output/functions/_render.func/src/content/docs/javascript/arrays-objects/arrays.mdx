@@ -1,0 +1,59 @@
+---
+title: "Arrays"
+description: "Data အများကြီးကို စုစည်းသိမ်းဆည်းခြင်း"
+---
+
+ပစ္စည်းတွေ အများကြီးကို တစ်နေရာတည်းမှာ သိမ်းထားချင်ရင် ဘာလုပ်မလဲ? **Array** ကို သုံးရပါမယ်။
+ဥပမာ - ဈေးဝယ်စာရင်း (Shopping List) လိုမျိုးပေါ့။
+
+## Creating Arrays (Array တည်ဆောက်ခြင်း)
+
+Array ကို `[]` (Square Brackets) နဲ့ ရေးပါတယ်။
+
+```javascript
+let fruits = ["Apple", "Orange", "Banana"];
+let numbers = [10, 20, 30, 40];
+```
+
+## Accessing Elements (Data ယူသုံးခြင်း)
+
+Array ထဲက Data တွေကို **Index Number** နဲ့ ခေါ်သုံးရပါတယ်။
+🚨 **အရေးကြီးတာက:** Index က **0** ကနေ စပါတယ်။ (1 ကနေ မစဘူးနော်!)
+
+```javascript
+console.log(fruits[0]); // "Apple" (ပထမဆုံး တစ်ခု)
+console.log(fruits[1]); // "Orange" (ဒုတိယ တစ်ခု)
+```
+
+## Common Array Methods (အသုံးများသော နည်းလမ်းများ)
+
+Array တွေကို ပြုပြင်ပြောင်းလဲဖို့ Built-in Function တွေ အများကြီး ရှိပါတယ်။
+
+### 1. `push()` - အနောက်ကနေ ထပ်ထည့်မယ်
+```javascript
+fruits.push("Grape");
+// ["Apple", "Orange", "Banana", "Grape"]
+```
+
+### 2. `pop()` - အနောက်ဆုံးက တစ်ခုကို ဖျက်မယ်
+```javascript
+fruits.pop();
+// ["Apple", "Orange", "Banana"] ပြန်ဖြစ်သွားမယ်
+```
+
+### 3. `unshift()` - အရှေ့ဆုံးကနေ ထပ်ထည့်မယ်
+```javascript
+fruits.unshift("Mango");
+// ["Mango", "Apple", "Orange", "Banana"]
+```
+
+### 4. `shift()` - အရှေ့ဆုံးက တစ်ခုကို ဖျက်မယ်
+```javascript
+fruits.shift();
+// ["Apple", "Orange", "Banana"]
+```
+
+### 5. `length` - အရေအတွက် ဘယ်လောက်ရှိလဲ ကြည့်မယ်
+```javascript
+console.log(fruits.length); // 3
+```

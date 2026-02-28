@@ -1,0 +1,115 @@
+---
+title: "Methods (လုပ်ဆောင်ချက်များ)"
+description: "Java တွင် Methods များ တည်ဆောက်ခြင်းနှင့် အသုံးပြုခြင်း"
+---
+
+တခြား Language တွေမှာ Function လို့ ခေါ်ပေမယ့်၊ Java မှာတော့ Class ထဲမှာပဲ ရေးရတဲ့အတွက် **Method** လို့ ခေါ်ပါတယ်။ Code တွေကို အစုလိုက်လေး ဖွဲ့ထားပြီး လိုအပ်တဲ့အခါ ပြန်ခေါ်သုံးဖို့ ဖြစ်ပါတယ်။
+
+---
+
+### Method ဘယ်လို တည်ဆောက်မလဲ?
+
+Method တစ်ခု တည်ဆောက်တဲ့အခါ အဓိက ပါဝင်ရမယ့် အချက်တွေ ရှိပါတယ်။
+
+```java
+public class Main {
+    
+    // Method တည်ဆောက်ခြင်း
+    static void sayHello() {
+        System.out.println("မင်္ဂလာပါ။");
+    }
+
+    public static void main(String[] args) {
+        // Method ကို ခေါ်သုံးခြင်း
+        sayHello();
+        sayHello();
+    }
+}
+```
+
+**အပေါ်က Code ကို ရှင်းပြရရင်:**
+- `static`: Object မဆောက်ဘဲ တိုက်ရိုက် ခေါ်သုံးလို့ရအောင် ထည့်ထားတာပါ။
+- `void`: ဒီ Method က ဘာအဖြေမှ ပြန်မပေးဘူး (Return မလုပ်ဘူး) လို့ ပြောတာပါ။
+- `sayHello()`: Method ရဲ့ နာမည်ပါ။ (Java မှာ Method နာမည်တွေကို အသေးစာလုံးနဲ့ စလေ့ရှိပါတယ် - camelCase)
+
+---
+
+### Parameters နှင့် Arguments (ဒေတာများ ထည့်ပေးခြင်း)
+
+Method ထဲကို အပြင်ကနေ Data တွေ ထည့်ပေးလို့ ရပါတယ်။ Java မှာ Parameter ထည့်ရင်လည်း **Data Type ကို မဖြစ်မနေ ပြောပေးရပါတယ်။**
+
+```java
+public class Main {
+    
+    // String အမျိုးအစား name ဆိုတဲ့ Parameter လက်ခံမယ်
+    static void greet(String name) {
+        System.out.println("မင်္ဂလာပါ " + name);
+    }
+
+    public static void main(String[] args) {
+        greet("Aung Aung"); // မင်္ဂလာပါ Aung Aung
+        greet("Su Su");     // မင်္ဂလာပါ Su Su
+    }
+}
+```
+
+Parameter အများကြီးလည်း ထည့်လို့ ရပါတယ်။
+
+```java
+static void printInfo(String name, int age) {
+    System.out.println(name + " သည် အသက် " + age + " နှစ် ဖြစ်ပါသည်။");
+}
+```
+
+---
+
+### Return (အဖြေ ပြန်ပေးခြင်း)
+
+Method ကနေ အလုပ်လုပ်ပြီးသွားရင် အဖြေတစ်ခု ပြန်ပေးချင်တဲ့အခါ `return` ကို သုံးပါတယ်။ အရေးကြီးတာက **ဘာ Data Type ပြန်ပေးမှာလဲ ဆိုတာကို Method နာမည်ရှေ့မှာ ကြိုပြောထားရပါတယ်။** (အရင်က `void` ရေးတဲ့ နေရာမှာပါ)
+
+```java
+public class Main {
+    
+    // int အမျိုးအစား အဖြေပြန်ပေးမယ်လို့ ကြေညာထားပါတယ်
+    static int addNumbers(int a, int b) {
+        int result = a + b;
+        return result; // int အမျိုးအစား ဖြစ်ရပါမယ်
+    }
+
+    public static void main(String[] args) {
+        // ပြန်ရလာတဲ့ အဖြေကို total ထဲ ထည့်လိုက်တယ်
+        int total = addNumbers(5, 10);
+        System.out.println("စုစုပေါင်း: " + total); // 15
+    }
+}
+```
+
+---
+
+### Method Overloading (နာမည်တူ Method များ)
+
+Java ရဲ့ အားသာချက် တစ်ခုက နာမည်တူ Method တွေကို အများကြီး ဆောက်လို့ ရတာပါပဲ။ ဒါပေမယ့် **Parameter အရေအတွက် (သို့) Data Type တော့ မတူရပါဘူး။** ဒါကို Method Overloading လို့ ခေါ်ပါတယ်။
+
+```java
+public class Main {
+    
+    // int နှစ်ခု ပေါင်းတဲ့ Method
+    static int add(int a, int b) {
+        return a + b;
+    }
+    
+    // double နှစ်ခု ပေါင်းတဲ့ Method (နာမည်တူပေမယ့် Type မတူပါဘူး)
+    static double add(double a, double b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        int num1 = add(5, 10);         // ပထမ Method ကို သွားခေါ်မယ်
+        double num2 = add(5.5, 10.2);  // ဒုတိယ Method ကို သွားခေါ်မယ်
+        
+        System.out.println(num1);
+        System.out.println(num2);
+    }
+}
+```
+ဒီလို လုပ်ခြင်းအားဖြင့် နာမည်တွေ အများကြီး မှတ်စရာ မလိုတော့ဘဲ၊ ထည့်လိုက်တဲ့ Data ပေါ် မူတည်ပြီး Java က အလိုလို ရွေးချယ် အလုပ်လုပ်သွားမှာ ဖြစ်ပါတယ်။

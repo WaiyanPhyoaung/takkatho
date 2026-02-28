@@ -1362,6 +1362,56 @@ export default defineConfig({
           ],
         },
         {
+          label: "Docker for Developers",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is Docker?",
+                  slug: "docker/introduction/what-is-docker",
+                },
+              ],
+            },
+            {
+              label: "Core Concepts",
+              items: [
+                {
+                  label: "Images & Containers",
+                  slug: "docker/core-concepts/images-and-containers",
+                },
+              ],
+            },
+            {
+              label: "Building",
+              items: [
+                {
+                  label: "Writing Dockerfile",
+                  slug: "docker/dockerfile/writing-dockerfile",
+                },
+              ],
+            },
+            {
+              label: "Orchestration",
+              items: [
+                {
+                  label: "Docker Compose Basics",
+                  slug: "docker/docker-compose/basics",
+                },
+              ],
+            },
+            {
+              label: "Summary",
+              items: [
+                {
+                  label: "Cheat Sheet",
+                  slug: "docker/summary/cheatsheet",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "Git Version Control",
           // autogenerate: { directory: "websocket" },
           items: [
@@ -1487,6 +1537,162 @@ export default defineConfig({
                 {
                   label: "Reflog",
                   slug: "git-course/advanced-techniques/reflog",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Command Line Interface (CLI)",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is CLI?",
+                  slug: "cli/introduction/what-is-cli",
+                },
+              ],
+            },
+            {
+              label: "Commands",
+              items: [
+                {
+                  label: "Navigation",
+                  slug: "cli/commands/navigation",
+                },
+                {
+                  label: "File Management",
+                  slug: "cli/commands/file-management",
+                },
+                {
+                  label: "Reading Files",
+                  slug: "cli/commands/reading-files",
+                },
+                {
+                  label: "Searching & Filtering",
+                  slug: "cli/commands/searching-filtering",
+                },
+                {
+                  label: "System Info & Others",
+                  slug: "cli/commands/system-info",
+                },
+              ],
+            },
+            {
+              label: "Summary",
+              items: [
+                {
+                  label: "Cheat Sheet",
+                  slug: "cli/summary/cheatsheet",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Vim Motions (Mastering Keyboard)",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is Vim?",
+                  slug: "vim-motions/introduction/what-is-vim",
+                },
+              ],
+            },
+            {
+              label: "Basic Navigation",
+              items: [
+                {
+                  label: "HJKL & Words",
+                  slug: "vim-motions/basic-motions/hjkl-and-words",
+                },
+              ],
+            },
+            {
+              label: "Advanced Navigation",
+              items: [
+                {
+                  label: "Search & File Nav",
+                  slug: "vim-motions/advanced-motions/search-and-nav",
+                },
+              ],
+            },
+            {
+              label: "Editing Code",
+              items: [
+                {
+                  label: "Operators & Text Objects",
+                  slug: "vim-motions/editing/operators-text-objects",
+                },
+              ],
+            },
+            {
+              label: "Summary",
+              items: [
+                {
+                  label: "Cheat Sheet",
+                  slug: "vim-motions/summary/cheatsheet",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Responsive Web Design (Modern)",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "What is RWD?",
+                  slug: "responsive-design/introduction/what-is-rwd",
+                },
+              ],
+            },
+            {
+              label: "Core Fundamentals",
+              items: [
+                {
+                  label: "Modern Media Queries",
+                  slug: "responsive-design/core-fundamentals/modern-media-queries",
+                },
+              ],
+            },
+            {
+              label: "Modern Layouts",
+              items: [
+                {
+                  label: "Flex & Grid Composition",
+                  slug: "responsive-design/modern-layouts/grid-flex-composition",
+                },
+              ],
+            },
+            {
+              label: "Advanced Techniques",
+              items: [
+                {
+                  label: "Fluid Typography",
+                  slug: "responsive-design/advanced-techniques/fluid-typography",
+                },
+                {
+                  label: "Container Queries",
+                  slug: "responsive-design/advanced-techniques/container-queries",
+                },
+                {
+                  label: "Responsive Media",
+                  slug: "responsive-design/advanced-techniques/responsive-media",
+                },
+              ],
+            },
+            {
+              label: "Summary",
+              items: [
+                {
+                  label: "Best Practices",
+                  slug: "responsive-design/summary/best-practices",
                 },
               ],
             },
@@ -2642,6 +2848,7 @@ export default defineConfig({
     },
   },
 
+  output: "server",
   adapter: vercel({
     webAnalytics: {
       enabled: true,

@@ -1,0 +1,60 @@
+---
+title: "Customizable Select"
+description: "Native Select Menu များကို စိတ်ကြိုက် ဒီဇိုင်းဆွဲခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Goodbye Custom Dropdowns">
+`<select>` tag ကို ဒီဇိုင်းပြင်မရလို့ `<div>` တွေနဲ့ Dropdown အတုတွေ လုပ်ခဲ့ရတာ မှတ်မိလား? အခု Native `<select>` ကို စိတ်ကြိုက်ပြင်လို့ ရပါပြီ။
+</Aside>
+
+### အသုံးပြုပုံ
+`appearance: base-select` ကို သုံးလိုက်ရင် Browser ရဲ့ default style တွေ ပျောက်သွားပြီး ကိုယ်တိုင် စိတ်ကြိုက်ပြင်လို့ ရသွားပါမယ်။
+
+```css
+select {
+  appearance: base-select; /* Magic starts here */
+  
+  background: #f0f0f0;
+  border: 2px solid #333;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Dropdown ပွင့်လာတဲ့အခါ ပေါ်မယ့် list */
+select::picker(select) {
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Option တစ်ခုချင်းစီ */
+option {
+  padding: 10px;
+}
+
+option:checked {
+  background: #007bff;
+  color: white;
+}
+```
+
+### HTML Structure အသစ်
+Select ထဲမှာ ပုံတွေ၊ ခေါင်းစဉ်ခွဲတွေ ထည့်ချင်ရင် `<button>` နဲ့ `<datalist>` ကို တွဲသုံးလို့ ရလာပါမယ် (Experimental)။
+
+```html
+<select>
+  <button>
+    <selectedoption></selectedoption> <!-- ရွေးထားတာကို ပြမယ် -->
+  </button>
+  <datalist>
+    <option value="1">
+      <img src="flag.png" /> Myanmar
+    </option>
+    <option value="2">
+      <img src="flag2.png" /> Thailand
+    </option>
+  </datalist>
+</select>
+```

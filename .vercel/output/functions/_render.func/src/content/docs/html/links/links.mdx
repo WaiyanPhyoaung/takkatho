@@ -1,0 +1,110 @@
+---
+title: "links များ ထည့်ခြင်း"
+description: "links များ ထည့်ခြင်း"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import format from '@/assets/html/format.png'
+
+export const aTag = `
+<a href="https://www.example.com">Visit Example Website</a>
+`
+export const absoluteUrl = `
+<a href="https://www.example.com">Visit Example</a>
+`
+
+export const relativeUrl = `
+<a href="about.html">About Us</a>
+`
+
+export const googleLink = `
+<a href="https://www.google.com">Go to Google</a>
+`
+
+export const targetBlank = `
+<a href="https://www.example.com" target="_blank">Visit Example Website</a>
+`
+
+export const singlePageLink = `
+<a href="#contact">Go To Contact Us Section</a>
+
+<h2 id="contact">Contact Us</h2>
+<p>Email us at info@example.com</p>
+`
+
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ ကိုယ့်ရဲ့ Website စာမျက်နှာတွေမှာ Links တွေ ဘယ်လိုထည့်မလဲ၊ စာမျက်နှာတစ်ခုကနေ နောက်တစ်ခုကို ဘယ်လိုသွားရမလဲဆိုတာကို လေ့လာကြမှာပါ။ Links တွေဟာ Website တွေရဲ့ အဓိကအသက်သွေးကြောဖြစ်ပြီး သုံးစွဲသူကို Webpages တွေအကြား သွားလာစေနိုင်ပါတယ်။ စာသားတွေ၊ ပုံတွေကို နှိပ်လို့ရတဲ့ link ဖြစ်အောင်လုပ်တာ၊ တခြား pages တွေကို ချိတ်ဆက်တာ၊ page တစ်ခုတည်းမှာပဲ နေရာတစ်ခုကနေ နောက်တစ်ခုကို ကူးသွားတာတွေကို သင်ယူရမှာ ဖြစ်ပါတယ်။
+</Aside>
+
+### Link ဆိုတာ ဘာလဲ
+link (Hyperlink လို့လည်း ခေါ်တယ်) ဆိုတာ Website တစ်ခုမှာ စာမျက်နှာတစ်ခုကနေ နောက်တစ်ခုကို၊ ဒါမှမဟုတ် အပိုင်းတစ်ခုကနေ နောက်တစ်ပိုင်းကို ကူးပြောင်းသွားလာနိုင်အောင် လုပ်ပေးတဲ့အရာ ဖြစ်ပါတယ်။ link တွေကို `<a>` (anchor) tag သုံးပြီး ဖန်တီးပါတယ်။
+
+#### link တစ်ခုရဲ့ အခြေခံတည်ဆောက်ပုံ
+
+<Code code={aTag} title="HTML" lang='html' />
+
+- `<a>` tag ကို link တစ်ခု ပြုလုပ်ဖို့ သုံးပါတယ်။
+
+- `href attribute` က link ကို နှိပ်လိုက်ရင် ဘယ်နေရာကို ရောက်သွားမလဲဆိုတဲ့ **လိပ်စာ (URL)** ကို သတ်မှတ်ပေးပါတယ်။
+
+- **"Visit Example Website"** ဆိုတဲ့ စာသားကတော့ သုံးစွဲသူ မြင်ရမယ့်၊ နှိပ်ရမယ့် စာသားဖြစ်ပါတယ်။
+
+#### links တွေ ဘယ်လိုအလုပ်လုပ်သလဲ
+
+သုံးစွဲသူတစ်ယောက်က link တစ်ခုကို နှိပ်လိုက်တဲ့အခါ **href** ထဲမှာ သတ်မှတ်ထားတဲ့ နေရာ (တခြား Website၊ တခြားစာမျက်နှာ၊ ဒါမှမဟုတ် လက်ရှိစာမျက်နှာရဲ့ အခြားတစ်နေရာ) ကို ရောက်သွားပါတယ်။
+
+### Absolute URL နဲ့ Relative URL
+Links အမျိုးအစား နှစ်မျိုးရှိပါတယ်။ အဲဒါတွေကတော့ **Absolute URL နဲ့ Relative URL** တို့ ဖြစ်ပါတယ်။
+
+#### Absolute URL (လိပ်စာ အပြည့်အစုံ)
+
+Absolute URL ဆိုတာ domain name အပါအဝင် Website လိပ်စာ အပြည့်အစုံကို ဆိုလိုပါတယ်။
+
+ဥပမာ -
+
+<Code code={absoluteUrl} title="HTML" lang='html' />
+
+
+#### Relative URL (ကိုယ့် Website အတွင်းက လိပ်စာ)
+
+Relative URL ကတော့ ပိုတိုပြီး ကိုယ့် Website ထဲမှာရှိတဲ့ တခြားစာမျက်နှာတွေကို ချိတ်ဆက်ဖို့ သုံးပါတယ်။
+
+ဥပမာ -
+
+<Code code={relativeUrl} title="HTML" lang='html' />
+
+### links တွေကို Tab အသစ်မှာ ဖွင့်ခြင်း
+
+ပုံမှန်အားဖြင့် link တစ်ခုကို နှိပ်လိုက်ရင် လက်ရှိ browser tab မှာပဲ ပွင့်ပါတယ်။ ဒါပေမဲ့ တစ်ခါတလေမှာ link ကို tab အသစ်မှာ သီးသန့်သွားပွင့်စေချင်တာမျိုး ရှိနိုင်ပါတယ်။ အဲဒီလိုလုပ်ဖို့ `target="_blank"` attribute ကို သုံးနိုင်ပါတယ်။
+
+ဥပမာ -
+
+<Code code={targetBlank} title="HTML" lang='html' />
+
+- `target="_blank"` ဆိုတာက link ကို tab အသစ်မှာ ဖွင့်ပေးဖို့ ပြောလိုက်တာပါ။
+
+#### ဒါကို ဘာကြောင့်သုံးသင့်လဲ။
+
+ကိုယ့် Website ကနေ တခြား Website တွေကို link ချိတ်ပေးတဲ့အခါမျိုးမှာ သုံးရတာ အဆင်ပြေပါတယ်။ ဒါမှ သုံးစွဲသူက ကိုယ့် Website ကနေ မထွက်သွားမှာပါ။
+
+### Page တစ်ခုတည်းမှာ အပိုင်းအလိုက် link ချိတ်ခြင်း
+တစ်ခါတလေမှာ page က content တွေ အရမ်းများနေတဲ့အခါ၊ ဒါမှမဟုတ် single-page website တွေမှာ စာမျက်နှာရဲ့ အပေါ်ပိုင်းက link ကို နှိပ်လိုက်ရင် အောက်ဘက်က သက်ဆိုင်ရာ အပိုင်းကို တန်းရောက်သွားစေချင်တာမျိုး ရှိပါတယ်။
+
+#### ဘယ်လိုလုပ်ရမလဲ။
+
+1. အရင်ဆုံး ကိုယ်ရောက်စေချင်တဲ့ အပိုင်းကို `id` တစ်ခု ပေးထားရပါမယ်။
+
+2. ပြီးရင် အဲဒီ `id` ကို ရည်ညွှန်းတဲ့ link တစ်ခု ဖန်တီးရပါမယ်။
+
+ဥပမာ:
+
+<Code code={singlePageLink} title="HTML" lang='html' />
+
+
+ဒီမှာ `href="#contact"` ဆိုတာက ဒီစာမျက်နှာထဲမှာ `id="contact"` လို့ နာမည်ပေးထားတဲ့ အပိုင်းကို သွားဖို့ ချိတ်ဆက်ပေးလိုက်တာပါ။
+
+#### ဒါကို ဘာကြောင့်သုံးသင့်လဲ။
+
+သုံးစွဲသူတွေက သူတို့ စိတ်ဝင်စားတဲ့ အပိုင်းကို တန်းပြီး ခုန်ကြည့်နိုင်တဲ့အတွက် Website ကို သုံးရတာ ပိုအဆင်ပြေစေပါတယ်။

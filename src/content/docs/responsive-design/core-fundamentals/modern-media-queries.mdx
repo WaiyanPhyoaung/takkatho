@@ -1,0 +1,76 @@
+---
+title: "Modern Media Queries အသုံးပြုခြင်း"
+description: "CSS Media Queries ၏ အလုပ်လုပ်ပုံနှင့် ခေတ်သစ် Syntax အသစ်များ"
+---
+
+Screen အရွယ်အစား ဘယ်လောက်ရှိလဲဆိုတာကို စစ်ဆေးပြီး အဲဒီအပေါ်မူတည်ကာ CSS ပြောင်းချင်ရင် **Media Queries** ကို သုံးရပါတယ်။
+
+### အခြေခံ Media Query (ရိုးရိုး Syntax)
+အရင်တုန်းက Media query တွေကို `min-width` နဲ့ `max-width` သုံးပြီး ရေးလေ့ရှိပါတယ်။
+
+```css
+/* Mobile အတွက် အခြေခံ CSS (Mobile-First) */
+body {
+  font-size: 16px;
+  background-color: white;
+}
+
+/* Tablet ရောက်သွားရင် (အနည်းဆုံး 768px ရှိရင်) */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+    background-color: lightgray;
+  }
+}
+
+/* Desktop ရောက်သွားရင် (အနည်းဆုံး 1024px ရှိရင်) */
+@media (min-width: 1024px) {
+  body {
+    background-color: lightblue;
+  }
+}
+```
+
+### 🚀 ခေတ်သစ် Media Query Syntax (Modern Range Syntax)
+CSS Media Queries Level 4 ကစပြီး ရေးရပိုမိုရှင်းလင်းတဲ့ **Math operators (`<`, `<=`, `>`, `>=`, `=`)** တွေကို စတင်အသုံးပြုလို့ ရလာပါပြီ။ (2026 ခေတ်မှာ Browser အားလုံးက ကောင်းစွာ Support လုပ်နေပါပြီ)
+
+**အရင်ကရေးနည်း (Old Syntax):**
+```css
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card { padding: 2rem; }
+}
+```
+
+**ခေတ်သစ်ရေးနည်း (Modern Syntax):** 
+*(ဖတ်ရတာ ပိုလွယ်ကူသွားပါပြီ)*
+```css
+@media (768px <= width <= 1023px) {
+  .card { padding: 2rem; }
+}
+```
+
+```css
+/* Width 768px ထက် ကြီးတဲ့ / ညီတဲ့ အခြေအနေ */
+@media (width >= 768px) {
+  .sidebar {
+    display: block;
+  }
+}
+```
+
+### Media Features အခြားအသုံးဝင်사항များ
+1. **Dark/Light Mode**: သုံးစွဲသူ ဖုန်းမှာ Dark Mode ဖွင့်ထားလား စစ်ဆေးရန်။
+   ```css
+   @media (prefers-color-scheme: dark) {
+     body { background: #121212; color: white; }
+   }
+   ```
+2. **Animation လျှော့ချရန် (Accessibility)**: အချို့လူများက Animation အများကြီးကြည့်ရင် မူးဝေတတ်ပါတယ်။ ကွန်ပျူတာမှာ "Reduce Motion" ဖွင့်ထားရင် CSS မှာ Animation တွေ ပိတ်ပေးထားသင့်ပါတယ်။
+   ```css
+   @media (prefers-reduced-motion: reduce) {
+     * {
+       animation: none !important;
+       transition: none !important;
+     }
+   }
+   ```

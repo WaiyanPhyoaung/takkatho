@@ -1,0 +1,56 @@
+---
+title: "ခေတ်သစ် Layout များ (Flex & Grid)"
+description: "Media Queries မပါဘဲ Responsive ဖြစ်အောင် Flexbox နှင့် Grid ကို အသုံးပြုခြင်း"
+---
+
+Responsive Design မှာ **Media Queries နည်းလေ၊ ပိုကောင်းလေ** ဖြစ်ပါတယ်။ Flexbox နဲ့ Grid ကို စနစ်တကျ သုံးတတ်ရင် Media Queries အများကြီးမလိုဘဲ Website က သူ့အလိုလို ရုန်းကန်/ကျုံ့ဆန့် လုပ်သွားပါလိမ့်မယ်။
+
+### 1. Flexbox ဖြင့် Responsive လုပ်ခြင်း
+Flexbox မှာ Screen သေးသွားရင် အောက်တစ်ကြောင်းဆင်းသွားအောင် `flex-wrap: wrap` ကို သုံးကြပါတယ်။
+
+```css
+.container {
+  display: flex;
+  flex-wrap: wrap; /* နေရာမလောက်ရင် အောက်တစ်ကြောင်းဆင်းမည် */
+  gap: 20px;
+}
+
+.item {
+  flex: 1 1 300px; 
+  /* 
+    flex-grow: 1 (ချဲ့မည်)
+    flex-shrink: 1 (ကျုံ့မည်)
+    flex-basis: 300px (အနိမ့်ဆုံး 300px တော့ရှိရမည်)
+  */
+}
+```
+*အပေါ်က ကုဒ်အရ Item တွေဟာ 300px より ငယ်သွားရင် အလိုအလျောက် အောက်ကိုဆင်းသွားပါမယ်။ Media Query ရေးစရာမလိုပါဘူး။*
+
+### 2. CSS Grid မော်ဒယ် (The Holy Grail)
+Grid ဟာ Responsive Layout အတွက် အကောင်းဆုံး စွမ်းဆောင်ရည်ရှိပါတယ်။ အထူးသဖြင့် `auto-fit` နှင့် `minmax()` ကိုတွဲသုံးတဲ့အခါ **"Zero Media Queries"** Responsive Card System ကို ရရှိနိုင်ပါတယ်။
+
+```css
+.grid-container {
+  display: grid;
+  gap: 1.5rem;
+  /* နေရာလွတ်ရင် Column အသစ်ခွဲမယ်၊ 
+     Column တစ်ခုဟာ အနည်းဆုံး 250px ရှိရမယ်၊ 
+     နေရာပိုရင် (1fr) အညီအမျှ ခွဲယူမယ်။ */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+```
+
+#### `auto-fit` vs `auto-fill` (ကွာခြားချက်)
+* **`auto-fit`**: Item တွေက နေရာလွတ်ကျန်ခဲ့ရင် အဲ့ဒီနေရာလွတ်ကို သူတို့ပဲ အပြည့်ပြန်ဖြန့်ယူသွားပါမယ်။ (ပိုလှပါတယ်)
+* **`auto-fill`**: Item တွေက ကိုယ့်နေရာနဲ့ကိုယ်ပဲနေပြီး၊ နေရာအလွတ် (Column အလွတ်) အဖြစ် ချန်ထားခဲ့ပါမယ်။
+
+### 3. Aspect Ratio ဖြင့် Component များထိန်းချုပ်ခြင်း
+အရင်က ပုံတွေ၊ YouTube Video တွေရဲ့ အချိုးအစား (ဥပမာ 16:9) ကို တွက်ချက်ဖို့ အရမ်းခက်ပါတယ်။ အခုအခါမှာတော့ `aspect-ratio` ပေါ်လာလို့ တော်တော်လေးလွယ်ကူသွားပါပြီ။ မျက်နှာပြင်ကျယ်/ကျုံ့ တာနဲ့အမျှ အချိုးအစား မပျက်တော့ပါဘူး။
+
+```css
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* အနံ နဲ့ အလျားကို 16:9 အချိုး အမြဲထားမည် */
+  object-fit: cover;
+}
+```

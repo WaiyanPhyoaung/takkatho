@@ -1,0 +1,47 @@
+---
+title: "Arrays of Objects"
+description: "Real-world Data Structure Example"
+---
+
+တကယ့် လက်တွေ့ Project တွေမှာ Array နဲ့ Object ကို တွဲသုံးလေ့ ရှိပါတယ်။
+ဥပမာ - ကျောင်းသားစာရင်း၊ ကုန်ပစ္စည်းစာရင်း စသဖြင့်ပေါ့။
+
+## ဥပမာ - Products List
+
+```javascript
+let products = [
+  { id: 1, name: "Phone", price: 500 },
+  { id: 2, name: "Laptop", price: 1000 },
+  { id: 3, name: "Mouse", price: 20 }
+];
+```
+
+ဒါဟာ **Object တွေ ပါဝင်တဲ့ Array** တစ်ခု ဖြစ်ပါတယ်။
+
+## Data ဆွဲထုတ်ခြင်း
+
+ဒီ Data ထဲကနေ လိုချင်တာကို ဘယ်လို ယူမလဲ?
+
+```javascript
+// ပထမဆုံး ပစ္စည်းရဲ့ နာမည်
+console.log(products[0].name); // "Phone"
+
+// ဒုတိယ ပစ္စည်းရဲ့ ဈေးနှုန်း
+console.log(products[1].price); // 1000
+```
+
+## Looping through Arrays of Objects
+
+ကုန်ပစ္စည်း အားလုံးရဲ့ နာမည်ကို ထုတ်ပြချင်ရင် Loop ပတ်ပြီး ထုတ်လို့ ရပါတယ်။
+
+```javascript
+for (let i = 0; i < products.length; i++) {
+  console.log(products[i].name);
+}
+// Outputs:
+// Phone
+// Laptop
+// Mouse
+```
+
+Database ကနေ Data တွေ ယူရင် လာမယ့် ပုံစံက ဒီလို ပုံစံမျိုးပါပဲ။ ဒါကို နားလည်ရင် Backend API တွေနဲ့ အလုပ်လုပ်တာ လွယ်သွားပါပြီ။

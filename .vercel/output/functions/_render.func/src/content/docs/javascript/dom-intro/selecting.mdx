@@ -1,0 +1,47 @@
+---
+title: "Selecting Elements"
+description: "JavaScript ဖြင့် HTML Elements များကို ရွေးချယ်ခြင်း"
+---
+
+HTML ကို ပြုပြင်ပြောင်းလဲချင်ရင် အရင်ဆုံး ဘယ်ကောင်ကို ပြင်မှာလဲ ဆိုတာ **ရွေး (Select)** ပေးရပါမယ်။
+JavaScript မှာ Element တွေကို ဖမ်းယူဖို့ အဓိက Method (၄) မျိုး ရှိပါတယ်။
+
+## 1. `getElementById()` (ID နဲ့ ဖမ်းမယ်)
+HTML tag မှာ `id="..."` ပေးထားရင် ဒါနဲ့ ဖမ်းတာ အကောင်းဆုံးပါ။ တစ်ခုတည်း ရှိတဲ့အရာတွေအတွက် သုံးပါတယ်။
+
+```javascript
+// HTML: <h1 id="title">Hello</h1>
+let title = document.getElementById("title");
+```
+
+## 2. `getElementsByClassName()` (Class နဲ့ ဖမ်းမယ်)
+`class="..."` ပေးထားတဲ့ ကောင်တွေ အကုန်လုံးကို ဖမ်းမှာပါ။ အဖြေက List (Array-like) ပုံစံ ထွက်လာပါမယ်။
+
+```javascript
+// HTML: <p class="text">Text 1</p>, <p class="text">Text 2</p>
+let elements = document.getElementsByClassName("text");
+```
+
+## 3. `querySelector()` (CSS Selector နဲ့ ဖမ်းမယ်) 🔥
+ဒါက အသုံးအဝင်ဆုံးပါပဲ။ CSS မှာ ရေးသလိုမျိုး ဖမ်းလို့ရပါတယ်။
+*   ID ဆိုရင် `#` နဲ့ စမယ်။
+*   Class ဆိုရင် `.` နဲ့ စမယ်။
+*   Tag ဆိုရင် နာမည်အတိုင်း ရေးမယ်။
+
+**မှတ်ချက်:** ပထမဆုံးတွေ့တဲ့ **တစ်ခုတည်း** ကိုပဲ ယူပေးပါတယ်။
+
+```javascript
+let header = document.querySelector("#main-header");
+let btn = document.querySelector(".btn-submit");
+```
+
+## 4. `querySelectorAll()` (အကုန် ဖမ်းမယ်)
+CSS Selector နဲ့ ကိုက်ညီသမျှ **အကုန်လုံး** ကို ယူပေးပါတယ်။
+
+```javascript
+let allButtons = document.querySelectorAll("button");
+```
+
+### အနှစ်ချုပ်
+*   တစ်ခုတည်း လိုချင်ရင် -> `getElementById` သို့မဟုတ် `querySelector`
+*   အများကြီး လိုချင်ရင် -> `querySelectorAll`

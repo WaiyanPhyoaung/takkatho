@@ -1,0 +1,103 @@
+---
+title: "File System & Path"
+description: "ဖိုင်များကို ဖတ်ခြင်း၊ ရေးခြင်းနှင့် လမ်းကြောင်းများ စီမံခြင်း"
+---
+
+Node.js ရဲ့ အားသာချက်တစ်ခုက ကွန်ပျူတာထဲက ဖိုင်တွေကို တိုက်ရိုက် အလုပ်လုပ်နိုင်တာပါပဲ။ ဒါကို လုပ်ဖို့အတွက် Node.js မှာ အသင့်ပါဝင်တဲ့ (Built-in) Module တွေဖြစ်တဲ့ `fs` (File System) နဲ့ `path` ကို သုံးရပါတယ်။
+
+---
+
+### 1. Path Module (ဖိုင်လမ်းကြောင်းများ စီမံခြင်း)
+
+ဖိုင်တွေရဲ့ လမ်းကြောင်း (Directory Path) တွေကို စနစ်တကျ ကိုင်တွယ်ဖို့ `path` module ကို သုံးပါတယ်။ Windows နဲ့ Mac/Linux မှာ ဖိုင်လမ်းကြောင်း ရေးပုံ မတူတဲ့ ပြဿနာကို ဖြေရှင်းပေးပါတယ်။
+
+```javascript
+const path = require('path');
+
+// ဖိုင်လမ်းကြောင်းတွေကို ဆက်ပေးခြင်း (Join)
+// ဥပမာ - folder/subfolder/file.txt ဆိုပြီး ဖြစ်သွားပါမယ်
+const myPath = path.join('folder', 'subfolder', 'file.txt');
+console.log(myPath);
+
+// ဖိုင်ရဲ့ နာမည်ကို ယူခြင်း
+console.log(path.basename(myPath)); // file.txt
+
+// ဖိုင်ရဲ့ အမျိုးအစား (Extension) ကို ယူခြင်း
+console.log(path.extname(myPath)); // .txt
+```
+
+---
+
+### 2. File System (fs) Module
+
+ဖိုင်တွေကို ဖတ်ဖို့၊ ရေးဖို့၊ ဖျက်ဖို့ `fs` module ကို သုံးပါတယ်။ `fs` မှာ အလုပ်လုပ်ပုံ (၂) မျိုး ရှိပါတယ်။
+1. **Synchronous (Sync):** အလုပ်တစ်ခု ပြီးမှ နောက်တစ်ခု ဆက်လုပ်တာပါ။ (Code တွေ ရပ်စောင့်နေရပါတယ်)
+2. **Asynchronous (Async):** အလုပ်တစ်ခုကို ခိုင်းထားပြီး၊ မပြီးသေးခင် နောက်အလုပ်တွေကို ဆက်လုပ်တာပါ။ (Node.js မှာ ဒါကို ပိုသုံးသင့်ပါတယ်)
+
+#### ဖိုင်ထဲသို့ စာရေးခြင်း (Write File)
+
+```javascript
+const fs = require('fs');
+
+const content = "Hello, ဒီစာကို Node.js ကနေ ရေးလိုက်တာပါ။";
+
+// Asynchronous နည်းဖြင့် ရေးခြင်း
+fs.writeFile('message.txt', content, (err) => {
+    if (err) {
+        console.log("အမှားဖြစ်သွားပါတယ်:", err);
+        return;
+    }
+    console.log("ဖိုင်ကို အောင်မြင်စွာ ရေးသားပြီးပါပြီ။");
+});
+
+console.log("ဒီစာက အရင် အလုပ်လုပ်ပါလိမ့်မယ်။ (Non-blocking ဖြစ်လို့ပါ)");
+```
+
+#### ဖိုင်ထဲမှ စာဖတ်ခြင်း (Read File)
+
+```javascript
+const fs = require('fs');
+
+// Asynchronous နည်းဖြင့် ဖတ်ခြင်း
+// 'utf8' လို့ မထည့်ရင် Buffer (ဂဏန်းတွေ) အနေနဲ့ ထွက်လာပါမယ်
+fs.readFile('message.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.log("ဖိုင်ဖတ်လို့ မရပါ:", err);
+        return;
+    }
+    console.log("ဖိုင်ထဲက စာသားများ:");
+    console.log(data);
+});
+```
+
+#### ဖိုင်အသစ် ထပ်ထည့်ခြင်း (Append File)
+
+ရှိပြီးသား ဖိုင်ထဲကို စာတွေ ထပ်ထည့်ချင်ရင် `appendFile` ကို သုံးပါတယ်။
+
+```javascript
+const fs = require('fs');
+
+const newContent = "\nဒါက ထပ်ထည့်လိုက်တဲ့ စာကြောင်းပါ။";
+
+fs.appendFile('message.txt', newContent, (err) => {
+    if (err) throw err;
+    console.log("စာသားများ ထပ်ထည့်ပြီးပါပြီ။");
+});
+```
+
+#### ဖိုင်ကို ဖျက်ခြင်း (Delete File)
+
+```javascript
+const fs = require('fs');
+
+fs.unlink('message.txt', (err) => {
+    if (err) {
+        console.log("ဖျက်စရာ ဖိုင်မရှိပါ။");
+        return;
+    }
+    console.log("ဖိုင်ကို ဖျက်လိုက်ပါပြီ။");
+});
+```
+
+### မှတ်သားရန်
+`fs` module ကို သုံးတဲ့အခါ အမြဲတမ်း Asynchronous နည်းလမ်း (Callback သို့မဟုတ် Promises) ကို သုံးဖို့ အကြံပြုပါတယ်။ Synchronous နည်းလမ်း (`fs.writeFileSync`, `fs.readFileSync`) တွေက Server ကို ခဏ ရပ်သွားစေတဲ့အတွက် User တွေ အများကြီး ဝင်လာတဲ့အခါ ပြဿနာ ရှိနိုင်ပါတယ်။

@@ -12,8 +12,56 @@
 			"continue": true
 		},
 		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/about/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/auth/signin/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/auth/signout/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/auth/signup/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/courses/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/dashboard/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/signin/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/signup/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/.*$",
-			"dest": "/404.html",
+			"dest": "_render",
 			"status": 404
 		}
 	]

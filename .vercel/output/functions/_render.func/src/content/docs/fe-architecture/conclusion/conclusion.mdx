@@ -1,0 +1,70 @@
+---
+title: "Conclusion & Future Trends"
+description: "Conclusion & Future Trends"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+
+
+<Aside title="ခရီးဆုံးသို့ ရောက်ရှိခြင်း">
+ကျွန်တော်တို့ Frontend Architecture ဆိုတဲ့ ခရီးရှည်ကြီးကို လျှောက်လှမ်းခဲ့ကြတာ အခုဆိုရင် ခရီးဆုံးကို ရောက်ရှိလို့ လာပါပြီ။
+ကျွန်တော်တို့ ဘာတွေ လေ့လာခဲ့ကြလဲ?
+</Aside>
+
+### ၁. အိမ်ဆောက်ခြင်း (Architecture Basics)
+အိမ်တစ်လုံး ဆောက်သလိုပါပဲ။ အုတ်မြစ်မခိုင်ရင် အိမ်ပြိုတတ်ပါတယ်။
+- **Monolith:** Studio ခန်း (ရိုးရှင်း၊ စုစည်း)။
+- **Micro-Frontend:** Mansion ကြီး (ခမ်းနား၊ ရှုပ်ထွေး)။
+
+### ၂. LEGO ရဲတိုက် (Component Architecture)
+Code တွေကို LEGO တုံးလေးတွေလို ဖွဲ့စည်းတတ်ဖို့ လိုပါတယ်။
+- **Atomic Design:** အသေးဆုံး အစိတ်အပိုင်း (Atom) ကနေ စတင် တည်ဆောက်ခြင်း။
+
+### ၃. စမတ်ဖုန်း (Modular Architecture)
+ဖုန်းတစ်လုံးလိုပါပဲ။ Camera Module ပျက်ရင် Camera ပဲ လဲလို့ရအောင် ဖွဲ့စည်းခြင်း။
+
+### ၄. Shopping Mall (Micro-Frontends)
+ဆိုင်ခန်းပေါင်းစုံ စုထားတဲ့ Mall ကြီးလိုပါပဲ။ Team တွေ အများကြီး၊ နည်းပညာတွေ အများကြီးကို Shell တစ်ခုတည်းအောက်မှာ စုစည်းခြင်း။
+
+### ၅. စားသောက်ဆိုင် (MV* Patterns)
+- **Model:** မီးဖိုချောင် (Data)
+- **View:** စားပွဲဝိုင်း (UI)
+- **Controller/ViewModel:** စားပွဲထိုး (Logic)
+
+### ၆. ဘဏ်စနစ် (State Management)
+- **Flux/Redux:** ငွေထုတ်/ငွေသွင်း စာရွက်စာတမ်းနဲ့ စနစ်တကျ လုပ်ဆောင်ခြင်း။
+
+### ၇. အစားအသောက် ပို့ဆောင်ခြင်း (Rendering)
+- **CSR:** ကိုယ်တိုင် ချက်စား (Meal Kit)။
+- **SSR:** ဆိုင်က မှာစား (Delivery)။
+- **SSG:** စည်သွပ်ဘူး (Frozen Food)။
+- **ISR:** မုန့်တိုက် (Bakery)။
+
+---
+
+### အနာဂတ် ခေတ်ရေစီးကြောင်း (The Future)
+
+Frontend လောကကြီးက ဘယ်ကို ဦးတည်နေလဲ?
+အဖြေကတော့ **"Server Components"** ပါ။
+
+အရင်တုန်းက Browser (Client) ပေါ်မှာ ဝန်တွေ ပိနေပါတယ်။ JavaScript တွေ အများကြီး Download လုပ်ရ၊ Run ရနဲ့ ဖုန်းအဟောင်းတွေမှာ လေးလံပါတယ်။
+အခုတော့ **"Server Components"** နဲ့ အလုပ်တွေကို Server ပေါ် ပြန်တင်နေကြပါပြီ။
+
+> **"Back to the Server"**
+> စားသောက်ဆိုင် ဥပမာနဲ့ ပြောရရင် - အရင်က စားပွဲဝိုင်း (Browser) မှာ လာချက်ပြုတ်ပေးတာ (CSR)။ အခုတော့ မီးဖိုချောင် (Server) မှာ အားလုံး ချက်ပြုတ်ပြီးမှ စားပွဲဝိုင်းကို အဆင်သင့် လာချပေးတာမျိုး ဖြစ်လာပါပြီ။
+
+🚀
+
+<Aside title="အဓိကမှတ်သားစရာများ" type="tip">
+
+Architecture ဆိုတာ **"အကောင်းဆုံး တစ်ခု (Silver Bullet)"** မရှိပါဘူး။
+- Project သေးရင် Monolith နဲ့ စပါ။
+- SEO လိုရင် SSR/SSG သုံးပါ။
+- Team ကြီးလာမှ Micro-Frontend စဉ်းစားပါ။
+
+"ဓားရှိတိုင်း လိုက်ခုတ်မနေပါနဲ့။ ပန်းသီး စားချင်ရင် ဓားမြှောင် သုံးပါ၊ သစ်ပင် ခုတ်ချင်မှ ပုဆိန် သုံးပါ။"
+
+သင်ယူလေ့လာခဲ့သမျှကို လက်တွေ့နယ်ပယ်မှာ အကောင်းဆုံး အသုံးချနိုင်ပါစေ။
+**Good Luck, Developers!** 
+</Aside>

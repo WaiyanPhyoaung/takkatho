@@ -1,0 +1,71 @@
+import { p as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_Dso1QYyF.mjs';
+import { b as $$Aside } from './Code_WFUXKkih.mjs';
+import './Icon_CK40Z_jw.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Variables & Data Types",
+  "description": "Data များကို သိမ်းဆည်းခြင်းနှင့် အမျိုးအစားများ"
+};
+function getHeadings() {
+  return [{
+    "depth": 2,
+    "slug": "variables-ကိန်းရှင်များ",
+    "text": "Variables (ကိန်းရှင်များ)"
+  }, {
+    "depth": 3,
+    "slug": "1-var-old-school",
+    "text": "1. var (Old School)"
+  }, {
+    "depth": 3,
+    "slug": "2-let-standard",
+    "text": "2. let (Standard)"
+  }, {
+    "depth": 3,
+    "slug": "3-const-constant",
+    "text": "3. const (Constant)"
+  }, {
+    "depth": 2,
+    "slug": "data-types-data-အမျိုးအစားများ",
+    "text": "Data Types (Data အမျိုးအစားများ)"
+  }];
+}
+function _createMdxContent(props) {
+  const {Fragment: Fragment$1} = props.components || ({});
+  if (!Fragment$1) _missingMdxReference("Fragment");
+  return createVNode(Fragment, {
+    children: [createVNode(Fragment$1, {
+      "set:html": "<div class=\"sl-heading-wrapper level-h2\"><h2 id=\"variables-ကိန်းရှင်များ\">Variables (ကိန်းရှင်များ)</h2><a class=\"sl-anchor-link\" href=\"#variables-ကိန်းရှင်များ\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “Variables (ကိန်းရှင်များ)”</span></a></div>\n<p>Variable ဆိုတာ <strong>Data တွေကို ခဏတာ သိမ်းဆည်းထားတဲ့ နေရာ (Box)</strong> လေးတစ်ခုပါ။\nဥပမာ - ရေထည့်ထားတဲ့ ခွက်လိုပေါ့။ ခွက်ထဲကို ရေထည့်မလား၊ ဖျော်ရည်ထည့်မလား၊ ကြိုက်တာ ထည့်လို့ရတယ်။</p>\n<p>JavaScript မှာ Variable ကြေညာဖို့ နည်းလမ်း (၃) မျိုး ရှိပါတယ်။</p>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"1-var-old-school\">1. <code dir=\"auto\">var</code> (Old School)</h3><a class=\"sl-anchor-link\" href=\"#1-var-old-school\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “1. var (Old School)”</span></a></div>\n<p>ရှေးဟောင်း နည်းလမ်းပါ။ လောလောဆယ်မှာ သိပ်မသုံးတော့ပါဘူး။ သိထားရုံလောက်ပါပဲ။</p>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"2-let-standard\">2. <code dir=\"auto\">let</code> (Standard)</h3><a class=\"sl-anchor-link\" href=\"#2-let-standard\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “2. let (Standard)”</span></a></div>\n<p>ပြောင်းလဲလို့ရတဲ့ တန်ဖိုးတွေအတွက် သုံးပါတယ်။ (ဥပမာ - အမှတ်စာရင်း၊ အသက်)</p>\n<div class=\"expressive-code\"><link rel=\"stylesheet\" href=\"/_astro/ec.v4551.css\"><script type=\"module\" src=\"/_astro/ec.p1z7b.js\"></script><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">score</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#F78C6C;--1:#AA0982\">10</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--1:#403F53\"><span style=\"--0:#D7DBE0\">score</span><span style=\"--0:#D6DEEB\"> </span></span><span style=\"--0:#C792EA;--1:#8844AE\">=</span><span style=\"--0:#D6DEEB;--1:#403F53\"> </span><span style=\"--0:#F78C6C;--1:#AA0982\">20</span><span style=\"--0:#D6DEEB;--1:#403F53\">; </span><span style=\"--0:#919F9F;--1:#5D6376\">// နောက်မှ ပြောင်းလို့ရတယ်</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let score = 10;score = 20; // နောက်မှ ပြောင်းလို့ရတယ်\"><div></div></button></div></figure></div>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"3-const-constant\">3. <code dir=\"auto\">const</code> (Constant)</h3><a class=\"sl-anchor-link\" href=\"#3-const-constant\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “3. const (Constant)”</span></a></div>\n<p>ပြောင်းလဲလို့ မရတဲ့ တန်ဖိုးတွေအတွက် သုံးပါတယ်။ (ဥပမာ - မွေးနေ့၊ <code dir=\"auto\">PI</code> တန်ဖိုး)</p>\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">const </span><span style=\"--0:#82AAFF;--1:#3B61B0\">pi</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#F78C6C;--1:#AA0982\">3.14</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5D6376\">// pi = 3.15; // Error တက်မယ်! ပြောင်းလို့မရဘူး။</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"const pi = 3.14;// pi = 3.15; // Error တက်မယ်! ပြောင်းလို့မရဘူး။\"><div></div></button></div></figure></div>\n"
+    }), createVNode($$Aside, {
+      type: "tip",
+      "set:html": "<p><strong>Best Practice:</strong>  ပုံမှန်အားဖြင့် <code dir=\"auto\">const</code> ကို အရင်သုံးပါ။ တန်ဖိုးပြောင်းဖို့ လိုအပ်မှ <code dir=\"auto\">let</code> ကို သုံးပါ။ <code dir=\"auto\">var</code> ကို လုံးဝ မသုံးပါနဲ့။</p>"
+    }), "\n", createVNode(Fragment$1, {
+      "set:html": "<div class=\"sl-heading-wrapper level-h2\"><h2 id=\"data-types-data-အမျိုးအစားများ\">Data Types (Data အမျိုးအစားများ)</h2><a class=\"sl-anchor-link\" href=\"#data-types-data-အမျိုးအစားများ\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “Data Types (Data အမျိုးအစားများ)”</span></a></div>\n<p>JavaScript မှာ အဓိက Data Type (၅) မျိုးကို သိထားရင် လုံလောက်ပါပြီ။</p>\n<ol>\n<li><strong>String (စာသား):</strong> စာလုံးတွေကို <code dir=\"auto\">\"\"</code> (သို့) <code dir=\"auto\">''</code> ထဲမှာ ထည့်ရေးရပါတယ်။\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">name</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#D9F5DD;--1:#111111\">\"</span><span style=\"--0:#ECC48D;--1:#984E4D\">Mg Mg</span><span style=\"--0:#D9F5DD;--1:#111111\">\"</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let name = &#x22;Mg Mg&#x22;;\"><div></div></button></div></figure></div>\n</li>\n<li><strong>Number (ကိန်းဂဏန်း):</strong> ဂဏန်းတွေပါ။ <code dir=\"auto\">\"\"</code> ထည့်စရာ မလိုပါဘူး။\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">age</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#F78C6C;--1:#AA0982\">25</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">price</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#F78C6C;--1:#AA0982\">10.5</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let age = 25;let price = 10.5;\"><div></div></button></div></figure></div>\n</li>\n<li><strong>Boolean (အမှား/အမှန်):</strong> <code dir=\"auto\">true</code> သို့မဟုတ် <code dir=\"auto\">false</code> နှစ်ခုပဲ ရှိပါတယ်။\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">isStudent</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#FF6A83;--1:#A24848\">true</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let isStudent = true;\"><div></div></button></div></figure></div>\n</li>\n<li><strong>Undefined:</strong> Variable တစ်ခုကို ကြေညာပြီး တန်ဖိုးမထည့်ရသေးရင် <code dir=\"auto\">undefined</code> ဖြစ်နေပါမယ်။\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--1:#403F53\"><span style=\"--0:#D7DBE0\">x</span><span style=\"--0:#D6DEEB\">;</span></span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#7FDBCA;--1:#096E72\">console</span><span style=\"--0:#C792EA;--1:#8844AE\">.</span><span style=\"--0:#82AAFF;--1:#3B61B0\">log</span><span style=\"--1:#403F53\"><span style=\"--0:#D6DEEB\">(</span><span style=\"--0:#D7DBE0\">x</span><span style=\"--0:#D6DEEB\">); </span></span><span style=\"--0:#919F9F;--1:#5D6376\">// undefined</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let x;console.log(x); // undefined\"><div></div></button></div></figure></div>\n</li>\n<li><strong>Null:</strong> “ဘာမှ မရှိဘူး” ဆိုတာကို တိတိကျကျ သတ်မှတ်လိုက်တာပါ။\n<div class=\"expressive-code\"><figure class=\"frame not-content\"><figcaption class=\"header\"></figcaption><pre data-language=\"javascript\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C792EA;--1:#8844AE\">let </span><span style=\"--0:#D7DBE0;--1:#403F53\">y</span><span style=\"--0:#C792EA;--1:#8844AE\"> = </span><span style=\"--0:#FF6A83;--1:#A24848\">null</span><span style=\"--0:#D6DEEB;--1:#403F53\">;</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"let y = null;\"><div></div></button></div></figure></div>\n</li>\n</ol>\n<p>မှတ်ထားဖို့က - String ဆိုရင် Quote (” ”) ပါမယ်၊ Number ဆိုရင် မပါဘူး။ <code dir=\"auto\">let \"20\"</code> က စာသား၊ <code dir=\"auto\">let 20</code> က ဂဏန်းပါ။</p>"
+    })]
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+function _missingMdxReference(id, component) {
+  throw new Error("Expected " + ("component" ) + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");
+}
+
+const url = "src/content/docs/javascript/fundamentals/variables.mdx";
+const file = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/javascript/fundamentals/variables.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/javascript/fundamentals/variables.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

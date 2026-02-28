@@ -1,0 +1,43 @@
+---
+title: "@property At-Rule"
+description: "Custom Properties (Variables) များကို Type သတ်မှတ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Smarter Variables">
+ပုံမှန် CSS Variable (`--color: red`) တွေက စာသား (String) အနေနဲ့ပဲ သိမ်းပါတယ်။ `@property` နဲ့ဆိုရင် "ဒါက အရောင်၊ ဒါက နံပါတ်" ဆိုပြီး Type သတ်မှတ်လို့ ရပါတယ်။
+</Aside>
+
+### ဘာလို့ လိုအပ်တာလဲ?
+အဓိကက **Animation** အတွက်ပါ။ Browser က Variable တစ်ခုကို ဘယ်လို ပြောင်းလဲ (Interpolate) ရမလဲဆိုတာ Type သိမှ လုပ်ပေးနိုင်တာပါ။
+
+### အသုံးပြုပုံ
+
+```css
+/* Variable ကို ကြေညာမယ် */
+@property --my-gradient-angle {
+  syntax: '<angle>'; /* ဒါက ဒီဂရီ ဖြစ်ရမယ် */
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ပြီးရင် Animation လုပ်လို့ရပြီ */
+.card {
+  background: linear-gradient(var(--my-gradient-angle), blue, purple);
+  animation: rotate-gradient 2s linear infinite;
+}
+
+@keyframes rotate-gradient {
+  to {
+    --my-gradient-angle: 360deg; /* Browser က 0 ကနေ 360 ကို ဖြည်းဖြည်းချင်း ပြောင်းပေးတတ်သွားပြီ */
+  }
+}
+```
+
+### Syntax Types
+*   `<color>`
+*   `<length>` (px, rem, etc.)
+*   `<angle>` (deg, rad)
+*   `<number>`
+*   `<percentage>`

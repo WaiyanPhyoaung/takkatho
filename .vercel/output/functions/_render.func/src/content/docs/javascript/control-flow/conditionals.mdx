@@ -1,0 +1,54 @@
+---
+title: "Conditional Statements"
+description: "ဆုံးဖြတ်ချက်များ ချမှတ်ခြင်း (If/Else)"
+---
+
+ဘဝမှာ ဆုံးဖြတ်ချက်တွေ ချရသလိုပဲ၊ Programming မှာလည်း အခြေအနေတစ်ခုပေါ် မူတည်ပြီး ဘာဆက်လုပ်ရမလဲဆိုတာ ဆုံးဖြတ်ရပါတယ်။ ဒါကို **Conditional Statements** လို့ ခေါ်ပါတယ်။
+
+## If Statement
+
+"အကယ်၍" ဆိုတဲ့ အဓိပ္ပာယ်ပါ။ အခြေအနေတစ်ခု မှန်ကန်ရင် (True ဖြစ်ရင်) အလုပ်လုပ်မယ်။
+
+```javascript
+let rain = true;
+
+if (rain) {
+  console.log("ထီးယူသွားပါ! ☔️");
+}
+```
+
+## If...Else Statement
+
+"ဒီအခြေအနေမှန်ရင် ဒါလုပ်၊ မဟုတ်ရင် ဟိုဟာလုပ်" ဆိုတဲ့ ပုံစံပါ။
+
+```javascript
+let age = 15;
+
+if (age >= 18) {
+  console.log("မဲပေးခွင့် ရှိပါတယ်။");
+} else {
+  console.log("မဲပေးခွင့် မရှိသေးပါ။");
+}
+```
+
+## Else If Statement
+
+ရွေးချယ်စရာတွေ အများကြီး ရှိတဲ့အခါ သုံးပါတယ်။
+
+```javascript
+let score = 85;
+
+if (score >= 90) {
+  console.log("Grade A");
+} else if (score >= 80) {
+  console.log("Grade B");
+} else if (score >= 40) {
+  console.log("Passed");
+} else {
+  console.log("Failed");
+}
+```
+
+### 💡 မှတ်သားရန်
+*   အပေါ်ကနေ အောက်ကို တစ်ဆင့်ချင်း စစ်သွားပါတယ်။
+*   တစ်ခုမှန်တာနဲ့ ကျန်တာတွေကို ဆက်မစစ်တော့ဘဲ ရပ်သွားမှာပါ။

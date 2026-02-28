@@ -1,0 +1,49 @@
+---
+title: "ဖိုင်နှင့် ဖိုဒါများ စီမံခြင်း"
+description: "mkdir, touch, cp, mv, rm စသည့် file management command အခြေခံများ"
+---
+
+Folder တွေထဲ သွားလာတတ်ပြီဆိုရင်တော့ ဖိုင်အသစ်ဆောက်တာ၊ ဖျက်တာတွေကို လုပ်ကြည့်ရအောင်။
+
+### 1. ဖိုဒါအသစ် ဆောက်ခြင်း (`mkdir`)
+**mkdir** (Make Directory) ကို သုံးပြီး Folder အသစ်တစ်ခု ဆောက်လို့ရပါတယ်။
+
+```bash
+mkdir my_project
+# my_project ဆိုတဲ့ folder အသစ်လေး ထွက်လာပါပြီ။ ls နဲ့ စစ်ကြည့်ပါ။
+```
+
+### 2. ဖိုင်အသစ် ဆောက်ခြင်း (`touch`)
+**touch** ကို သုံးပြီး စာသားမပါတဲ့ ဖိုင်အလွတ် (Empty File) တစ်ခု ဖန်တီးလို့ရပါတယ်။
+
+```bash
+touch index.html
+touch style.css
+# index.html နဲ့ style.css တို့ကို ဆောက်လိုက်ပါပြီ။
+```
+
+### 3. ကူးယူခြင်း (`cp`)
+**cp** (Copy) က ဖိုင်တွေကို တစ်နေရာကနေ နောက်တစ်နေရာကို ကူးတဲ့နေရာမှာ သုံးပါတယ်။ 
+*(Pattern: cp `<မူရင်းဖိုင်>` `<သွားမည့်နေရာ>`)*
+
+```bash
+cp index.html about.html
+# index.html ထဲကအရာတွေကို about.html ဆိုပြီး ပွားလိုက်တာပါ။
+```
+* **Folder တွေကို copy ကူးချင်ရင်:** `-r` (recursive) parameter ကို ထည့်ပေးရပါတယ်။ `cp -r my_project backup_project`
+
+### 4. ရွှေ့ပြောင်းခြင်း နှင့် အမည်ပြောင်းခြင်း (`mv`)
+**mv** (Move) က ဖိုင်ကို cut လုပ္ပီး ရွှေ့တာ၊ ဒါမှမဟုတ် Rename အမျိုးအမည်ပြောင်းတဲ့ နေရာမှာ သုံးပါတယ်။
+
+* **Rename လုပ်ရန်:** `mv index.html home.html` (index ကနေ home ကို ပြောင်းလိုက်တာပါ)
+* **ရွှေ့ရန်:** `mv home.html my_project/` (home.html ကို my_project folder ထဲ ထည့်လိုက်တာပါ)
+
+### 5. ဖယ်ရှားခြင်း / ဖျက်ခြင်း (`rm`)
+**rm** (Remove) က ဖိုင်တွေကို ဖျက်ပစ်ပါတယ်။ *(သတိထားပါ - CLI ကနေ ဖျက်လိုက်ရင် Recycle Bin / Trash ထဲရောက်မသွားဘဲ အပြီးတိုင် ပျက်သွားတတ်ပါတယ်!)*
+
+```bash
+rm style.css
+# style.css ကို ဖျက်လိုက်တာပါ။
+```
+
+* **Folder တွေကို အပြီးဖျက်ချင်ရင်:** `rm -r my_project` (`-r` ထည့်သုံးပေးပါ)

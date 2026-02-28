@@ -1,0 +1,93 @@
+---
+title: "ရွေးထုတ်ခြင်းနှင့် ချန်လှပ်ခြင်း: Pick<T, K>, Omit<T, K>"
+description: "ရွေးထုတ်ခြင်းနှင့် ချန်လှပ်ခြင်း: Pick<T, K>, Omit<T, K>"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const userprofile = `
+interface UserProfile {
+  id: number;
+  username: string;
+  email?: string; // email က optional
+  bio: string | null;
+  isActive: boolean;
+  lastLogin: Date; // နောက်ဆုံး Login ဝင်ခဲ့တဲ့ အချိန်
+}
+`;
+
+export const pick = `
+ type UserPreview = {
+   id: number;
+   username: string;
+   email?: string;
+ }`
+export const omit = `type UserForPublicListing = {
+   id: number;
+   username: string;
+   email?: string;
+   isActive: boolean;
+ }`
+
+export const usage= `
+// UserProfile ထဲက username နဲ့ email ကိုပဲ ယူပြီး type အသစ်လုပ်
+type UserAvatarInfo = Pick<UserProfile, "username" | "email">;
+
+function displayUserAvatar(info: UserAvatarInfo) {
+console.log(\`Avatar for \${info.username}\`);
+if (info.email) {
+console.log(\`Contact: \${info.email}\`);
+}
+}
+
+const userForAvatar: UserAvatarInfo = { username: "hero123", email: "hero@example.com" };
+displayUserAvatar(userForAvatar);
+
+// const tooMuchInfo: UserAvatarInfo = { username: "hero123", email: "hero@example.com", id: 1 };
+// Error ပြလိမ့်မယ်။ 'id' က UserAvatarInfo ထဲမှာ မရှိဘူး။
+`
+
+export const omitUsage= `
+// UserProfile ထဲက id, lastLogin, isActive ကို ဖယ်ပြီး Type အသစ်လုပ်
+// User က username, email, bio တွေကို ပေးမှာဖြစ်ပြီး id, lastLogin, isActive တွေကိုတော့ system က သတ်မှတ်ပေးမှာ
+type UserRegistrationData = Omit<UserProfile, "id" | "lastLogin" | "isActive">;
+
+function registerUser(data: UserRegistrationData) {
+console.log(\`Registering user: \${data.username} with email \${data.email}\`);
+// ဒီနေရာမှာ data ထဲက အချက်အလက်တွေနဲ့ User အပြည့်အစုံကို Database မှာ သိမ်းတာမျိုး လုပ်မယ်
+// const fullUser: UserProfile = { ...data, id: generateId(), lastLogin: new Date(), isActive: true };
+}
+
+registerUser({ username: "newbie", email: "newbie@example.com", bio: "Just starting out!"});`
+
+<Aside title='ရည်ရွယ်ချက်' type="tip">
+ Pick\<T, K> နဲ့ Omit\<T, K> Utility Type တွေကို သုံးပြီး ရှိပြီးသား Type ကနေ လိုချင်တဲ့ Property တွေကို ရွေးထုတ်တာ ဒါမှမဟုတ် မလိုချင်တာတွေကို ဖယ်ထုတ်တာမျိုး လုပ်ပြီး Type အသစ်တွေ ဖန်တီးတတ်ဖို့ ဖြစ်ပါတယ်။ K ကတော့ T ထဲက Property နာမည်တွေရဲ့ ပေါင်းစပ်မှု ဖြစ်ပါတယ်
+</Aside>
+
+ဒီဥပမာတွေအတွက် ကျွန်တော်တို့ရဲ့ UserProfile Interface ကို ပြန်သုံးကြရအောင်။ lastLogin ဆိုတဲ့ Property အသစ်လေး ထပ်ထည့်ထားတယ်။
+
+<Code lang="typescript" code={userprofile} title="index.ts" />
+
+### Pick\<T, K>: Property တချို့ကို ရွေးထုတ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Pick\<T, K> က T Type မှာရှိတဲ့ Property တွေထဲက K Type မှာ ရွေးထားတဲ့ Property တွေကိုသာ ရွေးထုတ်ပြီး Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Pick\<UserProfile, "id" | "username" | "email">
+  - ဒုတိယ Argument က ကိုယ်ရွေးထုတ်ချင်တဲ့ Property နာမည်တွေ (union of literal string types) ဖြစ်တယ်။
+- **ရလာမယ့် Type (ပုံစံ)**:
+
+<Code lang="typescript" code={pick} title="index.ts" />
+
+- **ဘယ်လိုနေရာမှာ သုံးလဲ**: Data Transfer Object (DTO) တွေ လုပ်တဲ့အခါ ဒါမှမဟုတ် UI Component တွေအတွက် Data တချို့တဝက်ပဲ လိုတဲ့အခါမျိုးမှာ အသုံးဝင်တယ်။ ဥပမာ User Preview Card လိုမျိုးပေါ့။
+
+<Code lang="typescript" code={usage} title="index.ts" />
+
+### Omit\<T, K>: Property တွေကို ချန်လှပ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**:Omit\<T, K> က T Type ထဲက ကိုယ်မလိုချင်တဲ့ Property တွေ K ကို ဖယ်ထုတ်ပြီး ကျန်တာတွေနဲ့ Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Omit\<UserProfile, "lastLogin" | 'lastLogin'>
+- **ရလာမယ့် Type (ပုံစံ)**:
+
+  <Code lang="typescript" code={omit} title="index.ts" />
+
+- **ဘယ်လိုနေရာမှာ သုံးလဲ**: လျှို့ဝှက်အချက်အလက်တွေ ဒါမှမဟုတ် သီးခြားအခြေအနေတစ်ခုနဲ့ မဆိုင်တဲ့ Property တွေကို ချန်လှပ်ပြီး Type အသစ် ဖန်တီးတဲ့နေရာမှာ အသုံးဝင်တယ်။ ဥပမာ လူသိရှင်ကြား ပြသရမယ့် User စာရင်းအတွက် Type မျိုးပေါ့။
+
+<Code lang="typescript" code={omitUsage} title="index.ts" />

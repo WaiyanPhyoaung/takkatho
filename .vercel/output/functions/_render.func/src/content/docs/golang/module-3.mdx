@@ -1,0 +1,106 @@
+---
+title: "Module 3: Control Structures"
+description: "If/Else, For Loop နှင့် Switch Statements များအကြောင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## If / Else Statement
+
+Go ရဲ့ `if` statement မှာ ကွင်းစကွင်းပိတ် `()` တွေ မလိုပါဘူး။ ဒါပေမယ့် တွန့်ကွင်း `{}` တွေကတော့ မဖြစ်မနေ လိုပါတယ်။
+
+```go
+age := 18
+
+if age >= 18 {
+    fmt.Println("You are an adult.")
+} else {
+    fmt.Println("You are a minor.")
+}
+```
+
+### If with a Short Statement
+
+`if` မစခင်မှာ Variable တစ်ခုကို ကြေညာပြီး စစ်ဆေးလို့ ရပါတယ်။ အဲဒီ Variable ဟာ `if` နဲ့ `else` block ထဲမှာပဲ အလုပ်လုပ်ပါတယ်။
+
+```go
+if score := 85; score >= 80 {
+    fmt.Println("Grade A")
+} else if score >= 60 {
+    fmt.Println("Grade B")
+} else {
+    fmt.Println("Grade C")
+}
+// ဒီနေရာမှာ score ကို ခေါ်သုံးလို့ မရတော့ပါဘူး
+```
+
+## For Loop (Go ၏ တစ်ခုတည်းသော Loop)
+
+Go မှာ `while` loop, `do-while` loop တွေ မရှိပါဘူး။ `for` loop တစ်ခုတည်းနဲ့ အကုန်လုပ်လို့ ရပါတယ်။
+
+### ၁. ပုံမှန် For Loop
+
+```go
+for i := 0; i < 5; i++ {
+    fmt.Println(i)
+}
+```
+
+### ၂. While Loop လိုမျိုး အသုံးပြုခြင်း
+
+အစနဲ့ အဆုံး သတ်မှတ်ချက်တွေကို ဖြုတ်ထားခဲ့လို့ ရပါတယ်။
+
+```go
+sum := 1
+for sum < 1000 {
+    sum += sum
+}
+fmt.Println(sum)
+```
+
+### ၃. Infinite Loop (အဆုံးမရှိ ပတ်ခြင်း)
+
+Condition တွေ အကုန်ဖြုတ်လိုက်ရင် အဆုံးမရှိ ပတ်နေပါလိမ့်မယ်။
+
+```go
+for {
+    fmt.Println("Looping forever...")
+    break // Loop ကို ရပ်တန့်ရန် break သုံးပါ
+}
+```
+
+## Switch Statement
+
+`switch` ဟာ `if-else` တွေ အများကြီး ရေးရမယ့်အစား ပိုရှင်းလင်းအောင် ရေးတဲ့နည်းပါ။ Go ရဲ့ `switch` မှာ `break` ထည့်ရေးစရာ မလိုပါဘူး (အလိုအလျောက် break လုပ်ပေးပါတယ်)။
+
+```go
+day := "Tuesday"
+
+switch day {
+case "Monday":
+    fmt.Println("Start of the work week")
+case "Friday":
+    fmt.Println("TGIF!")
+case "Saturday", "Sunday": // တစ်ခုထက်မက စစ်ဆေးနိုင်တယ်
+    fmt.Println("Weekend!")
+default:
+    fmt.Println("Regular weekday")
+}
+```
+
+### Condition မပါသော Switch
+
+`if-else` အရှည်ကြီးတွေအစား Condition မပါတဲ့ `switch` ကို သုံးနိုင်ပါတယ်။
+
+```go
+hour := 14
+
+switch {
+case hour < 12:
+    fmt.Println("Good morning!")
+case hour < 17:
+    fmt.Println("Good afternoon!")
+default:
+    fmt.Println("Good evening!")
+}
+```

@@ -1,0 +1,44 @@
+---
+title: "Semantic HTML သုံးခြင်းရဲ့ အကျိုးကျေးဇူးများ"
+description: "Semantic HTML သုံးခြင်းရဲ့ အကျိုးကျေးဇူးများ"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import semanticImage from '@/assets/html/semantic.png'
+
+
+### Semantic HTML သုံးခြင်းရဲ့ Accessibility အကျိုးကျေးဇူးများ
+Semantic HTML ကို သုံးတာက screen reader လိုမျိုး အထောက်အကူပြု နည်းပညာတွေအတွက် content ကို ပိုမို နားလည်လွယ်စေတဲ့အတွက် accessibility ကို ပိုကောင်းစေပါတယ်။ 
+
+**Screen Reader အတွက် ဥပမာ -** <br/>
+Screen reader တစ်ခုက page ရဲ့ ခေါင်းပိုင်း (`<header>`)၊ အဓိကအကြောင်းအရာပိုင်း (`<main>`) နဲ့ အောက်ခြေပိုင်း (`<footer>`) ကို အလွယ်တကူ ခွဲခြားသိနိုင်ပါတယ်။ ဒါကြောင့် content တွေကို ပိုပြီး စနစ်တကျ၊ အစီအစဉ်တကျ ဖတ်ပြနိုင်ပါတယ်။
+
+<ContentImage src={semanticImage} alt="Non-semantic vs Semantic" />
+
+### Semantic HTML အတွက် အလေ့အကျင့်ကောင်းများ
+##### 1. မှန်ကန်တဲ့ Tag များကို သုံးပါ 
+    content နဲ့ သင့်တော်တဲ့ tag ကိုသုံးပါ (ဥပမာ - blog post အတွက် `<article>` menu အတွက် `<nav>`)။
+
+##### 2. `<div>` ကို အလွန်အကျွံမသုံးပါနဲ့ 
+`<div>` က အရာအားလုံးကို ထည့်လို့ရတဲ့ container ဆိုပေမဲ့ နေရာတကာမှာ လျှောက်မသုံးပါနဲ့။ သူ့အစား structure ပိုကျတဲ့ semantic tag တွေကို သုံးပါ။
+
+##### 3. Page Structure ကို စဉ်းစားပါ
+Tag တွေရဲ့ အစီအစဉ်ကို အမြဲတမ်း စဉ်းစားပါ။ ကိုယ့်ရဲ့ page ဟာ `<header>` (အပေါ်ပိုင်း) ကနေ `<main>` (အဓိက content) ကိုဖြတ်ပြီး `<footer>` (အောက်ခြေပိုင်း) မှာ ဆုံးသင့်ပါတယ်။
+
+##### 4. ရှင်းလင်းတဲ့ ခေါင်းစဉ်များ ပေးပါ
+`<nav>`, `<header>`, `<footer>`, ဒါမှမဟုတ် `<section>` လို tag တွေသုံးတဲ့အခါ အထဲမှာပါတဲ့ content တွေက ရှင်းလင်းပြီး အဓိပ္ပာယ်ရှိနေဖို့ သေချာပါစေ။
+
+<Aside type="tip"  title="အနှစ်ချုပ်">
+- Semantic HTML ကို သုံးခြင်းအားဖြင့် web accessibility နဲ့ SEO ပိုကောင်းလာစေပါတယ်။
+
+- HTML tag တွေကို ရွေးချယ်တဲ့အခါမှာ အမြင်ကိုပဲ မစဉ်းစားဘဲ content ရဲ့ အဓိပ္ပာယ် ကိုပါ ထည့်သွင်းစဉ်းစားသင့်ပါတယ်။
+
+- Content တွေကို စနစ်တကျဖြစ်စေဖို့ `<header>`, `<footer>`, `<section>`, `<article>`, `<nav>` တို့လို tag တွေကို သုံးပါ။
+
+- Code ကို ရှင်းလင်းစေဖို့ `<div>` tag တွေကို အလွန်အကျွံမသုံးဘဲ အဓိပ္ပာယ်ရှိတဲ့ tag တွေကို သုံးပါ။
+
+- Content တွေကို header ကနေ main content၊ ပြီးမှ footer ဆိုပြီး စနစ်တကျ စီစဉ်ပါ။
+
+- Semantic HTML က screen reader တွေနဲ့ search engine တွေကို ကိုယ့်ရဲ့ webpage မှာပါတဲ့ အကြောင်းများ ကို ပိုနားလည်လွယ်စေပါတယ်။
+</Aside>

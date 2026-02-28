@@ -1,0 +1,45 @@
+---
+title: "Modular Architecture ရဲ့ အားသာချက်များ"
+description: "Modular Architecture ရဲ့ အားသာချက်များ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Modular Architecture ကို သုံးလိုက်ရင် ဘာတွေ ထူးခြားသွားမလဲ?
+
+### ၁။ Scalability (တိုးချဲ့ရ လွယ်ကူခြင်း)
+အိမ်တစ်လုံးမှာ အခန်းအသစ် ထပ်ဆောက်သလိုပါပဲ။ `Blog` Feature အသစ် ထည့်ချင်ရင် `Blog` Module တစ်ခု ဆောက်ပြီး ထည့်လိုက်ရုံပါပဲ။ ရှိပြီးသား `User` Module တို့ `Product` Module တို့ကို သွားထိစရာ မလိုပါဘူး။
+
+### ၂။ Maintainability (ပြုပြင်ထိန်းသိမ်းရ လွယ်ကူခြင်း)
+Bug တစ်ခု တက်ပြီ ဆိုပါစို့။ "Cart ထဲ ပစ္စည်းထည့်မရဘူး" ဆိုရင် `Cart` Module ကိုပဲ တန်းသွားကြည့်လိုက်ရင် ပြီးပါပြီ။ Project တစ်ခုလုံး လိုက်ရှာနေစရာ မလိုတော့ပါဘူး။
+
+### ၃။ Team Collaboration (ပူးပေါင်းဆောင်ရွက်မှု)
+Team ကြီးလာရင် လူတွေ အများကြီးနဲ့ အလုပ်လုပ်ရပါတယ်။
+- Team A က `Checkout` Module ကို ကိုင်မယ်။
+- Team B က `Profile` Module ကို ကိုင်မယ်။
+ဘယ်သူ့ နယ်နိမိတ်နဲ့ ဘယ်သူမို့လို့ ကုဒ်တွေ ငြိတာ (Conflict) အရမ်း နည်းသွားပါတယ်။
+
+### လက်တွေ့ Project တွင် အသုံးပြုပုံ (Folder Structure)
+Project အကြီးကြီးတွေမှာ `components` folder တစ်ခုတည်းမှာ အကုန်ပြုံထည့်မထားပါဘူး။ **Feature-based** ခွဲကြပါတယ်။
+
+```
+src/
+  features/
+    auth/          (Auth Module)
+      components/
+      hooks/
+      services/
+    product/       (Product Module)
+      components/
+      hooks/
+      services/
+    cart/          (Cart Module)
+      components/
+      hooks/
+      services/
+```
+ဒီလို ထားလိုက်ရင် `Auth` နဲ့ ပတ်သက်တာ မှန်သမျှ `auth` folder အောက်မှာပဲ ရှိနေမှာပါ။
+
+<Aside title="SPA တိုင်း Modular ဖြစ်လား?" type="tip">
+**Yes!** React, Vue, Angular အားလုံးဟာ Component-Based ဖြစ်တဲ့အတွက် Modular သဘောတရား ပါပြီးသားပါ။ ဒါပေမယ့် Project ကြီးလာရင် Folder Structure ကိုပါ Modular ဖြစ်အောင် (Feature-based) ပြောင်းဖို့ လိုအပ်ပါတယ်။
+</Aside>

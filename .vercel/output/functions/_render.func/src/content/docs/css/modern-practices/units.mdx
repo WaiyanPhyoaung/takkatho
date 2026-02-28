@@ -1,0 +1,38 @@
+---
+title: "CSS Units"
+description: "အတိုင်းအတာ ယူနစ်များ (px, rem, em, vh, vw)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဘယ်ဟာ သုံးမလဲ?">
+`px` တစ်မျိုးတည်းနဲ့ အလုပ်ဖြစ်ပေမယ့်၊ Responsive ဖြစ်တဲ့ Website တွေအတွက် တခြား Unit တွေကို သုံးတတ်ဖို့ လိုပါတယ်။
+</Aside>
+
+### 1. Absolute Units (အတိအကျ)
+*   **px (Pixels):** မျက်နှာပြင်ပေါ်က အစက်အရေအတွက်။ အတိအကျ လိုချင်တဲ့ နေရာတွေ (ဥပမာ - Border အထူ) မှာ သုံးပါတယ်။
+
+### 2. Relative Units (နှိုင်းယှဉ်) - **Recommended**
+*   **rem (Root EM):** `html` tag ရဲ့ Font size (ပုံမှန်အားဖြင့် 16px) နဲ့ မြှောက်ပါတယ်။
+    *   `1rem` = 16px
+    *   `2rem` = 32px
+    *   **အားသာချက်:** User က Browser setting မှာ စာလုံးကြီးထားရင် လိုက်ကြီးပေးလို့ Accessibility ကောင်းပါတယ်။ Font size, Padding, Margin တွေမှာ `rem` သုံးတာ အကောင်းဆုံးပါ။
+
+*   **em:** သူ့မိဘ (Parent) ရဲ့ Font size နဲ့ မြှောက်ပါတယ်။ နည်းနည်း ရှုပ်ထွေးနိုင်လို့ `rem` ကို ပိုအားပေးပါတယ်။
+
+*   **% (Percent):** မိဘ (Parent) ရဲ့ အကျယ်အဝန်းပေါ် မူတည်ပါတယ်။
+    *   `width: 50%` ဆိုရင် မိဘအကျယ်ရဲ့ တစ်ဝက် ဖြစ်သွားမယ်။
+
+### 3. Viewport Units (မျက်နှာပြင် အကျယ်အဝန်း)
+*   **vw (Viewport Width):** မျက်နှာပြင် အကျယ်ရဲ့ ၁%။
+    *   `100vw` = မျက်နှာပြင် အကျယ် အပြည့်။
+*   **vh (Viewport Height):** မျက်နှာပြင် အမြင့်ရဲ့ ၁%။
+    *   `100vh` = မျက်နှာပြင် အမြင့် အပြည့် (Hero Section တွေမှာ သုံးပါတယ်)။
+
+<Aside type="tip">
+**Best Practice:**
+*   **Font Size:** `rem` သုံးပါ။
+*   **Layout Width:** `%` သို့မဟုတ် `fr` (Grid) သုံးပါ။
+*   **Full Screen Section:** `100vh` သုံးပါ။
+*   **Border:** `px` သုံးပါ။
+</Aside>

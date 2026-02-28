@@ -1,0 +1,65 @@
+import { p as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_Dso1QYyF.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "စနစ်ပိုင်းဆိုင်ရာ နှင့် အခြားသော Command များ",
+  "description": "clear, history, man, whoami နှင့် ကွန်ပျူတာ အခြေအနေများကို စစ်ဆေးခြင်း"
+};
+function getHeadings() {
+  return [{
+    "depth": 3,
+    "slug": "1-clear",
+    "text": "1. clear"
+  }, {
+    "depth": 3,
+    "slug": "2-history",
+    "text": "2. history"
+  }, {
+    "depth": 3,
+    "slug": "3-man-manual",
+    "text": "3. man (Manual)"
+  }, {
+    "depth": 3,
+    "slug": "4-whoami",
+    "text": "4. whoami"
+  }, {
+    "depth": 3,
+    "slug": "5-top-သို့မဟုတ်-htop",
+    "text": "5. top သို့မဟုတ် htop"
+  }, {
+    "depth": 3,
+    "slug": "6-အင်တာနက်-ချိတ်ဆက်မှု-စစ်ဆေးခြင်း-ping",
+    "text": "6. အင်တာနက် ချိတ်ဆက်မှု စစ်ဆေးခြင်း (ping)"
+  }];
+}
+function _createMdxContent(props) {
+  const {Fragment} = props.components || ({});
+  if (!Fragment) _missingMdxReference("Fragment");
+  return createVNode(Fragment, {
+    "set:html": "<p>Terminal မှာ အလုပ်လုပ်နေရင်း ကိုယ့်ကွန်ပျူတာရဲ့ အခြေအနေ၊ Manual (လမ်းညွှန်စာအုပ်) တွေ ဖတ်ချင်တဲ့အခါ အောက်ပါ Commands လေးတွေက အရမ်းအသုံးဝင်ပါတယ်။</p>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"1-clear\">1. <code dir=\"auto\">clear</code></h3><a class=\"sl-anchor-link\" href=\"#1-clear\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “1. clear”</span></a></div>\n<p>Terminal screen ကြီး အပေါ်နားမှာ စာတွေအရမ်းများပြီး ရှုပ်နေရင် ရှင်းပစ်ဖို့ <code dir=\"auto\">clear</code> ကို သုံးနိုင်ပါတယ်။ (Keyboard Shortcut အနေနဲ့ <code dir=\"auto\">Ctrl + L</code> ကိုလည်း သုံးလို့ရပါတယ်။)</p>\n<div class=\"expressive-code\"><link rel=\"stylesheet\" href=\"/_astro/ec.v4551.css\"><script type=\"module\" src=\"/_astro/ec.p1z7b.js\"></script><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">clear</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"clear\"><div></div></button></div></figure></div>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"2-history\">2. <code dir=\"auto\">history</code></h3><a class=\"sl-anchor-link\" href=\"#2-history\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “2. history”</span></a></div>\n<p>အရင်က သင်ရိုက်ခဲ့ဖူးတဲ့ Command အဟောင်းတွေကို ပြန်ကြည့်ချင်ရင် သုံးပါတယ်။</p>\n<div class=\"expressive-code\"><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#C5E478;--1:#3B61B0\">history</span></div></div><div class=\"ec-line\"><div class=\"code\">\n</div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\"># Output နမူနာ -</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\">#  121  cd Desktop</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\">#  122  mkdir project</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\">#  123  ls -a</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"history\"><div></div></button></div></figure></div>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"3-man-manual\">3. <code dir=\"auto\">man</code> (Manual)</h3><a class=\"sl-anchor-link\" href=\"#3-man-manual\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “3. man (Manual)”</span></a></div>\n<p>Command တစ်ခုရဲ့ “အသုံးပြုပုံ လမ်းညွှန်စာအုပ်” ထဲကို ဝင်ဖတ်ချင်ရင် သုံးပါတယ်။ <strong>Command တွေ ဘယ်လိုအလုပ်လုပ်လဲ မမှတ်မိတော့ရင် Google ခေါက်စရာမလိုဘဲ <code dir=\"auto\">man</code> နဲ့ ရှာဖတ်လို့ရပါတယ်။</strong></p>\n<div class=\"expressive-code\"><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\"># ls command ကို ဘယ်လိုသုံးရမလဲ ဖတ်ရန်</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">man</span><span style=\"--0:#D6DEEB;--1:#403F53\"> </span><span style=\"--0:#ECC48D;--1:#3B61B0\">ls</span></div></div><div class=\"ec-line\"><div class=\"code\">\n</div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\"># mkdir အကြောင်း ဖတ်ရန်</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">man</span><span style=\"--0:#D6DEEB;--1:#403F53\"> </span><span style=\"--0:#ECC48D;--1:#3B61B0\">mkdir</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"man lsman mkdir\"><div></div></button></div></figure></div>\n<p><em>(ထွက်ချင်လျှင် <code dir=\"auto\">q</code> ကို နှိပ်ပါ)</em></p>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"4-whoami\">4. <code dir=\"auto\">whoami</code></h3><a class=\"sl-anchor-link\" href=\"#4-whoami\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “4. whoami”</span></a></div>\n<p>ယခု Terminal ကို အသုံးပြုနေတဲ့ လက်ရှိ User ရဲ့ နာမည်ကို သိချင်ရင် သုံးပါတယ်။</p>\n<div class=\"expressive-code\"><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">whoami</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"whoami\"><div></div></button></div></figure></div>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"5-top-သို့မဟုတ်-htop\">5. <code dir=\"auto\">top</code> သို့မဟုတ် <code dir=\"auto\">htop</code></h3><a class=\"sl-anchor-link\" href=\"#5-top-သို့မဟုတ်-htop\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “5. top သို့မဟုတ် htop”</span></a></div>\n<p>ကွန်ပျူတာရဲ့ CPU, RAM အသုံးပြုမှုတွေနဲ့ လက်ရှိ Run နေတဲ့ Programs (Processes) တွေကို Task Manager လိုမျိုး ကြည့်ချင်ရင် သုံးပါတယ်။ အပြင်ထွက်ဖို့ <code dir=\"auto\">q</code> (Quit) ကို နှိပ်ပါ။</p>\n<div class=\"expressive-code\"><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">top</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"top\"><div></div></button></div></figure></div>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"6-အင်တာနက်-ချိတ်ဆက်မှု-စစ်ဆေးခြင်း-ping\">6. အင်တာနက် ချိတ်ဆက်မှု စစ်ဆေးခြင်း (<code dir=\"auto\">ping</code>)</h3><a class=\"sl-anchor-link\" href=\"#6-အင်တာနက်-ချိတ်ဆက်မှု-စစ်ဆေးခြင်း-ping\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “6. အင်တာနက် ချိတ်ဆက်မှု စစ်ဆေးခြင်း (ping)”</span></a></div>\n<p>ကိုယ့်စက်ကနေ အင်တာနက် (သို့) ပေးထားတဲ့ Website ဆီကို Network ရောက်/မရောက် စစ်ဆေးချင်ရင် သုံးပါတယ်။</p>\n<div class=\"expressive-code\"><figure class=\"frame is-terminal not-content\"><figcaption class=\"header\"><span class=\"title\"></span><span class=\"sr-only\">Terminal window</span></figcaption><pre data-language=\"bash\"><code><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#919F9F;--1:#5F636F\"># Google သို့ မက်ဆေ့ခ်ျပို့၍ စမ်းသပ်ခြင်း</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#82AAFF;--1:#3B61B0\">ping</span><span style=\"--0:#D6DEEB;--1:#403F53\"> </span><span style=\"--0:#ECC48D;--1:#3B61B0\">google.com</span></div></div></code></pre><div class=\"copy\"><button title=\"Copy to clipboard\" data-copied=\"Copied!\" data-code=\"ping google.com\"><div></div></button></div></figure></div>\n<p><em>(Ping ထွက်နေတာကို အဆုံးသတ်ရပ်တန့်ဖို့ <code dir=\"auto\">Ctrl + C</code> ကိုနှိပ်ပါ)</em></p>"
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+function _missingMdxReference(id, component) {
+  throw new Error("Expected " + ("component" ) + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");
+}
+const url = "src/content/docs/cli/commands/system-info.mdx";
+const file = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/cli/commands/system-info.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/cli/commands/system-info.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

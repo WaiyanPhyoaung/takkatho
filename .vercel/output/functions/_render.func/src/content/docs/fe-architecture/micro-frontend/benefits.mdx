@@ -1,0 +1,45 @@
+---
+title: "Micro-Frontend ရဲ့ အားသာချက်များ"
+description: "Micro-Frontend ရဲ့ အားသာချက်များ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Micro-Frontend ကို သုံးခြင်းရဲ့ အဓိက အကျိုးကျေးဇူးကတော့ **"လွတ်လပ်ခြင်း (Independence)"** ပါပဲ။
+
+### ၁။ Independent Deployment (သီးခြား Deploy လုပ်နိုင်ခြင်း)
+ဒါက အရေးအကြီးဆုံး အချက်ပါ။
+- `Checkout` Team က သူတို့ Feature ပြီးတာနဲ့ တန်းပြီး Deploy လုပ်လို့ရတယ်။
+- `Profile` Team မပြီးသေးလို့ စောင့်နေစရာ မလိုဘူး။
+Release Cycle တွေ မြန်ဆန်လာပါတယ်။
+
+### ၂။ Technology Agnostic (ကြိုက်ရာ နည်းပညာ သုံးနိုင်ခြင်း)
+- Team A က React ကျွမ်းကျင်ရင် React သုံး။
+- Team B က Vue ကျွမ်းကျင်ရင် Vue သုံး။
+- Team C က Angular ကျွမ်းကျင်ရင် Angular သုံး။
+နောက်ဆုံးမှာ အားလုံး ပေါင်းစည်းသွားမှာပါ။ (ဒါပေမယ့် Performance အရ Framework တွေ အများကြီး ရောသုံးတာကို သတိထားသင့်ပါတယ်)
+
+### ၃။ Isolated Faults (ပြဿနာ သီးခြားဖြစ်ခြင်း)
+`Checkout` Micro-Frontend မှာ Error တက်ပြီး ပျက်သွားရင်တောင်၊ `Product List` က ဆက်လုပ်နေမှာပါ။ App တစ်ခုလုံး "ဖြူ" သွားတာ (White Screen of Death) မျိုး မဖြစ်တော့ပါဘူး။
+
+### စိန်ခေါ်မှုများ (Challenges)
+Micro-Frontend က ကောင်းပေမယ့် အလကား မရပါဘူး။
+1.  **Complexity:** Setup လုပ်ရတာ အရမ်း ရှုပ်ထွေးပါတယ်။ (Webpack Module Federation, Single-SPA စတာတွေ သိဖို့ လိုပါတယ်)
+2.  **Performance:** Framework တွေ ထပ်နေရင် (React 2 ခါ Load လုပ်မိတာမျိုး) Site က လေးသွားနိုင်ပါတယ်။
+3.  **Consistency:** Team တွေ မတူတော့ Button ဒီဇိုင်းတွေ၊ Font တွေ မတူတာမျိုး ဖြစ်တတ်ပါတယ်။ (Design System ကောင်းကောင်း လိုပါတယ်)
+
+<Aside title="သုံးသင့်လား?" type="caution">
+Startups တွေ၊ Project အသေးတွေအတွက် Micro-Frontend က **Overkill** (မလိုအပ်ဘဲ ပိုလုပ်မိခြင်း) ဖြစ်တတ်ပါတယ်။ Monolith သို့မဟုတ် Modular Monolith က ပိုသင့်တော်ပါတယ်။
+</Aside>
+
+<Aside title="အနှစ်ချုပ်" type="tip">
+- **Micro-frontend** တွေက application အကြီးကြီးတွေကို သေးငယ်ပြီး သီးခြားစီ deploy လုပ်နိုင်တဲ့ unit လေးတွေအဖြစ် ခွဲထုတ်ပေးတယ်။
+
+- Micro-frontend တစ်ခုချင်းစီကို team မတူတာတွေက **သီးခြားစီ develop လုပ်၊ test လုပ်၊ deploy လုပ်** နိုင်တယ်။
+
+- **အကျိုးကျေးဇူးများ -** တိုးချဲ့ရလွယ်ကူခြင်း၊ သီးခြား deploy လုပ်နိုင်ခြင်း၊ team collaboration ကောင်းခြင်း၊ technology အမျိုးမျိုးသုံးနိုင်ခြင်း။
+
+- **စိန်ခေါ်မှုများ -** ပေါင်းစပ်ရခက်ခဲခြင်း၊ performance၊ shared state စီမံခန့်ခွဲရခြင်းနဲ့ UI တသမတ်တည်းဖြစ်အောင်ထိန်းသိမ်းရခြင်း။
+
+- **Webpack Module Federation နဲ့ Single SPA** တို့လို ခေတ်မီ tool တွေက micro-frontend တွေကို ထိထိရောက်ရောက် ပေါင်းစပ်ဖို့ ပိုလွယ်ကူစေတယ်။
+</Aside> 

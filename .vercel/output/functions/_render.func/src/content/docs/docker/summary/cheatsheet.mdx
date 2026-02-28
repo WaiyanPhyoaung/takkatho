@@ -1,0 +1,52 @@
+---
+title: "Docker Cheat Sheet မာတိကာ"
+description: "အသုံးအများဆုံး Docker နှင့် Docker Compose Command များ အကျဉ်းချုပ်"
+---
+
+နေ့စဉ်အလုပ်ခွင်မှာ အများဆုံးသုံးရမယ့် Docker Commands များကို စုစည်းပေးထားပါတယ်။ 
+
+### Images (ပုံစံခွက်များ) စီမံခန့်ခွဲခြင်း
+| Command | လုပ်ဆောင်ချက် (Action) |
+| :--- | :--- |
+| `docker pull <image_name>` | Docker Hub မှ Image ကို Download ဆွဲရန် |
+| `docker images` | မိမိစက်ထဲရှိ Download ဆွဲထားသော Image စာရင်းကြည့်ရန် |
+| `docker rmi <image_name_or_id>` | Image တစ်ခုကို ဖျက်ရန် |
+| `docker build -t <name> .` | လက်ရှိဖိုဒါရှိ Dockerfile ကိုသုံး၍ Image အသစ်တည်ဆောက်ရန် |
+
+---
+
+### Containers (အသက်ဝင်နေသော ဘူးများ) စီမံခန့်ခွဲခြင်း
+| Command | လုပ်ဆောင်ချက် (Action) |
+| :--- | :--- |
+| `docker run -d -p 80:80 <image>` | Image ကို အသုံးပြု၍ Container သစ် စတင် Run ပါ (Background တွင်) |
+| `docker ps` | စတင်အလုပ်လုပ် (Run) နေသော Container စာရင်းကြည့်ရန် |
+| `docker ps -a` | ရပ်ထားသော Container များပါမကျန် အားလုံးကြည့်ရန် |
+| `docker stop <container_id>` | Run နေသော Container ကို ရပ်တန့်ရန် |
+| `docker start <container_id>` | ရပ်ထားသည်ကို ပြန်လည် စတင်ရန် |
+| `docker restart <container_id>` | Container ကို Restart ချရန် |
+| `docker rm <container_id>` | ရပ်ထားသော Container ကို အပြီးတိုင် ဖျက်ပစ်ရန် |
+| `docker rm -f <container_id>` | Force remove (Run နေလျှင်ပင် အတင်းအဓမ္မ ဖျက်ပစ်ရန်) |
+
+---
+
+### Debugging နှင့် ဆန်းစစ်ခြင်း 
+| Command | လုပ်ဆောင်ချက် (Action) |
+| :--- | :--- |
+| `docker logs -f <container_id>` | Container အတွင်းမှ ထွက်နေသော Logs များကို Live ကြည့်ရန် |
+| `docker exec -it <id> sh` သို့ `bash` | Run နေသော Container အတွင်းသို့ (Terminal) ဝင်ရောက်ရန် 🚪 (ဝင်ပြင်ရန်) |
+| `docker top <container_id>` | Container တစ်ခု၏ CPU & RAM သုံးစွဲမှုကို ကြည့်ရန် |
+| `docker system prune -a` | 🚨 အသုံးမပြုတော့သော Image, Container, Network အဟောင်းများအားလုံးကို ရှင်းလင်းရန် (Space free ဖန်တီးရန်) |
+
+---
+
+### Docker Compose
+*(ဖိုဒါအတွင်း `docker-compose.yml` ရှိနေရန် လိုအပ်သည်)*
+
+| Command | လုပ်ဆောင်ချက် (Action) |
+| :--- | :--- |
+| `docker-compose up` | ဖိုင်ပါ Services များအားလုံးကို တည်ဆောက်ပြီး စတင် Run ရန် |
+| `docker-compose up -d` | Background မှခွဲ၍ Run ထားရန် (Terminal ပိတ်လျှင်ပင် ဆက်အလုပ်လုပ်မည်) |
+| `docker-compose ps` | Compose ဖြင့် Run ထားသော Container အခြေအနေကြည့်ရန် |
+| `docker-compose logs -f` | Services အားလုံး၏ Logs ကို စုပေါင်းကြည့်ရန် |
+| `docker-compose down` | Services များအားလုံးကို ရပ်တန့်ပြီး Container များကိုပါ ဖျက်သိမ်းရန် |
+| `docker-compose build` | Dockerfile အပြောင်းအလဲရှိပါက Image များကို ပြန်လည် Build လုပ်ရန် |

@@ -1,0 +1,63 @@
+---
+title: "Modular Architecture ဆိုတာ ဘာလဲ"
+description: "Modular Architecture ဆိုတာ ဘာလဲ"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီသင်ခန်းစာမှာတော့ Frontend Code တွေကို သီးခြားလွတ်လပ်တဲ့ အစိတ်အပိုင်း (Modules) တွေအဖြစ် ခွဲထုတ်ပြီး စနစ်တကျ ဖွဲ့စည်းတဲ့ **Modular Architecture** အကြောင်း လေ့လာသွားမှာပါ။
+</Aside>
+
+### Modular Architecture ဆိုတာ ဘာလဲ?
+Modular Architecture ဆိုတာ **"စမတ်ဖုန်း (Smartphone)"** တစ်လုံးလိုပါပဲ။
+ဖုန်းတစ်လုံးထဲမှာ -
+- 📷 **Camera Module** (ကင်မရာပိုင်း)
+- 🔋 **Battery Module** (ပါဝါပိုင်း)
+- 📶 **Network Module** (အင်တာနက်ပိုင်း)
+ဆိုပြီး အပိုင်းလိုက် ရှိကြပါတယ်။ ဒါပေမယ့် အားလုံးက ဖုန်းတစ်လုံးတည်း (Single Device) အနေနဲ့ အလုပ်လုပ်ကြပါတယ်။
+
+Software မှာလည်း ဒီလိုပါပဲ။ Web App တစ်ခုလုံးကို ကုဒ်တွေ ရောရေးမယ့်အစား၊ Feature အလိုက် Module လေးတွေ ခွဲထုတ်လိုက်တာပါ။
+- `User` Module (Login, Register, Profile)
+- `Product` Module (List, Detail, Search)
+- `Cart` Module (Add to cart, Checkout)
+
+### Modular vs Micro-Frontend: ဘာကွာလဲ?
+ဒါက လူမှားအများဆုံး အပိုင်းပါ။ ဥပမာလေးနဲ့ ကြည့်ရအောင်။
+
+| Architecture | ဥပမာ | ရှင်းလင်းချက် |
+|---|---|---|
+| **Modular** | **Swiss Army Knife** (ဓားမြှောင်) | ဓား၊ ကတ်ကြေး၊ ဝက်အူလှည့် အားလုံးက **တစ်ခုတည်း** မှာ ပေါင်းစပ်ပါဝင်နေတယ်။ (Single Codebase, Single Deployment) |
+| **Micro-Frontend** | **Toolbox** (ကိရိယာသေတ္တာ) | တူ၊ လွှ၊ ဂွ အားလုံးက **သီးခြားစီ** ဖြစ်နေတယ်။ တူ ပျောက်သွားလည်း လွှ သုံးလို့ရတယ်။ (Multiple Codebases, Multiple Deployments) |
+
+> **အတိုချုပ်:** Modular ဆိုတာ Project တစ်ခုတည်းမှာ အခန်းကန့်တာ။ Micro-Frontend ဆိုတာ Project အသေးလေးတွေ ခွဲပြီး ပြန်ဆက်တာ။
+
+### ဘာကြောင့် Modular သုံးသင့်တာလဲ?
+1.  **Organization:** ကုဒ်တွေ ရှာရလွယ်တယ်။ `Cart` နဲ့ ပတ်သက်ရင် `Cart` Module ထဲ သွားရှာလိုက်ရုံပဲ။
+2.  **Lazy Loading:** လိုအပ်မှ Load လုပ်လို့ရတယ်။ (ဥပမာ - Admin Page ကို Admin ဝင်မှ Load လုပ်မယ်)
+3.  **Encapsulation:** Module တစ်ခုက ပြဿနာတက်ရင် တခြား Module ကို သိပ်မထိခိုက်ဘူး။
+
+### ES Modules (The Standard Way)
+JavaScript မှာ `import` / `export` ကို သုံးပြီး Module တွေ ခွဲတာဟာ Standard ဖြစ်ပါတယ်။
+
+```javascript
+// math.js (Module)
+export function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import { add } from './math.js';
+console.log(add(1, 2));
+```
+
+ဒီနည်းနဲ့ ကုဒ်တွေကို သန့်ရှင်းသပ်ရပ်စွာ ထိန်းသိမ်းနိုင်ပါတယ်။
+
+### Lazy Loading နှင့် Code Splitting
+ဒါတွေက performance ပိုကောင်းအောင်လုပ်တဲ့ နည်းလမ်းတွေပါ။
+
+- **Lazy Loading -** Module တွေကို user က လိုအပ်တဲ့အချိန်မှသာ load လုပ်တာဖြစ်တဲ့အတွက် app စဖွင့်ဖွင့်ချင်း load လုပ်ရတာ မြန်ဆန်စေပါတယ်။
+
+- **Code Splitting -** Application တစ်ခုလုံးကို bundle အကြီးကြီးတစ်ခုတည်းမလုပ်ဘဲ၊ လိုအပ်တဲ့ module တွေအလိုက် bundle အသေးလေးတွေ ခွဲထုတ်တာ ဖြစ်ပါတယ်။

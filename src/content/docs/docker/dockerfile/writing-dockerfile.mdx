@@ -1,0 +1,54 @@
+---
+title: "Dockerfile ရေးသားနည်း"
+description: "မိမိ၏ ကိုယ်ပိုင် Application များအတွက် Docker Image ဖန်တီးခြင်း"
+---
+
+သူများရေးထားတဲ့ Image တွေ (ဥပမာ- MySQL, nginx) ကိုပဲ ယူသုံးနေလို့ မရပါဘူး။ မိမိကိုယ်တိုင် ရေးထားတဲ့ Node.js, Python, Java code တွေကိုလည်း Docker Image ဖြစ်အောင် ပြောင်းလဲ (Build) တတ်ဖို့ လိုပါတယ်။ 
+
+အဲဒီလို ကိုယ်ပိုင် Image ဖန်တီးဖို့အတွက် လိုအပ်တဲ့ သင်ကြားချက်ကို **`Dockerfile`** လို့ခေါ်တဲ့ ဖိုင်ထဲမှာ ရေးပေးရပါတယ်။
+
+### Dockerfile ဆိုတာ ဘာလဲ?
+`Dockerfile` ဆိုတာ Extension (ဥပမာ .txt, .js) ဘာမှမပါတဲ့ ဖိုင်လွတ်တစ်ခုဖြစ်ပြီး، ကိုယ့် Project ရဲ့ အဓိက Folder (Root directory) မှာ ထားရပါတယ်။ အဲဒီထဲမှာ Docker ကို "ငါ့ Project အတွက် ဘာတွေ Install လုပ်ပေး၊ ဘယ်လို Run ပေး" လို့ အဆင့်ဆင့် ပြောပြရမယ့် ညွှန်ကြားချက်တွေ ရေးရပါတယ်။
+
+### ဥပမာ - ရိုးရှင်းသော Node.js Dockerfile တစ်ခု
+
+```dockerfile
+# 1. မည်သည့် Base Image ကို အခြေခံမည်နည်း (ဥပမာ node ဗားရှင်း 18 ကို သုံးမည်)
+FROM node:18-alpine
+
+# 2. Container ထဲတွင် အလုပ်လုပ်မည့် ဖိုဒါနေရာကို သတ်မှတ်သည်
+WORKDIR /app
+
+# 3. Code များ မကူးယူခင် package.json ကို အရင်ကူးယူမည် (Caching အတွက် ပိုကောင်းသည်)
+COPY package.json ./
+
+# 4. လိုအပ်သော Packages များကို Install လုပ်မည်
+RUN npm install
+
+# 5. ကျန်ရှိနေသော Code များအားလုံးကို Container ထဲသို့ ကူးထည့်မည်
+COPY . .
+
+# 6. Container ၏ မည်သည့် Port ကို ပွင့်စေချင်သနည်း
+EXPOSE 3000
+
+# 7. Container စတင် Run သည့်အခါ မည်သည့် Command ကို Run ရမည်နည်း
+CMD ["npm", "start"]
+```
+
+### Dockerfile ထဲမှ အရေးကြီးသော Keywords များ ထပ်မံရှင်းလင်းချက်
+* **`FROM`**: အမြဲတမ်း ပထမဆုံး စရေးရမယ့် စာကြောင်းပါ။ Linux လိုအပ်လား၊ Node လိုအပ်လား စတာတွေကို အဆင်သင့်ရှိတဲ့ Base image ပေါ်ကနေ အခြေခံယူတာပါ။ `alpine` ဆိုတာ Linux ရဲ့ အသေးဆုံး ဗားရှင်း (5MB ခန့်သာရှိ) ဖြစ်လို့ နေရာသက်သာပါတယ်။
+* **`WORKDIR`**: `cd folder_name` လို့ ရိုက်လိုက်သလိုပါပဲ။ နောက်လာမယ့် command တွေ အားလုံးက ဒီဖိုဒါထဲမှာပဲ အလုပ်လုပ်ပါမယ်။
+* **`COPY <စက်ထဲကဟာ> <Container ထဲကနေရာ>`**: သင့်ကွန်ပျူတာထဲက Code တွေကို Docker ဘူးထဲကို ထည့်တာပါ။
+* **`RUN`**: Build လုပ်နေစဉ်အတွင်း (Image တည်ဆောက်နေတုန်း) မှာ Run မယ့် Command တွေပါ။ (ဥပမာ - `npm install`, `apt-get update`)
+* **`CMD`**: Image ကြီး Build ပြီးသွားလို့၊ တကယ့် Container ကို `docker run` နဲ့ စတင်လိုက်တဲ့အချိန် (အချိန်ကိုက်) မှာမှ အသက်ဝင်မယ့် Command ပါ။
+
+### Image တည်ဆောက်ခြင်း (Building Image)
+Dockerfile ရေးပြီးသွားရင် Terminal ကနေ အောက်ပါ Command နဲ့ Image စတင်တည်ဆောက်ပါတယ်။
+
+```bash
+# (.) အစက်လေးက လက်ရှိဖိုဒါထဲက Dockerfile ကို ရှာခိုင်းတာပါ
+docker build -t my-node-app .
+```
+
+* `-t` (tag) ဆိုတာ ကိုယ့် Image လေးကို နာမည်ပေးတာပါ။
+ပြီးရင်တော့ ထွက်လာတဲ့ Image ကို `docker run -p 3000:3000 my-node-app` ဆိုပြီး စတင် Run လို့ ရပါပြီ။

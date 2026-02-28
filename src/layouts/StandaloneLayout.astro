@@ -2,6 +2,7 @@
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Search from "@astrojs/starlight/components/Search.astro";
+import { supabaseClient } from "../lib/supabase";
 import "../styles/global.css";
 
 interface Props {
@@ -12,6 +13,12 @@ interface Props {
 const { title, description = "Myanmar Programming Learning Platform" } =
   Astro.props;
 const currentPath = Astro.url.pathname;
+
+// Check user status
+const { cookies } = Astro;
+const supabase = supabaseClient(cookies);
+const { data: authData } = await supabase.auth.getUser();
+const user = authData?.user;
 ---
 
 <!doctype html>
@@ -53,6 +60,15 @@ const currentPath = Astro.url.pathname;
           </div>
           <!-- Right Actions -->
           <div class="standalone-header-actions flex items-center gap-3">
+            {user ? (
+              <a href="/dashboard" class="hidden sm:flex text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                Dashboard
+              </a>
+            ) : (
+              <a href="/signin" class="hidden sm:flex text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                Sign In
+              </a>
+            )}
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"

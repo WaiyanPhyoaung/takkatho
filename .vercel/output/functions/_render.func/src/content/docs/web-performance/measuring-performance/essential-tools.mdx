@@ -1,0 +1,77 @@
+---
+title: "Performance တိုင်းတာရန် လိုအပ်သော Tools များ"
+description: "Performance တိုင်းတာရန် လိုအပ်သော Tools များ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ရည်ရွယ်ချက်">
+  ကိုယ့် Website ဘယ်လောက်မြန်လဲ၊ ဘာတွေလိုအပ်နေလဲ သိဖို့အတွက် သုံးတဲ့ Tools
+  တွေအကြောင်း လက်တွေ့ လေ့လာကြမယ်။
+</Aside>
+
+## Tools များ 🛠️
+
+သုံးလို့ကောင်းတဲ့ Tools တွေ အများကြီးရှိတယ်။ အများစုက အလကားရပါတယ်။
+
+### Browser Developer Tools (Chrome, Firefox တို့မှာ ပါပြီးသား)
+
+#### Network Tab:
+
+- ကိုယ့် Website ကနေ တောင်းသမျှဖိုင်တွေ (စာတွေ၊ ပုံတွေ၊ Code တွေ) အားလုံးကို ပြတယ်။
+- ဖိုင်တစ်ခုချင်းစီက ဘယ်လောက်ကြာလဲဆိုတာ **Waterfall** ပုံစံနဲ့ ပြတယ်။
+- ဘယ်ဖိုင်က အကြီးဆုံးလဲ၊ ဘယ်ဟာက အကြာဆုံးလဲ သိနိုင်တယ်။
+
+#### Performance Tab:
+
+- Website တစ်ခုလုံး အလုပ်လုပ်ပုံကို အသေးစိတ် မှတ်တမ်းတင်ပြီး ပြတယ်။
+- Website ဘာလို့နှေးနေလဲဆိုတဲ့ အဓိကတရားခံကို ရှာဖို့ အရမ်းအသုံးဝင်တယ်။
+
+#### Lighthouse Tab (မပါ ပါက ထည့်နိုင်):
+
+- Website ရဲ့ speed၊ သုံးရတာ အဆင်ပြေမှု၊ Google မှာ ရှာလို့လွယ်မှု စတာတွေကို အလိုအလျောက် စစ်ပေးတယ်။
+- အမှတ် (0 ကနေ 100) အထိ အရေးကြီးတဲ့ တိုင်းတာမှုတွေကို ပြတယ်။
+- Website ကို ဘယ်လို ပိုကောင်းအောင်လုပ်မလဲဆိုတာ အကြံပေးတယ်။
+
+### Google PageSpeed Insights (PSI)
+
+- <a target="_blank" href="https://pagespeed.web.dev">
+    <span>pagespeed.web.dev</span>
+  </a>
+  မှာ သုံးနိုင်တဲ့ Tool တစ်ခုပါ။
+- Website ရဲ့ URL ထည့်လိုက်တာနဲ့ Lab မှာစမ်းထားတဲ့ရလဒ်ရော၊ တကယ်သုံးတဲ့သူတွေဆီက ရလဒ်ကိုပါ ပြပေးတယ်။
+- Website ရဲ့ အရေးကြီးတဲ့ မြန်နှုန်းအခြေအနေတွေနဲ့ ဘာတွေပြင်ရမလဲဆိုတာ ပြတယ်။
+
+### WebPageTest.org
+
+- ကမ္ဘာပေါ်က မတူတဲ့နေရာတွေ၊ မတူတဲ့ဖုန်းတွေ၊ မတူတဲ့အင်တာနက်လိုင်းတွေကနေ ကိုယ့် Website ကို စမ်းပေးတဲ့ Tool ပါ။
+- အရမ်းအသေးစိတ်ကျတဲ့ အချက်အလက်တွေ၊ Website ပွင့်လာပုံ အဆင့်ဆင့်ကို ပုံနဲ့ပြတာတွေ ပါတယ်။
+
+### Google Search Console
+
+- Google ကပေးတဲ့ အခမဲ့ ဝန်ဆောင်မှုပါ။ ကိုယ့် Website Google မှာ ဘယ်လိုပေါ်လဲ ကြည့်နိုင်တယ်။
+- မြန်နှုန်းအတွက် အရေးပါပုံ: Users တွေအတွက် ကိုယ့် Website ဘယ်လောက်မြန်လဲဆိုတာပြတဲ့ "Core Web Vitals" Report တွေ ပါတယ်။
+
+### တခြား Tools အကျဉ်းချုပ်
+
+- **Synthetic Monitoring Services:** GTmetrix, Calibre, SpeedCurve, DebugBear
+- **Real User Monitoring Tools:** Sentry, Datadog, New Relic (ကိုယ့် User တွေဆီကနေ field data စုဆောင်းပြီး ခွဲခြမ်းစိတ်ဖြာဖို့အတွက််)
+
+## လက်တွေ့ လေ့ကျင့်မှု
+
+1. နာမည်ကြီး Website နှစ်ခု ရွေးကြည့်ပါ (တစ်ခုက မြန်တာ၊ တစ်ခုက နည်းနည်းနှေးတာ)
+2. DevTools ထဲက Lighthouse နဲ့ စစ်ကြည့်ပါ။
+3. PageSpeed Insights နဲ့ ခွဲခြမ်းစိတ်ဖြာကြည့်ပါ။
+4. WebPageTest.org မှာ စမ်းကြည့်ပါ။
+5. ရလာတဲ့အဖြေတွေကို ယှဉ်ကြည့်ပြီး ဘာတွေလုပ်ရင် ပိုကောင်းမလဲ ရှာကြည့်ပါ။
+
+<Aside title="အနှစ်ချုပ်">
+  - **LCP, FID/INP, CLS (Core Web Vitals) တို့အပြင် FCP, TTFB, TTI, TBT** ဆိုတဲ့
+  အဓိကတိုင်းတာမှုတွေက User တစ်ယောက် Website သုံးတဲ့အခါ ဘယ်လိုခံစားရလဲဆိုတာကို အမျိုးမျိုးသော ရှုထောင့်ကနေ
+  တိုင်းတာပေးတယ်။ 
+  
+  - **Browser DevTools,
+  PageSpeed Insights, WebPageTest.org, Google Search Console** တို့လို Tools တွေက
+  Website Speed ကို တိုင်းတာဖို့၊ Debugging လုပ်ဖို့၊ Monitoring လုပ်ဖို့
+  နည်းလမ်းတွေ အများကြီးပေးတယ်။
+</Aside>

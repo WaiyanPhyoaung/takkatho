@@ -1,0 +1,92 @@
+---
+title: "Module 2: Basics (Variables, Types & Functions)"
+description: "Go ၏ အခြေခံ Variables များ၊ Data Types များနှင့် Functions များအကြောင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Variables (ကိန်းရှင်များ)
+
+Go မှာ Variable ကြေညာဖို့ နည်းလမ်း (၂) မျိုး ရှိပါတယ်။
+
+### ၁. `var` Keyword အသုံးပြုခြင်း
+
+```go
+var name string = "Mg Mg"
+var age int = 20
+var isStudent bool = true
+```
+
+Type ကို မထည့်ဘဲလည်း ရေးလို့ရပါတယ်။ Go က အလိုအလျောက် သိပါတယ်။
+
+```go
+var city = "Yangon" // string လို့ အလိုအလျောက် သတ်မှတ်ပေးတယ်
+```
+
+### ၂. Short Variable Declaration (`:=`)
+
+Function တွေထဲမှာဆိုရင် `:=` ကို သုံးပြီး အလွယ်တကူ ကြေညာနိုင်ပါတယ်။ (အသုံးအများဆုံး နည်းလမ်းပါ)
+
+```go
+func main() {
+    country := "Myanmar"
+    population := 54000000
+    
+    fmt.Println(country, population)
+}
+```
+
+<Aside type="caution" title="သတိပြုရန်">
+Go မှာ Variable တစ်ခု ကြေညာပြီးရင် **မဖြစ်မနေ အသုံးပြုရပါမယ်**။ အသုံးမပြုရင် Compile Error တက်ပါလိမ့်မယ်။ ဒါဟာ Code တွေကို ရှင်းလင်းနေစေဖို့ Go ရဲ့ တင်းကျပ်တဲ့ စည်းမျဉ်းတစ်ခုပါ။
+</Aside>
+
+## Basic Data Types
+
+Go မှာ အဓိက Data Types တွေကတော့-
+
+- **String**: စာသားများ (`"Hello"`)
+- **Integer**: ကိန်းပြည့်များ (`int`, `int8`, `int16`, `int32`, `int64`)
+- **Float**: ဒသမကိန်းများ (`float32`, `float64`)
+- **Boolean**: မှန်/မှား (`true`, `false`)
+
+## Functions (လုပ်ဆောင်ချက်များ)
+
+Function တွေကို `func` keyword နဲ့ တည်ဆောက်ပါတယ်။
+
+```go
+func add(x int, y int) int {
+    return x + y
+}
+
+func main() {
+    result := add(5, 10)
+    fmt.Println(result) // 15
+}
+```
+
+### Multiple Return Values (တန်ဖိုး အများကြီး ပြန်ပေးခြင်း)
+
+Go ရဲ့ ထူးခြားချက်တစ်ခုက Function တစ်ခုကနေ တန်ဖိုး တစ်ခုထက်မက ပြန်ပေး (Return) နိုင်တာပါ။
+
+```go
+func swap(a string, b string) (string, string) {
+    return b, a
+}
+
+func main() {
+    first, second := swap("Hello", "World")
+    fmt.Println(first, second) // World Hello
+}
+```
+
+### Named Return Values
+
+Return ပြန်မယ့် Variable နာမည်တွေကို ကြိုတင် သတ်မှတ်ထားလို့ ရပါတယ်။
+
+```go
+func split(sum int) (x int, y int) {
+    x = sum * 4 / 9
+    y = sum - x
+    return // x နဲ့ y ကို အလိုအလျောက် return ပြန်ပေးမယ်
+}
+```

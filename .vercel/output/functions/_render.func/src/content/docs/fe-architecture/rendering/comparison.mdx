@@ -1,0 +1,46 @@
+---
+title: "Rendering Strategies နှိုင်းယှဉ်ချက်"
+description: "Rendering Strategies နှိုင်းယှဉ်ချက်"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+| Method | Analogy | Speed (Initial) | SEO | Data Freshness |
+|--------|---------|-----------------|-----|----------------|
+| **CSR** | Meal Kit | 🐢 Slow | ❌ Poor | ✅ High |
+| **SSR** | Delivery | 🐇 Fast | ✅ Good | ✅ Always Fresh |
+| **SSG** | Frozen Food | 🚀 Fastest | ✅ Best | ❌ Stale (until rebuild) |
+| **ISR** | Bakery | 🚀 Fast | ✅ Best | ⚠️ Fresh (periodically) |
+
+### ဘယ်ဟာကို ရွေးမလဲ?
+
+#### 1. Admin Dashboard / User Profile
+**CSR** ကို သုံးပါ။
+- SEO မလိုဘူး။
+- User က Login ဝင်ပြီးမှ သုံးတာဖြစ်လို့ Initial Load နည်းနည်းကြာလည်း ကိစ္စမရှိဘူး။
+- Data တွေက အမြဲတမ်း Update ဖြစ်နေဖို့ လိုတယ်။
+
+#### 2. News Portal / Social Media Feed
+**SSR** ကို သုံးပါ။
+- သတင်းတွေက အချိန်နဲ့ တပြေးညီ တက်နေဖို့ လိုတယ်။
+- Google News မှာ ပါဖို့ SEO ကောင်းဖို့ လိုတယ်။
+
+#### 3. Personal Blog / Documentation
+**SSG** ကို သုံးပါ။
+- Content တွေက သိပ်မပြောင်းလဲဘူး။
+- အမြန်ဆုံး ဖြစ်ချင်တယ်။
+- Hosting စရိတ် သက်သာချင်တယ်။
+
+#### 4. E-commerce Product Listing
+**ISR** ကို သုံးပါ။
+- ပစ္စည်းဈေးနှုန်းတွေက ပြောင်းလဲနိုင်တယ်။
+- ဒါပေမဲ့ SSR လောက် Server ဝန်မပိချင်ဘူး။
+- ၁ နာရီ တစ်ခါလောက် Price Update ဖြစ်ရင် လုံလောက်ပြီ။
+
+<Aside title="Next.js ၏ အားသာချက်">
+Next.js လို Framework မျိုးက ဒီ (၄) မျိုးလုံးကို **Hybrid** အနေနဲ့ သုံးခွင့်ပေးထားပါတယ်။
+- `About Us` page ကို **SSG** နဲ့ လုပ်မယ်။
+- `Product Detail` page ကို **ISR** နဲ့ လုပ်မယ်။
+- `Cart` page ကို **CSR** နဲ့ လုပ်မယ်။
+ဒါက Modern Web Development ရဲ့ အနှစ်သာရပါပဲ။
+</Aside>

@@ -1,0 +1,92 @@
+---
+title: "Union & Intersection Types"
+description: "Type များကို ပေါင်းစပ် အသုံးပြုခြင်း"
+---
+
+TypeScript မှာ Type တစ်ခုတည်း မဟုတ်ဘဲ၊ Type တွေကို ပေါင်းစပ်ပြီး ပိုမို ပြောင်းလွယ်ပြင်လွယ်ရှိတဲ့ (Flexible) Type တွေ ဖန်တီးလို့ ရပါတယ်။
+
+---
+
+### 1. Union Types (ဒါမှမဟုတ် ဒါ)
+
+Variable တစ်ခုက Type တစ်မျိုးထက် ပိုပြီး လက်ခံနိုင်တယ်ဆိုရင် `|` (Pipe) သင်္ကေတကို သုံးပြီး Union Type ဖန်တီးလို့ ရပါတယ်။ "ဒါမှမဟုတ် ဒါ" လို့ အဓိပ္ပာယ်ရပါတယ်။
+
+```typescript
+// id က ဂဏန်းလည်း ဖြစ်နိုင်တယ်၊ စာသားလည်း ဖြစ်နိုင်တယ်
+let id: number | string;
+
+id = 101;      // ✅ မှန်ပါတယ်
+id = "A-101";  // ✅ မှန်ပါတယ်
+id = true;     // ❌ Error: boolean လက်မခံပါဘူး
+```
+
+#### Function များတွင် Union သုံးခြင်း
+
+```typescript
+function printId(id: number | string) {
+    console.log("Your ID is: " + id);
+}
+
+printId(101);
+printId("202B");
+```
+
+#### Type Narrowing (Type ကို စစ်ဆေးခြင်း)
+
+Union Type သုံးထားတဲ့အခါ၊ အဲ့ဒီ Variable ကို မသုံးခင်မှာ သူက ဘာ Type လဲဆိုတာကို အရင် စစ်ဆေး (Narrowing) ပေးဖို့ လိုအပ်တတ်ပါတယ်။
+
+```typescript
+function processId(id: number | string) {
+    if (typeof id === "string") {
+        // ဒီထဲမှာဆိုရင် id ကို string လို့ TypeScript က သိသွားပါပြီ
+        console.log(id.toUpperCase());
+    } else {
+        // ဒီထဲမှာဆိုရင်တော့ id က number ပါ
+        console.log(id * 2);
+    }
+}
+```
+
+---
+
+### 2. Literal Types (တိကျသော တန်ဖိုးများ)
+
+Type နေရာမှာ `string` လို့ ရေးမယ့်အစား၊ တိကျတဲ့ စာသား (ဥပမာ - `"success"`) ကိုပဲ လက်ခံမယ်လို့ သတ်မှတ်လို့ ရပါတယ်။ အဲ့ဒါကို Literal Type လို့ ခေါ်ပါတယ်။ Union နဲ့ တွဲသုံးလေ့ ရှိပါတယ်။
+
+```typescript
+// status က ဒီ ၃ မျိုးထဲက တစ်မျိုးပဲ ဖြစ်ရပါမယ်
+let status: "success" | "error" | "loading";
+
+status = "success"; // ✅
+status = "loading"; // ✅
+status = "failed";  // ❌ Error: "failed" ဆိုတာ မပါပါဘူး
+```
+
+---
+
+### 3. Intersection Types (နှစ်ခုလုံး ပေါင်းစပ်ခြင်း)
+
+Intersection Type ကတော့ `&` (Ampersand) သင်္ကေတကို သုံးပါတယ်။ "ဒါရော၊ ဒါရော နှစ်ခုလုံး ပါရမယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။ များသောအားဖြင့် Object Type တွေကို ပေါင်းစပ်တဲ့အခါ သုံးပါတယ်။
+
+```typescript
+type Person = {
+    name: string;
+};
+
+type Employee = {
+    employeeId: number;
+};
+
+// Person ရော Employee ရော နှစ်ခုလုံးရဲ့ အချက်အလက်တွေ ပါရပါမယ်
+type Worker = Person & Employee;
+
+let worker1: Worker = {
+    name: "Aung Aung",
+    employeeId: 1234
+};
+
+// ❌ Error: employeeId မပါလို့ လက်မခံပါဘူး
+let worker2: Worker = {
+    name: "Su Su"
+};
+```

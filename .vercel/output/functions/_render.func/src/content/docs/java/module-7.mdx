@@ -1,0 +1,219 @@
+---
+title: "Mini Project: Student Management System"
+description: "Java ဖြင့် ကျောင်းသားများ စီမံခန့်ခွဲမှု စနစ် အသေးစား ရေးသားခြင်း"
+---
+
+ဒီ Course မှာ သင်ယူခဲ့တဲ့ Java အခြေခံတွေ (Variables, Control Flow, Methods, OOP, Collections, Exceptions) အားလုံးကို ပေါင်းစပ်ပြီး **Student Management System** (ကျောင်းသားများ စီမံခန့်ခွဲမှု စနစ်) အသေးစားလေး တစ်ခု ရေးကြည့်ရအောင်။
+
+---
+
+### Project ရဲ့ ရည်ရွယ်ချက်
+
+ဒီ System လေးမှာ အောက်ပါ လုပ်ဆောင်ချက်တွေ ပါဝင်ပါမယ်။
+1.  **ကျောင်းသားအသစ် ထည့်ခြင်း (Add Student):** နာမည်၊ အသက်၊ အမှတ်စဉ် (ID) တွေနဲ့ ကျောင်းသားအသစ် မှတ်ပုံတင်မယ်။
+2.  **ကျောင်းသားစာရင်း ကြည့်ခြင်း (View Students):** မှတ်ပုံတင်ထားတဲ့ ကျောင်းသား အားလုံးကို ပြမယ်။
+3.  **ကျောင်းသား ရှာဖွေခြင်း (Search Student):** ID ကို သုံးပြီး ကျောင်းသားကို ရှာမယ်။
+4.  **ကျောင်းသား ဖျက်ခြင်း (Delete Student):** ID ကို သုံးပြီး ကျောင်းသားကို စာရင်းကနေ ဖျက်မယ်။
+5.  **အမှားများကို ကိုင်တွယ်ခြင်း (Exception Handling):** မှားယွင်းတဲ့ Data တွေ ထည့်ရင် Error မတက်ဘဲ သတိပေးမယ်။
+
+---
+
+### အဆင့် (၁): Student Class တည်ဆောက်ခြင်း (OOP)
+
+အရင်ဆုံး ကျောင်းသား တစ်ယောက်ချင်းစီရဲ့ အချက်အလက်တွေကို သိမ်းဖို့ `Student` ဆိုတဲ့ Class တစ်ခု တည်ဆောက်ပါမယ်။
+
+```java
+// Student.java ဖိုင်
+public class Student {
+    // Encapsulation သုံးပြီး Data တွေကို ဖုံးကွယ်ထားပါတယ်
+    private int id;
+    private String name;
+    private int age;
+
+    // Constructor (ကျောင်းသားအသစ် ဖန်တီးတဲ့အခါ အလုပ်လုပ်မယ့် Method)
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters (Data တွေကို ယူဖို့)
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    // ကျောင်းသား အချက်အလက်တွေကို စာသားအနေနဲ့ ပြဖို့
+    @Override
+    public String toString() {
+        return "ID: " + id + ", နာမည်: " + name + ", အသက်: " + age;
+    }
+}
+```
+
+---
+
+### အဆင့် (၂): Main Program ရေးသားခြင်း
+
+အခု `Main` Class ထဲမှာ System ကြီး တစ်ခုလုံး အလုပ်လုပ်ဖို့ Code တွေ ရေးပါမယ်။ ကျောင်းသားတွေကို သိမ်းဖို့ `ArrayList` ကို သုံးပါမယ်။
+
+```java
+// Main.java ဖိုင်
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    // ကျောင်းသားတွေကို သိမ်းမယ့် စာရင်း (Collections)
+    static ArrayList<Student> students = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        boolean isRunning = true;
+
+        System.out.println("=== Student Management System မှ ကြိုဆိုပါတယ် ===");
+
+        // System ကို အမြဲတမ်း အလုပ်လုပ်နေစေဖို့ While Loop သုံးပါတယ်
+        while (isRunning) {
+            System.out.println("\nရွေးချယ်ရန်:");
+            System.out.println("1. ကျောင်းသားအသစ် ထည့်ရန်");
+            System.out.println("2. ကျောင်းသားစာရင်း ကြည့်ရန်");
+            System.out.println("3. ကျောင်းသား ရှာဖွေရန်");
+            System.out.println("4. ကျောင်းသား ဖျက်ရန်");
+            System.out.println("5. ထွက်ရန်");
+            System.out.print("ရွေးချယ်မှု (1-5): ");
+
+            try {
+                // User ဆီကနေ ဂဏန်းတောင်းပါတယ်
+                int choice = Integer.parseInt(scanner.nextLine());
+
+                // Switch Statement သုံးပြီး ရွေးချယ်မှုအလိုက် အလုပ်လုပ်ပါတယ်
+                switch (choice) {
+                    case 1:
+                        addStudent();
+                        break;
+                    case 2:
+                        viewStudents();
+                        break;
+                    case 3:
+                        searchStudent();
+                        break;
+                    case 4:
+                        deleteStudent();
+                        break;
+                    case 5:
+                        isRunning = false;
+                        System.out.println("System ကို ပိတ်လိုက်ပါပြီ။ ကျေးဇူးတင်ပါတယ်။");
+                        break;
+                    default:
+                        System.out.println("ကျေးဇူးပြု၍ 1 မှ 5 အတွင်းသာ ရွေးချယ်ပါ။");
+                }
+            } catch (NumberFormatException e) {
+                // ဂဏန်းအစား စာသားတွေ ရိုက်ထည့်ရင် Error မတက်အောင် ဖမ်းထားပါတယ်
+                System.out.println("အမှား: ကျေးဇူးပြု၍ ဂဏန်းသာ ရိုက်ထည့်ပါ။");
+            }
+        }
+    }
+
+    // 1. ကျောင်းသားအသစ် ထည့်တဲ့ Method
+    static void addStudent() {
+        try {
+            System.out.print("ကျောင်းသား ID ရိုက်ထည့်ပါ: ");
+            int id = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("ကျောင်းသား နာမည် ရိုက်ထည့်ပါ: ");
+            String name = scanner.nextLine();
+
+            System.out.print("ကျောင်းသား အသက် ရိုက်ထည့်ပါ: ");
+            int age = Integer.parseInt(scanner.nextLine());
+
+            // Student Object အသစ် ဖန်တီးပြီး ArrayList ထဲ ထည့်ပါတယ်
+            Student newStudent = new Student(id, name, age);
+            students.add(newStudent);
+            System.out.println("ကျောင်းသားအသစ် ထည့်သွင်းပြီးပါပြီ။");
+
+        } catch (NumberFormatException e) {
+            System.out.println("အမှား: ID နှင့် အသက်ကို ဂဏန်းဖြင့်သာ ရိုက်ထည့်ပါ။");
+        }
+    }
+
+    // 2. ကျောင်းသားစာရင်း ကြည့်တဲ့ Method
+    static void viewStudents() {
+        if (students.isEmpty()) {
+            System.out.println("ကျောင်းသားစာရင်း မရှိသေးပါ။");
+        } else {
+            System.out.println("\n--- ကျောင်းသားစာရင်း ---");
+            // For-Each Loop သုံးပြီး အကုန်ထုတ်ပြပါတယ်
+            for (Student s : students) {
+                System.out.println(s.toString());
+            }
+        }
+    }
+
+    // 3. ကျောင်းသား ရှာဖွေတဲ့ Method
+    static void searchStudent() {
+        try {
+            System.out.print("ရှာဖွေလိုသော ကျောင်းသား ID ရိုက်ထည့်ပါ: ");
+            int searchId = Integer.parseInt(scanner.nextLine());
+            boolean found = false;
+
+            for (Student s : students) {
+                if (s.getId() == searchId) {
+                    System.out.println("တွေ့ရှိပါသည်: " + s.toString());
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                System.out.println("ထို ID ဖြင့် ကျောင်းသား မတွေ့ပါ။");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("အမှား: ID ကို ဂဏန်းဖြင့်သာ ရိုက်ထည့်ပါ။");
+        }
+    }
+
+    // 4. ကျောင်းသား ဖျက်တဲ့ Method
+    static void deleteStudent() {
+        try {
+            System.out.print("ဖျက်လိုသော ကျောင်းသား ID ရိုက်ထည့်ပါ: ");
+            int deleteId = Integer.parseInt(scanner.nextLine());
+            boolean removed = false;
+
+            // ဖျက်တဲ့အခါ Error မတက်အောင် သတိထားရပါတယ်
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getId() == deleteId) {
+                    students.remove(i);
+                    System.out.println("ကျောင်းသားကို ဖျက်လိုက်ပါပြီ။");
+                    removed = true;
+                    break;
+                }
+            }
+
+            if (!removed) {
+                System.out.println("ထို ID ဖြင့် ကျောင်းသား မတွေ့ပါ။");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("အမှား: ID ကို ဂဏန်းဖြင့်သာ ရိုက်ထည့်ပါ။");
+        }
+    }
+}
+```
+
+---
+
+### နိဂုံးချုပ်
+
+ဂုဏ်ယူပါတယ်။ သင်ဟာ Java ရဲ့ အခြေခံတွေကို နားလည်သွားရုံသာမက၊ အဲ့ဒီ အခြေခံတွေကို ပေါင်းစပ်ပြီး အသုံးဝင်တဲ့ Program သေးသေးလေး တစ်ခုကိုပါ ကိုယ်တိုင် ရေးသားနိုင်သွားပါပြီ။
+
+ဒီ Project လေးကို ဆက်ပြီး တိုးချဲ့ကြည့်ပါ။ ဥပမာ -
+- ဖိုင်ထဲမှာ Data တွေ သိမ်းထားပြီး၊ Program ပြန်ဖွင့်ရင် Data တွေ ပြန်ပေါ်လာအောင် လုပ်ကြည့်ပါ။ (File Handling)
+- ကျောင်းသားတွေကို နာမည်အလိုက် အက္ခရာစဉ် စီကြည့်ပါ။ (Sorting)
+
+Java လောကထဲကို ဝင်ရောက်လာတဲ့အတွက် ကြိုဆိုပါတယ်။ ဆက်လက် လေ့လာသွားဖို့ တိုက်တွန်းပါတယ်။

@@ -1,0 +1,56 @@
+---
+title: "Responsive Media & Images"
+description: "ရုပ်ပုံများ၊ ဗီဒီယိုများကို စက်ပစ္စည်းအားလုံးနှင့် ကိုက်ညီအောင် ပြသခြင်း"
+---
+
+Content တွေချည်းပဲ Responsive ဖြစ်လို့မရပါဘူး။ ကိုယ်ထည့်လိုက်တဲ့ ပုံ (Images) တွေနဲ့ ဗီဒီယိုတွေကလည်း Mobile မှာ သေးပြီး၊ Desktop မှာ ကြီးပေးဖို့၊ အချိုးအစား (Aspect Ratio) မပျက်ဖို့ အရေးကြီးပါတယ်။
+
+### မရှိမဖြစ် Reset 
+ဘယ်ပရောဂျက်မှာမဆို အောက်ပါ CSS လေးကို အမြဲအရင်ဆုံး ထည့်ထားသင့်ပါတယ်။
+
+```css
+img, video, svg, picture {
+  max-width: 100%; /* သူရောက်နေတဲ့ Container ထက် မကြီးစေဘူး */
+  height: auto; /* အချိုးအစား မပိန်/မပြား သွားအောင် ထိန်းပေးသည် */
+  display: block; /* Html မှာ ပါလာတတ်တဲ့ အောက်ခြေက နေရာအလွတ်တွေကို ပျောက်စေသည် */
+}
+```
+
+### `object-fit` ဖြင့် ပုံများထိန်းချုပ်ခြင်း
+Background-size လိုမျိုးပဲ `<img>` tag တွေကိုလည်း Crop (ဖြတ်) လုပ်ပစ်တာမျိုးတွေ လုပ်လို့ရပါတယ်။
+
+```css
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover; /* ပုံမပြားသွားဘဲ ဗဟိုဗဟိုကနေ လှလှပပ ဖြတ်(crop) ချပေးသည် */
+  object-position: top; /* အပေါ်ပိုင်း မျက်နှာကို အဓိကထားပြမည် */
+}
+```
+
+### `<picture>` ကို အသုံးပြုခြင်း (Art Direction)
+Desktop မှာ ပုံအရှည်ကြီးပြပြီး၊ Mobile မှာကျတော့ လူမျက်နှာကို အနီးကပ်ပြချင်တာမျိုးအတွက် `<picture>` tag ကို သုံးပါတယ်။ Screen size ပေါ်မူတည်ပြီး ပုံတစ်ပုံတည်းကို CSS နဲ့ လိုက်ညှိနေမယ့်အစား، လိုအပ်တဲ့ပုံကို ခွဲပြီး Download ဆွဲခိုင်းတာက ပိုကောင်းပါတယ်။ (Performance ပိုကောင်းပါတယ်)
+
+```html
+<picture>
+  <!-- Desktop ဆိုရင် ဒီပုံကိုဆွဲပါ -->
+  <source media="(min-width: 1024px)" srcset="hero-desktop.jpg">
+  <!-- Tablet ဆိုရင် ဒီပုံကိုဆွဲပါ -->
+  <source media="(min-width: 768px)" srcset="hero-tablet.jpg">
+  <!-- ဘာမှမကိုက်ညီတဲ့ Mobile လိုဟာမျိုးဆို အောက်ကပုံကို သုံးပါ -->
+  <img src="hero-mobile.jpg" alt="Hero Image">
+</picture>
+```
+
+### `srcset` ကို အသုံးပြု၍ Resolution ခွဲခြားခြင်း
+Retina Screen လိုမျိုး Pixel သိပ်သည်းဆများတဲ့ စက်တွေအတွက် ပုံထွက်ပိုကောင်းအောင် `srcset` ကို သုံးကြပါတယ်။
+
+```html
+<img 
+  src="photo-1x.jpg" 
+  srcset="photo-1x.jpg 1x, photo-2x.jpg 2x, photo-3x.jpg 3x" 
+  alt="High Resolution Photo"
+>
+```
+Apple စက်တွေ (Mac, iPhone) တွေလို Screen အရည်အသွေးမြင့်တဲ့စက်တွေက `photo-2x.jpg` (ဒါမှမဟုတ် 3x) ကို အလိုလို ရွေးချယ်ပြီး ဆွဲသွားပါလိမ့်မယ်။

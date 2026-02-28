@@ -1,0 +1,45 @@
+---
+title: "Event Listeners"
+description: "Events များကို နားထောင်ခြင်း (Listening to Events)"
+---
+
+JavaScript မှာ Event တစ်ခု ဖြစ်လာမှာကို စောင့်နေပြီး၊ ဖြစ်လာခဲ့ရင် Function တစ်ခုခု run ပေးဖို့ `addEventListener` ကို သုံးရပါတယ်။
+
+## Syntax
+
+```javascript
+element.addEventListener("event_name", function);
+```
+
+## ဥပမာ - Click Me Button
+
+```javascript
+// ၁. Element ကို ရွေးမယ်
+const btn = document.querySelector("#my-btn");
+
+// ၂. Event Listener တပ်မယ်
+btn.addEventListener("click", function() {
+  alert("Button was clicked! 🎉");
+});
+```
+
+Function ကို သီးသန့်ခွဲရေးပြီးမှ ထည့်လည်း ရပါတယ်။
+
+```javascript
+function handleClick() {
+    console.log("Clicked!");
+}
+
+btn.addEventListener("click", handleClick);
+```
+
+## The Event Object (`e`)
+
+Event တစ်ခု ဖြစ်တိုင်းမှာ Browser က အဲဒီ Event နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ (ဥပမာ - Mouse ဘယ်နေရာကို နှိပ်လိုက်တာလဲ၊ ဘယ်ခလုတ်ကို နှိပ်တာလဲ) ကို Object တစ်ခုအနေနဲ့ ပို့ပေးပါတယ်။
+
+```javascript
+btn.addEventListener("click", function(e) {
+    console.log(e); 
+    console.log(e.target); // ဘယ် Element ကို နှိပ်လိုက်တာလဲ ဆိုတာ ပြမယ်
+});
+```

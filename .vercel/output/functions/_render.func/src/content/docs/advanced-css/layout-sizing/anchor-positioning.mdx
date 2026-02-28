@@ -1,0 +1,50 @@
+---
+title: "Anchor Positioning"
+description: "Element များကို အခြား Element တစ်ခုအား မှီခို၍ နေရာချခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Tooltips & Popovers Made Easy">
+Tooltip တွေ၊ Dropdown Menu တွေကို သက်ဆိုင်ရာ Button နားမှာ ကပ်ထားဖို့ အရင်က JavaScript (Popper.js, Floating UI) လိုအပ်ပါတယ်။ အခု CSS Native ရပါပြီ။
+</Aside>
+
+### အခြေခံ သဘောတရား
+1.  **Anchor Element:** မှီခိုအားထားရမယ့် တိုင် (ဥပမာ - Button)။ `anchor-name` ပေးရမယ်။
+2.  **Positioned Element:** ကပ်မယ့် ကောင် (ဥပမာ - Tooltip)။ `position-anchor` နဲ့ ချိတ်ရမယ်။
+
+### Code ဥပမာ
+
+```css
+/* 1. Anchor (Button) */
+.trigger-btn {
+  anchor-name: --my-anchor;
+}
+
+/* 2. Positioned Element (Tooltip) */
+.tooltip {
+  position: absolute;
+  position-anchor: --my-anchor; /* Button ကို လှမ်းချိတ် */
+  
+  /* Button ရဲ့ အပေါ် (top) မှာ ကပ်မယ် */
+  bottom: anchor(top);
+  
+  /* Button ရဲ့ အလယ် (center) နဲ့ ညှိမယ် */
+  left: anchor(center);
+  transform: translateX(-50%);
+}
+```
+
+### Fallback (နေရာမလောက်ရင် ဘာလုပ်မလဲ?)
+Screen အဆုံးရောက်နေလို့ Tooltip ပြစရာနေရာမရှိရင် အလိုအလျောက် နေရာရွှေ့ဖို့ `@position-try` ကို သုံးနိုင်ပါတယ်။
+
+```css
+.tooltip {
+  /* ပုံမှန်ဆို အပေါ်မှာ ပြမယ်၊ မရရင် အောက်မှာ ပြမယ် (flip-block) */
+  position-try-fallbacks: flip-block;
+}
+```
+
+<Aside type="tip">
+DOM Structure အရ Button နဲ့ Tooltip က အဝေးကြီး ဖြစ်နေလည်း (ဥပမာ - Tooltip က `<body>` အောက်ဆုံးမှာ ရှိနေလည်း) ဒီနည်းနဲ့ လှမ်းချိတ်လို့ ရပါတယ်။
+</Aside>

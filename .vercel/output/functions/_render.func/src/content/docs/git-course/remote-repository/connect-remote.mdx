@@ -1,0 +1,56 @@
+---
+title: "Local & Remote Projects ချိတ်ဆက်ခြင်း"
+description: "Local နှင့် Remote Projects များကို ချိတ်ဆက်နည်း"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import remoteCheck from "@/assets/git-course/remote-check.png";
+export const remoteAddExample = `
+git remote add <nickname> <remote-url>
+`;
+export const remoteAdd = `
+git remote add origin https://github.com/YourUsername/my-first-repo.git
+`;
+
+<Aside type="tip" title="ရည်ရွယ်ချက်">
+  GitHub မှာ Repository အသစ်တစ်ခုဖန်တီးပြီး Local Git Repository နဲ့ ဘယ်လိုချိတ်ဆက်မလဲ လေ့လာရန်။
+</Aside>
+
+## အဆင့် ၁: GitHub မှာ Repository တစ်ခု ဖန်တီးပါ
+
+1. **GitHub.com** ကို သွားပြီး Login ဝင်ပါ
+2. ညာဘက်အပေါ်ထောင့်က **"+"** ကိုနှိပ်ပြီး **"New repository"** ကိုရွေးပါ
+3. Repository **name** ပေးပါ (ဥပမာ - `my-first-repo`)
+4. **Visibility** ကို **"Public"** ရွေးပါ
+
+<Aside type="danger" title="သတိပြုရန်">
+  Local မှာ Project ရှိပြီးသားဆိုရင် "Initialize this repository with a README", ".gitignore", or "license" စတာတွေကို **အမှန်ခြစ် မခြစ်ပါနဲ့**။
+</Aside>
+
+5. **"Create repository"** ကိုနှိပ်ပါ
+6. GitHub က ပေးတဲ့ URL (ဥပမာ - `https://github.com/YourUsername/my-first-repo.git`) ကို Copy ကူးထားပါ
+
+## အဆင့် ၂: Local Repo ကို Remote နဲ့ ချိတ်ဆက်ပါ
+
+`git remote add` command က Local Repository ကို GitHub Repository နဲ့ ချိတ်ဆက်ပေးပါတယ်။
+
+<Code code={remoteAddExample} title='Bash' />
+
+
+- `<nickname>` : Remote အတွက် အလွယ်မှတ်ခေါ်ခေါ် (များသောအားဖြင့် `origin` သုံးပါတယ်)
+- `<remote-url>` : အဆင့် ၁ က Copy ကူးထားတဲ့ URL
+
+ဥပမာ:
+
+<Code code={remoteAdd} title="Bash" />
+
+<Aside title="သတိပြုရန်" type="caution">
+  URL နေရာမှာ သင့် GitHub Repository ရဲ့ URL အမှန်ကို ထည့်ပါ။
+</Aside>
+
+## အဆင့် ၃: ချိတ်ဆက်မှု စစ်ဆေးပါ
+
+Terminal မှာ git remote -v လို့ရိုက်ပြီး စစ်ဆေးပါ။ origin နာမည်နဲ့ GitHub URL ကို "fetch" နဲ့ "push" အတွက် ပြနေရင် ချိတ်ဆက်မှု အောင်မြင်ပါပြီ။
+
+<ContentImage src={remoteCheck} alt="remote checking" />

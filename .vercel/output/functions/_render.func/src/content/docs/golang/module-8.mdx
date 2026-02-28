@@ -1,0 +1,100 @@
+---
+title: "Module 8: Standard Library & Packages"
+description: "Go ၏ စွမ်းအားပြည့် Standard Library များနှင့် Go Modules အသုံးပြုနည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Go Modules (Package Management)
+
+Go မှာ ပြင်ပ Library တွေကို အသုံးပြုဖို့နဲ့ ကိုယ့် Project ကို စီမံဖို့ **Go Modules** ကို အသုံးပြုပါတယ်။ (Node.js ရဲ့ `npm` နဲ့ ဆင်တူပါတယ်)။
+
+Project အသစ်တစ်ခု စတင်တဲ့အခါ အောက်ပါ Command ကို အရင်ဆုံး Run ရပါတယ်။
+
+```bash
+go mod init myproject
+```
+
+ဒီ Command က `go.mod` ဆိုတဲ့ ဖိုင်တစ်ခုကို ဖန်တီးပေးပါလိမ့်မယ်။ ပြင်ပ Package တွေကို Install လုပ်ချင်ရင် `go get` ကို သုံးရပါတယ်။
+
+```bash
+go get github.com/gin-gonic/gin
+```
+
+## Standard Library ၏ စွမ်းအား
+
+Go ရဲ့ အားသာချက်တစ်ခုက ပြင်ပ Library တွေ အများကြီး မလိုဘဲ Standard Library ထဲမှာတင် လိုအပ်တာတွေ အစုံအလင် ပါဝင်နေတာပါ။
+
+### ၁. `net/http` (Web Server တည်ဆောက်ခြင်း)
+
+Go မှာ Web Server တစ်ခု တည်ဆောက်ဖို့ အလွန်လွယ်ကူပါတယ်။
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+// Request ဝင်လာတိုင်း အလုပ်လုပ်မည့် Handler Function
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, Welcome to Go Web Server!")
+}
+
+func main() {
+    // Route သတ်မှတ်ခြင်း
+    http.HandleFunc("/", helloHandler)
+    
+    fmt.Println("Server is running on port 8080...")
+    // Server စတင်ခြင်း
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+### ၂. `encoding/json` (JSON Data များ ကိုင်တွယ်ခြင်း)
+
+Web API တွေ ရေးတဲ့အခါ JSON format ကို အများဆုံး အသုံးပြုကြပါတယ်။ Go မှာ Struct တွေနဲ့ JSON ကို အလွယ်တကူ ပြောင်းလဲနိုင်ပါတယ်။
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+)
+
+// JSON သို့ ပြောင်းမည့် Struct (Field နာမည်များ အကြီးဖြင့် စရမည်)
+type User struct {
+    Name  string `json:"name"`  // JSON တွင် ပေါ်မည့် နာမည်ကို သတ်မှတ်ခြင်း
+    Age   int    `json:"age"`
+    Email string `json:"email"`
+}
+
+func main() {
+    // 1. Struct မှ JSON သို့ ပြောင်းခြင်း (Marshal)
+    user := User{Name: "Mg Mg", Age: 25, Email: "mgmg@example.com"}
+    jsonData, err := json.Marshal(user)
+    
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    fmt.Println("JSON String:", string(jsonData))
+
+    // 2. JSON မှ Struct သို့ ပြောင်းခြင်း (Unmarshal)
+    jsonString := `{"name":"Aung Aung","age":30,"email":"aung@example.com"}`
+    var newUser User
+    
+    err = json.Unmarshal([]byte(jsonString), &newUser)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    fmt.Println("Struct Data:", newUser.Name, newUser.Age)
+}
+```
+
+<Aside type="tip" title="Struct Field များ">
+Struct ထဲက Field တွေကို အခြား Package (ဥပမာ `json` package) ကနေ လှမ်းမြင်နိုင်ဖို့အတွက် **အက္ခရာအကြီး (Capital Letter)** နဲ့ စတင်ရပါမယ်။ အသေးနဲ့စရင် Private ဖြစ်သွားပြီး JSON ထဲမှာ ပါလာမှာ မဟုတ်ပါဘူး။
+</Aside>

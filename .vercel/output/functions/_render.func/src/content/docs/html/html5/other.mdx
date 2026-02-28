@@ -1,0 +1,119 @@
+---
+title: "Other HTML5 Elements"
+description: "Other HTML5 Elements"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import svgVsPng from '@/assets/html/svgAndPng.jpeg';
+import svg from '@/assets/html/svg.png';
+
+### `<audio>` နှင့် `<video>` Elements များ
+
+HTML5 ကြောင့် Flash လိုမျိုး တခြား plugin တွေမလိုဘဲ audio, video လို media တွေကို website တွေမှာ အလွယ်တကူ ထည့်သွင်းနိုင်လာပါတယ်။
+
+#### `<audio>` Tag:
+`<audio>` element ကို webpage မှာ အသံဖိုင်တွေ ထည့်ဖို့ သုံးပါတယ်။ MP3, Ogg, WAV လို audio format မျိုးစုံကို support လုပ်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<audio controls>
+  <source src="song.mp3" type="audio/mp3">
+  <source src="song.ogg" type="audio/ogg">
+  Your browser does not support the audio element.
+</audio>
+```
+controls attribute ကတော့ play, pause, volume control တွေကို ထည့်ပေးပါတယ်။
+
+#### `<video>` Tag:
+`<audio>` နဲ့ အလားတူပဲ `<video>` tag က video content တွေ ထည့်သွင်းဖို့အတွက် ဖြစ်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  Your browser does not support the video element.
+</video>
+```
+controls က play/pause, volume control နဲ့ တခြား control တွေကို ထည့်ပေးပါတယ်။
+
+### `<canvas>` Element
+`<canvas>` tag က JavaScript ကိုသုံးပြီး webpage ပေါ်မှာ graphics တွေကို တိုက်ရိုက်ဆွဲခွင့်ပေးပါတယ်။ သူ့ကို dynamic graphics တွေ၊ animation တွေ၊ ဒါမှမဟုတ် game element တွေ ဖန်တီးတဲ့နေရာမှာ သုံးပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<canvas id="myCanvas" width="500" height="500"></canvas>
+```
+JavaScript ကိုသုံးပြီး canvas ပေါ်မှာ ပုံစံတွေ၊ မျဉ်းတွေ၊ ပုံတွေ ဆွဲနိုင်ပါတယ်။
+
+**JavaScript နဲ့ canvas ပေါ်မှာ ဆွဲတဲ့ ဥပမာ -**
+
+```javascript
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "blue";
+ctx.fillRect(50, 50, 150, 100);  // Draws a blue rectangle
+```
+#### `<canvas>` က ဘာကြောင့် အသုံးဝင်တာလဲ?
+Game တွေ၊ animation တွေနဲ့ real-time visualization တွေလိုမျိုး interactive graphics တွေ ပြုလုပ်ဖို့အတွက် အသင့်တော်ဆုံးပါပဲ။
+
+### SVG (Scalable Vector Graphics)
+HTML5 မှာ SVG ကိုလည်း မိတ်ဆက်ပေးခဲ့ပါတယ်။ SVG ဆိုတာက XML format နဲ့ vector graphics တွေ ဖန်တီးတဲ့ နည်းလမ်းတစ်ခုပါ။ JPEG, PNG တို့လို ပုံတွေနဲ့မတူတာက SVG တွေက အရွယ်အစားကို ကြိုက်သလောက် ချဲ့/ချုံ့ လဲ အရည်အသွေးမကျသွားပါဘူး။ ဒါကြောင့် responsive web design အတွက် အသင့်တော်ဆုံး ဖြစ်ပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<svg width="100" height="100">
+  <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+</svg>
+```
+ဒီ code က အနက်ရောင်ဘောင်ခတ်ထားတဲ့ အနီရောင်စက်ဝိုင်းတစ်ခုကို ဆွဲပေးပါတယ်။
+
+<ContentImage src={svg} alt="SVG example" height={200} width={200} />
+
+#### ဘာကြောင့် SVG ကို သုံးသင့်လဲ?
+- **အရွယ်အစား ပြောင်းလွယ်ခြင်း -** SVG တွေက အရွယ်အစား ချဲ့/ချုံ့ လိုက်ပေမဲ့ အရည်အသွေး မကျသွားပါဘူး။
+
+- **အပြန်အလှန်တုံ့ပြန်နိုင်ခြင်း -** SVG တွေကို CSS နဲ့ style လုပ်လို့ရသလို JavaScript နဲ့လည်း interactive ဖြစ်အောင် လုပ်နိုင်ပါတယ်။
+
+<ContentImage src={svgVsPng} alt="SVG vs PNG comparison" height={300}  />
+
+### Local Storage နှင့် Data Attributes
+#### 1. Local Storage:
+HTML5 က page ကို ပိတ်လိုက်ပြီးရင်တောင် user ရဲ့ browser ထဲမှာ data တွေကို သိမ်းထားနိုင်ပါတယ်။ ဒီ data တွေက user က browser cache ကို မရှင်းမချင်း ဒါမှမဟုတ် ကိုယ့် code ကနေ မဖျက်မချင်း တည်ရှိနေပါတယ်။
+
+**ဥပမာ -**
+
+```javascript
+localStorage.setItem("username", "JohnDoe");
+var user = localStorage.getItem("username");
+```
+Local storage ကို user preference တွေ၊ form data တွေလိုမျိုး data တွေကို session တစ်ခုပြီးတစ်ခု မှတ်ထားဖို့ သုံးပါတယ်။
+
+#### 2. Data Attributes:
+Data attribute တွေက page ရဲ့ ပုံစံကို မထိခိုက်စေဘဲ HTML tag တွေထဲမှာ အပိုအချက်အလက်တွေ ထည့်ခွင့် ပေးပါတယ်။ ဒီ attribute တွေကို `data-` ဆိုတဲ့ စကားလုံးနဲ့ စရေးရပါတယ်။
+
+**ဥပမာ -**
+
+```html
+<div data-product-id="1234" data-price="29.99">Product 1</div>
+```
+ဒီတန်ဖိုးတွေကို JavaScript နဲ့ ပြန်ယူသုံးပြီး ကိုယ့်ရဲ့ webpage ကို interactive ဖြစ်အောင် လုပ်နိုင်ပါတယ်။
+
+
+<Aside type="tip" title="အကျဉ်းချုပ်">
+- HTML5 input type တွေက form တွေကို ပိုကောင်းမွန်စေပါတယ် (ဥပမာ - email, date, range)။
+
+- `<audio>` နဲ့ `<video>` tag တွေက webpage မှာ media တွေကို အလွယ်တကူ ထည့်နိုင်စေတယ်။
+
+- Canvas က dynamic graphics တွေနဲ့ interactive content တွေကို ဖန်တီးနိုင်စေတယ်။
+
+- SVG က responsive design အတွက် အရည်အသွေးမြင့် vector ပုံတွေ ဖန်တီးနိုင်ခွင့်ပေးတယ်။
+
+- Local Storage က user ရဲ့ device မှာ data တွေ သိမ်းနိုင်ပြီး data attributes တွေက element တွေမှာ အပို data တွေ ထည့်နိုင်စေပါတယ်။
+</Aside>

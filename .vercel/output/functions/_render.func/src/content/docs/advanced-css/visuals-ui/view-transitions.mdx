@@ -1,0 +1,45 @@
+---
+title: "View Transitions (Cross-Document)"
+description: "Page တစ်ခုနှင့် တစ်ခု ကူးပြောင်းရာတွင် Smooth Animation ထည့်သွင်းခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Native App-like Feel">
+Link တစ်ခုကို နှိပ်လိုက်ရင် မျက်နှာပြင် ဖြူသွားပြီးမှ နောက် Page ပေါ်လာတာမျိုး မဟုတ်ဘဲ၊ Native App တွေလို ချောချောမွေ့မွေ့ ကူးသွားအောင် လုပ်လို့ရပါပြီ။
+</Aside>
+
+### အသုံးပြုပုံ
+CSS တစ်ကြောင်းတည်းနဲ့ Website တစ်ခုလုံးစာ (Multi-page application) အတွက် ဖွင့်လို့ရပါတယ်။
+
+```css
+@view-transition {
+  navigation: auto;
+}
+```
+
+ဒါပါပဲ! Browser က Page အဟောင်းနဲ့ အသစ်ကို အလိုအလျောက် Cross-fade လုပ်ပေးပါလိမ့်မယ်။
+
+### Custom Animation
+Element တစ်ခုချင်းစီကို နာမည်ပေးပြီး သီးသန့် Animate လုပ်လို့လည်း ရပါတယ်။
+ဥပမာ - Product List က ပုံကို နှိပ်လိုက်ရင် Detail Page မှာ အဲဒီပုံက ကြီးလာပြီး နေရာရွှေ့သွားတာမျိုး (Shared Element Transition)။
+
+**Page 1 (List):**
+```css
+.product-img {
+  view-transition-name: product-123;
+}
+```
+
+**Page 2 (Detail):**
+```css
+.hero-img {
+  view-transition-name: product-123; /* နာမည်တူ ပေးထားရမယ် */
+}
+```
+
+Browser က ဒီနှစ်ခုကို ချိတ်ဆက်ပြီး အလိုအလျောက် Morph animation လုပ်ပေးပါလိမ့်မယ်။
+
+<Aside type="tip">
+Astro, Next.js စတဲ့ Framework တွေမှာလည်း View Transitions API ကို support ပေးထားပါတယ်။
+</Aside>

@@ -1,0 +1,30 @@
+---
+title: "Changing Styles"
+description: "CSS Styles များကို JavaScript ဖြင့် ပြောင်းလဲခြင်း"
+---
+
+JavaScript ကနေ CSS ကို လှမ်းပြင်ရင် `style` property ကို သုံးရပါတယ်။
+တစ်ခု သတိထားရမှာက CSS မှာ `-` (dash) ပါတဲ့ နာမည်တွေကို JavaScript မှာ **CamelCase** ပြောင်းရေးရပါတယ်။
+
+*   `background-color` -> `backgroundColor`
+*   `font-size` -> `fontSize`
+*   `margin-top` -> `marginTop`
+
+## ဥပမာ
+
+```javascript
+let box = document.querySelector(".box");
+
+// အရောင်ပြောင်းမယ်
+box.style.backgroundColor = "red";
+
+// စာလုံးဆိုဒ် ကြီးမယ်
+box.style.fontSize = "20px";
+
+// ဘောင်ဖျောက်မယ်
+box.style.border = "none";
+```
+
+## Class တွေ ချိန်းတာ ပိုကောင်းတယ်
+
+Style တွေ အများကြီးကို တစ်ကြောင်းချင်း လိုက်ရေးနေမယ့်အစား၊ CSS Class တစ်ခု ကြိုဆောက်ထားပြီး JavaScript ကနေ အဲဒီ Class ကို ထည့်ပေး/ထုတ်ပေးတာ ပိုကောင်းပါတယ်။ (Later in `classList` topic)

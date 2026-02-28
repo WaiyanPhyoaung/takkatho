@@ -1,0 +1,47 @@
+---
+title: " မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
+description: " မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import gitRebase from "@/assets/git-course/rebase.png"
+
+export const mainUpdate = `
+git switch main
+git pull origin main
+`;
+
+export const switchToFeature = `
+git switch my-feature
+`;
+export const gitRebaseMain = `
+git rebase main
+`;
+
+> **git reflog** က ဘာလဲဆိုတာကို နားလည်ထားရုံနဲ့ လုံလောက်ပါတယ်
+
+<Aside title="ရည်ရွယ်ချက်">
+git reflog ဆိုတာ ဘယ်လောက် အစွမ်းထက်တဲ့ ကယ်ဆယ်ရေး tool တစ်ခုလဲဆိုတာ သိရှိနားလည်ဖို့ပဲ ဖြစ်ပါတယ်။ အခုချက်ချင်း အသုံးမပြုနိုင်သေးရင်တောင် ဒါရှိတယ်ဆိုတာ သိထားရုံနဲ့ လုံလောက်ပါတယ်။
+</Aside>
+
+**`git reflog` ဆိုတာ ဘာလဲ?**
+- git reflog (reference log) ဆိုတာ သင့်ရဲ့ HEAD (လက်ရှိ ရောက်နေတဲ့နေရာ) နဲ့ branch တွေ ဘယ်နေရာတွေ ရောက်ခဲ့ဖူးတယ်ဆိုတဲ့ မှတ်တမ်းကို သိမ်းထားတာပါ။ ဒါက သင့် repository ထဲမှာ သင်လုပ်ခဲ့တဲ့ လှုပ်ရှားမှုတွေရဲ့ ကိုယ်ပိုင်မှတ်တမ်းတစ်ခုပါ။
+
+**ဘာကြောင့်လဲ** 
+- တကယ်လို့ သင် branch ကို reset လုပ်လိုက်လို့ commit တွေ git log ထဲကနေ ပျောက်သွားရင်တောင် reflog က သူတို့ ဘယ်မှာရှိလဲဆိုတာကို သိပါတယ်။ ဒါဟာ သင်လုပ်ခဲ့တဲ့ Git လုပ်ဆောင်ချက်တွေရဲ့ ကိုယ်ပိုင်ဒိုင်ယာရီလိုပါပဲ။
+
+**ဥပမာ (Analogies)**
+
+ > သင်ဟာ လိုဏ်ဂူတွေ (သင့်ရဲ့ Git repository) ကို စူးစမ်းရှာဖွေနေတယ်လို့ မြင်ယောင်ကြည့်ပါ။ 
+ **git log** ကတော့ စူးစမ်းပြီးသား လှိုဏ်ခေါင်းတွေရဲ့ တရားဝင် မှတ်သားထားတဲ့မြေပုံ လိုပါပဲ။ 
+ **git reflog** ကတော့ သင်လှည့်ခဲ့တဲ့ အကွေ့တိုင်း၊ ရောက်ခဲ့တဲ့ လမ်းဆုံးတိုင်းကို သူ့ဘာသူ မှတ်တမ်းတင်ထားတဲ့ မှတ်တမ်းစာအုပ်လိုပါပဲ။
+
+
+**ဘယ်လို အထောက်အကူပြုလဲ (အကြမ်းဖျင်း)**
+- သင် မတော်တဆ `git reset --hard` လုပ်မိလို့ commit တွေ "ပျောက်သွားပြီ" လို့ ထင်ရရင်၊ `git reflog` က reset မလုပ်ခင်က သင်ရောက်ခဲ့တဲ့ commit ရဲ့ hash ကို ပြန်ပြနိုင်ပါတယ်။
+- ပြီးရင် အဲဒီ "ပျောက်ဆုံးသွားတဲ့" commit hash ကို ညွှန်ပြပြီး branch အသစ်တစ်ခု ပြန်ဖန်တီးကာ သင့်အလုပ်တွေကို ပြန်ရယူနိုင်ပါတယ်။ ဥပမာ- `git branch recovered-work <lost-commit-hash>`
+- **reflog commands** တွေကို အခု ကျွမ်းကျင်ဖို့ မလိုပါဘူး။ သင့်ရဲ့ local repository အတွက် အစွမ်းထက်တဲ့ အသက်ကယ်ကိရိယာအဖြစ် ရှိနေတယ်ဆိုတာကို သိထားရုံနဲ့ လုံလောက်ပါတယ်။
+
+
+<Aside type='tip' title='မှတ်ချက်'> reflog ကတော့ ကိုယ့်ရဲ့ local မှာ ပြန်လည်ကယ်ဆယ်ဖို့အတွက် အဓိကထားတာပါ။  </Aside>

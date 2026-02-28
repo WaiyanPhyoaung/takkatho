@@ -1,0 +1,57 @@
+---
+title: "Selectors (ရွေးချယ်ခြင်း)"
+description: "HTML element များကို CSS ဖြင့် ရွေးချယ်ပုံစံချခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဘယ်သူ့ကို ပြင်မှာလဲ?">
+CSS မရေးခင် **"ဘယ် Element ကို ဒီဇိုင်းပြင်ချင်တာလဲ"** ဆိုတာ အရင် ပြောပြရပါတယ်။ အဲဒါကို **Selector** လို့ ခေါ်ပါတယ်။
+</Aside>
+
+### အခြေခံ Selectors (၃) မျိုး
+
+#### 1. Element Selector (Tag နာမည်ဖြင့် ခေါ်ခြင်း)
+HTML tag နာမည်အတိုင်း တိုက်ရိုက် ခေါ်သုံးတာပါ။ အဲဒီ tag နဲ့ ရှိသမျှ အကုန်လုံး ပြောင်းသွားပါလိမ့်မယ်။
+
+```css
+/* <p> tag အားလုံး စာလုံးအနီ ဖြစ်သွားမယ် */
+p {
+  color: red;
+}
+```
+
+#### 2. Class Selector (အုပ်စုလိုက် ခေါ်ခြင်း) - **အသုံးအများဆုံး**
+တူညီတဲ့ ဒီဇိုင်း လိုချင်တဲ့ Element တွေကို `class` နာမည် ပေးပြီး ခေါ်တာပါ။ ရှေ့မှာ အစက် dot (`.`) ခံရပါတယ်။
+
+```html
+<button class="btn">Click Me</button>
+<button class="btn">Submit</button>
+```
+
+```css
+/* class="btn" ရှိတဲ့ element အားလုံး အပြာရောင် ဖြစ်မယ် */
+.btn {
+  background-color: blue;
+  color: white;
+}
+```
+
+#### 3. ID Selector (တစ်ခုတည်းကို သီးသန့် ခေါ်ခြင်း)
+တစ်မျက်နှာမှာ တစ်ခုတည်း ရှိမယ့် Element (ဥပမာ - Logo, Header) အတွက် သုံးပါတယ်။ ရှေ့မှာ Hash (`#`) ခံရပါတယ်။
+
+```html
+<div id="header">Logo</div>
+```
+
+```css
+/* id="header" ရှိတဲ့ element တစ်ခုတည်း ပြောင်းမယ် */
+#header {
+  background-color: black;
+}
+```
+
+### ဘယ်ဟာ သုံးသင့်လဲ?
+*   ✅ **Class Selector (`.`)** ကို အများဆုံး သုံးပါ။ ပြန်သုံးလို့ရလို့ (Reusable) အဆင်ပြေပါတယ်။
+*   ⚠️ **ID Selector (`#`)** ကို JavaScript နဲ့ တွဲသုံးဖို့ (သို့) တစ်နေရာတည်းစာ အတွက်ပဲ သုံးပါ။
+*   ⚠️ **Element Selector** ကိုတော့ Default Style တွေ သတ်မှတ်ဖို့လောက်ပဲ သုံးသင့်ပါတယ်။

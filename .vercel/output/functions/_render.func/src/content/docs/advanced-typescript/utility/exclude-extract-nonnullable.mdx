@@ -1,0 +1,70 @@
+---
+title: "Exclude<T,U>, Extract<T,U>, NonNullable<T>"
+description: "Exclude<T,U>, Extract<T,U>, NonNullable<T>"
+---
+
+import { Code, Aside } from "@astrojs/starlight/components";
+export const union = `
+type Status = "pending" | "processing" | "success" | "error" | null | undefined;
+`;
+
+export const exclude = `
+type FinalStatus = Exclude<Status, "pending" | "processing">;
+
+let final: FinalStatus = "success"; // ဒါက အလုပ်လုပ်တယ်
+
+// final = "pending"; // Error ပြလိမ့်မယ်။ 'pending' က FinalStatus Type မဟုတ်ဘူး။
+`
+export const extract =`type ResolvedStatus = Extract<Status, "success" | "error">;
+
+let resolved: ResolvedStatus = "error"; // ဒါက အလုပ်လုပ်တယ်
+
+// resolved = "pending"; // Error ပြလိမ့်မယ်။
+// resolved = null; // Error ပြလိမ့်မယ်။
+};`
+
+export const nonnullable =`let currentStatus: Status = "pending";
+
+// ... တချို့ Logic တွေ ...
+
+if (currentStatus !== null && currentStatus !== undefined) {
+// ဒီ Block ထဲမှာဆိုရင် TypeScript က currentStatus ဟာ null ဒါမှမဟုတ် undefined မဟုတ်တော့ဘူးဆိုတာ သိနေပြီ။
+// တခြား Function တစ်ခုကို ပို့ရင်လည်း Type ကို အတိအကျ သတ်မှတ်ပေးလို့ ရတယ်:
+let activeStatus: NonNullable<Status> = currentStatus;
+console.log(activeStatus.toUpperCase()); // toUpperCase() ကို စိတ်ချစွာ သုံးလို့ရပြီ။
+};`
+
+<Aside title='ရည်ရွယ်ချက်' type="tip">
+ ရည်ရွယ်ချက်: Exclude\<T, U>, Extract\<T, U>, နဲ့ NonNullable\<T> Utility Type တွေကို ဘယ်လို သုံးရလဲဆိုတာ နားလည်ဖို့ ဖြစ်ပါတယ်။ သူတို့က Union Type တွေနဲ့ အလုပ်လုပ်တာ။ Pick\<T, K> နဲ့ Omit\<T, K> တို့ကတော့ Object Type တွေရဲ့ Property (Key) တွေနဲ့ အလုပ်လုပ်တာပါ။ သဘောတရားကတော့ ဆင်တူပါတယ်။ 
+</Aside>
+
+ဒီဥပမာတွေအတွက် Union Type လေးတစ်ခုကို အရင်သတ်မှတ်ထားရအောင်။
+
+<Code lang="typescript" code={union} title="index.ts" />
+
+### Exclude\<T, U>: Union ထဲက Type တွေကို ဖယ်ရှားခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Exclude\<T, U> က T ဆိုတဲ့ Union Type ထဲက U နဲ့ တူညီတဲ့ Type တွေကို ဖယ်ထုတ်ပြီး Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Exclude\<Status, "processing" | "pending">
+- **ရလာမယ့် Type**: "success" | "error" | null | undefined
+- **ဘယ်အခါသုံးမလဲ**:အခြေအနေ (Status) တွေ အများကြီး ရှိနေတယ်။ ဒါပေမယ့် တချို့အခြေအနေတွေကိုပဲ ဂရုစိုက်ချင်ပြီး ကျန်တာတွေကို လျစ်လျူရှုချင်တဲ့အခါမျိုးမှာ သုံးနိုင်တယ်။
+
+<Code lang="typescript" code={exclude} title="index.ts" />
+
+### Extract\<T, U>: Union ထဲက Type တွေကို ရွေးချယ်ခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: Extract\<T, U> က T ဆိုတဲ့ Union Type ထဲက U နဲ့ တူညီတဲ့ Type တွေကို ရွေးချယ်ပြီး Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: Extract\<Status, "success" | "error">
+- **ရလာမယ့် Type**: "success" | "error"
+- **ဘယ်အခါသုံးမလဲ**: ကျယ်ပြန့်တဲ့ Union Type တစ်ခုရှိနေတယ်။ ဒါပေမယ့် အဲဒီထဲက အစိတ်အပိုင်း တချို့ကိုပဲ သီးသန့် လိုချင်တဲ့အခါမျိုးမှာ သုံးနိုင်တယ်။
+
+<Code lang="typescript" code={extract} title="index.ts" />
+
+### NonNullable\<T>: null နှင့် undefined ကို ဖယ်ရှားခြင်း
+
+- **ဘာလုပ်ပေးလဲ**: NonNullable\<T> က T ဆိုတဲ့ Type ထဲက null နဲ့ undefined ကို ဖယ်ရှားပြီး Type အသစ်တစ်ခု လုပ်ပေးတယ်။
+- **ဘယ်လို သုံးမလဲ**: NonNullable\<Status>
+- **ရလာမယ့် Type**: "pending" | "processing" | "success" | "error"
+- **ဘယ်အခါသုံးမလဲ**: တန်ဖိုးတစ်ခုက null ဒါမှမဟုတ် undefined ဖြစ်နိုင်တယ်။ ဒါပေမယ့် Code ထဲမှာ စစ်ဆေးပြီးနောက်ပိုင်း null ဒါမှမဟုတ် undefined မဟုတ်တော့ဘူးလို့ သေချာတဲ့အခါမျိုးမှာ အရမ်း အသုံးဝင်တယ်။
+
+<Code lang="typescript" code={nonnullable} title="index.ts" />

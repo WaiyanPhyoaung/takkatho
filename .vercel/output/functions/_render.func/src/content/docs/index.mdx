@@ -1,0 +1,192 @@
+---
+title: တက္ကသိုလ်
+description: Get started building your docs site with Starlight.
+template: splash
+hero:
+  tagline: မိမိဘာသာစကားဖြင့် နက်နက်ရှိုင်းရှိုင်းနားလည်အောင် လေ့လာပါ။
+  image:
+    file: ../../assets/hero.svg
+  actions:
+    - text: Courses
+      link: /courses
+      icon: right-arrow
+    - text: About Us
+      link: /about
+      icon: external
+      variant: minimal
+---
+
+import Analytics from "@vercel/analytics/astro";
+import {
+  Card,
+  CardGrid,
+  Tabs,
+  TabItem,
+  Icon,
+  LinkCard,
+  Aside,
+} from "@astrojs/starlight/components";
+import { Image } from "astro:assets";
+
+<hr/>
+<section class="intro-section">
+
+  <p>
+    ခက်ခဲသော နည်းပညာ သဘောတရားများကို ရိုးရှင်းလွယ်ကူစွာ ရှင်းလင်းထားသော သင်ခန်းစာများဖြင့်
+    နက်နက်နဲနဲ လေ့လာနိုင်ပါပြီ
+  </p>
+  
+  <div style="background-color: var(--sl-color-gray-6); color: var(--sl-color-black); padding: 1rem 2rem; border-radius: 0.5rem; font-size: 0.75rem; margin-top: 2rem; width: fit-content; border-left: 3px solid var(--sl-color-accent);">
+    Course updates များအတွက် <a href="https://www.facebook.com/share/1DDxrT1dja/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Page</a> ကို Follow လုပ်ထားပေးပါ။
+  </div>
+</section>
+<hr/ >
+## Popular Courses
+
+<CardGrid className="concepts-grid">
+ <LinkCard
+    title="AI Proficiency"
+    description="AI Tools များကို ထိရောက်စွာ အသုံးပြုပြီး Developer တစ်ယောက်အနေဖြင့် စွမ်းဆောင်ရည် မြှင့်တင်နည်းများကို လေ့လာခြင်း"
+    href="/ai-proficiency/foundations/introduction"
+    icon="rocket"
+  />
+    <LinkCard
+    title="JavaScript"
+    description="Web ၏ Programming Language ဖြစ်သော JavaScript ကို လေ့လာရန်"
+    href="/javascript/introduction/intro"
+    icon="seti:javascript"
+  />
+ <LinkCard
+    title="Frontend Architecture"
+    description="Frontend applications များအတွက် Architecture Pattern များနှင့် အကောင်းဆုံးများကို လေ့လာခြင်း"
+    href="/fe-architecture/introduction/welcome"
+    icon="puzzle"
+  />
+  <LinkCard
+    title="Advanced TypeScript"
+    description="TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာခြင်း"
+    href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript"
+    icon="puzzle"
+  />
+ 
+
+  <LinkCard
+    title="Git Version Control"
+    description="Codes အပြောင်းအလဲများကို စနစ်တကျ စီမံခန့်ခွဲခြင်းနှင့် Teamwork အတွက် မရှိမဖြစ်လိုအပ်သော Git ကို လေ့လာခြင်း"
+    href="/git-course/introduction/why-git"
+    icon="git-branch"
+  />
+  <LinkCard
+    title="Web Performance"
+    description="Website တစ်ခု၏ စွမ်းဆောင်ရည်မြှင့်တင်ခြင်းနှင့် အမြန်နှုန်းတိုးမြှင့်ခြင်းဆိုင်ရာ နည်းပညာများကို လေ့လာခြင်း"
+    href="/web-performance/introduction/why-web-performance"
+    icon="open-book"
+  />
+ 
+
+   <LinkCard
+    title="Relational Database"
+    description="Database design principles မှ SQL queries များအထိ၊ data ကို စနစ်တကျ သိမ်းဆည်းခြင်းနှင့် စီမံခန့်ခွဲခြင်းဆိုင်ရာ နည်းပညာများကို လေ့လာခြင်း"
+    href="/relational-database/introduction/welcome-to-database"
+    icon="open-book"
+  /> 
+   <LinkCard
+    title="HTML"
+    description="Web development အတွက် မရှိမဖြစ် အခြေခံ HTML ကို လွယ်လွယ်နဲ့ လေ့လာခြင်း"
+    href="/html/introduction/welcome-to-html"
+    icon="open-book"
+  /> 
+</CardGrid>
+
+<section class="key-features">
+  <div class="feature">
+    <div class="feature-icon">
+      <Icon name="open-book" size="1.8rem" />
+    </div>
+    <div class="feature-content">
+      <h3>မိမိဘာသာစကားဖြင့် လေ့လာခြင်း</h3>
+      <p>
+        language ပိုင်းဆိုင်ရာ အတားအဆီးများကို ဖယ်ရှားကာ ပိုမိုလျင်မြန်စွာ
+        နားလည်နိုင်ရန်
+      </p>
+    </div>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">
+      <Icon name="setting" size="1.8rem" />
+    </div>
+    <div class="feature-content">
+      <h3>လက်တွေ့ ဥပမာများနှင့် ရှင်းလင်းထားခြင်း</h3>
+      <p>
+        သီအိုရီသက်သက်မဟုတ်ဘဲ လက်တွေ့အသုံးချနိုင်သော ဥပမာများဖြင့် တင်ပြထားပါသည်
+      </p>
+    </div>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">
+      <Icon name="pencil" size="1.8rem" />
+    </div>
+    <div class="feature-content">
+      <h3>အဆင့်ဆင့် လေ့လာခြင်း</h3>
+      <p>
+        အခြေခံမှ အဆင့်မြင့်အထိ တဖြည်းဖြည်း နက်နက်နဲနဲ လေ့လာနိုင်ရန်
+        စီစဉ်ထားပါသည်
+      </p>
+    </div>
+  </div>
+</section>
+
+## စတင်လေ့လာရန်
+
+<div class="study-paths">
+  <a href="/html/introduction/welcome-to-html" class="path-card block beginner">
+    <h3><Icon name="seti:html" size="1.2em" /> HTML</h3>
+    <p>Web development အတွက် မရှိမဖြစ် အခြေခံ HTML ကို လွယ်လွယ်နဲ့ လေ့လာခြင်း</p>
+    <div className='link-content'>
+    <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
+    </div>
+  </a>
+
+   <a href="/css/introduction/welcome" class="path-card block beginner">
+    <h3><Icon name="seti:css" size="1.2em" /> CSS</h3>
+    <p>Website တွေလှပဖို့ CSS ကို လေ့လာရန်</p>
+    <div className='link-content'>
+     <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
+     </div>
+
+  </a>
+  <a href="/javascript/introduction/intro" class="path-card block beginner">
+    <h3><Icon name="seti:javascript" size="1.2em" /> JavaScript</h3>
+    <p>Web ၏ Programming Language ဖြစ်သော JavaScript ကို လေ့လာရန်</p>
+    <div className='link-content'>
+     <span>စတင်လေ့လာရန်</span><Icon name="right-arrow" size="1em" />
+     </div>
+
+  </a>
+</div>
+
+<section class="quote-section">
+  <blockquote>
+    <p>
+      "A complex concept explained simply is the hallmark of true
+      understanding."
+    </p>
+    <cite>Albert Einstein</cite>
+  </blockquote>
+</section>
+
+<section class="upcoming-section">
+  <h2>
+    <Icon name="rocket" size="1.2em" /> <span>မကြာမီလာမည့် သင်ခန်းစာများ</span>
+  </h2>
+  <CardGrid class="upcoming-topics">
+    <Card icon="star" title="Data Structures & Algorithms" >
+    <p>Software Engineering ၏ အခြေခံအုတ်မြစ်ဖြစ်သော Data Structure များနှင့် Algorithm များကို လေ့လာခြင်း</p>
+      </Card>
+  </CardGrid>
+  
+</section>
+
+
+
+<Analytics />

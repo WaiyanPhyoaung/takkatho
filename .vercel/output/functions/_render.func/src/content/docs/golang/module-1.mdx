@@ -1,0 +1,66 @@
+---
+title: "Module 1: Introduction & Setup"
+description: "Go ကို Install လုပ်ခြင်းနှင့် ပထမဆုံး Program ရေးသားခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+## Go ကို Install လုပ်ခြင်း
+
+Go ကို အသုံးပြုဖို့အတွက် ပထမဆုံး သင့်ကွန်ပျူတာမှာ Install လုပ်ရပါမယ်။
+
+1. [golang.org/dl](https://golang.org/dl/) သို့သွားပါ။
+2. သင့် OS (Windows, macOS, Linux) နှင့် ကိုက်ညီသော Installer ကို ဒေါင်းလုဒ်ဆွဲပြီး Install လုပ်ပါ။
+3. Install လုပ်ပြီးကြောင်း သေချာစေရန် Terminal (သို့) Command Prompt တွင် အောက်ပါ Command ကို ရိုက်ထည့်ပါ။
+
+```bash
+go version
+```
+
+`go version go1.21.x` စသဖြင့် ပေါ်လာပါက အောင်မြင်စွာ Install လုပ်ပြီးပါပြီ။
+
+## ပထမဆုံး Go Program (Hello World)
+
+Go မှာ Program တစ်ခုရေးဖို့ Folder အသစ်တစ်ခု တည်ဆောက်ပြီး `main.go` ဆိုတဲ့ ဖိုင်တစ်ခု ဖန်တီးပါ။
+
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+### Code ကို နားလည်ခြင်း
+
+- `package main`: Go program တိုင်းဟာ package တစ်ခုထဲမှာ ရှိရပါတယ်။ `main` package ကတော့ ဒီ program ဟာ run လို့ရတဲ့ (executable) program ဖြစ်တယ်လို့ ဆိုလိုတာပါ။
+- `import "fmt"`: `fmt` (format) ဆိုတဲ့ standard library ကို အသုံးပြုဖို့ ခေါ်ယူတာပါ။ စာသားတွေ print ထုတ်ဖို့ သုံးပါတယ်။
+- `func main()`: Program စတင် အလုပ်လုပ်မယ့် နေရာ (Entry point) ဖြစ်ပါတယ်။
+
+## Program ကို Run ခြင်း
+
+Go program ကို run ဖို့ နည်းလမ်း (၂) ခု ရှိပါတယ်။
+
+### ၁. `go run` (Development အတွက်)
+
+Code ကို compile လုပ်ပြီး ချက်ချင်း run ပေးပါတယ်။ ဖိုင်တွေ မထွက်လာပါဘူး။
+
+```bash
+go run main.go
+```
+
+### ၂. `go build` (Production အတွက်)
+
+Code ကို Machine Code အဖြစ် Compile လုပ်ပြီး Executable ဖိုင် (ဥပမာ `main.exe` သို့မဟုတ် `main`) ထုတ်ပေးပါတယ်။
+
+```bash
+go build main.go
+./main  # (Windows တွင် main.exe ဟု ရိုက်ပါ)
+```
+
+<Aside type="tip" title="မှတ်သားရန်">
+Go ဟာ **Compiled Language** ဖြစ်ပါတယ်။ သင်ရေးလိုက်တဲ့ Code တွေကို ကွန်ပျူတာ နားလည်တဲ့ Machine Code အဖြစ် တိုက်ရိုက် ပြောင်းလဲပေးတဲ့အတွက် အလွန်မြန်ဆန်ပါတယ်။
+</Aside>

@@ -1,0 +1,60 @@
+---
+title: "Variables နှင့် Data Types"
+description: "Python တွင် Variables နှင့် Data Types များ အသုံးပြုနည်း"
+---
+
+import ContentImage from "@/components/Content-image.astro";
+import variablesImg from "@/assets/python/variables.svg";
+
+### Variables (ကိန်းရှင်များ)
+
+Variable ဆိုတာ Data တွေကို သိမ်းထားပေးတဲ့ **"သေတ္တာလေး"** တွေနဲ့ တူပါတယ်။ သေတ္တာပေါ်မှာ နာမည်တပ်ထားပြီး အထဲမှာ ကိုယ်သိမ်းချင်တဲ့ တန်ဖိုးကို ထည့်ထားလို့ ရပါတယ်။
+
+```python
+name = "Aung Aung"
+age = 20
+```
+
+ဒီမှာ `name` နဲ့ `age` က Variable တွေပါ။ `"Aung Aung"` နဲ့ `20` က အထဲမှာ သိမ်းထားတဲ့ Data တွေပါ။
+
+<ContentImage src={variablesImg} alt="Python Variables and Data Types" />
+
+### Data Types (ဒေတာ အမျိုးအစားများ)
+
+Python မှာ အဓိက Data Type (၄) မျိုး ရှိပါတယ်။
+
+1. **String (စာသား):** စာသားတွေကို သိမ်းဖို့ သုံးပါတယ်။ အမြဲတမ်း `""` (သို့) `''` ထဲမှာ ရေးရပါတယ်။
+   ```python
+   message = "Hello World"
+   ```
+
+2. **Integer (ကိန်းပြည့်):** ဒသမဂဏန်း မပါတဲ့ ကိန်းဂဏန်းတွေပါ။
+   ```python
+   count = 10
+   ```
+
+3. **Float (ဒသမကိန်း):** ဒသမဂဏန်း ပါတဲ့ ကိန်းဂဏန်းတွေပါ။
+   ```python
+   price = 99.99
+   ```
+
+4. **Boolean (အမှန်/အမှား):** `True` (မှန်တယ်) သို့မဟုတ် `False` (မှားတယ်) ဆိုတဲ့ တန်ဖိုး နှစ်ခုပဲ ရှိပါတယ်။
+   ```python
+   is_student = True
+   ```
+
+### Operators (သင်္ချာ တွက်ချက်ခြင်း)
+
+Python မှာ ပေါင်း၊ နှုတ်၊ မြှောက်၊ စား တွေကို အလွယ်တကူ လုပ်လို့ရပါတယ်။
+
+```python
+a = 10
+b = 3
+
+print(a + b)  # အဖြေ: 13 (ပေါင်း)
+print(a - b)  # အဖြေ: 7 (နှုတ်)
+print(a * b)  # အဖြေ: 30 (မြှောက်)
+print(a / b)  # အဖြေ: 3.333... (စား)
+print(a // b) # အဖြေ: 3 (စားလဒ် ကိန်းပြည့်)
+print(a % b)  # အဖြေ: 1 (စားကြွင်း)
+```

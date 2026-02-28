@@ -1,0 +1,89 @@
+---
+title: "Enums & Tuples"
+description: "တိကျသော တန်ဖိုးများနှင့် အရွယ်အစား သတ်မှတ်ထားသော Array များ"
+---
+
+ဒီသင်ခန်းစာမှာတော့ JavaScript မှာ မပါဝင်ဘဲ TypeScript မှာမှ အသစ်ပါလာတဲ့ **Enums** နဲ့ **Tuples** အကြောင်း လေ့လာပါမယ်။
+
+---
+
+### 1. Enums (Enumerations)
+
+Enum ဆိုတာ ဆက်စပ်နေတဲ့ ကိန်းသေ (Constant) တန်ဖိုးတွေကို နာမည်ပေးပြီး စုစည်းထားတာပါ။ ဥပမာ - အရပ်မျက်နှာ (၄) ခု၊ ရာသီဥတု၊ အပတ်စဉ် နေ့ရက်များ စတာတွေအတွက် သုံးပါတယ်။
+
+#### Numeric Enums (ဂဏန်းတန်ဖိုးများ)
+
+ပုံမှန်အားဖြင့် Enum တွေက `0` ကနေ စပြီး အလိုအလျောက် ဂဏန်းတွေ တပ်ပေးသွားပါတယ်။
+
+```typescript
+enum Direction {
+    Up,    // 0
+    Down,  // 1
+    Left,  // 2
+    Right  // 3
+}
+
+let myDirection: Direction = Direction.Up;
+console.log(myDirection); // အဖြေ: 0
+```
+
+ကိုယ်တိုင် ဂဏန်း စသတ်မှတ်ပေးလို့လည်း ရပါတယ်။
+
+```typescript
+enum Status {
+    NotFound = 404,
+    Success = 200,
+    ServerError = 500
+}
+
+console.log(Status.Success); // အဖြေ: 200
+```
+
+#### String Enums (စာသားတန်ဖိုးများ)
+
+ဂဏန်းတွေအစား စာသားတွေကိုလည်း သတ်မှတ်လို့ ရပါတယ်။ Code ဖတ်ရတာ ပိုရှင်းလင်းသွားပါတယ်။
+
+```typescript
+enum UserRole {
+    Admin = "ADMIN",
+    Editor = "EDITOR",
+    Viewer = "VIEWER"
+}
+
+let currentUserRole: UserRole = UserRole.Admin;
+
+if (currentUserRole === UserRole.Admin) {
+    console.log("သင်သည် Admin ဖြစ်ပါသည်။");
+}
+```
+
+---
+
+### 2. Tuples (အရွယ်အစား သတ်မှတ်ထားသော Array)
+
+ပုံမှန် Array တွေက အရွယ်အစား (Size) အကန့်အသတ် မရှိသလို၊ Type တစ်မျိုးတည်းကိုပဲ သိမ်းလေ့ရှိပါတယ်။ 
+
+**Tuple** ဆိုတာကတော့ **"အရွယ်အစား အတိအကျ ရှိပြီး၊ နေရာအလိုက် Type တွေ မတူညီတဲ့ Array"** ဖြစ်ပါတယ်။
+
+```typescript
+// ပထမနေရာမှာ string၊ ဒုတိယနေရာမှာ number ဖြစ်ရမယ်လို့ သတ်မှတ်ခြင်း
+let person: [string, number];
+
+person = ["Aung Aung", 25]; // ✅ မှန်ပါတယ်
+
+person = [25, "Aung Aung"]; // ❌ Error: အစီအစဉ် မှားနေပါတယ်
+person = ["Su Su", 22, true]; // ❌ Error: ၂ ခုပဲ လက်ခံပါတယ်
+```
+
+#### Tuple ကို ဘယ်နေရာမှာ သုံးလဲ?
+
+များသောအားဖြင့် Function တစ်ခုကနေ တန်ဖိုး (၂) ခု ပြန်ထုတ်ပေးချင်တဲ့အခါ (ဥပမာ - React ရဲ့ `useState` Hook) မျိုးမှာ သုံးလေ့ရှိပါတယ်။
+
+```typescript
+function getCoordinates(): [number, number] {
+    return [10.5, 20.8]; // [x, y]
+}
+
+let [x, y] = getCoordinates();
+console.log(x); // 10.5
+```

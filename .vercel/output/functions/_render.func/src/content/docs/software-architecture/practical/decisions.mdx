@@ -1,0 +1,53 @@
+---
+title: "အသေးစိတ် Design နှင့် အဓိကဆုံးဖြတ်ချက်များ"
+description: "အသေးစိတ် Design နှင့် အဓိကဆုံးဖြတ်ချက်များ"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import slothAdr from '@/assets/software-architecture/sloth-adr.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ ကျွန်တော်တို့၏ service များအတွက် ဆက်သွယ်မှုပုံစံများ (communication styles) နှင့် database နည်းပညာများအကြောင်း အသေးစိတ်ဒီဇိုင်းဆုံးဖြတ်ချက်များ ချမှတ်ရန်၊ နှင့် ADR တစ်ခုဖြင့် အဓိကဆုံးဖြတ်ချက်တစ်ခုကို မှတ်တမ်းတင်ခြင်း လေ့ကျင့်ရန်။
+</Aside>
+
+#### အဆင့် ၆: ဆက်သွယ်မှုပုံစံများကို ရွေးချယ်ခြင်း
+ကျွန်တော်တို့ service တွေက မတူညီတဲ့အလုပ်တွေအတွက် တစ်ခုနဲ့တစ်ခု ဘယ်လိုဆက်သွယ်ကြမလဲဆိုတာ ဆုံးဖြတ်ကြရအောင်။
+
+- **ကားငှားသူမှ ခရီးစဉ်စတင်ခြင်း -** ကားငှားသူဆီက အတည်ပြုချက် (confirmation) လိုအပ်ပါတယ်။ ဒါကြောင့် **Rider's App** (ကျွန်တော်တို့ တည်ဆောက်နေသော App) ကနေ `Trip Service` ကို **Synchronous REST API call** တစ်ခုပို့ပေးတာ အဓိပ္ပာယ်ရှိပါတယ်။
+
+- **ကားသမား၏ Location Update များ -** ဒါတွေက မကြာခဏ update လုပ်ဖို့လိုအပ်ပြီး၊ real-time ဖြစ်ကာ၊ များသောအားဖြင့် တစ်လမ်းသွားဆက်သွယ်ခြင်း (ကားသမားဆီက server သို့) ဖြစ်ပါတယ်။ ဒါကြောင့် `Location Service` ကို **WebSockets သို့မဟုတ် gRPC** လိုမျိုး high-performance, low-latency protocol တစ်ခုသုံးတာက ရွေးချယ်မှုကောင်းတစ်ခုပါ။
+
+- **ကားသမားတစ်ဦးအား ခရီးစဉ်အသစ်အကြောင်း အကြောင်းကြားခြင်း -** `Trip Service` က ကားသမားရဲ့ Response ကို စောင့်မနေသင့်ပါဘူး။ ဒါက **Asynchronous events** တွေသုံးဖို့ အကောင်းဆုံးအချိန်ပါပဲ။ `Trip Service` က `RideRequested event` တစ်ခုကို ထုတ်လွှင့် (publish) ပြီး၊ `Notification Service` က အဲဒီ event ကို subscribe ကာ အနီးအနားက ကားသမားတွေဆီကို **notification** ပို့ပေးနိုင်ပါတယ်။
+
+<Aside type="tip" title="အကျဉ်းချုပ်" >
+ - ကားငှားသူက စပြီး ခရီးစဉ်တစ်ခုကို confirm လိုက်တဲ့အခါ App ကနေပြီး `Trip Serive` ကို **REST API call** တစ်ခုပို့လိုက်ပါတယ်။
+- ကားသမားရဲ့ လက်ရှိ location ကိုသိဖို့အတွက် App ကနေ `Location Service` ကို **WebSockets** နဲ့ ခန ခန ပို့ပေးပါမယ်။
+- ကားငှားသူဆီက ခရီးစဉ် API call ရတဲ့အခါ `Trip Service` ကနေ event တစ်ခုထုတ်လွှင့်လိုက်ပါတယ်။ ထို event ကို စောင့်ကြည့်နေသော `Notification Service` က အနီးအနားက ကားသမားတွေဆီကို notification ပို့ပေးလိုက်ပါတယ်။
+</Aside>
+
+#### အဆင့် ၇: Database အမျိုးအစားများ ရွေးချယ်ခြင်း (Polyglot Persistence)
+Service တစ်ခုချင်းစီရဲ့ အလုပ်အတွက် မှန်ကန်တဲ့ database ကို ရွေးချယ်ကြပါမယ်။
+
+- **Rider & Driver Services -** ဒါက **ဖွဲ့စည်းပုံကျနပြီး၊ အမြဲတမ်းမှန်ကန်နေဖို့လိုအပ်တဲ့** user profile data တွေပါ။ ဒါကြောင့် `SQL database (PostgreSQL လိုမျိုး)` က ရွေးချယ်မှုကောင်းတစ်ခုပါ။
+
+- **Trip Service -** ခရီးစဉ်တစ်ခုမှာ အဆင့်တွေအများကြီးနဲ့ မှတ်တမ်းအပြည့်အစုံရှိပါတယ်။ ခရီးစဉ်တစ်ခုချင်းစီကို **ပြောင်းလွယ်ပြင်လွယ်ရှိတဲ့ document** တစ်ခုအနေနဲ့ သိမ်းဆည်းတာက အဓိပ္ပာယ်ရှိပါတယ်။ ဒါကြောင့် `Document Database (MongoDB လိုမျိုး)` က သင့်တော်ပါတယ်။
+
+- **Location Service -** ဒီ service က location data တွေကို **အလွန်မြန်မြန်ရေးနိုင်ဖို့**၊ ပြီးတော့ "nearest drivers" ဆိုတဲ့ query တွေကို **မြန်မြန်ဖတ်နိုင်ဖို့** လိုအပ်ပါတယ်။ ဒါကြောင့် `Key-Value သို့မဟုတ် Geospatial Database (Redis (သို့) အထူးပြု DB လိုမျိုး)` က အကောင်းဆုံးပါပဲ။
+
+#### အဆင့် ၈: အဓိကဆုံးဖြတ်ချက်တစ်ခုကို ADR ဖြင့် မှတ်တမ်းတင်ခြင်း
+ကျွန်တော်တို့ရဲ့ အရေးကြီးတဲ့ ရွေးချယ်မှုတစ်ခုကို မှတ်တမ်းတင်ကြည့်ကြရအောင်။
+
+<ContentImage  src={slothAdr} alt="ADR for Asynchronous events for Ride Request" />
+
+<Aside title="အနှစ်ချုပ်">
+- လက်တွေ့ Architecture က **functional requirements (ဘာလုပ်သလဲ) နှင့် အရေးကြီးသော quality attributes (ဘယ်လောက်ကောင်းကောင်းလုပ်သလဲ)** နှစ်ခုလုံးကို နားလည်ခြင်းဖြင့် စတင်ပါတယ်။
+
+- ဒီလိုအပ်ချက်တွေအပေါ်မူတည်ပြီး၊ microservices ကဲ့သို့သော အဓိက **Architectural pattern** တစ်ခုကို ရွေးချယ်ပြီး service နယ်နိမိတ်များကို သတ်မှတ်နိုင်ပါတယ်။
+
+- **C4 Model** က မတူညီတဲ့ ပရိသတ်တွေအတွက် ကျွန်တော်တို့ရဲ့ high-level design ကို ရှင်းလင်းတဲ့ ပုံကြမ်းတွေဖန်တီးရာမှာ ကူညီပေးပါတယ်။
+
+- အသေးစိတ်ဒီဇိုင်းတွင် အလုပ်တစ်ခုချင်းစီအတွက် မှန်ကန်သော **Communication styles (Sync နှင့် Async) နှင့် database technologies** (Polyglot Persistence) ကို ရွေးချယ်ခြင်း ပါဝင်ပါတယ်။
+
+- **Architectural Decision Records (ADRs)** များသည် အရေးကြီးသော ဆုံးဖြတ်ချက်များနောက်ကွယ်မှ အကြောင်းပြချက်ကို မှတ်တမ်းတင်ရန် ရိုးရှင်းပြီး အစွမ်းထက်သော tool တစ်ခုဖြစ်သည်။
+</Aside>

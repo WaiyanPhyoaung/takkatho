@@ -1,0 +1,59 @@
+---
+title: "Lists"
+description: "Lists"
+---
+
+import { Aside, Code, } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import lists from '@/assets/html/lists.png'
+
+export const ulEg = `
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+`
+export const olEg = `
+<ol>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ol>
+`
+
+
+HTML မှာ list အမျိုးအစား နှစ်မျိုးဖန်တီးနိုင်ပါတယ် - **unordered lists (bullet point list)** နဲ့ **ordered lists (number list)** ပါ။
+
+###Unordered Lists (`<ul>`)
+Unordered list ဆိုတာက bullet point list ပါ၊ `<ul>` tag ကိုသုံးပြီး ဖန်တီးရပါတယ်။ list item တစ်ခုချင်းစီကိုတော့ `<li>` tag နဲ့ ဖန်တီးရပါတယ်။
+
+**ဥပမာ**
+
+<Code title='HTML' lang='html' code={ulEg}/>
+
+
+### Ordered Lists (`<ol>`)
+Ordered list ဆိုတာက နံပါတ်စဉ် list ပါ၊ `<ol>` tag ကိုသုံးပြီး ဖန်တီးရပါတယ်။ list item တစ်ခုချင်းစီကို `<li>` tag နဲ့ပဲ သတ်မှတ်ရပါတယ်။
+
+**ဥပမာ**
+
+<Code title='HTML' lang='html' code={olEg}/>
+
+List item တွေကို အလိုအလျောက် နံပါတ်စဉ်တပ်ပေးသွားပါလိမ့်မယ်။
+
+<ContentImage src={lists} alt="Lists" />
+
+<Aside type='tip' title='အကျဉ်းချုပ်'>
+
+- Headings (`<h1>` to `<h6>`) တွေက အကြောင်းအရာကို အဆင့်ဆင့် စနစ်တကျဖြစ်အောင် ကူညီပေးပါတယ်။
+
+- Paragraphs (`<p>`) တွေက စာသားတွေကို ဖတ်လို့ကောင်းတဲ့ အပိုင်းလေးတွေအဖြစ် ပုံစံချပေးပါတယ်။
+
+- Line breaks (`<br>`) က စာကြောင်းအသစ်ဆင်းစေပြီး၊ horizontal rules (`<hr>`) က အပိုင်းတွေကို ခွဲခြားပေးပါတယ်။
+
+- `<b>`, `<i>`, `<u>`, `<strong>`, `<em>`, and `<mark>` လိုမျိုး tag တွေသုံးပြီး စာသားကို ပုံစံပြောင်းနိုင်ပါတယ်။
+
+- Lists တွေကို `<ul>` (bullet list) နဲ့ `<ol>` (နံပါတ်စဉ် list) သုံးပြီး ဖန်တီးနိုင်ပါတယ်၊ item တစ်ခုချင်းစီကိုတော့ `<li>` tag ထဲမှာ ထည့်ရပါတယ်။
+</Aside>
+

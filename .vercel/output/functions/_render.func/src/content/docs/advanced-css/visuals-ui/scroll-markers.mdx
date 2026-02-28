@@ -1,0 +1,51 @@
+---
+title: "Scroll Marker Pseudo-elements"
+description: "Carousel များအတွက် Scroll Indicator များ ဖန်တီးခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="Carousel Dots without JS">
+Image Slider (Carousel) တွေမှာ အောက်က အစက်လေးတွေ (Dots) ကို နှိပ်ရင် သက်ဆိုင်ရာ ပုံကို ရောက်သွားတာမျိုး လုပ်ဖို့ JavaScript မလိုတော့ပါဘူး။
+</Aside>
+
+### အသုံးပြုပုံ
+Scroll container ထဲက item တစ်ခုချင်းစီအတွက် `::scroll-marker` ကို ဖန်တီးပေးရပါမယ်။
+
+```css
+/* 1. Container */
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  
+  /* Marker တွေကို စုပြီး ပြမယ့် နေရာ (Group) */
+  scroll-marker-group: after; 
+}
+
+/* 2. Items */
+.slide {
+  width: 100%;
+  scroll-snap-align: center;
+}
+
+/* 3. Markers (အစက်လေးတွေ) */
+.slide::scroll-marker {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: gray;
+  cursor: pointer;
+}
+
+/* 4. Active Marker (လက်ရှိ ရောက်နေတဲ့ Slide) */
+.slide::scroll-marker:target-current {
+  background: blue;
+}
+```
+
+### ဘယ်လို အလုပ်လုပ်လဲ?
+*   Browser က `.slide` တစ်ခုချင်းစီအတွက် Marker တစ်ခု အလိုအလျောက် ထုတ်ပေးမယ်။
+*   အဲဒီ Marker တွေကို `.carousel` ရဲ့ အောက် (`after`) မှာ သွားစုပေးမယ်။
+*   Marker ကို နှိပ်ရင် သက်ဆိုင်ရာ Slide ဆီ Scroll လုပ်ပေးမယ်။
+*   Scroll လုပ်လိုက်ရင်လည်း သက်ဆိုင်ရာ Marker က Active ဖြစ်သွားမယ်။

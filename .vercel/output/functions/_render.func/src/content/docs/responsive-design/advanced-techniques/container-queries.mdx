@@ -1,0 +1,62 @@
+---
+title: "Container Queries (ရော်ဗင်ဟုဒ် နည်းပညာအသစ်)"
+description: "Screen အကျယ်ကို မကြည့်ဘဲ Component အကျယ်ပေါ်မူတည်၍ ပြောင်းလဲခြင်း"
+---
+
+Responsive Web Design သမိုင်းတစ်လျှောက်မှာ **အကြီးမားဆုံး တော်လှန်ရေး** ကတော့ **Container Queries (`@container`)** ပေါ်ထွက်လာခြင်းပါပဲ။ (2026 ခေတ်မှာတော့ အကောင်းဆုံး Support ရနေပါပြီ)
+
+### Media Queries ရဲ့ အားနည်းချက်
+ရိုးရိုး Mobile Responsive (Media Queries) တွေဟာ **"Screen အကျယ် (Viewport size) ဘယ်လောက်ရှိလဲ?"** ဆိုတာကိုပဲ ကြည့်ပါတယ်။
+Card တစ်ခုကို Sidebar ထဲထည့်တဲ့အခါ ကျဉ်းနေပေမယ့်، Screen ကြီးက Desktop ဖြစ်နေရင် Desktop CSS အတိုင်း Card အကြီးကြီး သွားပေါ်တတ်တဲ့ ပြဿနာရှိပါတယ်။ 
+
+### Container Queries ဆိုတာ ဘာလဲ?
+Container Queries က Screen ကြီးကို မကြည့်တော့ပါဘူး။ **"ဒီ Component လေး ရောက်နေတဲ့ နေရာ (Container) လေးက ဘယ်လောက်ကျယ်လဲ?"** ဆိုတာကိုပဲ ကြည့်ပြီး အလုပ်လုပ်တာပါ။ 
+
+### အသုံးပြုပုံ (အဆင့် ၂ ဆင့်)
+
+**အဆင့် (၁): ငုံထားမည့် Container ကို ကြေညာခြင်း (`container-type`)**
+ဘယ်သူ့ရဲ့ အကျယ်ကို ကြည့်ရမလဲ ဆိုတာကို အရင် သတ်မှတ်ပေးရပါတယ်။
+
+```css
+.card-wrapper {
+  /* မိမိအောက်က ကလေးတွေက မိမိအကျယ်ကို ကြည့်ပြီး Responsive လုပ်လို့ရအောင် ခွင့်ပြုပေးခြင်း */
+  container-type: inline-size;
+  /* (Optional) နာမည်ပေးထားလို့ရသည် */
+  container-name: sidebarCard;
+}
+```
+
+**အဆင့် (၂): `@container` ကို အသုံးပြု၍ ရေးသားခြင်း**
+အကြိမ်ကြိမ် Media query ခေါ်မယ့်အစား `@container` လို့ သုံးပြီး ရေးရုံပါပဲ။
+
+```css
+.card {
+  display: flex;
+  flex-direction: column; /* မူလက အပေါ်အောက် စီမည် */
+}
+
+/* Card ရောက်နေတဲ့ နေရာ (Container) က 400px ထက် ကျယ်သွားရင် ဘေးတိုက်ပြောင်းစီမည် */
+@container (width >= 400px) {
+  .card {
+    flex-direction: row; 
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+}
+```
+
+### Container Query Units အသစ်များ (cqw, cqh)
+`vw`, `vh` တွေက Screen အကျယ်ကို ကိုယ်စားပြုသလိုပဲ၊ Container Queries မှာလည်း ကိုယ်တိုင်ရဲ့ Container ကို ကိုယ်စားပြုတဲ့ Unit တွေရှိပါတယ်။
+
+* `cqw` (Container Query Width): Container အကျယ်ရဲ့ 1%
+* `cqh` (Container Query Height): Container အမြင့်ရဲ့ 1%
+
+```css
+.card-title {
+  /* Screen ဘယ်လောက်ကြီးကြီး၊ Card ကျဉ်းရင် စာလုံးသေးပြီး، Card ကျယ်ရင် စာလုံးကြီးမည် */
+  font-size: clamp(1rem, 5cqw, 2rem);
+}
+```
+
+**အကျဉ်းချုပ်** - Component-Based Frameworks တွေဖြစ်တဲ့ React, Vue, Svelte တွေမှာ အလုပ်လုပ်တဲ့အခါ ဘယ်နေရာ ကောက်ထည့်ထည့် အဆင်ပြေစေဖို့ **Container Queries** က အကောင်းဆုံး အဖြေတစ်ခု ဖြစ်ပါတယ်။

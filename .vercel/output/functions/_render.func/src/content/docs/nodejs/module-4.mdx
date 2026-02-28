@@ -1,0 +1,98 @@
+---
+title: "NPM & Package Management"
+description: "NPM ကို အသုံးပြု၍ Packages များ ထည့်သွင်းခြင်းနှင့် စီမံခြင်း"
+---
+
+Node.js ရဲ့ အကြီးမားဆုံး အားသာချက်တစ်ခုကတော့ **NPM (Node Package Manager)** ပါပဲ။ NPM ဆိုတာ ကမ္ဘာတစ်ဝှမ်းက Developer တွေ ရေးသားထားတဲ့ Code တွေ (Packages/Libraries) ကို စုစည်းထားတဲ့ နေရာကြီး ဖြစ်ပါတယ်။
+
+ကိုယ်တိုင် အစကနေ ရေးစရာမလိုဘဲ၊ သူများရေးထားပြီးသား Code တွေကို အလွယ်တကူ ယူသုံးလို့ ရပါတယ်။
+
+---
+
+### 1. package.json ဖန်တီးခြင်း
+
+Node.js Project တစ်ခု စတော့မယ်ဆိုရင် အရင်ဆုံး `package.json` ဆိုတဲ့ ဖိုင်တစ်ခုကို ဖန်တီးရပါတယ်။ ဒီဖိုင်က သင့် Project ရဲ့ နာမည်၊ Version နဲ့ ဘာ Package တွေ သုံးထားလဲ ဆိုတာကို မှတ်သားထားပေးမယ့် ဖိုင်ပါ။
+
+Terminal မှာ သင့် Project Folder ထဲကို သွားပြီး အောက်ပါ Command ကို ရိုက်ပါ။
+
+```bash
+npm init -y
+```
+`-y` ဆိုတာက မေးခွန်းတွေ အားလုံးကို Yes လို့ အလိုအလျောက် ဖြေပေးသွားတာပါ။ ဒါဆိုရင် `package.json` ဖိုင်လေး ထွက်လာပါလိမ့်မယ်။
+
+---
+
+### 2. Package များ Install လုပ်ခြင်း
+
+ဥပမာအနေနဲ့ စာသားတွေကို အရောင်လေးတွေနဲ့ ထုတ်ပေးတဲ့ `chalk` ဆိုတဲ့ Package ကို Install လုပ်ကြည့်ရအောင်။
+
+```bash
+npm install chalk
+```
+(သို့မဟုတ် အတိုကောက် `npm i chalk` လို့ ရေးလို့ရပါတယ်)
+
+ဒီလို Install လုပ်လိုက်တဲ့အခါ အပြောင်းအလဲ (၃) ခု ဖြစ်သွားပါမယ်။
+1. `node_modules` ဆိုတဲ့ Folder အသစ် ထွက်လာပါမယ်။ (အဲ့ဒီထဲမှာ သင် Install လုပ်လိုက်တဲ့ Package ရဲ့ Code တွေ ရှိပါတယ်)
+2. `package.json` ထဲက `dependencies` ဆိုတဲ့ နေရာမှာ `chalk` ဆိုပြီး ဝင်သွားပါမယ်။
+3. `package-lock.json` ဆိုတဲ့ ဖိုင်အသစ် ထွက်လာပါမယ်။ (Package တွေရဲ့ Version အတိအကျကို မှတ်ထားပေးတာပါ)
+
+#### Install လုပ်ထားသော Package ကို အသုံးပြုခြင်း
+
+```javascript
+// app.js
+// chalk version 4 ကို သုံးထားပါတယ် (npm i chalk@4)
+const chalk = require('chalk');
+
+console.log(chalk.blue('Hello world!'));
+console.log(chalk.red.bold('Error ဖြစ်နေပါသည်!'));
+console.log(chalk.green.underline('အောင်မြင်ပါသည်။'));
+```
+
+---
+
+### 3. Development Packages (devDependencies)
+
+တချို့ Package တွေက Code ရေးနေတုန်း (Development အချိန်) မှာပဲ လိုအပ်ပြီး၊ တကယ် အသုံးပြုမယ့်အချိန် (Production) မှာ မလိုအပ်ပါဘူး။ ဥပမာ - Code ပြင်လိုက်တာနဲ့ Server ကို အလိုအလျောက် Restart ချပေးတဲ့ `nodemon` လို Package မျိုးပါ။
+
+အဲ့ဒီလို Package တွေကို Install လုပ်ချင်ရင် `--save-dev` သို့မဟုတ် `-D` ကို ထည့်ပေးရပါတယ်။
+
+```bash
+npm install nodemon --save-dev
+```
+
+---
+
+### 4. Scripts များ ရေးသားခြင်း
+
+`package.json` ဖိုင်ထဲက `scripts` ဆိုတဲ့ နေရာမှာ ကိုယ်ပိုင် Command တွေ ရေးလို့ရပါတယ်။
+
+```json
+// package.json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
+```
+
+အခုဆိုရင် Terminal မှာ `node app.js` လို့ ရိုက်မယ့်အစား အောက်ပါအတိုင်း ရိုက်လို့ ရသွားပါပြီ။
+
+- `npm start` (ပုံမှန် Run ရန်)
+- `npm run dev` (Nodemon ဖြင့် Run ရန်)
+
+---
+
+### 5. node_modules ကို ဘယ်တော့မှ မပို့ပါနဲ့
+
+သင့် Project ကို GitHub ပေါ် တင်တဲ့အခါဖြစ်ဖြစ်၊ သူငယ်ချင်းဆီ ပို့တဲ့အခါဖြစ်ဖြစ် `node_modules` Folder ကြီးကို ထည့်မပို့ရပါဘူး။ (Size အရမ်းကြီးလို့ပါ)။
+
+အဲ့ဒီအစား `package.json` ဖိုင်လေး ပါသွားရင် လုံလောက်ပါတယ်။ သင့်သူငယ်ချင်းက အဲ့ဒီ Project ကို ရတဲ့အခါ Terminal မှာ `npm install` လို့ ရိုက်လိုက်တာနဲ့ `package.json` ထဲမှာ ရေးထားတဲ့ Package တွေ အားလုံးကို အလိုအလျောက် ပြန်လည် Install လုပ်ပေးသွားပါလိမ့်မယ်။

@@ -1,0 +1,59 @@
+---
+title: "MV* Architecture Patterns (MVC, MVVM, MVP)"
+description: "MVC, MVVM, and MVP Patterns"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import mvc from '@/assets/frontend-architecture/mvc.png'
+import mvvm from '@/assets/frontend-architecture/mvvm.png'
+import mvp from '@/assets/frontend-architecture/mvp.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+Frontend လောကမှာ မကြာခဏ ကြားရတဲ့ **MVC, MVVM, MVP** ဆိုတာ ဘာတွေလဲ? ဒါတွေက Code ကို ဘယ်လို စနစ်တကျ ခွဲရေးမလဲ ဆိုတဲ့ ပုံစံ (Patterns) တွေ ဖြစ်ပါတယ်။
+</Aside>
+
+### MV* ဆိုတာ ဘာလဲ? (စားသောက်ဆိုင် ဥပမာ)
+ဒီ Pattern တွေကို နားလည်ဖို့ **"စားသောက်ဆိုင်"** တစ်ဆိုင်ကို မြင်ယောင်ကြည့်ပါ။
+
+1.  **Model (မီးဖိုချောင်):**
+    - ဟင်းချက်တဲ့နေရာ (Data & Logic)။
+    - ကြက်သားရှိလား၊ ဝက်သားရှိလား စစ်ဆေးတဲ့နေရာ။
+    - Customer နဲ့ တိုက်ရိုက် မထိတွေ့ပါဘူး။
+
+2.  **View (စားပွဲဝိုင်း):**
+    - Customer ထိုင်တဲ့နေရာ (UI)။
+    - ဟင်းပွဲတွေ လာချပေးတဲ့နေရာ။
+    - ဟင်း ဘယ်လိုချက်လဲ သူ မသိပါဘူး။
+
+3.  **Controller / Presenter / ViewModel (ဝိတ်တာ):**
+    - Customer ဆီက Order ယူတယ်။ (User Input)
+    - မီးဖိုချောင်ကို သွားပြောတယ်။ (Update Model)
+    - ဟင်းရရင် လာချပေးတယ်။ (Update View)
+
+ဒီ (၃) ယောက် ပေါင်းလုပ်မှ စားသောက်ဆိုင် လည်ပတ်သလို၊ Software မှာလည်း ဒီ (၃) ပိုင်း ပေါင်းမှ App တစ်ခု ဖြစ်လာတာပါ။
+
+---
+
+### 1. MVC (Model-View-Controller)
+ဒါက အရင်ခေတ်က အသုံးများတဲ့ ပုံစံပါ။
+- **Controller** က "Boss" ပါ။ User ဘာလုပ်လဲ နားထောင်တယ်။ Model ကို ခိုင်းတယ်။
+- **View** က Model ပြောင်းသွားရင် အလိုလို လိုက်ပြောင်းဖို့ ကြိုးစားတယ်။
+
+<ContentImage src={mvc} alt="MVC diagram" />
+
+### 2. MVP (Model-View-Presenter)
+MVC နဲ့ ဆင်တူပေမယ့် **Presenter** က ပိုအာဏာရှိပါတယ်။
+- View က ဘာမှ မသိပါဘူး။ Presenter ခိုင်းတာပဲ လုပ်ပါတယ်။
+- "Button နှိပ်လိုက်ပြီ" လို့ View က ပြောရင်၊ Presenter က "ဒါဆို Loading ပြလိုက်" လို့ ပြန်ခိုင်းပါတယ်။
+- View နဲ့ Model လုံးဝ မတွေ့ပါဘူး။ Presenter က ကြားခံ သက်သက်ပါ။
+
+<ContentImage src={mvp} alt="MVP diagram" />
+
+### 3. MVVM (Model-View-ViewModel)
+ဒါက Modern Frontend Frameworks (Vue, Angular, React) တွေ သုံးတဲ့ ပုံစံပါ။
+- **ViewModel** က View နဲ့ "ကော်" နဲ့ ကပ်ထားသလိုပါပဲ (Data Binding)။
+- Model ထဲက Data ပြောင်းတာနဲ့ View မှာ အလိုလို လိုက်ပြောင်းတယ်။
+- "ဝိတ်တာ" က Order ယူပြီး မီးဖိုချောင်ကို အော်ပြောစရာ မလိုတော့ဘူး။ စားပွဲပေါ်က ခလုတ်နှိပ်လိုက်တာနဲ့ မီးဖိုချောင်က သိပြီးသား ဖြစ်သွားတဲ့ သဘောပါ။
+
+<ContentImage src={mvvm} alt="MVVM diagram" />

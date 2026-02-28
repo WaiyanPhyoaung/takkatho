@@ -1,0 +1,54 @@
+---
+title: "Component-Based Architecture ဆိုတာဘာလဲ"
+description: "Component-Based Architecture ဆိုတာဘာလဲ"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import componentBased from '@/assets/frontend-architecture/component-based.png'
+import lego from '@/assets/frontend-architecture/lego.jpg'
+
+<Aside title="ရည်ရွယ်ချက်">
+  ခေတ်မီ Frontend Development မှာ Component ဆိုတာ အခြေခံအကျဆုံး Unit ပါ။ React, Vue, Angular, Svelte စတဲ့ Framework အားလုံးဟာ ဒီ Concept ပေါ်မှာ အခြေခံထားပါတယ်။ ဒီသင်ခန်းစာမှာ Component ဆိုတာ ဘာလဲ၊ ဘာကြောင့် ဒီလောက် အရေးပါရတာလဲ ဆိုတာကို ရှင်းလင်းစွာ နားလည်သွားပါလိမ့်မယ်။
+</Aside>
+
+### Component ဆိုတာ ဘာလဲ?
+Component ဆိုတာ **"LEGO တုံးလေးများ"** နဲ့ တူပါတယ်။
+
+<ContentImage src={lego} alt='lego bricks' width='400' />
+
+LEGO ရဲတိုက်ကြီးတစ်ခု ဆောက်မယ်ဆိုပါစို့။ ရဲတိုက်ကြီးတစ်ခုလုံးကို ပလပ်စတစ်အကြီးကြီး တစ်တုံးတည်းနဲ့ ပုံလောင်းပြီး ထုတ်လုပ်လိုက်တာမျိုး မဟုတ်ပါဘူး။ အစားထိုးလို့ရတဲ့၊ နေရာရွှေ့လို့ရတဲ့၊ ပုံစံတူ ပြန်သုံးလို့ရတဲ့ အတုံးလေးတွေ (Bricks) နဲ့ စုစည်း တည်ဆောက်ထားတာပါ။
+
+Software မှာလည်း ဒီလိုပါပဲ။ Web Page တစ်ခုလုံးကို HTML file အရှည်ကြီး တစ်ခုတည်းနဲ့ ရေးမယ့်အစား၊ သေးငယ်တဲ့ အစိတ်အပိုင်းလေးတွေ (Components) အဖြစ် ခွဲထုတ်လိုက်ပါတယ်။
+- `Button` Component
+- `Navbar` Component
+- `ProductCard` Component
+
+ဒီ Component လေးတွေကို ပေါင်းစပ် (Compose) လိုက်တဲ့အခါ Web Page ကြီးတစ်ခု ဖြစ်လာပါတယ်။
+
+<ContentImage src={componentBased} alt='component based architecture' />
+
+### Component တစ်ခုရဲ့ အနှစ်သာရ (The Core Concept)
+Component တစ်ခုမှာ အဓိက အချက် (၃) ချက် ပါဝင်လေ့ ရှိပါတယ် (Encapsulation):
+
+1.  **Structure (HTML)**: သူ ဘယ်လို ပုံစံ ရှိမလဲ? (ဥပမာ - Button ဆိုရင် `<button>` tag ပါမယ်)
+2.  **Style (CSS)**: သူ ဘယ်လို အရောင်၊ ဘယ်လို ဒီဇိုင်း ရှိမလဲ? (ဥပမာ - အပြာရောင်၊ ထောင့်ကွေးကွေး)
+3.  **Behavior (JavaScript)**: သူ ဘာလုပ်နိုင်မလဲ? (ဥပမာ - နှိပ်လိုက်ရင် Form တင်မယ်)
+
+အရင်ခေတ်က HTML, CSS, JS ကို File ခွဲရေးကြပေမယ့်၊ Component ခေတ်မှာတော့ ဒီ ၃ ခုလုံးကို **"Component တစ်ခု"** အနေနဲ့ စုစည်းထားလိုက်ပါတယ်။ ဒါကြောင့် `Button` Component ကို ယူသုံးလိုက်တာနဲ့ သူ့ရဲ့ ဒီဇိုင်း၊ သူ့ရဲ့ အလုပ်လုပ်ပုံတွေပါ တပါတည်း ပါလာပါတယ်။
+
+### Monolithic vs Component-Based
+
+| အကြောင်းအရာ | Monolithic (Old Way) | Component-Based (Modern Way) |
+|---|---|---|
+| **ဖွဲ့စည်းပုံ** | Page တစ်ခုလုံးကို HTML file တစ်ခုတည်းမှာ ရေးတယ် | Page ကို Component အသေးလေးတွေနဲ့ ဖွဲ့စည်းတယ် |
+| **ပြုပြင်ခြင်း** | တစ်နေရာ ပြင်ရင် တခြားနေရာတွေပါ ထိခိုက်နိုင်တယ် | Component တစ်ခု ပြင်ရင် အဲ့ဒီ Component သုံးထားတဲ့ နေရာတိုင်း ပြောင်းသွားတယ် |
+| **ပြန်လည်အသုံးပြုမှု** | Copy-Paste လုပ်ရတယ် | `<Button />` ဆိုပြီး ခေါ်သုံးလိုက်ရုံပဲ |
+| **ပူးပေါင်းဆောင်ရွက်မှု** | File တစ်ခုတည်းမှာ လူတွေ ဝိုင်းရေးရလို့ ရှုပ်တယ် | တယောက်က Navbar ရေး၊ တယောက်က Sidebar ရေးလို့ ရတယ် |
+
+
+<Aside title='နိဂုံးချုပ်' type='tip'>
+Component-Based Architecture ဆိုတာ "Divide and Conquer" (ခွဲခြားပြီး အုပ်ချုပ်ခြင်း) ဗျူဟာပါပဲ။ ပြဿနာအကြီးကြီး (Web Page) ကို ပြဿနာအသေးလေးတွေ (Components) အဖြစ် ခွဲထုတ်ပြီး ဖြေရှင်းတဲ့ နည်းလမ်း ဖြစ်ပါတယ်။
+</Aside>
+
+

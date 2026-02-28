@@ -1,0 +1,57 @@
+import { p as createVNode, F as Fragment, az as __astro_tag_component__ } from './astro/server_Dso1QYyF.mjs';
+import 'clsx';
+
+const frontmatter = {
+  "title": "Vim Cheat Sheet မာတိကာ",
+  "description": "Vim Motions များအားလုံး အကျဉ်းချုပ် ပြန်လည်ကြည့်ရှုရန်"
+};
+function getHeadings() {
+  return [{
+    "depth": 3,
+    "slug": "အခြေခံ-သွားလာခြင်း-basic-navigation",
+    "text": "အခြေခံ သွားလာခြင်း (Basic Navigation)"
+  }, {
+    "depth": 3,
+    "slug": "အဆင့်မြင့်-သွားလာခြင်း--ရှာဖွေခြင်း-advanced--searching",
+    "text": "အဆင့်မြင့် သွားလာခြင်း / ရှာဖွေခြင်း (Advanced / Searching)"
+  }, {
+    "depth": 3,
+    "slug": "ပြင်ဆင်ခြင်း-operators-editing-operators",
+    "text": "ပြင်ဆင်ခြင်း Operators (Editing Operators)"
+  }, {
+    "depth": 3,
+    "slug": "vim--မှော်ဆန်သောတွဲဖက်မှုများ-text-objects--combos",
+    "text": "Vim ၏ မှော်ဆန်သောတွဲဖက်မှုများ (Text Objects & Combos)"
+  }];
+}
+function _createMdxContent(props) {
+  const {Fragment} = props.components || ({});
+  if (!Fragment) _missingMdxReference("Fragment");
+  return createVNode(Fragment, {
+    "set:html": "<p>သင်နေ့စဉ် Code ရေးတဲ့အခါ ဘေးမှာဖွင့်ထားပြီး ခဏခဏ ပြန်ကြည့်လို့ရမယ့် အသုံးအများဆုံး Vim Motions အကျဉ်းချုပ် ဖြစ်ပါတယ်။</p>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"အခြေခံ-သွားလာခြင်း-basic-navigation\">အခြေခံ သွားလာခြင်း (Basic Navigation)</h3><a class=\"sl-anchor-link\" href=\"#အခြေခံ-သွားလာခြင်း-basic-navigation\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “အခြေခံ သွားလာခြင်း (Basic Navigation)”</span></a></div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table><thead><tr><th align=\"center\">Command</th><th align=\"left\">လုပ်ဆောင်ချက် (Action)</th></tr></thead><tbody><tr><td align=\"center\"><code dir=\"auto\">h</code> <code dir=\"auto\">j</code> <code dir=\"auto\">k</code> <code dir=\"auto\">l</code></td><td align=\"left\">ဘယ်၊ အောက်၊ အပေါ်၊ ညာ (Left, Down, Up, Right)</td></tr><tr><td align=\"center\"><code dir=\"auto\">w</code></td><td align=\"left\">နောက်စကားလုံး၏ အစသို့</td></tr><tr><td align=\"center\"><code dir=\"auto\">b</code></td><td align=\"left\">ယခင်စကားလုံး၏ အစသို့</td></tr><tr><td align=\"center\"><code dir=\"auto\">e</code></td><td align=\"left\">လက်ရှိ/နောက်စကားလုံး၏ အဆုံးသို့</td></tr><tr><td align=\"center\"><code dir=\"auto\">0</code></td><td align=\"left\">စာကြောင်း၏ အစဆုံးသို့</td></tr><tr><td align=\"center\"><code dir=\"auto\">^</code></td><td align=\"left\">စာကြောင်း၏ ပထမဆုံးစာလုံးသို့ (Space များကျော်၍)</td></tr><tr><td align=\"center\"><code dir=\"auto\">$</code></td><td align=\"left\">စာကြောင်း၏ အဆုံးသို့</td></tr></tbody></table>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"အဆင့်မြင့်-သွားလာခြင်း--ရှာဖွေခြင်း-advanced--searching\">အဆင့်မြင့် သွားလာခြင်း / ရှာဖွေခြင်း (Advanced / Searching)</h3><a class=\"sl-anchor-link\" href=\"#အဆင့်မြင့်-သွားလာခြင်း--ရှာဖွေခြင်း-advanced--searching\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “အဆင့်မြင့် သွားလာခြင်း / ရှာဖွေခြင်း (Advanced / Searching)”</span></a></div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table><thead><tr><th align=\"center\">Command</th><th align=\"left\">လုပ်ဆောင်ချက် (Action)</th></tr></thead><tbody><tr><td align=\"center\"><code dir=\"auto\">gg</code></td><td align=\"left\">ဖိုင်၏ အပေါ်ဆုံးသို့ သွားရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">G</code></td><td align=\"left\">ဖိုင်၏ အောက်ဆုံး (နောက်ဆုံး) သို့ သွားရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">Ctrl + u</code></td><td align=\"left\">မျက်နှာပြင် တစ်ဝက် အပေါ်သို့ တက်ရန် (Up)</td></tr><tr><td align=\"center\"><code dir=\"auto\">Ctrl + d</code></td><td align=\"left\">မျက်နှာပြင် တစ်ဝက် အောက်သို့ ဆင်းရန် (Down)</td></tr><tr><td align=\"center\"><code dir=\"auto\">f[char]</code></td><td align=\"left\">စာကြောင်းအတွင်း ကိုယ်လိုချင်သော စာလုံးသို့ သွားရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">t[char]</code></td><td align=\"left\">ကိုယ်လိုချင်သော စာလုံး၏ အရှေ့တွင် ရပ်ရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">;</code></td><td align=\"left\"><code dir=\"auto\">f</code> သို့မဟုတ် <code dir=\"auto\">t</code> ဖြင့် ရှာထားသည်ကို ထပ်၍ ရှာရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">%</code></td><td align=\"left\">အဖွင့်/အပိတ် ကွင်းများ <code dir=\"auto\">{}</code>, <code dir=\"auto\">()</code> ရှာရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">/[text]</code></td><td align=\"left\">ဖိုင်တစ်ခုလုံးအတွင်း စာလုံးရှာရန် (<code dir=\"auto\">n</code> ဖြင့် နောက်တစ်ခုသို့ ဆက်သွားနိုင်သည်)</td></tr></tbody></table>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"ပြင်ဆင်ခြင်း-operators-editing-operators\">ပြင်ဆင်ခြင်း Operators (Editing Operators)</h3><a class=\"sl-anchor-link\" href=\"#ပြင်ဆင်ခြင်း-operators-editing-operators\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “ပြင်ဆင်ခြင်း Operators (Editing Operators)”</span></a></div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table><thead><tr><th align=\"center\">Command</th><th align=\"left\">လုပ်ဆောင်ချက် (Action)</th></tr></thead><tbody><tr><td align=\"center\"><code dir=\"auto\">d</code></td><td align=\"left\">ဖျက်ရန် (Delete / Cut)</td></tr><tr><td align=\"center\"><code dir=\"auto\">c</code></td><td align=\"left\">ဖျက်ပြီး အသစ်ပြင်ရန် (Change -> ချက်ချင်း Insert mode ဝင်သွားမည်)</td></tr><tr><td align=\"center\"><code dir=\"auto\">y</code></td><td align=\"left\">ကူးယူရန် (Yank / Copy)</td></tr><tr><td align=\"center\"><code dir=\"auto\">p</code></td><td align=\"left\">ပြန်ချရန် (Paste)</td></tr><tr><td align=\"center\"><code dir=\"auto\">x</code></td><td align=\"left\">စာတစ်လုံးတည်း ဖျက်ရန် (Delete character)</td></tr><tr><td align=\"center\"><code dir=\"auto\">u</code></td><td align=\"left\">Undo လုပ်ရန် (Ctrl + Z ကဲ့သို့)</td></tr><tr><td align=\"center\"><code dir=\"auto\">Ctrl + r</code></td><td align=\"left\">Redo လုပ်ရန်</td></tr></tbody></table>\n<div class=\"sl-heading-wrapper level-h3\"><h3 id=\"vim--မှော်ဆန်သောတွဲဖက်မှုများ-text-objects--combos\">Vim ၏ မှော်ဆန်သောတွဲဖက်မှုများ (Text Objects &#x26; Combos)</h3><a class=\"sl-anchor-link\" href=\"#vim--မှော်ဆန်သောတွဲဖက်မှုများ-text-objects--combos\"><span aria-hidden=\"true\" class=\"sl-anchor-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\"><path fill=\"currentcolor\" d=\"m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z\"></path></svg></span><span class=\"sr-only\">Section titled “Vim ၏ မှော်ဆန်သောတွဲဖက်မှုများ (Text Objects &#x26; Combos)”</span></a></div>\n<p><em>(အထက်ပါ <code dir=\"auto\">d</code>, <code dir=\"auto\">c</code>, <code dir=\"auto\">y</code> တို့နှင့် တွဲသုံးရမည်။ <code dir=\"auto\">i</code> = inner, <code dir=\"auto\">a</code> = around)</em></p>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table><thead><tr><th align=\"center\">Command</th><th align=\"left\">လုပ်ဆောင်ချက် (Action)</th></tr></thead><tbody><tr><td align=\"center\"><code dir=\"auto\">dd</code></td><td align=\"left\">စာတစ်ကြောင်းလုံး အပြည့် ဖျက်ရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">yy</code></td><td align=\"left\">စာတစ်ကြောင်းလုံး အပြည့် Copy ကူးရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">C</code> သို့ <code dir=\"auto\">c$</code></td><td align=\"left\">လက်ရှိနေရာမှ စာကြောင်းအဆုံးထိလွတ်ပြီး အသစ်ပြင်ရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">diw</code></td><td align=\"left\">စကားလုံးတစ်လုံးလုံးကို လှလှပပ ဖျက်ရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">ci\"</code></td><td align=\"left\"><code dir=\"auto\">\"\"</code> ထဲရှိ စာများကို ဖျက်ပြီး အသစ်ပြင်ရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">ya{</code></td><td align=\"left\"><code dir=\"auto\">{}</code> အပိတ်အဖွင့် အတွင်းရောအပြင်ပါ အားလုံး Copy ကူးရန်</td></tr><tr><td align=\"center\"><code dir=\"auto\">cap</code></td><td align=\"left\">စာပိုဒ် (Paragraph) တစ်ခုလုံး ဖျက်ပြီး အသစ်ပြန်စီရန်</td></tr></tbody></table>\n<hr>\n<p><strong>Tip:</strong> <em>အစပိုင်းမှာ Mouse ကို လုံးဝဖြုတ်ထားပြီး <code dir=\"auto\">hjkl</code> ကိုပဲ တမင်ရွေးသုံးပါ။ တစ်ပတ်လောက် နေရင် မင်းလက်ချောင်းတွေက Mouse ကနေ ပြန်ခွာချင်တော့မှာ မဟုတ်ပါဘူး!</em></p>"
+  });
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? createVNode(MDXLayout, {
+    ...props,
+    children: createVNode(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}
+function _missingMdxReference(id, component) {
+  throw new Error("Expected " + ("component" ) + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");
+}
+const url = "src/content/docs/vim-motions/summary/cheatsheet.mdx";
+const file = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/vim-motions/summary/cheatsheet.mdx";
+const Content = (props = {}) => MDXContent({
+  ...props,
+  components: { Fragment: Fragment, ...props.components, },
+});
+Content[Symbol.for('mdx-component')] = true;
+Content[Symbol.for('astro.needsHeadRendering')] = !Boolean(frontmatter.layout);
+Content.moduleId = "/Users/waiyanphyoaung/code/waiyanphyoaung/src/content/docs/vim-motions/summary/cheatsheet.mdx";
+__astro_tag_component__(Content, 'astro:jsx');
+
+export { Content, Content as default, file, frontmatter, getHeadings, url };

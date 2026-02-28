@@ -1,0 +1,50 @@
+---
+title: "အားသာချက် အားနည်းချက်များ"
+description: "အားသာချက် အားနည်းချက်များ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro"
+import studio from "@/assets/frontend-architecture/studio.jpeg"
+
+<Aside title="Studio Apartment vs Mansion">
+Monolith ကို **"Studio Apartment (အခန်းကျဉ်း)"** နဲ့ နှိုင်းယှဉ်နိုင်ပြီး၊ Micro-Frontend ကို **"Mansion (အိမ်ကြီး)"** နဲ့ နှိုင်းယှဉ်နိုင်ပါတယ်။
+</Aside>
+
+<ContentImage src={studio} alt='studio apartment' width='400' />
+
+### အားသာချက်များ (Studio Apartment ၏ ကောင်းကွက်များ)
+
+1.  **Simple Deployment (ပြောင်းရွှေ့ရ လွယ်ကူခြင်း):**
+    Studio ခန်း ပြောင်းရင် ပစ္စည်းသယ်ရတာ လွယ်တယ်။ သေတ္တာတစ်လုံးတည်းနဲ့ ပြီးတယ်။
+    (Code ကို Build လုပ်၊ Server ပေါ်တင်၊ ပြီးပြီ။ ဘာမှ ရှုပ်ရှုပ်ထွေးထွေး မရှိဘူး)။
+
+2.  **Development Speed (အလုပ်တွင်ခြင်း):**
+    ရေသောက်ချင်ရင် မီးဖိုချောင်ကို လှမ်းယူလိုက်ရုံပဲ။ အိပ်ချင်ရင် ကုတင်ပေါ် လှဲလိုက်ရုံပဲ။
+    (Code တွေ၊ Component တွေ Share ရတာ အရမ်းလွယ်တယ်။ Refactor လုပ်ရတာ မြန်တယ်)။
+
+3.  **Performance (စရိတ်သက်သာခြင်း):**
+    မီးဖိုး၊ ရေဖိုး သက်သာတယ်။
+    (Browser က File တစ်ခုတည်း Load လုပ်ရလို့ မြန်တယ်။ Caching လုပ်ရတာ ထိရောက်တယ်)။
+
+4.  **Testing (စစ်ဆေးရ လွယ်ကူခြင်း):**
+    အခန်းထဲမှာ ကြွက်ရှိလား ရှာချင်ရင် တစ်ခန်းလုံး ချက်ချင်း တွေ့နိုင်တယ်။
+    (End-to-End Testing လုပ်တဲ့အခါ App တစ်ခုလုံးကို တစ်ခါတည်း စစ်လို့ရတယ်)။
+
+### အားနည်းချက်များ (Studio Apartment ၏ ဆိုးကွက်များ)
+
+1.  **All-or-Nothing Deployment (တခါပြင် တခါတင်):**
+    မီးလုံးတစ်လုံး လဲချင်ရင်တောင် တစ်ခန်းလုံး မီးပိတ်ရသလိုမျိုး ဖြစ်နိုင်တယ်။
+    (စာလုံးတစ်လုံး ပြင်ချင်ရင်တောင် App တစ်ခုလုံးကို ပြန် Build လုပ်ရတယ်)။
+
+2.  **Scaling Issues (လူများလာရင် ကျပ်လာခြင်း):**
+    လူ ၁၀ ယောက်လောက် Studio ခန်းထဲ လာနေရင် ကြပ်ပြီး ရန်ဖြစ်ကုန်မယ်။
+    (Developer ၅၀၊ ၁၀၀ လောက် Codebase တစ်ခုတည်းမှာ ဝိုင်းရေးရင် Merge Conflict တွေ ဖြစ်မယ်)။
+
+3.  **Technology Lock-in (ပြင်ဆင်ရ ခက်ခဲခြင်း):**
+    အခန်းဖွဲ့စည်းပုံကို ပြောင်းချင်ရင် တစ်ခန်းလုံး ဖြိုရမယ်။
+    (React နဲ့ ရေးထားရင် Vue နဲ့ ရောရေးလို့ မရဘူး။ Framework တစ်ခုတည်းအပေါ်မှာပဲ မှီခိုနေရတယ်)။
+
+4.  **Single Point of Failure (တစ်ခုပျက် အကုန်ပျက်):**
+    ရေပိုက်ပေါက်ရင် တစ်ခန်းလုံး ရေကြီးမယ်။
+    (Build process မှာ Error တစ်ခုတက်ရင် App တစ်ခုလုံး Deploy လုပ်လို့ မရတော့ဘူး)။

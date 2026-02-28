@@ -1,0 +1,53 @@
+---
+title: "Images နှင့် Containers"
+description: "Docker ၏ အရေးအပါဆုံး Core Concepts နှစ်ခုကို နားလည်ခြင်း"
+---
+
+Docker ကို စသုံးတဲ့အခါ အမြဲတမ်း တွေ့ရမယ့် စကားလုံး နှစ်လုံးက **Image** နဲ့ **Container** ဖြစ်ပါတယ်။ ဒါကို သေသေချာချာ ကွဲပြားဖို့ လိုအပ်ပါတယ်။
+
+### 1. Docker Image (ပုံစံကြမ်း / Blueprint)
+Image ဆိုတာ Application တစ်ခုအလုပ်လုပ်ဖို့ လိုအပ်တဲ့ Code တွေ၊ Libraries တွေနဲ့ Settings တွေ အားလုံးကို Read-only (ဖတ်လို့ပဲရတဲ့) ပုံစံနဲ့ သိမ်းဆည်းထားတဲ့ **"ပုံစံခွက်"** (Template / Blueprint) ပါပဲ။
+
+* ဥပမာ - ကိတ်မုန့် ဖုတ်တဲ့နေရာမှာုံးတဲ့ "ကိတ်မုန့်ပုံစံခွက်" ကြီးနဲ့ တူပါတယ်။
+* ကိုယ်တိုင် Image တွေကို ဖန်တီးလို့ရသလို၊ သူများပြလုပ်ထားပြီးသား (ဥပမာ- MySQL, Node.js, Nginx) Image တွေကို **Docker Hub** ဆိုတဲ့ နေရာကနေ အလွယ်တကူ Download (Pull) ဆွဲယူလို့ရပါတယ်။
+
+### 2. Docker Container (လက်တွေ့ အလုပ်လုပ်နေသော အရာ)
+Container ဆိုတာ Image ကို ယူပြီးတော့ လက်တွေ့ အလုပ်လုပ်ဖို့ (Run ဖို့) ဖန်တီးလိုက်တဲ့ **"တကယ့် အရာဝတ္ထု"** ဖြစ်ပါတယ်။ 
+
+* ဥပမာ - အပေါ်က ကိတ်မုန့်ပုံစံခွက် (Image) ထဲကနေ ထွက်လာတဲ့ စားလို့ရတဲ့ "တကယ့် ကိတ်မုန့်" တွေပါ။
+* Image တစ်ခုတည်းကနေ Container သောင်းခြောက်ထောင် ထုတ်ပြီး Run လို့ရပါတယ်။ (ဥပမာ - Node.js Image တစ်ခုကိုသုံးပြီး Backend Server (၃) ခုခွဲ Run တာမျိုး)
+
+### အသုံးများသော Docker Command များ (Image & Container)
+
+**Images များနှင့် ပတ်သက်၍:**
+```bash
+# Docker Hub မှ Image တစ်ခုကို ဆွဲယူရန် (ဥပမာ - nginx)
+docker pull nginx
+
+# မိမိစက်တွင် ဆွဲယူထားသော Image စာရင်းများကို ကြည့်ရန်
+docker images
+
+# Image ကို ဖျက်ရန်
+docker rmi nginx
+```
+
+**Containers များနှင့် ပတ်သက်၍:**
+```bash
+# Image ကို အသုံးပြု၍ Container အသစ်တစ်ခု Run ရန်
+# (-d = background တွင် run မည်, -p 8080:80 = မိမိစက် 8080 ကို container ၏ 80 သို့ ချိတ်ဆက်မည်)
+docker run -d -p 8080:80 --name my-website nginx
+
+# လက်ရှိ Run နေသော Container စာရင်းများကို ကြည့်ရန်
+docker ps
+
+# ရပ်ထားသော Container များပါမကျန် အကုန်ကြည့်ရန်
+docker ps -a
+
+# Run နေသော Container တစ်ခုကို ရပ်ရန် (Stop)
+docker stop my-website
+
+# ရပ်ထားသော Container ကို အပြီးတိုင် ဖျက်ရန် (Remove)
+docker rm my-website
+```
+
+ဒီ Commands လေးတွေ သိထားပြီဆိုရင် အခုချက်ချင်း သင့်စက်ထဲမှာ ဘာ software မှ install လုပ်စရာမလိုဘဲ Docker ကနေတစ်ဆင့် Database တွေ (ဥပမာ MySQL, Postgres) ကို စက္ကန့်ပိုင်းအတွင်း ဆွဲတင်ပြီး အသုံးပြုလို့ ရနေပါပြီ။

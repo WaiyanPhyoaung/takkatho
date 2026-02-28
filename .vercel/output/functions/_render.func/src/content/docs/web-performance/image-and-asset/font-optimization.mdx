@@ -1,0 +1,83 @@
+---
+title: "Font Optimization"
+description: "Font Optimization"
+---
+
+import { Aside, Code } from "@astrojs/starlight/components";
+export const sourceTags = `
+<video controls width="640" height="360">
+  <source src="movie.webm" type="video/webm">
+  <source src="movie.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+`;
+export const sizes = `
+<img src="small.jpg"
+     srcset="medium.jpg 1000w, large.jpg 2000w"
+     sizes="(max-width: 600px) 100vw, 50vw"
+     alt="A descriptive alt text.">
+`
+export const picture = `
+<picture>
+  <source srcset="image.webp" type="image/webp">
+  <source srcset="image.jpg" type="image/jpeg">
+  <img src="image.jpg" alt="A descriptive alt text.">
+</picture>
+`
+
+<Aside title="ရည်ရွယ်ချက်">
+LCP, CLS နဲ့ rendering speed ကို  မထိခိုက်စေဘဲ web fonts တွေကို ဘယ်လို optimize လုပ်ရမလဲဆိုတာ လေ့လာရပါမယ်။
+</Aside>
+
+### Web Fonts တွေကြောင့် ဖြစ်တတ်တဲ့ ပြဿနာများ
+ကိုယ်ပိုင် Web fonts တွေက website ရဲ့ ဒီဇိုင်းကို ပိုကောင်းစေပေမဲ့၊ ကောင်းကောင်း မကိုင်တွယ်တတ်ရင် အောက်ပါ ပြဿနာတွေ ဖြစ်စေနိုင်ပါတယ်။
+
+- **စာသား မမြင်ရဘဲ ခဏတာ ပျောက်နေခြင်း(FOIT):** font load မလုပ်မချင်း စာလုံးတွေ ပျောက်နေတာမျိုး။
+- **စာလုံးပုံစံပြောင်းပြီးမှ ပေါ်လာတာ (FOUT):** စာလုံးတွေက fallback font နဲ့ အရင်ပေါ်လာပြီးမှ တကယ်သုံးတဲ့ font နဲ့ ပြောင်းသွားတာမျိုး။ ဒါက ရုတ်တရက် ပြောင်းလဲသွားလို့ ကြည့်ရတာ အဆင်မပြေနိုင်ပါဘူး။
+
+- **LCP ကိုပိုကြာစေတာ:** font တွေ load ပြီးတာကို စောင့်နေရရင် website ပေါ်လာတာ နှေးစေနိုင်ပါတယ်။
+- **CLS ဖြစ်စေတာ:** font ပြောင်းလဲမှုကြောင့် website ရဲ့ Content များ သိသိသာသာ ရွေ့သွားတာမျိုး။
+
+### Fonts တွေကို Optimize လုပ်ဖို့ နည်းလမ်းများ
+- #### ခေတ်မီ **Font Formats** တွေကို သုံးပါ။
+     - **WOFF2** က fonts တွေကို အကောင်းဆုံး ချုံ့ပေးနိုင်ပြီး အခုခေတ် browser အများစုကလည်း ပံ့ပိုးပါတယ်။ ဒါကိုပဲ အဓိကထား သုံးသင့်ပါတယ်။
+     - လိုအပ်ရင် old browser တွေအတွက် WOFF ကို fallback အဖြစ် အစားထိုး ထည့်ပေးထားနိုင်ပါတယ်။
+
+- #### `font-display` နဲ့ fonts ပေါ်လာပုံကို ထိန်းချုပ်ပါ။
+     - `font-display` က fonts တွေကို ဘယ်အချိန် ဘယ်လို ပြရမယ်ဆိုတာ ပြောပြပါတယ်။
+     - `auto`: Browser က သူ့ဘာသူ font ကို load လုပ်ပါတယ်။ browser တစ်ခုနဲ့ တစ်ခု နည်းနည်း ကွာနိုင်ပေမဲ့၊ များသောအားဖြင့် block လိုပဲ အလုပ်လုပ်ပါတယ်။
+     - `block`: စာလုံးတွေကို မပေါ်စေဘဲ block ဖြစ်နေစေပြီး (3 seconds) လောက်နေမှ တကယ်သုံးထားတဲ့ font ကို ပြောင်းပါတယ်။ FOIT ဖြစ်စေနိုင်ပါတယ်။
+     - `swap`: default system font ကို ချက်ချင်းပြသထားပြီး မှ တကယ်သုံးထားတဲ့ font load လုပ်ပြီးတဲ့အချိန်ကျ ပြောင်းပေးပါတယ်။ Contents တွေ ချက်ချင်းမြင်ရတယ်ဆိုပေမယ့် fonts နှစ်ခု size တွေကွာရင် CLS ဖြစ်စေနိုင်ပါတယ်။
+     - `fallback`: တကယ်သုံးထားတဲ့ font load လုပ်တာကို အချိန်ခဏ စောင့်ပါတယ်။ အဲ့ဒီ အချိန်အတွင်း အဆင်သင့် မဖြစ်သေးရင် fallback font ကိုပဲ သုံးပါတယ်။
+     - `optional`: font ချက်ချင်း အဆင်သင့် မဖြစ်ရင် fallback font ကိုပဲ သုံးပါတယ်။ 
+
+> အကြံပြုချက်: `font-display: swap;` ကို သုံးသင့်ပါတယ်။ ဒါက စာလုံးကို မြန်မြန် ပေါ်စေပြီး စိတ်ကြိုက်ဖောင့်နဲ့ ပြောင်းတာကို balance ဖြစ်စေပါတယ်။ ဒါပေမဲ့ CLS အပေါ် ဘယ်လို သက်ရောက်လဲဆိုတာ စစ်ဆေးသင့်ပါတယ်။
+
+### Self-Hosting vs Third-Party Font Services (e.g., Google Fonts):
+     - **Self-Hosting:** font files တွေကို download လုပ်ပြီး ကိုယ့် server ကနေ တင်တာ။
+          - **pros:** Cache ကို အပြည့်အဝ ထိန်းချုပ်နိုင်တယ်။ တခြားဝန်ဆောင်မှုတွေပေါ် မမှီခိုရဘူး။
+          - **cons:** ကိုယ်တိုင် setup နဲ့ configure လုပ်ရတာတွေ ရှိတယ်။
+
+     - **Third-Party Services:** Google Fonts လို ဝန်ဆောင်မှုတွေက ပေးတဲ့ CSS ဖိုင်တွေကို website မှာ ချိတ်ဆက်တာ။
+          - **pros:** လုပ်ရလွယ်ကူတယ်။ သုံးစွဲသူတွေရဲ့ browser တွေမှာ ဖောင့်တွေ ရှိပြီးသား ဖြစ်တတ်တယ်။ optimized ဖြစ်အောင် လုပ်ထားပေးတယ်။
+          - **cons:** တခြား service တစ်ခုကို ထပ်ခေါ်ရတာ၊ တစ်ခါတစ်လေ privacy ကိစ္စတွေ စဉ်းစားရနိုင်တယ်။
+          (Google Fonts ကို သုံးရင် font-display (ဥပမာ- &display=swap ကို URL မှာ ထည့်တာ) ကို သေချာ ထည့်ပေးပါ။)
+
+### font ကို လိုအပ်သလောက်ပဲ သုံးပါ (Subsetting Fonts)။
+- font file တစ်ခုလုံးကနေ တကယ်လိုအပ်တဲ့ စာလုံးတွေကိုပဲ ထည့်သွင်းပါ။ ဒါက ဖိုင်အရွယ်အစားကို အများကြီး လျှော့ချနိုင်ပါတယ်။ အထူးသဖြင့် စာလုံးအများကြီးပါတဲ့ ဘာသာစကားတွေ (ဥပမာ- တရုတ်၊ ဂျပန်၊ ကိုရီးယား) နဲ့ icon fonts တွေအတွက် အရေးကြီးပါတယ်။
+- glyphhanger လို tools တွေက ကူညီနိုင်ပါတယ်။
+
+### အရေးကြီးတဲ့ fonts တွေကို preload လုပ််ပါ။
+- Website ရဲ့ အစောပိုင်း content (ဥပမာ- အပေါ်ဆုံး စာသား) တွေမှာ သုံးထားတဲ့ အဓိက font ဆိုရင် `<link rel="preload">` ကို သုံးပြီး browser ကို ပိုမြန်မြန် download လုပ်ဖို့ ပြောနိုင်ပါတယ်။
+- ဥပမာ: `<link rel="preload" href="/fonts/myfont.woff2" as="font" type="font/woff2" crossorigin>`
+- သတိထားပါ။ အရမ်းအများကြီး preload လုပ်ရင် တခြားအရေးကြီးတဲ့ အရာတွေကို နှေးစေနိုင်ပါတယ်။
+
+### Font Weights အရမ်းများတာကို ရှောင်ပါ။
+- Font ရဲ့ ပုံစံတစ်ခုချင်းစီ (ဥပမာ- normal, bold, italic) ဟာ သီးခြား ဖိုင်တစ်ခုစီ ဖြစ်ပါတယ်။ ဒါကြောင့် တကယ်သုံးတဲ့ font file ကိုပဲ တင်ပါ။
+
+<Aside title='အနှစ်ချုပ်'>
+- Images တွေ၊ ဗီဒီယိုတွေနဲ့ fonts တွေလို website အစိတ်အပိုင်းတွေကို ကောင်းအောင် လုပ်ဆောင်တာဟာ website performance အတွက် အရမ်း အရေးကြီးပါတယ်။
+- ပုံတွေအတွက်၊ မှန်ကန်တဲ့ Format ကို ရွေးချယ်ပါ (WebP/AVIF က ကောင်းပါတယ်)၊ compress လုပ်ပါ၊ screen size နဲ့ ကိုက်ညီအောင် ပြင်ပါ (srcset, `<picture>`)၊ ပြီးတော့ viewport မှာ မမြင်ရသေးတဲ့ ပုံတွေကို lazy load လုပ်ပါ။
+- ဗီဒီယိုတွေအတွက်၊ ထိရောက်တဲ့ Format တွေ သုံးပါ၊ compress လုပ်ပါ၊ preview ပုံတွေ ထည့်ပါ၊ lazy load လုပ်ပါ၊ ပြီးတော့ ဗီဒီယိုရှည်တွေအတွက် internet မြန်နှုန်းပေါ်မူတည်ပြီး အရည်အသွေးပြောင်းတဲ့စနစ် (adaptive streaming) ကို သုံးပါ။
+- fonts တွေအတွက်၊ WOFF2 ကို သုံးပါ၊ font-display နဲ့ fonts ပေါ်လာပုံကို ထိန်းချုပ်ပါ၊ လိုအပ်သလောက်ပဲ font ကိုပဲ load လုပ်ပါ၊ ပြီးတော့ အရေးကြီးတဲ့ fonts တွေကိုသာ preload လုပ်ပါ။ font variants (weights & styles) တွေကိုလဲ သတိထားပါ။
+</Aside>
