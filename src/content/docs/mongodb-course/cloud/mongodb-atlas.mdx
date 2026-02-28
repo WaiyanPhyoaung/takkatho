@@ -1,0 +1,45 @@
+---
+title: "MongoDB Atlas အသုံးပြုခြင်း"
+description: "Cloud ပေါ်တွင် Database ဖန်တီးခြင်းနှင့် Project နှင့် ချိတ်ဆက်ခြင်း"
+---
+
+အရင်က Database တွေကို ကိုယ့်စက် (သို့) Server ထဲမှာ ပင်ပန်းတကြီး Install လုပ်ပြီး ထိန်းသိမ်းရပါတယ်။ အခုခေတ်မှာတော့ အရာအားလုံး Cloud ကို ရောက်နေပါပြီ။
+
+**MongoDB Atlas** ဆိုတာ MongoDB ကုမ္ပဏီကိုယ်တိုင် Service ပေးထားတဲ့ Fully-Managed Cloud Database ဖြစ်ပါတယ်။
+စက်ထဲမှာ ဘာမှ Install ခေါင်းစားခံစရာမလိုဘဲ၊ အင်တာနက်ကနေ Database ကြီးကို အလွယ်တကူ စီမံလို့ရပါတယ်။
+
+## Atlas အကောင့်ဖွင့်ခြင်း အဆင့်ဆင့်
+
+1. [mongodb.com/atlas](https://www.mongodb.com/cloud/atlas) သို့ သွားပြီး Sign Up လုပ်ပါ။
+2. **"Create a Cluster"** ဆိုတာကို နှိပ်ပါ။ စမ်းသပ်ဖို့ဖြစ်လို့ အခမဲ့ရတဲ့ **"M0 Free Tier"** ကို ရွေးပါ။
+3. Database အတွက် Username နဲ့ Password ပေးပါ။ (ဒါလေး မှတ်ထားဖို့ အရေးကြီးပါတယ်။)
+4. Network Access မှာ `0.0.0.0/0` (ဘယ်နေရာကမဆို ချိတ်ဆက်ခွင့်ပြုမည်) ဆိုတာကို ရွေးပေးပါ။
+5. "Connect" ကို နှိပ်ပြီး **"Connect your application"** ကို ရွေးရင် Connection String (URI) တစ်ခု ရလာပါလိမ့်မယ်။
+
+ပုံစံက အောက်ပါအတိုင်း ဖြစ်ပါမယ်:
+`mongodb+srv://<username>:<password>@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+
+`username` နဲ့ `password` နေရာမှာ ကိုယ်ပေးခဲ့တဲ့ စာသားတွေ အစားထိုး ထည့်ပေးရပါမယ်။
+
+---
+
+## Node.js နဲ့ ချိတ်ဆက်ခြင်း
+
+Mongoose ဆိုတဲ့ Library ဟာ Node.js ကနေ MongoDB ကို ချိတ်ဆက်ဖို့ အကောင်းဆုံး ကျောထောက်နောက်ခံဖြစ်ပါတယ်။
+
+```javascript
+import mongoose from 'mongoose';
+
+// Atlas က ရလာတဲ့ URI စာသား
+const uri = "mongodb+srv://myuser:mypassword@cluster0.abcde.mongodb.net/testdb";
+
+mongoose.connect(uri)
+  .then(() => {
+    console.log("🔥 MongoDB သို့ အောင်မြင်စွာ ချိတ်ဆက်ပြီးပါပြီ!");
+  })
+  .catch((err) => {
+    console.log("❌ ချိတ်ဆက်မှု ကျရှုံးပါသည်: ", err);
+  });
+```
+
+ဒီနေ့ခေတ် Modern Web App အများစု (Next.js, Express.js အစရှိသည်) က ဒီနည်းလမ်းနဲ့ပဲ Data တွေကို အလွယ်တကူ သိမ်းဆည်းကြပါတယ်။ ဒါဆိုရင်တော့ MongoDB ကို ကောင်းကောင်း အသုံးချတတ်ပြီ ဖြစ်ပါတယ်။

@@ -550,6 +550,123 @@ export default defineConfig({
       routeMiddleware: "./src/routeMiddleware.ts",
       sidebar: [
         {
+          label: "SQL အခြေခံ",
+          items: [
+            {
+              label: "1. မိတ်ဆက်",
+              items: [
+                {
+                  label: "SQL ဆိုတာ ဘာလဲ?",
+                  slug: "sql-course/introduction/what-is-sql",
+                },
+              ],
+            },
+            {
+              label: "2. အခြေခံ Queries",
+              items: [
+                {
+                  label: "SELECT နဲ့ FROM",
+                  slug: "sql-course/basic-queries/select-from",
+                },
+                {
+                  label: "WHERE (စည်းကမ်းချက်)",
+                  slug: "sql-course/basic-queries/where-clause",
+                },
+                {
+                  label: "ORDER BY နဲ့ LIMIT",
+                  slug: "sql-course/basic-queries/order-limit",
+                },
+              ],
+            },
+            {
+              label: "3. ဒေတာပြင်ဆင်ခြင်း (CRUD)",
+              items: [
+                {
+                  label: "INSERT, UPDATE, DELETE",
+                  slug: "sql-course/crud/insert-update-delete",
+                },
+              ],
+            },
+            {
+              label: "4. တွက်ချက်ခြင်းများ",
+              items: [
+                {
+                  label: "Aggregations & GROUP BY",
+                  slug: "sql-course/aggregations/group-by",
+                },
+              ],
+            },
+            {
+              label: "5. ဇယားများ ချိတ်ဆက်ခြင်း",
+              items: [
+                {
+                  label: "Understanding JOINs",
+                  slug: "sql-course/joins/understanding-joins",
+                },
+              ],
+            },
+            {
+              label: "6. ဇယားများ ဖန်တီးခြင်း",
+              items: [
+                {
+                  label: "CREATE, ALTER, DROP",
+                  slug: "sql-course/table-operations/create-alter-drop",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "MongoDB အခြေခံ",
+          items: [
+            {
+              label: "1. မိတ်ဆက်",
+              items: [
+                {
+                  label: "MongoDB ဆိုတာ ဘာလဲ?",
+                  slug: "mongodb-course/introduction/what-is-mongodb",
+                },
+              ],
+            },
+            {
+              label: "2. အခြေခံသဘောတရားများ",
+              items: [
+                {
+                  label: "Collections နဲ့ Documents",
+                  slug: "mongodb-course/basics/collections-documents",
+                },
+              ],
+            },
+            {
+              label: "3. ဒေတာစီမံခန့်ခွဲခြင်း (CRUD)",
+              items: [
+                {
+                  label: "Insert, Find, Update, Delete",
+                  slug: "mongodb-course/crud/insert-find-update-delete",
+                },
+              ],
+            },
+            {
+              label: "4. အဆင့်မြင့် လုပ်ဆောင်ချက်များ",
+              items: [
+                {
+                  label: "Indexing နဲ့ Aggregation",
+                  slug: "mongodb-course/advanced/indexing-aggregation",
+                },
+              ],
+            },
+            {
+              label: "5. Cloud နှင့် လက်တွေ့အသုံးချခြင်း",
+              items: [
+                {
+                  label: "MongoDB Atlas",
+                  slug: "mongodb-course/cloud/mongodb-atlas",
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "AI Proficiency",
           items: [
             {

@@ -1,0 +1,69 @@
+---
+title: "CRUD လုပ်ဆောင်ချက်များ"
+description: "ဒေတာ ထည့်ခြင်း၊ ရှာဖွေခြင်း၊ ပြင်ဆင်ခြင်း၊ ဖျက်ခြင်း"
+---
+
+ဒေတာဘေ့စ်တစ်ခုမှာ အမြဲတမ်း လုပ်ရတဲ့ အလုပ် ၄ ခု (CRUD - Create, Read, Update, Delete) ကို MongoDB မှာ ဘယ်လို လုပ်လဲ ကြည့်ရအောင်။
+
+ဒီနေရာမှာ `users` ဆိုတဲ့ Collection ကို အသုံးပြုသွားပါမယ်။
+
+## 1. Create (ဒေတာ အသစ်ထည့်ခြင်း)
+
+ဒေတာ "တစ်ခုတည်း" ထည့်ချင်ရင် `insertOne` သုံးပြီး၊ "အများကြီး" တစ်ခါတည်း ထည့်ချင်ရင် `insertMany` ကို သုံးပါတယ်။
+
+```javascript
+// တစ်ခုတည်း ထည့်ခြင်း
+db.users.insertOne({
+  name: "Su Su",
+  age: 22,
+  city: "Yangon"
+});
+
+// အများကြီး တစ်ခါတည်း ထည့်ခြင်း
+db.users.insertMany([
+  { name: "Aung Aung", age: 25 },
+  { name: "Nyi Nyi", age: 20, city: "Mandalay" }
+]);
+```
+
+## 2. Read (ဒေတာ ရှာဖွေခြင်း)
+
+အားလုံးကို ပြန်ဆွဲထုတ်ဖို့ သို့မဟုတ် သတ်မှတ်ချက်နဲ့ ရှာဖို့ `find` နဲ့ `findOne` ကို သုံးပါတယ်။
+
+```javascript
+// အကုန်ထုတ်ကြည့်မယ်
+db.users.find();
+
+// မြို့က "Yangon" ဖြစ်တဲ့သူတွေကိုပဲ ရှာမယ်
+db.users.find({ city: "Yangon" });
+
+// အသက် ၂၀ ထက် ကြီးတဲ့သူတွေကို ရှာမယ် ($gt = greater than)
+db.users.find({ age: { $gt: 20 } });
+
+// ထိပ်ဆုံးက တစ်ယောက်ကိုပဲ လိုချင်ရင်
+db.users.findOne({ name: "Su Su" });
+```
+
+## 3. Update (ဒေတာ ပြင်ဆင်ခြင်း)
+
+ရေးခဲ့တဲ့ ဒေတာတွေကို အသစ်ပြန်ပြင်မယ်။ `updateOne` နဲ့ `updateMany` ပါ။
+
+```javascript
+// နာမည် "Su Su" ကိုရှာပြီး အသက် ၂၃ လို့ ပြင်မယ် ($set ကို မဖြစ်မနေ သုံးရပါတယ်)
+db.users.updateOne(
+  { name: "Su Su" }, // ဘယ်သူ့ကို ရှာမှာလဲ
+  { $set: { age: 23 } } // ဘာသွားပြင်မှာလဲ
+);
+```
+
+## 4. Delete (ဒေတာ ဖျက်ခြင်း)
+
+မလိုတော့တဲ့ ဒေတာတွေကို ဖယ်ရှားမယ်ဆိုရင် `deleteOne` နဲ့ `deleteMany` ကို သုံးပါတယ်။
+
+```javascript
+// နာမည် "Nyi Nyi" ကို ဖျက်မယ်
+db.users.deleteOne({ name: "Nyi Nyi" });
+
+// အသက် ၁၈ အောက် လူတွေအကုန် ဖျက်မယ် ($lt = less than)
+db.users.deleteMany({ age: { $lt: 18 } });
+```

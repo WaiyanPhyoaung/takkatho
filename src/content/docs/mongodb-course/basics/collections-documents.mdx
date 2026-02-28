@@ -1,0 +1,41 @@
+---
+title: "Collections နှင့် Documents"
+description: "MongoDB ၏ အခြေခံ ဖွဲ့စည်းပုံ"
+---
+
+MongoDB ကို စသုံးတော့မယ်ဆိုရင် အဓိက မှတ်ထားရမယ့် စကားလုံး နှစ်လုံးရှိပါတယ်။ **Collection** နဲ့ **Document** ပါ။
+
+SQL နဲ့ နှိုင်းယှဉ်ကြည့်ရင် ပိုရှင်းသွားပါလိမ့်မယ်။
+
+| SQL (Relational Database) | MongoDB (NoSQL) | ရှင်းလင်းချက် |
+| :--- | :--- | :--- |
+| Database | Database | ဒေတာတွေပေါင်းစုထားရာ နေရာအကြီး |
+| **Table** (ဇယား) | **Collection** | တစ်မျိုးတည်းသော ဒေတာတွေကို စုထားတဲ့ အုပ်စု |
+| **Row** (အကြောင်းအရာ) | **Document** | ဒေတာ တစ်ခုချင်းစီ (ဥပမာ- User တစ်ယောက်) |
+| **Column** (ခေါင်းစဉ်) | **Field** | ဒေတာရဲ့ အသေးစိတ် (ဥပမာ- အမည်၊ အသက်) |
+
+## Document ဆိုတာ ဘာလဲ?
+
+Document ဆိုတာ JSON ပုံစံ စာသားလေးတစ်ခုပါပဲ။ MongoDB က လက်တွေ့မှာတော့ Data ကို ပိုမြန်အောင် BSON (Binary JSON) ဖော်မတ်နဲ့ သိမ်းပါတယ်။ ဒါပေမယ့် ကျွန်တော်တို့ မြင်ရတာကတော့ JSON ပါပဲ။
+
+ဥပမာ `Product` Document တစ်ခု:
+```json
+{
+  "_id": "64b1f...1a2b",
+  "productName": "iPhone 15",
+  "price": 1000,
+  "inStock": true
+}
+```
+
+> 💡 **မှတ်ချက်:** `_id` ဆိုတာ MongoDB က Data တစ်ခုထည့်တိုင်း သူ့ဟာသူ ဖန်တီးပေးတဲ့ သီးသန့် နံပါတ် (Unique ID) ပါ။ SQL မှာလို Auto Increment သုံးစရာ မလိုပါဘူး။
+
+## Collection ဆိုတာ ဘာလဲ?
+
+Collection ဆိုတာ အပေါ်က Document လေးတွေ အများကြီး စုထားတဲ့ "ဖိုင်တွဲ" ကြီးပါ။
+
+- `Users` Collection ထဲမှာ User Documents တွေ ရှိမယ်။
+- `Posts` Collection ထဲမှာ Post Documents တွေ ရှိမယ်။
+
+**အားသာချက်:** Collection တစ်ခုထဲက Document တွေဟာ ပုံစံတူစရာ မလိုပါဘူး။ 
+User A မှာ အသက် (age) ပါပြီး၊ User B မှာ အသက် မပါလို့ ရပါတယ်။ ဒါဟာ SQL နဲ့ မတူတဲ့ အကြီးမားဆုံး အားသာချက်ပါ။

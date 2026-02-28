@@ -66,6 +66,21 @@ type Course = {
 
 // Course data
 const coursesData: Course[] = [
+  // {
+  //   id: "mongodb-course",
+  //   title: "MongoDB အခြေခံ",
+  //   description:
+  //     "Document-based NoSQL database တစ်ခုဖြစ်တဲ့ MongoDB ရဲ့ အခြေခံသဘောတရားတွေ၊ CRUD လုပ်ဆောင်ချက်တွေနဲ့ Cloud ပေါ်တင်နည်းတွေကို လွယ်လွယ်ကူကူ လေ့လာမယ်။",
+  //   difficulty: "beginner",
+  //   category: "Database",
+  //   icon: "database",
+  //   href: "/mongodb-course/introduction/what-is-mongodb",
+  //   lessons: 5,
+  //   tags: ["MongoDB", "NoSQL", "Database", "Node.js"],
+  //   estimatedTime: "2 weeks",
+  //   rating: 4.9,
+  //   students: 1200,
+  // },
   {
     id: "html",
     title: "HTML",
@@ -214,6 +229,21 @@ const coursesData: Course[] = [
   //   tags: ["CSS", "Advanced", "Architecture"],
   //   estimatedTime: "5 weeks",
   //   rating: 4.9,
+  //   students: 1500,
+  // },
+  // {
+  //   id: "sql-course",
+  //   title: "SQL အခြေခံ (SQL Masterclass)",
+  //   description:
+  //     "Database များနှင့် စကားပြောဆိုရန်၊ ဒေတာများ ထိန်းချုပ်ရန်နှင့် တည်ဆောက်ရန် မရှိမဖြစ်လိုအပ်သော SQL ကို အလွယ်ကူဆုံး လေ့လာခြင်း",
+  //   difficulty: "beginner",
+  //   category: "Database",
+  //   icon: "database",
+  //   href: "/sql-course/introduction/what-is-sql",
+  //   lessons: 6,
+  //   tags: ["SQL", "Database", "Queries", "MySQL", "PostgreSQL"],
+  //   estimatedTime: "2 weeks",
+  //   rating: 4.8,
   //   students: 1500,
   // },
   {
