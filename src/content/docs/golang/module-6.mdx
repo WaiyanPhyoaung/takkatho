@@ -49,20 +49,6 @@ func main() {
 }
 ```
 
-### Empty Interface (`interface{}`)
-
-Method တစ်ခုမှ မပါတဲ့ Interface ကို Empty Interface လို့ ခေါ်ပါတယ်။ သူက မည်သည့် Data Type ကိုမဆို လက်ခံနိုင်ပါတယ်။ (TypeScript ရဲ့ `any` နဲ့ ဆင်တူပါတယ်)။
-
-```go
-func printAnything(i interface{}) {
-    fmt.Println(i)
-}
-
-printAnything(42)
-printAnything("Hello")
-printAnything(true)
-```
-
 ## Error Handling (အမှားများကို ကိုင်တွယ်ခြင်း)
 
 Go မှာ `try-catch` လိုမျိုး Exception Handling မရှိပါဘူး။ အဲဒီအစား Error တွေကို ပုံမှန် Return Value တစ်ခုအနေနဲ့ ပြန်ပေးပါတယ်။

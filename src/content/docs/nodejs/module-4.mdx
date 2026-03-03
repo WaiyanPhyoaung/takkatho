@@ -40,8 +40,8 @@ npm install chalk
 
 ```javascript
 // app.js
-// chalk version 4 ကို သုံးထားပါတယ် (npm i chalk@4)
-const chalk = require('chalk');
+// chalk version 4 သို့မဟုတ် 5 ကို သုံးထားပါတယ် (ESM အနေနဲ့ သုံးပါမည်)
+import chalk from 'chalk';
 
 console.log(chalk.blue('Hello world!'));
 console.log(chalk.red.bold('Error ဖြစ်နေပါသည်!'));
@@ -71,12 +71,13 @@ npm install nodemon --save-dev
 {
   "name": "my-project",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"

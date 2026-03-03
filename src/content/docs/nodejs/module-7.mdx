@@ -25,11 +25,14 @@ npm install express
 npm install nodemon --save-dev
 ```
 
-`package.json` ထဲမှာ `dev` script လေး ထည့်ပေးပါ။
+`package.json` ထဲမှာ `"type": "module"` နဲ့ `dev` script လေး ထည့်ပေးပါ။
 
 ```json
-"scripts": {
-  "dev": "nodemon app.js"
+{
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js"
+  }
 }
 ```
 
@@ -41,7 +44,7 @@ npm install nodemon --save-dev
 
 ```javascript
 // app.js
-const express = require('express');
+import express from 'express';
 const app = express();
 
 // JSON Data တွေကို လက်ခံနိုင်အောင် Middleware ထည့်ခြင်း

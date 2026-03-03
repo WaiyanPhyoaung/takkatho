@@ -11,22 +11,32 @@ interface Props {
 
 const { src, alt, width, height } = Astro.props;
 
-const isGif =
-  (typeof src === "string" && src.toLowerCase().endsWith(".gif")) ||
-  (typeof src === "object" && "format" in src && src.format === "gif");
+const isPassthrough =
+  (typeof src === "string" &&
+    (src.toLowerCase().endsWith(".gif") ||
+      src.toLowerCase().endsWith(".svg"))) ||
+  (typeof src !== "string" &&
+    src &&
+    "format" in src &&
+    (src.format === "gif" || src.format === "svg"));
 
 const imageSrc = typeof src === "string" ? src : src.src;
+const imgWidth = width
+  ? Number(width)
+  : typeof src !== "string" && src
+    ? src.width
+    : undefined;
+const imgHeight = height
+  ? Number(height)
+  : typeof src !== "string" && src
+    ? src.height
+    : undefined;
 ---
 
 <div class="flex justify-center p-4">
   {
-    isGif ? (
-      <img
-        src={imageSrc}
-        alt={alt}
-        width={width ? Number(width) : undefined}
-        height={height ? Number(height) : undefined}
-      />
+    isPassthrough ? (
+      <img src={imageSrc} alt={alt} width={imgWidth} height={imgHeight} />
     ) : (
       <Image
         src={src as any}

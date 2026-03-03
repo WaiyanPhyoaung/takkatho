@@ -1,5 +1,5 @@
 ---
-import { CoursesListing } from "@/components/CoursesListing";
+import { CoursesListing, coursesData } from "@/components/CoursesListing";
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 ---
 
@@ -27,7 +27,7 @@ import StandaloneLayout from "../layouts/StandaloneLayout.astro";
         <div class="text-center">
           <!-- Badge -->
           <div
-            class="neo-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 mb-6"
+            class="neo-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-6"
           >
             <svg
               class="w-4 h-4 text-amber-600 dark:text-amber-400"
@@ -43,7 +43,7 @@ import StandaloneLayout from "../layouts/StandaloneLayout.astro";
               ></path>
             </svg>
             <span class="text-sm font-medium text-amber-700 dark:text-amber-300"
-              >12+ Courses Available</span
+              >{coursesData.length}+ Courses Available</span
             >
           </div>
 
@@ -53,7 +53,7 @@ import StandaloneLayout from "../layouts/StandaloneLayout.astro";
           >
             Programming
             <span
-              class="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent"
+              class="inline-block py-2 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent"
               >သင်ခန်းစာများ</span
             >
           </h1>

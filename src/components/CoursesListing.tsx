@@ -49,7 +49,7 @@ import {
 } from "lucide-react";
 
 // Type definitions
-type Course = {
+export type Course = {
   id: string;
   title: string;
   description: string;
@@ -65,7 +65,7 @@ type Course = {
 };
 
 // Course data
-const coursesData: Course[] = [
+export const coursesData: Course[] = [
   // {
   //   id: "mongodb-course",
   //   title: "MongoDB အခြေခံ",
@@ -141,81 +141,81 @@ const coursesData: Course[] = [
   //   rating: 4.9,
   //   students: 100,
   // },
-  // {
-  //   id: "python",
-  //   title: "Python Programming",
-  //   description:
-  //     "Python ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Variables, Loops, Functions မှစ၍ OOP အထိ ပါဝင်သည်။",
-  //   difficulty: "beginner",
-  //   category: "Programming",
-  //   icon: "code",
-  //   href: "/python",
-  //   lessons: 8,
-  //   tags: ["Python", "Basics", "OOP"],
-  //   estimatedTime: "4 weeks",
-  //   rating: 4.8,
-  //   students: 1200,
-  // },
-  // {
-  //   id: "java",
-  //   title: "Java Programming",
-  //   description:
-  //     "Java ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Syntax, OOP, Collections နှင့် Exception Handling များ ပါဝင်သည်။",
-  //   difficulty: "beginner",
-  //   category: "Programming",
-  //   icon: "code",
-  //   href: "/java",
-  //   lessons: 8,
-  //   tags: ["Java", "Basics", "OOP"],
-  //   estimatedTime: "5 weeks",
-  //   rating: 4.8,
-  //   students: 1100,
-  // },
-  // {
-  //   id: "nodejs",
-  //   title: "Node.js & Express",
-  //   description:
-  //     "JavaScript ကို အသုံးပြု၍ Backend Server များ တည်ဆောက်ခြင်း။ File System, API နှင့် Express.js အကြောင်းများ ပါဝင်သည်။",
-  //   difficulty: "intermediate",
-  //   category: "Web Development",
-  //   icon: "database",
-  //   href: "/nodejs",
-  //   lessons: 8,
-  //   tags: ["Node.js", "Backend", "Express"],
-  //   estimatedTime: "5 weeks",
-  //   rating: 4.8,
-  //   students: 1500,
-  // },
-  // {
-  //   id: "typescript",
-  //   title: "TypeScript Programming",
-  //   description:
-  //     "JavaScript ကို Type System ဖြင့် ပိုမိုခိုင်မာအောင် တည်ဆောက်ခြင်း။ Interfaces, Generics နှင့် Advanced Types များ ပါဝင်သည်။",
-  //   difficulty: "intermediate",
-  //   category: "Programming",
-  //   icon: "code",
-  //   href: "/typescript",
-  //   lessons: 9,
-  //   tags: ["TypeScript", "JavaScript", "Types"],
-  //   estimatedTime: "5 weeks",
-  //   rating: 4.9,
-  //   students: 1800,
-  // },
-  // {
-  //   id: "golang",
-  //   title: "Golang Programming",
-  //   description:
-  //     "Google မှ ဖန်တီးထားသော Go Language ကို အခြေခံမှစ၍ Concurrency နှင့် REST API တည်ဆောက်ခြင်းအထိ လေ့လာခြင်း။",
-  //   difficulty: "intermediate",
-  //   category: "Programming",
-  //   icon: "code",
-  //   href: "/golang",
-  //   lessons: 10,
-  //   tags: ["Go", "Backend", "Concurrency"],
-  //   estimatedTime: "6 weeks",
-  //   rating: 4.9,
-  //   students: 1300,
-  // },
+  {
+    id: "python",
+    title: "Python Programming",
+    description:
+      "Python ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Variables, Loops, Functions မှစ၍ OOP အထိ ပါဝင်သည်။",
+    difficulty: "beginner",
+    category: "Programming",
+    icon: "code",
+    href: "/python",
+    lessons: 8,
+    tags: ["Python", "Basics", "OOP"],
+    estimatedTime: "4 weeks",
+    rating: 4.8,
+    students: 1200,
+  },
+  {
+    id: "java",
+    title: "Java Programming",
+    description:
+      "Java ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Syntax, OOP, Collections နှင့် Exception Handling များ ပါဝင်သည်။",
+    difficulty: "beginner",
+    category: "Programming",
+    icon: "code",
+    href: "/java",
+    lessons: 8,
+    tags: ["Java", "Basics", "OOP"],
+    estimatedTime: "5 weeks",
+    rating: 4.8,
+    students: 1100,
+  },
+  {
+    id: "nodejs",
+    title: "Node.js & Express",
+    description:
+      "JavaScript ကို အသုံးပြု၍ Backend Server များ တည်ဆောက်ခြင်း။ File System, API နှင့် Express.js အကြောင်းများ ပါဝင်သည်။",
+    difficulty: "intermediate",
+    category: "Web Development",
+    icon: "database",
+    href: "/nodejs",
+    lessons: 8,
+    tags: ["Node.js", "Backend", "Express"],
+    estimatedTime: "5 weeks",
+    rating: 4.8,
+    students: 1500,
+  },
+  {
+    id: "typescript",
+    title: "TypeScript Programming",
+    description:
+      "JavaScript ကို Type System ဖြင့် ပိုမိုခိုင်မာအောင် တည်ဆောက်ခြင်း။ Interfaces, Generics နှင့် Advanced Types များ ပါဝင်သည်။",
+    difficulty: "intermediate",
+    category: "Programming",
+    icon: "code",
+    href: "/typescript",
+    lessons: 9,
+    tags: ["TypeScript", "JavaScript", "Types"],
+    estimatedTime: "5 weeks",
+    rating: 4.9,
+    students: 1800,
+  },
+  {
+    id: "golang",
+    title: "Golang Programming",
+    description:
+      "Google မှ ဖန်တီးထားသော Go Language ကို အခြေခံမှစ၍ Concurrency နှင့် REST API တည်ဆောက်ခြင်းအထိ လေ့လာခြင်း။",
+    difficulty: "intermediate",
+    category: "Programming",
+    icon: "code",
+    href: "/golang",
+    lessons: 10,
+    tags: ["Go", "Backend", "Concurrency"],
+    estimatedTime: "6 weeks",
+    rating: 4.9,
+    students: 1300,
+  },
   // {
   //   id: "advanced-css",
   //   title: "Advanced CSS",
@@ -231,21 +231,21 @@ const coursesData: Course[] = [
   //   rating: 4.9,
   //   students: 1500,
   // },
-  // {
-  //   id: "sql-course",
-  //   title: "SQL အခြေခံ (SQL Masterclass)",
-  //   description:
-  //     "Database များနှင့် စကားပြောဆိုရန်၊ ဒေတာများ ထိန်းချုပ်ရန်နှင့် တည်ဆောက်ရန် မရှိမဖြစ်လိုအပ်သော SQL ကို အလွယ်ကူဆုံး လေ့လာခြင်း",
-  //   difficulty: "beginner",
-  //   category: "Database",
-  //   icon: "database",
-  //   href: "/sql-course/introduction/what-is-sql",
-  //   lessons: 6,
-  //   tags: ["SQL", "Database", "Queries", "MySQL", "PostgreSQL"],
-  //   estimatedTime: "2 weeks",
-  //   rating: 4.8,
-  //   students: 1500,
-  // },
+  {
+    id: "sql-course",
+    title: "SQL အခြေခံ (SQL Masterclass)",
+    description:
+      "Database များနှင့် စကားပြောဆိုရန်၊ ဒေတာများ ထိန်းချုပ်ရန်နှင့် တည်ဆောက်ရန် မရှိမဖြစ်လိုအပ်သော SQL ကို အလွယ်ကူဆုံး လေ့လာခြင်း",
+    difficulty: "beginner",
+    category: "Database",
+    icon: "database",
+    href: "/sql-course/introduction/what-is-sql",
+    lessons: 6,
+    tags: ["SQL", "Database", "Queries", "MySQL", "PostgreSQL"],
+    estimatedTime: "2 weeks",
+    rating: 4.8,
+    students: 1500,
+  },
   {
     id: "websocket",
     title: "WebSocket နည်းပညာ",
@@ -366,6 +366,10 @@ const coursesData: Course[] = [
     students: 500,
   },
 ];
+
+// compute count once; external modules can import if needed
+export const coursesCount = coursesData.length;
+
 
 const difficultyConfig: Record<
   Course["difficulty"],

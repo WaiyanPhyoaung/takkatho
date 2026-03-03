@@ -78,15 +78,3 @@ func main() {
     fmt.Println(first, second) // World Hello
 }
 ```
-
-### Named Return Values
-
-Return ပြန်မယ့် Variable နာမည်တွေကို ကြိုတင် သတ်မှတ်ထားလို့ ရပါတယ်။
-
-```go
-func split(sum int) (x int, y int) {
-    x = sum * 4 / 9
-    y = sum - x
-    return // x နဲ့ y ကို အလိုအလျောက် return ပြန်ပေးမယ်
-}
-```

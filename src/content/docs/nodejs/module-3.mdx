@@ -14,7 +14,7 @@ Node.js ရဲ့ အဓိက အားသာချက်က **Asynchronous (No
 Callback ဆိုတာ Function တစ်ခုထဲကို နောက်ထပ် Function တစ်ခု ထည့်ပေးလိုက်တာပါ။ ပထမ Function အလုပ်လုပ်ပြီးသွားရင်၊ ဒုတိယ Function (Callback) ကို ပြန်ခေါ် (Call back) ပေးပါတယ်။
 
 ```javascript
-const fs = require('fs');
+import fs from 'fs';
 
 console.log("၁. အလုပ်စတင်ပါပြီ");
 
@@ -45,7 +45,7 @@ Promise မှာ အခြေအနေ (၃) မျိုး ရှိပါတ
 3. **Rejected:** အလုပ် မအောင်မြင်ခြင်း/Error တက်ခြင်း (`.catch()` နဲ့ ဖမ်းပါတယ်)
 
 ```javascript
-const fs = require('fs').promises; // fs ကို Promise အနေနဲ့ သုံးဖို့
+import fs from 'fs/promises'; // fs ကို Promise အနေနဲ့ သုံးဖို့
 
 console.log("၁. အလုပ်စတင်ပါပြီ");
 
@@ -72,7 +72,7 @@ Promises တွေကို ပိုပြီး ဖတ်ရလွယ်အေ
 - `await`: Promise တစ်ခုရဲ့ အဖြေကို စောင့်ဖို့ သုံးပါတယ်။ `async` Function ထဲမှာပဲ သုံးလို့ ရပါတယ်။
 
 ```javascript
-const fs = require('fs').promises;
+import fs from 'fs/promises';
 
 // async function ကြေညာခြင်း
 async function readMyFile() {

@@ -28,11 +28,11 @@ const currentPath = Astro.url.pathname;
     <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body
-    class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased"
+    class="min-h-screen bg-gray-50 dark:bg-[#0c0a09] text-gray-900 dark:text-gray-100 antialiased"
   >
     <!-- Navigation -->
     <nav
-      class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50"
+      class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0c0a09]/80 backdrop-blur-xl"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="standalone-header h-16">
@@ -56,7 +56,7 @@ const currentPath = Astro.url.pathname;
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"
-              class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+              class="p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-400 transition-colors duration-200"
               aria-label="Toggle theme"
             >
               <svg
@@ -98,7 +98,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- Footer -->
     <footer
-      class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+      class="bg-gray-50 dark:bg-gray-950 relative z-10"
     >
       <div
         class="max-w-7xl mx-auto px-4 flex flex-col gap-2 md:flex-row justify-between sm:px-6 lg:px-8 py-12"

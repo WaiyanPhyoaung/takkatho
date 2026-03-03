@@ -1047,20 +1047,11 @@ export default defineConfig({
               ],
             },
             {
-              label: "Module 7: Generics",
-              items: [
-                {
-                  label: "Generics",
-                  slug: "typescript/module-7",
-                },
-              ],
-            },
-            {
-              label: "Module 8: Mini Project",
+              label: "Module 7: Mini Project",
               items: [
                 {
                   label: "Todo List Logic",
-                  slug: "typescript/module-8",
+                  slug: "typescript/module-7",
                 },
               ],
             },

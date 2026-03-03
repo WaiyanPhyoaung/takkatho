@@ -1,95 +1,156 @@
 ---
-title: "Generics"
-description: "ပြန်လည်အသုံးပြုနိုင်သော (Reusable) Type များ ဖန်တီးခြင်း"
+title: "Mini Project: Todo List Logic"
+description: "TypeScript ကို အသုံးပြု၍ Todo List ၏ အလုပ်လုပ်ပုံကို ရေးသားခြင်း"
 ---
 
-Generics ဆိုတာ TypeScript ရဲ့ အဆင့်မြင့်ဆုံးနဲ့ အသုံးအဝင်ဆုံး လုပ်ဆောင်ချက်တွေထဲက တစ်ခုပါ။ သူက **"Type တွေကို Variable လိုမျိုး အသုံးပြုခွင့်"** ပေးပါတယ်။
+ဒီ Course မှာ သင်ယူခဲ့တဲ့ TypeScript အခြေခံတွေ (Types, Interfaces, Functions, Arrays) ကို ပေါင်းစပ်ပြီး **Todo List** တစ်ခုရဲ့ နောက်ကွယ်က အလုပ်လုပ်ပုံ (Logic) ကို ရေးကြည့်ရအောင်။
+
+ဒီ Project မှာ အောက်ပါ လုပ်ဆောင်ချက်တွေ ပါဝင်ပါမယ်။
+1. Todo အသစ် ထည့်ခြင်း (Add Todo)
+2. Todo ပြီးစီးကြောင်း မှတ်သားခြင်း (Toggle Todo)
+3. Todo များကို ကြည့်ရှုခြင်း (View Todos)
+4. ပြီးစီးသွားသော Todo များကို ဖျက်ခြင်း (Clear Completed)
 
 ---
 
-### 1. Generics ဘာကြောင့် လိုအပ်တာလဲ?
+### အဆင့် (၁): Todo Interface ဖန်တီးခြင်း
 
-ဥပမာ - ဝင်လာတဲ့ တန်ဖိုးကို အဲ့ဒီအတိုင်း ပြန်ထုတ်ပေးတဲ့ Function တစ်ခု ရေးကြည့်ရအောင်။
+အရင်ဆုံး Todo တစ်ခုမှာ ဘာအချက်အလက်တွေ ပါရမလဲ ဆိုတာကို `interface` သုံးပြီး သတ်မှတ်ပါမယ်။
 
 ```typescript
-// number အတွက်
-function returnNumber(val: number): number {
-    return val;
+// Todo တစ်ခုရဲ့ ပုံစံကြမ်း
+interface Todo {
+    id: number;
+    task: string;
+    isCompleted: boolean;
 }
 
-// string အတွက်
-function returnString(val: string): string {
-    return val;
-}
-```
-
-ဒီလိုမျိုး Type တစ်ခုချင်းစီအတွက် Function တွေ လိုက်ရေးနေရရင် အဆင်မပြေပါဘူး။ `any` သုံးလိုက်ရင်လည်း Type စစ်ဆေးတဲ့ စည်းကမ်းတွေ ပျက်သွားပါမယ်။
-
-အဲ့ဒီ ပြဿနာကို ဖြေရှင်းဖို့ **Generics** ကို သုံးပါတယ်။
-
----
-
-### 2. Generics အသုံးပြုခြင်း
-
-Generics ကို သုံးဖို့ `<T>` (Type ရဲ့ အတိုကောက်) ကို သုံးလေ့ရှိပါတယ်။ `T` နေရာမှာ ကြိုက်တဲ့ နာမည် ပေးလို့ ရပါတယ်။
-
-```typescript
-// <T> ဆိုတာက "ငါ့ကို ဘာ Type ပေးမလဲ၊ အဲ့ဒီ Type အတိုင်း ငါအလုပ်လုပ်မယ်" လို့ ပြောတာပါ
-function returnAnything<T>(val: T): T {
-    return val;
-}
-
-// အသုံးပြုတဲ့အခါ ဘာ Type လဲဆိုတာ ထည့်ပေးရပါတယ်
-let numResult = returnAnything<number>(100);      // T က number ဖြစ်သွားပါပြီ
-let strResult = returnAnything<string>("Hello");  // T က string ဖြစ်သွားပါပြီ
-
-// Type Inference ကြောင့် <Type> မထည့်လည်း သူဘာသာ သိပါတယ်
-let boolResult = returnAnything(true); // T က boolean မှန်း အလိုအလျောက် သိပါတယ်
+// Todo တွေကို သိမ်းထားမယ့် Array
+let todos: Todo[] = [];
+let nextId: number = 1; // နောက်ထပ် ဝင်လာမယ့် Todo အတွက် ID
 ```
 
 ---
 
-### 3. Arrays များတွင် Generics သုံးခြင်း
+### အဆင့် (၂): လုပ်ဆောင်ချက်များ (Functions) ရေးသားခြင်း
 
-Array တွေမှာလည်း Generics ကို သုံးလို့ ရပါတယ်။
+#### 1. Todo အသစ် ထည့်ခြင်း
 
 ```typescript
-// ဝင်လာတဲ့ Array ရဲ့ ပထမဆုံး အခန်းကို ပြန်ထုတ်ပေးမယ့် Function
-function getFirstElement<T>(arr: T[]): T {
-    return arr[0];
-}
+function addTodo(taskName: string): void {
+    // Todo အသစ်တစ်ခု ဖန်တီးခြင်း
+    const newTodo: Todo = {
+        id: nextId,
+        task: taskName,
+        isCompleted: false // စထည့်ချင်းမှာ မပြီးသေးဘူးလို့ သတ်မှတ်ပါတယ်
+    };
 
-let firstNum = getFirstElement([1, 2, 3]);       // အဖြေ: 1 (Type: number)
-let firstStr = getFirstElement(["A", "B", "C"]); // အဖြေ: "A" (Type: string)
+    todos.push(newTodo);
+    nextId++; // နောက်တစ်ခုအတွက် ID ကို တိုးပေးပါတယ်
+    
+    console.log(`✅ ထည့်သွင်းပြီး: "${taskName}"`);
+}
+```
+
+#### 2. Todo ပြီးစီးကြောင်း မှတ်သားခြင်း
+
+```typescript
+function toggleTodo(id: number): void {
+    // ပေးလိုက်တဲ့ ID နဲ့ ကိုက်ညီတဲ့ Todo ကို ရှာခြင်း
+    const todo = todos.find(t => t.id === id);
+
+    if (todo) {
+        // isCompleted ကို ပြောင်းပြန်လှန်လိုက်ပါတယ် (true ဆို false, false ဆို true)
+        todo.isCompleted = !todo.isCompleted;
+        
+        const status = todo.isCompleted ? "ပြီးစီး" : "မပြီးသေး";
+        console.log(`🔄 ပြောင်းလဲပြီး: "${todo.task}" သည် [${status}] ဖြစ်သွားပါပြီ။`);
+    } else {
+        console.log(`❌ အမှား: ID ${id} ဖြင့် Todo မတွေ့ပါ။`);
+    }
+}
+```
+
+#### 3. Todo များကို ကြည့်ရှုခြင်း
+
+```typescript
+function viewTodos(): void {
+    console.log("\n--- သင့်ရဲ့ Todo စာရင်း ---");
+    
+    if (todos.length === 0) {
+        console.log("မှတ်သားထားတာ ဘာမှ မရှိသေးပါ။");
+        return;
+    }
+
+    todos.forEach(todo => {
+        // ပြီးသွားရင် [X] ပြပြီး၊ မပြီးသေးရင် [ ] ပြပါမယ်
+        const checkbox = todo.isCompleted ? "[X]" : "[ ]";
+        console.log(`${todo.id}. ${checkbox} ${todo.task}`);
+    });
+    console.log("-------------------------\n");
+}
+```
+
+#### 4. ပြီးစီးသွားသော Todo များကို ဖျက်ခြင်း
+
+```typescript
+function clearCompleted(): void {
+    // isCompleted က false ဖြစ်နေတဲ့ (မပြီးသေးတဲ့) ဟာတွေကိုပဲ စစ်ထုတ်ပြီး ပြန်သိမ်းပါတယ်
+    todos = todos.filter(todo => !todo.isCompleted);
+    console.log("🗑️ ပြီးစီးသွားသော အလုပ်များကို ဖျက်လိုက်ပါပြီ။");
+}
 ```
 
 ---
 
-### 4. Interfaces များတွင် Generics သုံးခြင်း
+### အဆင့် (၃): စမ်းသပ် အသုံးပြုကြည့်ခြင်း
 
-API ကနေ Data တွေ လှမ်းယူတဲ့အခါ (Response) ပုံစံက အတူတူပဲ ဖြစ်ပေမယ့်၊ အထဲမှာ ပါလာမယ့် Data အမျိုးအစားက မတူညီတတ်ပါဘူး။ အဲ့ဒီအခါ Generics က အရမ်း အသုံးဝင်ပါတယ်။
+အခု ရေးထားတဲ့ Function တွေကို ခေါ်သုံးကြည့်ရအောင်။
 
 ```typescript
-// Data နေရာမှာ ဘာလာမလဲ မသိသေးတဲ့အတွက် <T> လို့ ပေးထားပါတယ်
-interface ApiResponse<T> {
-    status: number;
-    message: string;
-    data: T;
-}
+// ၁. အလုပ်တွေ ထည့်မယ်
+addTodo("TypeScript လေ့လာရန်");
+addTodo("React Project ရေးရန်");
+addTodo("ဈေးဝယ်ရန်");
 
-// User Data အတွက်
-let userResponse: ApiResponse<{ name: string }> = {
-    status: 200,
-    message: "Success",
-    data: { name: "Aung Aung" }
-};
+// ၂. စာရင်းကို ကြည့်မယ်
+viewTodos();
+/*
+--- သင့်ရဲ့ Todo စာရင်း ---
+1. [ ] TypeScript လေ့လာရန်
+2. [ ] React Project ရေးရန်
+3. [ ] ဈေးဝယ်ရန်
+-------------------------
+*/
 
-// Product Data အတွက်
-let productResponse: ApiResponse<string[]> = {
-    status: 200,
-    message: "Success",
-    data: ["Laptop", "Mouse", "Keyboard"]
-};
+// ၃. အလုပ်တချို့ ပြီးသွားပြီလို့ မှတ်မယ်
+toggleTodo(1); // TypeScript လေ့လာရန် ပြီးသွားပြီ
+toggleTodo(3); // ဈေးဝယ်ရန် ပြီးသွားပြီ
+
+// ၄. စာရင်းကို ပြန်ကြည့်မယ်
+viewTodos();
+/*
+--- သင့်ရဲ့ Todo စာရင်း ---
+1. [X] TypeScript လေ့လာရန်
+2. [ ] React Project ရေးရန်
+3. [X] ဈေးဝယ်ရန်
+-------------------------
+*/
+
+// ၅. ပြီးသွားတာတွေ ဖျက်မယ်
+clearCompleted();
+
+// ၆. နောက်ဆုံး အခြေအနေကို ကြည့်မယ်
+viewTodos();
+/*
+--- သင့်ရဲ့ Todo စာရင်း ---
+2. [ ] React Project ရေးရန်
+-------------------------
+*/
 ```
 
-Generics ကို နားလည်သွားရင် React လို Framework တွေမှာ TypeScript သုံးတဲ့အခါ အရမ်းကို အဆင်ပြေ ချောမွေ့သွားပါလိမ့်မယ်။
+### နိဂုံးချုပ်
+
+ဂုဏ်ယူပါတယ်။ သင်ဟာ TypeScript ရဲ့ အခြေခံတွေကို နားလည်သွားရုံသာမက၊ အဲ့ဒီ အခြေခံတွေကို ပေါင်းစပ်ပြီး အသုံးဝင်တဲ့ Logic တစ်ခုကိုပါ ကိုယ်တိုင် ရေးသားနိုင်သွားပါပြီ။ 
+
+ဒီ Logic တွေကို React လို Frontend Framework တွေနဲ့ တွဲသုံးလိုက်ရင် တကယ့် အသုံးဝင်တဲ့ Web Application တစ်ခု ဖြစ်လာပါလိမ့်မယ်။ TypeScript လောကထဲကို ဝင်ရောက်လာတဲ့အတွက် ကြိုဆိုပါတယ်။ ဆက်လက် လေ့လာသွားဖို့ တိုက်တွန်းပါတယ်။
