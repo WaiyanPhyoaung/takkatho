@@ -126,21 +126,21 @@ export const coursesData: Course[] = [
     rating: 4.8,
     students: 2800,
   },
-  // {
-  //   id: "dsa",
-  //   title: "Data Structures & Algorithms",
-  //   description:
-  //     "Brute force ကနေ Optimized thinking ကို ကူးပြောင်းကြမယ်။ Patterns တွေနဲ့ Visuals တွေကို သုံးပြီး လေ့လာကြမယ်။",
-  //   difficulty: "intermediate",
-  //   category: "Computer Science",
-  //   icon: "trending",
-  //   href: "/dsa",
-  //   lessons: 20,
-  //   tags: ["Algorithms", "Optimization", "Problem Solving"],
-  //   estimatedTime: "8 weeks",
-  //   rating: 4.9,
-  //   students: 100,
-  // },
+  {
+    id: "dsa",
+    title: "Data Structures & Algorithms",
+    description:
+      "Brute force ကနေ Optimized thinking ကို ကူးပြောင်းကြမယ်။ Patterns တွေနဲ့ Visuals တွေကို သုံးပြီး လေ့လာကြမယ်။",
+    difficulty: "intermediate",
+    category: "Computer Science",
+    icon: "trending",
+    href: "/dsa",
+    lessons: 20,
+    tags: ["Algorithms", "Optimization", "Problem Solving"],
+    estimatedTime: "8 weeks",
+    rating: 4.9,
+    students: 100,
+  },
   {
     id: "python",
     title: "Python Programming",
@@ -369,7 +369,6 @@ export const coursesData: Course[] = [
 
 // compute count once; external modules can import if needed
 export const coursesCount = coursesData.length;
-
 
 const difficultyConfig: Record<
   Course["difficulty"],
