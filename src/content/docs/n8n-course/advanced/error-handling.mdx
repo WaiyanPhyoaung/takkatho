@@ -1,0 +1,262 @@
+---
+title: "Error Handling"
+description: "n8n Workflow တွင် Error ဖြစ်ပေါ်ချိန် လုပ်ဆောင်နည်းနှင့် Retry Strategy"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## ဘာကြောင့် Error Handling လိုအပ်သလဲ?
+
+Production Workflow တွေမှာ Error တွေ မမျှော်မှန်းထားဘဲ ဖြစ်ပေါ်နိုင်ပါတယ်:
+
+- **Network Errors** — API Timeout, 503
+- **Auth Errors** — Token Expired, 401
+- **Data Errors** — Wrong Format, Null Value
+- **Rate Limit** — 429 Too Many Requests
+- **Storage Errors** — DB Connection Failed
+
+Error Handling မရှိဘဲ Workflow Fail ဖြစ်ရင် — Data ပျောက်မည်၊ User Notify မရမည်၊ Process မပြည့်စုံမည်။
+
+## n8n Error Types
+
+### 1. Node Error
+
+Node တစ်ခုသာ Fail ဖြစ်ပြီး Workflow ရပ်တန့်သည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Trigger", type: "trigger" },
+    { label: "HTTP Request", sublabel: "❌ Connection timed out", type: "action" },
+    { label: "Slack", sublabel: "မရောက်တော့ပါ", type: "action" }
+  ]}
+  caption="HTTP Request Fail ဖြစ်ရင် နောက် Node တွေ မပြေးတော့ပါ"
+/>
+
+### 2. Execution Error
+
+Execution History တွင် Failed Execution တွေ ပြသသည်:
+
+```
+Execution History:
+  ✅ 09:00 - Success (12 items processed)
+  ✅ 09:01 - Success (8 items processed)
+  ❌ 09:02 - FAILED - API returned 500
+  ✅ 09:03 - Success (5 items processed)
+```
+
+## Error Handling Strategies
+
+### Strategy 1: Node Error Output
+
+Node တစ်ခု Fail ဖြစ်ရင် Alternative Path တစ်ခု Run သည်:
+
+<BranchFlow
+  input="HTTP Request"
+  condition="Success ဖြစ်သလား?"
+  truePath={["Process Data"]}
+  falsePath={["Log Error", "Slack: Alert"]}
+  trueLabel="SUCCESS ✅"
+  falseLabel="ERROR ❌"
+/>
+
+Node Settings မှ **"Continue on Fail"** ကို Enable လုပ်ပြီး Error Output Port ကို ချိတ်ဆက်ပါ:
+
+```
+Node Settings:
+  ✅ Always Output Data
+  ✅ Continue On Fail
+
+  Error Output:  ● Enabled
+  (Red Output Port appears on Node)
+```
+
+### Strategy 2: Try/Catch with Code Node
+
+Complex Error Handling ကို Code Node ဖြင့် ပြုလုပ်သည်:
+
+```javascript
+// Code Node — Try/Catch Pattern
+try {
+  const items = $input.all();
+  const results = [];
+
+  for (const item of items) {
+    try {
+      // Risky operation
+      const processed = await processItem(item.json);
+      results.push({ json: { ...processed, status: 'success' } });
+    } catch (itemError) {
+      // Item-level error — log but continue
+      results.push({
+        json: {
+          ...item.json,
+          status: 'failed',
+          error: itemError.message
+        }
+      });
+    }
+  }
+
+  return results;
+
+} catch (fatalError) {
+  // Workflow-level fatal error
+  throw new Error(`Fatal: ${fatalError.message}`);
+}
+```
+
+### Strategy 3: Retry Logic
+
+API Rate Limit သို့မဟုတ် Temporary Error တွေအတွက် Retry:
+
+<FlowDiagram
+  nodes={[
+    { label: "HTTP Request", type: "action" },
+    { label: "Wait: 30s", sublabel: "❌ Failed", type: "action" },
+    { label: "Retry HTTP Request", type: "action" },
+    { label: "Wait: 2 min", sublabel: "❌ Failed again", type: "action" },
+    { label: "Final Retry", type: "action" },
+    { label: "Slack: Critical Alert", sublabel: "❌ Still failing", type: "action" }
+  ]}
+  caption="Exponential Backoff Retry — 30s → 2min → Slack Alert"
+/>
+
+```javascript
+// Retry with Exponential Backoff (Code Node)
+async function withRetry(fn, maxRetries = 3) {
+  let lastError;
+
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+
+  throw lastError;
+}
+```
+
+## Error Workflow (Global Error Handler)
+
+n8n မှ **Error Workflow** Feature ဖြင့် မည်သည့် Workflow Error ဖြစ်ဆိုသည်ကို Auto-send ဖြင့် Notification ပေးနိုင်သည်:
+
+```
+Main Workflows ──▶ Any Error ──▶ Error Workflow (runs automatically)
+```
+
+### Error Workflow ဖန်တီးနည်း
+
+1. New Workflow ဖန်တီးပြီး **"n8n Trigger"** → **"Workflow Error"** ကို ရွေးပါ
+2. Error details ကို Slack / Email ဖြင့် Alert ပေးပါ
+
+<ParallelFlow
+  source="Error Trigger → Set: Format Error Info"
+  sourceType="trigger"
+  targets={['Slack: #alerts "🚨 Workflow Failed!"', "Gmail: Ops Team Email"]}
+  caption="Global Error Workflow — Error တိုင်း Auto-notify ပေးသည်"
+/>
+
+### Error Trigger မှ ရရှိသော Data
+
+```json
+{
+  "execution": {
+    "id": "12345",
+    "url": "https://n8n.example.com/workflow/runs/12345",
+    "retryOf": null,
+    "error": {
+      "message": "Could not get parameter 'url'",
+      "stack": "NodeOperationError: ..."
+    },
+    "lastNodeExecuted": "HTTP Request",
+    "mode": "trigger",
+    "workflowId": "67890",
+    "workflowName": "Order Processing"
+  }
+}
+```
+
+**Slack Alert Template:**
+
+```
+🚨 *Workflow Failed!*
+
+Workflow: {{ $json.execution.workflowName }}
+Error:    {{ $json.execution.error.message }}
+Node:     {{ $json.execution.lastNodeExecuted }}
+Time:     {{ $now.toISO() }}
+
+🔗 <{{ $json.execution.url }}|View Execution>
+```
+
+### Global Error Workflow ကို Register လုပ်နည်း
+
+Settings → **"Workflow Settings"** → **"Error Workflow"** → ဖန်တီးထားသော Error Workflow ကို ရွေးပါ
+
+Workflow Settings:
+- Error Workflow: [My Error Handler Workflow]
+- Timezone: [Asia/Yangon]
+- Save Execution: [Always]
+
+## Data Validation
+
+API ကိုမပို့မီ Data ကို Validate လုပ်ခြင်း:
+
+```javascript
+// Code Node — Validation Gate
+const items = $input.all();
+const valid = [];
+const invalid = [];
+
+for (const item of items) {
+  const { name, email, amount } = item.json;
+  const errors = [];
+
+  if (!name || name.trim() === '') errors.push('Name is required');
+  if (!email || !email.includes('@')) errors.push('Invalid email');
+  if (!amount || amount <= 0) errors.push('Amount must be positive');
+
+  if (errors.length > 0) {
+    invalid.push({ json: { ...item.json, validationErrors: errors } });
+  } else {
+    valid.push(item);
+  }
+}
+
+// Return valid items only (invalid goes to error log)
+if (invalid.length > 0) {
+  console.log('Invalid items:', JSON.stringify(invalid));
+}
+
+return valid;
+```
+
+<Aside type="tip" title="Production Checklist">
+Production Workflow မပို့မီ:
+- [ ] Error Output ကို ချိတ်ဆက်ပြီးပြီလား?
+- [ ] Error Workflow ကို Set Up လုပ်ပြီးပြီလား?
+- [ ] Retry Logic ထည့်ပြီးပြီလား?
+- [ ] Execution Logging Enable ထားပြီးပြီလား?
+</Aside>
+
+## Execution Monitoring
+
+n8n Dashboard မှ Execution History ကို Monitor လုပ်နိုင်သည်:
+
+| Status | Workflow | Time | Duration |
+|--------|----------|------|----------|
+| ✅ OK | Order Processing | 09:00 | 1.2s |
+| ✅ OK | Daily Report | 09:01 | 3.4s |
+| ❌ ERR | Gmail → Slack | 09:02 | 0.5s |
+| ✅ OK | Order Processing | 09:03 | 1.1s |
+
+Failed Execution ကို Click ဖြင့် Node-by-node Input/Output ကို ကြည့်ပြီး Debug နိုင်သည်။
+
+နောက်သင်ခန်းစာမှာ **Sub-Workflows** — Workflow ကြီးများကို Modular ဖြင့် ဖန်တီးနည်း လေ့လာမည်!

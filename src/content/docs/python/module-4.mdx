@@ -1,103 +1,267 @@
 ---
 title: "Data Structures (ဒေတာ ဖွဲ့စည်းပုံများ)"
-description: "Python တွင် Lists, Dictionaries, Tuples နှင့် Sets များ အသုံးပြုခြင်း"
+description: "Python တွင် Lists, Dictionaries, Tuples နှင့် Sets များ — List Comprehensions, dict.get(), Nested Structures"
 ---
 
+import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import dataStructuresImg from "@/assets/python/data-structures.svg";
 
-Data အများကြီးကို စနစ်တကျ သိမ်းဆည်းဖို့ Data Structures တွေကို သုံးပါတယ်။ Variable တစ်ခုတည်းမှာ Data တစ်ခုတည်း သိမ်းမယ့်အစား၊ Data အများကြီးကို စုပြီး သိမ်းချင်တဲ့အခါ သုံးပါတယ်။ Python မှာ အသုံးအများဆုံး (၄) မျိုး ရှိပါတယ်။
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- List, Dict, Tuple, Set ကွာခြားချက်ကို ရှင်းလင်းစွာ နားလည်မည်
+- `dict.get()` ဖြင့် Safe Access ပြုလုပ်နိုင်မည်
+- Nested Data Structures (List of Dicts) ကိုင်တွယ်နိုင်မည်
+- Built-in Functions — sorted(), sum(), min(), max() သုံးနိုင်မည်
+- ဘယ် Data Structure ကို ဘယ်အချိန် ရွေးချယ်ရသည် ဆုံးဖြတ်နိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 1-3 ပြီးမှ ဆက်ပါ။ Variables နှင့် Loops ကို သိပြီးမှ Data Structures တွေကို ကောင်းကောင်း နားလည်နိုင်မည်။
+</Aside>
+
+Data အများကြီးကို Variable တစ်ခုချင်းစီ ကြေညာပြီး မသိမ်းနိုင်ပါဘူး — **Data Structure** တွေ ကိုသုံးပြီး စီမံကြပါမည်။
 
 <ContentImage src={dataStructuresImg} alt="Python Data Structures" />
 
 ---
 
-### 1. Lists (စာရင်းများ)
+### ၁. Lists (စာရင်းများ)
 
-List ဆိုတာ Data တွေကို အစီအစဉ်တကျ စုသိမ်းထားတာပါ။ `[]` (Square brackets) ကို သုံးပါတယ်။ အထဲက Data တွေကို အချိန်မရွေး ပြင်လို့၊ ဖျက်လို့၊ အသစ်ထပ်ထည့်လို့ ရပါတယ်။
+List ဆိုတာ Data တွေကို **အစဉ်လိုက် (Ordered)** စီပြီး `[]` ထဲမှာ သိမ်းထားတာပါ။ ပြင်လို့ ရပါတယ် (Mutable)။
 
 ```python
 fruits = ["Apple", "Banana", "Orange"]
 
-# Index (နေရာ) ကို သုံးပြီး ယူခြင်း (0 ကနေ စပါတယ်)
-print(fruits[0]) # Apple
-print(fruits[-1]) # Orange (အနောက်ဆုံးက ကောင်ကို ယူတာပါ)
+# Index နဲ့ ဝင်ကြည့်ခြင်း (0 ကနေ စပါတယ်)
+print(fruits[0])    # Apple
+print(fruits[-1])   # Orange  (နောက်ဆုံး)
 
-# အသစ် ထပ်ထည့်ခြင်း
-fruits.append("Mango") # အနောက်ဆုံးမှာ သွားဆက်ပါတယ်
-fruits.insert(1, "Grape") # Index 1 နေရာမှာ သွားထည့်ပါတယ်
+# ထည့်ခြင်း
+fruits.append("Mango")         # နောက်ဆုံးမှာ ထည့်
+fruits.insert(1, "Grape")      # Index 1 မှာ ထည့်
 
-# ဖျက်ထုတ်ခြင်း
-fruits.remove("Banana") # နာမည်နဲ့ ရှာဖျက်တာပါ
-popped_fruit = fruits.pop() # အနောက်ဆုံးက ကောင်ကို ဖယ်ထုတ်ပြီး ယူလိုက်တာပါ
+# ဖျက်ခြင်း
+fruits.remove("Banana")        # တန်ဖိုးနဲ့ ရှာဖျက်
+popped = fruits.pop()          # နောက်ဆုံးကောင် ဖြုတ်ထုတ်
+fruits.pop(0)                  # Index ဖြင့် ဖျက်
 
-# အရေအတွက်ကို ရေတွက်ခြင်း
-print(len(fruits)) # List ထဲမှာ ဘယ်နှစ်ခု ရှိလဲ ဆိုတာ ပြပါတယ်
+# စစ်ဆေးခြင်း
+print(len(fruits))             # အရေအတွက်
+print("Apple" in fruits)       # True/False
+
+# Sort လုပ်ခြင်း
+fruits.sort()                  # မူရင်း list ကို Sort
+sorted_fruits = sorted(fruits) # မူရင်း list မပြောင်းဘဲ အသစ် ပြန်ပေး
 ```
 
-#### Slicing (ပိုင်းဖြတ်ခြင်း)
-List ထဲကနေ အပိုင်းလိုက်လေးတွေ ဖြတ်ယူလို့ ရပါတယ်။
+#### Slicing
+
 ```python
 numbers = [0, 1, 2, 3, 4, 5]
-print(numbers[1:4]) # [1, 2, 3] (Index 1 ကနေ 3 အထိ ယူပါတယ်၊ 4 မပါပါဘူး)
+print(numbers[1:4])    # [1, 2, 3]   (Index 1 ကနေ 3 အထိ)
+print(numbers[:3])     # [0, 1, 2]   (အစကနေ)
+print(numbers[3:])     # [3, 4, 5]   (Index 3 ကနေ ဆုံးအထိ)
+print(numbers[::2])    # [0, 2, 4]   (တစ်ခုကျော် တစ်ခု)
+print(numbers[::-1])   # [5, 4, 3, 2, 1, 0]  (ပြောင်းပြန်)
+```
+
+#### Built-in Functions နှင့် List
+
+```python
+scores = [85, 92, 60, 78, 95, 70]
+
+print(len(scores))          # 6   (အရေအတွက်)
+print(sum(scores))          # 480 (ပေါင်းခြင်း)
+print(min(scores))          # 60  (အငယ်ဆုံး)
+print(max(scores))          # 95  (အကြီးဆုံး)
+print(sum(scores) / len(scores))  # 80.0  (ပျမ်းမျှ)
+print(sorted(scores))       # [60, 70, 78, 85, 92, 95]
+
+# ညှဉ်းတိုင်စစ်ဆေးခြင်း
+print(any(s >= 90 for s in scores))   # True  (တစ်ခုမှ 90+ ရှိသလား?)
+print(all(s >= 60 for s in scores))   # True  (အကုန် 60+ လား?)
 ```
 
 ---
 
-### 2. Dictionaries (အဘိဓာန်များ)
+### ၂. Dictionaries (အဘိဓာန်များ)
 
-Dictionary က Data တွေကို **Key-Value (နာမည်-တန်ဖိုး)** အတွဲလိုက် သိမ်းပါတယ်။ `{}` (Curly braces) ကို သုံးပါတယ်။ အဘိဓာန်မှာ စကားလုံး (Key) ကို ရှာပြီး အဓိပ္ပာယ် (Value) ကို ဖတ်သလိုမျိုးပါပဲ။
+Dictionary က Data တွေကို **Key-Value (ကုဒ်-တန်ဖိုး)** အတွဲနဲ့ `{}` ထဲ သိမ်းပါတယ်။ Key ကို သုံးပြီး Value ကို ချက်ချင်း ရနိုင်ပါတယ်:
 
 ```python
 student = {
-    "name": "Aung Aung",
-    "age": 20,
-    "major": "Computer Science"
+    "name":  "Aung Aung",
+    "age":   20,
+    "major": "Computer Science",
+    "gpa":   3.8
 }
 
-# Key ကို သုံးပြီး Value ကို ယူခြင်း
-print(student["name"]) # Aung Aung
+# Value ရယူခြင်း
+print(student["name"])    # Aung Aung
 
-# အသစ်ထည့်ခြင်း (သို့) ပြင်ခြင်း
-student["age"] = 21    # ရှိပြီးသားဆိုရင် ပြင်လိုက်ပါတယ်
-student["grade"] = "A" # မရှိသေးရင် အသစ် ထပ်ထည့်ပါတယ်
+# ✅ Safe Access — Key မရှိရင် Default ပြန်ပေး (.get() သုံးပါ)
+print(student.get("phone", "မသိ"))  # မသိ  (phone key မရှိသောကြောင့်)
+print(student.get("name", ""))       # Aung Aung
 
-# Dictionary ထဲက Data တွေကို ထုတ်ကြည့်ခြင်း
-print(student.keys())   # Key တွေချည်းပဲ ထုတ်ပေးပါတယ်
-print(student.values()) # Value တွေချည်းပဲ ထုတ်ပေးပါတယ်
-print(student.items())  # Key-Value အတွဲလိုက် ထုတ်ပေးပါတယ်
+# Update / Add
+student["age"] = 21        # Key ရှိပြီးသားဆိုရင် Update
+student["city"] = "ရန်ကုန်"  # Key မရှိသေးဆိုရင် ထည့်
+
+# Delete
+del student["gpa"]         # Key ကိုဖျက်
 ```
 
----
-
-### 3. Tuples
-
-Tuple က List နဲ့ တူပါတယ်။ ဒါပေမယ့် အဓိက ကွာခြားချက်က **တစ်ခါ ဖန်တီးပြီးရင် အထဲက Data တွေကို ပြင်လို့၊ ဖျက်လို့၊ အသစ်ထည့်လို့ မရတော့ပါဘူး (Immutable)**။ `()` (Parentheses) ကို သုံးပါတယ်။
-
-ဘာလို့ သုံးတာလဲ? ပြင်လို့မရတဲ့အတွက် List ထက် ပိုမြန်ပါတယ်။ ပြီးတော့ လုံးဝ ပြောင်းလဲသွားလို့ မဖြစ်တဲ့ Data တွေ (ဥပမာ - မြေပုံပေါ်က လတ္တီကျု၊ လောင်ဂျီကျု နေရာတွေ) ကို သိမ်းဖို့ သုံးပါတယ်။
+<Aside type="caution" title="KeyError ကို ကြောက်ပါ">
+`student["phone"]` ဟာ "phone" Key မရှိရင် **KeyError** တက်ပါမည်။ မသေချာသော Key တွေကို Access လုပ်ချိန်တိုင်း `.get()` ကို သုံးပါ:
 
 ```python
-colors = ("Red", "Green", "Blue")
-print(colors[0]) # Red
+# ❌ Crash ဖြစ်နိုင်
+phone = student["phone"]     # KeyError!
 
-# colors[0] = "Yellow" # ဒါမျိုး လုပ်လို့ မရပါဘူး၊ Error တက်ပါမယ်။
+# ✅ Safe
+phone = student.get("phone", "N/A")   # "N/A"  ပြန်ပေး
+```
+</Aside>
+
+```python
+# Loop ပတ်ခြင်း
+for key, value in student.items():
+    print(f"{key}: {value}")
+
+# Key တွေ / Value တွေ ချည်းပဲ
+print(list(student.keys()))    # ['name', 'age', 'major', 'city']
+print(list(student.values()))  # ['Aung Aung', 21, 'Computer Science', 'ရန်ကုန်']
+
+# Key ရှိမရှိ စစ်ဆေးခြင်း
+if "name" in student:
+    print("name ရှိသည်")
+```
+
+#### Nested Data Structures — List of Dictionaries
+
+တကယ်ကမ္ဘာ Program တွေမှာ Data ဟာ ဒီပုံစံ ဖြစ်တတ်ပါတယ် (API Response ပုံစံနဲ့ တူပါတယ်):
+
+```python
+students = [
+    {"name": "Aung Aung", "score": 85, "grade": "B"},
+    {"name": "Su Su",     "score": 92, "grade": "A"},
+    {"name": "Kyaw Kyaw", "score": 70, "grade": "C"},
+]
+
+# Loop ပတ်ပြီး ဖတ်ခြင်း
+for student in students:
+    print(f"{student['name']}: {student['score']} ({student['grade']})")
+
+# Score 80+ ကျောင်းသားများ ရှာခြင်း
+high_scorers = [s["name"] for s in students if s["score"] >= 80]
+print(high_scorers)   # ['Aung Aung', 'Su Su']
+
+# Average Score
+average = sum(s["score"] for s in students) / len(students)
+print(f"ပျမ်းမျှ: {average:.1f}")
 ```
 
 ---
 
-### 4. Sets
+### ၃. Tuples
 
-Set က Data တွေကို စုသိမ်းပေးပါတယ်။ ဒါပေမယ့် **တူညီတဲ့ Data နှစ်ခု မပါနိုင်ပါဘူး**။ ပြီးတော့ အစဉ်လိုက်လည်း မရှိပါဘူး (Index နဲ့ လှမ်းခေါ်လို့ မရပါဘူး)။ `{}` ကို သုံးပါတယ်။
+Tuple က List နဲ့ တူပြီး `()` ကို သုံးပါတယ်။ အဓိကကွာတာက **တစ်ကြိမ် ဆောက်ပြီးရင် ပြင်လို့ မရ (Immutable)**:
 
-List တစ်ခုထဲမှာ တူနေတဲ့ Data တွေကို ဖယ်ထုတ်ချင်တဲ့အခါ Set ကို ပြောင်းလိုက်တာက အလွယ်ဆုံး နည်းလမ်းပါပဲ။
+```python
+coordinates = (16.8661, 96.1951)    # Latitude, Longitude
+rgb = (255, 128, 0)                 # Color values
+
+print(coordinates[0])   # 16.8661
+print(coordinates[1])   # 96.1951
+
+# Unpack လုပ်ခြင်း
+lat, lon = coordinates
+print(f"Latitude: {lat}, Longitude: {lon}")
+
+# coordinates[0] = 0    # ← TypeError! ပြင်လို့ မရ
+```
+
+**ဘာကြောင့် Tuple သုံးတာလဲ?**
+- List ထက် ပိုမြန်ပါတယ် (ပြင်လို့ မရတာကြောင့် Python က Optimize လုပ်ထားသည်)
+- ပြောင်းလဲသွားလို့ မဖြစ်တဲ့ Data (မြေပုံနေရာ, RGB Color, Record) တွေ သိမ်းဖို့ သင့်တော်သည်
+- Function ကနေ Values ပြန်ပေးတဲ့အခါ Tuple အဖြစ် Return ပေးသည်
+
+---
+
+### ၄. Sets
+
+Set က တူညီတဲ့ Value ၂ ခု **မထားနိုင် (Unique Values Only)**:
 
 ```python
 numbers = {1, 2, 2, 3, 4, 4, 5}
-print(numbers) # {1, 2, 3, 4, 5} (တူနေတာတွေကို အလိုလို ဖယ်ထုတ်လိုက်ပါတယ်)
+print(numbers)   # {1, 2, 3, 4, 5}  (Duplicate တွေ အလိုလို ဖျက်)
 
-# အသစ်ထည့်ခြင်း
+# ထည့် / ဖျက်
 numbers.add(6)
-
-# ဖျက်ခြင်း
 numbers.remove(3)
+
+# Set Operations (သင်္ချာ Set ကဲ့သို့)
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print(a & b)    # {3, 4}       (နှစ်ဘက်မှာပါတာ — Intersection)
+print(a | b)    # {1,2,3,4,5,6} (ပေါင်းပြီးသည် — Union)
+print(a - b)    # {1, 2}       (a မှာသာပါ — Difference)
 ```
+
+**Set ရဲ့ အများကြိုက် Use Case:**
+
+```python
+# List ထဲမှ Duplicate ဖြုတ်ခြင်း
+names = ["Aung", "Su", "Aung", "Kyaw", "Su"]
+unique_names = list(set(names))
+print(unique_names)   # ['Kyaw', 'Aung', 'Su']
+
+# Membership Check — List ထက် Set မြန်ပါတယ်
+valid_users = {"admin", "manager", "user"}
+role = "admin"
+if role in valid_users:
+    print("Access Granted")
+```
+
+<Aside type="tip" title="Data Structure ရွေးချယ်ရာ Myanmar ဥပမာ">
+- **List** — ဆိုင်မှာ မှာထားသော ဟင်းစာများ (အစဉ်လိုက်၊ ထပ်ဝယ်လည်း ရ)
+- **Dict** — Customer Profile (ဖုန်းနံပါတ်နဲ့ နာမည် တွဲထားတာ)
+- **Tuple** — GPS Location (ရန်ကုန်ရဲ့ Latitude/Longitude — ပြောင်းလို့မရ)
+- **Set** — တက်ထားသောကျောင်းသားများ (ထပ်တူ မဖြစ်နိုင်)
+</Aside>
+
+---
+
+### ဘယ် Data Structure ကို ဘယ်အချိန် ရွေးမလဲ?
+
+| Data Structure | ရွေးချယ်သင့်သောအချိန် | ဥပမာ |
+|---|---|---|
+| **List** | အစဉ်လိုက် ဖြစ်ရမည်၊ ပြင်ရမည်၊ ထပ်သောတန်ဖိုး ပါနိုင် | မှာထားသော Items, ကျောင်းသားစာရင်း |
+| **Dict** | Key-Value တွဲနဲ့ ရှာနိုင်ရမည် | User Profile, Settings Config |
+| **Tuple** | ပြောင်းလဲမည် မဟုတ်သောတန်ဖိုး | GPS Coordinates, RGB |
+| **Set** | Unique တန်ဖိုးသာ၊ Duplicate မလို | Login Sessions, Tag List |
+
+---
+
+### ဖြစ်တတ်သော အမှားများ
+
+```python
+# ၁. Dict Key Error
+d = {"name": "Aung"}
+# print(d["age"])          # KeyError!
+print(d.get("age", 0))    # 0  (Safe)
+
+# ၂. List Index Error
+lst = [1, 2, 3]
+# print(lst[5])            # IndexError!
+if len(lst) > 5:
+    print(lst[5])
+
+# ၃. Empty dict နှင့် empty set — ကွာခြားချက်
+empty_dict = {}    # ← Dict (မှန်)
+empty_set  = set() # ← Set  (မှန်) — {} မသုံးနဲ့ (Dict ဖြစ်မည်)
+```
+
+<Aside title="နောက်တစ်ဆင့်">
+Data Structures ကို ကောင်းကောင်းသိပြီဆိုရင် **Module 4.5 — Comprehensions** မှာ ဒီ Data Structures တွေကို Python Style နဲ့ ပိုမြန်ပိုတိုစွာ ကိုင်တွယ်နည်း သင်ကြားပါမည်!
+</Aside>

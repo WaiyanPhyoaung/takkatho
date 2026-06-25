@@ -753,11 +753,29 @@ export default defineConfig({
               ],
             },
             {
+              label: "Module 0: Setup & Installation",
+              items: [
+                {
+                  label: "Python တပ်ဆင်ပြီး စတင်ခြင်း",
+                  slug: "python/module-0",
+                },
+              ],
+            },
+            {
               label: "Module 1: Variables & Data Types",
               items: [
                 {
-                  label: "Variables & Data Types",
+                  label: "Variables, Types, Operators",
                   slug: "python/module-1",
+                },
+              ],
+            },
+            {
+              label: "Module 1.5: String Methods",
+              items: [
+                {
+                  label: "String Methods & f-strings",
+                  slug: "python/module-1-5",
                 },
               ],
             },
@@ -765,7 +783,7 @@ export default defineConfig({
               label: "Module 2: Control Flow",
               items: [
                 {
-                  label: "If/Else & Loops",
+                  label: "If/Else, Loops & in Operator",
                   slug: "python/module-2",
                 },
               ],
@@ -774,7 +792,7 @@ export default defineConfig({
               label: "Module 3: Functions",
               items: [
                 {
-                  label: "Functions",
+                  label: "Functions, Lambda & Scope",
                   slug: "python/module-3",
                 },
               ],
@@ -789,10 +807,19 @@ export default defineConfig({
               ],
             },
             {
+              label: "Module 4.5: Comprehensions",
+              items: [
+                {
+                  label: "Comprehensions & Built-ins",
+                  slug: "python/module-4-5",
+                },
+              ],
+            },
+            {
               label: "Module 5: OOP",
               items: [
                 {
-                  label: "Object-Oriented Programming",
+                  label: "Classes, Objects & Inheritance",
                   slug: "python/module-5",
                 },
               ],
@@ -801,8 +828,17 @@ export default defineConfig({
               label: "Module 6: File & Error Handling",
               items: [
                 {
-                  label: "File & Error Handling",
+                  label: "Files, JSON & Error Handling",
                   slug: "python/module-6",
+                },
+              ],
+            },
+            {
+              label: "Module 6.5: Virtual Environments",
+              items: [
+                {
+                  label: "venv & pip",
+                  slug: "python/module-6-5",
                 },
               ],
             },
@@ -810,7 +846,7 @@ export default defineConfig({
               label: "Module 7: Modules & Packages",
               items: [
                 {
-                  label: "Modules & Packages",
+                  label: "Modules, Packages & ကိုယ်ပိုင် Module",
                   slug: "python/module-7",
                 },
               ],
@@ -821,6 +857,24 @@ export default defineConfig({
                 {
                   label: "Number Guessing Game",
                   slug: "python/module-8",
+                },
+              ],
+            },
+            {
+              label: "Module 9: Debugging",
+              items: [
+                {
+                  label: "Error ဖတ်နည်း & Debugging",
+                  slug: "python/module-9",
+                },
+              ],
+            },
+            {
+              label: "Module 10: More Projects",
+              items: [
+                {
+                  label: "To-do List, Calculator & Word Counter",
+                  slug: "python/module-10",
                 },
               ],
             },
@@ -2725,6 +2779,133 @@ export default defineConfig({
                 {
                   label: "What to Learn Next",
                   slug: "javascript/best-practices/next-steps",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "n8n Workflow Automation",
+          items: [
+            {
+              label: "1. မိတ်ဆက်",
+              items: [
+                {
+                  label: "n8n ဆိုတာ ဘာလဲ?",
+                  slug: "n8n-course/introduction/what-is-n8n",
+                },
+                {
+                  label: "ထည့်သွင်းခြင်းနှင့် Setup",
+                  slug: "n8n-course/introduction/installation-setup",
+                },
+              ],
+            },
+            {
+              label: "2. Core Concepts",
+              items: [
+                {
+                  label: "Nodes ကို နားလည်ခြင်း",
+                  slug: "n8n-course/core-concepts/understanding-nodes",
+                },
+                {
+                  label: "Triggers နှင့် Events",
+                  slug: "n8n-course/core-concepts/triggers-and-events",
+                },
+                {
+                  label: "Credentials နှင့် Security",
+                  slug: "n8n-course/core-concepts/credentials-security",
+                },
+              ],
+            },
+            {
+              label: "3. ပထမဆုံး Workflow",
+              items: [
+                {
+                  label: "Hello World Workflow",
+                  slug: "n8n-course/first-workflow/hello-world-workflow",
+                },
+                {
+                  label: "HTTP Request နှင့် Webhook",
+                  slug: "n8n-course/first-workflow/http-request-webhook",
+                },
+                {
+                  label: "Data Transformation",
+                  slug: "n8n-course/first-workflow/data-transformation",
+                },
+              ],
+            },
+            {
+              label: "4. လက်တွေ့ Automation",
+              items: [
+                {
+                  label: "Email နှင့် Notification",
+                  slug: "n8n-course/real-world/email-notifications",
+                },
+                {
+                  label: "API Integration လက်တွေ့",
+                  slug: "n8n-course/real-world/connecting-apis",
+                },
+              ],
+            },
+            {
+              label: "5. Advanced Topics",
+              items: [
+                {
+                  label: "Error Handling",
+                  slug: "n8n-course/advanced/error-handling",
+                },
+                {
+                  label: "Sub-Workflows နှင့် Reusability",
+                  slug: "n8n-course/advanced/sub-workflows",
+                },
+              ],
+            },
+            {
+              label: "6. Loop နှင့် Batch Processing",
+              items: [
+                {
+                  label: "Loop, Batch & Rate Limiting",
+                  slug: "n8n-course/loop-batch/loop-over-items",
+                },
+              ],
+            },
+            {
+              label: "7. AI ဖြင့် Automation",
+              items: [
+                {
+                  label: "AI Nodes မိတ်ဆက်",
+                  slug: "n8n-course/ai-workflow/ai-nodes-intro",
+                },
+                {
+                  label: "AI Agent ဆောက်ခြင်း",
+                  slug: "n8n-course/ai-workflow/ai-agent-workflow",
+                },
+              ],
+            },
+            {
+              label: "8. Database Operations",
+              items: [
+                {
+                  label: "MySQL, PostgreSQL & Supabase",
+                  slug: "n8n-course/database/database-operations",
+                },
+              ],
+            },
+            {
+              label: "9. Production Deployment",
+              items: [
+                {
+                  label: "VPS တွင် Self-host လုပ်ခြင်း",
+                  slug: "n8n-course/production/self-hosting",
+                },
+              ],
+            },
+            {
+              label: "10. Capstone Project",
+              items: [
+                {
+                  label: "E-commerce Automation System",
+                  slug: "n8n-course/final-project/ecommerce-automation",
                 },
               ],
             },

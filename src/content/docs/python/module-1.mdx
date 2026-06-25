@@ -1,60 +1,287 @@
 ---
 title: "Variables နှင့် Data Types"
-description: "Python တွင် Variables နှင့် Data Types များ အသုံးပြုနည်း"
+description: "Python တွင် Variables နှင့် Data Types များ အသုံးပြုနည်း — type() သုံးနည်း၊ Type Conversion နှင့် None"
 ---
 
+import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import variablesImg from "@/assets/python/variables.svg";
+import typeConvImg from "@/assets/python/type-conversion.svg";
 
-### Variables (ကိန်းရှင်များ)
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Variable ဖန်တီးပြီး Data ထည့်သိမ်းနိုင်မည်
+- String, Integer, Float, Boolean, None တို့ကို ကွဲပြားစွာ သုံးနိုင်မည်
+- `type()` နဲ့ Data Type စစ်ဆေးနိုင်မည်
+- Type Conversion ပြုလုပ်တတ်မည်
+- Arithmetic နှင့် Comparison Operators သုံးနိုင်မည်
+- f-strings နဲ့ Text ဖော်မတ်လုပ်နိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 0 (Setup) ပြီးပြီး Python နဲ့ VS Code တပ်ဆင်ပြီးမှ ဒီ Module ကို ဆက်ပါ။
+</Aside>
+
+### Variables (ကိန်းရှင်များ) ဆိုတာ ဘာလဲ?
 
 Variable ဆိုတာ Data တွေကို သိမ်းထားပေးတဲ့ **"သေတ္တာလေး"** တွေနဲ့ တူပါတယ်။ သေတ္တာပေါ်မှာ နာမည်တပ်ထားပြီး အထဲမှာ ကိုယ်သိမ်းချင်တဲ့ တန်ဖိုးကို ထည့်ထားလို့ ရပါတယ်။
 
 ```python
-name = "Aung Aung"
-age = 20
+name = "Aung Aung"   # name ဆိုတဲ့ သေတ္တာထဲ "Aung Aung" ထည့်
+age = 20             # age ဆိုတဲ့ သေတ္တာထဲ 20 ထည့်
 ```
 
-ဒီမှာ `name` နဲ့ `age` က Variable တွေပါ။ `"Aung Aung"` နဲ့ `20` က အထဲမှာ သိမ်းထားတဲ့ Data တွေပါ။
+**Variable နာမည် ပေးနည်း စည်းကမ်းများ:**
+
+```python
+# ✅ မှန်ကန်သည်
+student_name = "Su Su"
+age2 = 25
+_private = True
+
+# ❌ မမှန်ကန် (Error တက်မည်)
+2name = "Aung"     # ဂဏန်းနဲ့ မစနိုင်
+my-name = "Aung"   # (-) သင်္ကေတ မသုံးရ
+class = "first"    # Python Keyword မသုံးရ
+```
+
+<Aside type="tip" title="Python သည် Dynamic Typing">
+Python မှာ Variable တစ်ခုကို Type သတ်မှတ်စရာ မလိုပါဘူး — တန်ဖိုး ထည့်တာနဲ့ Python ကိုယ်တိုင် သိပါတယ်။ ပြောင်းလဲလဲ ရပါသည်:
+
+```python
+price = 5000        # Integer (ငွေပမာဏ)
+price = "ငါးထောင်"   # String ဖြစ်သွား (Error မတက်ဘူး)
+price = [5000, 3000] # List ဖြစ်သွား
+```
+</Aside>
 
 <ContentImage src={variablesImg} alt="Python Variables and Data Types" />
 
+---
+
 ### Data Types (ဒေတာ အမျိုးအစားများ)
 
-Python မှာ အဓိက Data Type (၄) မျိုး ရှိပါတယ်။
+Python မှာ အဓိက Data Type **၅** မျိုး ရှိပါတယ်:
 
-1. **String (စာသား):** စာသားတွေကို သိမ်းဖို့ သုံးပါတယ်။ အမြဲတမ်း `""` (သို့) `''` ထဲမှာ ရေးရပါတယ်။
-   ```python
-   message = "Hello World"
-   ```
+#### ၁. String (စာသား)
+စာသားတွေကို သိမ်းဖို့ သုံးပါတယ်။ `""` (Double Quote) သို့မဟုတ် `''` (Single Quote) ထဲမှာ ရေးရပါတယ်:
 
-2. **Integer (ကိန်းပြည့်):** ဒသမဂဏန်း မပါတဲ့ ကိန်းဂဏန်းတွေပါ။
-   ```python
-   count = 10
-   ```
+```python
+name = "Aung Aung"
+city = 'ရန်ကုန်'
+message = "မင်္ဂလာပါ! ဒါ Python ပါ။"
 
-3. **Float (ဒသမကိန်း):** ဒသမဂဏန်း ပါတဲ့ ကိန်းဂဏန်းတွေပါ။
-   ```python
-   price = 99.99
-   ```
+print(type(name))     # <class 'str'>
+print(len(name))      # 9  (စာလုံး အရေအတွက်)
+```
 
-4. **Boolean (အမှန်/အမှား):** `True` (မှန်တယ်) သို့မဟုတ် `False` (မှားတယ်) ဆိုတဲ့ တန်ဖိုး နှစ်ခုပဲ ရှိပါတယ်။
-   ```python
-   is_student = True
-   ```
+#### ၂. Integer (ကိန်းပြည့်)
+ဒသမဂဏန်း မပါတဲ့ ကိန်းဂဏန်းတွေပါ:
+
+```python
+age = 20
+year = 2024
+negative = -5
+
+print(type(age))   # <class 'int'>
+```
+
+#### ၃. Float (ဒသမကိန်း)
+ဒသမဂဏန်း ပါတဲ့ ကိန်းဂဏန်းတွေပါ:
+
+```python
+price = 99.99
+pi = 3.14159
+temperature = -2.5
+
+print(type(price))   # <class 'float'>
+```
+
+#### ၄. Boolean (မှန်/မှား)
+`True` (မှန်တယ်) သို့မဟုတ် `False` (မှားတယ်) ဆိုတဲ့ တန်ဖိုး နှစ်ခုပဲ ရှိပါတယ်:
+
+```python
+is_student = True
+is_raining = False
+
+print(type(is_student))   # <class 'bool'>
+```
+
+#### ၅. None — "ဘာမှ မဟုတ်"
+
+`None` ဆိုတာ **"တန်ဖိုး မရှိသေးဘူး"** ဆိုတဲ့ အဓိပ္ပာယ်ပါ။ Variable တစ်ခုကို ဆောက်ထားပြီး ဘာမှ မထည့်ဘဲ နောက်မှ ထည့်ဖို့ Plan ရှိတဲ့အခါ သုံးပါတယ်:
+
+```python
+result = None       # မသိသေးဘူး
+user_name = None    # User မ login ရသေးဘူး
+
+print(result)        # None
+print(type(result))  # <class 'NoneType'>
+
+# None စစ်ဆေးနည်း
+if result is None:
+    print("ရလဒ် မရသေးဘူး")
+```
+
+---
+
+### type() — Data Type စစ်ဆေးနည်း
+
+ဘယ် Variable ကမဆို `type()` Function နဲ့ စစ်ဆေးနိုင်ပါတယ်:
+
+```python
+name = "Aung Aung"
+age = 20
+price = 99.99
+active = True
+empty = None
+
+print(type(name))    # <class 'str'>
+print(type(age))     # <class 'int'>
+print(type(price))   # <class 'float'>
+print(type(active))  # <class 'bool'>
+print(type(empty))   # <class 'NoneType'>
+```
+
+---
+
+### Type Conversion — Type ပြောင်းလဲခြင်း
+
+<ContentImage src={typeConvImg} alt="Python Type Conversion" />
+
+Type တစ်ခုကနေ တစ်ခုကို ပြောင်းလဲနိုင်ပါတယ်:
+
+```python
+# String → Integer
+age_str = "20"
+age_int = int(age_str)
+print(age_int + 1)    # 21  (String ဆိုရင် + သည် ပေါင်းလဒ် မဟုတ်ဘဲ ချိတ်ဆက်မည်)
+
+# Integer → String
+score = 95
+message = "Score: " + str(score)
+print(message)    # Score: 95
+
+# String → Float
+price_str = "99.99"
+price = float(price_str)
+print(price * 2)    # 199.98
+
+# Integer → Float
+num = 5
+print(float(num))    # 5.0
+
+# Boolean conversion
+print(bool(0))       # False
+print(bool(1))       # True
+print(bool(""))      # False  (Empty String)
+print(bool("hello")) # True
+```
+
+<Aside type="caution" title="Type Conversion မှားနိုင်တဲ့ နေရာ">
+```python
+int("hello")    # ValueError!  — "hello" ကို ကိန်းဂဏန်း ပြောင်းလို့ မရ
+int("99.5")     # ValueError!  — Float ပုံစံ String ကို int() မရ (float() သာ ရ)
+int(float("99.5"))  # 99  — ဒီလို ဆင့်ပြောင်းနိုင်
+```
+</Aside>
+
+---
 
 ### Operators (သင်္ချာ တွက်ချက်ခြင်း)
 
-Python မှာ ပေါင်း၊ နှုတ်၊ မြှောက်၊ စား တွေကို အလွယ်တကူ လုပ်လို့ရပါတယ်။
+#### Arithmetic Operators (ပေါင်းနှုတ်မြှောက်စား)
 
 ```python
 a = 10
 b = 3
 
-print(a + b)  # အဖြေ: 13 (ပေါင်း)
-print(a - b)  # အဖြေ: 7 (နှုတ်)
-print(a * b)  # အဖြေ: 30 (မြှောက်)
-print(a / b)  # အဖြေ: 3.333... (စား)
-print(a // b) # အဖြေ: 3 (စားလဒ် ကိန်းပြည့်)
-print(a % b)  # အဖြေ: 1 (စားကြွင်း)
+print(a + b)   # 13  (ပေါင်း)
+print(a - b)   # 7   (နှုတ်)
+print(a * b)   # 30  (မြှောက်)
+print(a / b)   # 3.333...  (စား — Float ပြန်ပေးသည်)
+print(a // b)  # 3   (ကိန်းပြည့်ဖြင့် စား — ဒသမ ဖြတ်)
+print(a % b)   # 1   (Mod — ကြွင်းရလဒ်)
+print(a ** b)  # 1000 (a ကို b ထပ် — 10³)
 ```
+
+#### Comparison Operators (နှိုင်းယှဉ်စစ်ဆေးခြင်း)
+
+နှိုင်းယှဉ် Operators တွေ စစ်ဆေးပြီး `True` သို့မဟုတ် `False` ပြန်ပေးပါတယ်:
+
+```python
+x = 10
+y = 5
+
+print(x == y)   # False  (တူသလား?)
+print(x != y)   # True   (မတူဘူးလား?)
+print(x > y)    # True   (ကြီးသလား?)
+print(x < y)    # False  (ငယ်သလား?)
+print(x >= y)   # True   (ကြီးတယ် သို့မဟုတ် တူသလား?)
+print(x <= y)   # False  (ငယ်တယ် သို့မဟုတ် တူသလား?)
+```
+
+---
+
+### f-strings — ကြည်လင်သော Text Formatting
+
+```python
+name = "Su Su"
+age = 22
+score = 95.678
+
+# f"..." ပုံစံနဲ့ Variable ကို {} ထဲ ထည့်ပါ
+print(f"မင်္ဂလာပါ {name}! သင်ဟာ {age} နှစ် ရှိပါတယ်")
+
+# Expression တွေ တိုက်ရိုက် ထည့်နိုင်
+print(f"Score: {score:.2f}")   # Score: 95.68  (ဒသမ ၂ ထပ်)
+print(f"Next year: {age + 1}") # Next year: 23
+
+# ဒါကို သုံးနိုင်ပါပြီ — ဒီ Course ထဲမှာ f-string ကိုသာ သုံးပါမည်
+```
+
+---
+
+### Multiple Assignment (တစ်ကြောင်းတည်းနဲ့ ကြေညာခြင်း)
+
+```python
+# Variable တစ်ချက်တည်း — ဂဏန်းစစ်မှတ်တမ်းများ ကနဦး သုည ပေးခြင်း
+morning = afternoon = evening = 0
+print(morning, afternoon, evening)   # 0 0 0
+
+# Tuple Unpacking
+name, age, city = "Aung", 20, "ရန်ကုန်"
+print(name)   # Aung
+print(age)    # 20
+print(city)   # ရန်ကုန်
+
+# နှစ်ယောက်ရဲ့ Score ကို လဲလှယ်ခြင်း
+mg_mg_score = 85
+su_su_score = 92
+mg_mg_score, su_su_score = su_su_score, mg_mg_score
+print(mg_mg_score, su_su_score)   # 92 85
+```
+
+---
+
+### ဖြစ်တတ်သော အမှားများ
+
+```python
+# ၁. Type မစစ်ဆေးဘဲ ပေါင်းခြင်း
+age = "20"        # String!
+# print(age + 1)  # TypeError!
+print(int(age) + 1)  # ✅ 21
+
+# ၂. None ကို Math လုပ်ခြင်း
+result = None
+# print(result + 1)  # TypeError: unsupported operand
+if result is not None:
+    print(result + 1)
+
+# ၃. == နှင့် = ရောသုံးခြင်း
+x = 5       # ← Assign (တန်ဖိုးထည့်သည်)
+x == 5      # ← Compare (စစ်ဆေးသည်)
+```
+
+<Aside title="နောက်တစ်ဆင့်">
+Variables ကို ကောင်းကောင်းသိပြီဆိုရင် **Module 1.5 — String Methods** မှာ String ကို ပိုမိုနက်နဲစွာ ကိုင်တွယ်နည်းကို သင်ယူပါမည်!
+</Aside>

@@ -1,0 +1,142 @@
+---
+title: "Setup & Installation"
+description: "Python ကို ကွန်ပျူတာမှာ တပ်ဆင်ပြီး ပထမဆုံး Program ကို Run ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Python ကို ကွန်ပျူတာမှာ မှန်ကန်စွာ တပ်ဆင်နိုင်မည်
+- VS Code Editor ကို Python အတွက် Setup လုပ်နိုင်မည်
+- ကိုယ်ပိုင် `.py` ဖိုင် ဖန်တီးပြီး Run နိုင်မည်
+- Python REPL ကို Scratchpad အဖြစ် သုံးနိုင်မည်
+</Aside>
+
+<Aside type="tip" title="လိုအပ်သောအရာများ">
+- ကွန်ပျူတာ (Windows, Mac, Linux) တစ်လုံး
+- Internet ချိတ်ဆက်မှု (Download အတွက်)
+- Python နှင့် Programming အကြောင်း မသိသေးဘဲ စရပါတယ် — ဒီ Module မှာ အကုန် ရှင်းပြပါမည်
+</Aside>
+
+### Python ဆိုတာ ဘာ?
+
+မစတင်ခင် Python ကို ဘာကြောင့် လေ့လာသင့်သလဲ ဆိုတာ တစ်ခွန်းနဲ့ ရှင်းပါတယ် — Python ဟာ လက်ရှိ ကမ္ဘာမှာ **အသုံးအများဆုံး Programming Language** တစ်ခုဖြစ်ပြီး Web, AI, Data Science, Automation တွေမှာ ရေသောက်မြစ်လို သုံးနေကြပါတယ်။
+
+---
+
+### အဆင့် ၁ — Python တပ်ဆင်ခြင်း
+
+**python.org** ဝဘ်ဆိုဒ်ကနေ Python ကို အခမဲ့ Download ပြုလုပ်နိုင်ပါတယ်။
+
+```
+https://python.org/downloads
+```
+
+"Download Python 3.x.x" ဆိုတဲ့ ခလုတ်ကြီးကို နှိပ်ပြီး Installer ကို Download ပြုလုပ်ပါ။
+
+<Aside type="caution" title="Windows အတွက် အရေးကြီးသောအချက်">
+Installer ကို Double-click နှိပ်ပြီး ဖွင့်တဲ့အခါ **"Add Python to PATH"** ဆိုတဲ့ Checkbox ကို မဖြစ်မနေ ✓ ထားပါ။ ဒါမပြုလုပ်ဘဲ Install လုပ်ရင် Terminal မှာ `python` command ကို သုံးလို့ မရပါဘူး။ Uninstall ပြီး ပြန် Install ရမှာမို့ ဒါကို အရင်ဆုံး စစ်ဆေးပါ။
+</Aside>
+
+**Python မှန်မှန်ကန်ကန် တပ်ဆင်ပြီးလားဆိုတာ စစ်ဆေးနည်း:**
+
+Terminal (Windows မှာ Command Prompt သို့မဟုတ် PowerShell) ကို ဖွင့်ပြီး အောက်ပါ Command ကို ရိုက်ထည့်ပါ:
+
+```bash
+python --version
+```
+
+```
+Python 3.12.0
+```
+
+ဒီလို Python version number ပြပေးရင် မှန်ကန်စွာ တပ်ဆင်ပြီးပါပြီ။
+
+---
+
+### အဆင့် ၂ — VS Code တပ်ဆင်ခြင်း
+
+VS Code (Visual Studio Code) ဆိုတာ Microsoft ဖန်တီးထားတဲ့ Code Editor တစ်ခုဖြစ်ပြီး Python ရေးဖို့ **အသင့်တော်ဆုံး** Editor ပါ။ Code တွေ Highlight ပြပေးတာ၊ Error တွေ ချက်ချင်းညွှန်ပြတာ၊ Terminal ပါ built-in ထည့်ပေးထားတာ တွေ ကြောင့် Beginner တွေ အတွက် အလွန် ကောင်းမွန်ပါတယ်။
+
+```
+https://code.visualstudio.com
+```
+
+1. VS Code ကို Download ပြုလုပ်ပြီး Install လုပ်ပါ
+2. VS Code ကို ဖွင့်ပါ
+3. ဘယ်ဘက် Sidebar မှာ **Extensions** Icon (⊞) ကို နှိပ်ပါ
+4. Search Box မှာ `Python` လို့ ရိုက်ပါ
+5. **Microsoft** ရဲ့ Python Extension ကို `Install` နှိပ်ပါ
+
+---
+
+### အဆင့် ၃ — ပထမဆုံး Python Program ရေးခြင်း
+
+#### Folder ဖွင့်ခြင်း
+
+VS Code မှာ **File → Open Folder** ကနေ ကိုယ်ရဲ့ Projects Folder ကို ဖွင့်ပါ (ဥပမာ `Desktop/my-python-projects`)။
+
+#### File အသစ် ဖန်တီးခြင်း
+
+Folder မှာ File အသစ် ဖန်တီးပြီး `hello.py` လို့ အမည်ပေးပါ (`.py` Extension ကို မမေ့ပါနဲ့ — Python ဖိုင် ဆိုတာ ဒါနဲ့ သိတာပါ)။
+
+#### Code ရေးခြင်း
+
+```python
+print("မင်္ဂလာပါ, Python!")
+print("ကျွန်တော်/မ ပထမဆုံး Program ကို ရေးနိုင်ခဲ့ပါပြီ!")
+```
+
+#### Program Run ခြင်း
+
+VS Code Terminal ကိုဖွင့်ပါ (**View → Terminal**) ပြီး:
+
+```bash
+python hello.py
+```
+
+**ဒီလို ပြပေးရမည်:**
+```
+မင်္ဂလာပါ, Python!
+ကျွန်တော်/မ ပထမဆုံး Program ကို ရေးနိုင်ခဲ့ပါပြီ!
+```
+
+ဒါဆိုရင် Python လေ့လာဖို့ ပြင်ဆင်မှု ပြည့်စုံသွားပါပြီ!
+
+---
+
+### Python REPL — ချက်ချင်း စမ်းသပ်နိုင်သော Scratchpad
+
+Terminal မှာ `python` လို့ ရိုက်ပြီး Enter နှိပ်လိုက်ရင် **Python REPL** (Read-Eval-Print Loop) ထဲ ရောက်သွားပါမယ်။ REPL ဆိုတာ Code တစ်ကြောင်းကို ချက်ချင်း Run ကြည့်လို့ ရတဲ့ ပုံစံပါ — Calculator တစ်ခုနဲ့ တူပါတယ်။
+
+```python
+>>> 2 + 2
+4
+>>> print("မင်္ဂလာပါ")
+မင်္ဂလာပါ
+>>> "python".upper()
+'PYTHON'
+>>> exit()
+```
+
+`>>>` ကို မြင်ရရင် REPL ထဲ ရောက်နေတာပါ။ ထွက်ဖို့ `exit()` လို့ ရိုက်ပါ။
+
+<Aside type="tip" title="REPL ကို ဘယ်အချိန်သုံးမလဲ?">
+Code တစ်ကြောင်းကို "ဒါ ဘယ်လို Output ထွက်မလဲ?" ဆိုပြီး စမ်းကြည့်ချင်ရင် REPL ကနေ ချက်ချင်း မြင်နိုင်ပါတယ်။ ဖိုင်ဖွင့်ပြီး Run ခြင်းထက် ပိုမြန်ပါတယ်။
+</Aside>
+
+---
+
+### Error တွေ တွေ့ရင်
+
+Setup လုပ်တာနဲ့ပတ်သက်ပြီး အဖြစ်များတဲ့ Error တွေ:
+
+| Error | အဓိပ္ပာယ် | ဖြေရှင်းနည်း |
+|-------|----------|------------|
+| `python` is not recognized | PATH မထည့်ဘဲ Install လုပ်ထား | Python ကို Uninstall ပြီး "Add to PATH" check ထားပြီး ပြန် Install |
+| `SyntaxError` | Code ရေးပုံ မှားနေ | Error message ရဲ့ line number ကြည့်ပြီး စစ်ဆေးပါ |
+| File မတွေ့ | Terminal folder မှားနေ | `hello.py` ရှိတဲ့ Folder ထဲ Terminal ရောက်နေရမည် |
+
+<Aside title="နောက်တစ်ဆင့်">
+Setup ပြည့်စုံသွားပြီဆိုရင် **Module 1** ကို ဆက်သွားနိုင်ပါပြီ — Python ရဲ့ Variables နှင့် Data Types များကို လေ့လာပါမည်!
+</Aside>

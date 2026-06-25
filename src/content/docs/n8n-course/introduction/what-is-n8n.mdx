@@ -1,0 +1,98 @@
+---
+title: "n8n ဆိုတာ ဘာလဲ?"
+description: "n8n Workflow Automation tool အကြောင်း မိတ်ဆက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+## n8n ဆိုတာ ဘာလဲ?
+
+n8n (pronounce: **n-eight-n**) ဆိုတာ **Open-Source Workflow Automation** tool တစ်ခုပါ။ Apps, Services, APIs တွေကို code နည်းနည်းသာ ရေးရပြီး (သို့မဟုတ် code မရေးဘဲပင်) တစ်ခုနဲ့တစ်ခု ချိတ်ဆက်ပြီး Task တွေကို အလိုအလျောက် လုပ်ဆောင်ပေးနိုင်တဲ့ Platform ပါ။
+
+ရိုးရှင်းစွာပြောရရင် — **"ဒီအကြောင်းအရာ ဖြစ်ရင်၊ ဒါကို လုပ်ပေး"** ဆိုတဲ့ Automation Rule တွေကို Visual Editor နဲ့ ဆောက်လို့ရပါတယ်။
+
+<FlowDiagram
+  nodes={[
+    { label: "Gmail", sublabel: "Email အသစ်ရောက်မှ", type: "trigger" },
+    { label: "Slack", sublabel: "Notify ပို့ခြင်း", type: "action" },
+    { label: "Google Sheets", sublabel: "Data ထည့်ခြင်း", type: "action" }
+  ]}
+  caption="Email တစ်ခု ရောက်ရင် → Slack ကို ပို့ → Sheet ထည့်"
+/>
+
+## ဘာလို့ n8n ကို သင်ယူသင့်တာလဲ?
+
+### ၁. Repetitive Task တွေကို အချိန်ကုန်ဖြုန်းမနေဘဲ Automate လုပ်နိုင်သည်
+
+Developer ဖြစ်ဖြစ်၊ Freelancer ဖြစ်ဖြစ်၊ Business Owner ဖြစ်ဖြစ် — တစ်နေ့ကို ထပ်ခါထပ်ခါ လုပ်ရတဲ့ Task တွေ ရှိကြမှာပါ:
+- Email စစ်ပြီး Data ကူးရတာ
+- Form Response တစ်ခုစီ Database ထည့်ရတာ
+- Report ပြုလုပ်ပြီး Team ကို ပို့ရတာ
+
+ဒါတွေကို n8n နဲ့ **တစ်ကြိမ်တည်း Setup** လုပ်လိုက်ရင် နောက်ပြီးတော့ အလိုအလျောက် ဖြစ်နေမှာပါ။
+
+### ၂. Open-Source & Self-Hostable
+
+n8n ဟာ Open-Source ဖြစ်တဲ့အတွက် ကိုယ်ပိုင် Server ပေါ်မှာ ကုန်ကျစရိတ်မရှိဘဲ Install လုပ်လို့ရပါတယ်။ Data Privacy ကို ထိန်းချုပ်နိုင်ပါတယ်။
+
+### ၃. 400+ Integrations ပါဝင်သည်
+
+n8n မှာ Google Sheets, Gmail, Slack, GitHub, Notion, Airtable, MySQL, PostgreSQL နဲ့ အခြား App 400+ ကျော် Built-in Integrations ရှိပါတယ်။
+
+n8n Integrations (နမူနာ):
+- **Communication** — Gmail, Outlook, Slack, Discord, Telegram
+- **Data & Storage** — Google Sheets, Airtable, Notion, MySQL
+- **E-commerce** — Shopify, WooCommerce, Stripe
+- **Files** — Google Drive, Dropbox, OneDrive
+- **Development** — GitHub, Jira, Linear, GitLab
+- **AI** — OpenAI, Anthropic, Hugging Face
+
+### ၄. Code လည်း ရေးလို့ရသည်
+
+Code-Free ဖြစ်ရုံသာမက JavaScript / Python Code တွေကိုပါ Node ထဲမှာ ရေးသွင်းပြီး ပိုမို Complex Logic တွေ ဆောက်နိုင်ပါတယ်။
+
+## n8n vs တခြား Automation Tools
+
+| Feature | n8n | Zapier | Make |
+|---------|-----|--------|------|
+| **Open Source** | ✅ Yes | ❌ No | ❌ No |
+| **Self-Hosting** | ✅ Yes | ❌ No | ❌ No |
+| **Free Tier** | ✅ Unlimited (self-host) | Limited | Limited |
+| **Code Support** | ✅ JS/Python | ❌ | Limited |
+| **Custom Logic** | ✅ Full | Limited | Limited |
+| **Integrations** | 400+ | 6000+ | 1500+ |
+
+<Aside type="tip" title="n8n ဘယ်သူတွေ သုံးသင့်သလဲ?">
+- **Developer / DevOps** — Workflow Automation, API Integration
+- **Data Team** — ETL Pipelines, Report Automation
+- **Startup / SME** — Business Process Automation
+- **Freelancer** — Client Workflow ဆောက်ပေးနိုင်ခြင်း
+</Aside>
+
+## n8n ရဲ့ UI ကို ကြိုတင်မြင်ကွင်း
+
+n8n ၏ Editor Interface တွင် Workflow ကို Visual Flow ပုံစံဖြင့် ကြည့်ရသည်။ Left Panel တွင် Node Library (400+ integrations) ရှိပြီး Canvas ပေါ်မှာ Drag & Drop ဖြင့် Workflow ဆောက်နိုင်သည်။ Right Panel တွင် Node Configuration ပြုလုပ်နိုင်သည်။
+
+<FlowDiagram
+  nodes={[
+    { label: "Trigger Node", sublabel: "Workflow စတင်ရာ", type: "trigger" },
+    { label: "Action Node", sublabel: "Process လုပ်ခြင်း", type: "action" },
+    { label: "Output", sublabel: "ရလဒ်ထွက်ခြင်း", type: "end" }
+  ]}
+  caption="n8n Editor Interface — Node တွေကို Canvas ပေါ် ချိတ်ဆက်ပြီး Workflow ဆောက်သည်"
+/>
+
+## ဘာတွေ လေ့လာမှာလဲ?
+
+ဒီ Course မှာ အောက်ပါ Topics တွေကို တစ်ဆင့်ချင်း လေ့လာသွားမှာပါ:
+
+1. **Installation & Setup** — n8n ကို Local မှာ Run နည်း
+2. **Core Concepts** — Nodes, Triggers, Credentials
+3. **First Workflow** — Hello World ကနေ Real Workflow အထိ
+4. **Real-World Automation** — Email, Webhook, API Integration
+5. **Advanced Patterns** — Error Handling, Sub-Workflows
+
+<Aside type="note" title="လိုအပ်သော Prior Knowledge">
+ဒီ Course ဟာ **Beginner-Friendly** ဖြစ်ပါတယ်။ အခြေခံ Computer သုံးတတ်ရုံနဲ့ စတင်လေ့လာနိုင်ပါတယ်။ Terminal Commands အနည်းငယ် ရေးနိုင်ရင် ပိုအဆင်ပြေပါမည်။
+</Aside>

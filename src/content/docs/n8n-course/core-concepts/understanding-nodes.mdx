@@ -1,0 +1,147 @@
+---
+title: "Nodes ကို နားလည်ခြင်း"
+description: "n8n ၏ အဓိကအစိတ်အပိုင်းဖြစ်သော Nodes အကြောင်း နက်နက်နဲနဲ လေ့လာခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+## Node ဆိုတာ ဘာလဲ?
+
+n8n Workflow မှာ **Node** ဆိုတာ တစ်ခုချင်းစီ လုပ်ဆောင်ချက် (Action) တစ်ခုကို ကိုယ်စားပြုသော Building Block တစ်ခုပါ။ Workflow တစ်ခုဟာ Node တွေကို ချိတ်ဆက်ထားခြင်းပါ။
+
+Workflow ကို LEGO ပုံသဏ္ဍာန်ဖြင့် တင်စားနိုင်ပြီး Node တစ်ခုစီဟာ LEGO Block တစ်ခုစီနဲ့ ဆင်တူသည်။ Data သည် Node တစ်ခုမှ နောက် Node တစ်ခုသို့ ဘယ်မှ ညာဘက် စီးဆင်းသည်။
+
+<FlowDiagram
+  nodes={[
+    { label: "Node 1", sublabel: "Trigger", type: "trigger" },
+    { label: "Node 2", sublabel: "Action", type: "action" },
+    { label: "Node 3", sublabel: "Action", type: "action" }
+  ]}
+  caption="Data flows left → right through each node"
+/>
+
+## Node အမျိုးအစားများ
+
+### 1. Trigger Nodes
+
+Workflow ကို **စတင်သည့်** Node များဖြစ်သည်။ Trigger မပေးမချင်း Workflow မပြေးပါ။
+
+Trigger အမျိုးအစားများ:
+- **Schedule Trigger** — ကြိုတင်သတ်မှတ်ချိန်ရောက်မှ
+- **Webhook Trigger** — HTTP Request ရောက်မှ
+- **App Trigger** — Gmail, Slack ကနေ Event ဖြစ်မှ
+- **Manual Trigger** — Button နှိပ်မှ
+
+**ဥပမာများ:**
+- **Schedule** — "နေ့တိုင်း မနက် ၉နာရီ" မှာ Report ပို့ပေးရန်
+- **Webhook** — Website Form Submit ဖြစ်ရင် Notification ပို့ရန်
+- **Gmail** — Email အသစ်ရောက်ရင် Processing စတင်ရန်
+
+### 2. Regular (Action) Nodes
+
+Data ကို **Process လုပ်သည်** သို့မဟုတ် **Action ဆောင်ရွက်သည်**။
+
+Action Node ဥပမာများ:
+- **Google Sheets** — Row ဖတ်ရန် / ထည့်ရန်
+- **Gmail** — Email ပို့ရန်
+- **Slack** — Message ပို့ရန်
+- **HTTP Request** — API ခေါ်ရန်
+- **Code** — JS / Python ရေးရန်
+- **IF** — Condition စစ်ရန်
+- **Set** — Data ပြင်ဆင်ရန်
+
+### 3. Core / Utility Nodes
+
+Data Flow ကို Control လုပ်ရန်:
+
+| Node | ရည်ရွယ်ချက် |
+|------|------------|
+| **IF** | Condition True/False အပေါ်မူတည်ပြီး Path ခွဲသည် |
+| **Switch** | Multiple Conditions စစ်ပြီး Path ရွေးသည် |
+| **Merge** | Node ၂ ခုမှ Data ကို ပေါင်းသည် |
+| **Loop** | Items တွေကို Iterate လုပ်သည် |
+| **Wait** | နောက် Node မပြေးမီ ခဏစောင့်သည် |
+| **Set** | Data Fields ပြင်ဆင် / ထည့်သည် |
+| **Code** | Custom JS / Python Logic |
+
+## Node ၏ အပိုင်းများ
+
+Node တစ်ခုတွင် အဓိကပိုင်းနှစ်ပိုင်း ရှိပါသည်:
+
+- **Input** — အရင် Node ထဲမှ ရောက်လာသော Data (JSON Format)
+- **Output** — ဒီ Node ပြီးသောအခါ ထွက်သွားသော Data
+
+Node ၏ Parameters (Configuration Settings) တွင် Node ကို မည်ကဲ့သို့ အလုပ်လုပ်ရမည်ဆိုသည်ကို သတ်မှတ်ပေးနိုင်သည်။
+
+## n8n ၏ Data Format: JSON Items
+
+n8n တွင် Data များကို **JSON Items** ပုံစံဖြင့် သယ်ဆောင်သည်:
+
+```json
+[
+  {
+    "json": {
+      "name": "Aung",
+      "email": "aung@example.com",
+      "age": 25
+    }
+  },
+  {
+    "json": {
+      "name": "Ma Aye",
+      "email": "aye@example.com",
+      "age": 30
+    }
+  }
+]
+```
+
+<Aside type="note" title="Items Array">
+Node တစ်ခုသည် Item **တစ်ခု** သို့မဟုတ် **အများ** ကို Process လုပ်နိုင်သည်။ Gmail Node တစ်ခုသည် Email ၅ ချောင်း ရောက်လာရင် Item ၅ ခု ထုတ်ပေးနိုင်သည်။
+</Aside>
+
+## Node Expression ဖြင့် Data ကို Reference လုပ်ခြင်း
+
+Node Parameters တွင် **{{ }}** Expression Syntax ကို သုံးပြီး ရှေ့ Node မှ Data ကိုရယူနိုင်သည်:
+
+```
+# ရှေ့ Node ၏ Data ကိုရယူနည်း
+{{ $json.fieldName }}
+{{ $json.email }}
+{{ $json.name }}
+
+# ရှေ့ Node ကို အမည်ဖြင့် Reference
+{{ $node["Gmail"].json.subject }}
+
+# Node ၏ Item Index ကြည့်ရန်
+{{ $itemIndex }}
+```
+
+**ဥပမာ:** Google Sheet ထဲမှ Name ကိုဖတ်ပြီး Email ပေးပို့ရာတွင်:
+
+```
+To:      {{ $json.email }}
+Subject: Hello {{ $json.name }}!
+Body:    Dear {{ $json.name }}, Your account is ready.
+```
+
+## Node ကို Canvas ပေါ် ထည့်နည်း
+
+1. Canvas ၏ ဘယ်ဘက်ရှိ **Node Panel** တွင် Search ပြုလုပ်ပါ
+2. Node ကို **Drag & Drop** သို့မဟုတ် **Double-click** ဖြင့် ထည့်ပါ
+3. Node ၏ Connection Point (⚫) ကို Drag ဆွဲပြီး ချိတ်ဆက်ပါ
+
+Node ချိတ်ဆက်ရာတွင် Node A ၏ Output Point ကို Drag ဆွဲပြီး Node B ၏ Input Point ပေါ် Drop ချပါ။
+
+<Aside type="tip" title="Shortcut">
+Canvas ပေါ် **Double-click** ဖြင့် Node Picker ကို တိုက်ရိုက် ဖွင့်နိုင်သည်။
+</Aside>
+
+## Node ကို Configure လုပ်ခြင်း
+
+Node တစ်ခုကို Click ဖြင့် Select လုပ်ရင် Right Panel တွင် Configuration ပေါ်မည်။ ဥပမာ Gmail Node တွင် Credential ရွေးပြီး Resource, Operation, To, Subject, Body စသည်များ သတ်မှတ်နိုင်သည်။
+
+**"Test Node"** ကို နှိပ်ရင် ထို Node တစ်ခုတည်း Execute လုပ်ကြည့်နိုင်သည်။ Workflow တစ်ခုလုံး Run မလုပ်ဘဲ Test နိုင်ခြင်းကြောင့် Development မြန်ဆန်ပါသည်။
+
+နောက်သင်ခန်းစာမှာ **Triggers** နဲ့ **Events** အကြောင်း ဆက်လက်လေ့လာမည်!

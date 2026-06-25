@@ -1,0 +1,248 @@
+---
+title: "n8n ကို VPS တွင် Self-host လုပ်ခြင်း"
+description: "Docker Compose ဖြင့် n8n ကို Production VPS တွင် Deploy လုပ်ပြီး Domain နှင့် SSL ချိတ်ဆက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+## ဘာကြောင့် Self-Host လုပ်သင့်သလဲ?
+
+| | n8n Cloud | Self-Hosted |
+|---|---|---|
+| **Cost** | $20+/month | VPS: ~$5-10/month |
+| **Workflow Limit** | Plan ပေါ်မူတည်ပြီး | Unlimited |
+| **Data Privacy** | Cloud တွင် | ကိုယ်ပိုင် Server |
+| **Customization** | Limited | Full Control |
+| **Maintenance** | None (Managed) | ကိုယ်တိုင် Update |
+
+## VPS Requirements
+
+```
+Minimum Specs:
+  CPU:  1 vCPU
+  RAM:  1 GB (2 GB recommended)
+  Disk: 20 GB SSD
+  OS:   Ubuntu 22.04 LTS
+
+Recommended Providers:
+  DigitalOcean, Vultr, Linode, Hetzner, AWS EC2
+```
+
+## Docker Compose ဖြင့် Deploy လုပ်နည်း
+
+### Step 1: VPS ကို Setup ပါ
+
+```bash
+# Ubuntu 22.04 တွင် Docker Install
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Docker Compose Install
+sudo apt install docker-compose-plugin -y
+```
+
+### Step 2: n8n Directory ဖန်တီးပါ
+
+```bash
+mkdir ~/n8n && cd ~/n8n
+mkdir -p data postgres-data
+```
+
+### Step 3: docker-compose.yml ဖန်တီးပါ
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: n8n
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=${DOMAIN}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://${DOMAIN}/
+      - N8N_ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=336    # 14 days
+    volumes:
+      - ./data:/home/node/.n8n
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+```
+
+### Step 4: Environment Variables ဖန်တီးပါ
+
+```bash
+# .env file
+DOMAIN=n8n.yourdomain.com
+POSTGRES_PASSWORD=super_secure_password_here
+ENCRYPTION_KEY=random_32_character_string_here
+
+# Generate Encryption Key:
+openssl rand -hex 32
+```
+
+### Step 5: n8n ကို Start ပါ
+
+```bash
+docker compose up -d
+
+# Log ကြည့်ပါ
+docker compose logs -f n8n
+```
+
+## Nginx Reverse Proxy + SSL ချိတ်ဆက်ပါ
+
+Production မှာ n8n ကို HTTPS ဖြင့် Access လုပ်ဖို့ Nginx နဲ့ Let's Encrypt ကိုသုံးသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Internet", sublabel: "HTTPS :443", type: "trigger" },
+    { label: "Nginx", sublabel: "SSL Termination", type: "action" },
+    { label: "n8n", sublabel: "localhost:5678", type: "end" }
+  ]}
+  caption="Nginx ကို Reverse Proxy ဖြင့် HTTPS ချိတ်ဆက်ပြီး n8n ကို ပြောင်းပေးသည်"
+/>
+
+```bash
+# Nginx Install
+sudo apt install nginx certbot python3-certbot-nginx -y
+
+# Nginx Config ဖန်တီးပါ
+sudo nano /etc/nginx/sites-available/n8n
+```
+
+```nginx
+# /etc/nginx/sites-available/n8n
+server {
+    server_name n8n.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:5678;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+
+        # WebSocket support (n8n needs it)
+        proxy_read_timeout 86400;
+    }
+}
+```
+
+```bash
+# Enable Config
+sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/
+sudo nginx -t   # Test config
+sudo systemctl reload nginx
+
+# SSL Certificate ရယူပါ (Free)
+sudo certbot --nginx -d n8n.yourdomain.com
+```
+
+<Aside type="note" title="Domain DNS">
+Domain ၏ DNS A Record ကို VPS IP Address ကို ညွှန်ပါ:
+```
+A   n8n.yourdomain.com   →   123.456.789.0
+```
+DNS Propagation အတွက် ၁-၂ မိနစ် စောင့်ပါ။
+</Aside>
+
+## n8n Update ပြုလုပ်နည်း
+
+```bash
+# Latest Version ဆွဲပါ
+docker compose pull n8n
+
+# Restart (Downtime < 30 seconds)
+docker compose up -d n8n
+
+# Version စစ်ကြည့်ပါ
+docker compose exec n8n n8n --version
+```
+
+## Backup Strategy
+
+<FlowDiagram
+  nodes={[
+    { label: "n8n Workflow Export", sublabel: "JSON files", type: "data" },
+    { label: "PostgreSQL Dump", sublabel: "pg_dump", type: "data" },
+    { label: "Upload to S3 / GDrive", sublabel: "Off-site backup", type: "action" }
+  ]}
+  caption="Daily Backup — Workflows + Database ကို Off-site သိမ်းဆည်းသည်"
+/>
+
+```bash
+# Automated Backup Script (Daily Cron on VPS)
+#!/bin/bash
+
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR="/root/backups"
+mkdir -p $BACKUP_DIR
+
+# 1. Workflow JSON Backup
+docker compose exec n8n n8n export:workflow \
+  --all \
+  --output=$BACKUP_DIR/workflows_$DATE.json
+
+# 2. Database Backup
+docker compose exec postgres pg_dump \
+  -U n8n n8n > $BACKUP_DIR/db_$DATE.sql
+
+# 3. Compress
+tar -czf $BACKUP_DIR/n8n_backup_$DATE.tar.gz \
+  $BACKUP_DIR/workflows_$DATE.json \
+  $BACKUP_DIR/db_$DATE.sql
+
+# 4. Cleanup old backups (>30 days)
+find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
+
+echo "Backup complete: n8n_backup_$DATE.tar.gz"
+```
+
+```bash
+# VPS တွင် Daily 2am Cron ထည့်ပါ
+crontab -e
+0 2 * * * /root/backup-n8n.sh >> /var/log/n8n-backup.log 2>&1
+```
+
+<Aside type="tip" title="Workflow ကို Git ဖြင့် Version Control လုပ်ပါ">
+n8n Workflows ကို JSON Export ပြီး Git Repository တွင် Push လုပ်ပါ။ Team Collaboration နှင့် Rollback တွင် အလွန်အသုံးဝင်သည်:
+```bash
+n8n export:workflow --all --output=./workflows/
+git add workflows/
+git commit -m "feat: add email automation workflow"
+git push
+```
+</Aside>
+
+နောက်သင်ခန်းစာမှာ **Capstone Project** — ဒီ Course တွင် လေ့လာခဲ့သမျှကို ပေါင်းစပ်ပြီး Real E-commerce Automation System တည်ဆောက်မည်!

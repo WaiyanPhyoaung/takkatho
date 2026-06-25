@@ -3,7 +3,7 @@ title: "Semantic HTML"
 description: "Semantic HTML"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import formImage from '@/assets/html/form.png'
 import inputsImage from '@/assets/html/inputs.png'
@@ -15,16 +15,18 @@ import inputsImage from '@/assets/html/inputs.png'
 
 
 ### Semantic HTML ဆိုတာ ဘာလဲ?
-Semantic HTML ဆိုတာက ကိုယ့်ရဲ့ content တွေကို ပုံစံချဖို့အတွက်ပဲမဟုတ်ဘဲ၊ အဲ့ဒီ content ရဲ့ **အဓိပ္ပာယ်ကိုပါ ဖော်ပြပေးနိုင်တဲ့** tag တွေကို သုံးတာကို ခေါ်တာပါ။ ဒီလို tag တွေက ကိုယ့်ရဲ့ webpage ကို structure ပိုကောင်းစေပြီးတော့ browser တွေ၊ search engine တွေနဲ့ screen reader တွေက ကိုယ့် content ကို ပိုပြီးနားလည်လွယ်စေပါတယ်။
+Semantic HTML ဆိုတာက content ကို ပုံစံချဖို့သာမကဘဲ **content ရဲ့ အဓိပ္ပာယ်ကိုပါ ဖော်ပြပေးနိုင်တဲ့** tag တွေကို ရွေးချယ်သုံးတာပါ။
 
-> ဥပမာအနေနဲ့ အရာအားလုံးအတွက် `<div>` tag တစ်ခုတည်းကိုပဲ သုံးမယ့်အစား၊ အကြောင်းအရာရဲ့ ရည်ရွယ်ချက်ကို ဖော်ပြပေးနိုင်တဲ့ `<header>`, `<footer>`, `<article>` လိုမျိုး အဓိပ္ပာယ်ရှိတဲ့ tag တွေကို သုံးသင့်ပါတယ်။
+ဥပမာနှိုင်းချက် — စူပါမားကက်ထဲမှာ "မုန့်ဖိုး" ဆိုပြီး ဘာပဲဖြစ်ဖြစ် ထည့်ထားတဲ့ အိတ်တစ်လုံးနဲ့ "ပေါင်မုန့်" ဆိုပြီး အမည်တပ်ထားတဲ့ အိတ်တစ်လုံး ယှဉ်ကြည့်ပါ — နောက်တစ်လုံးက ဘာပါတယ်ဆိုတာ ချက်ခြင်း နားလည်လို့ ရပါတယ်။ Semantic tag တွေကလည်း အဲ့ဒါနဲ့ တူပါတယ်။
+
+> `<div>` tag တစ်ခုတည်းကိုပဲ အားကိုးမယ့်အစား `<header>`, `<footer>`, `<article>` လိုမျိုး tag မှန်တာကို ရွေးသုံးပါ။
 
 #### Semantic HTML ကို ဘာကြောင့်သုံးသင့်လဲ?
-- **သုံးစွဲရလွယ်ကူမှု (Accessibility) -** အမြင်အာရုံ ချို့ယွင်းသူတွေအတွက် screen reader တွေက content တွေကို ပိုနားလည်လွယ်အောင် ကူညီပေးပါတယ်။
+- **Accessibility** — Screen reader တွေ (မြင်မနိုင်သူတွေ သုံးတဲ့ tool) က semantic tag တွေ ရှိမှ content ကို မှန်မှန်ကန်ကန် ဖတ်ပြနိုင်ပါတယ်။
 
-- **SEO ပိုကောင်းမွန်စေခြင်း -** Search Engine တွေက content ရဲ့ အကြောင်းအရာကို ပိုနားလည်တဲ့အတွက် search ranking တွေမှာ ပိုကောင်းတဲ့နေရာ ရစေပါတယ်။
+- **SEO** — Google လိုမျိုး search engine တွေက page ကို ပိုနားလည်တဲ့အတွက် search result မှာ ပိုကောင်းတဲ့ ranking ရနိုင်ပါတယ်။
 
-- **ထိန်းသိမ်းရလွယ်ကူခြင်း (Maintainability) -** Element တစ်ခုချင်းစီမှာ သူ့ရည်ရွယ်ချက်နဲ့သူ ရှင်းရှင်းလင်းလင်းရှိနေတဲ့အတွက် ကိုယ့်ရဲ့ code ကို ဖတ်ရ၊ ပြန်ပြင်ရတာ ပိုလွယ်ကူစေပါတယ်။
+- **Maintainability** — Code ဖတ်ရ၊ ပြန်ပြင်ရတာ ပိုလွယ်ကူပါတယ် — element တစ်ခုချင်းစီမှာ ရည်ရွယ်ချက် ရှင်းလင်းနေလို့ပါ။
 
 ### အသုံးများတဲ့ Semantic HTML Tag များ
 Content တွေကို အဓိပ္ပာယ်ရှိရှိ စုဖွဲ့ဖို့ သုံးသင့်တဲ့ semantic tag တစ်ချို့ကို အောက်မှာ ဖော်ပြပေးထားပါတယ်။

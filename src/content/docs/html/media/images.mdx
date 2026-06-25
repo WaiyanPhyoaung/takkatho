@@ -3,7 +3,7 @@ title: "Images"
 description: "Images"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import format from '@/assets/html/format.png'
 
@@ -11,6 +11,13 @@ export const imgLink = `
 <a href="https://www.example.com">
   <img src="logo.jpg" alt="Example Logo">
 </a>
+`
+
+export const figureEg = `
+<figure>
+  <img src="mountain.jpg" alt="မြန်မာပြည် တောင်ကြီး မြင်ကွင်း">
+  <figcaption>ဒဂုံကျောင်းဆောင် မြင်ကွင်း — Myanmar 2024</figcaption>
+</figure>
 `
 
 <Aside title="ရည်ရွယ်ချက်">
@@ -59,3 +66,16 @@ HTML မှာသုံးနိုင်တဲ့ ပုံ format အမျိ
 - **AVIF (.avif):**<br/>
     နောက်ဆုံးပေါ် image format ဖြစ်ပြီး compress အလွန်ကောင်းပါတယ်။ Quality များများမကျဘဲ file size ကို အများကြီးသေးအောင် လုပ်နိုင်ပါတယ်။ Browser အဟောင်းတွေမှာတော့ support မလုပ်ပါဘူး။
 
+### `<figure>` နှင့် `<figcaption>`
+ပုံတွေကို `<img>` ထဲပဲ မထည့်ဘဲ `<figure>` element ထဲမှာ ထည့်ပြီး `<figcaption>` နဲ့ ခေါင်းစဉ်တပ်ပေးနိုင်ပါတယ်။ ဒါက accessibility ပိုကောင်းစေပြီး ပုံနဲ့ ရှင်းလင်းချက်ကို semantic ဖြစ်ဖြစ် ချိတ်ဆက်ပေးပါတယ်။
+
+**ဥပမာ**
+
+<Code title='HTML' lang='html' code={figureEg}/>
+
+- `<figure>` — ပုံ၊ ဒိုင်ယာဂရမ် ဒါမှမဟုတ် code snippet လိုမျိုး self-contained content ကို ပြဖို့ သုံးပါတယ်။
+- `<figcaption>` — `<figure>` ထဲမှာပါတဲ့ content ရဲ့ ရှင်းလင်းချက်ကို ထည့်ပေးပါတယ်။ `<figure>` ထဲမှာ ပထမဆုံး ဒါမှမဟုတ် နောက်ဆုံး child element ဖြစ်ရပါမယ်။
+
+<Aside type="caution" title="အမှားများသောအချက်">
+ပုံတွေမှာ `alt` text ကို **အမြဲမပျောက်ပစ်ပါနဲ့**။ `<figcaption>` ရှိသည့်တိုင် `alt` ကို ဖယ်ပစ်ခြင်းမဟုတ်ပါ — `alt` က screen reader အတွက်ဖြစ်ပြီး `figcaption` က မြင်ရသူတိုင်းအတွက်ပါ။
+</Aside>

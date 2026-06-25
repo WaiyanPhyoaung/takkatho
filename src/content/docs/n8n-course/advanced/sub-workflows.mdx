@@ -1,0 +1,228 @@
+---
+title: "Sub-Workflows နှင့် Reusability"
+description: "Workflow ကို Modular ဖန်တီးခြင်း၊ Sub-Workflow ခေါ်နည်းနှင့် Best Practices"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## Sub-Workflow ဆိုတာ ဘာလဲ?
+
+**Sub-Workflow** ဆိုတာ Main Workflow တစ်ခုမှ တခြား Workflow တစ်ခုကို ခေါ်သည့် Pattern ပါ။ Programming ၏ **Function** ကဲ့သို့ — တစ်ကြိမ် ဖန်တီးပြီး နေရာများစွာ Reuse လုပ်နိုင်သည်။
+
+Sub-Workflow မသုံးပါက Email Logic, Slack Logic, Notion Logic စသည်တို့ကို Workflow တစ်ခုစီမှာ ထပ်ထပ်ရေးရသည် (Code Duplicated)။ Sub-Workflow သုံးပါက "Email Sub-WF" တစ်ခုတည်း ဆောက်ပြီး Order Workflow, Invoice Workflow, Reminder Workflow မှ Reuse လုပ်နိုင်သည် (DRY Principle)။
+
+## Sub-Workflow ဖန်တီးနည်း
+
+### Step 1: Reusable Workflow ဆောက်ပါ
+
+"Send Notification" Sub-Workflow တစ်ခု ဆောက်မည်:
+
+<BranchFlow
+  input="Execute Workflow Trigger (Input Data လက်ခံ)"
+  condition='Channel = "slack"?'
+  truePath={["Slack: Post Message"]}
+  falsePath={["Gmail: Send Email"]}
+  trueLabel="YES ✅"
+  falseLabel="NO ❌"
+/>
+
+Sub-Workflow ၏ နောက်ဆုံးမှာ **"Set: Return Result"** Node ထည့်ပြီး Caller ကို Result ပြန်ပို့ပါ။
+
+**Execute Workflow Trigger Node** — Manual Trigger အစား ဤ Node ကို Sub-Workflow ထဲ သုံးသည်:
+
+```
+Expected Input (what main workflow sends):
+{
+  "channel": "slack",     // or "email"
+  "message": "...",
+  "recipient": "...",
+  "subject": "..."        // for email only
+}
+```
+
+### Step 2: Main Workflow မှ ခေါ်ပါ
+
+Main Workflow ထဲ **"Execute Workflow"** Node ကို ထည့်ပါ:
+
+<FlowDiagram
+  nodes={[
+    { label: "Order Received", type: "trigger" },
+    { label: "Process Order", type: "action" },
+    { label: "Execute Workflow", sublabel: "Send Notification Sub-WF", type: "action" }
+  ]}
+  caption="Main Workflow မှ Sub-Workflow ကို ခေါ်ခြင်း"
+/>
+
+Execute Workflow Node Configuration:
+- Workflow: [Send Notification]
+- Mode: Run once with all items
+- Input Data:
+
+| Field | Value |
+|-------|-------|
+| channel | slack |
+| message | `{{ $json.orderSummary }}` |
+| recipient | #orders |
+
+## Common Sub-Workflow Patterns
+
+### Pattern 1: Shared Utility
+
+Utility Sub-Workflows:
+- **"Format Myanmar Phone Number"** — +959... format
+- **"Validate Email Address"** — Format + MX check
+- **"Calculate Tax"** — MMK tax calculation
+- **"Generate Unique ID"** — UUID / Ticket number
+
+**"Format Phone Number" Sub-Workflow:**
+
+```javascript
+// Code Node in Sub-Workflow
+const phone = $input.first().json.phone;
+
+// Remove non-digits
+let clean = phone.replace(/\D/g, '');
+
+// Add Myanmar country code if missing
+if (clean.startsWith('09')) {
+  clean = '+959' + clean.slice(2);
+} else if (!clean.startsWith('959')) {
+  clean = '+959' + clean;
+} else {
+  clean = '+' + clean;
+}
+
+return [{ json: { formattedPhone: clean, original: phone } }];
+```
+
+### Pattern 2: API Client Sub-Workflow
+
+API Credential နှင့် Logic ကို တစ်နေရာတည်း ထားသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Execute Workflow Trigger", type: "trigger" },
+    { label: "HTTP Request", sublabel: "GET /admin/orders.json", type: "action" },
+    { label: "Code Node", sublabel: "Format Response", type: "code" },
+    { label: "Return: Formatted Orders", type: "end" }
+  ]}
+  caption='Sub-Workflow: "Shopify: Get Orders"'
+/>
+
+Main Workflow မှ:
+
+```
+[Execute Workflow: "Shopify: Get Orders"]
+  Input: { status: "pending", limit: 50 }
+           │
+           ▼
+[Process each order...]
+```
+
+### Pattern 3: Parallel Sub-Workflow Execution
+
+Multiple Items ကို Parallel ဖြင့် Process:
+
+<FlowDiagram
+  nodes={[
+    { label: "Get 100 Customers", type: "data" },
+    { label: "Split into Batches of 10", type: "action" },
+    { label: "Execute Workflow x10 (parallel)", sublabel: "Process Customer Sub-WF", type: "action" },
+    { label: "Merge Results", type: "action" }
+  ]}
+  caption="100 Customers ကို Batch 10 ခုခွဲပြီး Parallel Process လုပ်သည်"
+/>
+
+## Execution Modes
+
+Execute Workflow Node ၌ Execution Mode ၂ ခု ရှိသည်:
+
+**Mode 1: "Run once with all items"**
+- Sub-workflow ကို တစ်ကြိမ်သာ ခေါ်ပြီး Items အားလုံးကို တစ်ခေါ်တည်း ပို့သည်
+- Batch Processing အတွက် ကောင်းသည်
+
+**Mode 2: "Run once for each item"**
+- Item တစ်ခုချင်းစီအတွက် Sub-workflow ကို တစ်ကြိမ်စီ ခေါ်သည်
+- Individual Item Processing အတွက် ကောင်းသည်
+
+## Workflow Organization — Best Practices
+
+### Naming Convention
+
+```
+Good Naming:
+✅ "Core: Send Email Notification"
+✅ "Integration: Shopify Get Orders"
+✅ "Utility: Validate & Format Phone"
+✅ "Daily: Morning Report"
+
+Bad Naming:
+❌ "Workflow 1"
+❌ "test"
+❌ "new workflow copy (2)"
+```
+
+### Folder Structure
+
+n8n Workflows Organization:
+- **Core (Sub-workflows)** — Send Notification, Log to Database, Send Error Alert
+- **Integrations** — Shopify: Sync Orders, Google Sheets: Update, Notion: Add Record
+- **Scheduled** — Daily: Morning Report, Weekly: Digest Email, Monthly: Invoice
+- **Triggers** — Webhook: Contact Form, Webhook: Payment, Webhook: GitHub Push
+
+## Sub-Workflow vs Inline Logic
+
+| | Sub-Workflow | Inline |
+|---|---|---|
+| **Reuse** | ✅ Multiple workflows | ❌ One workflow only |
+| **Maintenance** | ✅ Update once | ❌ Update everywhere |
+| **Testing** | ✅ Test independently | ❌ Must test in context |
+| **Complexity** | ❌ Extra setup | ✅ Simpler |
+| **Performance** | ❌ Slightly slower | ✅ Faster |
+
+<Aside type="tip" title="Sub-Workflow ကို ဘယ်အချိန် သုံးမလဲ">
+ထို Logic ကို **Workflow ၂ ခု သို့မဟုတ် ပိုမို** တွင် သုံးမည်ဆိုရင် Sub-Workflow ဖန်တီးပါ။ တစ်ကြိမ်သာ သုံးမည်ဆိုရင် Inline ပဲ ရေးပါ။
+</Aside>
+
+## Complete Production Workflow Example
+
+E-Commerce Order Processing (Production Ready):
+
+<BranchFlow
+  input="Webhook: New Order → Core: Validate Order Data (Sub-workflow)"
+  condition="Order Valid?"
+  truePath={["IF: Total > 500?", "Set: VIP / Standard", "Core: Email Sub-WF", "Integration: Sheets + Notion + Airtable Sub-WFs"]}
+  falsePath={["Core: Send Error Alert (Sub-workflow)"]}
+  trueLabel="VALID ✅"
+  falseLabel="INVALID ❌"
+/>
+
+---
+
+## Course ပြီးဆုံးသွားပြီ!
+
+ဤ Course တွင် လေ့လာခဲ့သောအရာများ:
+
+- ✅ n8n ဆိုတာ ဘာလဲ — Automation Tool Overview
+- ✅ Installation & Setup — Local မှာ Run နည်း
+- ✅ Nodes & Workflows — Core Building Blocks
+- ✅ Triggers & Events — Workflow Start Conditions
+- ✅ Credentials — API Authentication
+- ✅ HTTP Request & Webhook — API Integration
+- ✅ Data Transformation — IF, Switch, Code, Set
+- ✅ Email & Notification Automation
+- ✅ Real-world API Integration
+- ✅ Error Handling — Production-ready Workflows
+- ✅ Sub-Workflows — Modular & Reusable Patterns
+
+**Next Steps:**
+1. n8n Template Library ကို Browse ပြုလုပ်ပါ — community.n8n.io
+2. ကိုယ်ပိုင် Automation Idea တစ်ခု ဆောက်ကြည့်ပါ
+3. n8n Self-host on VPS/Cloud ကို Deploy လုပ်ကြည့်ပါ
+
+<Aside type="tip" title="Community">
+n8n Community Forum: community.n8n.io — Questions မေးနိုင်သည်၊ Template Share လုပ်နိုင်သည်။
+</Aside>

@@ -3,7 +3,7 @@ title: "<body> အပိုင်း"
 description: "<body> အပိုင်း"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 
 export const basicHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,11 @@ export const commentSample = `<!-- This is a comment -->
 export const commentSample2 = `<!-- HTML Comment -->
 <p>HTML is a markup language</p>`
 
-`<body>` အပိုင်းမှာတော့ သုံးစွဲသူတွေ မြင်ရမယ့် webpage ရဲ့ အကြောင်းအရာ အားလုံး ပါဝင်ပါတယ်။ ခေါင်းစဉ်တွေ၊ စာပိုဒ်တွေ၊ ပုံတွေနဲ့ link တွေလိုမျိုး အရာအားလုံးကို ဒီနေရာမှာပဲ ထည့်ရမှာ ဖြစ်ပါတယ်။
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာ `&lt;body&gt;` section ထဲမှာ ဘာတွေ ပါဝင်တယ်ဆိုတာနဲ့ heading, paragraph, image, link လိုမျိုး အဓိက element တွေ ဘယ်လိုသုံးရမလဲဆိုတာ လေ့လာကြပါမယ်။
+</Aside>
+
+`<body>` section ဆိုတာ user တွေ browser မှာ မြင်ရမယ့် **အရာအားလုံး** ထည့်ရတဲ့ နေရာပါ။ ခေါင်းစဉ်တွေ၊ စာပိုဒ်တွေ၊ ပုံတွေ၊ link တွေ အကုန်လုံး ဒီထဲမှာပဲ ရှိပါတယ်။
 
 ### `<body>` ထဲမှာ အသုံးများတဲ့ element တွေ:
 

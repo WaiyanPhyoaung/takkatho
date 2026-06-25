@@ -3,9 +3,10 @@ title: "HTML ရဲ့ အခြေခံတည်ဆောက်ပုံ"
 description: "HTML ရဲ့ အခြေခံတည်ဆောက်ပုံ"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro'
 import structure from '@/assets/html/structure.png'
+import domTree from '@/assets/html/dom-tree.svg'
 
 export const basicHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -90,3 +91,14 @@ HTML tag တွေမှာ အဓိကအားဖြင့် အမျို
 <Code title="HTML" lang='html' code={selfClosingTag}/>
 
 `<img>` ဆိုတာ ပုံထည့်ဖို့သုံးတဲ့ self-closing tag တစ်ခု ဖြစ်ပါတယ်။
+
+### DOM Tree — HTML Document ရဲ့ မိသားစုပင်
+Browser က HTML ကိုဖတ်ပြီး **DOM (Document Object Model)** ဆိုတဲ့ မိသားစုပင်ပုံစံ တည်ဆောက်ပါတယ်။ `<html>` က အပေါ်ဆုံးမှာ ရပ်နေပြီး၊ `<head>` နဲ့ `<body>` က သူ့ children ဖြစ်ပါတယ်။ ထို element တွေ အောက်မှာ ထပ်ဆင့် children တွေ ဆင်းသွားပါတယ်။
+
+မိသားစုပင်တစ်ပင်မှာ root ကနေ ကိုင်းခွဲတွေ ပေါက်သွားသလိုမျိုး HTML element တွေကလည်း parent → children ဆက်ဆံရေး ရှိပါတယ်။
+
+<ContentImage src={domTree} alt="HTML DOM Tree Diagram" />
+
+<Aside type="note" title="သတိပြုရန်">
+DOM tree ကို နားလည်ထားတာ JavaScript (element တွေကို ရွာဖို့) နဲ့ CSS (element တွေကို ပုံစံချဖို့) လေ့လာတဲ့အခါ အမြဲ အသုံးဝင်ပါတယ်။
+</Aside>

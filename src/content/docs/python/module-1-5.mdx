@@ -1,0 +1,238 @@
+---
+title: "String Methods (စာသား လုပ်ဆောင်ချက်များ)"
+description: "Python တွင် String များကို စီမံခန့်ခွဲခြင်း — ဖြတ်ညှပ်ခြင်း၊ ပြောင်းလဲခြင်း နှင့် ရှာဖွေခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import stringImg from "@/assets/python/string-methods.svg";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- String ကို ဖြတ်ညှပ်ခြင်း၊ ပြောင်းလဲခြင်း Methods တွေကို သုံးနိုင်မည်
+- String ကို Index နှင့် Slicing နဲ့ ဖြတ်ယူနိုင်မည်
+- f-strings ကို ကျွမ်းကျင်စွာ သုံးနိုင်မည်
+- User Input ကို မှန်ကန်အောင် စစ်ဆေးနိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 1 (Variables & Data Types) ကို ပြီးမှ ဆက်ပါ။ String ဆိုတာ ဘာလဲ ဆိုတာ သိပြီးမှ Methods တွေကို သင်ပါ။
+</Aside>
+
+String ဆိုတာ Module 1 မှာ Data Type တစ်ခုအဖြစ် မိတ်ဆက်ခဲ့ပြီးပါပြီ။ ဒီ Module မှာတော့ String တွေကို **တကယ်တမ်း အသုံးကျတဲ့ နည်းလမ်းတွေ** နဲ့ ကိုင်တွယ်တတ်အောင် သင်ကြားပါမယ်။
+
+---
+
+### String ကို Index နဲ့ ဝင်ရောက်ကြည့်ခြင်း
+
+String ဆိုတာ **စာလုံးတွေ တစ်ကြောင်းစီ စီထားတဲ့ List** တစ်ခုနဲ့ တူပါတယ်။ Index (နေရာ နံပါတ်) ကို သုံးပြီး တစ်လုံးချင်းစီ ဝင်ကြည့်လို့ ရပါတယ်။
+
+```python
+name = "Python"
+#       0123456  ← Index နံပါတ်များ (0 ကနေ စပါတယ်)
+
+print(name[0])   # P  (ပထမဆုံး စာလုံး)
+print(name[2])   # t
+print(name[-1])  # n  (နောက်ဆုံး စာလုံး — အနောက်ကနေ ရေတွက်)
+print(name[-2])  # o
+```
+
+<Aside type="tip" title="အနောက်ကနေ ရေတွက်ခြင်း">
+`-1` က နောက်ဆုံး၊ `-2` က ၂ ခုမြောက်နောက်ဆုံး ဆိုပြီး ရေတွက်ပါတယ်။ "Python" မှာ `name[-1]` က "n" ဖြစ်ပါတယ်။
+</Aside>
+
+---
+
+### String Slicing — အပိုင်းလိုက် ဖြတ်ယူခြင်း
+
+`[start:end]` Syntax ကို သုံးပြီး String ကို အပိုင်းလိုက် ဖြတ်ယူနိုင်ပါတယ်။
+
+```python
+word = "Python Course"
+#       0123456789...
+
+print(word[0:6])   # Python    (Index 0 ကနေ 5 အထိ, 6 မပါ)
+print(word[7:])    # Course    (Index 7 ကနေ နောက်ဆုံးအထိ)
+print(word[:6])    # Python    (အစကနေ Index 5 အထိ)
+print(word[-6:])   # Course    (နောက်ဆုံး ၆ လုံး)
+print(word[::2])   # Pto ore   (တစ်လုံးကျော် တစ်လုံးယူ)
+print(word[::-1])  # esruoC nohtyP  (ပြောင်းပြန် ဖတ်)
+```
+
+---
+
+### String Methods — အသုံးများဆုံး ၁၀ ခု
+
+<ContentImage src={stringImg} alt="Python String Methods" />
+
+String Methods ဆိုတာ String ကို ပြောင်းလဲဖို့ Python မှာ အသင့်ဆောက်ထားပြီးသား လုပ်ဆောင်ချက်တွေပါ။ ဆိုင်ကယ်မောင်းသမားတစ်ယောက် ကားကို ဆေးဆိုး၊ ပြင်ဆင်၊ မော်တာ စစ်ဆေးသလိုပဲ — String Methods တွေဟာ String ကို ဒီပုံစံမျိုး ကိုင်တွယ်ဖို့ Tools တွေပါ။ `string.method()` ပုံစံနဲ့ ခေါ်သုံးပါတယ်။
+
+<Aside type="caution" title="အရေးကြီးသော သဘောတရား">
+String Methods တွေဟာ မူရင်း String ကို **ပြင်ခြင်းမဟုတ်ဘဲ** အသစ်တစ်ခု ပြန်ပေးပါတယ်။ မူရင်းက မပြောင်းပါဘူး။
+
+```python
+text = "hello"
+text.upper()    # "HELLO" ပြန်ပေးသော်လည်း text ကတော့ "hello" ပဲ
+print(text)     # hello — မပြောင်းဘူး!
+
+result = text.upper()  # ဒီလို ဖမ်းထားမှ ရပါမယ်
+print(result)   # HELLO
+```
+</Aside>
+
+#### ၁. upper() / lower() — အကြီးအသေး ပြောင်းခြင်း
+
+```python
+name = "aung aung"
+print(name.upper())  # AUNG AUNG
+print(name.lower())  # aung aung
+
+# Email စစ်ဆေးတဲ့အခါ အသုံးဝင်ပါတယ်
+email = "User@Gmail.com"
+print(email.lower())  # user@gmail.com  (စစ်ဆေးဖို့ တူညီအောင်)
+```
+
+#### ၂. strip() — အပြင်ဘက် Space ဖြတ်ပစ်ခြင်း
+
+User Input တွေမှာ အမှားအနေနဲ့ Space တွေ ထည့်တတ်ပါတယ်။ `strip()` ကသာ ဒါကို ဖြေရှင်းပေးပါတယ်။
+
+```python
+user_input = "   Aung Aung   "
+print(user_input.strip())   # "Aung Aung"  (ဘယ်ဘက် ညာဘက် Space ဖြတ်)
+print(user_input.lstrip())  # "Aung Aung   "  (ဘယ်ဘက်ပဲ ဖြတ်)
+print(user_input.rstrip())  # "   Aung Aung"  (ညာဘက်ပဲ ဖြတ်)
+```
+
+#### ၃. replace() — စကားလုံး အစားထိုးခြင်း
+
+```python
+sentence = "ကျွန်တော် Python ကို မကြိုက်ဘူး"
+fixed = sentence.replace("မကြိုက်ဘူး", "အများကြီး ကြိုက်တယ်")
+print(fixed)  # ကျွန်တော် Python ကို အများကြီး ကြိုက်တယ်
+
+# Blank ဖြင့် replace ဆိုရင် ဖျက်ပစ်တာပါ
+clean = "H-e-l-l-o".replace("-", "")
+print(clean)  # Hello
+```
+
+#### ၄. split() — ဖြတ်ကြောင်းလိုက် ခွဲခြင်း
+
+```python
+sentence = "Python is awesome"
+words = sentence.split()        # Space ကနေ ဖြတ်ခြင်း (Default)
+print(words)  # ['Python', 'is', 'awesome']
+
+data = "Aung,20,Yangon"
+parts = data.split(",")         # Comma ကနေ ဖြတ်ခြင်း
+print(parts)  # ['Aung', '20', 'Yangon']
+print(parts[0])  # Aung
+print(parts[2])  # Yangon
+```
+
+#### ၅. join() — List ကို String ဖြစ်အောင် ပေါင်းစည်းခြင်း
+
+`split()` ရဲ့ ပြောင်းပြန်ပါ။ List ကို String ဖြစ်အောင် ပေါင်းပေးပါတယ်။
+
+```python
+words = ["Python", "ကို", "လေ့လာပါ"]
+sentence = " ".join(words)
+print(sentence)  # Python ကို လေ့လာပါ
+
+items = ["apple", "banana", "orange"]
+print(", ".join(items))  # apple, banana, orange
+```
+
+#### ၆. find() / count() — ရှာဖွေခြင်းနှင့် ရေတွက်ခြင်း
+
+```python
+text = "Python Python Python"
+
+print(text.find("Python"))    # 0   (ပထမ တွေ့တဲ့ Index)
+print(text.find("Java"))      # -1  (မတွေ့ရင် -1 ပြန်ပေးသည်)
+print(text.count("Python"))   # 3   (ဘယ်နှစ်ခါ ပါသလဲ)
+```
+
+#### ၇. startswith() / endswith() — စစ်ဆေးခြင်း
+
+```python
+filename = "report.pdf"
+print(filename.endswith(".pdf"))    # True
+print(filename.startswith("rep"))   # True
+
+# ဖိုင် အမျိုးအစား စစ်ဆေးဖို့ အသုံးဝင်ပါတယ်
+if filename.endswith(".pdf"):
+    print("ဒါ PDF ဖိုင်ပါ")
+```
+
+---
+
+### f-Strings — Python ရဲ့ ပိုမိုကောင်းမွန်တဲ့ Text Formatting
+
+f-string ဆိုတာ String ထဲမှာ Variable တွေ ကြည့်ကောင်းအောင် ထည့်ဖို့ Python 3.6 မှာ ထည့်သွင်းလာတဲ့ နည်းလမ်းပါ။ String ရှေ့မှာ `f` တစ်လုံး ထည့်ပြီး `{}` ထဲမှာ Variable ထည့်ပါ။
+
+```python
+name = "Aung Aung"
+age = 20
+city = "ရန်ကုန်"
+
+# ဟောင်းနွမ်းသောနည်း (မသုံးသင့်)
+old_way = "ကျွန်တော်ဟာ " + name + " ဖြစ်ပြီး " + str(age) + " နှစ် ရှိပါတယ်"
+
+# f-string (ဒီနည်းကိုပဲ သုံးပါ)
+greeting = f"ကျွန်တော်ဟာ {name} ဖြစ်ပြီး {age} နှစ် ရှိပါတယ်"
+print(greeting)
+# ကျွန်တော်ဟာ Aung Aung ဖြစ်ပြီး 20 နှစ် ရှိပါတယ်
+
+# {} ထဲမှာ Expression တွေ ထည့်လို့ ရပါတယ်
+price = 5000
+quantity = 3
+print(f"စုစုပေါင်း: {price * quantity} ကျပ်")  # စုစုပေါင်း: 15000 ကျပ်
+
+# ဂဏန်း ဖော်မတ်ထည့်ခြင်း
+pi = 3.14159265
+print(f"Pi ≈ {pi:.2f}")    # Pi ≈ 3.14  (ဒသမ ၂ ထပ်ပဲ ပြ)
+print(f"Pi ≈ {pi:.4f}")    # Pi ≈ 3.1416
+```
+
+---
+
+### လက်တွေ့ ဥပမာ — User Name စစ်ဆေးခြင်း
+
+String Methods တွေကို ပေါင်းစပ်ပြီး တကယ်တမ်း သုံးကြည့်ပါမည်:
+
+```python
+# User ထည့်လိုက်တဲ့ Name ကို Clean ပြုလုပ်ခြင်း
+raw_input = "   aung aung   "
+
+# Steps
+clean = raw_input.strip()          # Space ဖြတ်
+title = clean.title()              # "Aung Aung"  (ကြီးကြီး)
+words = title.split()              # ["Aung", "Aung"]
+word_count = len(words)            # 2
+
+print(f"Name: {title}")
+print(f"Word Count: {word_count}")
+print(f"ပထမဆုံး အမည်: {words[0]}")
+
+# Name မှန်မမှန် စစ်ဆေးခြင်း
+if not clean:
+    print("Name ထည့်ပေးပါ!")
+elif len(clean) < 2:
+    print("Name အတိုဆုံး ၂ လုံး ရှိရမည်")
+else:
+    print(f"မင်္ဂလာပါ, {title}!")
+```
+
+<Aside type="tip" title="String Methods ကို ဆက်တိုက် ခေါ်ခြင်း (Chaining)">
+String Methods တွေကို ဆက်တိုက် ခေါ်လို့ ရပါတယ်:
+
+```python
+result = "  HELLO WORLD  ".strip().lower().replace("world", "python")
+print(result)  # "hello python"
+```
+
+အဆင့်ဆင့် အလုပ်လုပ်ပါတယ်: strip → lower → replace
+</Aside>
+
+<Aside title="နောက်တစ်ဆင့်">
+String Methods ကို ကောင်းကောင်းသိပြီဆိုရင် **Module 2 — Control Flow** ကို ဆက်သွားနိုင်ပါပြီ!
+</Aside>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" viewBox="0 0 720 300">
+  <rect width="720" height="300" fill="#1e1e2e"/>
+  <!-- Title -->
+  <text x="360" y="30" text-anchor="middle" font-family="monospace" font-size="15" fill="#e2e8f0" font-weight="bold">Form Submission Flow (ဖောင်တင်သွင်းတဲ့ ဖြစ်စဉ်)</text>
+
+  <!-- Step 1: User fills form -->
+  <rect x="30" y="58" width="150" height="120" rx="8" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="105" y="84" text-anchor="middle" font-family="monospace" font-size="20" fill="#7c3aed">👤</text>
+  <text x="105" y="106" text-anchor="middle" font-family="monospace" font-size="12" fill="#e2e8f0" font-weight="bold">Step 1</text>
+  <text x="105" y="122" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">User က form ကို</text>
+  <text x="105" y="138" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">ဖြည့်ပြီး Submit</text>
+  <text x="105" y="154" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">ခလုတ်နှိပ်တယ်</text>
+  <text x="105" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">&lt;button type="submit"&gt;</text>
+
+  <!-- Arrow 1 -->
+  <line x1="180" y1="118" x2="225" y2="118" stroke="#7c3aed" stroke-width="2"/>
+  <polygon points="225,113 235,118 225,123" fill="#7c3aed"/>
+  <text x="207" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">POST/GET</text>
+
+  <!-- Step 2: Browser sends data -->
+  <rect x="235" y="58" width="150" height="120" rx="8" fill="#2d2d3f" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="310" y="84" text-anchor="middle" font-family="monospace" font-size="20" fill="#0ea5e9">🌐</text>
+  <text x="310" y="106" text-anchor="middle" font-family="monospace" font-size="12" fill="#e2e8f0" font-weight="bold">Step 2</text>
+  <text x="310" y="122" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Browser က data</text>
+  <text x="310" y="138" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">တွေကို HTTP</text>
+  <text x="310" y="154" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">request နဲ့ ပို့တယ်</text>
+  <text x="310" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">action="url" မှ သွားတယ်</text>
+
+  <!-- Arrow 2 -->
+  <line x1="385" y1="118" x2="430" y2="118" stroke="#0ea5e9" stroke-width="2"/>
+  <polygon points="430,113 440,118 430,123" fill="#0ea5e9"/>
+  <text x="412" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">data</text>
+
+  <!-- Step 3: Server processes -->
+  <rect x="440" y="58" width="150" height="120" rx="8" fill="#2d2d3f" stroke="#10b981" stroke-width="2"/>
+  <text x="515" y="84" text-anchor="middle" font-family="monospace" font-size="20" fill="#10b981">🖥️</text>
+  <text x="515" y="106" text-anchor="middle" font-family="monospace" font-size="12" fill="#e2e8f0" font-weight="bold">Step 3</text>
+  <text x="515" y="122" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Server က data</text>
+  <text x="515" y="138" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">ကိုလက်ခံပြီး</text>
+  <text x="515" y="154" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">process လုပ်တယ်</text>
+  <text x="515" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">PHP, Python, Node...</text>
+
+  <!-- Arrow 3 -->
+  <line x1="590" y1="118" x2="635" y2="118" stroke="#10b981" stroke-width="2"/>
+  <polygon points="635,113 645,118 635,123" fill="#10b981"/>
+  <text x="617" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">response</text>
+
+  <!-- Step 4: Response -->
+  <rect x="645" y="58" width="55" height="120" rx="8" fill="#2d2d3f" stroke="#f59e0b" stroke-width="2"/>
+  <text x="672" y="84" text-anchor="middle" font-family="monospace" font-size="18" fill="#f59e0b">✅</text>
+  <text x="672" y="104" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0" font-weight="bold">Step</text>
+  <text x="672" y="118" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">4</text>
+  <text x="672" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Res-</text>
+  <text x="672" y="148" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">ponse</text>
+  <text x="672" y="163" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">ပြန်တယ်</text>
+
+  <!-- Analogy -->
+  <rect x="30" y="198" width="660" height="72" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="360" y="220" text-anchor="middle" font-family="monospace" font-size="12" fill="#e2e8f0" font-weight="bold">ဥပမာနှိုင်းချက် — စာပို့တာနဲ့ တူတယ်</text>
+  <text x="360" y="240" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">User ဖြည့်ခြင်း = စာရေးတယ် | Submit = post box ထဲထည့်တယ် | Server = post office လက်ခံတယ်</text>
+  <text x="360" y="258" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">method="post" → လုံခြုံမှုပိုရှိ (password) | method="get" → URL ထဲမှာ မြင်နိုင် (search)</text>
+</svg>

@@ -3,13 +3,17 @@ title: "HTML Best Practices"
 description: "HTML Best Practices"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import formImage from '@/assets/html/form.png'
 import inputsImage from '@/assets/html/inputs.png'
 
 
-သပ်ရပ်ပြီး သုံးစွဲရလွယ်ကူတဲ့ HTML code တွေရေးဖို့အတွက် ဒီအချက်တွေကို လိုက်နာသင့်ပါတယ်။
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာ သပ်ရပ်ပြီး လူတိုင်းအသုံးပြုနိုင်တဲ့ (accessible) HTML code တွေ ရေးဖို့ လိုက်နာသင့်တဲ့ best practice တွေကို လေ့လာကြပါမယ်။ ပြီးတော့ ဖြစ်တတ်တဲ့ HTML အမှားအဖြစ်များတွေကိုလည်း ကြည့်သွားမှာပါ။
+</Aside>
+
+သပ်ရပ်ပြီး သုံးစွဲရလွယ်ကူတဲ့ HTML code တွေရေးဖို့ ဒီအချက်တွေကို လိုက်နာပါ။
 
 #### 1. အဓိပ္ပာယ်ရှိတဲ့ Semantic Tag များကို သုံးပါ
 - `<div>` နဲ့ `<span>` လို ယေဘုယျ tag တွေအစား semantic tag တွေ (`<article>`, `<section>`, `<header>`, `<footer>` စသည်) ကို အမြဲရွေးချယ်သုံးပါ။ 

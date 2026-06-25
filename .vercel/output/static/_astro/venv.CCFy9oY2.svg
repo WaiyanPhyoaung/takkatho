@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg     { fill: #1e1e2e; }
+      .box-b  { fill: #1e1e2e; stroke: #f87171; stroke-width: 2; stroke-dasharray: 6,3; }
+      .box-g  { fill: #1e2820; stroke: #10b981; stroke-width: 2; }
+      .box-g2 { fill: #1e2830; stroke: #0ea5e9; stroke-width: 2; }
+      .pkg    { fill: #2d2d3f; stroke: #475569; stroke-width: 1; }
+      .pkg-a  { fill: #3d1e1e; stroke: #f87171; stroke-width: 1; }
+      .pkg-ok { fill: #1e3d1e; stroke: #10b981; stroke-width: 1; }
+      .inner  { fill: #181825; }
+      .t-main { font-family: sans-serif; font-size: 14px; text-anchor: middle; fill: #f8fafc; }
+      .t-code { font-family: monospace; font-size: 12px; fill: #a5b4fc; }
+      .t-lbl  { font-family: sans-serif; font-size: 11px; fill: #64748b; text-anchor: middle; }
+      .t-bad  { fill: #f87171; font-family: sans-serif; font-size: 11px; text-anchor: middle; }
+      .t-good { fill: #10b981; font-family: sans-serif; font-size: 11px; text-anchor: middle; }
+      .barrier { stroke: #4f46e5; stroke-width: 3; fill: none; stroke-dasharray: 8,4; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="26" class="t-main" font-size="18" font-weight="bold">Virtual Environment — လွတ်လပ်သော Python ပတ်ဝန်းကျင်</text>
+
+  <!-- LEFT: No venv (bad) -->
+  <rect x="20" y="44" width="340" height="300" rx="8" class="box-b"/>
+  <text x="190" y="66" class="t-main" fill="#f87171">❌  venv မသုံး (ပြဿနာဖြစ်သည်)</text>
+
+  <text x="190" y="90" class="t-lbl">System Python တစ်ခုတည်းမှာ</text>
+  <text x="190" y="106" class="t-lbl">Project အားလုံး ပါဝင်သည်</text>
+
+  <!-- Shared packages -->
+  <rect x="36" y="116" width="308" height="200" rx="4" class="inner"/>
+  <text x="190" y="138" class="t-lbl">System Packages (Shared)</text>
+
+  <rect x="48"  y="148" width="132" height="30" rx="4" class="pkg-a"/>
+  <text x="64"  y="168" class="t-code" fill="#f87171">requests 2.28</text>
+
+  <rect x="196" y="148" width="136" height="30" rx="4" class="pkg-a"/>
+  <text x="212" y="168" class="t-code" fill="#f87171">django 3.2</text>
+
+  <rect x="48"  y="188" width="132" height="30" rx="4" class="pkg"/>
+  <text x="64"  y="208" class="t-code">numpy 1.21</text>
+
+  <rect x="196" y="188" width="136" height="30" rx="4" class="pkg-a"/>
+  <text x="212" y="208" class="t-code" fill="#f87171">flask 2.0</text>
+
+  <rect x="48"  y="228" width="132" height="30" rx="4" class="pkg"/>
+  <text x="64"  y="248" class="t-code">pandas 1.3</text>
+
+  <rect x="48"  y="268" width="284" height="30" rx="4" class="pkg-a"/>
+  <text x="190" y="288" class="t-code" fill="#f87171">⚠ requests 2.31 လိုတဲ့ Project က?</text>
+
+  <text x="190" y="334" class="t-bad">Version ပဋိပက္ခ ဖြစ်သည်!</text>
+  <text x="190" y="352" class="t-lbl">Project တစ်ခု Update လုပ်ရင်</text>
+  <text x="190" y="366" class="t-lbl">တခြားProject ပျက်နိုင်သည်</text>
+
+  <!-- Center barrier -->
+  <line x1="400" y1="44" x2="400" y2="344" class="barrier"/>
+  <text x="400" y="364" class="t-lbl">VS</text>
+
+  <!-- RIGHT: With venv (good) -->
+  <rect x="440" y="44" width="340" height="300" rx="8" class="box-g"/>
+  <text x="610" y="66" class="t-main" fill="#10b981">✅  venv သုံးသည် (အကောင်းဆုံး)</text>
+
+  <text x="610" y="90" class="t-lbl">Project တစ်ခုချင်းစီ သီးသန့် venv</text>
+  <text x="610" y="106" class="t-lbl">မိမိ Project ထဲမှာပဲ Package သိမ်းသည်</text>
+
+  <!-- Project A venv -->
+  <rect x="456" y="116" width="140" height="140" rx="6" class="box-g2"/>
+  <text x="526" y="136" class="t-main" font-size="12" fill="#7dd3fc">Project A / venv</text>
+  <rect x="466" y="148" width="120" height="96" rx="3" class="inner"/>
+  <text x="476" y="168" class="t-code" font-size="11" fill="#6ee7b7">requests 2.28</text>
+  <text x="476" y="188" class="t-code" font-size="11" fill="#6ee7b7">flask 2.0</text>
+  <text x="476" y="208" class="t-code" font-size="11" fill="#64748b">(isolated)</text>
+  <text x="476" y="230" class="t-code" font-size="10" fill="#64748b">python -m venv .venv</text>
+
+  <!-- Project B venv -->
+  <rect x="614" y="116" width="152" height="140" rx="6" class="box-g2"/>
+  <text x="690" y="136" class="t-main" font-size="12" fill="#7dd3fc">Project B / venv</text>
+  <rect x="624" y="148" width="132" height="96" rx="3" class="inner"/>
+  <text x="634" y="168" class="t-code" font-size="11" fill="#6ee7b7">requests 2.31</text>
+  <text x="634" y="188" class="t-code" font-size="11" fill="#6ee7b7">django 4.2</text>
+  <text x="634" y="208" class="t-code" font-size="11" fill="#64748b">(isolated)</text>
+  <text x="634" y="230" class="t-code" font-size="10" fill="#64748b">python -m venv .venv</text>
+
+  <text x="610" y="282" class="t-good">✓ Version ပဋိပက္ခ မဖြစ်</text>
+  <text x="610" y="300" class="t-lbl">Project တစ်ခုချင်း ကိုယ်ပိုင် Library</text>
+
+  <!-- Commands row -->
+  <rect x="20" y="358" width="760" height="30" rx="4" class="inner"/>
+  <text x="48"  y="378" class="t-code" font-size="11" fill="#c4b5fd">python -m venv .venv</text>
+  <text x="260" y="378" class="t-code" font-size="11" fill="#64748b">→</text>
+  <text x="280" y="378" class="t-code" font-size="11" fill="#6ee7b7">.venv\Scripts\activate</text>
+  <text x="480" y="378" class="t-code" font-size="11" fill="#64748b">(Windows)</text>
+  <text x="600" y="378" class="t-code" font-size="11" fill="#6ee7b7">source .venv/bin/activate</text>
+  <text x="750" y="378" class="t-code" font-size="11" fill="#64748b">(Mac/Linux)</text>
+</svg>

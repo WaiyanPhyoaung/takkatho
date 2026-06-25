@@ -1,0 +1,243 @@
+---
+title: "Email နှင့် Notification Automation"
+description: "Gmail, Slack, Telegram တို့ဖြင့် Real-world Notification Workflow ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## ဤသင်ခန်းစာတွင် ဆောက်မည်သော Workflows
+
+ဤတွင် Practical Notification Workflow ၃ ခု ဆောက်မည်:
+
+1. Gmail → Slack Forwarding
+2. Form Submit → Email + Slack Notification
+3. Schedule Daily Report → Email
+
+## Workflow 1: Gmail → Slack Forwarding
+
+Important Label ပါသော Email ဝင်လာတိုင်း Slack ကို Notify ပေးသည်:
+
+<BranchFlow
+  input="Gmail Trigger: New Email (Poll: 1 min)"
+  condition='Label = "IMPORTANT"?'
+  truePath={["Slack: Post Message in #alerts"]}
+  falsePath={["Do nothing"]}
+  trueLabel="YES ✅"
+  falseLabel="NO ❌"
+/>
+
+### Gmail Trigger Setup
+
+1. Node Panel မှ **Gmail** ကို Search ပြုလုပ်ပါ
+2. **Gmail Trigger** ကို ရွေးပါ
+3. Credential — Google OAuth2 ချိတ်ဆက်ပါ (ရှေ့ Credentials သင်ခန်းစာ ကြည့်ပါ)
+
+Gmail Trigger Configuration:
+- Event: New Email
+- Label: IMPORTANT
+- Poll Time: Every 1 minute
+
+### IF Node — Label စစ်ပါ
+
+```
+Condition:
+  {{ $json.labelIds.includes("IMPORTANT") }} === true
+```
+
+### Slack Message Format
+
+```
+Slack Node Configuration:
+  Resource:  Message
+  Operation: Post Message
+  Channel:   #alerts
+  Text:
+  *📧 Important Email!*
+  From: {{ $json.from[0].address }}
+  Subject: {{ $json.subject }}
+  Preview: {{ $json.snippet }}
+```
+
+## Workflow 2: Contact Form → Multi-channel Notification
+
+Website Contact Form Submit ဖြစ်တိုင်း Email + Slack + Notion Database ထဲ တပြိုင်တည်း ထည့်သည်:
+
+<ParallelFlow
+  source="Webhook: Form Submit → Set: Format Contact Data"
+  sourceType="trigger"
+  targets={["Gmail: Notify Admin", "Slack: #contact-form channel", "Notion: Add to CRM Database"]}
+  caption="Form Submit တစ်ကြိမ်ဖြင့် Notification ၃ ချောင်း တပြိုင်တည်း ပို့သည်"
+/>
+
+<Aside type="note" title="Parallel Actions">
+n8n တွင် Node တစ်ခု၏ Output ကို **Node ၃ ခု** ကို တပြိုင်တည်း ချိတ်ဆက်နိုင်သည်။ Output Point မှ ၃ ကြိမ် Drag ဆွဲပြီး ၃ ခုကို ချိတ်ပါ။
+</Aside>
+
+### Webhook Data Format
+
+```json
+{
+  "name": "Ko Htun",
+  "email": "htun@gmail.com",
+  "phone": "+959-9123456",
+  "subject": "Website inquiry",
+  "message": "ဆက်သွယ်မေးမြန်းလိုသောကြောင့် ဖေါ်ပြပေးသည်"
+}
+```
+
+### Gmail Admin Notification
+
+```
+Gmail Node:
+  To:      admin@yourcompany.com
+  Subject: 🔔 New Contact: {{ $json.subject }}
+  Body:    
+  <h2>New Contact Form Submission</h2>
+  <p><strong>Name:</strong> {{ $json.name }}</p>
+  <p><strong>Email:</strong> {{ $json.email }}</p>
+  <p><strong>Phone:</strong> {{ $json.phone }}</p>
+  <p><strong>Message:</strong></p>
+  <p>{{ $json.message }}</p>
+```
+
+### Slack Message Block
+
+```json
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": { "type": "plain_text", "text": "📬 Contact Form" }
+    },
+    {
+      "type": "section",
+      "fields": [
+        { "type": "mrkdwn", "text": "*Name:*\n{{ $json.name }}" },
+        { "type": "mrkdwn", "text": "*Email:*\n{{ $json.email }}" }
+      ]
+    },
+    {
+      "type": "section",
+      "text": { "type": "mrkdwn", "text": "{{ $json.message }}" }
+    }
+  ]
+}
+```
+
+## Workflow 3: Daily Report Email
+
+တနင်္လာ-သောကြာ မနက် ၉ နာရီ Report Email ပို့သည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Schedule Trigger", sublabel: "0 9 * * 1-5", type: "trigger" },
+    { label: "HTTP Request", sublabel: "Fetch Analytics Data", type: "action" },
+    { label: "Code Node", sublabel: "Calculate Stats", type: "code" },
+    { label: "Gmail", sublabel: "Send Daily Report", type: "action" }
+  ]}
+  caption="တနင်္လာ-သောကြာ နေ့တိုင်း မနက် ၉ နာရီ Report Email ပို့သည်"
+/>
+
+### Report Email Template
+
+```javascript
+// Code Node — Report ပြုစုခြင်း
+const data = $input.first().json;
+
+const report = {
+  date: new Date().toLocaleDateString('en-US', { 
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+  }),
+  totalOrders: data.orders.length,
+  revenue: data.orders.reduce((sum, o) => sum + o.total, 0),
+  topProduct: data.orders
+    .flatMap(o => o.items)
+    .sort((a, b) => b.quantity - a.quantity)[0]?.name || 'N/A'
+};
+
+return [{ json: report }];
+```
+
+### Email HTML Body
+
+```html
+<div style="font-family: Arial, sans-serif; max-width: 600px;">
+  <h1 style="color: #333;">📊 Daily Report — {{ $json.date }}</h1>
+
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr style="background: #f5f5f5;">
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        <strong>Total Orders</strong>
+      </td>
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        {{ $json.totalOrders }}
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        <strong>Revenue</strong>
+      </td>
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        ${{ $json.revenue }}
+      </td>
+    </tr>
+    <tr style="background: #f5f5f5;">
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        <strong>Top Product</strong>
+      </td>
+      <td style="padding: 12px; border: 1px solid #ddd;">
+        {{ $json.topProduct }}
+      </td>
+    </tr>
+  </table>
+</div>
+```
+
+## Telegram Notification ထည့်ခြင်း
+
+Slack အစား Telegram ဖြင့် Notify ပေးလိုပါက:
+
+### Telegram Bot ဖန်တီးနည်း
+
+1. Telegram မှ **@BotFather** ကို Chat ဖွင့်ပါ
+2. `/newbot` Command ပေးပါ
+3. Bot Name နှင့် Username ပေးပါ
+4. **Bot Token** ကို ရပါမည် (ဥပမာ: `123456:ABCdef...`)
+
+### n8n Telegram Node
+
+```
+Telegram Node:
+  Chat ID:  [Your Chat ID or Group ID]
+  Text:
+  🔔 *New Order Received!*
+
+  Order #{{ $json.orderId }}
+  Customer: {{ $json.customerName }}
+  Amount: ${{ $json.total }}
+  Status: {{ $json.status }}
+```
+
+<Aside type="tip" title="Chat ID ရှာနည်း">
+@userinfobot ကို Telegram မှာ Message ပို့ပြီး Chat ID ကို ရနိုင်ပါတယ်။
+</Aside>
+
+## Error Handling အခြေခံ
+
+Email / Notification Fail ဖြစ်ရင် Retry နှင့် Fallback:
+
+<FlowDiagram
+  nodes={[
+    { label: "Gmail: Send Email", type: "action" },
+    { label: "Wait: 5 minutes", sublabel: "Error ဖြစ်ရင်", type: "action" },
+    { label: "Gmail: Retry Send", type: "action" },
+    { label: "Slack: Alert", sublabel: "Still error ဆိုရင်", type: "action" }
+  ]}
+  arrows={["❌ Error?", "Retry", "❌ Still Error?"]}
+  caption="Email Fail → Wait → Retry → Slack Alert (Fallback)"
+/>
+
+နောက်သင်ခန်းစာမှာ **API Integration** — Real Services တွေနဲ့ ချိတ်ဆက်နည်း ဆက်လက်လေ့လာမည်!

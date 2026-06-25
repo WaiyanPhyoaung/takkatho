@@ -1,0 +1,166 @@
+---
+/**
+ * FlowDiagram — renders a horizontal linear flow of nodes with arrow connectors.
+ * Supports optional branch labels on the arrows between nodes.
+ */
+
+export type NodeType = "trigger" | "action" | "code" | "condition" | "end" | "data";
+
+export interface FlowNode {
+  label: string;
+  sublabel?: string;
+  type?: NodeType;
+}
+
+interface Props {
+  nodes: FlowNode[];
+  caption?: string;
+  /** Optional label to show above each arrow (must be nodes.length - 1 items) */
+  arrows?: string[];
+}
+
+const { nodes, caption, arrows = [] } = Astro.props;
+
+const cfg: Record<NodeType, { icon: string; bg: string; border: string; text: string }> = {
+  trigger:   { icon: "▶",  bg: "#f0fdf4", border: "#22c55e", text: "#15803d" },
+  action:    { icon: "⚙",  bg: "#eff6ff", border: "#3b82f6", text: "#1d4ed8" },
+  code:      { icon: "</>", bg: "#faf5ff", border: "#a855f7", text: "#7e22ce" },
+  condition: { icon: "◆",  bg: "#fffbeb", border: "#f59e0b", text: "#b45309" },
+  end:       { icon: "✓",  bg: "#f0fdf4", border: "#10b981", text: "#047857" },
+  data:      { icon: "☰",  bg: "#e0f2fe", border: "#0284c7", text: "#0369a1" },
+};
+
+function get(type?: NodeType) {
+  return cfg[type ?? "action"];
+}
+---
+
+<div class="flow-wrap not-content">
+  <div class="flow-row">
+    {nodes.map((node, i) => {
+      const s = get(node.type);
+      return (
+        <>
+          <div
+            class="flow-node"
+            style={`--node-bg:${s.bg};--node-border:${s.border};--node-text:${s.text};`}
+          >
+            <span class="node-icon" aria-hidden="true">{s.icon}</span>
+            <div class="node-body">
+              <span class="node-label">{node.label}</span>
+              {node.sublabel && <span class="node-sub">{node.sublabel}</span>}
+            </div>
+          </div>
+          {i < nodes.length - 1 && (
+            <div class="flow-arrow-wrap">
+              {arrows[i] && <span class="arrow-label">{arrows[i]}</span>}
+              <svg class="arrow-svg" viewBox="0 0 48 20" aria-hidden="true">
+                <line x1="2" y1="10" x2="38" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <polyline points="34,5 44,10 34,15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+          )}
+        </>
+      );
+    })}
+  </div>
+  {caption && <p class="flow-caption">{caption}</p>}
+</div>
+
+<style>
+  .flow-wrap {
+    padding: 1.5rem 1.75rem;
+    background: var(--sl-color-bg-sidebar, #f8fafc);
+    border: 1px solid var(--sl-color-hairline, #e2e8f0);
+    border-radius: 14px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    min-width: max-content;
+  }
+
+  .flow-node {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
+    background: var(--node-bg);
+    border: 2px solid var(--node-border);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.15s;
+    flex-shrink: 0;
+  }
+
+  .flow-node:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .node-icon {
+    font-size: 0.9rem;
+    color: var(--node-text);
+    flex-shrink: 0;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .node-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .node-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--node-text);
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .node-sub {
+    font-size: 0.7rem;
+    color: var(--sl-color-gray-3, #64748b);
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .flow-arrow-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+
+  .arrow-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--sl-color-gray-3, #64748b);
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .arrow-svg {
+    width: 44px;
+    height: 18px;
+    color: var(--sl-color-gray-4, #94a3b8);
+    flex-shrink: 0;
+  }
+
+  .flow-caption {
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3, #64748b);
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-style: italic;
+  }
+</style>

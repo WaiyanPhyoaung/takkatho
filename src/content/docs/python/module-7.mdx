@@ -1,70 +1,247 @@
 ---
 title: "Modules နှင့် Packages များ"
-description: "Python တွင် အခြားသူများ ရေးသားထားသော Code များကို အသုံးပြုခြင်း"
+description: "Python တွင် Built-in Modules, ကိုယ်ပိုင် Module ဆောက်နည်း, pip, __name__ Pattern"
 ---
 
-Programming လုပ်တဲ့အခါ အရာအားလုံးကို ကိုယ်တိုင် အစကနေ ရေးစရာ မလိုပါဘူး။ တခြားသူတွေ ရေးထားပြီးသား၊ စမ်းသပ်ပြီးသား Code တွေကို ယူသုံးလို့ ရပါတယ်။ အဲ့ဒါကို Modules နဲ့ Packages တွေလို့ ခေါ်ပါတယ်။
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Built-in Modules (math, random, datetime, os) သုံးနိုင်မည်
+- ကိုယ်ပိုင် Module ဆောက်ပြီး ခေါ်သုံးနိုင်မည်
+- `if __name__ == '__main__':` Pattern နားလည်မည်
+- `from module import ...` vs `import module` ကွာခြားချက် သိမည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 6.5 (Virtual Environments) ကို ပြီးမှ ဆက်ပါ။ venv ကို Activate ပြီးမှ pip install လုပ်ဖို့ ဒါမှ မဟုတ်ရင် Module 6.5 ကို ဦးစွာ ကြည့်ပါ။
+</Aside>
+
+Programming လုပ်တဲ့အခါ အရာအားလုံးကို ကိုယ်တိုင် ရေးစရာ မလိုပါဘူး — Python မှာ ရှိပြီးသားသော Module တွေကို ယူသုံးနိုင်ပါတယ်။
 
 ---
 
 ### Module ဆိုတာ ဘာလဲ?
 
-Module ဆိုတာ Python Code တွေ ရေးထားတဲ့ `.py` ဖိုင် တစ်ခုပါပဲ။ အဲ့ဒီထဲမှာ Functions တွေ၊ Classes တွေ အများကြီး ပါဝင်ပါတယ်။ ကိုယ့်ရဲ့ Program ထဲမှာ အဲ့ဒီ Module ကို `import` လုပ်ပြီး အလွယ်တကူ ခေါ်သုံးလို့ ရပါတယ်။
+Module ဆိုတာ Python Code တွေ ရေးထားတဲ့ `.py` ဖိုင် တစ်ခုပါ — Functions, Variables, Classes တွေ ပါဝင်နိုင်ပါတယ်။ `import` လုပ်ပြီး ယူသုံးနိုင်ပါတယ်:
 
-#### Built-in Modules (Python မှာ အသင့်ပါပြီးသားများ)
+```python
+import math          # ← Module တစ်ခုလုံး ယူ
+from math import pi  # ← Module ထဲမှ တစ်ဆိပ်တည်း ယူ
+from math import sqrt, pi, floor  # ← တစ်ချက်တည်း ရွေးယူ
+```
 
-Python ကို Install လုပ်ကတည်းက အသင့်ပါလာတဲ့ Module တွေ အများကြီး ရှိပါတယ်။ ဥပမာ - သင်္ချာတွက်ဖို့ `math`၊ ကျပန်းဂဏန်းတွေ ထုတ်ဖို့ `random`၊ အချိန်နဲ့ ရက်စွဲအတွက် `datetime` စသဖြင့်ပေါ့။
+---
 
-**`math` Module အသုံးပြုပုံ:**
+### Built-in Modules — Python မှာ အသင့်ပါသောများ
+
+#### math — သင်္ချာ လုပ်ဆောင်ချက်များ
+
 ```python
 import math
 
-# Pi တန်ဖိုးကို ယူခြင်း
-print(math.pi) # 3.141592653589793
-
-# Square root (နှစ်ထပ်ကိန်းရင်း) ရှာခြင်း
-print(math.sqrt(16)) # 4.0
+print(math.pi)          # 3.141592653589793
+print(math.e)           # 2.718281828459045  (Euler's number)
+print(math.sqrt(16))    # 4.0
+print(math.floor(3.9))  # 3   (အောက်ဘက်ဆင်း)
+print(math.ceil(3.1))   # 4   (အပေါ်ဘက်တက်)
+print(math.pow(2, 10))  # 1024.0  (2 ကို 10 ထပ်)
+print(math.log(100, 10))  # 2.0  (log base 10 of 100)
 ```
 
-**`random` Module အသုံးပြုပုံ:**
+#### random — ကျပန်းဂဏန်းများ
+
 ```python
 import random
 
-# 1 ကနေ 10 ကြား ကျပန်းဂဏန်း တစ်ခု ထုတ်ပေးမယ်
-lucky_number = random.randint(1, 10)
-print(f"သင့်ရဲ့ ကံစမ်းမဲဂဏန်းကတော့ {lucky_number} ပါ။")
+print(random.randint(1, 10))   # 1-10 ကြား ကျပန်း Integer
+print(random.random())          # 0.0 မှ 1.0 ကြား Float
+print(random.uniform(1.5, 5.5)) # ၁.၅ မှ ၅.၅ ကြား Float
 
-# List ထဲကနေ ကျပန်း ရွေးချယ်မယ်
+# List ကနေ ကျပန်းရွေး
 fruits = ["Apple", "Banana", "Orange", "Mango"]
-random_fruit = random.choice(fruits)
-print(f"ဒီနေ့ စားရမယ့် အသီးကတော့ {random_fruit} ပါ။")
+print(random.choice(fruits))         # တစ်ကောင်
+print(random.sample(fruits, 2))      # ၂ ကောင် (မထပ်)
+
+# List ကို ကျပန်း ရောနှောပေး
+cards = [1, 2, 3, 4, 5]
+random.shuffle(cards)
+print(cards)   # [3, 1, 5, 2, 4]  ← ကျပန်း
 ```
+
+#### datetime — ရက်စွဲနှင့် အချိန်
+
+```python
+from datetime import datetime, date, timedelta
+
+# ယခု ရက်စွဲနှင့် အချိန်
+now = datetime.now()
+print(now)                          # 2024-01-15 14:30:22.123456
+print(now.year)                     # 2024
+print(now.month)                    # 1
+print(now.strftime("%Y-%m-%d"))     # 2024-01-15
+print(now.strftime("%d/%m/%Y %H:%M")) # 15/01/2024 14:30
+print(f"ယနေ့ — {now.strftime('%d %B %Y')}")   # ယနေ့ — 15 January 2024
+
+# ရက် ရှေ့နောက် တွက်ခြင်း
+tomorrow = now + timedelta(days=1)
+last_week = now - timedelta(weeks=1)
+print(f"မနက်ဖြန်: {tomorrow.strftime('%Y-%m-%d')}")
+```
+
+#### os — Operating System
+
+```python
+import os
+
+print(os.getcwd())              # လက်ရှိ Folder လမ်းကြောင်း
+print(os.listdir("."))          # Folder ထဲ ဖိုင်တွေ ကြည့်
+print(os.path.exists("test.txt"))  # ဖိုင်ရှိမရှိ
+print(os.path.join("folder", "file.txt"))  # Path ချိတ်ဆက်
+
+os.makedirs("my_folder", exist_ok=True)  # Folder ဆောက်
+```
+
+---
+
+### ကိုယ်ပိုင် Module ဆောက်ခြင်း
+
+Function တွေကို သီးသန့် ဖိုင်မှာ ထည့်ပြီး Module အဖြစ် ယူသုံးနိုင်ပါတယ်:
+
+**helpers.py:**
+```python
+def greet(name):
+    return f"မင်္ဂလာပါ {name}!"
+
+def add(a, b):
+    return a + b
+
+PI = 3.14159
+```
+
+**main.py (တူညီသော Folder ထဲ):**
+```python
+import helpers
+
+print(helpers.greet("Aung"))   # မင်္ဂလာပါ Aung!
+print(helpers.add(5, 3))       # 8
+print(helpers.PI)              # 3.14159
+
+# သို့မဟုတ် ရွေးချယ်ပြီး Import
+from helpers import greet, PI
+print(greet("Su"))   # မင်္ဂလာပါ Su!
+```
+
+---
+
+### if `__name__` == `'__main__':` Pattern
+
+ဒါဟာ Python မှာ အများကြိုက် Pattern တစ်ခုဖြစ်ပြီး Code ကို တိုက်ရိုက် Run ချိန်နဲ့ Module အဖြစ် Import ချိန် ခွဲခြားပေးပါတယ်:
+
+```python
+# calculator.py
+
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+if __name__ == "__main__":
+    # ဒီ Block ကို python calculator.py နဲ့ တိုက်ရိုက် Run ချိန်မှာသာ လုပ်မည်
+    # import calculator လုပ်ရင် ဒီ Block ကို ကျော်မည်
+    result = add(10, 5)
+    print(f"10 + 5 = {result}")
+```
+
+**ဘာကြောင့် အရေးကြီးသလဲ:**
+
+```python
+# main.py
+import calculator   # ← add() နှင့် multiply() ကိုသာ ရပြီး
+                    #   calculator.py ရဲ့ "Run Part" မချိတ်ဘူး
+```
+
+<Aside type="tip" title="ဘာကြောင့် ဒါ အရေးကြီးသလဲ">
+Python File တစ်ခုကို Module အဖြစ် Import လုပ်တဲ့အခါ File ထဲက Code တွေ **အကုန် Run** သွားပါတယ် — `if __name__ == '__main__':` မပါရင်။ ဒါကြောင့် Test Code၊ Demo Code တွေကို ဒီ Block ထဲမှာ ထည့်ပြီး Import လုပ်ရင် မ Run သွားအောင် ကာကွယ်ပါ။
+</Aside>
 
 ---
 
 ### Package ဆိုတာ ဘာလဲ?
 
-Package ဆိုတာ Module တွေ အများကြီးကို Folder တစ်ခုထဲမှာ စုထားတာပါ။ Python ရဲ့ အားသာချက်က ကမ္ဘာတစ်ဝှမ်းက Developer တွေ ရေးထားတဲ့ Package တွေ အများကြီး ရှိနေတာပါပဲ။
+Package ဆိုတာ Module တွေ အများကြီးကို Folder တစ်ခုထဲ စုထားတာပါ:
 
-ဥပမာ - Data တွေ ခွဲခြမ်းစိတ်ဖြာဖို့ `pandas`၊ AI ရေးဖို့ `tensorflow`၊ Website ရေးဖို့ `django` စသဖြင့် ရှိပါတယ်။
+```
+mypackage/
+├── __init__.py    # ← ဒါ ပါမှ Python က Package အဖြစ် မှတ်မည်
+├── math_utils.py
+└── string_utils.py
+```
 
-#### `pip` ကို အသုံးပြုခြင်း
-
-အပြင်က Package တွေကို သုံးချင်ရင် အရင်ဆုံး Install လုပ်ရပါတယ်။ အဲ့ဒီအတွက် `pip` (Python Package Installer) ကို သုံးပါတယ်။ Terminal (သို့) Command Prompt မှာ အောက်ပါအတိုင်း ရိုက်ထည့်ရပါတယ်။
+<Aside type="caution" title="pip မသုံးခင် venv ဦးစွာ">
+`pip install` မလုပ်ခင် **Virtual Environment** ကို ဖွင့်ထားပါ (Module 6.5 ကို ကြည့်ပါ)။ venv မပါဘဲ System Python ထဲ Install လုပ်ရင် Projects တွေကြားမှာ Version Conflict ဖြစ်နိုင်ပါတယ်:
 
 ```bash
-# requests ဆိုတဲ့ Package ကို Install လုပ်ခြင်း
+# venv ဖွင့်ပြီးမှ
 pip install requests
+pip install pandas
+pip install django
 ```
+</Aside>
 
-Install လုပ်ပြီးသွားရင် ကိုယ့်ရဲ့ Code ထဲမှာ `import` လုပ်ပြီး သုံးလို့ ရပါပြီ။
+#### ခေါ်ဆိုနည်း နှစ်ခု နှိုင်းယှဉ်ခြင်း
 
 ```python
-# requests ကို သုံးပြီး အင်တာနက်ပေါ်က Data တွေကို လှမ်းယူလို့ ရပါတယ်
-import requests
+# နည်း ၁: Module တစ်ခုလုံး ယူ
+import math
+result = math.sqrt(16)    # Module နာမည်နဲ့ ကြိုဘောင်ရေး
 
-response = requests.get("https://api.github.com")
-print(response.status_code) # 200 (အောင်မြင်တယ်လို့ ဆိုလိုပါတယ်)
+# နည်း ၂: Function တစ်ချိပ်ကိုသာ ယူ
+from math import sqrt
+result = sqrt(16)         # တိုက်ရိုက် ခေါ်
+
+# ဘယ်ကသာ? — Module ကြီးတွေဆိုရင် နည်း ၁ ကို ဦးစားပေး
+# (sqrt() လို Function ကို sqrt မှန်မဟုတ် ဆိုတာ ရှင်းနေ)
 ```
 
-Modules နဲ့ Packages တွေကို သုံးတတ်သွားရင် သင့်အနေနဲ့ Code အနည်းငယ် ရေးရုံနဲ့ အလုပ်တွေ အများကြီး လုပ်နိုင်တဲ့ Program တွေကို ဖန်တီးနိုင်မှာ ဖြစ်ပါတယ်။
+---
+
+### ဥပမာ — ကောင်းမွန်တဲ့ Module ပုံစံ
+
+```python
+# grade_calculator.py
+"""
+ကျောင်းသားများ၏ Grade တွက်ချက်မှုကို စီမံသော Module
+"""
+
+GRADE_BOUNDARIES = {
+    "A": 80, "B": 70, "C": 60, "D": 50
+}
+
+def get_grade(score):
+    """Score ပေါ်မူတည်၍ Grade ပြန်ပေးသည်"""
+    for grade, minimum in GRADE_BOUNDARIES.items():
+        if score >= minimum:
+            return grade
+    return "F"
+
+def calculate_gpa(scores):
+    """Score List ကနေ GPA တွက်ချက်သည်"""
+    if not scores:
+        raise ValueError("Scores list မထားနိုင်")
+    return sum(scores) / len(scores)
+
+
+if __name__ == "__main__":
+    # Test
+    test_scores = [85, 72, 60, 45, 91]
+    for score in test_scores:
+        print(f"Score {score}: Grade {get_grade(score)}")
+    
+    gpa = calculate_gpa(test_scores)
+    print(f"GPA: {gpa:.1f}")
+```
+
+<Aside title="နောက်တစ်ဆင့်">
+Modules ပြီးပြီဆိုရင် **Module 8 — Mini Project** မှာ ဒါတွေ အားလုံးကို ပေါင်းစပ်ပြီး Game လေး ဆောက်ပါမည်!
+</Aside>

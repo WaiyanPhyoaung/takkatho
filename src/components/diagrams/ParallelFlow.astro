@@ -1,0 +1,186 @@
+---
+/**
+ * ParallelFlow — one source node fans out to multiple target nodes simultaneously.
+ */
+
+interface Props {
+  source: string;
+  sourceType?: "trigger" | "action" | "data";
+  targets: string[];
+  caption?: string;
+}
+
+const { source, sourceType = "action", targets, caption } = Astro.props;
+
+const srcCfg = {
+  trigger: { bg: "#f0fdf4", border: "#22c55e", text: "#15803d", icon: "▶" },
+  action:  { bg: "#eff6ff", border: "#3b82f6", text: "#1d4ed8", icon: "⚙" },
+  data:    { bg: "#e0f2fe", border: "#0284c7", text: "#0369a1", icon: "☰" },
+};
+
+const s = srcCfg[sourceType];
+
+// Target node colors (cycle through a palette)
+const targetColors = [
+  { bg: "#fff7ed", border: "#f97316", text: "#c2410c" },
+  { bg: "#f5f3ff", border: "#8b5cf6", text: "#6d28d9" },
+  { bg: "#ecfdf5", border: "#10b981", text: "#047857" },
+  { bg: "#fdf2f8", border: "#ec4899", text: "#be185d" },
+];
+---
+
+<div class="parallel-wrap not-content" role="img" aria-label={`${source} sends to multiple targets`}>
+  {/* Source node */}
+  <div class="src-row">
+    <div
+      class="p-node src-node"
+      style={`--pb:${s.bg};--pbd:${s.border};--pt:${s.text};`}
+    >
+      <span class="p-icon" aria-hidden="true">{s.icon}</span>
+      <span class="p-label">{source}</span>
+    </div>
+  </div>
+
+  {/* Fan-out lines + targets */}
+  <div class="fan-section">
+    <div class="fan-line-col" aria-hidden="true">
+      <div class="fan-vertical"></div>
+      <div class="fan-horizontal-group">
+        {targets.map(() => <div class="fan-tick"></div>)}
+      </div>
+    </div>
+
+    <div class="targets-col">
+      {targets.map((label, i) => {
+        const tc = targetColors[i % targetColors.length];
+        return (
+          <div class="target-row">
+            <div class="target-arrow" aria-hidden="true">
+              <svg viewBox="0 0 36 16" width="36" height="16">
+                <line x1="0" y1="8" x2="26" y2="8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <polyline points="22,4 32,8 22,12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div
+              class="p-node"
+              style={`--pb:${tc.bg};--pbd:${tc.border};--pt:${tc.text};`}
+            >
+              <span class="p-icon" aria-hidden="true">⚡</span>
+              <span class="p-label">{label}</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  {caption && <p class="p-caption">{caption}</p>}
+</div>
+
+<style>
+  .parallel-wrap {
+    padding: 1.5rem 1.75rem;
+    background: var(--sl-color-bg-sidebar, #f8fafc);
+    border: 1px solid var(--sl-color-hairline, #e2e8f0);
+    border-radius: 14px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  /* ── Shared node ── */
+  .p-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    background: var(--pb);
+    border: 2px solid var(--pbd);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    white-space: nowrap;
+    transition: box-shadow 0.15s;
+  }
+
+  .p-node:hover { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12); }
+
+  .p-icon  { font-size: 0.85rem; color: var(--pt); font-weight: 700; flex-shrink: 0; }
+  .p-label { font-size: 0.8125rem; font-weight: 700; color: var(--pt); line-height: 1.2; }
+
+  /* ── Source row ── */
+  .src-row { display: flex; justify-content: flex-start; margin-bottom: 0; }
+  .src-node { }
+
+  /* ── Fan section ── */
+  .fan-section {
+    display: flex;
+    align-items: stretch;
+    margin-top: 2px;
+  }
+
+  /* Vertical line + horizontal ticks */
+  .fan-line-col {
+    display: flex;
+    align-items: flex-start;
+    width: 28px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .fan-vertical {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1.8px;
+    background: var(--sl-color-gray-4, #94a3b8);
+    transform: translateX(-50%);
+  }
+
+  .fan-horizontal-group {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .fan-tick {
+    width: 14px;
+    height: 1.8px;
+    background: var(--sl-color-gray-4, #94a3b8);
+  }
+
+  /* ── Targets column ── */
+  .targets-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .target-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .target-arrow {
+    color: var(--sl-color-gray-4, #94a3b8);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Caption ── */
+  .p-caption {
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3, #64748b);
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-style: italic;
+  }
+</style>

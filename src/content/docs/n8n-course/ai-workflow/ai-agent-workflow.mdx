@@ -1,0 +1,175 @@
+---
+title: "n8n AI Agent ဆောက်ခြင်း"
+description: "Tool တွေကို ကိုင်တွယ်နိုင်သော AI Agent ကို n8n ဖြင့် ဆောက်နည်းနှင့် Memory ထည့်ပုံ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+
+## AI Agent ဆိုတာ ဘာလဲ?
+
+**AI Agent** ဆိုတာ Simple LLM Call ထက် ပိုတဲ့ System ပါ။ AI ကို Tools (Search, Database, API) ပေးပြီး ကိုယ်တိုင်ဆုံးဖြတ်ပြီး Task ကို Complete လုပ်ဖို့ ခွင့်ပြုတဲ့ Pattern ပါ:
+
+```
+Simple LLM:         AI Agent:
+  Prompt               Prompt
+     ↓                    ↓
+  Response           [Think: What tools do I need?]
+                          ↓
+                     [Use Tool: Search Web]
+                          ↓
+                     [Use Tool: Calculate]
+                          ↓
+                     [Final Response]
+```
+
+n8n ၏ **AI Agent Node** (ReAct Agent) သည် LangChain ကို Built-in ပေးပြီး Tools ကို Dynamic ရွေးချယ်သည်။
+
+## AI Agent Workflow ဆောက်ပုံ
+
+<FlowDiagram
+  nodes={[
+    { label: "Chat Trigger", sublabel: "User Message ဝင်", type: "trigger" },
+    { label: "AI Agent Node", sublabel: "Think → Tool → Answer", type: "code" },
+    { label: "Response to User", sublabel: "Chat Response", type: "end" }
+  ]}
+  caption="User မေးသမျှ Agent က Tool သုံးပြီး ဖြေပေးသည်"
+/>
+
+## Agent Node Setup
+
+Canvas မှ **"AI Agent"** Node ကို ထည့်ပြီး Sub-nodes ချိတ်ဆက်ပါ:
+
+```
+AI Agent Node
+├── Chat Model (Required)
+│   └── [OpenAI GPT-4o] or [Claude Sonnet]
+│
+├── Memory (Optional — Conversation History)
+│   └── [Window Buffer Memory]
+│
+└── Tools (ပေးချင်သော Capabilities)
+    ├── [Calculator]       ← Math တွက်ဖို့
+    ├── [SerpAPI Search]   ← Web Search
+    ├── [Wikipedia]        ← Knowledge Lookup
+    └── [Code Executor]    ← Code Run လုပ်ဖို့
+```
+
+**System Prompt** (Agent ၏ Role):
+
+```
+You are a helpful assistant for a Myanmar e-commerce company.
+You can:
+- Search for product information
+- Calculate prices and discounts
+- Look up order status from database
+- Answer questions in Myanmar language
+
+Always be polite and concise. Respond in the same language the user wrote in.
+```
+
+## Memory ထည့်ခြင်း — Conversation History
+
+Memory မရှိရင် Agent က ရှေ့ Message ကို မမှတ်မိ။ **Window Buffer Memory** ထည့်လိုက်ရင် Conversation History ကို Track လုပ်သည်:
+
+```
+Memory Configuration:
+  Window Buffer Memory:
+    Context Window Size: 10   ← နောက်ဆုံး Messages ၁၀ ခု မှတ်မိ
+    Session Key: {{ $('Chat Trigger').item.json.sessionId }}
+```
+
+<Aside type="note" title="Session Key ဆိုတာ">
+Session Key ဟာ User တစ်ဦးချင်းစီ၏ Conversation ကို Separate လုပ်ပေးသည်။ Chat UI တွင် `sessionId` ကို Automatically ထုတ်ပေးသည်။ Webhook မှ ခေါ်ရင် `{{ $json.userId }}` ကို Session Key ဖြစ်အောင် သုံးပါ။
+</Aside>
+
+## Custom Tools ထည့်ခြင်း
+
+Agent ကို ကိုယ်ပိုင် Database, API နဲ့ ချိတ်ဆက်ဖို့ **"Call n8n Workflow" Tool** ကို သုံးသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "AI Agent", type: "code" },
+    { label: "Tool: Get Order Status", sublabel: "Workflow call", type: "action" },
+    { label: "MySQL: Query Orders", sublabel: "ORDER BY id", type: "data" },
+    { label: "Return to Agent", type: "end" }
+  ]}
+  caption="Agent ကနေ Database Query Tool ကို ခေါ်ပြီး Order Status ကိုပြသည်"
+/>
+
+### Order Status Tool Workflow
+
+Agent ကနေ ဒီ Sub-Workflow ကို Tool ဖြစ်အောင် Configure လုပ်ပါ:
+
+```javascript
+// Tool Workflow — Get Order Status
+// Input: { orderId: "ORD-123" }
+const orderId = $json.orderId;
+
+// MySQL Node ကနေ Query
+const query = `SELECT * FROM orders WHERE id = '${orderId}' LIMIT 1`;
+
+// Return structured result to Agent
+return [{
+  json: {
+    orderId,
+    status: $('MySQL').first().json.status,
+    createdAt: $('MySQL').first().json.created_at,
+    total: $('MySQL').first().json.total_amount,
+    message: `Order ${orderId} is currently: ${$('MySQL').first().json.status}`
+  }
+}];
+```
+
+## Customer Support Agent — Complete Example
+
+<FlowDiagram
+  nodes={[
+    { label: "Chat Trigger", sublabel: "n8n Chat UI", type: "trigger" },
+    { label: "AI Agent", sublabel: "GPT-4o + Memory + Tools", type: "code" },
+    { label: "Window Buffer Memory", sublabel: "Last 10 messages", type: "data" },
+    { label: "Chat Response", type: "end" }
+  ]}
+  caption="Memory + Tools ပါသော Complete Customer Support Agent"
+/>
+
+Tools ဖြင့် Agent ၏ Capability:
+
+| Tool | Agent သည် ဘာ တတ်သလဲ |
+|------|----------------------|
+| Order Status Lookup | "ORD-456 ဘယ်ရောက်ပြီ?" မေးသောအခါ |
+| Product Search | "Laptop အကောင်းဆုံး ဘာလဲ?" |
+| Calculator | "20% Discount နဲ့ 45,000 ဆိုရင် ဘယ်နှစ်ကျ?" |
+| FAQ Knowledge Base | "Return Policy က ဘာလဲ?" |
+
+## Agentic Workflow ဥပမာ
+
+User: "ကျွန်တော်ရဲ့ Order ORD-789 ဘယ်ရောက်ပြီ? ပြီးရင် အောင်မြင်ရင် Review တစ်ခု ချင်တယ်"
+
+Agent ၏ Thinking Process:
+
+```
+Step 1: Parse Intent
+  → "Order status" + "Request review if delivered"
+
+Step 2: Use Order Status Tool
+  → Query: SELECT * FROM orders WHERE id='ORD-789'
+  → Result: { status: "delivered", deliveredAt: "2025-01-10" }
+
+Step 3: Decide Next Action
+  → Status = delivered → Send review request
+
+Step 4: Use Email Tool
+  → Send review request email to customer
+
+Step 5: Final Response
+  → "ORD-789 သည် 2025-01-10 တွင် ပို့ဆောင်ပြီးဖြစ်ပါသည်။
+     Review တောင်းဆိုသော Email ပေးပို့ပြီးဖြစ်ပါသည်။"
+```
+
+<Aside type="tip" title="Agent Test လုပ်နည်း">
+n8n Chat UI ကို `http://localhost:5678/webhook/your-chat-path` မှ တိုက်ရိုက် ဖွင့်ပြီး Agent နဲ့ Chat လုပ်ကြည့်နိုင်သည်။ Production မဖြစ်ခင် Testing မလုပ်ဘဲ မသွားပါနဲ့။
+</Aside>
+
+နောက်သင်ခန်းစာမှာ **Database Operations** — n8n မှ MySQL/PostgreSQL ကို တိုက်ရိုက် ချိတ်ဆက်နည်း လေ့လာမည်!

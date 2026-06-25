@@ -3,7 +3,7 @@ title: "<head> အပိုင်း"
 description: "<head> အပိုင်း"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 
 export const metaTag = `<meta charset="UTF-8">
 <meta name="description" content="Learn HTML basics!">`
@@ -13,7 +13,11 @@ export const titleTag = `<title>My First Webpage</title>`
 export const linkTag = `<link rel="stylesheet" href="styles.css">`
 
 
-`<head>` အပိုင်းမှာ webpage နဲ့ပတ်သက်တဲ့ အချက်အလက်တွေ ပါဝင်ပေမယ့် page ပေါ်မှာ တိုက်ရိုက်မြင်ရတာမျိုး မရှိပါဘူး။ သူ့ထဲမှာ metadata တွေ၊ design ပိုင်းဆိုင်ရာအတွက် stylesheet (CSS) link တွေ၊ လုပ်ဆောင်ချက်တွေအတွက် script (JavaScript) link တွေ ထည့်လေ့ရှိပါတယ်။
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာ `&lt;head&gt;` section ထဲမှာ ဘာတွေထည့်ရမလဲဆိုတာ လေ့လာကြပါမယ်။ Meta tag တွေ၊ page title နဲ့ CSS stylesheet link တွေပါ ထည့်နည်းကို နားလည်သွားမှာပါ။
+</Aside>
+
+`<head>` အပိုင်းဆိုတာ user တွေ တိုက်ရိုက်မမြင်ရပေမဲ့ browser နဲ့ search engine တွေအတွက် မရှိမဖြစ် လိုအပ်တဲ့ အချက်အလက်တွေ (metadata) ထည့်ရာနေရာပါ။ CSS link တွေ၊ JavaScript link တွေ ထည့်ဖို့ကလည်း `<head>` ထဲမှာပဲ ဖြစ်ပါတယ်။
 
 #### `<head>` ထဲမှာ အသုံးများတဲ့ Element တွေ:
 
@@ -37,4 +41,3 @@ export const linkTag = `<link rel="stylesheet" href="styles.css">`
     **ဥပမာ:**
 
     <Code title="HTML" lang='html' code={linkTag} />
-

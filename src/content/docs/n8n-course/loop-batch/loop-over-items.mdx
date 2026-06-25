@@ -1,0 +1,183 @@
+---
+title: "Loop နှင့် Batch Processing"
+description: "n8n တွင် Item တစ်ခုချင်းစီ Iterate လုပ်နည်းနှင့် Large Dataset ကို Batch ဖြင့် ကိုင်တွယ်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+
+## Loop ဘာကြောင့် လိုအပ်သလဲ?
+
+n8n မှာ Node တစ်ခုဟာ Items အများကြီးကို တစ်ခါတည်း Process လုပ်တတ်ပါတယ်။ ဒါပေမဲ့ တချို့ API တွေက တစ်ကြိမ်ကို Item တစ်ခုစီသာ ခေါ်လို့ရတဲ့ Endpoint မျိုး ရှိပါတယ်။ ဒါမှမဟုတ် Item တစ်ခုချင်းစီ Process ပြီး Result ကို ဆက်ပြေးဖို့ Loop လိုတဲ့ အချိန်မျိုးမှာ Loop Pattern ကို သုံးရပါတယ်။
+
+```
+Loop မလိုသောအချိန် (n8n Default):
+  [Get 100 Users] ──▶ [Send Email]    ← Email Node က Users ၁၀၀ ကို တစ်ခါတည်း Process
+
+Loop လိုသောအချိန်:
+  [Get 100 Users]
+      │
+  [Loop: User တစ်ဦးချင်းစီ]
+      │
+      ├──▶ [Get User Details from Slow API]   ← တစ်ကြိမ်ကို ၁ ယောက်
+      └──▶ [Update Database Row]
+```
+
+## Loop Over Items (Basic)
+
+n8n ၏ **Loop Over Items** Node (ကောင်းသောနာမည်: `splitInBatches` node ၏ loop mode) ကို သုံးပြီး Item တစ်ခုချင်းစီကို Process နိုင်သည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Get All Users", sublabel: "Output: 500 users", type: "data" },
+    { label: "Loop Over Items", sublabel: "Process 1 by 1", type: "condition" },
+    { label: "HTTP: User API", sublabel: "Per-user endpoint", type: "action" },
+    { label: "Merge Results", type: "action" }
+  ]}
+  caption="500 Users ကို တစ်ဦးချင်းစီ API ခေါ်ပြီး Merge ပြုလုပ်သည်"
+/>
+
+## SplitInBatches Node
+
+Large Dataset ကို **Group** ဖြင့် ခွဲပြီး Process လုပ်သည်။ API Rate Limit ကို ကျော်ဖြတ်ရာတွင် အသုံးဝင်ဆုံး Pattern ဖြစ်သည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Get 1000 Emails", type: "data" },
+    { label: "SplitInBatches", sublabel: "Batch Size: 50", type: "condition" },
+    { label: "Send Batch Email", sublabel: "50 ကို တစ်ကြိမ်", type: "action" },
+    { label: "Wait: 1 second", sublabel: "Rate Limit ကာကွယ်", type: "action" }
+  ]}
+  caption="1000 emails ကို 50 ချပ် ၂၀ ကြိမ် ခွဲပို့သည်"
+/>
+
+### SplitInBatches Configuration
+
+```
+SplitInBatches Node:
+  Batch Size: 50         ← တစ်ကြိမ်ကို ဘယ်နှ Item
+  Options:
+    Reset: false         ← Loop ပြန်မစဘဲ ဆက်ပြေးသည်
+```
+
+### Loop ဖြင့် Process လုပ်သော Code Pattern
+
+```javascript
+// SplitInBatches ပြီးနောက် Code Node
+const batchItems = $input.all();
+
+console.log(`Processing batch of ${batchItems.length} items...`);
+
+// Batch ထဲ Item တစ်ခုချင်းစီ Process
+const results = batchItems.map(item => ({
+  json: {
+    ...item.json,
+    processed: true,
+    processedAt: new Date().toISOString()
+  }
+}));
+
+return results;
+```
+
+## Rate Limiting ကိုင်တွယ်နည်း
+
+API Rate Limit ဆိုတာ API Server မှ တစ်မိနစ်ကို Request X ခုသာ ခွင့်ပြုတဲ့ ကန့်သတ်ချက်ပါ:
+
+<BranchFlow
+  input="SplitInBatches (Batch: 100)"
+  condition="Rate Limit ဖြစ်သလား? (429)"
+  truePath={["Wait: 60 seconds", "Retry Same Batch"]}
+  falsePath={["Process Batch Normally", "Next Batch"]}
+  trueLabel="429 ❌"
+  falseLabel="200 ✅"
+/>
+
+### Wait Node ထည့်ပြီး Rate Limit ကာကွယ်ပါ
+
+```
+Workflow Pattern:
+  [SplitInBatches] ──▶ [API Call] ──▶ [Wait: 1s] ──▶ (loop back)
+
+Wait Node:
+  Wait Amount: 1
+  Wait Unit:   Seconds
+
+  ← API ကို Batch တစ်ကြိမ်ပြီးတိုင်း 1 စက္ကန့် ခဏနားပါ
+```
+
+<Aside type="tip" title="API Rate Limit စစ်ကြည့်ပါ">
+API Documentation မှ Rate Limit ကို စစ်ကြည့်ပါ။ ဥပမာ: Gmail API တွင် တစ်မိနစ် ၂၅၀ quota units, OpenAI API တွင် Model ပေါ်မူတည်ပြီး Rate Limit ကွဲပြားသည်။
+</Aside>
+
+## Conditional Loop — Loop ဘယ်အချိန် ရပ်မလဲ?
+
+Loop ကို Condition ဖြင့် ရပ်တန့်ရာတွင် **IF Node** ကို Loop ထဲ ထည့်သည်:
+
+<BranchFlow
+  condition="processed_count < total?"
+  truePath={["Fetch Next Page", "Process Items", "Increment Counter"]}
+  falsePath={["Exit Loop", "Merge All Results"]}
+  trueLabel="ဆက်ပြေး"
+  falseLabel="ရပ်ပြီ"
+/>
+
+### Pagination ဖြင့် API Data အကုန်ဆွဲနည်း
+
+API မှာ Page တစ်ခုကို Items ၁၀ ခုသာ Return ပြန်ပေးပြီး နောက် Page ကို ထပ်ခေါ်ရမည့် Pattern:
+
+```javascript
+// Code Node — Pagination State ထိန်းသည်
+const currentPage = $execution.resumeData?.page ?? 1;
+const totalPages = $input.first().json.total_pages;
+
+// State ကို Update
+const output = {
+  items: $input.first().json.data,
+  nextPage: currentPage + 1,
+  hasMore: currentPage < totalPages,
+  currentPage
+};
+
+return [{ json: output }];
+```
+
+## လက်တွေ့ Project: Bulk Email Sender
+
+Google Sheet ထဲ Email List ကို ဖတ်ပြီး Personalized Email ပို့သောကြောင့် SplitInBatches ကို သုံးသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Schedule Trigger", sublabel: "Daily 7am", type: "trigger" },
+    { label: "Google Sheets", sublabel: "Read Email List", type: "data" },
+    { label: "SplitInBatches", sublabel: "Batch: 20", type: "condition" },
+    { label: "Code: Personalize", type: "code" },
+    { label: "Gmail: Send", type: "action" },
+    { label: "Wait: 2s", sublabel: "Rate limit", type: "action" }
+  ]}
+  caption="နေ့တိုင်း Email List မှ Bulk Personalized Email ပို့ပြီး Rate Limit ကာကွယ်သည်"
+/>
+
+```javascript
+// Code Node — Email Personalize
+const item = $input.first().json;
+
+return [{
+  json: {
+    to: item.email,
+    subject: `မင်္ဂလာပါ ${item.name}! ဒီနေ့ Special Offer`,
+    html: `
+      <h2>မင်္ဂလာပါ ${item.name}!</h2>
+      <p>သင်၏ Membership Level: <strong>${item.tier}</strong></p>
+      <p>ဒီနေ့ Discount Code: <strong>${item.code}</strong></p>
+    `
+  }
+}];
+```
+
+<Aside type="note" title="Gmail Limit">
+Gmail Free Account တွင် တစ်နေ့ ၅၀၀ Emails သာ Send လုပ်ရသည်။ Bulk Email အတွက် SendGrid, Mailchimp, AWS SES တို့ကို သုံးပါ — ၎င်းတို့ API ကို n8n HTTP Request Node ဖြင့် ချိတ်နိုင်သည်။
+</Aside>
+
+နောက်သင်ခန်းစာမှာ **AI Workflow** — n8n တွင် AI ကို ထည့်သွင်းပြီး Smart Automation ဆောက်နည်း လေ့လာမည်!

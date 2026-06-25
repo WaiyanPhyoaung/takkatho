@@ -1,0 +1,157 @@
+---
+title: "Triggers နှင့် Events"
+description: "n8n Workflow ကို ဘယ်လို စတင်ကြောင်းနှင့် Trigger အမျိုးအစားများ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+
+## Trigger ဆိုတာ ဘာလဲ?
+
+**Trigger** ဆိုတာ Workflow ကို **စတင်ပေးသည့်** Signal ပါ။ Trigger မပေးမချင်း Workflow သည် "အိပ်" နေပါသည်။ Trigger ဖြစ်ပြီးနောက် Workflow ရှိ Node တစ်ခုစီ အလိုက်သင့် Run ပါသည်။
+
+## Trigger အမျိုးအစားများ
+
+### 1. Manual Trigger
+
+**Editor မှ Button နှိပ်မှ** Workflow ပြေးသည်။ Testing အတွက် အများဆုံး သုံးသည်။
+
+သင့်တော်သောကိစ္စများ:
+- Workflow ကို Test လုပ်ရန်
+- တစ်ကြိမ်သာ Run ရမည့် Task
+- Production Automation အတွက်မူ မသင့်တော်ပါ
+
+### 2. Schedule Trigger (Cron)
+
+**သတ်မှတ်ချိန်** ရောက်တိုင်း Workflow ပြေးသည်။
+
+Schedule ဥပမာများ:
+- Every minute — Testing အတွက်
+- Every hour — Hourly Report
+- Daily at 9am — Morning Summary Email
+- Weekly Monday — Weekly Digest
+- Monthly 1st — Monthly Invoice
+
+**Cron Expression** ကို n8n မှ Visual Mode နဲ့ ပြောင်းလဲနိုင်သည်:
+
+```
+Cron Syntax:  * * * * *
+              │ │ │ │ └── Day of Week (0=Sun)
+              │ │ │ └──── Month (1-12)
+              │ │ └────── Day of Month (1-31)
+              │ └──────── Hour (0-23)
+              └────────── Minute (0-59)
+
+ဥပမာများ:
+  0 9 * * 1-5   → တနင်္လာ-သောကြာ မနက် 9:00
+  0 */2 * * *   → နာရီတိုင်း ၂ ကြိမ်
+  30 8 * * 0    → တနင်္ဂနွေ မနက် 8:30
+```
+
+### 3. Webhook Trigger
+
+**External System** မှ HTTP Request ပို့လာသောအခါ Workflow ပြေးသည်။ Real-time Automation အတွက် အကောင်းဆုံးဖြစ်သည်။
+
+<FlowDiagram
+  nodes={[
+    { label: "External System", sublabel: "Website / App", type: "trigger" },
+    { label: "n8n Webhook", sublabel: "HTTP POST လက်ခံ", type: "action" },
+    { label: "Workflow Continues", sublabel: "Processing...", type: "action" }
+  ]}
+  arrows={["HTTP POST", "200 OK → ဆက်ပြေး"]}
+  caption="Webhook Flow — External System မှ n8n သို့ Data ပို့ခြင်း"
+/>
+
+**Webhook URL** ကို n8n မှ ထုတ်ပေးပြီး External System ထဲ ထည့်ပေးရမည်:
+
+```
+Webhook URL Example:
+https://your-n8n-instance.com/webhook/abc123-def456-ghi789
+
+# Test Mode URL (Editor မှ Test လုပ်နေစဉ်)
+https://your-n8n.com/webhook-test/abc123-def456-ghi789
+
+# Production URL (Workflow Active ထားသောအခါ)
+https://your-n8n.com/webhook/abc123-def456-ghi789
+```
+
+<Aside type="caution" title="Test vs Production Webhook URL">
+Webhook Node ၌ URL ၂ ခုရှိသည်။ Editor မှ Test လုပ်ရန် "Test URL" ကို သုံးပါ။ Workflow ကို Active မလုပ်မချင်း Production URL သည် အလုပ်မလုပ်ပါ။
+</Aside>
+
+### 4. App Triggers
+
+Gmail, Slack, GitHub စသည့် App များ၏ Event ဖြစ်ပွားမှုကို Poll/Listen ဖြင့် Detect လုပ်သည်:
+
+- **Gmail** — New Email ရောက်မှ
+- **Slack** — Message Posted မှ
+- **Notion** — Database Row ထည့်မှ
+- **GitHub** — New Issue / PR မှ
+- **Google Forms** — Form Submit မှ
+- **Stripe** — Payment Received မှ
+
+<Aside type="note" title="Polling vs Webhook">
+App Trigger အများစုသည် **Polling** (၁ မိနစ်တစ်ကြိမ် Check) ဖြင့် အလုပ်လုပ်သည်။ အချို့ App တွေသည် Webhook ကို Directly Support လုပ်ပြီး Real-time ဖြစ်သည်။
+</Aside>
+
+## Trigger ရွေးချယ်နည်း
+
+<BranchFlow
+  input="Trigger ရွေးချယ်ရမည်"
+  condition="Real-time Response လိုသလား?"
+  truePath={["Webhook Trigger", "App Trigger"]}
+  falsePath={["Schedule Trigger", "Manual Trigger"]}
+  trueLabel="YES — Real-time"
+  falseLabel="NO — Scheduled"
+/>
+
+## Real-World Trigger ဥပမာများ
+
+### ဥပမာ ၁: Contact Form Automation
+
+<FlowDiagram
+  nodes={[
+    { label: "Form Submit", type: "trigger" },
+    { label: "Webhook Trigger", type: "action" },
+    { label: "Google Sheets", sublabel: "Save to Sheet", type: "action" },
+    { label: "Gmail", sublabel: "Thank You Email", type: "action" }
+  ]}
+  caption="User fills form → Save to Sheet + Send Email"
+/>
+
+### ဥပမာ ၂: Daily Report
+
+<FlowDiagram
+  nodes={[
+    { label: "Schedule", sublabel: "0 8 * * 1-5", type: "trigger" },
+    { label: "Database Query", type: "action" },
+    { label: "Slack", sublabel: "Post Report", type: "action" }
+  ]}
+  caption="Every weekday 8am → Fetch Data → Send Report"
+/>
+
+### ဥပမာ ၃: GitHub PR Notification
+
+<FlowDiagram
+  nodes={[
+    { label: "GitHub Trigger", sublabel: "PR Opened", type: "trigger" },
+    { label: "Slack", sublabel: "#engineering channel", type: "action" }
+  ]}
+  caption="New GitHub PR → Slack Notification"
+/>
+
+## Trigger ကို Activate လုပ်နည်း
+
+Workflow ကို **Active** ဖြစ်ရမည် — Webhook နှင့် Schedule Trigger တွေ အလုပ်လုပ်ရန်:
+
+- **Active** → Trigger Listen နေသည် / Schedule ဖြင့် Run မည်
+- **Inactive** → Editor မှ Manual ဖြင့် Test မှသာ Run နိုင်သည်
+
+Editor ၏ Top-right ရှိ Toggle Switch ဖြင့် Active/Inactive ပြောင်းနိုင်သည်။
+
+<Aside type="tip" title="Development အတွက်">
+Development လုပ်နေစဉ် Workflow ကို **Inactive** ထားပါ။ Test လုပ်ရင်သာ Manual Trigger ဖြင့် Run ပါ။ Production Ready ဖြစ်မှ Active လုပ်ပါ။
+</Aside>
+
+နောက်သင်ခန်းစာမှာ **Credentials** — API Keys နှင့် Passwords ကို n8n တွင် လုံခြုံစွာ စီမံနည်းကို လေ့လာမည်!

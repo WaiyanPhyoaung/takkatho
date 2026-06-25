@@ -3,11 +3,15 @@ title: "Videos & Audios"
 description: "Videos & Audios"
 ---
 
-import { Aside, Code, } from "@astrojs/starlight/components";
+import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import colspan from '@/assets/html/colspan.png'
 import rowspan from '@/assets/html/rowspan.png'
 import style from '@/assets/html/style.png'
+
+<Aside title="ရည်ရွယ်ချက်">
+ဒီအခန်းမှာတော့ table ထဲမှာ cell တွေကို `colspan` (အလျားလိုက်) နဲ့ `rowspan` (ဒေါင်လိုက်) သုံးပြီး ပေါင်းစပ်နည်းနဲ့ CSS နဲ့ table style ချနည်းကို လေ့လာကြပါမယ်။
+</Aside>
 
 ### Cell များကို ပေါင်းစပ်ခြင်း (Merging Cells)
 တစ်ခါတလေမှာ cell တစ်ခုတည်းကို column တွေ ဒါမှမဟုတ် row တွေ ၂ ခု စာ၊ ၃ ခုစာအထိ နေရာယူစေချင်တဲ့အခါ ရှိနိုင်ပါတယ်။

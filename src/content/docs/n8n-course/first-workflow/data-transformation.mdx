@@ -1,0 +1,232 @@
+---
+title: "Data Transformation"
+description: "n8n ဖြင့် Data ကို ပုံသဏ္ဍာန် ပြောင်းလဲနည်းနှင့် IF, Switch, Merge Nodes"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+## Data Transformation ဆိုတာ ဘာလဲ?
+
+Real-world Workflow တွေမှာ API တစ်ခုကနေ Data ယူပြီး App တစ်ခုမှာ ထည့်တဲ့အခါ Format ကွာနိုင်ပါတယ်။ Data Transformation ဆိုတာ ထို Format Mismatch ကို ဖြေရှင်းတာပါ:
+
+- Source API ၏ `user_name` → Slack ၏ `username`
+- Source API ၏ `date_ts` → Slack ၏ `text`
+- Source API ၏ `amount` → Slack ၏ `blocks`
+
+## Set Node — Field ပြောင်းလဲခြင်း
+
+**Set Node** သည် Data ထဲ Field များ ထည့်ရန်၊ ပြင်ရန်၊ ဖျက်ရန် သုံးသည်:
+
+### Mode 1: Manual Mapping
+
+Visual ဖြင့် Field တစ်ခုချင်းစီ သတ်မှတ်သည်:
+
+| Name (field) | Value |
+|---|---|
+| `fullName` | `{{ $json.first + " " + $json.last }}` |
+| `email` | `{{ $json.email.toLowerCase() }}` |
+| `joinedAt` | `{{ $now.toISO() }}` |
+
+### Mode 2: JSON
+
+Output JSON ကို တိုက်ရိုက် ရေးနိုင်သည်:
+
+```json
+{
+  "fullName": "={{ $json.first + ' ' + $json.last }}",
+  "email": "={{ $json.email.toLowerCase() }}",
+  "status": "active"
+}
+```
+
+## Code Node — Complex Transformation
+
+Complex Logic တွေအတွက် JavaScript / Python ကို Code Node ထဲ ရေးနိုင်သည်:
+
+### ဥပမာ: API Data ကို ပြင်ဆင်ခြင်း
+
+```javascript
+// Code Node - JavaScript
+// API မှ orders list ကို ရရှိပြီး ပြုပြင်ရန်
+
+return $input.all().map(item => {
+  const order = item.json;
+
+  return {
+    json: {
+      orderId: order.id,
+      customer: `${order.billing.first_name} ${order.billing.last_name}`,
+      total: `$${(order.total / 100).toFixed(2)}`,
+      status: order.status.toUpperCase(),
+      date: new Date(order.date_created).toLocaleDateString('my-MM'),
+      itemCount: order.line_items.length
+    }
+  };
+});
+```
+
+### Python Mode
+
+```python
+# Code Node - Python
+result = []
+
+for item in _input.all():
+    order = item['json']
+    result.append({
+        'json': {
+            'id': order['id'],
+            'total': f"${order['total'] / 100:.2f}",
+            'status': order['status'].upper()
+        }
+    })
+
+return result
+```
+
+## IF Node — Conditional Branching
+
+**IF Node** သည် Condition စစ်ပြီး Data ကို ၂ ခု (True / False) ခွဲပေးသည်:
+
+<BranchFlow
+  input="Customer Order"
+  condition="amount > 100?"
+  truePath={["Set: VIP Tag", "Send VIP Email"]}
+  falsePath={["Set: Standard Tag", "Send Standard Email"]}
+  trueLabel="TRUE ✅"
+  falseLabel="FALSE ❌"
+/>
+
+### IF Node Configuration
+
+```
+Condition: {{ $json.amount }} > 100
+
+  Value 1:   {{ $json.amount }}   (Number)
+  Operation: Greater Than
+  Value 2:   100
+```
+
+### Multiple Conditions
+
+```
+AND Condition (၂ ခုလုံး True ဖြစ်ရမည်):
+  amount > 100
+  AND status === "completed"
+
+OR Condition (တစ်ခုမှ True ဖြစ်ရုံနဲ့):
+  status === "pending"
+  OR status === "processing"
+```
+
+## Switch Node — Multiple Paths
+
+**Switch Node** သည် IF ကဲ့သို့ ဖြစ်သော်လည်း Path **၂ ခုထက် ပိုသောအခါ** သုံးသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Switch Node", sublabel: "status field စစ်", type: "condition" },
+    { label: "pending → Payment Reminder", type: "action" },
+    { label: "shipped → Tracking Email", type: "action" },
+    { label: "delivered → Review Request", type: "action" }
+  ]}
+  caption="Switch Node — Status ပေါ်မူတည်ပြီး Path ၃ ခုခွဲသည်"
+/>
+
+**Switch Node Configuration:**
+
+```
+Mode: Rules
+
+Case 1: {{ $json.status }} === "pending"    → Output 0
+Case 2: {{ $json.status }} === "shipped"    → Output 1
+Case 3: {{ $json.status }} === "delivered"  → Output 2
+Default:                                    → Output 3
+```
+
+## Merge Node — Data ပေါင်းခြင်း
+
+Node ၂ ခု မှ Data ကို ပေါင်းရာတွင် **Merge Node** ကို သုံးသည်:
+
+Merge Node Modes:
+- **Append** — A items + B items (ပေါင်းထည့်)
+- **Combine** — Field တူသည်ကို Match ပြီး Join
+- **Choose Branch** — A or B ကို Condition ဖြင့် ရွေး
+
+**ဥပမာ — User & Order Data ပေါင်းခြင်း:**
+
+```
+[Get User from DB] ──▶ ┌──────────────┐
+                       │  Merge Node  │──▶ { user + order }
+[Get Order from API]──▶│  (Combine)   │
+                       └──────────────┘
+
+Merge by: user_id (common field)
+```
+
+## n8n Expressions — Built-in Functions
+
+n8n Expression တွင် Built-in Helper Functions များ ရှိသည်:
+
+### String Functions
+
+```
+{{ $json.name.toUpperCase() }}       → "AUNG AUNG"
+{{ $json.email.toLowerCase() }}      → "aung@gmail.com"
+{{ $json.text.trim() }}              → Whitespace ဖျက်
+{{ $json.name.includes("Aung") }}    → true / false
+{{ $json.title.slice(0, 50) }}       → ပထမ ၅၀ Character
+```
+
+### Number Functions
+
+```
+{{ Math.round($json.price) }}           → Round
+{{ Number($json.amount).toFixed(2) }}   → 2 decimal places
+{{ $json.items.length }}                → Array အရေအတွက်
+```
+
+### Date Functions
+
+```
+{{ $now.toISO() }}                → "2025-01-15T09:00:00.000Z"
+{{ $now.toFormat('yyyy-MM-dd') }} → "2025-01-15"
+{{ $now.plus({days: 7}).toISO() }}→ 7 ရက်ကြာ Date
+```
+
+<Aside type="tip" title="Expression Editor">
+Expression ရေးရာတွင် `{{ }}` ထဲ Click ဖြင့် **Expression Editor** ဖွင့်နိုင်သည်။ Autocomplete ရှိပြီး Node Output ကို Real-time Preview မြင်နိုင်သည်။
+</Aside>
+
+## Practical: E-commerce Order Processing
+
+ဤ Workflow သည် Order တစ်ခုဝင်လာသောအခါ Customer Status ပေါ်မူတည်ပြီး Email ကွဲပြားစွာ ပို့သည်:
+
+<BranchFlow
+  input="Webhook: New Order → Set: Format Order Data"
+  condition="Total > 100?"
+  truePath={["Set: VIP Tag", "Gmail: VIP Email (Free Shipping)"]}
+  falsePath={["Set: Standard Tag", "Gmail: Standard Email"]}
+  trueLabel="TRUE ✅ VIP"
+  falseLabel="FALSE ❌ Standard"
+/>
+
+```javascript
+// Set Node (VIP Path)
+{
+  "emailTemplate": "vip",
+  "subject": "VIP Order Confirmation + Free Shipping!",
+  "discount": 10
+}
+
+// Set Node (Standard Path)
+{
+  "emailTemplate": "standard",
+  "subject": "Order Confirmed!",
+  "discount": 0
+}
+```
+
+နောက်သင်ခန်းစာမှာ Real-World Automation Workflows တွေကို လေ့လာကြပါမည်!

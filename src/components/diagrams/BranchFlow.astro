@@ -1,0 +1,261 @@
+---
+/**
+ * BranchFlow — renders an IF/condition node that branches into two paths (TRUE / FALSE).
+ * Each path can contain multiple chained action labels.
+ */
+
+interface Props {
+  /** The label shown before the IF diamond */
+  input?: string;
+  /** Label inside the diamond / condition node */
+  condition: string;
+  /** Nodes along the TRUE (left/top) path */
+  truePath: string[];
+  /** Nodes along the FALSE (right/bottom) path */
+  falsePath: string[];
+  trueLabel?: string;
+  falseLabel?: string;
+}
+
+const {
+  input,
+  condition,
+  truePath,
+  falsePath,
+  trueLabel = "TRUE ✅",
+  falseLabel = "FALSE ❌",
+} = Astro.props;
+---
+
+<div class="branch-wrap not-content" aria-label={`Branch: ${condition}`}>
+  {/* Optional leading input node */}
+  {input && (
+    <div class="branch-input-row">
+      <div class="b-node b-action">
+        <span class="b-icon">⚙</span>
+        <span class="b-label">{input}</span>
+      </div>
+      <svg class="b-arrow" viewBox="0 0 48 20" aria-hidden="true">
+        <line x1="2" y1="10" x2="38" y2="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <polyline points="34,5 44,10 34,15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+  )}
+
+  {/* Condition diamond + two path columns */}
+  <div class="branch-body">
+    {/* Condition diamond */}
+    <div class="condition-col">
+      <div class="b-condition">
+        <span class="diamond-icon">◆</span>
+        <span class="b-label">{condition}</span>
+      </div>
+      {/* vertical fork lines */}
+      <div class="fork-lines" aria-hidden="true">
+        <div class="fork-line fork-left"></div>
+        <div class="fork-line fork-right"></div>
+      </div>
+    </div>
+
+    {/* Paths */}
+    <div class="paths-row">
+      {/* TRUE path */}
+      <div class="path-col path-true">
+        <div class="path-label-badge true-badge">{trueLabel}</div>
+        <div class="path-arrow-down" aria-hidden="true">↓</div>
+        <div class="path-nodes">
+          {truePath.map((label, i) => (
+            <div class="path-item">
+              <div class="b-node b-action path-node">
+                <span class="b-icon">⚙</span>
+                <span class="b-label">{label}</span>
+              </div>
+              {i < truePath.length - 1 && (
+                <div class="path-down-arrow" aria-hidden="true">↓</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FALSE path */}
+      <div class="path-col path-false">
+        <div class="path-label-badge false-badge">{falseLabel}</div>
+        <div class="path-arrow-down" aria-hidden="true">↓</div>
+        <div class="path-nodes">
+          {falsePath.map((label, i) => (
+            <div class="path-item">
+              <div class="b-node b-action path-node false-node">
+                <span class="b-icon">⚙</span>
+                <span class="b-label">{label}</span>
+              </div>
+              {i < falsePath.length - 1 && (
+                <div class="path-down-arrow" aria-hidden="true">↓</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .branch-wrap {
+    padding: 1.5rem 1.75rem;
+    background: var(--sl-color-bg-sidebar, #f8fafc);
+    border: 1px solid var(--sl-color-hairline, #e2e8f0);
+    border-radius: 14px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  /* ── Base node styles ── */
+  .b-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: 2px solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    white-space: nowrap;
+  }
+
+  .b-action  { background: #eff6ff; border-color: #3b82f6; }
+  .b-condition { display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); white-space: nowrap; }
+
+  .b-icon { font-size: 0.85rem; flex-shrink: 0; }
+  .b-action  .b-icon { color: #1d4ed8; font-weight: 700; }
+  .b-condition .b-icon { color: #b45309; }
+  .diamond-icon { font-size: 0.85rem; color: #b45309; font-weight: 700; }
+
+  .b-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .b-action   .b-label { color: #1d4ed8; }
+  .b-condition .b-label { color: #b45309; }
+
+  /* ── Input row ── */
+  .branch-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .b-arrow {
+    width: 44px;
+    height: 18px;
+    color: var(--sl-color-gray-4, #94a3b8);
+    flex-shrink: 0;
+  }
+
+  /* ── Branch body ── */
+  .branch-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .condition-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Fork arms under the diamond */
+  .fork-lines {
+    display: flex;
+    width: 280px;
+    height: 24px;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .fork-line {
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 1.5px;
+    background: var(--sl-color-gray-4, #94a3b8);
+  }
+
+  .fork-left  { left: 0; border-top-left-radius: 2px; }
+  .fork-right { right: 0; border-top-right-radius: 2px; }
+  .fork-line::before {
+    content: "";
+    position: absolute;
+    top: -22px;
+    width: 1.5px;
+    height: 22px;
+    background: inherit;
+  }
+  .fork-left::before  { right: 0; }
+  .fork-right::before { left: 0; }
+
+  /* ── Paths ── */
+  .paths-row {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    margin-top: 0;
+  }
+
+  .path-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 180px;
+  }
+
+  .path-label-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .true-badge  { background: #dcfce7; color: #15803d; }
+  .false-badge { background: #fee2e2; color: #b91c1c; }
+
+  .path-arrow-down {
+    font-size: 1.1rem;
+    color: var(--sl-color-gray-4, #94a3b8);
+    line-height: 1;
+    margin: -4px 0;
+  }
+
+  .path-nodes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .path-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .path-down-arrow {
+    font-size: 1rem;
+    color: var(--sl-color-gray-4, #94a3b8);
+    margin: 2px 0;
+  }
+
+  .path-node { min-width: 160px; justify-content: center; }
+
+  .false-node { background: #fff1f2; border-color: #f43f5e; }
+  .false-node .b-icon, .false-node .b-label { color: #be123c; }
+</style>

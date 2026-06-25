@@ -365,6 +365,21 @@ export const coursesData: Course[] = [
     rating: 4.8,
     students: 500,
   },
+  {
+    id: "n8n-course",
+    title: "n8n Workflow Automation",
+    description:
+      "Code မရေးဘဲ Apps, APIs, Services တွေကို ချိတ်ဆက်ပြီး Task တွေကို အလိုအလျောက် လုပ်ဆောင်ပေးနိုင်သော n8n Automation Tool ကို အခြေခံမှ လေ့လာခြင်း",
+    difficulty: "beginner",
+    category: "Automation",
+    icon: "zap",
+    href: "/n8n-course/introduction/what-is-n8n",
+    lessons: 17,
+    tags: ["n8n", "Automation", "No-Code", "Workflow", "AI"],
+    estimatedTime: "6 weeks",
+    rating: 4.9,
+    students: 320,
+  },
 ];
 
 // compute count once; external modules can import if needed

@@ -1,19 +1,34 @@
 ---
 title: "Object-Oriented Programming (OOP)"
-description: "Python တွင် Classes နှင့် Objects များ အသုံးပြုခြင်း"
+description: "Python တွင် Classes နှင့် Objects — __str__, super(), Class Attributes, Encapsulation"
 ---
 
+import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import oopConcept from "@/assets/python/oop-concept.svg";
 
-Object-Oriented Programming (OOP) ဆိုတာ Code တွေကို **"အရာဝတ္ထု (Objects)"** လေးတွေ အနေနဲ့ မြင်ပြီး ရေးတဲ့ ပုံစံပါ။ လက်တွေ့ကမ္ဘာက အရာတွေ (ဥပမာ - ကား၊ လူ၊ ဘဏ်အကောင့်) ကို Code အဖြစ် ပြောင်းလဲရေးသားတဲ့အခါ အရမ်း အသုံးဝင်ပါတယ်။
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Class ဆောက်ပြီး Object ဖန်တီးနိုင်မည်
+- `__init__`, `__str__` Methods ရေးနိုင်မည်
+- Class Attributes vs Instance Attributes ကွာခြားချက်သိမည်
+- Inheritance နှင့် `super()` သုံးနိုင်မည်
+- Encapsulation (Private Attributes) နားလည်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 1-4 ကို ပြီးမှ ဆက်ပါ။ Functions (Module 3) နှင့် Data Structures (Module 4) ကို ကောင်းကောင်းသိပြီးမှ OOP ကို နားလည်နိုင်မည်။
+</Aside>
+
+Object-Oriented Programming (OOP) ဆိုတာ Code တွေကို **"အရာဝတ္ထု (Objects)"** တွေ အနေနဲ့ မြင်ပြီး ရေးတဲ့ ပုံစံပါ။ လက်တွေ့ကမ္ဘာက အရာတွေ (ကား၊ ဘဏ်အကောင့်၊ User Account) ကို Code အဖြစ် ပြောင်းလဲရေးသားတဲ့အခါ OOP ဟာ Code ကို ပိုမို **ကြည်လင်** ပြီး **ပြန်သုံးနိုင်** စေပါတယ်။
+
+ဥပမာ — ရန်ကုန်မှာ Tea Shop တစ်ဆိုင် ဖွင့်ချင်ရင် "Tea Shop" ဆိုတဲ့ Class တစ်ခု ဆောက်ပြီး မြို့ထဲမှာ ဆိုင်အများကြီး ဖွင့်ပါ — Tea Shop တစ်ဆိုင်ချင်းစီဟာ Object တစ်ခုစီဖြစ်ပြီး တူညီသော Structure (menu, prices, owner) ကို inherit ပြီး ကိုယ်ပိုင် တန်ဖိုးတွေ ထည့်ပါတယ်။
 
 ---
 
 ### Class နှင့် Object ဆိုတာ ဘာလဲ?
 
-- **Class:** အိမ်ဆောက်တဲ့ **"ပုံစံကြမ်း (Blueprint)"** ပါ။ အိမ်မှာ ဘာတွေ ပါရမယ် ဆိုတာကိုပဲ ရေးထားတာပါ။ တကယ့် အိမ် မဟုတ်သေးပါဘူး။
-- **Object:** အဲ့ဒီ ပုံစံကြမ်းကို ကြည့်ပြီး ဆောက်ထားတဲ့ **"တကယ့် အိမ်"** ပါ။ ပုံစံကြမ်း တစ်ခုတည်းကနေ အိမ် (Object) တွေ အများကြီး ဆောက်လို့ ရပါတယ်။
+- **Class** — **"ပုံစံကြမ်း (Blueprint)"** ပါ — "ဒီပုံစံအတိုင်း Object ကို ဆောက်ပါ" ဆိုပြီး ကြေညာထားတာပါ
+- **Object** — ပုံစံကြမ်းကို လိုက်ဆောက်ထားတဲ့ **တကယ့် Instance** ပါ
 
 <ContentImage src={oopConcept} alt="OOP Concept Diagram" />
 
@@ -21,72 +36,283 @@ Object-Oriented Programming (OOP) ဆိုတာ Code တွေကို **"အ
 
 ### Class ဘယ်လို တည်ဆောက်မလဲ?
 
-ခွေးလေးတွေအတွက် Class တစ်ခု တည်ဆောက်ကြည့်ရအောင်။
+```python
+class Dog:
+    # __init__ ← Constructor: Object ဆောက်တဲ့အခါ အလိုအလျောက် Run မည်
+    # self ← "ကိုယ်ကိုယ်တိုင်" ကို ကိုယ်စားပြု — ဒါကို မမေ့ပါနဲ့
+    def __init__(self, name, breed):
+        self.name  = name     # Instance Attribute
+        self.breed = breed    # Instance Attribute
+    
+    def bark(self):
+        print(f"{self.name} က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်")
+```
+
+<Aside type="caution" title="self ကို မမေ့ပါနဲ့">
+Method Parameter မှာ `self` မပါရင် Python Error တက်ပါမည်:
 
 ```python
 class Dog:
-    # __init__ ဆိုတာ Object စဆောက်တဲ့အခါ အလိုအလျောက် အလုပ်လုပ်မယ့် အပိုင်းပါ (Constructor)
-    # self ဆိုတာ "ငါ့ရဲ့" လို့ အဓိပ္ပာယ်ရပါတယ်။ Object ကိုယ်တိုင်ကို ရည်ညွှန်းတာပါ။
-    def __init__(self, name, breed):
-        self.name = name   # ငါ့ရဲ့ နာမည်ကတော့ (ပေးလိုက်တဲ့ name) ပါ
-        self.breed = breed # ငါ့ရဲ့ အမျိုးအစားကတော့ (ပေးလိုက်တဲ့ breed) ပါ
-    
-    # ဒါက ခွေးလေး လုပ်နိုင်တဲ့ အလုပ်ပါ (Method လို့ ခေါ်ပါတယ်)
-    def bark(self):
-        print(f"{self.name} က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။")
+    def bark():           # ❌ self မပါ
+        print("bark!")
+
+d = Dog()
+d.bark()    # TypeError: bark() takes 0 positional arguments but 1 was given
 ```
 
-**`self` ဆိုတာ ဘာလဲ?**
-`self` ဆိုတာ Object တစ်ခုနဲ့ တစ်ခု မရောသွားအောင် ခွဲခြားပေးတာပါ။ "Aung Net" က ဟောင်ရင် "Aung Net က ဟောင်တယ်" လို့ ထွက်ရမယ်၊ "Phoe Wa" က ဟောင်ရင် "Phoe Wa က ဟောင်တယ်" လို့ ထွက်ရပါမယ်။ အဲ့ဒါကို `self` က တာဝန်ယူပေးပါတယ်။
+`self` ဟာ Python ကဖြင့် Object ကိုယ်တိုင်ကို Argument အဖြစ် Pass ပေးနေသောကြောင့် Method ဖော်ပြချက်မှာ `self` ဦးစွာ ထည့်ရပါတယ်။
+</Aside>
 
 ---
 
-### Object ဘယ်လို ဖန်တီးမလဲ?
-
-အပေါ်က `Dog` Class (ပုံစံကြမ်း) ကို သုံးပြီး တကယ့် ခွေးလေးတွေ (Objects) ဖန်တီးကြည့်ပါမယ်။
+### Object ဖန်တီးခြင်းနှင့် အသုံးပြုခြင်း
 
 ```python
-# ခွေးလေး နှစ်ကောင် ဖန်တီးခြင်း (Objects ဆောက်ခြင်း)
+# Object ဆောက်ခြင်း
 dog1 = Dog("Aung Net", "Golden Retriever")
 dog2 = Dog("Phoe Wa", "Bulldog")
 
-# သူတို့ရဲ့ အချက်အလက် (Attributes) တွေကို ကြည့်ခြင်း
-print(dog1.name) # Aung Net
-print(dog2.breed) # Bulldog
+# Attributes ကြည့်ခြင်း
+print(dog1.name)    # Aung Net
+print(dog2.breed)   # Bulldog
 
-# သူတို့ကို အလုပ်လုပ်ခိုင်းခြင်း (Methods တွေကို ခေါ်သုံးခြင်း)
-dog1.bark() # Aung Net က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။
-dog2.bark() # Phoe Wa က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်။
+# Methods ခေါ်ခြင်း
+dog1.bark()    # Aung Net က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်
+dog2.bark()    # Phoe Wa က ဝုတ် ဝုတ် လို့ ဟောင်နေပါတယ်
+
+# Attribute ပြင်ခြင်း
+dog1.name = "Aung Net Jr."
+print(dog1.name)    # Aung Net Jr.
+```
+
+---
+
+### __str__ — Object ကို ကြည်လင်စွာ ပြသခြင်း
+
+`__str__` Method မပါရင် `print(dog1)` ဟာ ဒီလိုမျိုး ပြပါမည်:
+
+```
+<__main__.Dog object at 0x0000020B4A7A6E90>
+```
+
+`__str__` Method ထည့်လိုက်ရင် ကြည်လင်သော Output ပြနိုင်ပါမည်:
+
+```python
+class Dog:
+    def __init__(self, name, breed, age):
+        self.name  = name
+        self.breed = breed
+        self.age   = age
+    
+    def __str__(self):
+        return f"Dog(name='{self.name}', breed='{self.breed}', age={self.age})"
+    
+    def bark(self):
+        print(f"{self.name} က ဝုတ် ဝုတ် ဟောင်သည်!")
+
+dog = Dog("Lucky", "Shih Tzu", 3)
+print(dog)   # Dog(name='Lucky', breed='Shih Tzu', age=3)
+```
+
+---
+
+### Class Attributes vs Instance Attributes
+
+**Instance Attribute** — Object တစ်ခုချင်းစီ ကိုယ်ပိုင် Value ရှိသည် (`self.name`)
+
+**Class Attribute** — Class ကနေ ဆောက်သော Object **အားလုံး မျှဝေ** သောတန်ဖိုး:
+
+```python
+class Dog:
+    # Class Attribute — Object တိုင်းမှာ တူညီ
+    species = "Canis lupus familiaris"
+    count   = 0
+    
+    def __init__(self, name):
+        self.name = name          # Instance Attribute — တစ်ကောင်ချင်းစီ ကွဲ
+        Dog.count += 1            # Class Attribute ကို Class နာမည်နဲ့ ဝင်ကြည့်
+    
+    @classmethod
+    def get_count(cls):
+        return f"ခွေး {cls.count} ကောင် ဖန်တီးပြီးပါပြီ"
+
+d1 = Dog("Lucky")
+d2 = Dog("Max")
+d3 = Dog("Buddy")
+
+print(Dog.species)         # Canis lupus familiaris
+print(d1.species)          # Canis lupus familiaris  (Object ကနေ ကြည့်လည်း ရ)
+print(Dog.get_count())     # ခွေး 3 ကောင် ဖန်တီးပြီးပါပြီ
 ```
 
 ---
 
 ### Inheritance (အမွေဆက်ခံခြင်း)
 
-OOP ရဲ့ အကောင်းဆုံး အချက်တစ်ခုကတော့ ရှိပြီးသား Class ကို အခြေခံပြီး အသစ်တစ်ခု ထပ်ချဲ့လို့ ရတာပါပဲ။ ဒါကို Inheritance လို့ ခေါ်ပါတယ်။
-
-ဥပမာ - `Animal` ဆိုတဲ့ Class အကြီးကြီး ရှိမယ်။ အဲ့ဒီကနေ `Cat` နဲ့ `Dog` ဆိုပြီး ခွဲထွက်သွားမယ်။
+ရှိပြီးသား Class ကို အခြေခံပြီး Child Class ဆောက်နိုင်ပါတယ်:
 
 ```python
-# Parent Class (မိဘ)
+# Parent Class
 class Animal:
-    def __init__(self, name):
+    def __init__(self, name, age):
         self.name = name
-        
+        self.age  = age
+    
+    def __str__(self):
+        return f"{type(self).__name__}({self.name}, {self.age} နှစ်)"
+    
     def eat(self):
-        print(f"{self.name} က အစာစားနေပါတယ်။")
+        print(f"{self.name} က အစာ စားနေပါတယ်")
+    
+    def sleep(self):
+        print(f"{self.name} က အိပ်နေပါတယ်")
 
-# Child Class (သားသမီး) - Animal ဆီကနေ အမွေဆက်ခံထားပါတယ်
+
+# Child Class — Animal ကနေ inherit
 class Cat(Animal):
+    def __init__(self, name, age, indoor):
+        super().__init__(name, age)   # ← Parent __init__ ခေါ်ခြင်း
+        self.indoor = indoor           # Cat ကိုယ်ပိုင် Attribute
+    
     def meow(self):
-        print(f"{self.name} က မြောင် လို့ အော်နေပါတယ်။")
+        print(f"{self.name} က မြောင် လို့ ဆိုနေပါတယ်")
 
-# Cat Object ဆောက်ကြည့်မယ်
-my_cat = Cat("ရွှေဝါ")
 
-# Animal ဆီက ရထားတဲ့ eat() ကိုလည်း သုံးလို့ရသလို၊ သူ့ကိုယ်ပိုင် meow() ကိုလည်း သုံးလို့ရပါတယ်
-my_cat.eat()  # ရွှေဝါ က အစာစားနေပါတယ်။
-my_cat.meow() # ရွှေဝါ က မြောင် လို့ အော်နေပါတယ်။
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)
+        self.breed = breed
+    
+    def bark(self):
+        print(f"{self.name} ({self.breed}) က ဟောင်နေပါတယ်!")
+
+
+# Object ဆောက်ပြီး Test
+cat = Cat("ကြောင်ဝါ", 2, indoor=True)
+dog = Dog("ကျား", 4, "Labrador")
+
+# Parent Methods — Child မှာ သုံးနိုင်
+cat.eat()    # ကြောင်ဝါ က အစာ စားနေပါတယ်
+dog.eat()    # ကျား က အစာ စားနေပါတယ်
+
+# ကိုယ်ပိုင် Methods
+cat.meow()   # ကြောင်ဝါ က မြောင် လို့ ဆိုနေပါတယ်
+dog.bark()   # ကျား (Labrador) က ဟောင်နေပါတယ်!
+
+print(cat)   # Cat(ကြောင်ဝါ, 2 နှစ်)
+print(dog)   # Dog(ကျား, 4 နှစ်)
 ```
 
-OOP ကို သုံးခြင်းအားဖြင့် Code တွေကို ပြန်သုံးရ လွယ်ကူစေပြီး၊ Project အကြီးကြီးတွေ ရေးတဲ့အခါ ပိုမို စနစ်ကျစေပါတယ်။
+<Aside type="tip" title="super() ကို ဘာကြောင့် သုံးမလဲ?">
+`super().__init__(name, age)` ဟာ **Parent Class ရဲ့ `__init__`** ကို ခေါ်ပေးပါတယ်။ ဒါမပါရင် Parent Class ဆောက်ပေးထားသော Attribute တွေ (name, age) ကို Child Object မှာ ရှိမနေပါဘူး:
+
+```python
+# super() မပါသောနည်း (မကောင်း)
+class Cat(Animal):
+    def __init__(self, name, age, indoor):
+        self.name = name    # ← ဒါကို ထပ်ရေးနေရသည် (DRY မဟုတ်ဘူး)
+        self.age  = age
+        self.indoor = indoor
+
+# super() ပါသောနည်း (ကောင်း)
+class Cat(Animal):
+    def __init__(self, name, age, indoor):
+        super().__init__(name, age)   # Parent က handle လုပ်မည်
+        self.indoor = indoor
+```
+</Aside>
+
+---
+
+### Encapsulation — Private Attributes
+
+Python မှာ Convention အားဖြင့် ထိတွေ့ မသင့်တဲ့ Attribute တွေကို `_` (underscore) တစ်ခုနဲ့ ကြိုဘောင်ရေးပြီး ညွှန်ပြပါတယ်:
+
+```python
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner    = owner       # Public  — ပြင်ကနေ ဝင်ကြည့်လို့ ရ
+        self._balance = balance     # Private — ဒါကို တိုက်ရိုက် မပြင်ပါနဲ့
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("ထည့်ငွေ ၀ ကျော်ရမည်")
+        self._balance += amount
+        print(f"+{amount} ကျပ် ထည့်ပြီး — Remaining: {self._balance}")
+    
+    def withdraw(self, amount):
+        if amount > self._balance:
+            raise ValueError("လက်ကျန်ငွေ မလုံလောက်ပါ")
+        self._balance -= amount
+        print(f"-{amount} ကျပ် ထုတ်ပြီး — Remaining: {self._balance}")
+    
+    def get_balance(self):
+        return self._balance
+
+acc = BankAccount("Aung Aung", 10000)
+acc.deposit(5000)    # +5000 ကျပ် ထည့်ပြီး — Remaining: 15000
+acc.withdraw(3000)   # -3000 ကျပ် ထုတ်ပြီး — Remaining: 12000
+print(acc.get_balance())  # 12000
+```
+
+---
+
+### Myanmar Context ဥပမာ — ကျောင်းသား စီမံခန့်ခွဲမှု
+
+```python
+class Student:
+    """ကျောင်းသားတစ်ယောက်ကို ကိုယ်စားပြုသော Class"""
+    
+    school_name = "ရန်ကုန် Technical University"  # Class Attribute
+    
+    def __init__(self, name, roll_no, scores):
+        self.name     = name        # ကျောင်းသားနာမည်
+        self.roll_no  = roll_no     # အမှတ်
+        self.scores   = scores      # စာမေးပွဲ မှတ်များ
+    
+    def __str__(self):
+        return f"Student({self.name}, Roll #{self.roll_no})"
+    
+    def average(self):
+        """ပျမ်းမျှ Score တွက်ပေးသော Method"""
+        if not self.scores:
+            return 0
+        return sum(self.scores) / len(self.scores)
+    
+    def grade(self):
+        """Grade ပြန်ပေးသော Method"""
+        avg = self.average()
+        if avg >= 80:
+            return "A"
+        elif avg >= 70:
+            return "B"
+        elif avg >= 60:
+            return "C"
+        else:
+            return "F"
+
+# Object ဆောက်ခြင်း
+mg_mg = Student("မောင်မောင်", 1001, [85, 72, 90])
+su_su = Student("စုစု",      1002, [92, 88, 95])
+
+print(mg_mg)                           # Student(မောင်မောင်, Roll #1001)
+print(f"ပျမ်းမျှ: {mg_mg.average():.1f}")  # ပျမ်းမျှ: 82.3
+print(f"Grade: {mg_mg.grade()}")       # Grade: A
+print(f"ကျောင်း: {Student.school_name}")
+```
+
+---
+
+### OOP ကို ဘယ်အချိန် သုံးမလဲ?
+
+OOP ဟာ **Project ကြီးတွေ**၊ **Data + Behavior တွဲနေသောအရာ** တွေမှာ အသုံးဝင်ပါတယ်:
+
+| သင့်လျော် | မသင့်လျော် |
+|--------|--------|
+| User, Product, Order Model | Simple Script |
+| Game Characters, Items | တစ်ကြိမ်သုံး Calculation |
+| Data + Methods တွဲရမည့်ပြဿနာ | ရိုးရှင်းသော Function တစ်ခုနဲ့ ဖြေရှင်းနိုင်သောအရာ |
+
+<Aside title="နောက်တစ်ဆင့်">
+OOP ကောင်းကောင်းသိပြီဆိုရင် **Module 6 — File & Error Handling** မှာ Data ကို File ထဲ သိမ်းနည်း သင်ကြားပါမည်!
+</Aside>

@@ -1,0 +1,116 @@
+---
+title: "ပထမဆုံး Workflow ဆောက်ကြစို့"
+description: "n8n တွင် Hello World Workflow ကို အဆင့်ဆင့် ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+## ဆောက်မည့် Workflow
+
+ဤသင်ခန်းစာတွင် ရိုးရှင်းသော Workflow တစ်ခု ဆောက်မည်:
+
+Button နှိပ်ခြင်းဖြင့် Data ထုတ်ပြပြီး Greeting Message ပြသမည်။
+
+<FlowDiagram
+  nodes={[
+    { label: "Manual Trigger", sublabel: "Button နှိပ်မှ", type: "trigger" },
+    { label: "Set Data", sublabel: "name, course, message", type: "data" },
+    { label: "Code Node", sublabel: "greeting ဖန်တီး", type: "code" }
+  ]}
+  caption="ဤ Workflow မှတဆင့် n8n ၏ Core Workflow Building ကို နားလည်မည်"
+/>
+
+## Step 1: Workflow အသစ် ဖန်တီးပါ
+
+1. Dashboard မှ **"+ New Workflow"** ကို နှိပ်ပါ
+2. Workflow Editor ပွင့်လာမည်
+3. Top-left တွင် Workflow Name ကို **"My First Workflow"** ဟု ပြောင်းပါ
+
+## Step 2: Manual Trigger Node ထည့်ပါ
+
+Canvas မှာ **"+"** ကို နှိပ်ပြီး **"On clicking 'execute'"** ကို ရွေးပါ (Manual Trigger)။
+Canvas ထဲ "When clicking 'Execute Workflow'" Node ထင်လာမည်။
+
+## Step 3: Set Node ထည့်ပြီး Data သတ်မှတ်ပါ
+
+Manual Trigger Node ၏ Output Point (●) မှ Drag ဆွဲပြီး **"Set"** Node ကို ရွေးပါ။
+
+**Set Node ကို Configure လုပ်ပါ:**
+
+Set Node တွင် **"Add Field"** ကို နှိပ်ပြီး:
+
+| Field Name | Value |
+|-----------|-------|
+| `name` | `Aung Aung` |
+| `course` | `n8n Beginner` |
+| `message` | `Hello from n8n!` |
+
+Mode ကို "Manual Mapping" သတ်မှတ်ပြီး Field တစ်ခုချင်းစီ ထည့်ပါ။
+
+## Step 4: Code Node ဖြင့် Greeting ဖန်တီးပါ
+
+Set Node မှ **Code Node** ကို ထပ်ချိတ်ပါ။
+
+Code Node ထဲ JavaScript ကို ရေးပါ:
+
+```javascript
+// Code Node - JavaScript
+for (const item of $input.all()) {
+  const name = item.json.name;
+  const course = item.json.course;
+
+  item.json.greeting = `🎉 မင်္ဂလာပါ ${name}! ${course} Course မှ ကြိုဆိုပါတယ်!`;
+  item.json.timestamp = new Date().toISOString();
+}
+
+return $input.all();
+```
+
+<Aside type="note" title="$input.all() ဆိုတာ">
+`$input.all()` သည် ရှေ့ Node မှ ဝင်လာသော Item တွေ အားလုံးကို Array ပုံစံဖြင့် ပြန်ပေးသည်။ Loop ဖြင့် ထို Item တစ်ခုစီကို ပြင်ဆင်နိုင်သည်။
+</Aside>
+
+## Step 5: Workflow ကို Run ကြည့်ပါ
+
+Editor ၏ Top-right ရှိ **"Execute Workflow"** ကို နှိပ်ပါ (သို့မဟုတ် `Ctrl+Enter`):
+
+Expected Result — Code Node Output:
+
+```json
+[
+  {
+    "name": "Aung Aung",
+    "course": "n8n Beginner",
+    "message": "Hello from n8n!",
+    "greeting": "🎉 မင်္ဂလာပါ Aung Aung! n8n Beginner Course မှ ကြိုဆိုပါတယ်!",
+    "timestamp": "2025-01-15T09:30:00.000Z"
+  }
+]
+```
+
+Node တစ်ခုစီ Success ဖြစ်ရင် **Green Checkmark** ✅ ပေါ်မည်။
+
+## ဘာ ဖြစ်တာလဲ? (Data Flow နားလည်ခြင်း)
+
+Data Flow ကို Step by Step ကြည့်မည်:
+
+1. **Manual Trigger** — Output: `[{ json: {} }]` (Empty item)
+2. **Set Node** — Output: `[{ json: { name: "Aung Aung", course: "n8n Beginner", message: "Hello from n8n!" } }]`
+3. **Code Node** — Input: ↑ ရှေ့ Output / Output: `[{ json: { ...same, greeting: "🎉...", timestamp: "..." } }]`
+
+## Node ကို Debug လုပ်ခြင်း
+
+Node တစ်ခုကို Click ဖြင့် Select လုပ်ပြီး **"Input"** / **"Output"** Tab ကို ကြည့်ရင် Data ကို Step-by-step မြင်နိုင်သည်။
+
+ဥပမာ Set Node တွင် Input Tab တွင် Empty Object `{}` မြင်ရပြီး Output Tab တွင် `{ name: "Aung", course: "...", message: "..." }` မြင်ရမည်။
+
+<Aside type="tip" title="Node ကို ခွဲပြီး Test လုပ်ပါ">
+Workflow တစ်ခုလုံး Run မဘဲ Node တစ်ခုချင်းစီ **"Test Step"** ကို နှိပ်ပြီး Test လုပ်နိုင်သည်။ Debug မြန်ဆန်ပါသည်။
+</Aside>
+
+## Workflow ကို Save လုပ်ပါ
+
+`Ctrl+S` (သို့) **"Save"** Button နှိပ်ပြီး Workflow ကို Save လုပ်ပါ။
+
+ဒါဆို ပထမဆုံး Workflow ပြီးပါပြီ! နောက်သင်ခန်းစာမှာ **HTTP Request** နဲ့ **Webhook** ကို လေ့လာပြီး Real API Integration တွေ လုပ်ကြပါမည်!

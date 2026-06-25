@@ -1,96 +1,243 @@
 ---
 title: "File Handling နှင့် Error Handling"
-description: "Python တွင် File များ အသုံးပြုခြင်းနှင့် Error များ ဖြေရှင်းခြင်း"
+description: "Python တွင် File များ အသုံးပြုခြင်း — encoding, JSON, os.path နှင့် raise ကို ထည့်သွင်းခြင်း"
 ---
 
-Program တွေ ရေးတဲ့အခါ Data တွေကို အမြဲတမ်း Memory ထဲမှာပဲ သိမ်းထားလို့ မရပါဘူး။ Program ပိတ်လိုက်တာနဲ့ ပျောက်သွားမှာမို့လို့ပါ။ ဒါကြောင့် File တွေထဲမှာ သိမ်းဖို့ လိုလာပါတယ်။ နောက်ပြီး Code တွေ အလုပ်လုပ်နေတုန်း မထင်မှတ်ထားတဲ့ Error တွေ တက်လာရင် Program ကြီး ရပ်မသွားအောင် ဘယ်လို ထိန်းချုပ်မလဲ ဆိုတာကိုပါ ဒီ Module မှာ လေ့လာရပါမယ်။
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Text File ဖတ်ရေးနိုင်မည် (encoding='utf-8' ပါ)
+- JSON File ဖတ်ရေးနိုင်မည်
+- ဖိုင်ရှိမရှိ စစ်ဆေးနိုင်မည် (os.path.exists)
+- try/except ဖြင့် Error ထိန်းချုပ်နိုင်မည်
+- raise ဖြင့် Custom Error တက်ကိုင်နိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 1-5 ကို ပြီးမှ ဆက်ပါ။ Functions နှင့် Data Structures (Dict) ကို သိပြီးမှ File မှာ Data သိမ်းနည်းကို ကောင်းကောင်းနားလည်နိုင်မည်။
+</Aside>
+
+Program တွေ ရေးတဲ့အခါ Data တွေကို Memory ထဲမှာပဲ သိမ်းထားလို့ မရပါဘူး — Program ပိတ်တာနဲ့ ပျောက်သွားမှာမို့ **File** တွေထဲမှာ သိမ်းဖို့ လိုပါတယ်။
 
 ---
 
-### File Handling (ဖိုင်များ အသုံးပြုခြင်း)
+### File Handling
 
-Python နဲ့ Text File တွေကို ဖတ်လို့၊ ရေးလို့ ရပါတယ်။ အဓိက Mode (၃) မျိုး ရှိပါတယ်။
-- `"r"` (Read): ဖတ်ဖို့ သီးသန့် (File မရှိရင် Error တက်မယ်)
-- `"w"` (Write): အသစ်ရေးဖို့ (File ရှိပြီးသားဆိုရင် အဟောင်းတွေ အကုန်ဖျက်ပြီး အသစ်ရေးမယ်)
-- `"a"` (Append): အဟောင်းတွေ မဖျက်ဘဲ အနောက်ကနေ ဆက်ရေးဖို့
+Python မှာ File တွေကို `open()` Function ကို သုံးပြီး ဝင်ရောက်ပါတယ်။ Mode (၃) မျိုး ရှိပါတယ်:
 
-#### File ထဲကို စာရေးခြင်း (`"w"` နှင့် `"a"`)
+- `"r"` — ဖတ်ဖို့ (Read)
+- `"w"` — ရေးဖို့ (Write — ရှိပြီးသားဆိုရင် ဖျက်ပြီး အသစ်ရေးမည်)
+- `"a"` — ဆက်ထည့်ဖို့ (Append — အနောက်ကနေ ဆက်ရေးမည်)
+
+<Aside type="caution" title="encoding='utf-8' — မမေ့ပါနဲ့">
+Myanmar Unicode နဲ့ ရေးထားသော Text တွေဆိုရင် `encoding='utf-8'` မပါရင် ဖတ်ရတဲ့အခါ Error တက်နိုင်ပါတယ် (Windows မှာ အထူးသဖြင့်)။ **File တိုင်းမှာ encoding ကို ဖော်ပြပါ**:
 
 ```python
-# "w" ကို သုံးပြီး အသစ်ရေးခြင်း
-with open("test.txt", "w") as file:
-    file.write("မင်္ဂလာပါ။\n") # \n ဆိုတာ နောက်တစ်ကြောင်း ဆင်းတာပါ
-    file.write("Python ကနေ ကြိုဆိုပါတယ်။\n")
-
-# "a" ကို သုံးပြီး အနောက်ကနေ ဆက်ရေးခြင်း
-with open("test.txt", "a") as file:
-    file.write("ဒါကတော့ နောက်ထပ် ထပ်ထည့်လိုက်တဲ့ စာပါ။")
+open("file.txt", "r", encoding="utf-8")
 ```
-**မှတ်ချက်:** `with open(...) as file:` ကို သုံးတာက အလုပ်ပြီးရင် File ကို အလိုအလျောက် ပိတ် (Close) ပေးသွားအောင်လို့ပါ။ ဒါမှ Memory မစားမှာပါ။
+</Aside>
 
-#### File ထဲက စာဖတ်ခြင်း (`"r"`)
+#### File ထဲကို ရေးခြင်း
 
 ```python
-# "r" ကို သုံးပြီး ဖတ်ခြင်း
-with open("test.txt", "r") as file:
-    # အကုန်လုံးကို တစ်ခါတည်း ဖတ်ချင်ရင်
-    content = file.read()
-    print(content)
+# "w" Mode — ဖိုင်ကို ဆောက်ပြီး ရေးသည် (ရှိပြီးသားဆိုရင် ဖျက်ပြီး ပြန်ရေး)
+with open("student.txt", "w", encoding="utf-8") as file:
+    file.write("ကျောင်းသားစာရင်း\n")
+    file.write("Aung Aung — 85 မှတ်\n")
+    file.write("Su Su — 92 မှတ်\n")
 
-    # တစ်ကြောင်းချင်းစီ ဖတ်ချင်ရင်
-    # for line in file:
-    #     print(line.strip()) # strip() က အပို Space တွေကို ဖယ်ပေးပါတယ်
+print("ရေးပြီးပါပြီ!")
+```
+
+**`with open(...)` ကို ဘာကြောင့် သုံးမလဲ?**
+`with` Block ပြီးသွားတာနဲ့ File ကို **အလိုအလျောက် ပိတ်** (Close) ပေးပါတယ်။ ကိုယ်တိုင် `file.close()` ရိုက်စရာ မလိုပါဘူး — ပိတ်မပြီးဘဲ မနေနိုင်ပါ။
+
+#### File ကနေ ဖတ်ခြင်း
+
+```python
+import os
+
+# ဖိုင်ရှိမရှိ စစ်ဆေးပြီးမှ ဖတ်ပါ
+if not os.path.exists("student.txt"):
+    print("ဖိုင် မတွေ့ပါ!")
+else:
+    with open("student.txt", "r", encoding="utf-8") as file:
+        # နည်း ၁: အကုန်တစ်ကြိမ်တည်း ဖတ်
+        content = file.read()
+        print(content)
+
+    with open("student.txt", "r", encoding="utf-8") as file:
+        # နည်း ၂: တစ်ကြောင်းချင်းစီ ဖတ်
+        for line in file:
+            print(line.strip())   # strip() ဖြင့် နောက်ဆုံး \n ဖြုတ်
+```
+
+#### Append — ဆက်ထည့်ခြင်း
+
+```python
+# "a" Mode — ရှိပြီးသားနောက်မှာ ဆက်ရေးပါ (မဖျက်ဘဲ)
+with open("student.txt", "a", encoding="utf-8") as file:
+    file.write("Kyaw Kyaw — 78 မှတ်\n")
 ```
 
 ---
 
-### Error Handling (အမှားများ ဖြေရှင်းခြင်း)
+### JSON File — Data ကို Structure နဲ့ သိမ်းခြင်း
 
-Code ရေးတဲ့အခါ Error တွေ တက်တတ်ပါတယ်။ ဥပမာ - မရှိတဲ့ File ကို သွားဖတ်တာ၊ ဂဏန်းကို စာသားနဲ့ သွားပေါင်းတာ မျိုးတွေပါ။ Error တက်ရင် Program ကြီး Crash ဖြစ်ပြီး ရပ်မသွားအောင် `try` နဲ့ `except` ကို သုံးပြီး ထိန်းချုပ်လို့ ရပါတယ်။
+JSON (JavaScript Object Notation) ဆိုတာ Data ကို **ဘာသာစကားမဆိုဖတ်နိုင်သော** Format နဲ့ သိမ်းနိုင်သော Standard ပါ — Python Dictionary ပုံစံနဲ့ တူပြီး Program ၂ ခုကြားနဲ့ Data ပြောင်းဖို့ API Response Format အဖြစ် ကမ္ဘာတစ်ဝှမ်း သုံးကြပါတယ်:
 
-#### အခြေခံ `try...except`
+```python
+import json
 
-ဥပမာ - ဂဏန်းတစ်ခုကို သုည (0) နဲ့ စားရင် `ZeroDivisionError` တက်ပါတယ်။
+# Data (Python Dictionary)
+student_data = {
+    "name": "Aung Aung",
+    "age": 20,
+    "scores": [85, 92, 78],
+    "active": True
+}
+
+# Dictionary → JSON File ထဲ သိမ်းခြင်း
+with open("student.json", "w", encoding="utf-8") as f:
+    json.dump(student_data, f, ensure_ascii=False, indent=2)
+```
+
+```json
+{
+  "name": "Aung Aung",
+  "age": 20,
+  "scores": [85, 92, 78],
+  "active": true
+}
+```
+
+```python
+# JSON File → Python Dictionary ဖြင့် ပြန်ဖတ်ခြင်း
+with open("student.json", "r", encoding="utf-8") as f:
+    loaded = json.load(f)
+
+print(loaded["name"])     # Aung Aung
+print(loaded["scores"])   # [85, 92, 78]
+print(type(loaded))       # <class 'dict'>
+```
+
+<Aside type="tip" title="json.dump() Params">
+- `ensure_ascii=False` — Myanmar Unicode ကို မပြောင်းဘဲ ရေးနိုင်မည်
+- `indent=2` — ကြည်လင်ရန် ဖော်မတ်ထည့်မည် (မပါရင် တစ်ကြောင်းတည်း ရေးမည်)
+</Aside>
+
+---
+
+### Error Handling (try / except)
+
+Code ရေးတဲ့အခါ မထင်မှတ်ဘဲ Error တွေ တက်တတ်ပါတယ်။ ဆိုင်မှာ အချိုရည်မှာတဲ့ Customer ကို "ဒီ Flavor မရှိဘူးရင် ဒါပေး" ဆိုပြီး ကြိုပြင်ဆင်ထားသလိုပဲ — try/except နဲ့ Error ဖြစ်ရင် ဘာလုပ်မလဲ ကြိုသတ်မှတ်ထားနိုင်ပါတယ်။ `try / except` ကို သုံးပြီး ထိန်းချုပ်ပါ:
 
 ```python
 try:
-    # Error တက်နိုင်တဲ့ Code ကို ဒီထဲမှာ ရေးပါတယ်
+    # Error တက်နိုင်သော Code
     result = 10 / 0
-    print(result)
 except ZeroDivisionError:
-    # Error တက်ခဲ့ရင် Program မရပ်သွားဘဲ ဒီထဲက Code အလုပ်လုပ်ပါမယ်
-    print("အမှား: ဂဏန်းကို သုညနဲ့ စားလို့ မရပါဘူး။")
+    # Error တက်ခဲ့ရင် ဒီမှာ Handle လုပ်
+    print("သုညနဲ့ မစားနိုင်ပါဘူး")
 ```
 
-#### Error အမျိုးအစား ခွဲခြားခြင်း
-
-Error အမျိုးအစားပေါ် မူတည်ပြီး မတူညီတဲ့ အဖြေတွေ ပြပေးလို့ ရပါတယ်။
+#### Error မျိုးစုံ ကိုင်တွယ်ခြင်း
 
 ```python
-try:
-    age = int(input("အသက် ဘယ်လောက်လဲ? "))
-    print(f"သင်ဟာ နောက်နှစ်မှာ {age + 1} နှစ် ပြည့်ပါမယ်။")
-except ValueError:
-    # User က ဂဏန်းမထည့်ဘဲ စာသားတွေ ထည့်လိုက်ရင် ဒီ Error တက်ပါမယ်
-    print("ကျေးဇူးပြု၍ ဂဏန်းသာ ထည့်ပါ။")
-except Exception as e:
-    # တခြား မထင်မှတ်ထားတဲ့ Error တွေ တက်လာရင် ဖမ်းဖို့ပါ
-    print(f"တစ်ခုခု မှားယွင်းနေပါတယ်။ Error: {e}")
+def get_age():
+    try:
+        age = int(input("အသက် ဘယ်လောက်လဲ? "))
+        result = 100 / age
+        print(f"သင်ဟာ {100 - age} နှစ်အကြာမှာ ၁၀၀ ဖြည့်မှာပါ")
+
+    except ValueError:
+        # int("hello") ကဲ့သို့ ဆောင်ရွက်မရသောအခါ
+        print("ကျေးဇူးပြု၍ ဂဏန်းသာ ထည့်ပါ")
+
+    except ZeroDivisionError:
+        # age = 0 ဖြင့် 100/0 ဆောင်ရွက်ချိန်
+        print("အသက် 0 ဆိုတာ မဖြစ်နိုင်ပါဘူး")
+
+    except Exception as e:
+        # မထင်မဆင် တခြား Error တွေ
+        print(f"အမှား ဖြစ်ပွားသည်: {e}")
+
+    else:
+        # Error မတက်ဘဲ အောင်မြင်ခဲ့ရင် ဒါ Run မည်
+        print("အောင်မြင်သည်!")
+
+    finally:
+        # Error တက်တက် မတက်တက် ဒါ အမြဲ Run မည်
+        print("စစ်ဆေးမှု ပြီးဆုံးပါပြီ")
+
+get_age()
 ```
 
-#### `finally` (ဘာပဲဖြစ်ဖြစ် အလုပ်လုပ်မယ်)
+---
 
-Error တက်တက်၊ မတက်တက် နောက်ဆုံးမှာ မဖြစ်မနေ လုပ်ရမယ့် အလုပ်တွေ (ဥပမာ - File ပိတ်တာ၊ Database အဆက်အသွယ် ဖြတ်တာ) အတွက် `finally` ကို သုံးပါတယ်။
+### raise — ကိုယ်ကိုင် Error မြှောက်ခြင်း
+
+`raise` ကို သုံးပြီး Input မှားနေတဲ့အခါ ကိုယ်တိုင် Error တက်ခိုင်းနိုင်ပါတယ်:
 
 ```python
+def set_age(age):
+    if not isinstance(age, int):
+        raise TypeError(f"Age ဟာ Integer ဖြစ်ရမည် — {type(age)} ပေးထားသည်")
+    if age < 0:
+        raise ValueError(f"Age ဟာ 0 အောက် မဖြစ်နိုင်ပါ — {age} ပေးထားသည်")
+    if age > 150:
+        raise ValueError(f"Age ဟာ 150 ကျော်ရင် ဖြစ်မနိုင်ပါ — {age} ပေးထားသည်")
+    print(f"Age သတ်မှတ်ပြီးပါပြီ: {age}")
+
+# မှန်ကန်သော Input
+set_age(20)      # Age သတ်မှတ်ပြီးပါပြီ: 20
+
+# မှားသော Input
 try:
-    file = open("data.txt", "r")
-    print(file.read())
-except FileNotFoundError:
-    print("ဖိုင် ရှာမတွေ့ပါ။")
-finally:
-    print("အလုပ်လုပ်ခြင်း ပြီးဆုံးပါပြီ။")
-    # file.close() စသဖြင့် ဒီနေရာမှာ ရေးလေ့ရှိပါတယ်
+    set_age(-5)  # ValueError!
+except ValueError as e:
+    print(f"Error: {e}")
 ```
 
-ဒီလို Error Handling တွေကို စနစ်တကျ သုံးတတ်ရင် သင့်ရဲ့ Program ဟာ User တွေအတွက် ပိုပြီး အဆင်ပြေ ချောမွေ့စေမှာ ဖြစ်ပါတယ်။
+---
+
+### ပေါင်းစပ် ဥပမာ — Student Record System
+
+```python
+import json
+import os
+
+FILE = "records.json"
+
+def load_records():
+    if not os.path.exists(FILE):
+        return []
+    with open(FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def save_records(records):
+    with open(FILE, "w", encoding="utf-8") as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+
+def add_student(name, score):
+    if not name.strip():
+        raise ValueError("နာမည် ထည့်ပေးပါ")
+    if not 0 <= score <= 100:
+        raise ValueError("Score ဟာ 0-100 ကြားဖြစ်ရမည်")
+    
+    records = load_records()
+    records.append({"name": name, "score": score})
+    save_records(records)
+    print(f"✅ {name} ကို ထည့်ပြီးပါပြီ")
+
+try:
+    add_student("Aung Aung", 85)
+    add_student("Su Su", 92)
+    add_student("", 70)         # ValueError!
+except ValueError as e:
+    print(f"❌ {e}")
+```
+
+<Aside title="နောက်တစ်ဆင့်">
+File & Error Handling ပြီးပြီဆိုရင် **Module 6.5 — Virtual Environments** မှာ Package တွေကို Project တစ်ခုချင်းစီ ခွဲခြားသိမ်းနည်း သင်ကြားပါမည်!
+</Aside>

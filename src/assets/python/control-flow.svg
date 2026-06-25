@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg       { fill: #1e1e2e; }
+      .start    { fill: #2d2d3f; stroke: #a78bfa; stroke-width: 2; }
+      .diamond  { fill: #2d2d3f; stroke: #4f46e5; stroke-width: 2; }
+      .action   { fill: #2d2d3f; stroke: #10b981; stroke-width: 2; }
+      .end-box  { fill: #2d2d3f; stroke: #f59e0b; stroke-width: 2; }
+      .txt-main { font-family: sans-serif; font-size: 14px; text-anchor: middle; fill: #f8fafc; }
+      .txt-code { font-family: monospace; font-size: 13px; text-anchor: middle; fill: #a5b4fc; }
+      .txt-yn   { font-family: sans-serif; font-size: 11px; fill: #94a3b8; }
+      .arrow    { stroke: #475569; stroke-width: 2; fill: none; }
+      .arrow-y  { stroke: #10b981; stroke-width: 2; fill: none; }
+      .arrow-n  { stroke: #f87171; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="ah"  markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#475569"/></marker>
+    <marker id="ah-y" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#10b981"/></marker>
+    <marker id="ah-n" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#f87171"/></marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="400" y="28" class="txt-main" font-size="17" font-weight="bold" fill="#f8fafc">Control Flow — if / elif / else စီးဆင်းပုံ</text>
+
+  <!-- START -->
+  <rect x="300" y="45" width="200" height="44" rx="22" class="start"/>
+  <text x="400" y="72" class="txt-main" fill="#c4b5fd">Program စတင်သည်</text>
+
+  <line x1="400" y1="89" x2="400" y2="118" class="arrow" marker-end="url(#ah)"/>
+
+  <!-- Diamond 1: if age >= 18 -->
+  <polygon points="400,118 520,168 400,218 280,168" class="diamond"/>
+  <text x="400" y="162" class="txt-code">age &gt;= 18</text>
+  <text x="400" y="180" class="txt-main" font-size="12" fill="#94a3b8">(if စစ်ဆေးချက်)</text>
+
+  <!-- Yes right -->
+  <line x1="520" y1="168" x2="620" y2="168" class="arrow-y" marker-end="url(#ah-y)"/>
+  <text x="562" y="160" class="txt-yn" fill="#10b981">မှန်သည် (Yes)</text>
+  <rect x="622" y="140" width="148" height="56" rx="6" class="action"/>
+  <text x="696" y="163" class="txt-main" fill="#6ee7b7">ကားမောင်းလို့</text>
+  <text x="696" y="183" class="txt-main" fill="#6ee7b7">ရပါပြီ</text>
+
+  <!-- No down -->
+  <line x1="400" y1="218" x2="400" y2="258" class="arrow-n" marker-end="url(#ah-n)"/>
+  <text x="415" y="244" class="txt-yn" fill="#f87171">မှားသည် (No)</text>
+
+  <!-- Diamond 2: elif age >= 16 -->
+  <polygon points="400,258 520,308 400,358 280,308" class="diamond"/>
+  <text x="400" y="302" class="txt-code">age &gt;= 16</text>
+  <text x="400" y="320" class="txt-main" font-size="12" fill="#94a3b8">(elif စစ်ဆေးချက်)</text>
+
+  <!-- Yes right -->
+  <line x1="520" y1="308" x2="620" y2="308" class="arrow-y" marker-end="url(#ah-y)"/>
+  <text x="562" y="300" class="txt-yn" fill="#10b981">မှန်သည် (Yes)</text>
+  <rect x="622" y="280" width="148" height="56" rx="6" class="action"/>
+  <text x="696" y="303" class="txt-main" fill="#6ee7b7">ကားသင်လို့</text>
+  <text x="696" y="323" class="txt-main" fill="#6ee7b7">ရပါပြီ</text>
+
+  <!-- No down -->
+  <line x1="400" y1="358" x2="400" y2="398" class="arrow-n" marker-end="url(#ah-n)"/>
+  <text x="415" y="384" class="txt-yn" fill="#f87171">မှားသည် (No)</text>
+
+  <!-- else box -->
+  <rect x="300" y="400" width="200" height="52" rx="6" class="end-box"/>
+  <text x="400" y="421" class="txt-code" fill="#fcd34d">else</text>
+  <text x="400" y="442" class="txt-main" fill="#fcd34d">ကားမောင်းလို့ မရသေး</text>
+
+  <!-- All results → end -->
+  <!-- from action1 down -->
+  <line x1="696" y1="196" x2="696" y2="464" class="arrow" stroke-dasharray="4,3"/>
+  <line x1="696" y1="464" x2="430" y2="464" class="arrow" marker-end="url(#ah)"/>
+
+  <!-- from action2 down -->
+  <line x1="696" y1="336" x2="696" y2="464" class="arrow" stroke-dasharray="4,3"/>
+
+  <!-- from else down -->
+  <line x1="400" y1="452" x2="400" y2="464" class="arrow" marker-end="url(#ah)"/>
+
+  <!-- END -->
+  <rect x="300" y="464" width="200" height="40" rx="20" class="start"/>
+  <text x="400" y="489" class="txt-main" fill="#c4b5fd">Program ဆက်လုပ်သည်</text>
+
+  <!-- Left rail join -->
+  <line x1="280" y1="168" x2="240" y2="168" class="arrow" stroke-dasharray="4,3"/>
+  <line x1="240" y1="168" x2="240" y2="308" class="arrow" stroke-dasharray="4,3"/>
+  <line x1="240" y1="308" x2="280" y2="308" class="arrow" stroke-dasharray="4,3"/>
+</svg>

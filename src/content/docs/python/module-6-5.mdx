@@ -1,0 +1,181 @@
+---
+title: "Virtual Environments & Packages"
+description: "pip ကို မသုံးမီ Virtual Environment ဆောက်နည်း — Project တစ်ခုချင်းစီ Packages ခွဲခြားသိမ်းဆည်းခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import venvImg from "@/assets/python/venv.svg";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Virtual Environment ကို ဖန်တီးပြီး Activate လုပ်နိုင်မည်
+- `pip` ကို venv ထဲမှာ မှန်ကန်စွာ သုံးနိုင်မည်
+- `requirements.txt` ဖန်တီးပြီး Share နိုင်မည်
+- Project တစ်ခုချင်းစီ Dependencies ကို ခွဲခြားသိမ်းနိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 6 (File Handling) ကို ပြီးမှ ဆက်ပါ။ Package တွေ Install မလုပ်ခင် venv ဆောက်တတ်ဖို့ ဤ Module ကို မမေ့ပါနဲ့။
+</Aside>
+
+### ပြဿနာဆိုတာ ဘာလဲ?
+
+Package တွေကို `pip install` နဲ့ တိုက်ရိုက် Install လုပ်ရင် **System Python** ထဲ သွင်းသွားပါတယ်။ ဒါဆိုရင်:
+
+- Project A မှာ `requests` version 2.28 လိုသည်
+- Project B မှာ `requests` version 2.31 လိုသည်
+
+ဒါမျိုး ဖြစ်ရင် System Python တစ်ခုတည်းမှာ နှစ်ခုလုံး ထည့်လို့ မရပါဘူး — ဒါကို **Dependency Conflict** လို့ ခေါ်ပါတယ်။ ရန်ကုန်မှာ ဆိုင်နှစ်ဆိုင် ဖွင့်တဲ့ဆိုင်ရှင် တစ်ယောက်က ဆိုင်တစ်ဆိုင်မှာ "Halal ရိုးရိုး ရေ" လိုပြီး အခြားဆိုင်မှာ "Halal Special ရေ" လိုသလို — တူညီတဲ့ Package ရဲ့ Version နှစ်မျိုး မဖြစ်နိုင်ပါဘူး။
+
+<ContentImage src={venvImg} alt="Virtual Environment Isolation" />
+
+**Virtual Environment (venv)** ဆိုတာ Project တစ်ခုချင်းစီ အတွက် **သီးသန့် Python ပတ်ဝန်းကျင်** ဖန်တီးပေးတဲ့ Tool ပါ။ Folder ထဲမှာ Packages တွေကို ထည့်ထားတာ ဖြစ်လို့ Project တစ်ခုနဲ့ တစ်ခု မရောနှောပါဘူး။
+
+---
+
+### venv ဖန်တီးနည်း
+
+Project Folder ထဲ ရောက်ပြီးမှ Terminal မှာ ဒီ Command ကို Run ပါ:
+
+```bash
+python -m venv .venv
+```
+
+`.venv` ဆိုတာ venv Folder ရဲ့ နာမည်ပါ — `.` (ဒေါ့) နဲ့ စ‌ထားတာကြောင့် ဖိုင် Explorer မှာ Hidden ဖြစ်ပါတယ်။ `env`, `venv`, `.env` ဆိုပြီးလည်း နာမည်ပေးနိုင်ပါတယ်။
+
+---
+
+### venv Activate လုပ်နည်း
+
+venv ဆောက်ပြီးလို့ မရသေးပါဘူး — Activate (ဖွင့်) ပေးမှ အသုံးပြုနိုင်မှာ ဖြစ်ပါတယ်:
+
+**Windows (Command Prompt / PowerShell):**
+```bash
+.venv\Scripts\activate
+```
+
+**Mac / Linux:**
+```bash
+source .venv/bin/activate
+```
+
+Activate ပြီးရင် Terminal မှာ `(.venv)` ဆိုပြီး ပြပေးပါလိမ့်မယ်:
+
+```
+(.venv) C:\Users\Aung\my-project>
+```
+
+ဒါပြပေးနေရင် venv ထဲ ရောက်ပြီ ဆိုတာ သိရပါမယ်။
+
+<Aside type="caution" title="အရေးကြီးသောအချက်">
+`pip install` မလုပ်ခင် venv ကို **အမြဲ Activate** ပြုလုပ်ပါ။ Activate မပြုလုပ်ဘဲ Install လုပ်ရင် System Python ထဲ ဝင်သွားပါမည်။
+</Aside>
+
+---
+
+### Package တပ်ဆင်ခြင်း
+
+venv Activate ပြီးမှ `pip install` ကိုသုံးပါ:
+
+```bash
+pip install requests
+pip install pandas
+pip install django==4.2    # Version သတ်မှတ်ပြီး Install
+```
+
+ဘာ Install ထားသလဲ စစ်ဆေးဖို့:
+
+```bash
+pip list
+```
+
+```
+Package    Version
+---------- -------
+requests   2.31.0
+certifi    2023.7.22
+...
+```
+
+---
+
+### requirements.txt — Project Dependencies မှတ်တမ်း
+
+Project ကို GitHub တင်မယ် (သို့) လူတစ်ယောက်ကို ပေးမယ်ဆိုရင် Install ထားတဲ့ Package တွေစာရင်း လိုပါတယ်။ ဒီစာရင်းကို `requirements.txt` ဖိုင်မှာ သိမ်းပါတယ်:
+
+```bash
+# ကိုယ် Install ထားသော Package တွေ ဖိုင်ထဲ ထည့်သိမ်းခြင်း
+pip freeze > requirements.txt
+```
+
+`requirements.txt` ကို ကြည့်ရင် ဒီလိုမျိုး ဖြစ်ပါမယ်:
+
+```
+certifi==2023.7.22
+charset-normalizer==3.3.2
+idna==3.4
+requests==2.31.0
+urllib3==2.0.7
+```
+
+တစ်ယောက်ယောက်က ဒီ Project ကို ယူပြီး Package တွေ Install လုပ်ချင်ရင်:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### venv Deactivate လုပ်နည်း
+
+venv ထွက်ဖို့:
+
+```bash
+deactivate
+```
+
+Terminal မှာ `(.venv)` ပျောက်သွားရင် System Python ကို ပြန်သုံးနေပြီ ဆိုတာ သိနိုင်ပါတယ်။
+
+---
+
+### .gitignore မှာ venv ဖယ်ထားခြင်း
+
+venv Folder ဟာ Package တွေ အများကြီး ပါဝင်တာကြောင့် Git Repo ထဲ မတင်သင့်ပါဘူး (File Size ကြီးတာကြောင့်)။ `.gitignore` ဖိုင်မှာ ဒါကို ထည့်ပါ:
+
+```
+.venv/
+__pycache__/
+*.pyc
+```
+
+---
+
+### ပုံမှန် Workflow — Project အသစ်တစ်ခု စတင်ချိန်
+
+```bash
+# ၁. Folder ဖန်တီးခြင်း
+mkdir my-project
+cd my-project
+
+# ၂. venv ဆောက်ခြင်း
+python -m venv .venv
+
+# ၃. Activate လုပ်ခြင်း  (Windows)
+.venv\Scripts\activate
+
+# ၄. Package Install လုပ်ခြင်း
+pip install requests
+
+# ၅. Code ရေးခြင်း (main.py ဖန်တီးပြီး ...)
+
+# ၆. Requirements မှတ်သိမ်းခြင်း (Project ပြီးရင် / Git Push မတိုင်ခင်)
+pip freeze > requirements.txt
+```
+
+<Aside type="tip" title="VS Code မှာ venv ချိတ်ဆက်ခြင်း">
+VS Code က venv ကို အလိုအလျောက် သိပါတယ်။ `Ctrl+Shift+P` နှိပ်ပြီး "Python: Select Interpreter" ကိုရွေး၊ `.venv` ထဲက Python ကို ရွေးပါ။ ဒါဆိုရင် VS Code Terminal မှာ venv Activate ကို သပ်သပ် ရိုက်မနေရပါဘူး။
+</Aside>
+
+<Aside title="နောက်တစ်ဆင့်">
+venv ကို နားလည်ပြီဆိုရင် **Module 7 — Modules & Packages** မှာ Python ရဲ့ Standard Library တွေနှင့် ကိုယ်ပိုင် Module ဆောက်နည်းကို လေ့လာပါမည်!
+</Aside>

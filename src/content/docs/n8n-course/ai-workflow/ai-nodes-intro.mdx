@@ -1,0 +1,181 @@
+---
+title: "n8n တွင် AI Nodes အသုံးပြုနည်း"
+description: "n8n ၏ Built-in AI Nodes — OpenAI, Anthropic Claude, LangChain ကို Workflow ထဲ ထည့်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## n8n AI Capabilities
+
+n8n 1.0+ မှ **AI / LangChain Nodes** တွေကို Built-in ပေးထားပါတယ်။ ဒီ Nodes တွေကိုသုံးပြီး Code မရေးဘဲ AI-powered Automation Workflow တွေ ဆောက်နိုင်ပါတယ်။
+
+n8n တွင် ရရှိနိုင်သော AI Nodes:
+
+| Category | Nodes |
+|----------|-------|
+| **Chat Models** | OpenAI GPT-4o, Anthropic Claude, Google Gemini, Ollama |
+| **Chains** | Basic LLM Chain, Summarize Chain, Q&A Chain |
+| **Agents** | ReAct Agent, Plan & Execute Agent |
+| **Memory** | Window Buffer Memory, Summary Memory |
+| **Tools** | Calculator, SerpAPI Search, Wikipedia, Code Execution |
+| **Embeddings** | OpenAI Embeddings, Ollama Embeddings |
+| **Vector Stores** | Pinecone, Supabase Vector, In-Memory |
+
+## Basic LLM Chain — ရိုးရှင်းဆုံး AI Call
+
+**Basic LLM Chain** သည် Prompt တစ်ခုကိုပေးပြီး AI Response ကို ရယူသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Trigger / Input", type: "trigger" },
+    { label: "Basic LLM Chain", sublabel: "Prompt + Model", type: "code" },
+    { label: "Use AI Response", type: "action" }
+  ]}
+  caption="ရိုးရှင်းဆုံး AI Call Pattern"
+/>
+
+### Basic LLM Chain Configuration
+
+Canvas မှ **"Basic LLM Chain"** Node ကို ထည့်ပါ:
+
+```
+Basic LLM Chain Node:
+  Chat Model:    [OpenAI GPT-4o-mini]    ← Sub-node ဖြင့် ချိတ်ဆက်
+  Prompt:
+  """
+  You are a helpful assistant.
+  Summarize the following text in 3 bullet points in Myanmar language:
+
+  {{ $json.text }}
+  """
+```
+
+Chat Model ကို Node ၏ Input Socket မှ **Sub-node** ပုံစံ ချိတ်ဆက်ရသည်:
+
+```
+[Basic LLM Chain]
+      ↑
+[OpenAI Chat Model]   ← Sub-node (Model Provider)
+```
+
+### AI Response ကို ဖတ်ရာတွင်
+
+Basic LLM Chain ၏ Output:
+
+```json
+{
+  "response": {
+    "text": "• ပထမ အချက်...\n• ဒုတိယ အချက်...\n• တတိယ အချက်..."
+  }
+}
+```
+
+Expression ဖြင့် Access: `{{ $json.response.text }}`
+
+## Chat Models ချိတ်ဆက်နည်း
+
+### OpenAI GPT-4o-mini (Cost-effective)
+
+1. OpenAI API Key ကို n8n Credential မှာ ထည့်ပါ
+2. Canvas မှ **"OpenAI Chat Model"** ကို Basic LLM Chain ၏ Sub-node ဖြင့် ချိတ်ဆက်ပါ
+
+```
+OpenAI Chat Model:
+  Credential:  [OpenAI API]
+  Model:       gpt-4o-mini
+  Temperature: 0.7    ← 0 = ကျပ်ကျပ်, 1 = Creative
+  Max Tokens:  1000
+```
+
+### Anthropic Claude 3.5 Haiku (Fast & Smart)
+
+```
+Anthropic Chat Model:
+  Credential:  [Anthropic API]
+  Model:       claude-haiku-4-5-20251001
+  Temperature: 0.5
+```
+
+<Aside type="tip" title="Model ရွေးချယ်မှုဆိုင်ရာ အကြံပြုချက်">
+- **Cheap & Fast** → GPT-4o-mini, Claude Haiku
+- **Balanced** → GPT-4o, Claude Sonnet
+- **Most Capable** → GPT-4o, Claude Opus
+- **Privacy / Local** → Ollama (ကိုယ်ပိုင် Server တွင် Run)
+</Aside>
+
+## လက်တွေ့ Project: Email Auto-Summarizer
+
+Email ဝင်လာတိုင်း AI ဖြင့် Summary ဆွဲပြီး Slack ပို့သည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "Gmail Trigger", sublabel: "New Email", type: "trigger" },
+    { label: "Basic LLM Chain", sublabel: "Claude: Summarize", type: "code" },
+    { label: "Slack", sublabel: "Post Summary", type: "action" }
+  ]}
+  caption="Email → AI Summary → Slack — အဓိကအချက်တွေကို Auto-extract"
+/>
+
+```
+Prompt Template:
+"""
+You are an email assistant for a Myanmar developer.
+Summarize this email concisely in Myanmar language.
+Extract: sender intent, action needed, urgency level (low/medium/high).
+
+From: {{ $json.from[0].address }}
+Subject: {{ $json.subject }}
+Body: {{ $json.text.slice(0, 3000) }}
+
+Response format:
+📋 အဓိကအကြောင်းအရာ: ...
+✅ လုပ်ဆောင်ရမည့်အချက်: ...
+⚡ အရေးပေါ်မှု: [low/medium/high]
+"""
+```
+
+## Sentiment Analysis Workflow
+
+Customer Feedback ကို AI ဖြင့် Positive/Negative ခွဲပြီး Priority ဆောင်သည်:
+
+<BranchFlow
+  input="Webhook: Customer Feedback"
+  condition="AI Sentiment: Negative?"
+  truePath={["Slack: #urgent — Respond now", "Create Jira Ticket"]}
+  falsePath={["Thank You Email", "Log to Sheets"]}
+  trueLabel="😠 Negative"
+  falseLabel="😊 Positive"
+/>
+
+```javascript
+// Code Node — Parse AI Sentiment Response
+const aiResponse = $json.response.text.toLowerCase();
+
+const sentiment = aiResponse.includes('negative') || aiResponse.includes('angry')
+  ? 'negative'
+  : aiResponse.includes('positive') || aiResponse.includes('happy')
+    ? 'positive'
+    : 'neutral';
+
+return [{ json: { ...$json, sentiment, needsUrgentResponse: sentiment === 'negative' } }];
+```
+
+## Translation Workflow
+
+Multi-language Support ကို AI ဖြင့် Auto-translate:
+
+<ParallelFlow
+  source="Webhook: Content Text"
+  sourceType="trigger"
+  targets={["AI: Translate to English", "AI: Translate to Japanese", "AI: Translate to Thai"]}
+  caption="Content တစ်ကြိမ်ရေးရုံဖြင့် ဘာသာစကား ၃ မျိုး တပြိုင်တည်း"
+/>
+
+<Aside type="note" title="AI Token Cost">
+AI Node တစ်ကြိမ် Call ရင် Input + Output Tokens ကုန်ကျသည်။ Long Prompt တွေကို `.slice(0, 2000)` ဖြင့် ဖြတ်ပါ။ Production မသွားမီ Token Cost ကို Calculator ဖြင့် တွက်ကြည့်ပါ — OpenAI Tokenizer: platform.openai.com/tokenizer
+</Aside>
+
+နောက်သင်ခန်းစာမှာ **AI Agent** — Tool များကို ကိုင်တွယ်နိုင်သော n8n AI Agent ဆောက်နည်း လေ့လာမည်!

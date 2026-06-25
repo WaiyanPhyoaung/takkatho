@@ -1,97 +1,262 @@
 ---
 title: "Functions (လုပ်ဆောင်ချက်များ)"
-description: "Python တွင် Functions များ တည်ဆောက်ခြင်းနှင့် အသုံးပြုခြင်း"
+description: "Python တွင် Functions များ တည်ဆောက်ခြင်းနှင့် အသုံးပြုခြင်း — Docstrings, Lambda, Multiple Return Values"
 ---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from "@/components/Content-image.astro";
+import functionsImg from "@/assets/python/functions.svg";
+import scopeImg from "@/assets/python/scope.svg";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Function ဖန်တီးပြီး ခေါ်သုံးနိုင်မည်
+- Parameters, Default Parameters, Return Values သုံးနိုင်မည်
+- Docstrings ရေးနိုင်မည်
+- Multiple Return Values ကို Unpack လုပ်နိုင်မည်
+- Lambda Functions နားလည်မည်
+- Local vs Global Scope ကွာခြားချက် သိမည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 1 (Variables), Module 1.5 (String Methods) နှင့် Module 2 (Control Flow) ကို ပြီးမှ ဆက်ပါ။ Loops နှင့် Conditionals သိပြီးမှ Functions ကို ပိုနားလည်မည်။
+</Aside>
 
 ### Function ဆိုတာ ဘာလဲ?
 
-Function ဆိုတာ Code တွေကို အစုလိုက်လေး ဖွဲ့ထားတာပါ။ လိုအပ်တဲ့အခါတိုင်း နာမည်ခေါ်ပြီး ပြန်သုံးလို့ ရပါတယ်။ **"ဟင်းချက်နည်း (Recipe)"** တစ်ခုလိုပါပဲ။ ဟင်းချက်နည်းကို တစ်ခါရေးထားရင်၊ လိုချင်တဲ့အချိန်တိုင်း အဲ့ဒီနည်းအတိုင်း ချက်လို့ရသလိုပေါ့။
+Function ဆိုတာ Code တွေကို အစုလိုက် ဖွဲ့ထားတာပါ — **"ဟင်းချက်နည်း (Recipe)"** တစ်ခုနဲ့ တူပါတယ်။ ဟင်းချက်နည်း တစ်ကြိမ်ရေးထားရင် ကြိုက်တဲ့အချိန်တိုင်း အဲ့ဒီနည်းအတိုင်း ချက်လို့ ရသလိုပဲ — Function ကို တစ်ကြိမ် ဖန်တီးပြီးရင် လိုတဲ့အချိန်တိုင်း ခေါ်သုံးနိုင်ပါတယ်။
 
-ဘာလို့ Function တွေကို သုံးရတာလဲ ဆိုရင် **DRY (Don't Repeat Yourself)** ဆိုတဲ့ စည်းမျဉ်းကြောင့်ပါ။ Code တွေကို ထပ်ခါထပ်ခါ ရေးမယ့်အစား၊ Function တစ်ခုထဲ ထည့်ထားပြီး လိုတဲ့အခါ လှမ်းခေါ်သုံးလိုက်တာက ပိုပြီး ရှင်းလင်းသပ်ရပ်စေပါတယ်။
+**ဘာကြောင့် Functions သုံးမလဲ?** — **DRY** (Don't Repeat Yourself) ။ Code တွေ ထပ်ခါထပ်ခါ မရေးဘဲ Function ထဲ ထည့်ပြီး လှမ်းခေါ်သုံးလိုက်ပါ။
+
+<ContentImage src={functionsImg} alt="Python Function Diagram" />
 
 ---
 
 ### Function ဘယ်လို တည်ဆောက်မလဲ?
 
-Python မှာ Function ကို `def` (define) ဆိုတဲ့ Keyword နဲ့ စပါတယ်။
+Python မှာ Function ကို `def` (define) Keyword နဲ့ စပါတယ်:
 
 ```python
-# Function တည်ဆောက်ခြင်း
 def say_hello():
-    print("မင်္ဂလာပါ။")
-    print("Python Course မှ ကြိုဆိုပါတယ်။")
+    """ရိုးရိုး Hello ပြောသော Function"""   # ← Docstring
+    print("မင်္ဂလာပါ!")
+    print("Python Course မှ ကြိုဆိုပါတယ်")
 
-# Function ကို ခေါ်သုံးခြင်း (Call လုပ်ခြင်း)
+# Function ကို ခေါ်သုံးခြင်း
 say_hello()
-say_hello() # ကြိုက်သလောက် ခေါ်သုံးလို့ ရပါတယ်
+say_hello()   # ကြိုက်သလောက် ခေါ်သုံးနိုင်
+```
+
+#### Docstrings — Function ကိုရှင်းပြသော မှတ်ချက်
+
+Function ထဲ ပထမဆုံး `"""..."""` (Triple Quote) ကို **Docstring** လို့ ခေါ်ပါတယ်။ Function က ဘာလုပ်သလဲ ဆိုတာကို ရှင်းပြတဲ့ Documentation ပါ:
+
+```python
+def greet(name):
+    """
+    Name ပေးလိုက်ရင် မင်္ဂလာပါ ပြောသော Function
+    
+    Args:
+        name: ကြိုဆိုမည့် လူ၏ နာမည်
+    
+    Returns:
+        ကြိုဆိုသော Message (String)
+    """
+    return f"မင်္ဂလာပါ {name}!"
 ```
 
 ---
 
-### Parameters နှင့် Arguments (ဒေတာများ ထည့်ပေးခြင်း)
+### Parameters နှင့် Arguments
 
-Function ထဲကို အပြင်ကနေ Data တွေ ထည့်ပေးလို့ ရပါတယ်။ အဲ့ဒါကို Parameters လို့ ခေါ်ပါတယ်။
+Function ထဲကို အပြင်ကနေ Data ထည့်ပေးလို့ ရပါတယ်:
 
 ```python
-# name ဆိုတာ Parameter ပါ
-def greet(name):
+def greet(name):           # name ← Parameter (ကြေညာချိန်)
     print(f"မင်္ဂလာပါ {name}")
 
-# "Aung Aung" ဆိုတာ Argument ပါ
-greet("Aung Aung") 
-greet("Su Su")     
+greet("Aung Aung")         # "Aung Aung" ← Argument (ခေါ်ချိန်)
+greet("Su Su")
+```
+
+#### Multiple Parameters
+
+```python
+def introduce(name, age, city):
+    print(f"ကျွန်တော်/မ {name} ဖြစ်ပြီး {age} နှစ် ရှိပါတယ်")
+    print(f"နေထိုင်ရာ: {city}")
+
+introduce("Aung", 20, "ရန်ကုန်")
+introduce("Su", 22, "မန္တလေး")
 ```
 
 #### Default Parameters (ပုံသေ တန်ဖိုးများ)
-တစ်ခါတလေ User က Data မထည့်ပေးခဲ့ရင် သုံးဖို့အတွက် ပုံသေတန်ဖိုး (Default) သတ်မှတ်ထားလို့ ရပါတယ်။
+
+Parameter ကို Default Value ပေးထားနိုင်ပါတယ် — Argument မထည့်ရင် Default ကို သုံးသွားမည်:
 
 ```python
-def order_coffee(type="ရိုးရိုး ကော်ဖီ"):
-    print(f"သင့်ရဲ့ {type} ရပါပြီ။")
+def order_coffee(type="ရိုးရိုး ကော်ဖီ", size="M"):
+    print(f"သင့်ရဲ့ {size} {type} ရပါပြီ")
 
-order_coffee("Latte") # သင့်ရဲ့ Latte ရပါပြီ။
-order_coffee()        # သင့်ရဲ့ ရိုးရိုး ကော်ဖီ ရပါပြီ။ (ဘာမှ မထည့်ရင် Default ကို သုံးသွားပါတယ်)
+order_coffee()                      # M ရိုးရိုး ကော်ဖီ
+order_coffee("Latte")               # M Latte
+order_coffee("Mocha", "L")          # L Mocha
 ```
+
+<Aside type="caution" title="Mutable Default Argument — ဂရုပြုရမည့် Trap">
+Default Argument မှာ List (သို့) Dictionary မသုံးပါနဲ့ — အလွဲ ဖြစ်နိုင်ပါတယ်:
+
+```python
+# ❌ ဒါမဆို — Bug ဖြစ်နိုင်
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+print(add_item("apple"))   # ['apple']
+print(add_item("banana"))  # ['apple', 'banana']  ← !!!
+
+# ✅ ဒီလို ရေးပါ
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+```
+</Aside>
 
 ---
 
-### Return (အဖြေ ပြန်ပေးခြင်း)
-
-Function ကနေ အလုပ်လုပ်ပြီးသွားရင် အဖြေတစ်ခု ပြန်ပေးချင်တဲ့အခါ `return` ကို သုံးပါတယ်။ `print` နဲ့ `return` မတူပါဘူး။ `print` က Screen ပေါ်မှာ ပြပေးရုံသက်သက်ဖြစ်ပြီး၊ `return` ကတော့ အဲ့ဒီ အဖြေကို တခြားနေရာမှာ ဆက်သုံးလို့ရအောင် ပြန်ပေးတာပါ။
+### Return — အဖြေ ပြန်ပေးခြင်း
 
 ```python
 def add_numbers(a, b):
     result = a + b
-    return result # အဖြေကို ပြန်ပေးလိုက်တယ်
+    return result   # ← ပြန်ပေးလိုက်သည်
 
-# ပြန်ပေးလိုက်တဲ့ အဖြေကို total ဆိုတဲ့ Variable ထဲ ထည့်လိုက်တယ်
-total = add_numbers(5, 10) 
-
-# အဲ့ဒီ အဖြေကို ဆက်ပြီး အသုံးချလို့ ရပါတယ်
-print(f"စုစုပေါင်းကတော့ {total} ပါ။")
-print(f"နှစ်ဆ ဆိုရင်တော့ {total * 2} ပါ။")
+total = add_numbers(5, 10)   # ပြန်တန်ဖိုးကို Variable ထဲ ထည့်
+print(total * 2)   # 30
 ```
 
-**သတိပြုရန်:** Function တစ်ခုထဲမှာ `return` ကို ရောက်သွားတာနဲ့ အဲ့ဒီ Function က ချက်ချင်း ရပ်သွားပါတယ်။ `return` ရဲ့ အောက်က Code တွေ ဆက်အလုပ်မလုပ်တော့ပါဘူး။
+**print vs return ကွာခြားချက်:**
+
+```python
+def bad_function(a, b):
+    print(a + b)       # Screen မှာ ပြ — ဆက်မသုံးနိုင်
+
+def good_function(a, b):
+    return a + b       # တန်ဖိုး ပြန်ပေး — ဆက်သုံးနိုင်
+
+result = bad_function(3, 4)
+print(result)    # None!  (print() ဟာ None ပြန်ပေးသောကြောင့်)
+
+result = good_function(3, 4)
+print(result)    # 7  ✅
+```
+
+#### Multiple Return Values
+
+Python မှာ Return Value ၂ ခုနဲ့ အထက် ပြန်ပေးနိုင်ပါတယ်:
+
+```python
+def get_min_max(scores):
+    """ကျောင်းသားများ၏ Score List ထဲမှ အငယ်ဆုံးနှင့် အကြီးဆုံး ပြန်ပေးသည်"""
+    return min(scores), max(scores)
+
+class_scores = [72, 85, 60, 91, 78]   # ကျောင်းသား ၅ ယောက် Score
+lowest, highest = get_min_max(class_scores)
+print(f"အနိမ့်ဆုံး Score: {lowest}")   # 60
+print(f"အမြင့်ဆုံး Score: {highest}")  # 91
+```
+
+---
+
+### Lambda Functions — Anonymous Functions
+
+Lambda ဆိုတာ **နာမည်မဲ့ Function** ပါ။ တစ်ကြောင်းတည်းဖြင့် ရေးပြီး Argument တစ်ခုနဲ့ Expression တစ်ခု Return ပေးသည်:
+
+```python
+# ပုံစံ: lambda parameters: expression
+
+# ပုံမှန် Function
+def square(x):
+    return x ** 2
+
+# Lambda Function (တူညီ)
+square = lambda x: x ** 2
+
+print(square(5))   # 25
+
+# Lambda ကို sorted() မှာ key အဖြစ် သုံးခြင်း
+students = [
+    {"name": "Kyaw", "score": 70},
+    {"name": "Aung", "score": 92},
+]
+ranked = sorted(students, key=lambda s: s["score"], reverse=True)
+```
+
+<Aside type="tip" title="Lambda ဘယ်အချိန် သုံးမလဲ?">
+Lambda ကို **Function တစ်ကြောင်းပဲ ရှိတာ**၊ **Argument အဖြစ် pass ရတဲ့အခါ** (sorted, map, filter) သာ သုံးပါ။ ရှုပ်ထွေးတဲ့ Logic ဆိုရင် ပုံမှန် `def` Function ကပဲ ကြည်လင်ပါတယ်။
+</Aside>
 
 ---
 
 ### Variable Scope (Local vs Global)
 
-Variable တွေကို ဘယ်နေရာမှာ ကြေညာသလဲ ဆိုတာ အရေးကြီးပါတယ်။
+<ContentImage src={scopeImg} alt="Python Variable Scope" />
 
-- **Local Variable:** Function အထဲမှာ ကြေညာထားတဲ့ Variable ပါ။ အဲ့ဒီ Function အပြင်ဘက်ကနေ လှမ်းခေါ်လို့ မရပါဘူး။
-- **Global Variable:** Function အပြင်ဘက်မှာ ကြေညာထားတဲ့ Variable ပါ။ နေရာတိုင်းကနေ လှမ်းခေါ်လို့ ရပါတယ်။
+Variable ကို **ဘယ်နေရာမှာ ကြေညာသလဲ** ဆိုတာ ဘယ်နေရာကနေ သုံးနိုင်သလဲ ဆိုတာကို သတ်မှတ်ပါတယ်:
 
 ```python
-global_var = "ကျွန်တော်က အပြင်မှာ ရှိပါတယ်"
+greeting = "မင်္ဂလာပါ"     # Global Variable — နေရာတိုင်းကနေ သုံးနိုင်
 
-def my_function():
-    local_var = "ကျွန်တော်က အထဲမှာ ရှိပါတယ်"
-    print(global_var) # အပြင်က ကောင်ကို အထဲကနေ ခေါ်သုံးလို့ ရပါတယ်
-    print(local_var)
+def say_hello():
+    secret = "Function ထဲပဲ ရှိ"  # Local Variable
+    print(greeting)    # ✅ Global ကို Function ထဲကနေ သုံးနိုင်
+    print(secret)      # ✅ Local ကို ဒီ Function ထဲမှာ သုံးနိုင်
 
-my_function()
+say_hello()
 
-# print(local_var) # ဒါမျိုး လုပ်ရင် Error တက်ပါမယ်။ အထဲက ကောင်ကို အပြင်ကနေ ခေါ်လို့ မရပါဘူး။
+print(greeting)    # ✅ Global ကို Function ပြင်ကနေ သုံးနိုင်
+# print(secret)  # ❌ NameError! Local ကို ပြင်ကနေ မသုံးနိုင်
 ```
+
+**Function ပြင်ကနေ Global Variable ပြင်ချင်ရင်:**
+
+```python
+count = 0
+
+def increment():
+    global count    # ← global ဆိုတဲ့ Keyword မပါရင် Local ကိုပဲ ဆောက်မည်
+    count += 1
+
+increment()
+increment()
+print(count)   # 2
+```
+
+<Aside type="tip" title="Global ကို တတ်နိုင်သမျှ ရှောင်ပါ">
+`global` Keyword ကို များများသုံးတာ Code ကို ရှုပ်ထွေးစေပါတယ်။ Function ကနေ တန်ဖိုး ပြင်ချင်ရင် `return` ကိုသာ သုံးပြီး မူရင်း Variable ကို ပြန်သတ်မှတ်ပါ:
+
+```python
+count = 0
+count = increment(count)   # Function ကနေ return လာတဲ့ တန်ဖိုး ပြန်ထည့်
+```
+</Aside>
+
+---
+
+### Function တည်ဆောက်တဲ့ အမှားများ
+
+```python
+# ၁. self ကို မမေ့ပါနဲ့ — OOP မှာ Method ရေးရင် (Module 5 မှာ ဆက်သင်မည် — Class Methods တွေမှာ self ပါပါမည်)
+# ၂. return ရှိမရှိ မသေချာရင် Function တန်ဖိုးကို print() ဖြင့် စစ်ဆေးပါ
+# ၃. Indentation မမှားပါနဲ့
+
+def add(a, b):
+    result = a + b
+    # return result ← ဒါမပါရင် None ပြန်ပေးမည်
+    return result
+```
+
+<Aside title="နောက်တစ်ဆင့်">
+Functions ကို ကောင်းကောင်း သိပြီဆိုရင် **Module 4 — Data Structures** မှာ Data အများကြီးကို ဘယ်လို စီမံမလဲ သင်ကြားပါမည်!
+</Aside>

@@ -1,0 +1,206 @@
+---
+title: "Debugging — Error တွေကို ဖတ်ပြီး ဖြေရှင်းနည်း"
+description: "Python Error messages ကို နားလည်ပြီး ကိုယ်ရဲ့ Code ကို ထိထိရောက်ရောက် Debugging ပြုလုပ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
+- Python Error Traceback ကို ဖတ်တတ်ပြီး ဘာမှားနေသလဲ နားလည်နိုင်မည်
+- အဖြစ်များသော Error ၆ မျိုးကို ရှာဖွေဖြေရှင်းနိုင်မည်
+- Print Debugging နည်းကို ကျွမ်းကျင်စွာ သုံးနိုင်မည်
+- VS Code Debugger ကို အခြေခံသုံးနိုင်မည်
+</Aside>
+
+<Aside type="tip" title="ဒီ Module မစခင်">
+Module 8 (Mini Project) ကို ပြီးမှ ဆက်ပါ — Error တွေ တွေ့ပြီးနောက် ဒီ Module မှာ ပိုထိရောက်စွာ ဖြေရှင်းနည်း သင်ပါမည်။
+</Aside>
+
+Debugging ဆိုတာ Code ထဲမှာ ဘာမှားနေသလဲ ရှာပြီး ပြင်တဲ့ လုပ်ငန်းစဉ်ပါ။ **Programmer တိုင်းဟာ Error တွေ တွေ့ပါတယ်** — ကွာတာကတော့ Error ကို ဘယ်လောက်မြန်မြန် ဖြေရှင်းနိုင်တာပါ။
+
+<Aside type="tip" title="Debugging အကြောင်း တကယ်ဆိုရင်">
+Experienced Developer တွေဟာ Code ရေးတဲ့ အချိန်ထက် Debugging လုပ်တဲ့ အချိန် **ပိုများတတ်**ပါတယ်။ ဒါဟာ မကောင်းတာ မဟုတ်ပါဘူး — ဒါဟာ ပုံမှန် Programming လုပ်ငန်းစဉ်ပါ။
+</Aside>
+
+---
+
+### Python Error Traceback ကို ဖတ်နည်း
+
+Error တက်တဲ့အခါ Python က **Traceback** ဆိုတဲ့ Error Report ကို ပေးပါတယ်။ ဒါကို ကောင်းကောင်း ဖတ်တတ်ဖို့ အရေးကြီးပါတယ်:
+
+```python
+def calculate(a, b):
+    return a / b
+
+result = calculate(10, 0)
+print(result)
+```
+
+```
+Traceback (most recent call last):
+  File "main.py", line 4, in <module>
+    result = calculate(10, 0)
+  File "main.py", line 2, in calculate
+    return a / b
+ZeroDivisionError: division by zero
+```
+
+**ဖတ်နည်း:**
+1. **အောက်ဆုံး Line** ကို ဦးစွာ ကြည့်ပါ → `ZeroDivisionError: division by zero` ← ဒါက Error အမျိုးအစားနဲ့ အကြောင်းပါ
+2. **File name နှင့် Line number** ကို ကြည့်ပါ → `File "main.py", line 2` ← ဒါက Error တက်တဲ့ နေရာပါ
+3. Error ဖြစ်ပြီးသား Code ကို ကြည့်ပါ → `return a / b` ← ဒါက ပြဿနာ ဖြစ်တဲ့ Code ပါ
+
+---
+
+### အဖြစ်များသော Error မျိုး ၆ ခု
+
+#### ၁. SyntaxError — Code ရေးပုံ မှားနေသည်
+
+```python
+# Error
+print("မင်္ဂလာ"    # Closing ) မပါ
+
+# SyntaxError: '(' was never closed
+```
+
+**ဖြေရှင်းနည်း:** Error Line ကိုသွားပြီး Bracket, Quote, Colon (`:`), Indentation တွေကို စစ်ဆေးပါ။
+
+---
+
+#### ၂. NameError — Variable / Function မသိ
+
+```python
+print(massage)  # message ကို massage လို့ မှားရိုက်မိ
+# NameError: name 'massage' is not defined
+```
+
+**ဖြေရှင်းနည်း:** Variable နာမည် မှန်မမှန် စစ်ဆေးပါ။ Python က Case-sensitive ဖြစ်တာကြောင့် `Name` နဲ့ `name` မတူပါဘူး။
+
+---
+
+#### ၃. TypeError — Data Type မကိုက်ညီ
+
+```python
+age = "20"
+print(age + 1)
+# TypeError: can only concatenate str (not "int") to str
+```
+
+**ဖြေရှင်းနည်း:** Type ကို စစ်ဆေးပြီး `int(age)` / `str(age)` နဲ့ ပြောင်းပါ။
+
+---
+
+#### ၄. IndexError — Index ကျော်နေသည်
+
+```python
+fruits = ["Apple", "Banana"]
+print(fruits[5])   # Index 5 မရှိဘူး
+# IndexError: list index out of range
+```
+
+**ဖြေရှင်းနည်း:** `len(fruits)` ကိုစစ်ဆေးပြီး Index 0 ကနေ `len-1` အထိပဲ ရှိကြောင်း မှတ်ပါ။
+
+---
+
+#### ၅. KeyError — Dictionary Key မရှိ
+
+```python
+student = {"name": "Aung", "age": 20}
+print(student["phone"])
+# KeyError: 'phone'
+```
+
+**ဖြေရှင်းနည်း:** `.get("phone", "မရှိ")` ကိုသုံးပြီး Default Value ထည့်ပါ။
+
+---
+
+#### ၆. ValueError — Value ပုံစံ မှားနေသည်
+
+```python
+age = int("hello")
+# ValueError: invalid literal for int() with base 10: 'hello'
+```
+
+**ဖြေရှင်းနည်း:** User Input ကို `try/except ValueError` နဲ့ ထိန်းချုပ်ပါ။
+
+---
+
+### Print Debugging — အမြန်ဆုံး Debugging နည်း
+
+Error မရှင်းရင် Code ရဲ့ **သင်ယူလိုသောနေရာမှာ** `print()` ထည့်ပြီး Variable တန်ဖိုးတွေကို စစ်ဆေးတာဟာ Beginner Programmer တွေ အကောင်းဆုံး သုံးနိုင်သော နည်းပါ:
+
+```python
+def calculate_total(prices):
+    print(f"DEBUG: prices = {prices}")   # ← ဒီမှာ ဘာ ရောက်လာသလဲ?
+    
+    total = 0
+    for price in prices:
+        print(f"DEBUG: adding {price}, total so far = {total}")
+        total += price
+    
+    print(f"DEBUG: final total = {total}")
+    return total
+
+items = [100, 250, 75]
+result = calculate_total(items)
+print(f"Final: {result}")
+```
+
+```
+DEBUG: prices = [100, 250, 75]
+DEBUG: adding 100, total so far = 0
+DEBUG: adding 250, total so far = 100
+DEBUG: adding 75, total so far = 350
+DEBUG: final total = 425
+Final: 425
+```
+
+Code ပြင်ပြီးရင် DEBUG print တွေကို ဖြုတ်ပစ်ပါ (သို့) `# comment` ဖြင့် ပိတ်ပါ။
+
+---
+
+### assert — ကိုယ်ကိုယ်ကို စစ်ဆေးခြင်း
+
+`assert` ဟာ "ဒါ မှန်ရမည်" ဆိုပြီး Code ထဲမှာ Check Point ထည့်တဲ့ နည်းပါ:
+
+```python
+def divide(a, b):
+    assert b != 0, "b ကို 0 ဖြင့် မထားနိုင်ပါ!"
+    return a / b
+
+print(divide(10, 2))   # 5.0
+print(divide(10, 0))   # AssertionError: b ကို 0 ဖြင့် မထားနိုင်ပါ!
+```
+
+---
+
+### VS Code Debugger — Breakpoint သုံးနည်း
+
+VS Code မှာ Breakpoint ထည့်ပြီး Code ကို **တစ်ကြောင်းချင်းစီ** Run ကြည့်နိုင်ပါတယ်:
+
+1. VS Code မှာ Code Line ဘယ်ဘက် Number ကို **နှိပ်ပြီး** 🔴 (Red Dot) ထည့်ပါ — ဒါ Breakpoint ပါ
+2. **F5** သို့မဟုတ် Run → Start Debugging ကို နှိပ်ပါ
+3. Code ဟာ Breakpoint မှာ ရပ်မှာပါ
+4. **F10** = တစ်ကြောင်းဆင်းရန် (Step Over)
+5. **F11** = Function ထဲဝင်ကြည့်ရန် (Step Into)
+6. ဘယ်ဘက်မှာ Variables Panel ကို ကြည့်ပြီး တန်ဖိုးများ စစ်ဆေးနိုင်သည်
+
+---
+
+### Debugging Mindset
+
+Error တွေ တွေ့ရင် ဒီ Steps တွေ လိုက်နာပါ:
+
+1. **Error Message ကို ဖတ်ပါ** — ပထမ ၂-၃ ကြောင်းကိုပဲ ဖတ်ကြည့်ပါ၊ ဘာ Error လဲ နားလည်ပါ
+2. **Line Number ကို ကြည့်ပါ** — Error ဖြစ်တဲ့ Line ကို သွားပါ
+3. **Assumptions စစ်ဆေးပါ** — Variable တန်ဖိုးတွေ ထင်သလောက် ဟုတ်မဟုတ် Print ကြည့်ပါ
+4. **တစ်ခုချင်းစီ ပြင်ပါ** — တစ်ကြိမ်မှာ တစ်ခုပဲ ပြင်ပြီး Run ကြည့်ပါ
+5. **မဖြေရှင်းနိုင်ရင်** — Error Message ကို Google မှာ ရှာပါ (Stack Overflow မှာ အဖြေ ရှိတတ်ပါတယ်)
+
+<Aside type="tip" title="Rubber Duck Debugging">
+ဖြေရှင်းမရဘဲ နာရီပေါင်းများစွာ ကြာရင် — Code ကို **မိမိကိုယ်ကိုပဲ ဖတ်ကာ ရှင်းပြပါ** (ရုပ်ဆိုးတဲ့ ဘဲလေးစားကို ရှင်းပြတယ်လို့ တင်စားပြောကြပါတယ်)။ ရှင်းပြနေရင်းနဲ့ Error ကို မိမိဘာသာ တွေ့တတ်ပါတယ်!
+</Aside>
+
+<Aside title="နောက်တစ်ဆင့်">
+Debugging ကို တတ်ပြီဆိုရင် **Module 10 — Projects** မှာ ကိုယ်ရဲ့ Project ကို တည်ဆောက်ပါမည်!
+</Aside>

@@ -1,0 +1,219 @@
+---
+title: "HTTP Request နှင့် Webhook"
+description: "n8n ဖြင့် External APIs ချိတ်ဆက်နည်းနှင့် Webhook ဖြင့် Data လက်ခံနည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## HTTP Request Node
+
+**HTTP Request** Node သည် n8n ၏ Universal API Connector ဖြစ်သည်။ Built-in Integration မရှိသော API မည်သည့် API ကိုမဆို ဤ Node ဖြင့် ချိတ်ဆက်နိုင်သည်။
+
+HTTP Request Node ကို သုံးရသည့် အချိန်:
+- Built-in node မရှိသော Custom API
+- REST API endpoints ခေါ်ရန်
+- JSON data ပို့/ယူရန်
+- API testing ပြုလုပ်ရန်
+
+## HTTP Methods
+
+| Method | ရည်ရွယ်ချက် |
+|--------|------------|
+| **GET** | Data ဖတ်ရန် (Read) |
+| **POST** | Data သစ် ဖန်တီးရန် (Create) |
+| **PUT** | Data တစ်ခုလုံး ပြောင်းရန် (Update) |
+| **PATCH** | Data တစ်ချို့သာ ပြောင်းရန် |
+| **DELETE** | Data ဖျက်ရန် |
+
+## လက်တွေ့ ဥပမာ: Public API မှ Data ယူခြင်း
+
+**JSONPlaceholder** (Free Test API) ကနေ Todo List ဆွဲမည်:
+
+### Step 1: Workflow ဆောက်ပါ
+
+<FlowDiagram
+  nodes={[
+    { label: "Manual Trigger", type: "trigger" },
+    { label: "HTTP Request", sublabel: "GET /todos", type: "action" },
+    { label: "Code Node", sublabel: "Filter: completed only", type: "code" }
+  ]}
+  caption="JSONPlaceholder API မှ Completed Todos စစ်ထုတ်ခြင်း"
+/>
+
+### Step 2: HTTP Request Node Configure
+
+| Field | Value |
+|-------|-------|
+| **Method** | GET |
+| **URL** | `https://jsonplaceholder.typicode.com/todos` |
+| **Authentication** | None (Public API) |
+
+### Step 3: Code Node ဖြင့် Filter
+
+```javascript
+// Completed todos သာ စစ်ထုတ်ပါ
+const completedTodos = $input.all().filter(item => item.json.completed === true);
+
+return completedTodos.map(item => ({
+  json: {
+    id: item.json.id,
+    title: item.json.title,
+    status: "✅ Completed"
+  }
+}));
+```
+
+### Expected Output
+
+```json
+[
+  { "id": 1, "title": "delectus aut autem", "status": "✅ Completed" },
+  { "id": 4, "title": "et porro tempora", "status": "✅ Completed" }
+]
+```
+
+## Authentication ဖြင့် API ခေါ်ခြင်း
+
+Protected API တွေအတွက် Authentication ထည့်ရသည်:
+
+| Type | ရည်ရွယ်ချက် |
+|------|------------|
+| **None** | Public API |
+| **Header Auth** | Authorization: Bearer TOKEN |
+| **Basic Auth** | Username + Password |
+| **Query Auth** | ?api_key=TOKEN in URL |
+| **OAuth2** | n8n Credentials |
+
+**Header Authentication ဥပမာ (OpenAI):**
+
+```
+HTTP Request:
+  URL: https://api.openai.com/v1/models
+  Authentication: Header Auth
+  Credential:     [OpenAI API Credential]
+                  → Header: Authorization: Bearer sk-...
+```
+
+## POST Request ဖြင့် Data ပို့ခြင်း
+
+Form Data ကို API ထဲ Submit လုပ်ရာတွင်:
+
+```
+HTTP Request - POST:
+  Method: POST
+  URL:    https://api.example.com/users
+  Body:   {
+    "name": "{{ $json.name }}",
+    "email": "{{ $json.email }}"
+  }
+  Content-Type: application/json
+```
+
+## Webhook — Incoming Data လက်ခံခြင်း
+
+Webhook ဆိုတာ n8n ကို **Server** ပုံပြောင်းပြီး External Systems မှ Data ပို့ရာ n8n ကလက်ခံသည်:
+
+<FlowDiagram
+  nodes={[
+    { label: "External System", sublabel: "Form / Payment / Git", type: "trigger" },
+    { label: "Webhook Node", sublabel: "HTTP POST လက်ခံ", type: "action" },
+    { label: "Workflow Continues", sublabel: "Processing...", type: "action" }
+  ]}
+  caption="External System → n8n Webhook → Workflow ဆက်ပြေး"
+/>
+
+## Webhook Workflow ဆောက်ခြင်း
+
+### Goal: Form Submit → Slack Notification
+
+<FlowDiagram
+  nodes={[
+    { label: "Webhook Trigger", type: "trigger" },
+    { label: "Set Node", sublabel: "Format Data", type: "data" },
+    { label: "Slack Message", type: "action" }
+  ]}
+/>
+
+### Step 1: Webhook Trigger Node ထည့်ပါ
+
+Node Search → **"Webhook"** → ရွေးပါ
+
+Webhook Node ကို Configure လုပ်ရာတွင်:
+- HTTP Method: POST
+- Path: /contact-form
+- Response: Respond with... (Immediately)
+
+Test URL: `http://localhost:5678/webhook-test/contact`
+Production URL: `http://localhost:5678/webhook/contact`
+
+### Step 2: Test URL ဖြင့် Data ပို့ကြည့်ပါ
+
+Terminal မှ curl ဖြင့် Test:
+
+```bash
+curl -X POST http://localhost:5678/webhook-test/contact-form \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Ko Aung",
+    "email": "aung@example.com",
+    "message": "Hello, I need help!"
+  }'
+```
+
+### Step 3: Webhook Data ကို Format လုပ်ပါ
+
+n8n Webhook Node ၏ Output:
+
+```json
+{
+  "body": {
+    "name": "Ko Aung",
+    "email": "aung@example.com",
+    "message": "Hello, I need help!"
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "query": {}
+}
+```
+
+Data ကိုဖတ်ရာတွင်: `{{ $json.body.name }}`
+
+<Aside type="caution" title="Test vs Production URL">
+**Test URL** (`/webhook-test/`) → Editor မှ "Listen for test event" ကို နှိပ်ထားမှ အလုပ်လုပ်သည်
+
+**Production URL** (`/webhook/`) → Workflow ကို **Active** မှသာ အလုပ်လုပ်သည်
+</Aside>
+
+## Webhook Response
+
+Webhook ကိုခေါ်သော System သို့ Response ပြန်ပို့ရာတွင်:
+
+- **Option 1: "Immediately"** — 200 OK ကို အမြန်ဆုံး ပြန်ပို့ / Workflow ဆက်ပြေးနေသည် / Form Submit မြန်ဆန်ပါသည်
+- **Option 2: "When last node finishes"** — Workflow ပြီးမှ Response ပြန်ပို့ / Data ကို Response ထဲ ထည့်နိုင်သည် / Caller က Wait နေရသည်
+
+**Custom Response ပြန်ပို့ခြင်း:**
+
+Workflow ထဲ **"Respond to Webhook"** Node ထည့်ပြီး:
+
+```javascript
+// Respond to Webhook Node
+{
+  "success": true,
+  "message": "Form received! We'll contact you soon.",
+  "ticketId": "TKT-{{ $now.toISO() }}"
+}
+```
+
+## Webhook Security
+
+Production Webhook အတွက် Security ရွေးချယ်မှုများ:
+
+1. **Header Auth** — "X-API-Key: secret123" Header ကို Required ဖြစ်အောင် ထည့်ပါ
+2. **Query Auth** — URL ထဲ `?token=secret` Required ဖြစ်အောင် ထည့်ပါ
+3. **IP Whitelist** — n8n.io/docs/hosting/configuration/#security ကို ကြည့်ပါ
+
+နောက်သင်ခန်းစာမှာ **Data Transformation** — n8n မှာ Data ကို ပုံသဏ္ဍာန် ပြောင်းလဲနည်းကို လေ့လာမည်!

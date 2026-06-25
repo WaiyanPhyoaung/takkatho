@@ -1,0 +1,275 @@
+---
+title: "Capstone Project: E-commerce Automation System"
+description: "Course တွင် လေ့လာခဲ့သမျှကို ပေါင်းစပ်ပြီး Complete E-commerce Automation Platform တည်ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+import BranchFlow from "@/components/diagrams/BranchFlow.astro";
+import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+## Project Overview
+
+ဤ Capstone Project တွင် Myanmar Online Shop တစ်ခုအတွက် **Complete Automation System** တည်ဆောက်မည်။ ဒီ Course တွင် လေ့လာခဲ့သော Concepts အားလုံးကို အသုံးချမည်:
+
+| Module | ဘာ သုံးမလဲ |
+|--------|-----------|
+| Webhook | Order ဝင်ရောက်မှုကို လက်ခံသည် |
+| Credentials | Stripe, Gmail, Slack API |
+| Data Transformation | Order Data ကို Format ချသည် |
+| IF / Branch | VIP vs Standard Order ခွဲသည် |
+| Parallel Actions | Email + Slack + Database တပြိုင်တည်း |
+| Error Handling | Payment Fail ဖြစ်ရင် Alert ပေးသည် |
+| Sub-Workflows | Notification ကို Reusable လုပ်သည် |
+| Database | MySQL ထဲ Order သိမ်းသည် |
+| Loop/Batch | Bulk Order Report ထုတ်သည် |
+| AI | Customer Message ကို Auto-reply ပေးသည် |
+| Schedule | Daily Report Email ပို့သည် |
+
+## System Architecture
+
+<FlowDiagram
+  nodes={[
+    { label: "WooCommerce / Shopify", sublabel: "Order Events", type: "trigger" },
+    { label: "n8n Webhook", sublabel: "Central Hub", type: "action" },
+    { label: "Process & Automate", sublabel: "Workflows", type: "code" },
+    { label: "Database + Notifications", sublabel: "MySQL + Email + Slack", type: "end" }
+  ]}
+  caption="E-commerce → n8n Hub → All automated actions"
+/>
+
+## Workflow 1: New Order Processing
+
+New Order ဝင်လာသောအခါ အောက်ပါ Actions တွေကို Run ပေးသည်:
+
+<BranchFlow
+  input="Webhook: New Order (from Store)"
+  condition="Order Total > 50,000 MMK?"
+  truePath={["Set: VIP Flag", "Gmail: VIP Confirmation + Free Shipping", "Slack: #vip-orders alert"]}
+  falsePath={["Set: Standard Flag", "Gmail: Standard Confirmation", "Slack: #orders alert"]}
+  trueLabel="VIP Order ⭐"
+  falseLabel="Standard Order"
+/>
+
+### Order Processing Code
+
+```javascript
+// Code Node — Order ကို Validate + Enrich လုပ်ပါ
+const order = $input.first().json;
+
+// Validate Required Fields
+const required = ['orderId', 'customer', 'total', 'items'];
+const missing = required.filter(f => !order[f]);
+if (missing.length > 0) {
+  throw new Error(`Missing fields: ${missing.join(', ')}`);
+}
+
+// Enrich Order Data
+return [{
+  json: {
+    ...order,
+    isVip: order.total > 50000,
+    formattedTotal: `${Number(order.total).toLocaleString()} ကျပ်`,
+    itemCount: order.items.length,
+    orderDate: new Date().toLocaleDateString('my-MM', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }),
+    estimatedDelivery: new Date(
+      Date.now() + (order.isVip ? 2 : 5) * 24 * 60 * 60 * 1000
+    ).toLocaleDateString('my-MM')
+  }
+}];
+```
+
+## Workflow 2: Payment Processing
+
+Stripe Payment Webhook ဝင်လာသောအခါ:
+
+<BranchFlow
+  input="Webhook: Stripe Payment Event"
+  condition="Payment succeeded?"
+  truePath={["MySQL: Update order status='paid'", "Gmail: Receipt Email", "Sub-WF: Send Notification"]}
+  falsePath={["MySQL: Update status='failed'", "Gmail: Payment Failed + Retry Link", "Slack: #payments urgent alert"]}
+  trueLabel="payment_intent.succeeded ✅"
+  falseLabel="payment_intent.payment_failed ❌"
+/>
+
+```javascript
+// Code Node — Stripe Event ကို Parse လုပ်ပါ
+const event = $input.first().json;
+
+const isSuccess = event.type === 'payment_intent.succeeded';
+const amount = event.data.object.amount / 100; // cents to dollars
+
+return [{
+  json: {
+    eventType: event.type,
+    orderId: event.data.object.metadata.orderId,
+    amount,
+    currency: event.data.object.currency.toUpperCase(),
+    status: isSuccess ? 'paid' : 'failed',
+    failureReason: isSuccess ? null : event.data.object.last_payment_error?.message
+  }
+}];
+```
+
+## Workflow 3: Daily Sales Report
+
+<FlowDiagram
+  nodes={[
+    { label: "Schedule Trigger", sublabel: "Mon-Sat 8am", type: "trigger" },
+    { label: "MySQL: Yesterday's Orders", type: "data" },
+    { label: "Code: Calculate KPIs", type: "code" },
+    { label: "Gmail: Report to Owner", type: "action" }
+  ]}
+  caption="နေ့တိုင်း မနက် ၈ နာရီ ကနေ့ Sales Summary ကို Owner ဆီ Email ပို့သည်"
+/>
+
+```javascript
+// Code Node — KPI Calculation
+const orders = $input.all().map(i => i.json);
+
+const stats = {
+  date: new Date(Date.now() - 86400000).toLocaleDateString('my-MM'),
+  totalOrders: orders.length,
+  totalRevenue: orders.reduce((s, o) => s + o.total, 0),
+  avgOrderValue: orders.length > 0
+    ? Math.round(orders.reduce((s, o) => s + o.total, 0) / orders.length)
+    : 0,
+  vipOrders: orders.filter(o => o.is_vip).length,
+  cancelledOrders: orders.filter(o => o.status === 'cancelled').length,
+  topProducts: orders
+    .flatMap(o => JSON.parse(o.items || '[]'))
+    .reduce((acc, item) => {
+      acc[item.name] = (acc[item.name] || 0) + item.quantity;
+      return acc;
+    }, {})
+};
+
+// Top product ကို ရှာပါ
+stats.bestSeller = Object.entries(stats.topProducts)
+  .sort(([,a], [,b]) => b - a)[0]?.[0] ?? 'N/A';
+
+return [{ json: stats }];
+```
+
+**Report Email HTML:**
+
+```html
+<div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto;">
+  <div style="background: #1a1a2e; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
+    <h1 style="margin:0; font-size:24px;">📊 Daily Sales Report</h1>
+    <p style="margin:8px 0 0; opacity:0.8;">{{ $json.date }}</p>
+  </div>
+
+  <div style="background: #f8f9fa; padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="background: white; padding: 16px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+      <div style="font-size: 28px; font-weight: bold; color: #4CAF50;">{{ $json.totalOrders }}</div>
+      <div style="color: #666; font-size: 14px;">Total Orders</div>
+    </div>
+    <div style="background: white; padding: 16px; border-radius: 8px; border-left: 4px solid #2196F3;">
+      <div style="font-size: 28px; font-weight: bold; color: #2196F3;">{{ $json.totalRevenue.toLocaleString() }} ကျပ်</div>
+      <div style="color: #666; font-size: 14px;">Total Revenue</div>
+    </div>
+    <div style="background: white; padding: 16px; border-radius: 8px; border-left: 4px solid #FF9800;">
+      <div style="font-size: 28px; font-weight: bold; color: #FF9800;">{{ $json.avgOrderValue.toLocaleString() }} ကျပ်</div>
+      <div style="color: #666; font-size: 14px;">Avg Order Value</div>
+    </div>
+    <div style="background: white; padding: 16px; border-radius: 8px; border-left: 4px solid #9C27B0;">
+      <div style="font-size: 28px; font-weight: bold; color: #9C27B0;">⭐ {{ $json.vipOrders }}</div>
+      <div style="color: #666; font-size: 14px;">VIP Orders</div>
+    </div>
+  </div>
+
+  <div style="background: white; padding: 16px 24px; border-top: 1px solid #eee;">
+    <p>🏆 Best Seller: <strong>{{ $json.bestSeller }}</strong></p>
+  </div>
+</div>
+```
+
+## Workflow 4: AI Customer Support
+
+Customer ၏ Message ကို AI ဖြင့် Auto-reply:
+
+<BranchFlow
+  input="Webhook: Customer Message"
+  condition="AI: Sentiment Negative?"
+  truePath={["Flag as Urgent", "Slack: #support-urgent", "Human Agent Assignment"]}
+  falsePath={["AI: Generate Reply", "Gmail: Auto-reply", "Log to CRM"]}
+  trueLabel="Angry Customer 😠"
+  falseLabel="Normal Query 😊"
+/>
+
+```
+AI Prompt for Auto-Reply:
+"""
+You are a customer service representative for Myanmar Online Shop.
+Reply in a friendly, professional manner in Myanmar language.
+
+Customer message: {{ $json.message }}
+Customer name: {{ $json.customerName }}
+Order ID (if mentioned): {{ $json.orderId ?? 'N/A' }}
+
+Guidelines:
+- Keep replies under 150 words
+- If asking about order status, say you'll check and follow up
+- Be empathetic and solution-focused
+- Sign off as "MOS Customer Support Team"
+"""
+```
+
+## Complete System Overview
+
+<ParallelFlow
+  source="All Automations Running"
+  sourceType="action"
+  targets={[
+    "Order Processing (Webhook)",
+    "Payment Handling (Stripe)",
+    "Daily Report (Schedule)",
+    "AI Support (Chat)",
+    "Inventory Alert (Schedule)",
+    "Review Request (Trigger)"
+  ]}
+  caption="n8n တစ်ခုတည်းဖြင့် Business Automation ၆ ချောင်း တပြိုင်တည်း ထိန်းသိမ်းသည်"
+/>
+
+## Implementation Checklist
+
+```
+Phase 1: Setup (ရက် ၁)
+  □ n8n Self-host on VPS (Docker Compose)
+  □ Domain + SSL Configure
+  □ Credentials: Gmail, Slack, MySQL, Stripe
+
+Phase 2: Core Workflows (ရက် ၂-၃)
+  □ Order Processing Webhook
+  □ Payment Success/Fail Handling
+  □ Error Workflow (Global Alert)
+
+Phase 3: Reporting (ရက် ၄)
+  □ Daily Sales Report (Schedule)
+  □ Weekly Summary
+  □ Monthly Revenue Report
+
+Phase 4: AI Integration (ရက် ၅)
+  □ Customer Message Sentiment Analysis
+  □ Auto-reply for FAQ
+  □ Escalation to Human Agent
+
+Phase 5: Polish (ရက် ၆-၇)
+  □ Test all Workflows in Staging
+  □ Set up Backup (Nightly)
+  □ Monitor first week of Production
+```
+
+<Aside type="tip" title="Congratulations! 🎉">
+ဒီ Course ကို ပြီးမြောက်သွားပြီဆိုရင် n8n ဖြင့် Real Business Automation တွေ ဆောက်နိုင်ဖို့ အသင့်ဖြစ်ပြီပါပြီ။
+
+**Next Steps:**
+- n8n Community Templates — community.n8n.io
+- n8n Documentation — docs.n8n.io
+- Myanmar Developer Community မှာ Workflow တွေ Share လုပ်ပါ
+
+Happy Automating! 🚀
+</Aside>
