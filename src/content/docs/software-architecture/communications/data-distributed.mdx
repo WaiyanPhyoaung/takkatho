@@ -22,7 +22,7 @@ Service တစ်ခုက တခြား Service တစ်ခုရဲ့ Data
 
   2. **Asynchronous Events (Event များဖြင့် ဆက်သွယ်ခြင်း) -** Service B က သူ့ Data ပြောင်းလဲသွားတိုင်း "UserDataUpdated" ဆိုတဲ့ Event တစ်ခု ထုတ်လွှင့်ပေးပါတယ်။ Service A က အဲဒီ Event ကိုနားထောင်ပြီး သူ့ဆီမှာရှိတဲ့ Data Copy ကို Update လုပ်ပါတယ်။ ဒါက ပိုပြီး ခံနိုင်ရည်ရှိပေမယ့်၊ **Eventual Consistency (ချက်ချင်း Data မတူပေမယ့်၊ နောက်ဆုံးမှာတော့ တူညီသွားတဲ့အခြေအနေ)** ကို ဖြစ်ပေါ်စေပါတယ်။
 
-### The Saga Pattern: Service များတစ်လျှောက် Transaction များ ပြုလုပ်ခြင်း
+### The Saga Pattern: Service များတစ်လျှောက် Transaction များ လုပ်ခြင်း
 ဒီ Pattern က Service တွေမှာ **All or Nothing** ဆိုတဲ့ လုပ်ဆောင်ချက်တွေရဲ့ ပြဿနာကို ဖြေရှင်းပေးပါတယ်။
 
 - **ပြဿနာ -** Order တစ်ခုတင်တာကို မြင်ယောင်ကြည့်ပါ။ ဒါက - 
