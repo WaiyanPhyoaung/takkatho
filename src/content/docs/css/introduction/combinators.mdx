@@ -1,0 +1,121 @@
+---
+title: "Combinators (Selector များ ချိတ်ဆက်ခြင်း)"
+description: "Selector များကို ပေါင်းစပ်ပြီး တိကျစွာ ရွေးချယ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import combinators from '@/assets/css/combinators.svg';
+
+<Aside title="ဒီအပိုင်းမှာ ဘာတွေ သင်ယူရမလဲ">
+- Selector တွေကို တစ်ခုနဲ့တစ်ခု ပေါင်းစပ်ပြီး **တိတိကျကျ** ရွေးချယ်တတ်အောင်
+- Element တွေရဲ့ **ဆွေမျိုးတော်စပ်ပုံ** (parent, child, sibling) ကို အသုံးချတတ်အောင်
+- Attribute တန်ဖိုးအလိုက် element ရွေးချယ်တတ်အောင်
+</Aside>
+
+<Aside type="note">
+ဒီအပိုင်းကို နားလည်ဖို့ ရှေ့က [Selectors](/css/introduction/selectors) အပိုင်းက element၊ class၊ id selector သုံးမျိုးကို သိထားဖို့ လိုပါတယ်။
+</Aside>
+
+အရင်အပိုင်းမှာ Selector တစ်ခုတည်းနဲ့ ရွေးတာကို လေ့လာခဲ့ပါတယ်။ တကယ့် project တွေမှာတော့ **"ဒီ box အထဲက link တွေကိုပဲ ပြင်ချင်တယ်"** လိုမျိုး တိတိကျကျ ရွေးဖို့ လိုလာပါတယ်။ အဲဒီအခါ Selector တွေကို ပေါင်းစပ်ပေးတဲ့ **Combinator** တွေကို သုံးရပါတယ်။
+
+### 1. Grouping (အုပ်စုဖွဲ့ခြင်း) — ကော်မာ `,`
+
+Style တူတူ ပေးချင်တဲ့ Selector တွေကို ကော်မာ (`,`) ခံပြီး တစ်စုတည်း ရေးလို့ရပါတယ်။ တစ်ခုချင်း ထပ်ခါထပ်ခါ ရေးနေစရာ မလိုတော့ပါဘူး။
+
+```css
+/* h1, h2, h3 သုံးခုလုံးကို တစ်ပြိုင်တည်း ပြင်တယ် */
+h1, h2, h3 {
+  font-family: "Padauk", sans-serif;
+  color: #333;
+}
+```
+
+### 2. Descendant Combinator (အတွင်းသားများ) — space ` `
+
+Selector နှစ်ခုကြားမှာ **space (ကွက်လပ်)** ခြားရေးရင် "ပထမ element ရဲ့ **အတွင်းမှာ ရှိသမျှ**" ဒုတိယ element ကို ဆိုလိုပါတယ်။ ဘယ်နှဆင့် နက်နက် ရွေးပေးပါတယ်။
+
+```html
+<nav class="menu">
+  <ul>
+    <li><a href="#">ပင်မ</a></li>
+    <li><a href="#">ဝန်ဆောင်မှု</a></li>
+  </ul>
+</nav>
+```
+
+```css
+/* .menu အတွင်းက <a> အားလုံး — ဘယ်လောက်နက်နက် */
+.menu a {
+  color: green;
+  text-decoration: none;
+}
+```
+
+### 3. Child Combinator (တိုက်ရိုက်သားများ) — `>`
+
+`>` သုံးရင် **တိုက်ရိုက် သားသမီး (direct child)** ကိုသာ ရွေးပါတယ်။ မြေးအဆင့် (နက်နက်) ကို မရွေးပါဘူး။
+
+```css
+/* ul ရဲ့ တိုက်ရိုက်သား li တွေကိုသာ */
+ul > li {
+  list-style: square;
+}
+```
+
+<Aside type="tip">
+**space နဲ့ `>` ကွာခြားချက်:** `.menu a` က .menu ထဲက link **အားလုံး** (နက်နက်ပါ)၊ `.menu > a` ကတော့ .menu ရဲ့ **တိုက်ရိုက်သား** link တွေကိုသာ ရွေးပါတယ်။
+</Aside>
+
+### 4. Adjacent Sibling (ကပ်လျက် ညီအစ်ကို) — `+`
+
+Element **နှစ်ခုက ညီအစ်ကို (level တူ)** ဖြစ်ပြီး၊ ရှေ့ကတစ်ခုရဲ့ **နောက်မှာ ကပ်လျက်** ရှိတဲ့ element တစ်ခုတည်းကို ရွေးပါတယ်။
+
+```css
+/* ခေါင်းစဉ် h2 ရဲ့ ချက်ချင်းနောက်က စာပိုဒ်ကိုသာ */
+h2 + p {
+  margin-top: 0;
+  color: gray;
+}
+```
+
+### 5. General Sibling (ညီအစ်ကို အားလုံး) — `~`
+
+`+` နဲ့ ဆင်တူပေမယ့်၊ ကပ်လျက် တစ်ခုတည်း မဟုတ်ဘဲ **နောက်က ညီအစ်ကို အားလုံး** ကို ရွေးပါတယ်။
+
+```css
+/* h2 နောက်မှာ ရှိသမျှ စာပိုဒ် p အားလုံး */
+h2 ~ p {
+  color: gray;
+}
+```
+
+<ContentImage src={combinators} alt="CSS Combinators — element များ၏ ဆွေမျိုးတော်စပ်ပုံနှင့် combinator များ" />
+
+### 6. Attribute Selector (Attribute အလိုက် ရွေးခြင်း) — `[ ]`
+
+Element ရဲ့ attribute တန်ဖိုးပေါ်မူတည်ပြီး ရွေးလို့ရပါတယ်။ Form တွေမှာ အရမ်း အသုံးဝင်ပါတယ်။
+
+```css
+/* type="text" ဖြစ်တဲ့ input တွေကိုသာ */
+input[type="text"] {
+  border: 1px solid #ccc;
+}
+
+/* type="submit" ဖြစ်တဲ့ button */
+input[type="submit"] {
+  background-color: blue;
+  color: white;
+}
+```
+
+<Aside type="caution" title="အမှားများ ရှောင်ရန်">
+- Combinator တွေကြားမှာ space ရှိမရှိ ဂရုစိုက်ပါ — `.box .item` (descendant) နဲ့ `.box.item` (element တစ်ခုတည်းမှာ class နှစ်ခုစလုံး ရှိတာ) က **လုံးဝ မတူပါဘူး**။
+- `>` `+` `~` တွေက **ညီအစ်ကို/သားသမီး** အဆက်အစပ်ကိုသာ ကြည့်တာမို့ HTML ဖွဲ့စည်းပုံ မှန်မှသာ အလုပ်လုပ်ပါမယ်။
+</Aside>
+
+<Aside type="tip" title="နောက်တစ်ဆင့်">
+Selector အမျိုးမျိုးကို ရွေးတတ်ပြီဆိုတော့၊ တစ်ချက်နဲ့တစ်ချက် **ဆန့်ကျင်ဘက် style ပေးမိရင် ဘယ်ဟာ အနိုင်ရမလဲ** ဆိုတာ သိဖို့လိုပါပြီ။ အဲဒါကို နောက်အပိုင်း **Specificity** မှာ ဆက်လေ့လာပါမယ်။
+
+👉 [Specificity & The Cascade](/css/introduction/specificity)
+</Aside>

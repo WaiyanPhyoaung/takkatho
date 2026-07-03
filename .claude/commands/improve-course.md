@@ -40,10 +40,8 @@ A diagram is NOT needed when:
 
 | Course | Topics that need diagrams |
 |--------|--------------------------|
-| HTML | DOM tree structure, semantic vs div layout, form submission flow, table colspan/rowspan grid |
-| CSS | Box model (content/padding/border/margin), specificity pyramid, flexbox main/cross axes, grid template areas, cascade order |
-| JavaScript | Scope chain, event bubbling/capturing, Promise states, call stack |
-| Python | Variable scope (local/global), class hierarchy/inheritance, function call flow, list vs tuple vs dict comparison |
+| HTML | DOM tree, nesting structure, form submission flow, semantic vs non-semantic layout |
+| CSS | Box model, flexbox axes, grid areas, specificity calculation, positioning |
 | Any | If/else branching flow, loop iteration diagram, before/after fix comparisons |
 
 ---
@@ -70,13 +68,12 @@ For each module file, check:
 - [ ] Does the module open with learning objectives (Aside component)?
 - [ ] Does every code example show expected output?
 - [ ] Is there a "Common Mistakes" or Aside caution section?
-- [ ] Does the module end with a "Next Step" link?
 - [ ] Does each section introduce exactly ONE new concept before moving on?
 - [ ] Is there a bridging sentence between sections that connects what was just learned to what comes next?
 - [ ] Are examples concrete and relatable (real names, Myanmar-context scenarios) rather than abstract (`foo`, `bar`, `x`)?
 - [ ] Are prerequisites stated? ("ဒီအပိုင်းကို နားလည်ဖို့ ... ကို သိထားဖို့လိုပါတယ်")
 - [ ] Does difficulty ramp gradually within the module (simple → complex)?
-- [ ] If a concept can be shown visually, is there a diagram? (see Diagram Decision Guide below)
+- [ ] If a concept can be shown visually, is there a diagram? (see Diagram Decision Guide above)
 
 **Myanmar language quality (for Burmese-language courses):**
 - [ ] Are abstract concepts explained with Myanmar-life analogies?
@@ -133,7 +130,8 @@ Execute in this order:
    - Better Myanmar analogies where content feels too abstract
    - Aside caution boxes for common pitfalls
    - Expected output shown in every code example (use `// Output: ...` comments or an Aside note block)
-   - "Next Step" Aside + LinkCard at the bottom
+
+   > Note: Do NOT add manual "Next Step" LinkCards at the bottom of modules — the Astro/Starlight framework auto-generates prev/next pagination between sidebar entries. A short in-content bridging sentence to the next concept is fine, but no LinkCard footer is needed.
 
 4. **Create new module files** — use the same MDX pattern as existing modules (`import { Aside }`, `import ContentImage`, Myanmar-language explanations).
 
@@ -151,9 +149,7 @@ After content changes, do a dedicated pass over each modified module to check la
 - **Consistent terms?** — Build a mental glossary as you read. Flag if the same concept uses two different Burmese words across modules (e.g. sometimes "ဒေတာ" sometimes "အချက်အလက်" for the same thing — pick one and be consistent).
 
 ### Comprehension-level checks
-Ask for each concept explanation: "Could a Myanmar high school graduate with no programming background understand this on first read?"
-
-If NO — add one of:
+Ask for each concept explanation: "Could a Myanmar high school graduate with no programming background understand this on first read?" If not, add:
 - A Myanmar-life analogy (`ဥပမာနှိုင်းယှဉ်ချက်` box)
 - A simpler stepping stone sentence before the technical explanation
 - A diagram (see Diagram Decision Guide)
@@ -173,22 +169,22 @@ If NO — add one of:
 In `astro.config.mjs`, add new modules in logical order. Use this pattern:
 ```js
 {
-  label: "Module X: Topic Name",
-  items: [{ label: "Page Title", slug: "course/module-x" }],
-},
+  label: 'Module Title',
+  slug: '[course-name]/module-slug',
+}
 ```
 
 ---
 
-## Output
+## Step 8: Report
 
 After completing, report:
-- **Files created/modified** — list each file with a one-line summary of what changed
-- **Critical fixes** — security issues, broken content, encoding fixes
-- **Diagrams added** — list each new SVG with the concept it illustrates
-- **Myanmar language fixes** — note any sentences rewritten, analogies added, or terminology standardized
-- **Modules added** — new files and what they cover
-- **Next priority** — the single most important remaining improvement if scope ran out
+- Files created/modified — list each file with a one-line summary of what changed
+- Critical fixes — security issues, broken content, encoding fixes
+- Diagrams added — list each new SVG with the concept it illustrates
+- Myanmar language fixes — note any sentences rewritten, analogies added, or terminology standardized
+- Modules added — new files and what they cover
+- Next priority — the single most important remaining improvement if scope ran out
 
 ---
 
@@ -197,17 +193,16 @@ After completing, report:
 This same workflow applies to any course in the project. Replace `[course-name]` with `html`, `css`, `javascript`, `java`, etc.
 
 The Step 3 checklist adapts per language:
-- **HTML** — check semantic elements, alt text on all images, form labels, ARIA where needed
-- **CSS** — check specificity explained, box model diagrammed, flexbox/grid axes shown visually
-- **JavaScript** — check `typeof` used correctly, scope chain explained, async/await vs callbacks
-- **Java** — check access modifiers explained, checked vs unchecked exceptions, interface vs abstract class
-- **Python** — check type hints, venv before pip, encoding='utf-8' on file I/O
+- HTML — check semantic elements, alt text on all images, form labels, ARIA where needed
+- CSS — check specificity explained, box model diagrammed, flexbox/grid axes shown visually
+- JavaScript — check typeof used correctly, scope chain explained, async/await vs callbacks
+- Java — check access modifiers explained, checked vs unchecked exceptions, interface vs abstract class
+- Python — check type hints, venv before pip, encoding='utf-8' on file I/O
 
-But the core structure always applies: **objectives → concept → analogy → example with output → common mistakes → next step**.
+But the core structure always applies: objectives → concept → analogy → example with output → common mistakes. (Prev/next navigation is handled automatically by Starlight — no manual "Next Step" LinkCard footer.)
 
-**Key rules:**
-- **Never change UI styles** — do not modify CSS files, component styling, Tailwind classes, or visual design. Colors, fonts, spacing, and layout appearance must stay as-is.
+Key rules:
+- Never change UI styles — do not modify CSS files, component styling, Tailwind classes, or visual design. Colors, fonts, spacing, and layout appearance must stay as-is.
 - Content structure is fair game — adding sections, reordering content within a module, adding new modules, restructuring headings, and reorganizing explanations are all allowed.
-- When adding Myanmar analogies, use real Myanmar life situations — tea shop orders, kyat prices, township names, family structures — not generic analogies that could be from any culture
-- Every new diagram must have a Myanmar-language caption and label the key parts
-- Never leave a module that ends abruptly — always add a Next Step LinkCard
+- When adding Myanmar analogies, use real Myanmar life situations — tea shop orders, kyat prices, township names, family structures — not generic analogies that could be from any culture.
+- Every new diagram must have a Myanmar-language caption and label the key parts.

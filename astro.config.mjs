@@ -2363,6 +2363,14 @@ export default defineConfig({
                   label: "Selectors",
                   slug: "css/introduction/selectors",
                 },
+                {
+                  label: "Combinators",
+                  slug: "css/introduction/combinators",
+                },
+                {
+                  label: "Specificity & Cascade",
+                  slug: "css/introduction/specificity",
+                },
               ],
             },
 

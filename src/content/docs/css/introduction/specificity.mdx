@@ -1,0 +1,112 @@
+---
+title: "Specificity & The Cascade (ဘယ် Rule က အနိုင်ရမလဲ)"
+description: "Style များ တိုက်ဆိုင်တဲ့အခါ ဘယ်ဟာ အနိုင်ရသလဲ ဆုံးဖြတ်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import ContentImage from '@/components/Content-image.astro';
+import specificity from '@/assets/css/specificity.svg';
+
+<Aside title="ဒီအပိုင်းမှာ ဘာတွေ သင်ယူရမလဲ">
+- **The Cascade** ဆိုတာ ဘာလဲ၊ CSS က style တွေ ဘယ်လို အဆင့်ဆင့် ဖတ်သလဲ
+- Selector နှစ်ခုက **ဆန့်ကျင်ဘက် style** ပေးမိရင် ဘယ်ဟာ အနိုင်ရသလဲ (**Specificity**)
+- `!important` ဘာလဲ၊ ဘာလို့ သတိထားသုံးရမလဲ
+- Style တွေ **အမွေဆက်ခံ (Inheritance)** ပုံ
+</Aside>
+
+<Aside type="note">
+ဒီအပိုင်းကို နားလည်ဖို့ ရှေ့က [Selectors](/css/introduction/selectors) နဲ့ [Combinators](/css/introduction/combinators) အပိုင်းတွေကို သိထားဖို့ လိုပါတယ်။
+</Aside>
+
+### The Cascade ဆိုတာ ဘာလဲ?
+
+CSS ဆိုတဲ့ နာမည်ထဲက **C** က **Cascading** — "အဆင့်ဆင့် စီးဆင်းခြင်း" လို့ အဓိပ္ပာယ်ရပါတယ်။ Element တစ်ခုအတွက် style rule အများကြီး ရေးမိတဲ့အခါ၊ Browser က ဘယ်ဟာကို နာခံရမလဲ ဆုံးဖြတ်ဖို့ စည်းမျဉ်း (၃) ဆင့် သုံးပါတယ်။
+
+1. **Importance** — `!important` ပါသလား?
+2. **Specificity** — Selector ရဲ့ အလေးချိန် (တိကျမှု) ဘယ်လောက်လဲ?
+3. **Source Order** — အထက်ပါ နှစ်ခု တူညီနေရင်၊ **နောက်ဆုံး ရေးထားတဲ့ rule** က အနိုင်ရတယ်။
+
+<Aside title="ဥပမာနှိုင်းယှဉ်ချက်">
+Specificity ကို **ကုမ္ပဏီတစ်ခုရဲ့ အမိန့်ပေးစနစ်** နဲ့ တင်စားနိုင်ပါတယ်။ ဝန်ထမ်းချင်း (element) ပြောတာထက် Team Lead (class) ပြောတာက ပိုအားရှိတယ်။ Team Lead ထက် Manager (id) က ပိုမြင့်တယ်။ အားလုံးအပေါ်မှာ CEO (inline style) က အနိုင်ရတယ်။ **ရာထူးမြင့်သူ ပြောတဲ့ စကား အနိုင်ရသလို** specificity မြင့်တဲ့ selector က အနိုင်ရပါတယ်။
+</Aside>
+
+### Specificity ကို တွက်ချက်ခြင်း
+
+Selector တစ်ခုစီမှာ အလေးချိန် ရှိပါတယ်။ အလေးချိန် များတဲ့ selector က အနိုင်ရပါတယ်။
+
+| Selector အမျိုးအစား | ဥပမာ | အလေးချိန် |
+|---|---|---|
+| Inline style | `style="..."` | 1000 |
+| ID | `#header` | 100 |
+| Class / Attribute / Pseudo-class | `.btn` `[type]` `:hover` | 10 |
+| Element / Pseudo-element | `div` `p` `::before` | 1 |
+
+<ContentImage src={specificity} alt="CSS Specificity — selector အမျိုးအစားအလိုက် အလေးချိန်နှင့် တွက်ချက်ပုံ" />
+
+### လက်တွေ့ ဥပမာ
+
+အောက်က HTML မှာ စာသားဟာ ဘယ်အရောင် ဖြစ်မလဲ ကြည့်ကြရအောင်။
+
+```html
+<p id="intro" class="lead">မင်္ဂလာပါ</p>
+```
+
+```css
+p            { color: black; }   /* အလေးချိန် = 1   */
+.lead        { color: green; }   /* အလေးချိန် = 10  */
+#intro       { color: blue; }    /* အလေးချိန် = 100 */
+```
+
+```text
+ရလဒ်: စာသားက အပြာရောင် (blue) ဖြစ်မယ်
+→ #intro (100) က အားအကြီးဆုံးမို့ အနိုင်ရတယ်
+```
+
+### Source Order (နောက်ဆုံး ရေးတာ အနိုင်ရခြင်း)
+
+Specificity **တူညီ** နေရင်တော့၊ CSS ဖိုင်ထဲမှာ **နောက်ဆုံး ရေးထားတဲ့ rule** က အနိုင်ရပါတယ်။
+
+```css
+.btn { background: blue; }
+.btn { background: red; }   /* ← ဒါ အနိုင်ရမယ် (နောက်မှ ရေးထားလို့) */
+```
+
+```text
+ရလဒ်: button က အနီရောင် (red) ဖြစ်မယ်
+```
+
+### `!important` — အားလုံးကို ကျော်ဖြတ်သူ
+
+`!important` ထည့်လိုက်ရင် specificity ဘယ်လောက်များများ ကျော်ဖြတ်ပြီး အနိုင်ရပါတယ်။ ဒါပေမယ့် **အလွန်အကျွံ မသုံးသင့်ပါဘူး** — နောက်ပိုင်း style ပြင်ရတာ အရမ်း ခက်ခဲသွားစေလို့ပါ။
+
+```css
+p { color: blue !important; }   /* ဘယ် rule မှ ကျော်လို့ မရတော့ဘူး */
+```
+
+<Aside type="caution" title="အမှားများ ရှောင်ရန်">
+- Style တစ်ခု အလုပ်မလုပ်တာ တွေ့ရင် **ချက်ချင်း `!important` မထည့်ပါနဲ့**။ အရင်ဆုံး ဘယ် selector က ပိုအားကြီးနေလဲ (specificity) စစ်ကြည့်ပါ။
+- ID selector (`#`) ကို style ချရာမှာ များများ မသုံးပါနဲ့ — specificity မြင့်လွန်းပြီး နောက်ပိုင်း override လုပ်ရ ခက်သွားပါတယ်။ **Class (`.`) ကို ဦးစားပေး သုံးပါ**။
+- Specificity တူရင် **နောက်ဆုံး ရေးတာ အနိုင်ရ**တာမို့ CSS ဖိုင်ထဲက rule အစီအစဉ်ကလည်း အရေးကြီးပါတယ်။
+</Aside>
+
+### Inheritance (အမွေဆက်ခံခြင်း)
+
+Property အချို့ (ဥပမာ — `color`, `font-family`, `font-size`) ကို parent element မှာ ပေးလိုက်ရင်၊ အထဲက child element တွေက **အလိုအလျောက် အမွေဆက်ခံ** ပါတယ်။
+
+```css
+body {
+  font-family: "Padauk", sans-serif;
+  color: #333;
+}
+/* body အထဲက စာသား အားလုံး ဒီ font နဲ့ အရောင်ကို အလိုလို ရသွားမယ် */
+```
+
+<Aside type="note">
+`margin`, `padding`, `border`, `background` စတဲ့ layout နဲ့ ဆိုင်တဲ့ property တွေကတော့ အမွေ **မဆက်ခံ**ပါဘူး — element တစ်ခုချင်းစီမှာ သီးသန့် ပေးရပါတယ်။
+</Aside>
+
+<Aside type="tip" title="နောက်တစ်ဆင့်">
+Selector တွေ၊ specificity ကို ကျွမ်းသွားပြီဆိုတော့၊ အခုဆိုရင် element တွေကို လှပအောင် **အရောင်ဆိုးတာ၊ နောက်ခံထည့်တာ** ကို ဆက်လေ့လာဖို့ အဆင်သင့် ဖြစ်ပါပြီ။
+
+👉 [Colors & Backgrounds](/css/visuals/colors)
+</Aside>
