@@ -7,18 +7,18 @@ import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import comprehensionImg from "@/assets/python/comprehension.svg";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- List ကို တစ်ကြောင်းတည်းနဲ့ ဖန်တီးနိုင်မည် (List Comprehension)
-- Dictionary ကို Comprehension နဲ့ ဆောက်နိုင်မည်
-- `zip()`, `enumerate()`, `sorted()` တို့ကို သုံးနိုင်မည်
-- `map()` နှင့် `filter()` ကို နားလည်နိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- List ကို တစ်ကြောင်းတည်းနဲ့ ဖန်တီးနိုင်မယ် (List Comprehension)
+- Dictionary ကို Comprehension သုံးပြီး ဆောက်နိုင်မယ်
+- `zip()`, `enumerate()`, `sorted()` တို့ကို သုံးနိုင်မယ်
+- `map()` နဲ့ `filter()` ကို နားလည်သွားမယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 4 (Data Structures) ကို ပြီးမှ ဆက်ပါ။ Lists နှင့် Dictionaries ကို For Loop နဲ့ ဆက်ပြီး Comprehension ပုံစံ ရေးနည်းကို သင်ကြားမည်။
+Module 4 (Data Structures) ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ Lists နဲ့ Dictionaries ကို For Loop နဲ့ ဆက်ပြီး Comprehension ပုံစံ ရေးနည်းကို သင်ပေးသွားပါမယ်။
 </Aside>
 
-Python ကို **"Pythonic"** နည်းနဲ့ ရေးရတဲ့ အချိန်ကျလာပြီပါ။ Pythonic ဆိုတာ Python ရဲ့ ထူးခြားတဲ့ Style တွေကို သုံးပြီး Code ကို **ပိုတိုပြီး ပိုကြည်လင်အောင်** ရေးတဲ့ နည်းပါ။
+Python ကို **"Pythonic"** နည်းနဲ့ ရေးရမယ့် အချိန်ကျလာပါပြီ။ Pythonic ဆိုတာ Python ရဲ့ ထူးခြားတဲ့ Style တွေကို သုံးပြီး Code ကို **ပိုတိုပြီး ပိုရှင်းလင်းအောင်** ရေးတဲ့ နည်းဖြစ်ပါတယ်။
 
 ---
 
@@ -54,23 +54,23 @@ print(squares)  # [1, 4, 9, 16, 25]
 ```
 
 ```python
-# ဥပမာ ၁: Number တွေကို ၃ ဆ မြှောက်ပြီး List ထဲ ထည့်
+# ဥပမာ ၁: Number တွေကို ၃ ဆ မြှောက်ပြီး List ထဲ ထည့်မယ်
 triple = [n * 3 for n in range(1, 6)]
 print(triple)  # [3, 6, 9, 12, 15]
 
-# ဥပမာ ၂: မြို့နယ်နာမည်များကို ကြီးအောင် ပြောင်း
+# ဥပမာ ၂: မြို့နယ်နာမည်များကို အကြီးစာလုံး (uppercase) ပြောင်းမယ်
 townships = ["hlaing", "kamayut", "dagon"]
 upper_townships = [t.upper() for t in townships]
 print(upper_townships)  # ['HLAING', 'KAMAYUT', 'DAGON']
 
-# ဥပမာ ၃: Character တွေကို ဖောက်ထုတ်
+# ဥပမာ ၃: Character တွေကို ဖောက်ထုတ်မယ်
 letters = [char for char in "Python"]
 print(letters)  # ['P', 'y', 't', 'h', 'o', 'n']
 ```
 
 ---
 
-### Condition ပါသော List Comprehension
+### Condition ပါတဲ့ List Comprehension
 
 `if` ကို ထည့်ပြီး Filter လုပ်နိုင်ပါတယ်:
 
@@ -82,12 +82,12 @@ numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 evens = [n for n in numbers if n % 2 == 0]
 print(evens)  # [2, 4, 6, 8, 10]
 
-# String List ထဲကနေ ရှည်တဲ့ word တွေပဲ
+# String List ထဲကနေ ရှည်တဲ့ word တွေပဲ ယူမယ်
 words = ["hi", "python", "is", "awesome", "AI"]
 long_words = [w for w in words if len(w) > 4]
 print(long_words)  # ['python', 'awesome']
 
-# ဂဏန်းသာ ပါတဲ့ String တွေကို ဂဏန်းအဖြစ် ပြောင်း
+# ဂဏန်းသာ ပါတဲ့ String တွေကို ဂဏန်းအဖြစ် ပြောင်းမယ်
 raw = ["10", "hello", "20", "world", "30"]
 numbers = [int(s) for s in raw if s.isdigit()]
 print(numbers)  # [10, 20, 30]
@@ -106,13 +106,13 @@ List ကဲ့သို့ Dictionary ကိုလည်း Comprehension နဲ
 squares_dict = {n: n**2 for n in range(1, 6)}
 print(squares_dict)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
 
-# ဥပမာ ၂: List နှစ်ခုကို Dictionary ဖြစ်အောင်
+# ဥပမာ ၂: List နှစ်ခုကို Dictionary ဖြစ်အောင် ပေါင်းမယ်
 keys   = ["name", "age", "city"]
 values = ["Aung Aung", 20, "ရန်ကုန်"]
 profile = {k: v for k, v in zip(keys, values)}
 print(profile)  # {'name': 'Aung Aung', 'age': 20, 'city': 'ရန်ကုန်'}
 
-# ဥပမာ ၃: Value စစ်ဆေးပြီး Filter လုပ်
+# ဥပမာ ၃: Value စစ်ဆေးပြီး Filter လုပ်မယ်
 scores = {"Aung": 85, "Su": 92, "Kyaw": 60, "Ma": 78}
 pass_scores = {name: score for name, score in scores.items() if score >= 70}
 print(pass_scores)  # {'Aung': 85, 'Su': 92, 'Ma': 78}
@@ -120,11 +120,11 @@ print(pass_scores)  # {'Aung': 85, 'Su': 92, 'Ma': 78}
 
 ---
 
-### Built-in Functions — Python မှာ အသင့်ပါသော လုပ်ဆောင်ချက်များ
+### Built-in Functions — Python မှာ အသင့်ပါတဲ့ လုပ်ဆောင်ချက်များ
 
 #### zip() — List နှစ်ခု တွဲဖက်ခြင်း
 
-`zip()` ကို ဘဲတွဲ (Pair) ဖွဲ့ပြီး Loop ပတ်ဖို့ သုံးပါတယ်:
+`zip()` ကို အစုံ (Pair) ဖွဲ့ပြီး Loop ပတ်ဖို့ သုံးပါတယ်:
 
 ```python
 students = ["Aung", "Su", "Kyaw"]
@@ -136,7 +136,7 @@ for student, grade in zip(students, grades):
 # Su: B
 # Kyaw: C
 
-# zip() ကို Dictionary ဆောက်ဖို့လည်း သုံးနိုင်
+# zip() ကို Dictionary ဆောက်ဖို့လည်း သုံးနိုင်ပါတယ်
 student_dict = dict(zip(students, grades))
 print(student_dict)  # {'Aung': 'A', 'Su': 'B', 'Kyaw': 'C'}
 ```
@@ -146,7 +146,7 @@ print(student_dict)  # {'Aung': 'A', 'Su': 'B', 'Kyaw': 'C'}
 ```python
 fruits = ["Apple", "Banana", "Orange"]
 
-# enumerate() မပါသောနည်း (ဟောင်းနွမ်း)
+# enumerate() မပါသောနည်း (ဟောင်းနွမ်းပါတယ်)
 for i in range(len(fruits)):
     print(f"{i + 1}. {fruits[i]}")
 
@@ -158,13 +158,13 @@ for i, fruit in enumerate(fruits, start=1):
 # 3. Orange
 ```
 
-#### sorted() — Sort လုပ်ခြင်း (မူရင်းကို မပြင်)
+#### sorted() — Sort လုပ်ခြင်း (မူရင်းကို မပြင်ပါ)
 
 ```python
 numbers = [3, 1, 4, 1, 5, 9, 2, 6]
-sorted_nums = sorted(numbers)         # မူရင်း list မပြောင်း
+sorted_nums = sorted(numbers)         # မူရင်း list မပြောင်းပါ
 print(sorted_nums)   # [1, 1, 2, 3, 4, 5, 6, 9]
-print(numbers)       # [3, 1, 4, 1, 5, 9, 2, 6]  ← မပြောင်းဘူး
+print(numbers)       # [3, 1, 4, 1, 5, 9, 2, 6]  ← မပြောင်းသွားဘူးနော်
 
 # ပြောင်းပြန် Sort
 desc = sorted(numbers, reverse=True)
@@ -198,27 +198,27 @@ print(f"ပျမ်းမျှ: {average:.1f}")  # ပျမ်းမျှ: 8
 
 ---
 
-### map() နှင့် filter() — ချဲ့ထွင်ဆောင်ရွက်ခြင်း
+### map() နဲ့ filter() — ချဲ့ထွင်ဆောင်ရွက်ခြင်း
 
 <Aside type="tip" title="Comprehension vs map/filter">
-Comprehension ကသာ ပိုဖတ်ရလွယ်တာမို့ Comprehension ကို ဦးစားပေးသုံးပါ။ `map()` / `filter()` ကတော့ Library တွေ၊ Function-based Code တွေမှာ မြင်ရတတ်သောကြောင့် နားလည်ထားသင့်ပါတယ်။
+Comprehension ကသာ ပိုဖတ်ရလွယ်တာမို့ Comprehension ကို ဦးစားပေးသုံးပါ။ `map()` / `filter()` ကတော့ Library တွေ၊ Function-based Code တွေမှာ မြင်ရတတ်တာမို့ နားလည်ထားဖို့ သင့်ပါတယ်။
 </Aside>
 
 ```python
 numbers = [1, 2, 3, 4, 5]
 
-# map() — အကုန်ကို ပြောင်းလဲ
+# map() — အကုန်လုံးကို ပြောင်းလဲမယ်
 doubled = list(map(lambda x: x * 2, numbers))
 print(doubled)  # [2, 4, 6, 8, 10]
 
-# Comprehension နဲ့ တူညီ:
+# Comprehension နဲ့ တူညီပါတယ်:
 doubled = [x * 2 for x in numbers]
 
-# filter() — Filter စစ်
+# filter() — Filter စစ်မယ်
 evens = list(filter(lambda x: x % 2 == 0, numbers))
 print(evens)  # [2, 4]
 
-# Comprehension နဲ့ တူညီ:
+# Comprehension နဲ့ တူညီပါတယ်:
 evens = [x for x in numbers if x % 2 == 0]
 ```
 
@@ -236,22 +236,22 @@ students = [
     {"name": "Min Min",   "score": 78},
 ]
 
-# ၁. အောင်သောကျောင်းသားများ (score >= 60)
+# ၁. အောင်တဲ့ကျောင်းသားများ (score >= 60)
 passed = [s for s in students if s["score"] >= 60]
 
-# ၂. Score ကြီးသည်မှ ငယ်သည်ထိ Sort
+# ၂. Score အများကနေ အနည်း Sort လုပ်မယ်
 ranked = sorted(passed, key=lambda s: s["score"], reverse=True)
 
 # ၃. ရလဒ်ပြသခြင်း
-print("=== အောင်ကျောင်းသားများ (အဆင့်) ===")
+print("=== အောင်မြင်သော ကျောင်းသားများ (အဆင့်) ===")
 for rank, student in enumerate(ranked, start=1):
     print(f"{rank}. {student['name']}: {student['score']} မှတ်")
 
 print(f"\nပျမ်းမျှ Score: {sum(s['score'] for s in students) / len(students):.1f}")
-print(f"အကြီးဆုံး: {max(s['score'] for s in students)}")
-print(f"အငယ်ဆုံး: {min(s['score'] for s in students)}")
+print(f"အမြင့်ဆုံးမှတ်: {max(s['score'] for s in students)}")
+print(f"အနိမ့်ဆုံးမှတ်: {min(s['score'] for s in students)}")
 ```
 
 <Aside title="နောက်တစ်ဆင့်">
-Comprehensions ကို ကောင်းကောင်း နားလည်ပြီဆိုရင် **Module 5 — OOP** မှာ Code ကို ပိုမိုစနစ်ကျစွာ ဖွဲ့စည်းနည်းကို လေ့လာမည်!
+Comprehensions ကို ကောင်းကောင်း နားလည်ပြီဆိုရင်တော့ **Module 5 — OOP** မှာ Code ကို ပိုမိုစနစ်ကျအောင် ဖွဲ့စည်းနည်း လေ့လာသွားပါမယ်!
 </Aside>

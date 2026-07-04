@@ -5,28 +5,28 @@ description: "Python Error messages ကို နားလည်ပြီး က
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- Python Error Traceback ကို ဖတ်တတ်ပြီး ဘာမှားနေသလဲ နားလည်နိုင်မည်
-- အဖြစ်များသော Error ၆ မျိုးကို ရှာဖွေဖြေရှင်းနိုင်မည်
-- Print Debugging နည်းကို ကျွမ်းကျင်စွာ သုံးနိုင်မည်
-- VS Code Debugger ကို အခြေခံသုံးနိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- Python Error Traceback ကို ဖတ်တတ်ပြီး ဘာမှားနေသလဲဆိုတာ နားလည်နိုင်မယ်
+- အဖြစ်များတဲ့ Error ၆ မျိုးကို ရှာဖွေဖြေရှင်းနိုင်မယ်
+- Print Debugging နည်းကို ကျွမ်းကျင်စွာ သုံးနိုင်မယ်
+- VS Code Debugger ကို အခြေခံ သုံးတတ်မယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 8 (Mini Project) ကို ပြီးမှ ဆက်ပါ — Error တွေ တွေ့ပြီးနောက် ဒီ Module မှာ ပိုထိရောက်စွာ ဖြေရှင်းနည်း သင်ပါမည်။
+Module 8 (Mini Project) ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ — Error တွေ တွေ့ပြီးနောက် ဒီ Module မှာ ပိုမိုထိရောက်စွာ ဖြေရှင်းနည်းတွေကို သင်ပေးသွားပါမယ်။
 </Aside>
 
-Debugging ဆိုတာ Code ထဲမှာ ဘာမှားနေသလဲ ရှာပြီး ပြင်တဲ့ လုပ်ငန်းစဉ်ပါ။ **Programmer တိုင်းဟာ Error တွေ တွေ့ပါတယ်** — ကွာတာကတော့ Error ကို ဘယ်လောက်မြန်မြန် ဖြေရှင်းနိုင်တာပါ။
+Debugging ဆိုတာ Code ထဲမှာ ဘာမှားနေသလဲဆိုတာကို ရှာဖွေပြီး ပြင်ဆင်တဲ့ လုပ်ငန်းစဉ်ပါ။ **Programmer တိုင်းဟာ Error တွေနဲ့ ကြုံတွေ့ရမြဲပါ** — ကွာခြားသွားတာကတော့ Error ကို ဘယ်လောက်မြန်မြန်ဆန်ဆန် ဖြေရှင်းနိုင်သလဲ ဆိုတာပါပဲ။
 
 <Aside type="tip" title="Debugging အကြောင်း တကယ်ဆိုရင်">
-Experienced Developer တွေဟာ Code ရေးတဲ့ အချိန်ထက် Debugging လုပ်တဲ့ အချိန် **ပိုများတတ်**ပါတယ်။ ဒါဟာ မကောင်းတာ မဟုတ်ပါဘူး — ဒါဟာ ပုံမှန် Programming လုပ်ငန်းစဉ်ပါ။
+Experienced Developer တွေဟာ Code ရေးတဲ့ အချိန်ထက် Debugging လုပ်တဲ့ အချိန်က **ပိုများတတ်**ပါတယ်။ ဒါဟာ မကောင်းတဲ့အရာ မဟုတ်ပါဘူး — ဒါဟာ ပုံမှန် Programming လုပ်ငန်းစဉ် တစ်ခုသာ ဖြစ်ပါတယ်။
 </Aside>
 
 ---
 
 ### Python Error Traceback ကို ဖတ်နည်း
 
-Error တက်တဲ့အခါ Python က **Traceback** ဆိုတဲ့ Error Report ကို ပေးပါတယ်။ ဒါကို ကောင်းကောင်း ဖတ်တတ်ဖို့ အရေးကြီးပါတယ်:
+Error တက်တဲ့အခါ Python က **Traceback** ဆိုတဲ့ Error Report ကို ပေးပါတယ်။ ဒါကို ကောင်းကောင်း ဖတ်တတ်ဖို့က အလွန် အရေးကြီးပါတယ်:
 
 ```python
 def calculate(a, b):
@@ -46,35 +46,35 @@ ZeroDivisionError: division by zero
 ```
 
 **ဖတ်နည်း:**
-1. **အောက်ဆုံး Line** ကို ဦးစွာ ကြည့်ပါ → `ZeroDivisionError: division by zero` ← ဒါက Error အမျိုးအစားနဲ့ အကြောင်းပါ
-2. **File name နှင့် Line number** ကို ကြည့်ပါ → `File "main.py", line 2` ← ဒါက Error တက်တဲ့ နေရာပါ
-3. Error ဖြစ်ပြီးသား Code ကို ကြည့်ပါ → `return a / b` ← ဒါက ပြဿနာ ဖြစ်တဲ့ Code ပါ
+1. **အောက်ဆုံး Line** ကို အရင်ဆုံး ကြည့်ပါ → `ZeroDivisionError: division by zero` ← ဒါက Error ရဲ့ အမျိုးအစားနဲ့ အကြောင်းရင်းပါ။
+2. **File name နဲ့ Line number** ကို ကြည့်ပါ → `File "main.py", line 2` ← ဒါက Error တက်သွားတဲ့ နေရာပါ။
+3. Error ဖြစ်သွားတဲ့ Code ကို ကြည့်ပါ → `return a / b` ← ဒါက ပြဿနာ ဖြစ်သွားစေတဲ့ Code ပါ။
 
 ---
 
-### အဖြစ်များသော Error မျိုး ၆ ခု
+### အဖြစ်များသော Error ၆ မျိုး
 
 #### ၁. SyntaxError — Code ရေးပုံ မှားနေသည်
 
 ```python
 # Error
-print("မင်္ဂလာ"    # Closing ) မပါ
+print("မင်္ဂလာပါ"    # Closing ) မပါဘူး
 
 # SyntaxError: '(' was never closed
 ```
 
-**ဖြေရှင်းနည်း:** Error Line ကိုသွားပြီး Bracket, Quote, Colon (`:`), Indentation တွေကို စစ်ဆေးပါ။
+**ဖြေရှင်းနည်း:** Error Line ကိုသွားပြီး Bracket, Quote, Colon (`:`), Indentation တွေကို သေချာ စစ်ဆေးပါ။
 
 ---
 
 #### ၂. NameError — Variable / Function မသိ
 
 ```python
-print(massage)  # message ကို massage လို့ မှားရိုက်မိ
+print(massage)  # message ကို massage လို့ မှားရိုက်မိတယ်
 # NameError: name 'massage' is not defined
 ```
 
-**ဖြေရှင်းနည်း:** Variable နာမည် မှန်မမှန် စစ်ဆေးပါ။ Python က Case-sensitive ဖြစ်တာကြောင့် `Name` နဲ့ `name` မတူပါဘူး။
+**ဖြေရှင်းနည်း:** Variable နာမည် မှန်၊ မမှန် စစ်ဆေးပါ။ Python က Case-sensitive ဖြစ်တာကြောင့် `Name` နဲ့ `name` ဟာ မတူညီပါဘူး။
 
 ---
 
@@ -86,7 +86,7 @@ print(age + 1)
 # TypeError: can only concatenate str (not "int") to str
 ```
 
-**ဖြေရှင်းနည်း:** Type ကို စစ်ဆေးပြီး `int(age)` / `str(age)` နဲ့ ပြောင်းပါ။
+**ဖြေရှင်းနည်း:** Data Type ကို စစ်ဆေးပြီး လိုအပ်ရင် `int(age)` / `str(age)` စသဖြင့် ပြောင်းလဲပေးပါ။
 
 ---
 
@@ -94,11 +94,11 @@ print(age + 1)
 
 ```python
 fruits = ["Apple", "Banana"]
-print(fruits[5])   # Index 5 မရှိဘူး
+print(fruits[5])   # Index 5 မရှိပါဘူး
 # IndexError: list index out of range
 ```
 
-**ဖြေရှင်းနည်း:** `len(fruits)` ကိုစစ်ဆေးပြီး Index 0 ကနေ `len-1` အထိပဲ ရှိကြောင်း မှတ်ပါ။
+**ဖြေရှင်းနည်း:** `len(fruits)` ကိုစစ်ဆေးပြီး Index ဟာ 0 ကနေ `len-1` အထိပဲ ရှိကြောင်း သတိပြုပါ။
 
 ---
 
@@ -110,7 +110,7 @@ print(student["phone"])
 # KeyError: 'phone'
 ```
 
-**ဖြေရှင်းနည်း:** `.get("phone", "မရှိ")` ကိုသုံးပြီး Default Value ထည့်ပါ။
+**ဖြေရှင်းနည်း:** မသေချာရင် `.get("phone", "မရှိ")` လိုမျိုး သုံးပြီး Default Value ထည့်ပေးပါ။
 
 ---
 
@@ -121,17 +121,17 @@ age = int("hello")
 # ValueError: invalid literal for int() with base 10: 'hello'
 ```
 
-**ဖြေရှင်းနည်း:** User Input ကို `try/except ValueError` နဲ့ ထိန်းချုပ်ပါ။
+**ဖြေရှင်းနည်း:** User Input တွေဆိုရင် `try/except ValueError` နဲ့ သေချာ ထိန်းချုပ်ပေးပါ။
 
 ---
 
 ### Print Debugging — အမြန်ဆုံး Debugging နည်း
 
-Error မရှင်းရင် Code ရဲ့ **သင်ယူလိုသောနေရာမှာ** `print()` ထည့်ပြီး Variable တန်ဖိုးတွေကို စစ်ဆေးတာဟာ Beginner Programmer တွေ အကောင်းဆုံး သုံးနိုင်သော နည်းပါ:
+Error က ရှင်းရှင်းလင်းလင်း မရှိရင် Code ရဲ့ **သံသယရှိတဲ့ နေရာတွေမှာ** `print()` ထည့်ပြီး Variable တန်ဖိုးတွေကို စစ်ဆေးတာဟာ Beginner Programmer တွေအတွက် အကောင်းဆုံးနဲ့ အလွယ်ဆုံး သုံးနိုင်တဲ့ နည်းလမ်းပါ:
 
 ```python
 def calculate_total(prices):
-    print(f"DEBUG: prices = {prices}")   # ← ဒီမှာ ဘာ ရောက်လာသလဲ?
+    print(f"DEBUG: prices = {prices}")   # ← ဒီနေရာမှာ ဘာ Data တွေ ရောက်လာသလဲ?
     
     total = 0
     for price in prices:
@@ -155,52 +155,52 @@ DEBUG: final total = 425
 Final: 425
 ```
 
-Code ပြင်ပြီးရင် DEBUG print တွေကို ဖြုတ်ပစ်ပါ (သို့) `# comment` ဖြင့် ပိတ်ပါ။
+Code ကို ပြင်ဆင်ပြီးသွားရင်တော့ DEBUG print တွေကို ဖြုတ်ပစ်ပါ (သို့မဟုတ်) `# comment` နဲ့ ပိတ်ထားလိုက်ပါ။
 
 ---
 
-### assert — ကိုယ်ကိုယ်ကို စစ်ဆေးခြင်း
+### assert — မိမိကိုယ်ကို စစ်ဆေးခြင်း
 
-`assert` ဟာ "ဒါ မှန်ရမည်" ဆိုပြီး Code ထဲမှာ Check Point ထည့်တဲ့ နည်းပါ:
+`assert` ဟာ "ဒီအခြေအနေ မှန်ရမယ်" ဆိုပြီး Code ထဲမှာ Check Point တွေ ထည့်တဲ့ နည်းလမ်းပါ:
 
 ```python
 def divide(a, b):
-    assert b != 0, "b ကို 0 ဖြင့် မထားနိုင်ပါ!"
+    assert b != 0, "b ကို 0 နဲ့ စားလို့ မရပါဘူး!"
     return a / b
 
 print(divide(10, 2))   # 5.0
-print(divide(10, 0))   # AssertionError: b ကို 0 ဖြင့် မထားနိုင်ပါ!
+print(divide(10, 0))   # AssertionError: b ကို 0 နဲ့ စားလို့ မရပါဘူး!
 ```
 
 ---
 
 ### VS Code Debugger — Breakpoint သုံးနည်း
 
-VS Code မှာ Breakpoint ထည့်ပြီး Code ကို **တစ်ကြောင်းချင်းစီ** Run ကြည့်နိုင်ပါတယ်:
+VS Code မှာ Breakpoint တွေ ထည့်ပြီး Code ကို **တစ်ကြောင်းချင်းစီ** အေးအေးဆေးဆေး Run ကြည့်နိုင်ပါတယ်:
 
-1. VS Code မှာ Code Line ဘယ်ဘက် Number ကို **နှိပ်ပြီး** 🔴 (Red Dot) ထည့်ပါ — ဒါ Breakpoint ပါ
-2. **F5** သို့မဟုတ် Run → Start Debugging ကို နှိပ်ပါ
-3. Code ဟာ Breakpoint မှာ ရပ်မှာပါ
-4. **F10** = တစ်ကြောင်းဆင်းရန် (Step Over)
-5. **F11** = Function ထဲဝင်ကြည့်ရန် (Step Into)
-6. ဘယ်ဘက်မှာ Variables Panel ကို ကြည့်ပြီး တန်ဖိုးများ စစ်ဆေးနိုင်သည်
+1. VS Code မှာ Code Line ရဲ့ ဘယ်ဘက် Number နေရာကို **နှိပ်ပြီး** 🔴 (Red Dot) ထည့်ပါ — ဒါကို Breakpoint လို့ ခေါ်ပါတယ်။
+2. **F5** ကို နှိပ်ပါ (သို့မဟုတ်) Run Menu ကနေ Start Debugging ကို ရွေးပါ။
+3. Code ဟာ Run လာပြီး ခင်ဗျား သတ်မှတ်ထားတဲ့ Breakpoint မှာ ရပ်သွားပါလိမ့်မယ်။
+4. **F10** နှိပ်ရင် = တစ်ကြောင်းဆင်းမယ် (Step Over)
+5. **F11** နှိပ်ရင် = Function ထဲကို ဝင်ကြည့်မယ် (Step Into)
+6. ဘယ်ဘက်က Variables Panel မှာ Variable တွေရဲ့ တန်ဖိုးတွေကို အချိန်နဲ့တပြေးညီ စစ်ဆေးနိုင်ပါတယ်။
 
 ---
 
-### Debugging Mindset
+### Debugging Mindset (ပြဿနာ ဖြေရှင်းနည်း စိတ်ဓာတ်)
 
-Error တွေ တွေ့ရင် ဒီ Steps တွေ လိုက်နာပါ:
+Error တွေ တွေ့ရင် ဒီ Steps တွေအတိုင်း လိုက်နာကြည့်ပါ:
 
-1. **Error Message ကို ဖတ်ပါ** — ပထမ ၂-၃ ကြောင်းကိုပဲ ဖတ်ကြည့်ပါ၊ ဘာ Error လဲ နားလည်ပါ
-2. **Line Number ကို ကြည့်ပါ** — Error ဖြစ်တဲ့ Line ကို သွားပါ
-3. **Assumptions စစ်ဆေးပါ** — Variable တန်ဖိုးတွေ ထင်သလောက် ဟုတ်မဟုတ် Print ကြည့်ပါ
-4. **တစ်ခုချင်းစီ ပြင်ပါ** — တစ်ကြိမ်မှာ တစ်ခုပဲ ပြင်ပြီး Run ကြည့်ပါ
-5. **မဖြေရှင်းနိုင်ရင်** — Error Message ကို Google မှာ ရှာပါ (Stack Overflow မှာ အဖြေ ရှိတတ်ပါတယ်)
+1. **Error Message ကို ဖတ်ပါ** — အားလုံးဖတ်စရာ မလိုပါဘူး၊ ပထမ ၂-၃ ကြောင်းကိုပဲ သေချာဖတ်ကြည့်ပြီး ဘာ Error လဲ နားလည်အောင် လုပ်ပါ။
+2. **Line Number ကို ကြည့်ပါ** — Error ဖြစ်သွားတဲ့ Line ကို ချက်ချင်း သွားပါ။
+3. **Assumptions ကို စစ်ဆေးပါ** — ကိုယ်ထင်ထားတဲ့အတိုင်း Variable တန်ဖိုးတွေ ဟုတ်မဟုတ် `print()` ထုတ်ကြည့်ပါ။
+4. **တစ်ကြိမ်မှာ တစ်ခုချင်းစီ ပြင်ပါ** — အများကြီး တစ်ပြိုင်တည်း မပြင်ပါနဲ့၊ တစ်ကြိမ်မှာ တစ်ခုပဲ ပြင်ပြီး ပြန် Run ကြည့်ပါ။
+5. **မဖြေရှင်းနိုင်ရင်** — Error Message ကို Google မှာ Copy & Paste လုပ်ပြီး ရှာပါ (Stack Overflow မှာ အဖြေတွေ အများကြီး ရှိတတ်ပါတယ်)။
 
 <Aside type="tip" title="Rubber Duck Debugging">
-ဖြေရှင်းမရဘဲ နာရီပေါင်းများစွာ ကြာရင် — Code ကို **မိမိကိုယ်ကိုပဲ ဖတ်ကာ ရှင်းပြပါ** (ရုပ်ဆိုးတဲ့ ဘဲလေးစားကို ရှင်းပြတယ်လို့ တင်စားပြောကြပါတယ်)။ ရှင်းပြနေရင်းနဲ့ Error ကို မိမိဘာသာ တွေ့တတ်ပါတယ်!
+ပြဿနာကို ဖြေရှင်းလို့မရဘဲ နာရီပေါင်းများစွာ ကြာနေပြီဆိုရင် — ကိုယ့်ရဲ့ Code ကို **အသံထွက်ပြီး တစ်ကြောင်းချင်းစီ ရှင်းပြကြည့်ပါ** (ရုပ်ဆိုးတဲ့ ဘဲရုပ်လေးကို ရှင်းပြတယ်လို့ တင်စားခေါ်ဝေါ်လေ့ ရှိပါတယ်)။ အဲဒီလို ရှင်းပြနေရင်းနဲ့ ဘာမှားနေသလဲဆိုတာကို ကိုယ်တိုင် ပြန်ရှာတွေ့သွားတတ်ပါတယ်!
 </Aside>
 
 <Aside title="နောက်တစ်ဆင့်">
-Debugging ကို တတ်ပြီဆိုရင် **Module 10 — Projects** မှာ ကိုယ်ရဲ့ Project ကို တည်ဆောက်ပါမည်!
+Debugging လုပ်တတ်ပြီဆိုရင်တော့ နောက်ဆုံးအနေနဲ့ **Module 10 — Projects** မှာ ခင်ဗျားကိုယ်တိုင် Project တွေကို လက်တွေ့ တည်ဆောက်ကြပါမယ်!
 </Aside>

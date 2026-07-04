@@ -1,32 +1,32 @@
 ---
 title: "Projects — လက်တွေ့ Project များ"
-description: "Python သင်ခဲ့ရသမျှကို Project တွေမှာ တကယ်အသုံးချခြင်း — To-do List, Calculator နှင့် Word Counter"
+description: "Python မှာ သင်ခဲ့ရသမျှကို Project တွေမှာ တကယ်အသုံးချခြင်း — To-do List, Calculator နဲ့ Word Counter"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- Real-world Program ၃ ခု ကိုယ်တိုင် ဆောက်နိုင်မည်
-- Module 1-8 မှ Concepts တွေကို ပေါင်းစပ်ပြီး သုံးနိုင်မည်
-- Code ကို ထပ်မံပြင်ဆင်ပြီး ကိုယ်ပိုင်ထည့်ဖြည့်နိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- Real-world Program ၃ ခုကို ကိုယ်တိုင် ဆောက်နိုင်မယ်
+- Module 1-8 က Concepts တွေကို ပေါင်းစပ်ပြီး သုံးနိုင်မယ်
+- Code ကို ထပ်မံပြင်ဆင်ပြီး ကိုယ်ပိုင် Feature တွေ ထည့်သွင်းနိုင်မယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 1-9 ပြီးမှ ဆက်ပါ။ ဒီ Projects တွေမှာ Course တစ်ခုလုံးမှ Concepts ကို ပေါင်းစပ်သုံးမည်ဖြစ်ပြီး Debugging (Module 9) ကိုပါ ကောင်းကောင်းသုံးနိုင်ရမည်။
+Module 1-9 ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ ဒီ Projects တွေမှာ Course တစ်ခုလုံးက Concepts တွေကို ပေါင်းစပ်အသုံးပြုမှာဖြစ်ပြီး Debugging (Module 9) ကိုလည်း ကောင်းကောင်း အသုံးချနိုင်ရပါမယ်။
 </Aside>
 
-Module 8 ရဲ့ Number Guessing Game ကနေ တစ်ဆင့်မြင့်ပြီး Project ၃ ခုကို တည်ဆောက်ကြမည်။ Project တစ်ခုချင်းစီမှာ ကျွန်ုပ်တို့ သင်ခဲ့ရသော Concepts တွေ ပါဝင်ပါတယ်။
+Module 8 ရဲ့ Number Guessing Game ကနေ တစ်ဆင့်မြင့်ပြီး Project ၃ ခုကို တည်ဆောက်ကြပါမယ်။ Project တစ်ခုချင်းစီမှာ ကျွန်တော်တို့ သင်ခဲ့ရတဲ့ Concepts တွေ အားလုံး ပါဝင်နေပါတယ်။
 
 ---
 
 ## Project 1 — To-do List CLI App
 
-### ကောက်ကိုင်သည့် Concepts
+### အသုံးပြုမယ့် Concepts များ
 - Lists, Dictionaries, File Handling, Functions, Loops, Error Handling
 
-### ဘာ Build မလဲ?
+### ဘာကို Build လုပ်မလဲ?
 
-Terminal မှာ ပြေးတဲ့ To-do List — Tasks တွေ ထည့်လို့ ရတာ၊ ပြီးစီးသည်ဟု မှတ်လို့ ရတာ၊ ဖျက်လို့ ရတာ — ပြီးတော့ File ထဲ Save ထားတာမို့ Program ပိတ်ပြီး ဖွင့်ရင်လည်း Tasks တွေ မပျောက်ပါဘူး။
+Terminal မှာ အလုပ်လုပ်မယ့် To-do List ဖြစ်ပါတယ် — Tasks တွေ အသစ်ထည့်လို့ ရမယ်၊ ပြီးစီးကြောင်း မှတ်လို့ ရမယ်၊ ဖျက်လို့ ရမယ် — ပြီးတော့ File ထဲမှာ Save ထားမှာဖြစ်လို့ Program ပိတ်ပြီး ပြန်ဖွင့်ရင်တောင် Tasks တွေ မပျောက်ပျက်သွားပါဘူး။
 
 ```python
 import json
@@ -49,7 +49,7 @@ def save_todos(todos):
 def show_todos(todos):
     """Tasks တွေ ပြသခြင်း"""
     if not todos:
-        print("📭 Tasks မရှိသေးပါ။")
+        print("📭 Tasks တွေ မရှိသေးပါ။")
         return
     print("\n=== To-do List ===")
     for i, task in enumerate(todos, start=1):
@@ -61,7 +61,7 @@ def add_todo(todos, title):
     """Task အသစ် ထည့်ခြင်း"""
     todos.append({"title": title, "done": False})
     save_todos(todos)
-    print(f"✅ Task ထည့်ပြီးပါပြီ: {title}")
+    print(f"✅ Task အသစ် ထည့်သွင်းပြီးပါပြီ: {title}")
 
 def complete_todo(todos, number):
     """Task ပြီးစီးကြောင်း မှတ်ခြင်း"""
@@ -70,7 +70,7 @@ def complete_todo(todos, number):
         save_todos(todos)
         print(f"🎉 Task {number} ပြီးစီးပါပြီ!")
     else:
-        print("❌ မှားသော Task နံပါတ်ပါ")
+        print("❌ မှားယွင်းသော Task နံပါတ်ပါ")
 
 def delete_todo(todos, number):
     """Task ဖျက်ခြင်း"""
@@ -79,7 +79,7 @@ def delete_todo(todos, number):
         save_todos(todos)
         print(f"🗑️ Task ဖျက်ပြီးပါပြီ: {removed['title']}")
     else:
-        print("❌ မှားသော Task နံပါတ်ပါ")
+        print("❌ မှားယွင်းသော Task နံပါတ်ပါ")
 
 def main():
     todos = load_todos()
@@ -87,11 +87,11 @@ def main():
     print("🗒️  Python To-do List မှ ကြိုဆိုပါတယ်!")
     
     while True:
-        print("\n[1] Tasks ကြည့်ရန်")
-        print("[2] Task ထည့်ရန်")
-        print("[3] Task ပြီးကြောင်း မှတ်ရန်")
-        print("[4] Task ဖျက်ရန်")
-        print("[5] ထွက်ရန်")
+        print("\n[1] Tasks တွေကို ကြည့်မယ်")
+        print("[2] Task အသစ် ထည့်မယ်")
+        print("[3] Task ပြီးကြောင်း မှတ်မယ်")
+        print("[4] Task ကို ဖျက်မယ်")
+        print("[5] ထွက်မယ်")
         
         choice = input("\nရွေးချယ်ပါ (1-5): ").strip()
         
@@ -108,32 +108,32 @@ def main():
         elif choice == "3":
             show_todos(todos)
             try:
-                num = int(input("ပြီးကြောင်း မှတ်မည့် Task နံပါတ်: "))
+                num = int(input("ပြီးကြောင်း မှတ်မယ့် Task နံပါတ်ကို ထည့်ပါ: "))
                 complete_todo(todos, num)
             except ValueError:
-                print("❌ ဂဏန်းသာ ရိုက်ပါ")
+                print("❌ ကျေးဇူးပြု၍ ဂဏန်းသာ ရိုက်ထည့်ပါ")
         
         elif choice == "4":
             show_todos(todos)
             try:
-                num = int(input("ဖျက်မည့် Task နံပါတ်: "))
+                num = int(input("ဖျက်မယ့် Task နံပါတ်ကို ထည့်ပါ: "))
                 delete_todo(todos, num)
             except ValueError:
-                print("❌ ဂဏန်းသာ ရိုက်ပါ")
+                print("❌ ကျေးဇူးပြု၍ ဂဏန်းသာ ရိုက်ထည့်ပါ")
         
         elif choice == "5":
-            print("👋 ထွက်သွားပါပြီ!")
+            print("👋 ထွက်သွားပါပြီ! နောက်မှ ပြန်ဆုံကြမယ်နော်")
             break
         
         else:
-            print("❌ 1 မှ 5 ကြားသော ဂဏန်းသာ ရွေးပါ")
+            print("❌ 1 မှ 5 ကြားသော ဂဏန်းကိုသာ ရွေးချယ်ပါ")
 
 main()
 ```
 
-### Code ပြန်လည် လေ့လာခြင်း
+### Code ကို ပြန်လည် လေ့လာခြင်း
 
-| Code | သင်ခဲ့ရသည့် Concept |
+| Code | သင်ယူခဲ့ရတဲ့ Concept |
 |------|-------------------|
 | `load_todos()` / `save_todos()` | File Handling (Module 6) |
 | `json.load()` / `json.dump()` | JSON + Modules (Module 6, 7) |
@@ -146,7 +146,7 @@ main()
 
 ## Project 2 — Simple Calculator
 
-### ကောက်ကိုင်သည့် Concepts
+### အသုံးပြုမယ့် Concepts များ
 - Functions, Error Handling, Control Flow, While Loop
 
 ```python
@@ -161,16 +161,16 @@ def multiply(a, b):
 
 def divide(a, b):
     if b == 0:
-        raise ValueError("သုညနဲ့ မစားနိုင်ပါ!")
+        raise ValueError("သုညနဲ့ စားလို့ မရပါဘူး!")
     return a / b
 
 def get_number(prompt):
-    """User ဆီကနေ ကိန်းဂဏန်း တောင်းခြင်း"""
+    """User ဆီကနေ ကိန်းဂဏန်း တောင်းခံခြင်း"""
     while True:
         try:
             return float(input(prompt))
         except ValueError:
-            print("❌ ကိန်းဂဏန်းသာ ရိုက်ပါ")
+            print("❌ ကျေးဇူးပြု၍ ကိန်းဂဏန်းသာ ရိုက်ထည့်ပါ")
 
 def calculator():
     print("🔢  Python Calculator")
@@ -184,10 +184,10 @@ def calculator():
     }
     
     while True:
-        print("\nလုပ်ဆောင်ချက် ရွေးပါ:")
+        print("\nလုပ်ဆောင်ချက်ကို ရွေးချယ်ပါ:")
         for key, (label, _) in operations.items():
             print(f"  [{key}] {label}")
-        print("  [5] ထွက်ရန်")
+        print("  [5] ထွက်မယ်")
         
         choice = input("\nရွေးချယ်ပါ: ").strip()
         
@@ -196,13 +196,13 @@ def calculator():
             break
         
         if choice not in operations:
-            print("❌ 1 မှ 5 ကြားသာ ရွေးပါ")
+            print("❌ 1 ကနေ 5 ကြားကိုသာ ရွေးချယ်ပါ")
             continue
         
         label, operation = operations[choice]
         
-        a = get_number("ပထမ ကိန်းဂဏန်း: ")
-        b = get_number("ဒုတိယ ကိန်းဂဏန်း: ")
+        a = get_number("ပထမ ကိန်းဂဏန်းကို ထည့်ပါ: ")
+        b = get_number("ဒုတိယ ကိန်းဂဏန်းကို ထည့်ပါ: ")
         
         try:
             result = operation(a, b)
@@ -217,46 +217,46 @@ calculator()
 
 ## Project 3 — Word Frequency Counter
 
-### ကောက်ကိုင်သည့် Concepts
+### အသုံးပြုမယ့် Concepts များ
 - File Handling, Dictionaries, Sorting, String Methods, Comprehensions
 
 ```python
 import os
 
 def count_words(text):
-    """စာသားထဲမှ Word တစ်ခုချင်းစီ ဘယ်နှစ်ကြိမ် ပါသလဲ ရေတွက်ခြင်း"""
-    # Lowercase + Punctuation ဖြတ်ပြီး Split
+    """စာသားထဲမှာ Word တစ်ခုချင်းစီ ဘယ်နှစ်ကြိမ် ပါသလဲဆိုတာ ရေတွက်ခြင်း"""
+    # Lowercase ပြောင်းမယ် + Punctuation တွေကို ဖယ်ရှားမယ်
     cleaned = text.lower()
     for char in ".,!?;:\"'()[]{}":
         cleaned = cleaned.replace(char, "")
     words = cleaned.split()
     
-    # Dictionary နဲ့ ရေတွက်ခြင်း
+    # Dictionary အသုံးပြုပြီး ရေတွက်ခြင်း
     freq = {}
     for word in words:
-        freq[word] = freq.get(word, 0) + 1  # .get() — Module 4 မှ Dict Safe Access
+        freq[word] = freq.get(word, 0) + 1  # .get() — Module 4 မှ Dictionary Safe Access
     
     return freq
 
 def show_top_words(freq, top_n=10):
-    """အများဆုံး ပါသော Words ကို ပြသခြင်း"""
+    """အများဆုံး ပါဝင်တဲ့ Words တွေကို ပြသခြင်း"""
     sorted_words = sorted(freq.items(), key=lambda x: x[1], reverse=True)
     
-    print(f"\n=== အများဆုံး ပါသော Words (Top {top_n}) ===")
+    print(f"\n=== အများဆုံး ပါဝင်သော Words (Top {top_n}) ===")
     for rank, (word, count) in enumerate(sorted_words[:top_n], start=1):
-        bar = "█" * min(count, 30)  # Visual bar
+        bar = "█" * min(count, 30)  # Visual bar ပြသဖို့
         print(f"{rank:2}. {word:<15} {count:3} ကြိမ် {bar}")
 
 def main():
     print("📊  Word Frequency Counter")
     print("==========================")
-    print("[1] Text ရိုက်ထည့်ပါ")
-    print("[2] ဖိုင်ကနေ ဖတ်ပါ")
+    print("[1] Text ကို တိုက်ရိုက် ရိုက်ထည့်ပါမယ်")
+    print("[2] ဖိုင်ထဲကနေ ဖတ်ပါမယ်")
     
     choice = input("\nရွေးချယ်ပါ (1/2): ").strip()
     
     if choice == "1":
-        print("Text ထည့်ပါ (ပြီးရင် Enter 2 ခါနှိပ်ပါ):")
+        print("Text ထည့်ပါ (ပြီးရင် Enter ကို 2 ခါ နှိပ်ပါ):")
         lines = []
         while True:
             line = input()
@@ -266,25 +266,25 @@ def main():
         text = " ".join(lines)
     
     elif choice == "2":
-        filename = input("ဖိုင်နာမည် (.txt): ").strip()
+        filename = input("ဖိုင်နာမည် ထည့်ပါ (.txt): ").strip()
         if not os.path.exists(filename):
-            print(f"❌ '{filename}' ဖိုင် မတွေ့ပါ")
+            print(f"❌ '{filename}' ဖိုင် မတွေ့ပါဘူး")
             return
         with open(filename, "r", encoding="utf-8") as f:
             text = f.read()
     
     else:
-        print("❌ 1 သို့မဟုတ် 2 ကိုသာ ရွေးပါ")
+        print("❌ 1 သို့မဟုတ် 2 ကိုသာ ရွေးချယ်ပါ")
         return
     
     if not text.strip():
-        print("❌ Text မရှိပါ")
+        print("❌ Text မရှိပါဘူး")
         return
     
     freq = count_words(text)
     
-    print(f"\n📈 စုစုပေါင်း Unique Words: {len(freq)}")
-    print(f"📝 စုစုပေါင်း Words: {sum(freq.values())}")
+    print(f"\n📈 စုစုပေါင်း Unique Words အရေအတွက်: {len(freq)}")
+    print(f"📝 စုစုပေါင်း Words အရေအတွက်: {sum(freq.values())}")
     
     show_top_words(freq, top_n=10)
 
@@ -295,31 +295,31 @@ main()
 
 ### နောက်ဆင့် Challenge များ
 
-ဒီ Projects တွေကို ပိုမိုကောင်းမွန်အောင် ကြိုးစားပါ:
+ဒီ Projects တွေကို ပိုမိုကောင်းမွန်အောင် ဆက်လက် ကြိုးစားကြည့်ပါ:
 
 **To-do List:**
-- Due Date ထည့်ပါ (datetime module သုံး)
-- Priority Level ထည့်ပါ (High / Medium / Low)
-- Search Function ထည့်ပါ
+- Due Date ထည့်ပါ (datetime module ကို သုံးကြည့်ပါ)
+- Priority Level တွေ ထည့်ပါ (High / Medium / Low)
+- Search Function အသစ် ထည့်ပါ
 
 **Calculator:**
-- History သိမ်းဆည်းပါ
-- Square root, Power တွေ ထည့်ပါ
-- Memory function (M+, M-, MR) ထည့်ပါ
+- တွက်ခဲ့တဲ့ History ကို သိမ်းဆည်းပါ
+- Square root, Power စတဲ့ လုပ်ဆောင်ချက်တွေ ထပ်ထည့်ပါ
+- Memory function တွေ (M+, M-, MR) ထည့်သွင်းပါ
 
 **Word Counter:**
-- Top Common Words (the, a, is) တွေ ဖြုတ်ပြပါ (Stopwords)
-- Word Cloud ဆောက်ကြည့်ပါ
-- CSV ဖိုင်ထဲ Export ပါ
+- Top Common Words တွေ (the, a, is စသဖြင့်) ကို ဖြုတ်ပြပါ (Stopwords)
+- Word Cloud ပုံစံမျိုး ဆောက်ကြည့်ပါ
+- Result တွေကို CSV ဖိုင်ထဲ Export ထုတ်ကြည့်ပါ
 
-<Aside type="tip" title="နောက်ထပ် ဘာသင်မလဲ?">
-Python အခြေခံပြီးပါပြီ! နောက်ဆင့်မှာ:
-- **Web Development**: Django / Flask ကိုသင်ပါ
-- **Data Science**: pandas, matplotlib ကိုသင်ပါ
-- **Automation**: selenium ကိုသင်ပါ
-- **AI / ML**: scikit-learn, TensorFlow ကိုသင်ပါ
+<Aside type="tip" title="နောက်ထပ် ဘာတွေ ဆက်သင်မလဲ?">
+Python အခြေခံကို ကောင်းကောင်းနားလည်သွားပါပြီ! ရှေ့ဆက်ပြီးတော့:
+- **Web Development**: Django / Flask Framework တွေကို လေ့လာပါ
+- **Data Science**: pandas, matplotlib စတာတွေကို သင်ယူပါ
+- **Automation**: selenium ကို သုံးပြီး လေ့လာပါ
+- **AI / ML**: scikit-learn, TensorFlow တို့ကို ဆက်လက်သင်ယူပါ
 
-ဘာကိုပဲ ဆက်သင်သင် Python Basics ဟာ အမြဲတမ်း Foundation ဖြစ်ပါမည်!
+ဘာကိုပဲ ဆက်လက် လေ့လာသည်ဖြစ်စေ၊ အခုသင်ယူခဲ့တဲ့ Python Basics ဟာ အမြဲတမ်း ခိုင်မာတဲ့ Foundation ဖြစ်နေမှာပါ!
 </Aside>
 
-**Python Course တစ်ခုလုံး ပြီးဆုံးပါပြီ — ဂုဏ်ယူပါသည်! 🎉**
+**Python Course တစ်ခုလုံး အောင်မြင်စွာ ပြီးဆုံးပါပြီ — ဂုဏ်ယူပါတယ်! 🎉**

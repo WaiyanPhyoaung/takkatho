@@ -1,36 +1,36 @@
 ---
-title: "File Handling နှင့် Error Handling"
-description: "Python တွင် File များ အသုံးပြုခြင်း — encoding, JSON, os.path နှင့် raise ကို ထည့်သွင်းခြင်း"
+title: "File Handling နဲ့ Error Handling"
+description: "Python မှာ File တွေ အသုံးပြုခြင်း — encoding, JSON, os.path နဲ့ raise အကြောင်း လေ့လာခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- Text File ဖတ်ရေးနိုင်မည် (encoding='utf-8' ပါ)
-- JSON File ဖတ်ရေးနိုင်မည်
-- ဖိုင်ရှိမရှိ စစ်ဆေးနိုင်မည် (os.path.exists)
-- try/except ဖြင့် Error ထိန်းချုပ်နိုင်မည်
-- raise ဖြင့် Custom Error တက်ကိုင်နိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- Text File တွေကို ဖတ်နိုင်၊ ရေးနိုင်မယ် (encoding='utf-8' ပါမယ်)
+- JSON File ဖတ်ရေးနိုင်မယ်
+- ဖိုင်ရှိမရှိ စစ်ဆေးနိုင်မယ် (os.path.exists)
+- try/except သုံးပြီး Error ထိန်းချုပ်နိုင်မယ်
+- raise ကိုသုံးပြီး ကိုယ်ပိုင် Error တွေ ဖန်တီးနိုင်မယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 1-5 ကို ပြီးမှ ဆက်ပါ။ Functions နှင့် Data Structures (Dict) ကို သိပြီးမှ File မှာ Data သိမ်းနည်းကို ကောင်းကောင်းနားလည်နိုင်မည်။
+Module 1-5 ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ Functions နဲ့ Data Structures (Dictionary) ကို သိပြီးမှ File ထဲမှာ Data သိမ်းနည်းကို ကောင်းကောင်းနားလည်နိုင်မှာပါ။
 </Aside>
 
-Program တွေ ရေးတဲ့အခါ Data တွေကို Memory ထဲမှာပဲ သိမ်းထားလို့ မရပါဘူး — Program ပိတ်တာနဲ့ ပျောက်သွားမှာမို့ **File** တွေထဲမှာ သိမ်းဖို့ လိုပါတယ်။
+Program တွေ ရေးတဲ့အခါ Data တွေကို Memory ထဲမှာပဲ သိမ်းထားလို့ မရပါဘူး — Program ပိတ်တာနဲ့ Data တွေ ပျောက်သွားမှာမို့ **File** တွေထဲမှာ သိမ်းဖို့ လိုအပ်ပါတယ်။
 
 ---
 
 ### File Handling
 
-Python မှာ File တွေကို `open()` Function ကို သုံးပြီး ဝင်ရောက်ပါတယ်။ Mode (၃) မျိုး ရှိပါတယ်:
+Python မှာ File တွေကို `open()` Function သုံးပြီး ဝင်ရောက်နိုင်ပါတယ်။ Mode (၃) မျိုး ရှိပါတယ်:
 
 - `"r"` — ဖတ်ဖို့ (Read)
-- `"w"` — ရေးဖို့ (Write — ရှိပြီးသားဆိုရင် ဖျက်ပြီး အသစ်ရေးမည်)
-- `"a"` — ဆက်ထည့်ဖို့ (Append — အနောက်ကနေ ဆက်ရေးမည်)
+- `"w"` — ရေးဖို့ (Write — ရှိပြီးသားဆိုရင် ဖျက်ပြီး အသစ်ရေးပါမယ်)
+- `"a"` — ဆက်ထည့်ဖို့ (Append — အနောက်ကနေ ဆက်ရေးပါမယ်)
 
-<Aside type="caution" title="encoding='utf-8' — မမေ့ပါနဲ့">
-Myanmar Unicode နဲ့ ရေးထားသော Text တွေဆိုရင် `encoding='utf-8'` မပါရင် ဖတ်ရတဲ့အခါ Error တက်နိုင်ပါတယ် (Windows မှာ အထူးသဖြင့်)။ **File တိုင်းမှာ encoding ကို ဖော်ပြပါ**:
+<Aside type="caution" title="encoding='utf-8' ကို မမေ့ပါနဲ့">
+Myanmar Unicode နဲ့ ရေးထားတဲ့ Text တွေဆိုရင် `encoding='utf-8'` မပါရင် ဖတ်ရတဲ့အခါ Error တက်နိုင်ပါတယ် (အထူးသဖြင့် Windows မှာ)။ **File တိုင်းမှာ encoding ကို အမြဲ ထည့်ရေးပါ**:
 
 ```python
 open("file.txt", "r", encoding="utf-8")
@@ -40,7 +40,7 @@ open("file.txt", "r", encoding="utf-8")
 #### File ထဲကို ရေးခြင်း
 
 ```python
-# "w" Mode — ဖိုင်ကို ဆောက်ပြီး ရေးသည် (ရှိပြီးသားဆိုရင် ဖျက်ပြီး ပြန်ရေး)
+# "w" Mode — ဖိုင်ကို ဆောက်ပြီး ရေးပါမယ် (ရှိပြီးသားဆိုရင် ဖျက်ပြီး ပြန်ရေးပါတယ်)
 with open("student.txt", "w", encoding="utf-8") as file:
     file.write("ကျောင်းသားစာရင်း\n")
     file.write("Aung Aung — 85 မှတ်\n")
@@ -50,32 +50,32 @@ print("ရေးပြီးပါပြီ!")
 ```
 
 **`with open(...)` ကို ဘာကြောင့် သုံးမလဲ?**
-`with` Block ပြီးသွားတာနဲ့ File ကို **အလိုအလျောက် ပိတ်** (Close) ပေးပါတယ်။ ကိုယ်တိုင် `file.close()` ရိုက်စရာ မလိုပါဘူး — ပိတ်မပြီးဘဲ မနေနိုင်ပါ။
+`with` Block ပြီးသွားတာနဲ့ ဖိုင်ကို **အလိုအလျောက် ပိတ်** (Close) ပေးပါတယ်။ ကိုယ်တိုင် `file.close()` ရိုက်စရာ မလိုတော့ပါဘူး — မေ့ပြီး မပိတ်မိတာမျိုး မဖြစ်နိုင်တော့ပါဘူး။
 
 #### File ကနေ ဖတ်ခြင်း
 
 ```python
 import os
 
-# ဖိုင်ရှိမရှိ စစ်ဆေးပြီးမှ ဖတ်ပါ
+# ဖိုင်ရှိမရှိ အရင်စစ်ဆေးပြီးမှ ဖတ်ပါ
 if not os.path.exists("student.txt"):
     print("ဖိုင် မတွေ့ပါ!")
 else:
     with open("student.txt", "r", encoding="utf-8") as file:
-        # နည်း ၁: အကုန်တစ်ကြိမ်တည်း ဖတ်
+        # နည်း ၁: အကုန်တစ်ကြိမ်တည်း ဖတ်မယ်
         content = file.read()
         print(content)
 
     with open("student.txt", "r", encoding="utf-8") as file:
-        # နည်း ၂: တစ်ကြောင်းချင်းစီ ဖတ်
+        # နည်း ၂: တစ်ကြောင်းချင်းစီ ဖတ်မယ်
         for line in file:
-            print(line.strip())   # strip() ဖြင့် နောက်ဆုံး \n ဖြုတ်
+            print(line.strip())   # strip() သုံးပြီး နောက်ဆုံးက \n ကို ဖြုတ်မယ်
 ```
 
 #### Append — ဆက်ထည့်ခြင်း
 
 ```python
-# "a" Mode — ရှိပြီးသားနောက်မှာ ဆက်ရေးပါ (မဖျက်ဘဲ)
+# "a" Mode — ရှိပြီးသားအနောက်မှာ ဆက်ရေးပါမယ် (မဖျက်ပါဘူး)
 with open("student.txt", "a", encoding="utf-8") as file:
     file.write("Kyaw Kyaw — 78 မှတ်\n")
 ```
@@ -84,7 +84,7 @@ with open("student.txt", "a", encoding="utf-8") as file:
 
 ### JSON File — Data ကို Structure နဲ့ သိမ်းခြင်း
 
-JSON (JavaScript Object Notation) ဆိုတာ Data ကို **ဘာသာစကားမဆိုဖတ်နိုင်သော** Format နဲ့ သိမ်းနိုင်သော Standard ပါ — Python Dictionary ပုံစံနဲ့ တူပြီး Program ၂ ခုကြားနဲ့ Data ပြောင်းဖို့ API Response Format အဖြစ် ကမ္ဘာတစ်ဝှမ်း သုံးကြပါတယ်:
+JSON (JavaScript Object Notation) ဆိုတာ Data ကို **မည်သည့် Programming Language မဆို ဖတ်နိုင်တဲ့** Format နဲ့ သိမ်းပေးတဲ့ Standard ပါ — Python Dictionary ပုံစံနဲ့ ဆင်တူပြီး Program ၂ ခုကြား Data ဖလှယ်ဖို့၊ API တွေမှာ Response Format အဖြစ် ကမ္ဘာတစ်ဝှမ်း သုံးကြပါတယ်:
 
 ```python
 import json
@@ -97,7 +97,7 @@ student_data = {
     "active": True
 }
 
-# Dictionary → JSON File ထဲ သိမ်းခြင်း
+# Dictionary ကနေ JSON File ထဲ သိမ်းခြင်း
 with open("student.json", "w", encoding="utf-8") as f:
     json.dump(student_data, f, ensure_ascii=False, indent=2)
 ```
@@ -112,7 +112,7 @@ with open("student.json", "w", encoding="utf-8") as f:
 ```
 
 ```python
-# JSON File → Python Dictionary ဖြင့် ပြန်ဖတ်ခြင်း
+# JSON File ကနေ Python Dictionary အဖြစ် ပြန်ဖတ်ခြင်း
 with open("student.json", "r", encoding="utf-8") as f:
     loaded = json.load(f)
 
@@ -121,24 +121,24 @@ print(loaded["scores"])   # [85, 92, 78]
 print(type(loaded))       # <class 'dict'>
 ```
 
-<Aside type="tip" title="json.dump() Params">
-- `ensure_ascii=False` — Myanmar Unicode ကို မပြောင်းဘဲ ရေးနိုင်မည်
-- `indent=2` — ကြည်လင်အောင် ဖော်မတ်ထည့်မည် (မပါရင် တစ်ကြောင်းတည်း ရေးမည်)
+<Aside type="tip" title="json.dump() Params များ">
+- `ensure_ascii=False` — Myanmar Unicode ကို မပြောင်းလဲဘဲ မှန်ကန်စွာ သိမ်းပေးပါမယ်
+- `indent=2` — ရှင်းလင်းစွာ ဖတ်ရလွယ်အောင် Format လုပ်ပေးပါမယ် (မပါရင် တစ်ကြောင်းတည်း ရေးသွားပါမယ်)
 </Aside>
 
 ---
 
 ### Error Handling (try / except)
 
-Code ရေးတဲ့အခါ မထင်မှတ်ဘဲ Error တွေ တက်တတ်ပါတယ်။ ဆိုင်မှာ အချိုရည်မှာတဲ့ Customer ကို "ဒီ Flavor မရှိဘူးရင် ဒါပေး" ဆိုပြီး ကြိုပြင်ဆင်ထားသလိုပဲ — try/except နဲ့ Error ဖြစ်ရင် ဘာလုပ်မလဲ ကြိုသတ်မှတ်ထားနိုင်ပါတယ်။ `try / except` ကို သုံးပြီး ထိန်းချုပ်ပါ:
+Code ရေးတဲ့အခါ မထင်မှတ်ဘဲ Error တွေ တက်တတ်ပါတယ်။ ဆိုင်မှာ အချိုရည်မှာတဲ့ Customer ကို "ဒီ Flavor မရှိရင် ဒါလေးပေးလိုက်" ဆိုပြီး ကြိုပြင်ဆင်ထားသလိုမျိုး — try/except နဲ့ Error တက်ရင် ဘာလုပ်မလဲ ဆိုတာကို ကြိုသတ်မှတ်ထားနိုင်ပါတယ်။
 
 ```python
 try:
-    # Error တက်နိုင်သော Code
+    # Error တက်နိုင်တဲ့ Code
     result = 10 / 0
 except ZeroDivisionError:
-    # Error တက်ခဲ့ရင် ဒီမှာ Handle လုပ်
-    print("သုညနဲ့ မစားနိုင်ပါဘူး")
+    # Error တက်ခဲ့ရင် ဒီမှာ Handle လုပ်မယ်
+    print("သုညနဲ့ စားလို့ မရပါဘူး")
 ```
 
 #### Error မျိုးစုံ ကိုင်တွယ်ခြင်း
@@ -146,28 +146,28 @@ except ZeroDivisionError:
 ```python
 def get_age():
     try:
-        age = int(input("အသက် ဘယ်လောက်လဲ? "))
+        age = int(input("ခင်ဗျား အသက် ဘယ်လောက်လဲ? "))
         result = 100 / age
-        print(f"သင်ဟာ {100 - age} နှစ်အကြာမှာ ၁၀၀ ဖြည့်မှာပါ")
+        print(f"ခင်ဗျားဟာ {100 - age} နှစ်အကြာမှာ ၁၀၀ ပြည့်မှာပါ")
 
     except ValueError:
-        # int("hello") ကဲ့သို့ ဆောင်ရွက်မရသောအခါ
-        print("ကျေးဇူးပြု၍ ဂဏန်းသာ ထည့်ပါ")
+        # int("hello") လိုမျိုး Error တက်တဲ့အခါ
+        print("ကျေးဇူးပြု၍ ဂဏန်းသာ ထည့်ပေးပါ")
 
     except ZeroDivisionError:
-        # age = 0 ဖြင့် 100/0 ဆောင်ရွက်ချိန်
+        # age = 0 ဖြစ်ပြီး 100/0 ဖြစ်သွားတဲ့အခါ
         print("အသက် 0 ဆိုတာ မဖြစ်နိုင်ပါဘူး")
 
     except Exception as e:
-        # မထင်မဆင် တခြား Error တွေ
-        print(f"အမှား ဖြစ်ပွားသည်: {e}")
+        # မထင်မှတ်ထားတဲ့ တခြား Error တွေ
+        print(f"အမှား ဖြစ်ပွားပါတယ်: {e}")
 
     else:
-        # Error မတက်ဘဲ အောင်မြင်ခဲ့ရင် ဒါ Run မည်
-        print("အောင်မြင်သည်!")
+        # Error မတက်ဘဲ အောင်မြင်ခဲ့ရင် ဒါ အလုပ်လုပ်ပါမယ်
+        print("အောင်မြင်ပါတယ်!")
 
     finally:
-        # Error တက်တက် မတက်တက် ဒါ အမြဲ Run မည်
+        # Error တက်တက် မတက်တက် ဒီအပိုင်းက အမြဲ Run ပါမယ်
         print("စစ်ဆေးမှု ပြီးဆုံးပါပြီ")
 
 get_age()
@@ -175,24 +175,24 @@ get_age()
 
 ---
 
-### raise — ကိုယ်ကိုင် Error မြှောက်ခြင်း
+### raise — ကိုယ်ပိုင် Error ဖန်တီးခြင်း
 
-`raise` ကို သုံးပြီး Input မှားနေတဲ့အခါ ကိုယ်တိုင် Error တက်ခိုင်းနိုင်ပါတယ်:
+`raise` ကို သုံးပြီး Input မှားယွင်းတဲ့အခါ ကိုယ်တိုင် Error ပြခိုင်းလို့ ရပါတယ်:
 
 ```python
 def set_age(age):
     if not isinstance(age, int):
-        raise TypeError(f"Age ဟာ Integer ဖြစ်ရမည် — {type(age)} ပေးထားသည်")
+        raise TypeError(f"Age ဟာ Integer ဖြစ်ရပါမယ် — {type(age)} ဖြစ်နေပါတယ်")
     if age < 0:
-        raise ValueError(f"Age ဟာ 0 အောက် မဖြစ်နိုင်ပါ — {age} ပေးထားသည်")
+        raise ValueError(f"Age ဟာ 0 အောက် မဖြစ်နိုင်ပါဘူး — {age} ထည့်ထားပါတယ်")
     if age > 150:
-        raise ValueError(f"Age ဟာ 150 ကျော်ရင် ဖြစ်မနိုင်ပါ — {age} ပေးထားသည်")
+        raise ValueError(f"Age ဟာ 150 ကျော်လို့ မရပါဘူး — {age} ထည့်ထားပါတယ်")
     print(f"Age သတ်မှတ်ပြီးပါပြီ: {age}")
 
-# မှန်ကန်သော Input
+# မှန်ကန်တဲ့ Input
 set_age(20)      # Age သတ်မှတ်ပြီးပါပြီ: 20
 
-# မှားသော Input
+# မှားယွင်းတဲ့ Input
 try:
     set_age(-5)  # ValueError!
 except ValueError as e:
@@ -223,12 +223,12 @@ def add_student(name, score):
     if not name.strip():
         raise ValueError("နာမည် ထည့်ပေးပါ")
     if not 0 <= score <= 100:
-        raise ValueError("Score ဟာ 0-100 ကြားဖြစ်ရမည်")
+        raise ValueError("Score ဟာ 0 ကနေ 100 ကြားသာ ဖြစ်ရပါမယ်")
     
     records = load_records()
     records.append({"name": name, "score": score})
     save_records(records)
-    print(f"✅ {name} ကို ထည့်ပြီးပါပြီ")
+    print(f"✅ {name} ကို ထည့်သွင်းပြီးပါပြီ")
 
 try:
     add_student("Aung Aung", 85)
@@ -239,5 +239,5 @@ except ValueError as e:
 ```
 
 <Aside title="နောက်တစ်ဆင့်">
-File & Error Handling ပြီးပြီဆိုရင် **Module 6.5 — Virtual Environments** မှာ Package တွေကို Project တစ်ခုချင်းစီ ခွဲခြားသိမ်းနည်း သင်ကြားပါမည်!
+File & Error Handling ပြီးပြီဆိုရင်တော့ **Module 6.5 — Virtual Environments** မှာ Package တွေကို Project တစ်ခုချင်းစီ ဘယ်လို ခွဲခြားသိမ်းရမလဲ ဆိုတာကို ဆက်လက် သင်ကြားပေးသွားပါမယ်!
 </Aside>

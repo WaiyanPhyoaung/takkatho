@@ -7,18 +7,18 @@ import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
 import stringImg from "@/assets/python/string-methods.svg";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- String ကို ဖြတ်ညှပ်ခြင်း၊ ပြောင်းလဲခြင်း Methods တွေကို သုံးနိုင်မည်
-- String ကို Index နှင့် Slicing နဲ့ ဖြတ်ယူနိုင်မည်
-- f-strings ကို ကျွမ်းကျင်စွာ သုံးနိုင်မည်
-- User Input ကို မှန်ကန်အောင် စစ်ဆေးနိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- String ကို ဖြတ်ညှပ်ခြင်း၊ ပြောင်းလဲခြင်း Methods တွေကို သုံးနိုင်မယ်
+- String ကို Index နဲ့ Slicing ကို သုံးပြီး ဖြတ်ယူနိုင်မယ်
+- f-strings ကို ကျွမ်းကျင်စွာ သုံးနိုင်မယ်
+- User Input ကို မှန်ကန်အောင် စစ်ဆေးနိုင်မယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 1 (Variables & Data Types) ကို ပြီးမှ ဆက်ပါ။ String ဆိုတာ ဘာလဲ ဆိုတာ သိပြီးမှ Methods တွေကို သင်ပါ။
+Module 1 (Variables & Data Types) ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ String ဆိုတာ ဘာလဲ ဆိုတာ သေချာသိပြီးမှ Methods တွေကို လေ့လာစေချင်ပါတယ်။
 </Aside>
 
-String ဆိုတာ Module 1 မှာ Data Type တစ်ခုအဖြစ် မိတ်ဆက်ခဲ့ပြီးပါပြီ။ ဒီ Module မှာတော့ String တွေကို **တကယ်တမ်း အသုံးကျတဲ့ နည်းလမ်းတွေ** နဲ့ ကိုင်တွယ်တတ်အောင် သင်ကြားပါမယ်။
+String ဆိုတာကို Module 1 မှာ Data Type တစ်ခုအနေနဲ့ မိတ်ဆက်ပေးခဲ့ပြီးပါပြီ။ ဒီ Module မှာတော့ String တွေကို **တကယ်တမ်း အသုံးကျတဲ့ နည်းလမ်းတွေ** နဲ့ ကိုင်တွယ်တတ်အောင် သင်ပေးသွားပါမယ်။
 
 ---
 
@@ -165,16 +165,16 @@ if filename.endswith(".pdf"):
 
 ---
 
-### f-Strings — Python ရဲ့ ပိုမိုကောင်းမွန်တဲ့ Text Formatting
+### f-strings — Python ရဲ့ ပိုမိုကောင်းမွန်တဲ့ Text Formatting
 
-f-string ဆိုတာ String ထဲမှာ Variable တွေ ကြည့်ကောင်းအောင် ထည့်ဖို့ Python 3.6 မှာ ထည့်သွင်းလာတဲ့ နည်းလမ်းပါ။ String ရှေ့မှာ `f` တစ်လုံး ထည့်ပြီး `{}` ထဲမှာ Variable ထည့်ပါ။
+f-string ဆိုတာ String ထဲမှာ Variable တွေ ကြည့်ကောင်းအောင် ထည့်ဖို့ Python 3.6 မှာ ထည့်သွင်းလာတဲ့ နည်းလမ်းပါ။ String ရှေ့မှာ `f` တစ်လုံး ထည့်ပြီး `{}` ထဲမှာ Variable ထည့်ပေးရုံပါပဲ။
 
 ```python
 name = "Aung Aung"
 age = 20
 city = "ရန်ကုန်"
 
-# ဟောင်းနွမ်းသောနည်း (မသုံးသင့်)
+# ဟောင်းနွမ်းသောနည်း (မသုံးသင့်ပါ)
 old_way = "ကျွန်တော်ဟာ " + name + " ဖြစ်ပြီး " + str(age) + " နှစ် ရှိပါတယ်"
 
 # f-string (ဒီနည်းကိုပဲ သုံးပါ)
@@ -197,7 +197,7 @@ print(f"Pi ≈ {pi:.4f}")    # Pi ≈ 3.1416
 
 ### လက်တွေ့ ဥပမာ — User Name စစ်ဆေးခြင်း
 
-String Methods တွေကို ပေါင်းစပ်ပြီး တကယ်တမ်း သုံးကြည့်ပါမည်:
+String Methods တွေကို ပေါင်းစပ်ပြီး တကယ်တမ်း သုံးကြည့်ပါမယ်:
 
 ```python
 # User ထည့်လိုက်တဲ့ Name ကို Clean လုပ်ခြင်း
@@ -205,7 +205,7 @@ raw_input = "   aung aung   "
 
 # Steps
 clean = raw_input.strip()          # Space ဖြတ်
-title = clean.title()              # "Aung Aung"  (ကြီးကြီး)
+title = clean.title()              # "Aung Aung"  (အစစာလုံးအကြီး)
 words = title.split()              # ["Aung", "Aung"]
 word_count = len(words)            # 2
 
@@ -217,7 +217,7 @@ print(f"ပထမဆုံး အမည်: {words[0]}")
 if not clean:
     print("Name ထည့်ပေးပါ!")
 elif len(clean) < 2:
-    print("Name အတိုဆုံး ၂ လုံး ရှိရမည်")
+    print("Name က အတိုဆုံး ၂ လုံး ရှိရပါမယ်")
 else:
     print(f"မင်္ဂလာပါ, {title}!")
 ```
@@ -230,9 +230,9 @@ result = "  HELLO WORLD  ".strip().lower().replace("world", "python")
 print(result)  # "hello python"
 ```
 
-အဆင့်ဆင့် အလုပ်လုပ်ပါတယ်: strip → lower → replace
+အဆင့်ဆင့် အလုပ်လုပ်သွားပါတယ်: strip → lower → replace
 </Aside>
 
 <Aside title="နောက်တစ်ဆင့်">
-String Methods ကို ကောင်းကောင်းသိပြီဆိုရင် **Module 2 — Control Flow** ကို ဆက်သွားနိုင်ပါပြီ!
+String Methods ကို ကောင်းကောင်းသိပြီဆိုရင်တော့ **Module 2 — Control Flow** ကို ဆက်သွားနိုင်ပါပြီ!
 </Aside>

@@ -1,30 +1,30 @@
 ---
 title: "Mini Project: Number Guessing Game"
-description: "သင်ယူခဲ့သမျှကို အသုံးချပြီး ဂဏန်းခန့်မှန်းသည့် ဂိမ်းလေးတစ်ခု ရေးသားခြင်း"
+description: "သင်ယူခဲ့သမျှကို အသုံးချပြီး ဂဏန်းခန့်မှန်းတဲ့ ဂိမ်းလေးတစ်ခု ရေးသားခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="ဒီ Module ပြီးရင် သင်လုပ်နိုင်မှာများ">
-- `random` module နဲ့ Number Guessing Game ဆောက်နိုင်မည်
-- while Loop, try/except, Functions တွေကို ပေါင်းစပ်ပြီး အသုံးပြုနိုင်မည်
-- Difficulty Level ရွေးနိုင်သော Game Version တည်ဆောက်နိုင်မည်
-- Code တစ်ကြောင်းချင်း ရှင်းလင်းချက်ဖတ်ပြီး ဘာ Module က ဘာလုပ်သလဲ သိနိုင်မည်
+<Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
+- `random` module သုံးပြီး Number Guessing Game ဆောက်နိုင်မယ်
+- while Loop, try/except နဲ့ Functions တွေကို ပေါင်းစပ်အသုံးပြုနိုင်မယ်
+- Difficulty Level ရွေးနိုင်တဲ့ Game Version ကို တည်ဆောက်နိုင်မယ်
+- Code တစ်ကြောင်းချင်းစီရဲ့ ရှင်းလင်းချက်ကို ဖတ်ပြီး ဘယ် Module က ဘာလုပ်သလဲဆိုတာ သိနိုင်မယ်
 </Aside>
 
 <Aside type="tip" title="ဒီ Module မစခင်">
-Module 1-7 ကို ပြီးမှ ဆက်ပါ။ ဒီ Mini Project မှာ Variables, Loops, Functions, Modules, Error Handling ကို ပေါင်းစပ်အသုံးပြုမည်။
+Module 1-7 ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ ဒီ Mini Project မှာ Variables, Loops, Functions, Modules နဲ့ Error Handling တွေကို ပေါင်းစပ်အသုံးပြုသွားပါမယ်။
 </Aside>
 
-ဒီ Course မှာ သင်ယူခဲ့တဲ့ Variables, Loops, If/Else နှင့် Modules တွေကို ပေါင်းစပ်ပြီး **"ဂဏန်းခန့်မှန်းတဲ့ ဂိမ်း (Number Guessing Game)"** ကို ဆောက်ကြမည်။
+ဒီ Course မှာ သင်ယူခဲ့တဲ့ Variables, Loops, If/Else တွေနဲ့ Modules တွေကို ပေါင်းစပ်ပြီး **"ဂဏန်းခန့်မှန်းတဲ့ ဂိမ်း (Number Guessing Game)"** ကို ဆောက်ကြည့်ကြရအောင်။
 
 ---
 
 ### ဂိမ်းရဲ့ စည်းမျဉ်းများ
-1. ကွန်ပျူတာက 1 ကနေ 100 ကြား ဂဏန်းတစ်ခုကို ကျပန်း ရွေးထားပါမည်
-2. ကစားသမားက မှန်းပြီး ရိုက်ထည့်ရပါမည်
-3. မှန်းတဲ့ ဂဏန်း ကြီးနေရင် "ကြီးနေတယ်"၊ ငယ်နေရင် "ငယ်နေတယ်" Hint ပေးပါမည်
-4. အဖြေမှန်ရင် ဘယ်နှစ်ကြိမ်မြောက်မှာ မှန်သလဲ ပြပါမည်
+1. ကွန်ပျူတာက 1 ကနေ 100 ကြား ဂဏန်းတစ်ခုကို ကျပန်း ရွေးထားပါမယ်
+2. ကစားသမားက မှန်းပြီး ရိုက်ထည့်ရပါမယ်
+3. မှန်းတဲ့ ဂဏန်းက ကြီးနေရင် "ကြီးနေတယ်"၊ ငယ်နေရင် "ငယ်နေတယ်" ဆိုပြီး Hint ပေးပါမယ်
+4. အဖြေမှန်ရင် ဘယ်နှစ်ကြိမ်မြောက်မှာ မှန်သလဲဆိုတာ ပြပေးပါမယ်
 
 ---
 
@@ -36,27 +36,27 @@ import random
 def play_game():
     print("=====================================")
     print("ဂဏန်းခန့်မှန်း ဂိမ်းမှ ကြိုဆိုပါတယ်!")
-    print("ကွန်ပျူတာ 1 ကနေ 100 ကြား ဂဏန်းတစ်ခုကို ကျပန်း ရွေးထားပါတယ်")
+    print("ကွန်ပျူတာက 1 ကနေ 100 ကြား ဂဏန်းတစ်ခုကို ကျပန်း ရွေးထားပါတယ်")
     print("=====================================\n")
 
-    secret_number = random.randint(1, 100)  # Line 9: ကျပန်း ဂဏန်းရွေး
+    secret_number = random.randint(1, 100)  # Line 9: ကျပန်း ဂဏန်းရွေးမယ်
     attempts = 0
 
-    while True:                              # Line 12: အဖြေမမှန်မချင်း Loop ဆက်
+    while True:                              # Line 12: အဖြေမမှန်မချင်း Loop ဆက်ပတ်မယ်
         try:
-            guess = int(input("သင် ခန့်မှန်းမည့် ဂဏန်း: "))  # Line 14: Input ယူ
-            attempts += 1                    # Line 15: ကြိမ်ရေ တိုး
+            guess = int(input("ခင်ဗျား ခန့်မှန်းမယ့် ဂဏန်းကို ထည့်ပါ: "))  # Line 14: Input ယူမယ်
+            attempts += 1                    # Line 15: ကြိမ်ရေ တစ်ခုတိုးမယ်
 
-            if guess < secret_number:        # Line 17: ငယ်နေသလား စစ်ဆေး
-                print("📉 နည်းနည်း ငယ်နေသေးတယ်! ထပ်ကြိုးစားကြည့်ပါ\n")
-            elif guess > secret_number:      # Line 19: ကြီးနေသလား စစ်ဆေး
-                print("📈 နည်းနည်း ကြီးနေတယ်! ထပ်ကြိုးစားကြည့်ပါ\n")
-            else:                            # Line 21: မှန်သည် (တူညီသည်)
-                print(f"\n🎉 မှန်ပါတယ်! ဂဏန်း {secret_number} ဖြစ်ပါတယ်")
-                print(f"သင် {attempts} ကြိမ်မြောက်မှာ မှန်ကြောင်း ရှာတွေ့ပါသည်!")
-                break                        # Line 24: Loop ရပ်
+            if guess < secret_number:        # Line 17: ငယ်နေသလား စစ်ဆေးမယ်
+                print("📉 နည်းနည်း ငယ်နေသေးတယ်! ထပ်ကြိုးစားကြည့်ပါဦး\n")
+            elif guess > secret_number:      # Line 19: ကြီးနေသလား စစ်ဆေးမယ်
+                print("📈 နည်းနည်း ကြီးနေတယ်! ထပ်ကြိုးစားကြည့်ပါဦး\n")
+            else:                            # Line 21: မှန်သွားပြီ (တူညီတယ်)
+                print(f"\n🎉 မှန်ပါတယ်! ဂဏန်းက {secret_number} ဖြစ်ပါတယ်")
+                print(f"ခင်ဗျား {attempts} ကြိမ်မြောက်မှာ မှန်ကြောင်း ရှာတွေ့သွားပါပြီ!")
+                break                        # Line 24: Loop ရပ်မယ်
 
-        except ValueError:                   # Line 26: ဂဏန်းမဟုတ်ရင်
+        except ValueError:                   # Line 26: ဂဏန်းမဟုတ်ရင် Error ပြမယ်
             print("❌ ကျေးဇူးပြု၍ ဂဏန်းသာ ရိုက်ထည့်ပါ\n")
 
 play_game()
@@ -66,29 +66,29 @@ play_game()
 
 | Line | Code | ရှင်းလင်းချက် |
 |------|------|-------------|
-| 1 | `import random` | Modules (Module 7) |
-| 5 | `def play_game():` | Function (Module 3) |
-| 9 | `secret_number = random.randint(1, 100)` | random Module + Variable |
-| 10 | `attempts = 0` | Counter Variable |
-| 12 | `while True:` | While Loop (Module 2) |
-| 14 | `int(input(...))` | Input + Type Conversion (Module 1) |
-| 17-21 | `if / elif / else` | Control Flow (Module 2) |
-| 24 | `break` | Loop ရပ်ခြင်း |
-| 26 | `except ValueError:` | Error Handling (Module 6) |
+| 1 | `import random` | Modules ယူသုံးခြင်း (Module 7) |
+| 5 | `def play_game():` | Function ကြေညာခြင်း (Module 3) |
+| 9 | `secret_number = random.randint(1, 100)` | random Module နဲ့ Variable တွဲသုံးခြင်း |
+| 10 | `attempts = 0` | ကြိမ်ရေ မှတ်သားမယ့် Counter Variable |
+| 12 | `while True:` | အဖြေမမှန်မချင်း အလုပ်လုပ်မယ့် While Loop (Module 2) |
+| 14 | `int(input(...))` | Input ယူခြင်းနဲ့ Type ပြောင်းလဲခြင်း (Module 1) |
+| 17-21 | `if / elif / else` | အခြေအနေ စစ်ဆေးတဲ့ Control Flow (Module 2) |
+| 24 | `break` | မှန်သွားတဲ့အခါ Loop ကနေ ထွက်ဖို့ |
+| 26 | `except ValueError:` | မှားယွင်းတဲ့ Input ကို Error Handling လုပ်ခြင်း (Module 6) |
 
 ---
 
-### Version 2 — ပိုကောင်းသော Game (Features ထည့်ပြီး)
+### Version 2 — ပိုကောင်းသော Game (Features အသစ်များ ထည့်ပြီး)
 
 ```python
 import random
 
 def get_difficulty():
     """Difficulty Level ရွေးချယ်ခြင်း"""
-    print("Difficulty ရွေးပါ:")
-    print("  [1] လွယ်   — 1-50,  Chances 10")
-    print("  [2] ပုံမှန် — 1-100, Chances 7")
-    print("  [3] ခက်   — 1-200, Chances 5")
+    print("Difficulty Level ကို ရွေးပါ:")
+    print("  [1] လွယ်   — 1 ကနေ 50 ထိ,  Chances 10 ကြိမ်")
+    print("  [2] ပုံမှန် — 1 ကနေ 100 ထိ, Chances 7 ကြိမ်")
+    print("  [3] ခက်   — 1 ကနေ 200 ထိ, Chances 5 ကြိမ်")
     
     while True:
         choice = input("ရွေးချယ်ပါ (1/2/3): ").strip()
@@ -99,10 +99,10 @@ def get_difficulty():
         elif choice == "3":
             return 200, 5, "ခက်"
         else:
-            print("1, 2, 3 ကိုသာ ရွေးပါ")
+            print("1, 2, 3 ထဲက တစ်ခုကိုသာ ရွေးပေးပါ")
 
 def evaluate_performance(attempts, max_attempts):
-    """ကစားသူ ကိုဆန်းစစ်ပြီး Rating ပေးခြင်း"""
+    """ကစားသူရဲ့ စွမ်းဆောင်ရည်ကို Rating ပေးခြင်း"""
     ratio = attempts / max_attempts
     if ratio <= 0.3:
         return "⭐⭐⭐ Excellent!"
@@ -119,19 +119,19 @@ def play_game():
     max_number, max_attempts, level = get_difficulty()
     secret_number = random.randint(1, max_number)
     attempts = 0
-    history = []   # Guess History သိမ်းခြင်း
+    history = []   # ခန့်မှန်းခဲ့တဲ့ ဂဏန်းတွေကို သိမ်းထားမယ်
     
-    print(f"\n{level} Level — 1 မှ {max_number} ကြား ဂဏန်း ({max_attempts} ကြိမ် Chance)")
+    print(f"\n{level} Level — 1 မှ {max_number} ကြား ဂဏန်း ({max_attempts} ကြိမ် Chance ရပါမယ်)")
     
     while attempts < max_attempts:
         remaining = max_attempts - attempts
-        print(f"\nကျန် Chance: {remaining}")
+        print(f"\nကျန်ရှိတဲ့ Chance: {remaining}")
         
         try:
             guess = int(input("ဂဏန်း ခန့်မှန်းပါ: "))
             
             if not 1 <= guess <= max_number:
-                print(f"❌ 1 မှ {max_number} ကြား ဂဏန်းသာ ထည့်ပါ")
+                print(f"❌ 1 မှ {max_number} ကြား ဂဏန်းသာ ထည့်ပေးပါ")
                 continue
             
             attempts += 1
@@ -148,7 +148,7 @@ def play_game():
             else:
                 rating = evaluate_performance(attempts, max_attempts)
                 print(f"\n{'=' * 45}")
-                print(f"🎉 မှန်ပါတယ်! ဂဏန်း {secret_number} ဖြစ်ပါတယ်")
+                print(f"🎉 မှန်ပါတယ်! ဂဏန်းက {secret_number} ဖြစ်ပါတယ်")
                 print(f"ကြိမ်အရေအတွက်: {attempts} / {max_attempts}")
                 print(f"Rating: {rating}")
                 print(f"Guess History: {history}")
@@ -156,19 +156,19 @@ def play_game():
                 return True
         
         except ValueError:
-            print("❌ ဂဏန်းသာ ရိုက်ပါ")
+            print("❌ ကျေးဇူးပြု၍ ဂဏန်းသာ ရိုက်ထည့်ပါ")
     
-    print(f"\n😢 Chances ကုန်သွားပါပြီ! ဂဏန်းဟာ {secret_number} ဖြစ်ပါတယ်")
+    print(f"\n😢 Chances ကုန်သွားပါပြီ! အဖြေမှန်က {secret_number} ဖြစ်ပါတယ်")
     return False
 
 def main():
     while True:
         won = play_game()
         
-        print("\nနောက်ထပ် ကစားမည်လား?")
+        print("\nနောက်ထပ် ထပ်ကစားဦးမလား?")
         again = input("(yes/no): ").strip().lower()
         if again not in ("yes", "y", "ဟုတ်"):
-            print("\n👋 ကစားပေးသည့်အတွက် ကျေးဇူးတင်ပါသည်!")
+            print("\n👋 ကစားပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ်!")
             break
 
 main()
@@ -176,17 +176,17 @@ main()
 
 ---
 
-### Challenge Extensions — ကိုယ်တိုင် ထပ်ထည့်ကြည့်ပါ
+### Challenge Extensions — ကိုယ်တိုင် ထပ်မံဖြည့်စွက်ကြည့်ပါ
 
-ဒီ Game ကို ပိုကောင်းအောင် ကြိုးစားပါ:
+ဒီ Game ကို ပိုကောင်းအောင် ဆက်လက် ကြိုးစားကြည့်ပါ:
 
-- **High Score** — အနည်းဆုံး ကြိမ်နဲ့ မှန်တဲ့ Record ကို File ထဲ သိမ်းပါ
-- **Timer** — `time` Module သုံးပြီး ဘယ်လောက် ကြာသလဲ တွက်ပါ
-- **Hint System** — "ဒုတိယ ဟင့် ဝယ်မလား?" Option ထည့်ပါ
-- **Multiplayer** — ကစားသမား ၂ ယောက် ကြိမ်ယှဉ်တဲ့ Mode ထည့်ပါ
+- **High Score** — အနည်းဆုံး ကြိမ်နဲ့ အဖြေမှန်တဲ့ Record ကို File ထဲမှာ သိမ်းပါ
+- **Timer** — `time` Module သုံးပြီး အချိန် ဘယ်လောက်ကြာသလဲ တွက်ပြပါ
+- **Hint System** — "ဒုတိယ Hint ဝယ်မလား?" ဆိုတဲ့ Option မျိုး ထည့်ပါ
+- **Multiplayer** — ကစားသမား ၂ ယောက် အလှည့်ကျ ကစားတဲ့ Mode ထည့်ကြည့်ပါ
 
 <Aside type="tip" title="နောက်တစ်ဆင့်">
-Game ကို ကောင်းကောင်း ဆောက်ပြီးပါပြီဆိုရင် **Module 9 — Debugging** မှာ Error တွေကို ပိုထိထိရောက်ရောက် ဖြေရှင်းနည်း သင်ကြားမည်၊ ထို့နောက် **Module 10 — Projects** မှာ ပိုကြီးသော Projects တည်ဆောက်ပါမည်!
+Game ကို သေချာ နားလည်အောင် ဆောက်နိုင်ပြီဆိုရင်တော့ **Module 9 — Debugging** မှာ Error တွေကို ပိုမိုထိရောက်စွာ ဘယ်လို ဖြေရှင်းရမလဲဆိုတာ သင်ကြားပေးသွားပါမယ်။ အဲ့ဒီနောက် **Module 10 — Projects** မှာ ပိုမိုကြီးမားတဲ့ Projects တွေကို တည်ဆောက်ကြပါမယ်!
 </Aside>
 
-**Module 8 ပြီးဆုံးပါပြီ — မဆုတ်မနစ် ဆက်လက် လေ့လာပါ! 💪**
+**Module 8 ပြီးဆုံးပါပြီ — မဆုတ်မနစ် ဆက်လက် လေ့လာကြပါစို့! 💪**
