@@ -66,18 +66,18 @@
 <li><strong>Mutable:</strong> တိုက်ရိုက် ပြင်လို့ရတယ်။ (ဥပမာ - C++ Strings)</li>
 </ul>
 <div class="sl-heading-wrapper level-h3"><h3 id="pattern-1-the-two-pointer-technique">Pattern 1: The “Two Pointer” Technique</h3><a class="sl-anchor-link" href="#pattern-1-the-two-pointer-technique"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only">Section titled “Pattern 1: The “Two Pointer” Technique”</span></a></div>
-<p>Array သို့မဟုတ် String တစ်ခုကို ဘယ်နဲ့ ညာ၊ ဒါမှမဟုတ် ရှေ့နဲ့ နောက် ကနေ Pointer နှစ်ခု အသုံးပြုပြီး ဖြေရှင်းတဲ့ နည်းလမ်းပါ။</p>
+<p>Array သို့မဟုတ် String တစ်ခုကို ဘယ်နဲ့ ညာ၊ ဒါမှမဟုတ် ရှေ့နဲ့ နောက် ကနေ Pointers နှစ်ခု အသုံးပြုပြီး ဖြေရှင်းတဲ့ နည်းလမ်းပါ -</p>
 <p><img src="/_astro/two-pointers-palindrome.CAAe6-qF_ZhMgvY.svg" alt="Two Pointers Palindrome" loading="lazy" decoding="async" fetchpriority="auto" width="800" height="400"></p>
-<p><strong>ဥပမာ - Palindrome စစ်ခြင်း (ရှေ့ဖတ် နောက်ဖတ် အတူတူပဲလား?)</strong>
-<code dir="auto">"level"</code></p>
+<p><strong>ဥပမာ - Palindrome စစ်ခြင်း (ရှေ့ဖတ် နောက်ဖတ် အတူတူပဲလား?)</strong></p>
+<p><code dir="auto">"level"</code></p>
 <ol>
 <li>ဘယ်ဘက် Pointer က ‘l’၊ ညာဘက် Pointer က ‘l’ -> တူတယ် -> ရှေ့ဆက်တိုး။</li>
 <li>ဘယ် ‘e’၊ ညာ ‘e’ -> တူတယ် -> ရှေ့ဆက်တိုး။</li>
-<li>လယ်က ‘v’ -> ပြီးပြီ။ Palindrome ဖြစ်တယ်။</li>
+<li>အလယ်က ‘v’ -> ပြီးပြီ။ Palindrome ဖြစ်တယ်။</li>
 </ol>
 <div class="sl-heading-wrapper level-h3"><h3 id="pattern-2-the-sliding-window-technique">Pattern 2: The “Sliding Window” Technique</h3><a class="sl-anchor-link" href="#pattern-2-the-sliding-window-technique"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only">Section titled “Pattern 2: The “Sliding Window” Technique”</span></a></div>
-<p>ပြတင်းပေါက် (Window) တစ်ခုကနေ ကြည့်သလိုမျိုး၊ Data အစုလိုက် (Subarray/Substring) ကို ရွှေ့ပြီး တွက်ချက်တဲ့ နည်းလမ်းပါ။</p>
+<p>ပြတင်းပေါက် (Window) တစ်ခုကနေ ကြည့်သလိုမျိုး၊ Data အစုလိုက် (Subarray/Substring) ကို ရွှေ့ပြီး တွက်ချက်တဲ့ နည်းလမ်းပါ -</p>
 <p><img src="/_astro/sliding-window.DlllWWWy_ZhMgvY.svg" alt="Sliding Window Pattern" loading="lazy" decoding="async" fetchpriority="auto" width="800" height="400"></p>
-<p><strong>ဥပမာ - အရှည်ဆုံး စာသားကို ရှာမယ် (ထပ်နေတာ မပါစေရ)</strong>
-<code dir="auto">abcabcbb</code>
+<p><strong>ဥပမာ - အရှည်ဆုံး စာသားကို ရှာမယ် (ထပ်နေတာ မပါစေရ)</strong></p>
+<p><code dir="auto">abcabcbb</code>
 Window လေး တစ်ဆင့်ချင်း ရွှေ့သွားရင်း Window ထဲမှာ ရှိတဲ့ စာလုံးတွေကို မှတ်သားသွားမယ့် နည်းလမ်း ဖြစ်ပါတယ်။ Nested Loop သုံးတာထက် အများကြီး ပိုမြန် ($O(n)$) ပါတယ်။</p>  </div>  <script type="module">const o='<span class="nova-code-copy-button-icon-clipboard"></span>',n='<span class="nova-code-copy-button-icon-check"></span>';class s extends HTMLElement{constructor(){super()}connectedCallback(){this.innerHTML=o;const t=()=>{this.innerHTML=e==="ready"?o:n};let e="ready";t(),this.addEventListener("click",()=>{if(e==="ready"){e="success",t();const c=this.dataset.code||"";navigator.clipboard.writeText(c),setTimeout(()=>{e="ready",t()},1500)}})}}customElements.define("nova-code-copy-button",s);</script> <script type="module" src="/_astro/MarkdownContent.astro_astro_type_script_index_0_lang.PVcJGGCh.js"></script> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="print:hidden nova-pagination" dir="ltr"> <a href="/dsa/module-2/arrays/" rel="prev" data-side="left" class="nova-pagination-link"> <span>Arrays</span> <span class="nova-pagination-link-icon nova-pagination-link-icon-left"></span> </a> <div class="nova-pagination-divider"></div> <a href="/dsa/module-2/linked-lists/" rel="next" data-side="right" class="nova-pagination-link"> <span>Linked Lists</span> <span class="nova-pagination-link-icon nova-pagination-link-icon-right"></span> </a> </div>  </footer>  </div> </div>   </main> </div> </div>  </div> </div>  </body></html>
