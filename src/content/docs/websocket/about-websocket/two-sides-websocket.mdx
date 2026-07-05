@@ -1,39 +1,39 @@
 ---
-title: Two sides of WebSocket - Client နှင့် Server
-description: WebSocket Connection - Client နှင့် Server
+title: "Two sides of WebSocket - Client နှင့် Server"
+description: "WebSocket Connection - Client နှင့် Server"
 ---
 
 import ContentImage from "@/components/Content-image.astro";
 import connections from "@/assets/websockets/connections.png";
 
-WebSocket Communication မှာ အဓိက အခန်းကဏ္ဍ နှစ်ခု ရှိပါတယ်။ အဲဒါတွေကတော့ Client နဲ့ Server ပါပဲ။ သူတို့နှစ်ခုကြားမှာ WebSocket Connection ကို ထူထောင်ပြီး Real-time Data တွေ ဖလှယ်ကြတာ ဖြစ်ပါတယ်။
+WebSocket Communication မှာ အဓိက အခန်းကဏ္ဍ နှစ်ခု ရှိပါတယ်။ အဲ့ဒါတွေကတော့ **Client** နဲ့ **Server** ပါပဲ။ သူတို့ နှစ်ခုကြားမှာ WebSocket Connection ကို ထူထောင်ပြီး Real-time Data တွေ ဖလှယ်ကြတာ ဖြစ်ပါတယ်။
 
-- Client: Connection ကို စတင်တဲ့ဘက် ဖြစ်ပါတယ်။ ပုံမှန်အားဖြင့် Web Browser (Chrome, Firefox, Safari, Edge စတာတွေ) ဖြစ်ပါတယ်။ Client က Server ဆီကို WebSocket Connection တစ်ခု စချင်ကြောင်း Handshake Request ပို့ပြီး စတင်ပါတယ်။
-
-- Server: Client ရဲ့ Connection Request ကို လက်ခံပြီး Connection ကို ထူထောင်ပေးတဲ့ဘက် ဖြစ်ပါတယ်။ Server ဟာ Client အများအပြားနဲ့ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီး Data တွေကို ကိုင်တွယ်ပေးနိုင်ပါတယ်။
+- **Client:** Connection ကို စတင်တဲ့ဘက် ဖြစ်ပါတယ်။ ပုံမှန်အားဖြင့် Web Browser တွေ (Chrome, Firefox, Safari, Edge စတာတွေ) ဒါမှမဟုတ် Mobile Apps တွေ ဖြစ်ပါတယ်။ Client က Server ဆီကို WebSocket Connection တစ်ခု စချင်ကြောင်း Handshake Request ပို့ပြီး စတင်ပါတယ်။
+- **Server:** Client ရဲ့ Connection Request ကို လက်ခံပြီး Connection ကို ထူထောင်ပေးတဲ့ဘက် ဖြစ်ပါတယ်။ Server ဟာ Client အများအပြား (ထောင်သောင်းချီသော Users တွေ) နဲ့ တစ်ပြိုင်တည်း ချိတ်ဆက်ပြီး Data တွေကို စီမံ ကိုင်တွယ်ပေးနိုင်ပါတယ်။
 
 <ContentImage src={connections} alt="browsers and server connections" />
 
-### Client ၏ အခန်းကဏ္ဍ
+## Client ၏ အခန်းကဏ္ဍ
 
-#### Client ဘက် (Browser Built-in API)
+### Client ဘက် (Browser Built-in API)
 
-Client ဘက်မှာ WebSocket ကို အသုံးပြုဖို့အတွက် ခေတ်မီ Web Browser တွေမှာ Built-in လုပ်ပြီးသား WebSocket API ကို သုံးနိုင်ပါတယ်။ ဒါကြောင့် Client-side JavaScript နဲ့တင် WebSocket Connection တွေ ထူထောင်ပြီး Data တွေ ပို့/ယူ လုပ်လို့ရပါတယ်။ ဘာ Add-on မှ ထပ်ထည့်စရာ မလိုပါဘူး။
+Client ဘက်မှာ WebSocket ကို အသုံးပြုဖို့အတွက် ခေတ်မီ Web Browser တိုင်းမှာ Built-in အသင့်ပါဝင်ပြီးသား WebSocket API ကို သုံးနိုင်ပါတယ်။ ဒါကြောင့် Client-side JavaScript လေးနဲ့တင် WebSocket Connection တွေ ထူထောင်ပြီး Data တွေ ပို့/ယူ လုပ်လို့ ရပါတယ်။ ဘာ Third-party Library (Add-on) မှ ထပ်ထည့်စရာ မလိုပါဘူး။
 
-WebSocket Object ကို ဖန်တီးခြင်းဖြင့် စတင်သည် (new WebSocket(url))။
-Connection ရဲ့ အခြေအနေ (ဖွင့်ခြင်း၊ ပိတ်ခြင်း၊ Error ဖြစ်ခြင်း၊ Message လက်ခံရရှိခြင်း) များကို Event Handler များဖြင့် ကိုင်တွယ်သည်။ (ဥပမာ - onopen, onmessage, onerror, onclose)။
-Data ပို့ရန် send() Method ကို အသုံးပြုသည်။
+- `new WebSocket(url)` ကို အသုံးပြုပြီး WebSocket Object ကို ဖန်တီးခြင်းဖြင့် စတင်ပါတယ်။
+- Connection ရဲ့ အခြေအနေ အပြောင်းအလဲတွေကို (ဖွင့်ခြင်း၊ ပိတ်ခြင်း၊ Error ဖြစ်ခြင်း၊ Message လက်ခံရရှိခြင်း) Event Handlers တွေနဲ့ လွယ်ကူစွာ ကိုင်တွယ် ဖြေရှင်းနိုင်ပါတယ်။ (ဥပမာ - `onopen`, `onmessage`, `onerror`, `onclose`)။
+- Data ပို့ရန်အတွက် `send()` Method ကို အသုံးပြုပါတယ်။
 
-### Server ၏ အခန်းကဏ္ဍ
+## Server ၏ အခန်းကဏ္ဍ
 
-Server ဘက်မှာတော့ သင်အသုံးပြုတဲ့ Programming Language နဲ့ Framework ပေါ် မူတည်ပြီး WebSocket Server တွေ တည်ဆောက်ဖို့ Library တွေ အများကြီး ရှိပါတယ်။ ဥပမာအားဖြင့် -
+Server ဘက်မှာတော့ သင် အသုံးပြုတဲ့ Programming Language နဲ့ Framework ပေါ် မူတည်ပြီး WebSocket Servers တွေ တည်ဆောက်ဖို့ နာမည်ကြီး Libraries တွေ အများကြီး ရှိပါတယ်။ ဥပမာအားဖြင့် -
 
-Python: websockets, Socket.IO, Tornado
-Node.js (JavaScript): ws, Socket.IO, Express-WebSocket
-Java: javax.websocket, Spring WebSocket
-Ruby: websocket-rails
-PHP: Ratchet
-Go: gorilla/websocket
-ဒီ Library တွေက WebSocket Handshake, Framing, Connection Management, Sending/Receiving Data စတာတွေကို ကိုင်တွယ်ပေးပါတယ်။ Developer အနေနဲ့ Application Logic (ဥပမာ - Message တွေကို ဘယ် Client တွေဆီ ပို့မလဲ၊ Data တွေ ဘယ်လို Process လုပ်မလဲ) ကို အဓိက ရေးသားဖို့ပဲ လိုပါတယ်။
+- **Node.js (JavaScript):** `ws`, `Socket.IO`
+- **Python:** `websockets`, `Django Channels`, `FastAPI`
+- **Java:** `Spring WebSocket`, `javax.websocket`
+- **Go:** `gorilla/websocket`
+- **PHP:** `Ratchet`
+- **Ruby:** `Action Cable (Rails)`, `websocket-ruby`
 
-Server Side Implementation ဟာ Client ဘက် Browser API ထက် နည်းပညာ ရွေးချယ်မှု များပြားပြီး ပိုရှုပ်ထွေးနိုင်ပါတယ်။
+ဒီ Libraries တွေက WebSocket Handshake, Data Framing, Connection Management နဲ့ Sending/Receiving Data လုပ်ငန်းစဉ် အရှုပ်အထွေးတွေကို သင့်ကိုယ်စား နောက်ကွယ်ကနေ ကိုင်တွယ်ပေးပါတယ်။ Developer အနေနဲ့ Application Logic (ဥပမာ - ဘယ် Message တွေကို ဘယ် Client တွေဆီ (Broadcast) ပို့မလဲ၊ ဝင်လာတဲ့ Data တွေကို Database ထဲ ဘယ်လို သိမ်းမလဲ) ကို အဓိက ရေးသားဖို့ပဲ လိုပါတယ်။
+
+Server Side Implementation ဟာ Client ဘက် Browser API လို ရိုးရှင်းတာမျိုး မဟုတ်ဘဲ၊ နည်းပညာ ရွေးချယ်မှု များပြားပြီး စကေးချဲ့ဖို့ (Scaling) နဲ့ လုံခြုံရေး (Security) အတွက် ပိုမို ရှုပ်ထွေးနိုင်ပါတယ် ခင်ဗျာ။

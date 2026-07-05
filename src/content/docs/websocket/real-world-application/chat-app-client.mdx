@@ -1,0 +1,156 @@
+---
+title: "ရိုးရှင်းသော Chat Application - Client"
+description: "ရိုးရှင်းသော Chat Application (Socket.IO Client)"
+---
+
+**Client နဲ့ Server နှစ်ခုလုံးအတွက် Socket.IO Library ကိုပဲ အသုံးပြုသွားပါမယ်။**
+
+## Socket.IO ဆိုတာ ဘာလဲ?
+
+Socket.IO ဟာ Real-time, Bidirectional Communication အတွက် နာမည်ကြီး JavaScript Library တစ်ခု ဖြစ်ပါတယ်။ သူက WebSockets ကို အဓိက သုံးပေမဲ့၊ WebSocket လိုင်းမကောင်းလို့ ချိတ်မရတဲ့ အခြေအနေမျိုးမှာ Long Polling လို တခြား နည်းလမ်းတွေနဲ့ အလိုအလျောက် ပြန်ချိတ်ဆက်ပေးတဲ့ (Fallback) Feature ပါဝင်ပါတယ်။ 
+
+ဒါ့အပြင် Client အများကြီးဆီကို Message တစ်ပြိုင်တည်း ပို့တဲ့ Broadcasting၊ သီးသန့် အုပ်စု (Rooms) လေးတွေဖွဲ့ပြီး ပို့တာ၊ Connection ပြတ်သွားရင် အလိုအလျောက် ပြန်ချိတ်ပေးတဲ့ Auto-reconnection စတဲ့ အသုံးဝင်တဲ့ Features တွေလည်း အစုံအလင် ပါဝင်ပါတယ်။
+
+## ရည်ရွယ်ချက် - ရိုးရှင်းသော Chat App
+
+Client နဲ့ Server ဘက်ခြမ်း ဘယ်လို ချိတ်ဆက် အလုပ်လုပ်လဲဆိုတာ ပိုပြီး မြင်သာအောင် ရိုးရှင်းတဲ့ Chat Application လေးတစ်ခု တည်ဆောက်ကြည့်ရအောင်။ 
+
+ဒီ Chat App မှာ အသုံးပြုသူတွေက Username နဲ့ Message တွေ ရိုက်ထည့်ပြီး ပို့နိုင်ပါတယ်။ Server က Message တွေကို လက်ခံရရှိပြီး ချိတ်ဆက်ထားတဲ့ တခြား Client တွေဆီကို ချက်ချင်း ပြန်လည် ဖြန့်ဝေပေးပါမယ်။
+
+ဒီသင်ခန်းစာမှာ Socket.IO Client Library ကို Public CDN (Content Delivery Network) ကနေ တိုက်ရိုက် ယူသုံးပြီး၊ အရင်သင်ခန်းစာက ရေးခဲ့တဲ့ Socket.IO Server နဲ့ ဘယ်လို ချိတ်ဆက်ရမလဲ ဆိုတာကို လေ့လာပါမယ်။
+
+## Client Setup (`index.html`)
+
+သင့် စက်ထဲမှာ `index.html` ဖိုင်လေးတစ်ခု ဆောက်ပြီး အောက်ပါ Code တွေကို ကူးထည့်လိုက်ပါ ခင်ဗျာ။
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.IO Chat App (Client)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      #chatbox {
+        border: 1px solid #ccc;
+        height: 300px;
+        overflow-y: scroll;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+      }
+      .input-group {
+        display: flex;
+        gap: 10px;
+      }
+      #usernameInput {
+        width: 150px;
+      }
+      #messageInput {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Socket.IO Chat App</h1>
+    
+    <div id="chatbox"></div>
+    
+    <div class="input-group">
+      <input type="text" id="usernameInput" placeholder="Your Name" />
+      <input type="text" id="messageInput" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Socket.IO Client Library ကို CDN မှ ရယူခြင်း -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script>
+      // Server Run နေသည့် လိပ်စာကို ထည့်၍ ချိတ်ဆက်ခြင်း
+      const socket = io("http://localhost:3000");
+
+      const chatbox = document.getElementById("chatbox");
+      const usernameInput = document.getElementById("usernameInput");
+      const messageInput = document.getElementById("messageInput");
+
+      // UI တွင် စာကြောင်းလေးတွေ ပြရန် အကူအညီပေးသည့် Function
+      function addMessageToUI(text, color = "black") {
+        const msgElement = document.createElement("p");
+        msgElement.textContent = text;
+        msgElement.style.color = color;
+        chatbox.appendChild(msgElement);
+        chatbox.scrollTop = chatbox.scrollHeight; // အောက်ဆုံးသို့ Scroll အလိုအလျောက်ချပေးရန်
+      }
+
+      // ၁။ Server နှင့် ချိတ်ဆက်မှု အောင်မြင်သောအခါ
+      socket.on("connect", () => {
+        addMessageToUI("✅ Server နှင့် ချိတ်ဆက်ပြီးပါပြီ။", "green");
+      });
+
+      // ၂။ Server မှ 'chat message' event ဖြင့် မက်ဆေ့ချ် အသစ် ဝင်လာသောအခါ
+      socket.on("chat message", (msg) => {
+        addMessageToUI(`[${msg.username}]: ${msg.text}`);
+      });
+
+      // ၃။ Connection Error ဖြစ်ပေါ်သောအခါ
+      socket.on("connect_error", (err) => {
+        addMessageToUI(`❌ ချိတ်ဆက်မှု အမှားအယွင်း: ${err.message}`, "red");
+      });
+
+      // ၄။ Connection ပြတ်တောက်သွားသောအခါ
+      socket.on("disconnect", (reason) => {
+        addMessageToUI(`⚠️ ချိတ်ဆက်မှု ပြတ်တောက်သွားပါသည် (${reason})`, "orange");
+      });
+
+      // မက်ဆေ့ချ် ပို့ရန် Function (Send ခလုတ်နှိပ်လျှင် အလုပ်လုပ်မည်)
+      function sendMessage() {
+        if (!socket.connected) {
+          alert("Server နှင့် ချိတ်ဆက်ထားခြင်း မရှိပါ။");
+          return;
+        }
+
+        const username = usernameInput.value || "Anonymous";
+        const messageText = messageInput.value.trim();
+        
+        if (!messageText) return; // စာမရေးထားရင် မပို့ပါ
+
+        // ပို့မည့် Data Object
+        const messageData = {
+          username: username,
+          text: messageText,
+        };
+
+        // Server သို့ 'chat message' အမည်ဖြင့် Data ကို လှမ်းပို့ခြင်း
+        socket.emit("chat message", messageData);
+        
+        // ပို့ပြီးလျှင် Input ဘောက်စ်ကို အလွတ် ပြန်ဖြစ်စေရန်
+        messageInput.value = "";
+      }
+
+      // Enter Key နှိပ်လျှင်လည်း Message ပို့နိုင်အောင် စီစဉ်ခြင်း
+      messageInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>
+```
+
+## Code ရှင်းလင်းချက် (Client)
+
+- `<script src="https://cdn.socket.io/..."></script>`: ဒီ Line ကနေ Browser ဟာ Socket.IO Client Library ရဲ့ JavaScript ဖိုင်ကို CDN ပေါ်ကနေ အင်တာနက်ကတစ်ဆင့် လှမ်းယူပြီး Run ပေးပါလိမ့်မယ်။ 
+- `const socket = io("http://localhost:3000");`: Client ဖိုင်ကို ဘယ်ကပဲ ဖွင့်ဖွင့်၊ Socket.IO Client အနေနဲ့ Server ဘယ်လိပ်စာမှာ Run နေလဲ ဆိုတာကို သေချာ သိဖို့ လိုအပ်တဲ့အတွက် Server ရဲ့ URL ကို `io()` ထဲမှာ ထည့်ပေးလိုက်တာ ဖြစ်ပါတယ်။
+- `socket.on('...')`: Server ဘက်ကနေ ပို့လိုက်တဲ့ Events တွေကို ဖမ်းယူ (Listen) ဖို့ သုံးပါတယ်။
+- `socket.emit('...')`: ကိုယ့်ဘက်ကနေ Server ဆီကို Data (Event) တွေ လှမ်းပို့ဖို့ သုံးပါတယ်။
+
+## စမ်းသပ်ကြည့်ကြစို့
+
+၁။ အရင် သင်ခန်းစာက Server ကို `node index.js` ဆိုပြီး Terminal ကနေ Run ထားပေးပါ။
+၂။ အခု ရေးလိုက်တဲ့ `index.html` ဖိုင်ကို Browser တစ်ခုမှာ ဖွင့်ပါ။ (File ကို Double-click နှိပ်ပြီး ဖွင့်လို့လည်း ရသလို၊ VS Code လို Editor မျိုးမှာ Live Server နဲ့ ဖွင့်လို့လည်း ရပါတယ်)။
+၃။ နောက်ထပ် Browser Tab အသစ်တစ်ခု (သို့မဟုတ် Browser နောက်တစ်ခု) မှာ ဒီ `index.html` ဖိုင်ကိုပဲ ထပ်ဖွင့်ပါ။
+၄။ နာမည်လေးတွေ ထည့်၊ စာလေးတွေ ရိုက်ပို့ကြည့်ပါ။ Tab တစ်ခုကနေ ပို့လိုက်တဲ့ စာဟာ နောက် Tab တစ်ခုဆီကို ချက်ချင်း (Real-time) ရောက်လာတာကို မြင်တွေ့ရမှာ ဖြစ်ပါတယ် ခင်ဗျာ။

@@ -4,10 +4,10 @@ description: "အရေးကြီးမှတ်တိုင်များ - 
 ---
 
 import { Aside, Code } from "@astrojs/starlight/components";
+
 export const gitTag = `
 git tag v1.0.0
 `;
-
 export const gitTagToCommit = `
 git tag v1.0.0 <commit-hash>
 `;
@@ -24,9 +24,8 @@ export const pushAllTags = `
 git push origin --tags
 `;
 
-
 <Aside title="ရည်ရွယ်ချက်">
-  Project History ထဲက အရေးကြီးတဲ့ နေရာတွေကို Tags တွေ သုံးပြီး ဘယ်လို အလွယ်တကူ မှတ်သားရမလဲဆိုတာ လေ့လာနိုင်ဖို့ ဖြစ်ပါတယ် ခင်ဗျာ။
+  Project History ထဲက အရေးကြီးတဲ့ နေရာတွေကို Tags တွေ သုံးပြီး ဘယ်လို အလွယ်တကူ မှတ်သားရမလဲ ဆိုတာ လေ့လာနိုင်ဖို့ ဖြစ်ပါတယ် ခင်ဗျာ။
 </Aside>
 
 ## ထူးခြားသော အချိန်များကို မှတ်သားခြင်း: `git tag`
@@ -64,7 +63,7 @@ git push origin --tags
 
 ### Tags များကို မျှဝေခြင်း (Remote သို့ Push လုပ်ခြင်း)
 
-Tag သတ်မှတ်ပြီးပြီ ဆိုပေမဲ့၊ အဲဒီ Tags တွေက Commits တွေလိုပဲ Local စက်ထဲမှာပဲ ရှိနေသေးတာ ဖြစ်ပါတယ်။ အွန်လိုင်း (Remote) ပေါ်ကို တင်ချင်တယ်ဆိုရင်တော့ -
+Tag သတ်မှတ်ပြီးပြီ ဆိုပေမဲ့၊ အဲ့ဒီ Tags တွေက Commits တွေလိုပဲ Local စက်ထဲမှာပဲ ရှိနေသေးတာ ဖြစ်ပါတယ်။ အွန်လိုင်း (Remote) ပေါ်ကို တင်ချင်တယ်ဆိုရင်တော့ -
 
 **သတ်မှတ်ထားတဲ့ Tag တစ်ခုတည်းကို Push လုပ်ခြင်း**
 <Code code={pushTag} title='Bash' />

@@ -4,67 +4,76 @@ description: "Exclude<T,U>, Extract<T,U>, NonNullable<T>"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const union = `
 type Status = "pending" | "processing" | "success" | "error" | null | undefined;
 `;
 
 export const exclude = `
+// Status ထဲကနေ "pending" နဲ့ "processing" ကို ဖယ်ထုတ် (Exclude) လိုက်တယ်
 type FinalStatus = Exclude<Status, "pending" | "processing">;
 
-let final: FinalStatus = "success"; // ဒါက အလုပ်လုပ်တယ်
+let final: FinalStatus = "success"; // ဒါက အဆင်ပြေပြေ အလုပ်လုပ်တယ်
 
-// final = "pending"; // Error ပြလိမ့်မယ်။ 'pending' က FinalStatus Type မဟုတ်ဘူး။
+// final = "pending"; // Error ပြပါလိမ့်မယ်။ 'pending' ဆိုတာ FinalStatus Type ထဲမှာ မပါဝင်တော့လို့ပါ!
 `
-export const extract =`type ResolvedStatus = Extract<Status, "success" | "error">;
+
+export const extract = `
+// Status ထဲကနေ "success" နဲ့ "error" ကိုပဲ သီးသန့် ရွေးထုတ် (Extract) လိုက်တယ်
+type ResolvedStatus = Extract<Status, "success" | "error">;
 
 let resolved: ResolvedStatus = "error"; // ဒါက အလုပ်လုပ်တယ်
 
-// resolved = "pending"; // Error ပြလိမ့်မယ်။
-// resolved = null; // Error ပြလိမ့်မယ်။
-};`
+// resolved = "pending"; // Error ပြပါလိမ့်မယ်။
+// resolved = null; // Error ပြပါလိမ့်မယ်။
+`;
 
-export const nonnullable =`let currentStatus: Status = "pending";
+export const nonnullable = `
+let currentStatus: Status = "pending";
 
-// ... တချို့ Logic တွေ ...
+// ... တခြား လုပ်ဆောင်ချက် (Logic) တွေ ...
 
+// currentStatus က သေချာပေါက် ရှိနေတယ်လို့ စစ်ဆေးလိုက်တာ
 if (currentStatus !== null && currentStatus !== undefined) {
-// ဒီ Block ထဲမှာဆိုရင် TypeScript က currentStatus ဟာ null ဒါမှမဟုတ် undefined မဟုတ်တော့ဘူးဆိုတာ သိနေပြီ။
-// တခြား Function တစ်ခုကို ပို့ရင်လည်း Type ကို အတိအကျ သတ်မှတ်ပေးလို့ ရတယ်:
-let activeStatus: NonNullable<Status> = currentStatus;
-console.log(activeStatus.toUpperCase()); // toUpperCase() ကို စိတ်ချစွာ သုံးလို့ရပြီ။
-};`
+  // ဒီ if block ထဲမှာဆိုရင် TypeScript က currentStatus ဟာ null ဒါမှမဟုတ် undefined လုံးဝ မဟုတ်တော့ဘူးဆိုတာကို အလိုအလျောက် သိရှိနေပါပြီ။
+  // ဒါကြောင့် တခြား Function တစ်ခုကို ပို့တဲ့အခါ Type ကို အတိအကျ သတ်မှတ်ပေးလို့ ရပါတယ်:
+  
+  let activeStatus: NonNullable<Status> = currentStatus;
+  console.log(activeStatus.toUpperCase()); // null ဖြစ်မနေတာ သေချာသွားပြီမို့ toUpperCase() ကို စိတ်ချယုံကြည်စွာ ခေါ်သုံးလို့ ရသွားပါပြီ။
+}
+`;
 
-<Aside title='ရည်ရွယ်ချက်' type="tip">
-  `Exclude<T, U>`, `Extract<T, U>`, နဲ့ `NonNullable<T>` Utility Types တွေကို ဘယ်လို သုံးရသလဲဆိုတာ နားလည်ဖို့ ဖြစ်ပါတယ်။ သူတို့က Union Types တွေနဲ့ အလုပ်လုပ်တာပါ။ `Pick<T, K>` နဲ့ `Omit<T, K>` တို့ကတော့ Object Types တွေရဲ့ Properties (Keys) တွေနဲ့ အလုပ်လုပ်တာပါ။ သဘောတရားကတော့ ဆင်တူပါတယ်။
+<Aside title='💡 ရည်ရွယ်ချက်' type="tip">
+  `Exclude<T, U>`, `Extract<T, U>`, နဲ့ `NonNullable<T>` ဆိုတဲ့ Utility Types တွေကို ဘယ်လို အသုံးပြုရသလဲဆိုတာ နားလည်စေဖို့ ဖြစ်ပါတယ်။ သတိထားရမှာက သူတို့က **Union Types တွေ** (ဥပမာ - `A | B | C`) နဲ့ အလုပ်လုပ်တာ ဖြစ်ပါတယ်။ အရင် သင်ခဲ့တဲ့ `Pick<T, K>` နဲ့ `Omit<T, K>` တို့ကတော့ **Object Types တွေရဲ့ Properties (Keys)** တွေနဲ့ အလုပ်လုပ်တာပါ။ အသုံးပြုရတဲ့ သဘောတရားကတော့ အခြေခံအားဖြင့် ဆင်တူပါတယ်။
 </Aside>
 
-ဒီဥပမာတွေအတွက် Union Type လေးတစ်ခုကို အရင်သတ်မှတ်ထားရအောင်။
+ဒီ Utility Types ဥပမာတွေအတွက် အသုံးပြုမယ့် Union Type လေးတစ်ခုကို အရင်ဆုံး သတ်မှတ်ထားရအောင်။
 
 <Code lang="typescript" code={union} title="index.ts" />
 
 ## `Exclude<T, U>`: Union ထဲက Types တွေကို ဖယ်ရှားခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Exclude<T, U>` က `T` ဆိုတဲ့ Union Type ထဲက `U` နဲ့ တူညီတဲ့ Types တွေကို ဖယ်ထုတ်ပြီး Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `Exclude<T, U>` ဟာ `T` ဆိုတဲ့ Union Type ထဲကနေ၊ `U` မှာ သတ်မှတ်ထားတဲ့ Types တွေနဲ့ တူညီတဲ့ Types တွေကို ဖယ်ရှား (Exclude) ပစ်ပြီး ကျန်တဲ့ အရာတွေနဲ့ Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။ (`Omit` နဲ့ သဘောတရား တူပေမဲ့ Union တွေအတွက်ပါ)
 - **ဘယ်လို သုံးမလဲ**: `Exclude<Status, "processing" | "pending">`
 - **ရလာမယ့် Type**: `"success" | "error" | null | undefined`
-- **ဘယ်အခါသုံးမလဲ**: အခြေအနေ (Status) တွေ အများကြီး ရှိနေတယ်။ ဒါပေမဲ့ တချို့ အခြေအနေတွေကိုပဲ ဂရုစိုက်ချင်ပြီး ကျန်တာတွေကို လျစ်လျူရှုချင်တဲ့အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: အခြေအနေ (Status) Type တွေ အများကြီး ရှိနေတယ်။ ဒါပေမဲ့ တချို့ အခြေအနေတွေကိုပဲ သီးသန့် ဂရုစိုက်ချင်ပြီး ကျန်တဲ့ မလိုအပ်တဲ့ အခြေအနေတွေကို ဖယ်ထုတ်ပစ်ချင်တဲ့အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
 
 <Code lang="typescript" code={exclude} title="index.ts" />
 
 ## `Extract<T, U>`: Union ထဲက Types တွေကို ရွေးချယ်ခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Extract<T, U>` က `T` ဆိုတဲ့ Union Type ထဲက `U` နဲ့ တူညီတဲ့ Types တွေကို ရွေးချယ်ပြီး Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `Extract<T, U>` ဟာ `T` ဆိုတဲ့ Union Type ထဲကနေ၊ `U` မှာ သတ်မှတ်ထားတဲ့ Types တွေနဲ့ တူညီတဲ့ Types တွေကိုသာ သီးသန့် ရွေးချယ် (Extract) ထုတ်ယူပြီး Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။ (`Pick` နဲ့ သဘောတရား တူပေမဲ့ Union တွေအတွက်ပါ)
 - **ဘယ်လို သုံးမလဲ**: `Extract<Status, "success" | "error">`
 - **ရလာမယ့် Type**: `"success" | "error"`
-- **ဘယ်အခါသုံးမလဲ**: ကျယ်ပြန့်တဲ့ Union Type တစ်ခု ရှိနေတယ်။ ဒါပေမဲ့ အဲဒီထဲက အစိတ်အပိုင်း တချို့ကိုပဲ သီးသန့် လိုချင်တဲ့အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: ကျယ်ပြန့်တဲ့ Union Type ကြီး တစ်ခု ရှိနေတယ်။ ဒါပေမဲ့ အဲ့ဒီထဲကမှ ကိုယ်လိုအပ်တဲ့ အစိတ်အပိုင်း တချို့ကိုပဲ သီးသန့် ခွဲထုတ်ပြီး အသုံးပြုချင်တဲ့ အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
 
 <Code lang="typescript" code={extract} title="index.ts" />
 
 ## `NonNullable<T>`: `null` နှင့် `undefined` ကို ဖယ်ရှားခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `NonNullable<T>` က `T` ဆိုတဲ့ Type ထဲက `null` နဲ့ `undefined` ကို ဖယ်ရှားပြီး Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `NonNullable<T>` ဟာ `T` ဆိုတဲ့ Type ထဲမှာ `null` ဒါမှမဟုတ် `undefined` ဆိုတဲ့ တန်ဖိုးတွေ ပါဝင်နေရင်၊ အဲ့ဒီအရာတွေကို ဖယ်ရှား (Exclude) ပစ်ပြီး ကျန်တဲ့ အစစ်အမှန် တန်ဖိုးတွေနဲ့ Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။
 - **ဘယ်လို သုံးမလဲ**: `NonNullable<Status>`
 - **ရလာမယ့် Type**: `"pending" | "processing" | "success" | "error"`
-- **ဘယ်အခါသုံးမလဲ**: တန်ဖိုးတစ်ခုက `null` ဒါမှမဟုတ် `undefined` ဖြစ်နိုင်တယ်။ ဒါပေမဲ့ Code ထဲမှာ စစ်ဆေးပြီးနောက်ပိုင်း `null` ဒါမှမဟုတ် `undefined` မဟုတ်တော့ဘူးလို့ သေချာတဲ့အခါမျိုးမှာ အရမ်း အသုံးဝင်ပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Variable တစ်ခုရဲ့ တန်ဖိုးက `null` ဒါမှမဟုတ် `undefined` ဖြစ်နိုင်ခြေ ရှိနေတယ်။ ဒါပေမဲ့ Code ထဲမှာ if statement တွေနဲ့ သေချာ စစ်ဆေး (Check) ပြီးသွားတဲ့ နောက်ပိုင်းမှာတော့၊ အဲ့ဒီ တန်ဖိုးဟာ `null` ဒါမှမဟုတ် `undefined` လုံးဝ မဟုတ်တော့ဘူးလို့ သေချာသွားတဲ့ အခါမျိုးမှာ Type ကို ပြောင်းလဲဖို့အတွက် အရမ်း အသုံးဝင်ပါတယ်။
 
 <Code lang="typescript" code={nonnullable} title="index.ts" />

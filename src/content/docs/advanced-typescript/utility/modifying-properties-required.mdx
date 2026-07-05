@@ -4,41 +4,44 @@ description: "Required<T>"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const required = `
 type RequiredUserProfile = {
   id: number; // မဖြစ်မနေ ပါရမယ်
   username: string; // မဖြစ်မနေ ပါရမယ်
-  email: string; // မူရင်းက ? ပါပေမယ့် အခု မဖြစ်မနေ ပါရမယ်!
-  bio: string | null; // null ကတော့ လက်ခံတယ်၊ ဒါပေမယ့် bio Property ကိုယ်တိုင်က မဖြစ်မနေ ပါရမယ်
+  email: string; // မူရင်း Type မှာက ? ပါပေမယ့် အခုတော့ မဖြစ်မနေ ပါရမယ်လို့ ပြောင်းသွားပြီ!
+  bio: string | null; // null ဖြစ်တာကို လက်ခံသေးတယ်၊ ဒါပေမယ့် bio ဆိုတဲ့ Property ကိုယ်တိုင်ကတော့ မဖြစ်မနေ ထည့်ပေးရမယ်
   isActive: boolean; // မဖြစ်မနေ ပါရမယ်
 }
 `;
 
-export const usage= `
+export const usage = `
+// ဒီ Function က UserProfile အပြည့်အစုံ လိုအပ်တဲ့ နေရာမျိုးပါ။ (Optional လုံးဝ လက်မခံပါဘူး)
 function processCompleteProfile(profile: Required<UserProfile>) {
-  // profile.email ကို မရှိမရှိ စစ်စရာမလိုဘဲ စိတ်ချစွာ ခေါ်သုံးလို့ရပြီ။ ဘာလို့လဲဆိုတော့ Required ဖြစ်နေလို့
+  // profile.email က ရှိ/မရှိ စစ်ဆေးနေစရာ မလိုဘဲ စိတ်ချလက်ချ ခေါ်သုံးလို့ ရသွားပါပြီ။ 
+  // ဘာလို့လဲဆိုတော့ Required ဖြစ်နေလို့ သေချာပေါက် ပါလာမယ်ဆိုတာ TypeScript က အာမခံထားလို့ပါ။
   console.log(\`Processing complete profile for: \${profile.email.toLowerCase()}\`);
 }
 
-// userProfile Type အတိုင်း ရေးထားတာ email မပါဘူး
+// မူရင်း userProfile Type အတိုင်း ရေးထားပြီး email မထည့်ပေးထားတဲ့ Object
 // const incompleteProfile: UserProfile = { id: 1, username: "test", bio: null, isActive: true };
-// processCompleteProfile(incompleteProfile); // Error ပြလိမ့်မယ်။ email က မဖြစ်မနေ လိုအပ်တယ်
+// processCompleteProfile(incompleteProfile); // TypeScript က Error ပြပါလိမ့်မယ်။ Required<UserProfile> ဖြစ်လို့ email က မဖြစ်မနေ လိုအပ်နေလို့ပါ!
 
-// Required<UserProfile> Type အတိုင်း ရေးထားတာ အားလုံးပါရမယ်
+// Required<UserProfile> Type အတိုင်း အချက်အလက် အားလုံး (email အပါအဝင်) အပြည့်အစုံ ရေးထားတဲ့ Object
 const completeProfile: Required<UserProfile> = {
-id: 1, username: "test", email: "test@example.com", bio: "A full bio.", isActive: true
+  id: 1, username: "test", email: "test@example.com", bio: "A full bio.", isActive: true
 };
-processCompleteProfile(completeProfile); // အလုပ်လုပ်တယ်
+processCompleteProfile(completeProfile); // အဆင်ပြေပြေ အလုပ်လုပ်ပါတယ်
 `
 
 ### `Required<T>`: Properties အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Required<T>` က `T` Type မှာရှိတဲ့ Properties အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။ မူရင်းက Optional (`?` ပါတာ) ဖြစ်နေရင်တောင် မဖြစ်မနေ ဖြစ်သွားစေပါတယ်။
-- **ဘယ်လို သုံးမလဲ**: `Required<UserProfile>`
-- **ရလာမယ့် Type (ပုံစံ)**:
+- **ဘာလုပ်ပေးသလဲ**: `Required<T>` ဟာ `Partial<T>` ရဲ့ ပြောင်းပြန်ပါပဲ။ သူက `T` Type မှာရှိတဲ့ Properties အားလုံးကို မဖြစ်မနေ ထည့်သွင်းပေးရမယ့် (Required) Properties တွေ ဖြစ်သွားအောင် ပြောင်းလဲပြီး Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။ မူရင်း Type မှာက Optional (`?` သင်္ကေတ ပါတာ) ဖြစ်နေရင်တောင်မှ၊ အဲ့ဒီ `?` ကို ဖြုတ်ပစ်ပြီး မဖြစ်မနေ ထည့်ရမယ့် အရာအဖြစ် ပြောင်းလဲပစ်လိုက်ပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `Required<UserProfile>` လို့ ရေးရုံပါပဲ။
+- **ရလာမယ့် Type (ပုံစံ)**: (မျက်စိထဲမှာ အောက်ကပုံစံမျိုး မြင်ယောင်ကြည့်ပါ)
 
 <Code lang="typescript" code={required} title="index.ts" />
 
-- **ဘယ်လိုနေရာမှာ သုံးသလဲ**: Data ဖြည့်တဲ့ Form တွေကနေ ရလာတဲ့ Object တစ်ခုက အချက်အလက် တချို့ပဲ ပါချင်မှ ပါမယ်။ ဒါပေမဲ့ အဲဒီ Object ကို လက်ခံမယ့် Function တစ်ခုကတော့ Fields အားလုံး ပြည့်နေဖို့ လိုချင်တာမျိုးမှာ သုံးနိုင်ပါတယ်။
+- **ဘယ်လိုနေရာမှာ သုံးသလဲ**: User က Data ဖြည့်တဲ့ Form တွေကနေ ရလာတဲ့ Object တစ်ခုဟာ အချက်အလက် တချို့ပဲ ပါချင်မှ ပါပါလိမ့်မယ်။ ဒါပေမဲ့ အဲ့ဒီ Object ကို လက်ခံပြီး အလုပ်လုပ်မယ့် အရေးကြီး Function တစ်ခုကတော့ Fields (အချက်အလက်) အားလုံး အပြည့်အစုံ ရှိနေမှသာ အလုပ်လုပ်နိုင်မယ် ဆိုတဲ့ အခြေအနေမျိုးတွေမှာ သုံးနိုင်ပါတယ်။
 
 <Code lang="typescript" code={usage} title="index.ts" />

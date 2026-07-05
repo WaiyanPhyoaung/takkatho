@@ -1,67 +1,72 @@
 ---
-title: "Normalization: Fourth Normal Form"
-description: Fourth Normal Form
+title: "Fourth Normal Form (4NF)"
+description: "Normalization ၏ စတုတ္ထအဆင့် (4NF) နှင့် Multi-valued Dependency"
 ---
 
-## Fourth Normal Form 
-Database design အများစုအတွက် 3NF သို့မဟုတ် BCNF အထိ ရောက်အောင် လုပ်ဆောင်နိုင်ရင် လုံလောက်ပါတယ်။ 
-ဒါပေမဲ့ 4NF က 3NF နှင့် BCNF တို့ကနေ ဖြေရှင်းမပေးနိုင်တဲ့ ပြဿနာတစ်မျိုးဖြစ်တဲ့ Multivalued Dependency ကို ရှင်းထုတ်ပေးပါတယ်။
+import { Aside } from "@astrojs/starlight/components";
 
-### Multi-valued dependencies (MVD)
+<Aside title="ရည်ရွယ်ချက်">
+    Database တွေမှာ အတွေ့ရနည်းပေမယ့် သိထားသင့်တဲ့ **Fourth Normal Form (4NF)** နဲ့ **Multi-valued Dependency** အကြောင်းကို လေ့လာကြပါမယ်။
+</Aside>
 
-Multivalued Dependency ဆိုတာ table တစ်ခုတည်းမှာ တစ်ခုနှင့်တစ်ခုလုံးဝမသက်ဆိုင်တဲ့ list နှစ်ခု (သို့မဟုတ်) နှစ်ခုထက်ပိုပြီး သိမ်းဆည်းဖို့ကြိုးစားတဲ့အခါ ဖြစ်ပေါ်လာတဲ့ ပြဿနာဖြစ်ပါတယ်။
+## 4NF ၏ စည်းမျဉ်းများ
 
-သင်္ကေတ —  
+Table တစ်ခုဟာ Fourth Normal Form (4NF) အဆင့်ကို ရောက်ဖို့ဆိုရင်:
+1. **BCNF အဆင့်မှာ ရှိပြီးသား ဖြစ်ရမယ်။**
+2. **Multi-valued Dependency (MVD) မရှိရဘူး။** 
 
-> A →→ B (A multidetermines B)
+## Multi-valued Dependency ဆိုတာ ဘာလဲ?
 
-#### ဥပမာ- စားသောက်ဆိုင် မီနူး 
+**Multi-valued Dependency (MVD)** ဆိုတာ Table တစ်ခုထဲမှာ Primary Key နဲ့ ဆက်စပ်နေတဲ့ အချက်အလက် အစုအဝေး (Set of values) နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုပြီး ရှိနေပေမယ့်၊ အဲဒီ အစုအဝေးတွေ အချင်းချင်းကတော့ ဘာမှ မသက်ဆိုင်ဘဲ သီးခြားစီ ဖြစ်နေတဲ့ အခြေအနေမျိုးကို ခေါ်ပါတယ်။
 
-ပီဇာဆိုင်ခွဲတွေရဲ့ တည်နေရာ၊ သူတို့ရောင်းတဲ့ ပီဇာအမျိုးအစားတွေနှင့် သူတို့အသုံးပြုတဲ့ Delivery Service တွေကို ဖော်ပြထားတဲ့ table တစ်ခုရှိတယ်လို့ ယူဆပါစို့။
+MVD ဟာ အနည်းဆုံး Column ၃ ခု ပါတဲ့ Table တွေမှာသာ ဖြစ်လေ့ရှိပါတယ်။ ပုံသေနည်းအနေနဲ့ `A ->> B` လို့ ရေးလေ့ရှိပါတယ်။
 
-**Business Rules:**
+---
 
-- ဆိုင်ခွဲတစ်ခုက ပီဇာအမျိုးအစားများစွာကို ရောင်းနိုင်တယ်။ (ဥပမာ- Pepperoni, Hawaiian)
-- ဆိုင်ခွဲတစ်ခုက Delivery Service များစွာကို အသုံးပြုနိုင်တယ်။ (ဥပမာ- FoodPanda, GrabFood)
-- ပီဇာအမျိုးအစားနှင့် Delivery Service တွေဟာ သက်ဆိုင်မှုမရှိဘဲ ဆိုင်ခွဲနှင့်ပတ်သက်ပြီးသာ ဆက်စပ်နေတာဖြစ်ပါတယ်။
+## 4NF လိုအပ်လာပုံ (ဥပမာ)
 
-| Location | PizzaType | DeliveryService |
-| --- | --- | --- |
-|Downtown | Pepperoni | FoodPanda |
-|Downtown | Pepperoni | GrabFood |
-|Downtown | Hawaiian | FoodPanda |
-|Downtown | Hawaiian | GrabFood |
-|Uptown | Veggie | FoodPanda |
-|Uptown | Veggie | GrabFood |
+ဝန်ထမ်းတွေရဲ့ ကျွမ်းကျင်မှု (Skills) တွေနဲ့ သူတို့ပြောနိုင်တဲ့ ဘာသာစကား (Languages) တွေကို မှတ်ထားတဲ့ Table တစ်ခုကို ကြည့်ရအောင်။
 
-Location →→ PizzaType (Location တစ်ခုက Pizza Type list ကိုဆုံးဖြတ်ပေးတယ်။)
+**စည်းမျဉ်းများ (Business Rules):**
+- ဝန်ထမ်းတစ်ယောက်ဟာ Skill တွေ အများကြီး ရှိနိုင်ပါတယ်။
+- ဝန်ထမ်းတစ်ယောက်ဟာ ဘာသာစကား တွေလည်း အများကြီး ပြောနိုင်ပါတယ်။
+- ဒါပေမဲ့ Skill နဲ့ Language ဟာ ဘာမှ မသက်ဆိုင်ပါဘူး။ (ဥပမာ - Python တတ်တာနဲ့ French စကားပြောတတ်တာ မဆိုင်ပါဘူး။)
 
-Location →→ DeliveryService (Location တစ်ခုက Delivery Service list ကိုဆုံးဖြတ်ပေးတယ်။)
+| EmployeeID | Skill | Language |
+|:---:|:---:|:---:|
+| 101 | Programming | English |
+| 101 | Programming | French |
+| 101 | Design | English |
+| 101 | Design | French |
 
-ဒီ Table မှာ Primary Key က (Location, Pizza Type, Delivery Service) သုံးခုပေါင်း ဖြစ်လာပါတယ်။ 
-တခြား Functional Dependency တွေ မရှိတဲ့အတွက် ဒီ Table ဟာ BCNF အထိ အောင်မြင်ပါတယ်။ ဒါပေမဲ့ Multivalued Dependency ရှိနေပါတယ်။
-Table က အချင်းချင်းမသက်ဆိုင်တဲ့ list နှစ်ခုဖြစ်တဲ့ Downtown ဆိုင်ခွဲရဲ့ (Pepperoni, Hawaiian) နှင့် (FoodPanda, GrabFood) တို့ကို ပေါင်းစပ်ပြီး ဖြစ်နိုင်ခြေရှိတဲ့ အတွဲတိုင်းအတွက် row တစ်ခုစီကို ဖန်တီးထားရပါတယ်။
+**ဒီ Table မှာ:**
+- Primary Key က **`(EmployeeID, Skill, Language)`** သုံးခုစလုံး ပေါင်းထားတဲ့ Composite Key ပါ။ (ဒါမှ Unique ဖြစ်မှာမို့လို့ပါ)
+- Non-Key Column မပါတဲ့အတွက် BCNF အဆင့်ထိ ရောက်နေပြီလို့ ယူဆလို့ ရပါတယ်။
 
-### Fourth Normal Form (4NF) သို့ ပြောင်းလဲခြင်း။
+**ဒါပေမဲ့ ပြဿနာ ရှိနေပါသေးတယ်:**
+Employee 101 မှာ Skill အသစ် (ဥပမာ - Marketing) တစ်ခု တတ်သွားပြီ ဆိုပါစို့။ 
+သူတတ်တဲ့ ဘာသာစကားက ၂ မျိုး ဖြစ်နေတဲ့အတွက်၊ အဲဒီ Skill အသစ်ကို ထည့်ချင်ရင် Row ၂ ကြောင်း (Marketing-English, Marketing-French) ထပ်ထည့်ရပါတော့မယ်။ Data တွေ အလဟဿ ထပ်နေတဲ့ (Redundancy) ပြဿနာ ဖြစ်လာပါတယ်။
 
-4NF ဖြစ်အောင်လုပ်ဖို့ ဖြေရှင်းနည်းကတော့ ရှင်းပါတယ်။ list တွေကို သူ့ table နှင့်သူ ခွဲထုတ်လိုက်ဖို့ပါပဲ။
+ဒါဟာ **Multi-valued Dependency** ဖြစ်နေလို့ပါ။ `EmployeeID` ဟာ `Skill` ကိုလည်း အများကြီး သတ်မှတ်နိုင်သလို (`EmployeeID ->> Skill`)၊ `Language` ကိုလည်း အများကြီး သတ်မှတ်နိုင်ပါတယ်။ (`EmployeeID ->> Language`)။ ဒါပေမဲ့ `Skill` နဲ့ `Language` က အချင်းချင်း ဘာမှ မဆိုင်ပါဘူး။
 
-#### 1. Location_Pizzas Table (4NF)
+---
 
-| Location | PizzaType |
-| :--- | :--- |
-| Downtown | Pepperoni |
-| Downtown | Hawaiian |
-| Uptown | Veggie |
+## BCNF မှ 4NF သို့ ပြောင်းလဲခြင်း
 
-----
+ဒီပြဿနာကို ဖြေရှင်းဖို့ 4NF စည်းမျဉ်းအရ အချင်းချင်း မသက်ဆိုင်တဲ့ Multi-valued Dependency တွေကို သီးသန့် Table တွေအဖြစ် **ခွဲထုတ်** ပေးရပါမယ်။
 
-#### 2. Location_Deliveries Table (4NF)
+**Table 1: Employee_Skills**
+| EmployeeID | Skill |
+|:---:|:---:|
+| 101 | Programming |
+| 101 | Design |
 
-| Location | DeliveryService |
-| :--- | :--- |
-| Downtown | FoodPanda |
-| Downtown | GrabFood |
-| Uptown | FoodPanda |
+**Table 2: Employee_Languages**
+| EmployeeID | Language |
+|:---:|:---:|
+| 101 | English |
+| 101 | French |
 
-ခုဆိုရင်တော့ ကျွန်တော်တို့ရဲ့ design က 4NF မှာရှိသွားပါပြီ။
+အခုဆိုရင် Skill အသစ်ထည့်ချင်ရင် `Employee_Skills` Table ထဲမှာ တစ်ကြောင်းတည်း သွားထည့်လိုက်ရုံပါပဲ။ ဘာသာစကား (Language) တွေကို လိုက်ပြီး ပွားထည့်စရာ မလိုတော့ပါဘူး။ 
+
+ဒီလို ခွဲထုတ်လိုက်တဲ့အတွက် Data ထပ်နေတဲ့ ပြဿနာကို အပြည့်အဝ ဖြေရှင်းနိုင်သွားပြီး **Fourth Normal Form (4NF)** အဆင့်ကို ရောက်ရှိသွားပါပြီ။

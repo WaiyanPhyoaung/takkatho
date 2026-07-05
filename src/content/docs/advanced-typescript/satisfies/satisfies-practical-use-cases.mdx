@@ -4,34 +4,40 @@ description: "satisfies ကို လက်တွေ့ အသုံးပြု
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const configuration = `
 type ThemeColors = "light" | "dark";
 
 type ComponentSettings = {
-padding: number;
-font: string;
-features?: Record<string, boolean>;
+  padding: number;
+  font: string;
+  features?: Record<string, boolean>;
 };
 
 interface AppTheme {
-activeTheme: ThemeColors;
-componentDefaults: Record<string, ComponentSettings>;
+  activeTheme: ThemeColors;
+  componentDefaults: Record<string, ComponentSettings>;
 }
 
 const myAppTheme = {
-activeTheme: "dark", // ဒီမှာ "dark" လို့ အတိအကျ သိတယ်။
-componentDefaults: {
-button: { padding: 10, font: "Arial", features: { roundedCorners: true } },
-card: { padding: 15, font: "Georgia" }
-// modal: { paddng: 5, font: "Verdana" } // ERROR: 'paddng' ဆိုပြီး စာလုံးပေါင်း မှားနေတာ။ \`satisfies AppTheme\` က ဒါကို ဖမ်းမိမှာ။
-}
+  activeTheme: "dark", // ဒီနေရာမှာ "dark" လို့ အတိအကျ သိနေပါတယ်။
+  componentDefaults: {
+    button: { padding: 10, font: "Arial", features: { roundedCorners: true } },
+    card: { padding: 15, font: "Georgia" }
+    // modal: { paddng: 5, font: "Verdana" } // ERROR: 'paddng' ဆိုပြီး စာလုံးပေါင်း မှားနေတာပါ။ \`satisfies AppTheme\` က ဒါကို ချက်ချင်း ဖမ်းမိမှာပါ။
+  }
 } satisfies AppTheme;
 `;
 
 export const benefits = `
-const currentThemeMode = myAppTheme.activeTheme; // Type က "dark" လို့ အတိအကျ သိတယ်။ ThemeColors ထဲက တစ်ခုခုလို့ မမှတ်တော့ဘူး။
-const buttonPadding = myAppTheme.componentDefaults.button.padding; // Type က number လို့ အတိအကျပဲ။
-const buttonHasRoundedCorners = myAppTheme.componentDefaults.button.features?.roundedCorners; // Type က boolean (true/false) ဒါမှမဟုတ် undefined လို့ အတိအကျ သိတယ်။
+// Type က "dark" လို့ အတိအကျ သိတယ်။ ThemeColors ထဲက (light ဒါမှမဟုတ် dark) တစ်ခုခုလို့ ယေဘုယျ မမှတ်ယူတော့ပါဘူး။
+const currentThemeMode = myAppTheme.activeTheme; 
+
+// Type က number လို့ အတိအကျ သိပါတယ်။
+const buttonPadding = myAppTheme.componentDefaults.button.padding; 
+
+// Type က boolean (true/false) ဒါမှမဟုတ် undefined (features က optional ဖြစ်နေလို့) လို့ အတိအကျ သိပါတယ်။
+const buttonHasRoundedCorners = myAppTheme.componentDefaults.button.features?.roundedCorners; 
 `;
 
 export const dictionary = `
@@ -39,88 +45,89 @@ type Permissions = "read" | "write" | "delete";
 type UserRolePermissions = Record<Permissions, boolean>;
 
 const adminPermissions = {
-read: true,
-write: true,
-delete: true,
-// moderate: true // ဒီနေရာမှာ 'moderate' လိုမျိုး မပါတဲ့ key ထည့်မိရင် error တက်မယ်။
+  read: true,
+  write: true,
+  delete: true,
+  // moderate: true // ဒီနေရာမှာ Permissions ထဲမှာ မပါဝင်တဲ့ 'moderate' ဆိုတဲ့ Key မျိုး ထည့်မိရင် Error ချက်ချင်း တက်ပါမယ်။
 } satisfies UserRolePermissions;
 
 const guestPermissions = {
-read: true,
-write: false,
-// delete property မပါဘူး!
-} // satisfies UserRolePermissions; // ဒီနေရာမှာ \`satisfies UserRolePermissions\` ထည့်လိုက်ရင် error ပြမယ်။
+  read: true,
+  write: false,
+  // delete property မပါဘူး! 
+} // satisfies UserRolePermissions; 
+// 👆 ဒီနေရာမှာ \`satisfies UserRolePermissions\` လို့ ထည့်လိုက်တာနဲ့ 'delete' မပါဝင်လို့ Error ပြပါလိမ့်မယ်။
 
-// adminPermissions.read ရဲ့ type က \`true\` ဖြစ်တယ်၊ \`boolean\` မဟုတ်ဘူး။
+// adminPermissions.read ရဲ့ Type က ယေဘုယျ \`boolean\` မဟုတ်တော့ဘဲ၊ \`true\` လို့ အတိအကျ သိနေပါတယ်။
 `;
 
 export const array = `
 type Color = "red" | "green" | "blue" | {custom: string};
 
+// Array အတွက် satisfies အသုံးပြုခြင်း
 const primaryPalette = [
-"red",
-"green",
-{custom: "#FFA500"} // Orange
+  "red",
+  "green",
+  {custom: "#FFA500"} // လိမ္မော်ရောင်
 ] satisfies Color[];
 
-// primaryPalette[0] ရဲ့ Type က "red" လို့ အတိအကျပဲ။
-// primaryPalette[2].custom ရဲ့ Type က string လို့ အတိအကျပဲ။
+// primaryPalette[0] ရဲ့ Type က "red" လို့ အတိအကျ သိတယ်။
+// primaryPalette[2].custom ရဲ့ Type က string လို့ အတိအကျ သိတယ်။
+
 // const invalidPalette = [
-// "red", "yellow"
-// "yellow" က Color type ထဲမှာ မပါလို့ error တက်မယ်။
+//   "red", "yellow" // "yellow" ဆိုတာ Color Type ထဲမှာ မပါဝင်တဲ့အတွက် Error တက်ပါမယ်။
 // ] satisfies Color[]; // ERROR!
 
 type Command =
-| { command: "navigate", path: string }
-| { command: "wait", duration: number }
-| { command: "log", message: string };
+  | { command: "navigate", path: string }
+  | { command: "wait", duration: number }
+  | { command: "log", message: string };
 
 const userJourney = [
-{ command: "navigate", path: "/home" },
-{ command: "wait", duration: 500 },
-{ command: "log", message: "User waited" },
-// { command: "click", element: "button" } // ဒါက မှန်ကန်တဲ့ Command မဟုတ်လို့ error တက်မယ်။
+  { command: "navigate", path: "/home" },
+  { command: "wait", duration: 500 },
+  { command: "log", message: "User waited" },
+  // { command: "click", element: "button" } // ဒါက မှန်ကန်တဲ့ Command ပုံစံ မဟုတ်လို့ Error တက်ပါမယ်။
 ] satisfies Command[];
 
-// command type ကို ကြည့်ပြီး properties တွေကို လွယ်လွယ် ခေါ်သုံးလို့ရတယ်။
+// command Type ရဲ့ အတိအကျ အချက်အလက်ကို ကြည့်ပြီး Properties တွေကို လွယ်လွယ်ကူကူ Type-safe ဖြစ်ဖြစ် ခေါ်သုံးလို့ ရပါတယ်။
 userJourney.forEach(step => {
-if (step.command === "navigate") {
-console.log(step.path); // step.path ရဲ့ type က string လို့ အတိအကျပဲ။
-}
+  if (step.command === "navigate") {
+    console.log(step.path); // step.path ရဲ့ Type က string လို့ အတိအကျ သိပါတယ်။
+  }
 });
 `;
 
-<Aside title="ရည်ရွယ်ချက်" type="tip">
-  `satisfies` ကို ဘယ်လိုနေရာတွေမှာ အသုံးဝင်သလဲ၊ အကောင်းဆုံး ဘယ်လိုသုံးလို့ရသလဲဆိုတာ
-  လေ့လာကြည့်ရအောင်။
+<Aside title="💡 ရည်ရွယ်ချက်" type="tip">
+  `satisfies` Operator ကို လက်တွေ့ လုပ်ငန်းခွင်က ဘယ်လို နေရာတွေမှာ အသုံးဝင်သလဲ၊ ပြီးတော့ သူ့ကို အကောင်းဆုံး ဘယ်လို အသုံးချလို့ ရသလဲ ဆိုတာကို လေ့လာကြည့်ရအောင်။
 </Aside>
 
 ## Configuration Objects
 
-Configuration ဆိုတာ Settings တွေ စုထားတဲ့ Object တွေပေါ့။ ဥပမာ - Website ရဲ့ Theme (အရောင်) တွေ၊ Fonts တွေ၊ Padding တွေ စသဖြင့်ပေါ့။ ဒီလို Settings တွေကို စီမံခန့်ခွဲတဲ့အခါ `satisfies` က အရမ်း အသုံးဝင်ပါတယ်။ ပုံစံမှန်အောင် ထိန်းပေးရုံတင်မကဘဲ၊ Setting တစ်ခုချင်းစီရဲ့ အသေးစိတ် အချက်အလက်တွေကိုပါ လုံလုံခြုံခြုံ ပြန်ထုတ်သုံးလို့ရအောင် ကူညီပေးပါတယ်။
+Configuration ဆိုတာ Application တစ်ခုလုံးရဲ့ Settings တွေကို စုစည်းထားတဲ့ Object တွေပါ။ ဥပမာ - Website ရဲ့ Theme (အရောင်) တွေ၊ Fonts တွေ၊ အကွာအဝေး (Padding) တွေ စသဖြင့်ပေါ့။ ဒီလို ရှုပ်ထွေးတဲ့ Settings တွေကို စီမံခန့်ခွဲတဲ့အခါ `satisfies` က အရမ်း အသုံးဝင်ပါတယ်။ သူက Object ရဲ့ ပုံစံ မှန်ကန်အောင် ထိန်းချုပ်ပေးရုံသာမကဘဲ၊ Setting တစ်ခုချင်းစီရဲ့ အသေးစိတ် အချက်အလက် (Specificity) တွေကိုပါ မပျောက်ပျက်စေဘဲ လုံလုံခြုံခြုံ ပြန်လည် ထုတ်ယူ သုံးစွဲလို့ရအောင် ကူညီပေးပါတယ်။
 
 <Code lang="typescript" code={configuration} title="config.ts" />
 
 ### `satisfies` ရဲ့ အကျိုးကျေးဇူးများ
 
-၁။ စစ်ဆေးပေးခြင်း (Validation): `myAppTheme` Object ဟာ `AppTheme` ဆိုတဲ့ သတ်မှတ်ထားတဲ့ ပုံစံနဲ့ ကိုက်ညီရဲ့လားဆိုတာ `satisfies` က စစ်ဆေးပေးပါတယ်။
+၁။ စစ်ဆေးပေးခြင်း (Validation): `myAppTheme` Object ဟာ `AppTheme` ဆိုတဲ့ ကြိုတင် သတ်မှတ်ထားတဲ့ ပုံစံ (Interface) နဲ့ ကိုက်ညီရဲ့လား ဆိုတာကို `satisfies` က အသေအချာ စစ်ဆေးပေးပါတယ်။
 
-- `activeTheme` ကို `"blue"` လို့ ထားမိရင် Error တက်ပါမယ်။
-- `button.padding` ကို Number မဟုတ်ဘဲ String (`"10px"`) ထည့်မိရင်လည်း Error တက်ပါမယ်။
-- `button.extraProp` ဆိုပြီး မရှိတဲ့ Property ထပ်ထည့်မိရင်လည်း Error တက်ပါမယ်။
+- `activeTheme` နေရာမှာ `"blue"` လို့ ထည့်မိရင် Error တက်ပါမယ်။
+- `button.padding` နေရာမှာ Number မဟုတ်ဘဲ String (`"10px"`) သွားထည့်မိရင်လည်း Error တက်ပါမယ်။
+- `button.extraProp` ဆိုပြီး မလိုအပ်တဲ့ Property အသစ် ထပ်ထည့်မိရင်လည်း Error တက်ပါမယ်။
 
-၂။ အသေးစိတ် အချက်အလက် မပျောက်ဆုံးခြင်း (Specificity):
+၂။ အသေးစိတ် အချက်အလက် မပျောက်ဆုံးခြင်း (Specificity Preserved):
 
 <Code lang="typescript" code={benefits} title="config.ts" />
 
 ## Keys တွေ အတိအကျ သိထားတဲ့ Objects တွေ (ဒါမှမဟုတ် Dictionaries တွေ) ကို အသုံးပြုခြင်း
 
-Objects တွေကို Key-Value Pairs တွေ စုထားတဲ့ Dictionary လိုမျိုး သုံးရတဲ့အခါမျိုးမှာ `satisfies` က အရမ်း အသုံးဝင်ပါတယ်။ Keys တွေ အကုန်ပါရဲ့လား၊ Values တွေက မှန်ရဲ့လားဆိုတာ သေချာအောင် လုပ်ပေးနိုင်သလို၊ ဒီ Object ကို တစ်ခုချင်း လိုက်စစ်တာတို့၊ `Record` တစ်ခုလို သုံးတာတို့လည်း လုပ်လို့ရပါတယ် ခင်ဗျာ။
+Objects တွေကို Key-Value Pairs တွေ စုစည်းထားတဲ့ Dictionary လိုမျိုး အသုံးပြုရတဲ့ အခါမျိုးမှာလည်း `satisfies` က အရမ်း အသုံးဝင်ပါတယ်။ သတ်မှတ်ထားတဲ့ Keys တွေ အကုန်လုံး ပါဝင်ရဲ့လား၊ Values တွေရဲ့ Type ကကော မှန်ကန်ရဲ့လား ဆိုတာ သေချာအောင် လုပ်ပေးနိုင်ပါတယ်။ ဒီလို သုံးတဲ့အတွက် Object တစ်ခုလုံးကို ပြည့်စုံစွာ စစ်ဆေးနိုင်သလို၊ လိုအပ်တဲ့ Property တွေကိုလည်း အတိအကျ ခေါ်သုံးလို့ ရသွားပါတယ်။
 
 <Code lang="typescript" code={dictionary} title="permission.ts" />
 
-## Array/Tuple တစ်ခုမှာ ခွင့်ပြုထားတဲ့ Types တွေပဲ ပါကြောင်း သေချာစေခြင်း
+## Array / Tuple တစ်ခုမှာ ခွင့်ပြုထားတဲ့ Types တွေပဲ ပါဝင်ကြောင်း သေချာစေခြင်း
 
-အရောင်တွေကို စီစဉ်တဲ့ Palettes တွေ၊ ခိုင်းစေချက်တွေ ဆင့်ခေါ်တဲ့ Command Sequences တွေလိုမျိုး နေရာတွေမှာ သုံးလို့ ကောင်းပါတယ်။
+အရောင်တွေကို အစဉ်လိုက် စီစဉ်ထားတဲ့ Palettes တွေ၊ သို့မဟုတ် အဆင့်ဆင့် အလုပ်လုပ်ရမယ့် ခိုင်းစေချက် (Commands) စာရင်းတွေ လိုမျိုး Array တွေ တည်ဆောက်တဲ့ နေရာတွေမှာလည်း `satisfies` ကို ထိရောက်စွာ အသုံးပြုနိုင်ပါတယ်။
 
 <Code lang="typescript" code={array} title="palette.ts" />

@@ -5,42 +5,42 @@ description: "Rendering Strategies နှိုင်းယှဉ်ချက်
 
 import { Aside } from "@astrojs/starlight/components";
 
-| Method | Analogy | Speed (Initial) | SEO | Data Freshness |
-|--------|---------|-----------------|-----|----------------|
-| **CSR** | Meal Kit | 🐢 Slow | ❌ Poor | ✅ High |
-| **SSR** | Delivery | 🐇 Fast | ✅ Good | ✅ Always Fresh |
-| **SSG** | Frozen Food | 🚀 Fastest | ✅ Best | ❌ Stale (until rebuild) |
-| **ISR** | Bakery | 🚀 Fast | ✅ Best | ⚠️ Fresh (periodically) |
+| Method | ဥပမာ (Analogy) | အမြန်နှုန်း (Initial Load) | SEO (Search Engine) | ဒေတာ အသစ်ဖြစ်မှု (Freshness) |
+|--------|-----------------|-------------------------|---------------------|---------------------------|
+| **CSR** | Meal Kit (ကိုယ့်ဘာသာချက်စား) | 🐢 အနှေးဆုံး | ❌ အားနည်းတယ် | ✅ အမြဲတမ်း အသစ်ဖြစ်တယ် |
+| **SSR** | Delivery (အသင့်လာပို့) | 🐇 မြန်တယ် | ✅ ကောင်းတယ် | ✅ အမြဲတမ်း အသစ်ဖြစ်တယ် |
+| **SSG** | Frozen Food (ကြိုလုပ်ထား) | 🚀 အမြန်ဆုံး | ✅ အကောင်းဆုံး | ❌ အဟောင်း (Rebuild လုပ်မှ အသစ်ရမယ်) |
+| **ISR** | Bakery (အချိန်နဲ့ ကြိုလုပ်ထား) | 🚀 မြန်တယ် | ✅ အကောင်းဆုံး | ⚠️ အသစ် (သတ်မှတ်ချိန်ရောက်တိုင်း အသစ်ဖြစ်တယ်) |
 
-### ဘယ်ဟာကို ရွေးမလဲ?
+### ဘယ်ဟာကို ရွေးချယ်မလဲ?
 
-#### 1. Admin Dashboard / User Profile
+#### ၁။ Admin Dashboard / User Profile
 **CSR** ကို သုံးပါ။
-- SEO မလိုဘူး။
-- User က Login ဝင်ပြီးမှ သုံးတာဖြစ်လို့ Initial Load နည်းနည်းကြာလည်း ကိစ္စမရှိဘူး။
-- Data တွေက အမြဲတမ်း Update ဖြစ်နေဖို့ လိုတယ်။
+- SEO လုံးဝ မလိုပါဘူး။ (Admin မျက်နှာပြင်ကို Google Search မှာ ပေါ်စရာ မလိုလို့ပါ)
+- User က Login ဝင်ပြီးမှ သုံးတာဖြစ်လို့ စစချင်း Initial Load နည်းနည်း ကြာရင်လည်း ပြဿနာ မရှိပါဘူး။
+- Data တွေက အမြဲတမ်း တပြေးညီ (Real-time) Update ဖြစ်နေဖို့ လိုအပ်ပါတယ်။
 
-#### 2. News Portal / Social Media Feed
+#### ၂။ News Portal / Social Media Feed
 **SSR** ကို သုံးပါ။
-- သတင်းတွေက အချိန်နဲ့ တပြေးညီ တက်နေဖို့ လိုတယ်။
-- Google News မှာ ပါဖို့ SEO ကောင်းဖို့ လိုတယ်။
+- သတင်းတွေက အချိန်နဲ့ တပြေးညီ အမြဲတမ်း တက်နေဖို့ လိုအပ်ပါတယ်။
+- Google News လို နေရာမျိုးမှာ ပါဖို့အတွက် SEO အထူး ကောင်းမွန်ဖို့ လိုအပ်ပါတယ်။
 
-#### 3. Personal Blog / Documentation
+#### ၃။ Personal Blog / Documentation
 **SSG** ကို သုံးပါ။
-- Content တွေက သိပ်မပြောင်းလဲဘူး။
-- အမြန်ဆုံး ဖြစ်ချင်တယ်။
-- Hosting စရိတ် သက်သာချင်တယ်။
+- Content တွေက နေ့တိုင်း၊ အချိန်တိုင်း မပြောင်းလဲပါဘူး။
+- User အတွက် အမြန်ဆုံး (Fastest Experience) ဖြစ်ချင်ပါတယ်။
+- Server ဘက်က အလုပ်မလုပ်ရတဲ့အတွက် Hosting စရိတ် အသက်သာဆုံး ဖြစ်ချင်ပါတယ်။
 
-#### 4. E-commerce Product Listing
+#### ၄။ E-commerce Product Listing (ကုန်ပစ္စည်းပြသသော စာမျက်နှာ)
 **ISR** ကို သုံးပါ။
-- ပစ္စည်းဈေးနှုန်းတွေက ပြောင်းလဲနိုင်တယ်။
-- ဒါပေမဲ့ SSR လောက် Server ဝန်မပိချင်ဘူး။
-- ၁ နာရီ တစ်ခါလောက် Price Update ဖြစ်ရင် လုံလောက်ပြီ။
+- ပစ္စည်းဈေးနှုန်းတွေက အချိန်မရွေး ပြောင်းလဲနိုင်ပါတယ်။
+- ဒါပေမဲ့ SSR လောက် Server ကို ဝန်မပိစေချင်ပါဘူး။ (ပစ္စည်းတွေ အများကြီး ရှိလို့ပါ)
+- ၁ နာရီ ဒါမှမဟုတ် ၁၀ မိနစ်လောက်နေမှ Price Update ပြန်ဖြစ်ရင် လုံလောက်ပါတယ်။
 
 <Aside title="Next.js ၏ အားသာချက်">
-Next.js လို Framework မျိုးက ဒီ (၄) မျိုးလုံးကို **Hybrid** အနေနဲ့ သုံးခွင့်ပေးထားပါတယ်။
-- `About Us` page ကို **SSG** နဲ့ လုပ်မယ်။
-- `Product Detail` page ကို **ISR** နဲ့ လုပ်မယ်။
-- `Cart` page ကို **CSR** နဲ့ လုပ်မယ်။
-ဒါက Modern Web Development ရဲ့ အနှစ်သာရပါပဲ။
+Next.js လိုမျိုး Modern Framework တွေက ဒီ Rendering နည်းလမ်း (၄) မျိုးလုံးကို Project တစ်ခုတည်းမှာ **Hybrid** အနေနဲ့ ရောပြီး သုံးခွင့်ပေးထားပါတယ်။
+- `About Us` Page ကို ပြောင်းလဲမှု မရှိလို့ **SSG** နဲ့ လုပ်မယ်။
+- `Product Detail` Page ကို ဈေးနှုန်းတွေ ပြောင်းနိုင်လို့ **ISR** နဲ့ လုပ်မယ်။
+- `Cart` Page ကို User ဝင်မှ ပြမှာမို့ **CSR** နဲ့ လုပ်မယ်။
+ဒါဟာ ခေတ်မီ Modern Web Development ရဲ့ အကောင်းဆုံး အနှစ်သာရပါပဲ။
 </Aside>

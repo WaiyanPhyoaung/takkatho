@@ -3,23 +3,23 @@ title: "Interactive Section - Arrays & Objects"
 description: "Data Structure များ လက်တွေ့စမ်းသပ်ရန်"
 ---
 
-## Exercise 1: Shopping List 🛒
+## လေ့ကျင့်ခန်း ၁ (Exercise 1): Shopping List 🛒
 
-1.  `shoppingList` ဆိုတဲ့ Array တစ်ခု လုပ်ပါ။ အထဲမှာ "Milk", "Bread", "Eggs" ထည့်ပါ။
-2.  "Coffee" ကို အနောက်ဆုံးကနေ ထပ်ထည့်ပါ။ (`push`)
-3.  "Milk" ကို ဖျက်လိုက်ပါ။ (ပထမဆုံးနေရာ၊ `shift`)
-4.  နောက်ဆုံး ကျန်တဲ့ List ကို Console မှာ ထုတ်ကြည့်ပါ။
+၁။ `shoppingList` လို့ အမည်ပေးထားတဲ့ Array တစ်ခုကို တည်ဆောက်ပါ။ အဲ့ဒီအထဲမှာ "Milk", "Bread", "Eggs" ဆိုတဲ့ Items သုံးခု ထည့်ထားပါ။
+၂။ အဲ့ဒီ Array ရဲ့ အနောက်ဆုံး နေရာကို "Coffee" ထပ်ထည့်ပါ။ (`push` ကို အသုံးပြုပါ)
+၃။ အရှေ့ဆုံး နေရာမှာ ရှိနေတဲ့ "Milk" ကို ဖျက်ထုတ်လိုက်ပါ။ (`shift` ကို အသုံးပြုပါ)
+၄။ နောက်ဆုံး ကျန်ရှိနေတဲ့ List ကို `console.log()` အသုံးပြုပြီး ထုတ်ကြည့်ပါ။
 
 ```javascript
 let shoppingList = ["Milk", "Bread", "Eggs"];
-// Your code...
+// သင်၏ Code များကို ဤနေရာတွင် ဆက်လက် ရေးသားပါ...
 ```
 
-## Exercise 2: User Profile 👤
+## လေ့ကျင့်ခန်း ၂ (Exercise 2): User Profile 👤
 
-1.  `user` ဆိုတဲ့ Object တစ်ခု လုပ်ပါ။ (name, age, email ပါပါစေ)
-2.  `user` ရဲ့ `age` ကို တစ်နှစ် တိုးလိုက်ပါ။
-3.  `user` ထဲကို `location` ဆိုတဲ့ property အသစ် ထပ်ထည့်ပါ။ ("Yangon" လို့ ပေးပါ)
+၁။ `user` ဆိုတဲ့ Object တစ်ခု တည်ဆောက်ပါ။ (အထဲမှာ name, age, email ဆိုတဲ့ Properties တွေ ပါဝင်ပါစေ)
+၂။ အဲ့ဒီ `user` Object ထဲက `age` တန်ဖိုးကို (၁) ထပ်ပေါင်းပြီး တိုးလိုက်ပါ။
+၃။ `user` Object ထဲကို `location` ဆိုတဲ့ Property အသစ်တစ်ခု ထပ်ထည့်ပါ။ (တန်ဖိုးကို "Yangon" လို့ သတ်မှတ်ပါ)
 
 ```javascript
 let user = {
@@ -27,12 +27,12 @@ let user = {
     age: 24,
     email: "susu@example.com"
 };
-// Your code...
+// သင်၏ Code များကို ဤနေရာတွင် ဆက်လက် ရေးသားပါ...
 ```
 
-## Challenge: Total Price Calculator 💰
+## အထူးစိန်ခေါ်မှု (Challenge): Total Price Calculator 💰
 
-အောက်ပါ `cartItem` တွေရဲ့ ဈေးနှုန်း စုစုပေါင်း (Total) ကို Loop သုံးပြီး တွက်ပေးပါ။
+အောက်မှာ ပေးထားတဲ့ `cart` Array ထဲက ကုန်ပစ္စည်း တစ်ခုချင်းစီရဲ့ ဈေးနှုန်း (price) တွေကို Loop အသုံးပြုပြီး စုစုပေါင်း ကျသင့်ငွေ (Total Price) တွက်ချက်ပေးပါ။
 
 ```javascript
 let cart = [
@@ -43,7 +43,7 @@ let cart = [
 
 let total = 0;
 
-// Loop here to add prices to total
+// ဒီနေရာတွင် Array ကို Loop ပတ်ပြီး price များကို total ထဲသို့ ပေါင်းထည့်သည့် Code ရေးပါ
 
-console.log("Total Price:", total); // Should be 17
+console.log("Total Price:", total); // ရလဒ် 17 ထွက်ရပါမည်
 ```

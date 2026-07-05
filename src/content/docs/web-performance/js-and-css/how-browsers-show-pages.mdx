@@ -7,66 +7,71 @@ import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
 import rendering from '@/assets/web-performance/rendering.png'
 
-<Aside title="ရည်ရွယ်ချက်">
-  Browser တွေက page များကို ဘယ်လို render လုပ်သလဲဆိုတဲ့ အခြေခံအဆင့်များနဲ့ ဒီလုပ်ဆောင်ချက်ကို ပိတ်ဆို့နှောင့်နှေးစေတဲ့ resource များကို ဘယ်လိုရှာဖွေလျှော့ချရမလဲဆိုတာကို နားလည်ရန်။
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Browser တွေက စာမျက်နှာ (Pages) တွေကို အဆင့်ဆင့် ဘယ်လို တည်ဆောက် ပြသသလဲ ဆိုတဲ့ အခြေခံ လုပ်ငန်းစဉ်တွေနဲ့၊ ဒီလုပ်ငန်းစဉ်ကြီး တစ်ခုလုံးကို ပိတ်ဆို့ နှောင့်နှေးစေတဲ့ အရာ (Render-blocking Resources) တွေကို ဘယ်လို ရှာဖွေ ဖယ်ရှားရမလဲ ဆိုတာကို နားလည်စေရန် ဖြစ်ပါတယ်။
 </Aside>
 
-### Browser တစ်ခုက Code မှ Webpage အဖြစ်သို့ ပြောင်းလဲပုံ (The Critical Rendering Path)
+## Code မှ Webpage အဖြစ်သို့ ပြောင်းလဲပုံ (The Critical Rendering Path)
 
-1. **HTML မှ DOM Tree သို့:** Browser က HTML code ကိုဖတ်ပြီး element အားလုံး ပါတဲ့ မြေပုံ တစ်ခု Document Object Model - DOM ကို တည်ဆောက်သည်။
+Browser တစ်ခုဟာ ကိုယ်ရေးထားတဲ့ Code တွေကို မျက်စိနဲ့ မြင်ရတဲ့ Website တစ်ခု ဖြစ်လာအောင် အောက်ပါ အဆင့် ၇ ဆင့်နဲ့ အလုပ်လုပ်ပါတယ်။
 
-2. **CSS မှ CSSOM Tree သို့:** Browser က CSS code (stylesheet များနှင့် inline style များ) ကိုဖတ်ပြီး element တစ်ခုချင်းစီရဲ့ ပုံပန်းသဏ္ဌာန်မြေပုံ (CSS Object Model - CSSOM) ကို တည်ဆောက်သည်။
-
-3. **JavaScript အလုပ်လုပ်ခြင်း:** JavaScript က HTML (DOM) နှင့် CSS (CSSOM) ကို ပြောင်းလဲနိုင်သည်။ သေချာ load မလုပ်ပါက HTML ဖတ်ရှုခြင်းကို ခေတ္တရပ်တန့်စေနိုင်သည်။
-
-4. **Render Tree တည်ဆောက်ခြင်း:** Browser က DOM နှင့် CSSOM ကိုပေါင်းစပ်ပြီး page မှာ ပေါ်မဲ့ element များနှင့် သူတို့ရဲ့ style များပါဝင်သည့် Render Tree ကို ဖန်တီးသည်။
-
-5. **Layout (သို့မဟုတ် Reflow):** Browser က Render Tree ထဲရှိ element တစ်ခုချင်းစီ၏ တိကျသောအရွယ်အစားနှင့် နေရာကို တွက်ချက်သည်။ (ဥပမာ - ဤ box သည် width 300px ရှိပြီး အပေါ်မှ 50px အကွာတွင် ရှိသည်)။
-
-6. **Paint:** Browser က element တစ်ခုချင်းစီအတွက် pixel များကို screen ပေါ်တွင် layer များအဖြစ် ရေးဆွဲသည်။
-
-7. **Composite:** Browser က ဆွဲပြီးသား layer အားလုံးကို ပေါင်းစပ်ပြီး နောက်ဆုံးပေါ်မည့် page ကို screen ပေါ်တွင် ပြသသည်။
+1. **HTML မှ DOM Tree သို့:** Browser က အရင်ဆုံး HTML Code တွေကို ဖတ်ပြီး၊ Website ပေါ်မှာ ပါဝင်မယ့် အစိတ်အပိုင်း အားလုံး (Elements) ရဲ့ အကြမ်းဖျင်း မြေပုံကြမ်း (Document Object Model - DOM) ကြီး တစ်ခုကို တည်ဆောက်ပါတယ်။
+2. **CSS မှ CSSOM Tree သို့:** ပြီးရင် CSS Code (Stylesheets တွေရော၊ Inline Styles တွေရော) ကို ဖတ်ပြီး၊ အဲ့ဒီ Element တစ်ခုချင်းစီ ဘယ်လို ပုံပန်းသဏ္ဌာန် ရှိရမလဲ ဆိုတဲ့ ဒီဇိုင်းမြေပုံ (CSS Object Model - CSSOM) ကို ထပ်မံ တည်ဆောက်ပါတယ်။
+3. **JavaScript အလုပ်လုပ်ခြင်း:** JavaScript က HTML (DOM) ကိုရော၊ CSS (CSSOM) ကိုပါ ဝင်ရောက် ပြောင်းလဲနိုင်စွမ်း ရှိပါတယ်။ ဒါကြောင့် JavaScript တွေကို သေချာ စနစ်တကျ မခေါ်ယူဘူး (Load မလုပ်ဘူး) ဆိုရင်၊ သူက အပေါ်က HTML တွေ ဖတ်နေတဲ့ လုပ်ငန်းစဉ်ကြီး တစ်ခုလုံးကို ဝင်ရောက် ပိတ်ဆို့ပြီး ခေတ္တ ရပ်တန့် (Block) သွားစေနိုင်ပါတယ်။
+4. **Render Tree တည်ဆောက်ခြင်း:** Browser က ဖန်တီးထားတဲ့ DOM (မြေပုံကြမ်း) နဲ့ CSSOM (ဒီဇိုင်းမြေပုံ) နှစ်ခုကို ပေါင်းစပ်ပြီး၊ မျက်နှာပြင်ပေါ်မှာ တကယ် ပေါ်လာမယ့် အရာတွေနဲ့ သူတို့ရဲ့ သက်ဆိုင်ရာ Styles တွေချည်း သီးသန့် ပါဝင်တဲ့ Render Tree ကြီးကို နောက်ဆုံး ဖန်တီးပါတယ်။ (မှတ်ချက် - `display: none;` ပေးထားတဲ့ အရာတွေက ဒီ Render Tree ထဲမှာ မပါတော့ပါဘူး)။
+5. **Layout (သို့မဟုတ် Reflow):** Browser က Render Tree ထဲမှာ ပါတဲ့ Element တစ်ခုချင်းစီရဲ့ တိကျတဲ့ အရွယ်အစား (Width/Height) နဲ့ နေရာ (Position) ကို တွက်ချက်ပါတယ်။ (ဥပမာ - ဒီ Box က အကျယ် 300px ရှိမယ်၊ အပေါ်ကနေ 50px အကွာမှာ နေမယ် စသဖြင့် တွက်ချက်တာပါ)။
+6. **Paint:** Browser က Element တစ်ခုချင်းစီအတွက် အရောင်တွေ၊ အရိပ်တွေ (Pixels) ကို Screen ပေါ်မှာ အလွှာ (Layers) လေးတွေ အဖြစ် စတင် ရေးဆွဲပါတယ်။
+7. **Composite:** နောက်ဆုံးမှာတော့ Browser က ဆွဲပြီးသား Layers တွေ အားလုံးကို ထပ်တူ ပေါင်းစပ်ပြီး (Composite) နောက်ဆုံး ပေါ်လာမယ့် စာမျက်နှာကို Screen ပေါ်မှာ အပြည့်အဝ ပြသပေးလိုက်ပါတယ်။
 
 <ContentImage src={rendering} alt="browser rendering process" />
 
-### Render-Blocking Resource များကို ရှာဖွေခြင်းနှင့် လျှော့ချခြင်း
- - Rendering-blocking resources တွေဆိုတာ browser ရဲ့ rendering process ကို block ဖြစ်စေသော အရာများဖြစ်ပါတယ်။
-     - `<head>` ထဲရှိ ပြင်ပ CSS ဖိုင်များ (`<link rel="stylesheet" href="...">`) သည် ပုံမှန်အားဖြင့် render-blocking ဖြစ်စေပါတယ်။ (browser က အဲ့ဒီ file တွေကို စောင့်ပြီးမှ rendering process ကို လုပ်တာပါ)။
-     - `<head>` ထဲရှိ async သို့မဟုတ် defer မပါသော ပြင်ပ JavaScript ဖိုင်များ (`<script src="...">`) ကလဲ render-blocking ဖြစ်စေပါတယ်။
-     -  ဒီကြန့်ကြာမှုများက FCP, LCP နှင့် page load time ကို နှေးကွေးစေပါတယ်။
-- အဓိကနည်းလမ်းများ (Quick Recap):
-     - JavaScript အတွက်:
-          - async သို့မဟုတ် defer attribute များသုံးပါ (ဖော်ပြခဲ့ပြီး)။
-          - ချက်ချင်းမလိုအပ်သော script များကို `<body>` ၏အဆုံးသို့ ရွှေ့ပါ။
-          - အလွန်သေးငယ်ပြီး အရေးကြီးသော script များကို inline ထည့်ရေးပါ (သတိဖြင့်သုံးပါ)။
-     - CSS အတွက်:
-          - Critical CSS ကို inline ထည့်ရေးပါ (ဖော်ပြခဲ့)။
-          - အရေးမကြီးသော CSS များကို asynchronously ခေါ်ပါ။
-          - CSS ပမာဏကို လျှော့ချပါ။
+## Render-Blocking Resource များကို ရှာဖွေခြင်းနှင့် လျှော့ချခြင်း
 
-### Browser ကို အချက်ပြခြင်း - Resource Hints
-HTML `<head>` ထဲက `<link rel="...">` tag များတွင် **Attributes** များ ထည့်သွင်းခြင်းဖြင့် browser အား လိုအပ်လာနိုင်သော resource များအကြောင်း ကြိုတင်အချက်ပြနိုင်ပါသည်။ ဒီလိုလုပ်တာက browser ကို အလုပ်တွေ ပိုမြန်မြန်ဆန်ဆန်လုပ်နိုင်အောင် ကူညီပေးသလိုပါပဲ။
+- **Render-blocking Resources** ဆိုတာ Browser ရဲ့ အပေါ်က Rendering လုပ်ငန်းစဉ် အဆင့်ဆင့်ကို ဝင်ရောက် ပိတ်ဆို့ပြီး နှောင့်နှေးသွားစေတဲ့ အရာတွေကို ခေါ်တာပါ။
+  - `<head>` ထဲမှာ ထည့်သွင်းထားတဲ့ ပြင်ပ CSS ဖိုင်များ (`<link rel="stylesheet" href="...">`) ဟာ ပုံမှန်အားဖြင့် Render-blocking ဖြစ်ပါတယ်။ (ဆိုလိုတာက Browser ဟာ ဒီ CSS ဖိုင်တွေကို အရင်ဆုံး Download ဆွဲ၊ အကုန် ဖတ်ပြီးမှသာ ကျန်တဲ့ အလုပ်တွေကို ဆက်လုပ်လို့ပါ)။
+  - `<head>` ထဲမှာ `async` ဒါမှမဟုတ် `defer` မပါဘဲ ထည့်ထားတဲ့ ပြင်ပ JavaScript ဖိုင်များ (`<script src="...">`) ကလည်း Render-blocking အကြီးအကျယ် ဖြစ်စေပါတယ်။
+  - ဒီလို ပိတ်ဆို့ ကြန့်ကြာမှုတွေက FCP (တစ်ခုခု စပေါ်တဲ့အချိန်)၊ LCP (အဓိက အရာ ပေါ်လာတဲ့အချိန်) နဲ့ Page လုံးဝ ပွင့်လာတဲ့ အချိန် (Load Time) တွေကို သိသိသာသာ နှေးကွေးသွားစေပါတယ်။
 
-- **dns-prefetch:**
-     - `<link rel="dns-prefetch" href="//example.com">`
-     - မကြာမီ လိုအပ်လာနိုင်သော resource များအတွက် အခြား website (domain) ကို DNS lookup (IP address ရှာဖွေခြင်း) ကို လုပ်ဆောင်ရန် browser ကိုကြိုပြောသည်။ (ဖုန်းမခေါ်ခင် ဖုန်းနံပါတ်ကြိုရှာထားသလိုမျိုးဖြစ်သည်။)
-- **preconnect:**
-     - `<link rel="preconnect" href="https://example.com">`
-     - dns-prefetch ထက်ပိုသည်။ **DNS lookup** လုပ်သည့်အပြင် သတ်မှတ်ထားသော domain သို့ **TCP handshake နှင့် TLS negotiation** အပါအဝင် connection တစ်ခုကိုပါ ကြိုတင်တည်ဆောက်သည်။ ချက်ချင်း အသုံးပြုမည့် အရေးကြီးသော **third-party service** များအတွက်သုံးပါ။ preconnect ကို တကယ် အရေးကြီးတဲ့ file တွေ အတွက်သာ သုံးပါ။ မဟုတ်ပါက တခြားအရေးကြီးတဲ့ file တွေ download လုပ်တာကို နှေးသွားစေနိုင်ပါတယ်။
-- **preload:**
-     - `<link rel="preload" href="/critical-script.js" as="script">`
-     - `<link rel="preload" href="/main-image.webp" as="image">`
-     - "ဤဖိုင်သည် လက်ရှိ page အတွက် အလွန်အရေးကြီးပါသည်၊ ၎င်းကို ဦးစားပေးအဆင့်ဖြင့် ယခုချက်ချင်း download လုပ်ပါ" ဟု browser အား အတိအလင်း ညွှန်ကြားသည်။ **`as`** attribute က မည်သည့်ဖိုင်အမျိုးအစားဖြစ်သည်ကို ပြောသည်။
-     - Browser က နောက်မှတွေ့သော်လည်း မြန်မြန်လိုအပ်သော resource များအတွက် (ဥပမာ - LCP ပုံ၊ အရေးကြီးသော font၊ အရေးပါသော script) အသုံးပြုသည်။
-     - အများကြီး preload လုပ်ခြင်းက အခြားအရေးကြီးသော resource များ၏ bandwidth ကိုယူသုံးကာ performance ကိုထိခိုက်စေနိုင်သည်။ အမှန်တကယ်အရေးကြီးပြီး နောက်ကျမှတွေ့ရှိသော resource များအတွက်သာ သုံးပါ။
-- **prefetch:**
-     - `<link rel="prefetch" href="/next-page-styles.css" as="style">`
-     - နောက်လာမည့် navigation (ဥပမာ - user က နောက်စာမျက်နှာသို့ click သွားလျှင်) အတွက် resource တစ်ခုလိုအပ်လာနိုင်သည်ဟု browser အား အနိမ့်ဆုံးဦးစားပေးအဖြစ် အချက်ပြသည်။ Browser က အပို capacity ရှိမှသာ download လုပ်မည် ဖြစ်သည်။
+**ဖြေရှင်းရန် အဓိက နည်းလမ်းများ (Quick Recap):**
+- **JavaScript အတွက်:**
+  - `async` ဒါမှမဟုတ် `defer` Attributes တွေကို အသုံးပြုပါ။
+  - ချက်ချင်း မလိုအပ်တဲ့ Scripts တွေကို `<body>` ရဲ့ အဆုံး (အောက်ဆုံး) ကို ရွှေ့ပါ။
+  - အလွန် သေးငယ်ပြီး ချက်ချင်း အရေးကြီးတဲ့ Scripts လေးတွေကိုတော့ ဖိုင်ခွဲမနေဘဲ HTML ထဲမှာ (Inline) တိုက်ရိုက် ထည့်ရေးပါ။ (သတိထားပြီး သုံးပါ)။
+- **CSS အတွက်:**
+  - Critical CSS (အပေါ်ဆုံး မြင်ကွင်းအတွက် လိုအပ်တဲ့ CSS) ကို HTML ထဲမှာ (Inline) တိုက်ရိုက် ထည့်ရေးပါ။
+  - သိပ်အရေးမကြီးတဲ့ CSS တွေကို Asynchronously Load လုပ်ပါ။
+  - CSS ဖိုင်အရွယ်အစား (Size) ကို တတ်နိုင်သမျှ သေးငယ်အောင် လျှော့ချပါ။
 
+## Browser ကို ကြိုတင် အချက်ပြခြင်း (Resource Hints)
 
-<Aside title="အနှစ်ချုပ်">
-- JavaScript ကို ပိုမိုမြန်ဆန်အောင်လုပ်ရာတွင် ဖိုင်အရွယ်အစားချုံ့ခြင်း (minify, compress)၊ လိုအပ်သည်များကိုသာ ခေါ်ယူခြင်း (code splitting)၊ page ပေါ်လာခြင်းကို မပိတ်ဆို့စေရန် async/defer သုံးခြင်း၊ main thread အလုပ်များလျှော့ချခြင်း၊ နှင့် ပြင်ပ website များမှ script များကို သတိဖြင့်စီမံခြင်းတို့ ပါဝင်သည်။
-- CSS ကို ပိုမိုကောင်းမွန်အောင်လုပ်ရာတွင် ဖိုင်အရွယ်အစားချုံ့ခြင်း၊ အရေးအကြီးဆုံး style များကိုသာ အရင်ဆုံးပေါ်အောင်လုပ်ခြင်း (Critical CSS)၊ အသုံးမပြုတော့သော style များဖယ်ရှားခြင်း၊ နှင့် browser အား page ကို ရေးဆွဲရာတွင် ၀န်မပိစေသော CSS ရေးသားခြင်းတို့ ပါဝင်သည်။
-- Browser Rendering process (The Critical Rendering Path) ကို နားလည်ခြင်းက သင့် site ၏ ပထမဆုံးမြင်ကွင်းကို နှေးစေသော အရာများကို ရှာဖွေပြုပြင်ရာတွင် အထောက်အကူ ရသည်။
-- Resource Hints (dns-prefetch, preconnect, preload, prefetch) များကို မှန်ကန်စွာအသုံးပြုပါက resource loading ကို ပိုမိုထိရောက်အောင်လုပ်ပေးနိုင်သည်။
+HTML ရဲ့ `<head>` ထဲက `<link rel="...">` Tags တွေမှာ အောက်ပါ **Attributes** တွေကို ထည့်သွင်းခြင်းအားဖြင့်၊ Browser ကို "ဒီဖိုင်တွေကတော့ နောက်ကျရင် လိုအပ်လာလိမ့်မယ်နော်" လို့ ကြိုတင် အချက်ပြ ညွှန်ကြား (Hint ပေး) လို့ ရပါတယ်။ ဒီလို လုပ်တာက Browser ကို အလုပ်တွေ ပိုမြန်မြန်ဆန်ဆန်နဲ့ ကြိုတင် ပြင်ဆင်နိုင်အောင် ကူညီပေးပါတယ်။
+
+### `dns-prefetch`
+- `<link rel="dns-prefetch" href="//example.com">`
+- မကြာခင်မှာ ဖိုင်တွေ လှမ်းတောင်းဖို့ လိုအပ်လာနိုင်တဲ့ တခြား Website (Domain) တစ်ခုအတွက် DNS Lookup (IP Address ရှာဖွေခြင်း) ကို အခုကတည်းက ကြိုလုပ်ထားဖို့ Browser ကို ပြောတာပါ။ (ဖုန်းမဆက်ခင် ဖုန်းနံပါတ် စာအုပ်ထဲ ကြိုရှာထားခိုင်းသလိုပါပဲ)။
+
+### `preconnect`
+- `<link rel="preconnect" href="https://example.com">`
+- `dns-prefetch` ထက် ပိုသွားပါတယ်။ DNS Lookup လုပ်ရုံတင်မကဘဲ၊ သတ်မှတ်ထားတဲ့ Domain ဆီကို **TCP Handshake** နဲ့ **TLS Negotiation (Security)** အပါအဝင် Connection အစအဆုံးကို ကြိုတင် တည်ဆောက်ထားခိုင်းတာပါ။
+- ချက်ချင်း အသုံးပြုရမယ့် အလွန် အရေးကြီးတဲ့ **Third-party Services** (ဥပမာ - Google Fonts လိုမျိုး) တွေအတွက်သာ သုံးပါ။ (မလိုအပ်ဘဲ အများကြီး သုံးရင်၊ တကယ် အရေးကြီးတဲ့ တခြား ဖိုင်တွေ Download ဆွဲတာကိုပါ လာပြီး နှေးသွားစေနိုင်လို့ပါ)။
+
+### `preload`
+- `<link rel="preload" href="/critical-script.js" as="script">`
+- `<link rel="preload" href="/main-image.webp" as="image">`
+- "ဒီဖိုင်က လက်ရှိ စာမျက်နှာအတွက် အရမ်းကို အရေးကြီးတယ်၊ ဒါကြောင့် သူ့ကို ဦးစားပေး အမြင့်ဆုံးနဲ့ **အခုချက်ချင်း Download ဆွဲပါ**" လို့ Browser ကို အတိအလင်း အမိန့်ပေး ညွှန်ကြားတာပါ။ `as` Attribute က ဘယ်လို ဖိုင်အမျိုးအစားလဲ ဆိုတာကို ပြောပြတာပါ။
+- LCP ပုံတွေ၊ အရေးကြီးတဲ့ Fonts တွေ၊ အဓိက Scripts တွေလိုမျိုး မြန်မြန် လိုအပ်တဲ့ Resources တွေအတွက် အသုံးပြုပါတယ်။
+- **သတိပြုရန်:** အရာအားလုံးကို Preload လိုက်လုပ်နေရင်၊ Bandwidth တွေ လုကုန်ပြီး Performance ကို ပြောင်းပြန် ထိခိုက်စေပါတယ်။ တကယ်ကို အရေးကြီးဆုံးနဲ့ Browser က ချက်ချင်း မမြင်နိုင်တဲ့ (Hidden) အရာတွေ အတွက်သာ ရွေးချယ် အသုံးပြုပါ။
+
+### `prefetch`
+- `<link rel="prefetch" href="/next-page-styles.css" as="style">`
+- နောက်လာမယ့် စာမျက်နှာ (ဥပမာ - User က နောက်ထပ် Page တစ်ခုကို သွားဖို့ သေချာသလောက် ရှိနေရင်) အတွက် လိုအပ်လာမယ့် Resource တစ်ခုကို အနိမ့်ဆုံး ဦးစားပေး (Low Priority) အဖြစ် အချက်ပြတာပါ။
+- Browser က လက်ရှိ အလုပ်တွေ အားလုံးပြီးလို့ **အားလပ်ချိန် (Idle Time)** ရမှသာ အဲ့ဒီဖိုင်ကို Download လုပ်သွားမှာ ဖြစ်ပါတယ်။
+
+---
+
+<Aside title="💡 အနှစ်ချုပ်">
+- **JavaScript** ကို မြန်ဆန်အောင် လုပ်ရာမှာ ဖိုင်အရွယ်အစား ချုံ့ခြင်း (Minify/Compress)၊ လိုအပ်တဲ့ အပိုင်းလေးတွေသာ ခွဲထုတ် ခေါ်ယူခြင်း (Code Splitting)၊ Render-blocking မဖြစ်အောင် `async/defer` သုံးခြင်း၊ Main Thread အလုပ်များတာ လျှော့ချခြင်းနဲ့ Third-party Scripts တွေကို သတိနဲ့ စီမံခြင်းတို့ ပါဝင်ပါတယ်။
+- **CSS** ကို ကောင်းမွန်အောင် လုပ်ရာမှာ ဖိုင်အရွယ်အစား ချုံ့ခြင်း၊ အပေါ်ဆုံး မြင်ကွင်း (Above-the-fold) အတွက် Critical CSS ထုတ်ယူခြင်း၊ အသုံးမပြုတော့တဲ့ (Unused) Styles တွေ ဖယ်ရှားခြင်းနဲ့ Browser Layout/Paint ကို ဝန်မပိစေတဲ့ CSS ရေးသားခြင်းတို့ ပါဝင်ပါတယ်။
+- Browser ရဲ့ Rendering လုပ်ငန်းစဉ် အဆင့်ဆင့် (**The Critical Rendering Path**) ကို သေချာ နားလည်ထားခြင်းက၊ Website ကို နှေးကွေးစေတဲ့ အရာတွေ ဘယ်နားမှာ ရှိနေသလဲ ဆိုတာကို အလွယ်တကူ ရှာဖွေ ပြုပြင်ဖို့အတွက် အလွန် အထောက်အကူ ပြုပါတယ်။
+- **Resource Hints** (dns-prefetch, preconnect, preload, prefetch) တွေကို မှန်မှန်ကန်ကန် စနစ်တကျ အသုံးပြုတတ်မယ်ဆိုရင် Resource Loading ပိုင်းမှာ များစွာ ထိရောက် မြန်ဆန်လာစေမှာ ဖြစ်ပါတယ် ခင်ဗျာ။
 </Aside>

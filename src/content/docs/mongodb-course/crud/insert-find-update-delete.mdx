@@ -37,7 +37,7 @@ db.users.find();
 // မြို့က "Yangon" ဖြစ်တဲ့သူတွေကိုပဲ ရှာမယ်
 db.users.find({ city: "Yangon" });
 
-// အသက် ၂၀ ထက် ကြီးတဲ့သူတွေကို ရှာမယ် ($gt = greater than)
+// အသက် 20 ထက် ကြီးတဲ့သူတွေကို ရှာမယ် ($gt = greater than)
 db.users.find({ age: { $gt: 20 } });
 
 // ထိပ်ဆုံးက တစ်ယောက်ကိုပဲ လိုချင်ရင်
@@ -49,7 +49,7 @@ db.users.findOne({ name: "Su Su" });
 ရေးခဲ့တဲ့ ဒေတာတွေကို အသစ်ပြန်ပြင်မယ်။ `updateOne` နဲ့ `updateMany` ပါ။
 
 ```javascript
-// နာမည် "Su Su" ကိုရှာပြီး အသက် ၂၃ လို့ ပြင်မယ် ($set ကို မဖြစ်မနေ သုံးရပါတယ်)
+// နာမည် "Su Su" ကိုရှာပြီး အသက် 23 လို့ ပြင်မယ် ($set ကို မဖြစ်မနေ သုံးရပါတယ်)
 db.users.updateOne(
   { name: "Su Su" }, // ဘယ်သူ့ကို ရှာမှာလဲ
   { $set: { age: 23 } } // ဘာသွားပြင်မှာလဲ
@@ -64,6 +64,6 @@ db.users.updateOne(
 // နာမည် "Nyi Nyi" ကို ဖျက်မယ်
 db.users.deleteOne({ name: "Nyi Nyi" });
 
-// အသက် ၁၈ အောက် လူတွေအကုန် ဖျက်မယ် ($lt = less than)
+// အသက် 18 အောက် လူတွေအကုန် ဖျက်မယ် ($lt = less than)
 db.users.deleteMany({ age: { $lt: 18 } });
 ```

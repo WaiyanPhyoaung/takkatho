@@ -36,23 +36,23 @@ func main() {
 
 ### Code ကို နားလည်ခြင်း
 
-- `package main`: Go program တိုင်းဟာ package တစ်ခုထဲမှာ ရှိရပါတယ်။ `main` package ကတော့ ဒီ program ဟာ run လို့ရတဲ့ (executable) program ဖြစ်တယ်လို့ ဆိုလိုတာပါ။
-- `import "fmt"`: `fmt` (format) ဆိုတဲ့ standard library ကို အသုံးပြုဖို့ ခေါ်ယူတာပါ။ စာသားတွေ print ထုတ်ဖို့ သုံးပါတယ်။
+- `package main`: Go Program တိုင်းဟာ Package တစ်ခုထဲမှာ ရှိရပါတယ်။ `main` Package ကတော့ ဒီ Program ဟာ Run လို့ရတဲ့ (Executable) Program ဖြစ်တယ်လို့ ဆိုလိုတာပါ။
+- `import "fmt"`: `fmt` (format) ဆိုတဲ့ Standard Library ကို အသုံးပြုဖို့ ခေါ်ယူတာပါ။ စာသားတွေ Print ထုတ်ဖို့ သုံးပါတယ်။
 - `func main()`: Program စတင် အလုပ်လုပ်မယ့် နေရာ (Entry point) ဖြစ်ပါတယ်။
 
 ## Program ကို Run ခြင်း
 
-Go program ကို run ဖို့ နည်းလမ်း (၂) ခု ရှိပါတယ်။
+Go Program ကို Run ဖို့ နည်းလမ်း (၂) ခု ရှိပါတယ်။
 
-### ၁. `go run` (Development အတွက်)
+### 1. `go run` (Development အတွက်)
 
-Code ကို compile လုပ်ပြီး ချက်ချင်း run ပေးပါတယ်။ ဖိုင်တွေ မထွက်လာပါဘူး။
+Code ကို Compile လုပ်ပြီး ချက်ချင်း Run ပေးပါတယ်။ ဖိုင်တွေ မထွက်လာပါဘူး။
 
 ```bash
 go run main.go
 ```
 
-### ၂. `go build` (Production အတွက်)
+### 2. `go build` (Production အတွက်)
 
 Code ကို Machine Code အဖြစ် Compile လုပ်ပြီး Executable ဖိုင် (ဥပမာ `main.exe` သို့မဟုတ် `main`) ထုတ်ပေးပါတယ်။
 

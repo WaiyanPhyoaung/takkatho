@@ -5,6 +5,7 @@ description: "အခြားသူများ၏ Repository များကိ
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
+
 export const cloneSample = `
 git clone <remote-url>
 `;
@@ -13,7 +14,7 @@ git clone https://github.com/SomeUser/SomeAwesomeProject.git
 `;
 
 <Aside type="tip" title="ရည်ရွယ်ချက်">
-  ရှိပြီးသား `Remote Repository` တစ်ခုကို ကိုယ့် ကွန်ပျူတာထဲ ဘယ်လို ကူးယူ (Clone) ရမလဲဆိုတာ လေ့လာနိုင်ဖို့ ဖြစ်ပါတယ် ခင်ဗျာ။
+  ရှိပြီးသား `Remote Repository` တစ်ခုကို ကိုယ့် ကွန်ပျူတာထဲ ဘယ်လို ကူးယူ (Clone) ရမလဲ ဆိုတာ လေ့လာနိုင်ဖို့ ဖြစ်ပါတယ် ခင်ဗျာ။
 </Aside>
 
 ## Cloning ဆိုတာ ဘာလဲ?
@@ -45,7 +46,7 @@ git clone https://github.com/SomeUser/SomeAwesomeProject.git
 
 <Code code={clone} title="Bash" />
 
-ဒီ Command က Project အမည်နဲ့ Folder အသစ်တစ်ခု အလိုအလျောက် ဖန်တီးပြီး၊ `Repository` တစ်ခုလုံးကို အဲဒီထဲ ထည့်သွင်းပေးသွားမှာ ဖြစ်ပါတယ်။
+ဒီ Command က Project အမည်နဲ့ Folder အသစ်တစ်ခု အလိုအလျောက် ဖန်တီးပြီး၊ `Repository` တစ်ခုလုံးကို အဲ့ဒီထဲ ထည့်သွင်းပေးသွားမှာ ဖြစ်ပါတယ်။
 
 ## လက်တွေ့ စမ်းသပ်ကြည့်ရန်
 
@@ -63,7 +64,7 @@ GitHub မှာ စိတ်ဝင်စားစရာကောင်းတဲ
    - ပြဿနာကြီးတွေ မဟုတ်ပါဘူး။ စိတ်အေးအေးထားပြီး ဖြေရှင်းနိုင်ပါတယ်။
 
 4. **Merge လုပ်တဲ့အခါ သတိပြုရန်**
-   - လက်ရှိ ကိုယ် ဘယ် Branch မှာ ရောက်နေလဲ၊ ဘယ် Branch က ပြောင်းလဲမှုတွေကို ပေါင်းထည့်မှာလဲဆိုတာကို သေချာ သိပါစေ။
+   - လက်ရှိ ကိုယ် ဘယ် Branch မှာ ရောက်နေလဲ၊ ဘယ် Branch က ပြောင်းလဲမှုတွေကို ပေါင်းထည့်မှာလဲ ဆိုတာကို Command မရိုက်ခင် သေချာ စစ်ဆေးဖို့ မမေ့ပါနဲ့ ခင်ဗျာ။
 
 5. **Merge (သို့) Rebase လုပ်ခြင်း**
    - `git pull` ထက် ပိုပြီး ထိန်းချုပ်ချင်တယ်ဆိုရင် `git fetch` ကို သုံးပြီး Remote က အပြောင်းအလဲတွေကို အရင် ကြည့်ရှုနိုင်ပါတယ်။

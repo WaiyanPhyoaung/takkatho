@@ -3,28 +3,28 @@ title: "Changing Styles"
 description: "CSS Styles များကို JavaScript ဖြင့် ပြောင်းလဲခြင်း"
 ---
 
-JavaScript ကနေ CSS ကို လှမ်းပြင်ရင် `style` property ကို သုံးရပါတယ်။
-တစ်ခု သတိထားရမှာက CSS မှာ `-` (dash) ပါတဲ့ နာမည်တွေကို JavaScript မှာ **CamelCase** ပြောင်းရေးရပါတယ်။
+JavaScript ကနေတဆင့် HTML Element တွေရဲ့ CSS ဒီဇိုင်းတွေကို လှမ်းပြင်ချင်တယ် ဆိုရင် `style` ဆိုတဲ့ Property ကို အသုံးပြုရပါတယ်။
+ဒီနေရာမှာ အထူးသတိထားရမယ့် အချက်တစ်ခုကတော့ CSS မှာ အသုံးပြုလေ့ရှိတဲ့ `-` (dash) ပါတဲ့ နာမည်တွေကို JavaScript မှာ **CamelCase** (ဒုတိယ စာလုံးကို အကြီးနဲ့ စရေးခြင်း) ပုံစံ ပြောင်းလဲ ရေးသားရပါတယ်။
 
-*   `background-color` -> `backgroundColor`
-*   `font-size` -> `fontSize`
-*   `margin-top` -> `marginTop`
+* `background-color` -> `backgroundColor` (JavaScript တွင်)
+* `font-size` -> `fontSize`
+* `margin-top` -> `marginTop`
 
-## ဥပမာ
+## ဥပမာ (Example)
 
 ```javascript
 let box = document.querySelector(".box");
 
-// အရောင်ပြောင်းမယ်
+// အရောင် ပြောင်းလဲမည်
 box.style.backgroundColor = "red";
 
-// စာလုံးဆိုဒ် ကြီးမယ်
+// စာလုံး အရွယ်အစား ကြီးမည်
 box.style.fontSize = "20px";
 
-// ဘောင်ဖျောက်မယ်
+// ဘောင် (Border) ကို ဖျောက်မည်
 box.style.border = "none";
 ```
 
-## Class တွေ ချိန်းတာ ပိုကောင်းတယ်
+## Class များကို အသုံးပြုခြင်းက ပိုကောင်းသည်
 
-Style တွေ အများကြီးကို တစ်ကြောင်းချင်း လိုက်ရေးနေမယ့်အစား၊ CSS Class တစ်ခု ကြိုဆောက်ထားပြီး JavaScript ကနေ အဲဒီ Class ကို ထည့်ပေး/ထုတ်ပေးတာ ပိုကောင်းပါတယ်။ (Later in `classList` topic)
+လက်တွေ့ လုပ်ငန်းခွင်မှာ Style တွေ အများကြီးကို JavaScript ထဲကနေ တစ်ကြောင်းချင်းစီ လိုက်ရေးနေမယ့် အစား၊ CSS ဖိုင်ထဲမှာ Class တစ်ခုအနေနဲ့ ကြိုတင် တည်ဆောက်ထားတာ ပိုကောင်းပါတယ်။ အဲ့ဒီနောက်မှ JavaScript ကနေ အဲ့ဒီ Class ကို ထည့်ပေးတာ / ပြန်ထုတ်တာ (Add / Remove) လုပ်ခြင်းက Code ကို ပိုမို သပ်ရပ်စေပါတယ်။ (ဒီအကြောင်းကို နောက်ပိုင်း `classList` သင်ခန်းစာမှာ အသေးစိတ် ထပ်မံ လေ့လာရပါမယ်)

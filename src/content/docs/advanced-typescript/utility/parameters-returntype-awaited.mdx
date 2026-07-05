@@ -4,89 +4,101 @@ description: "Parameters<T>, ReturnType<T>, Awaited<T>"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const parameters = `
+// သာမန် Function တစ်ခု
 function greet(name: string, age: number, options?: { verbose: boolean }): void {
   console.log(\`Hello \${name}, age \${age}\`);
 }
 
-// GreetParams ဆိုတဲ့ type အသစ် လုပ်မယ်။ သူက greet function ရဲ့ parameter တွေရဲ့ type ဖြစ်မယ်။
-type GreetParams = Parameters<typeof greet>; // ရလာမယ့် Type: [name: string, age: number, options?: { verbose: boolean }]
+// GreetParams ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက greet Function ရဲ့ Parameter တွေရဲ့ Type တွေကို စုစည်းထားတာ ဖြစ်မယ်။
+type GreetParams = Parameters<typeof greet>; 
+// ရလာမယ့် Type: [name: string, age: number, options?: { verbose: boolean }] (ဒါကို Tuple လို့ ခေါ်ပါတယ်)
 
+// GreetParams ကို အသုံးပြုပြီး Function အသစ်တစ်ခု ရေးမယ်
 function callGreetWithStoredParams(args: GreetParams) {
-greet(...args); // tuple ကို arguments တွေအဖြစ် ပို့ဖို့ spread operator (...) ကို သုံးတယ်။
+  greet(...args); // Tuple အနေနဲ့ လက်ခံထားတဲ့ args တွေကို၊ သီးခြား Arguments တွေအဖြစ် ခွဲပို့ဖို့ Spread Operator (...) ကို သုံးတယ်
 }
 
+// Parameter တွေကို Array (Tuple) အနေနဲ့ ပို့ပေးရုံပါပဲ
 callGreetWithStoredParams(["Bob", 42, { verbose: true }]);
 `;
 
 export const returnType = `
+// API ဆီကနေ User Data လှမ်းယူတဲ့ Function 
 function fetchUser(id: number): Promise<{ id: number; name: string }> {
   return Promise.resolve({ id, name: "User " + id });
 }
 
-// FetchUserReturn ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက fetchUser function ရဲ့ return type ဖြစ်မယ်။
-type FetchUserReturn = ReturnType<typeof fetchUser>; // ရလာမယ့် Type: Promise<{ id: number; name: string }>
+// FetchUserReturn ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက fetchUser Function ကနေ ပြန်ပေးမယ့် (Return လုပ်မယ့်) Type ဖြစ်မယ်။
+type FetchUserReturn = ReturnType<typeof fetchUser>; 
+// ရလာမယ့် Type: Promise<{ id: number; name: string }>
 
 let userPromise: FetchUserReturn = fetchUser(1);
 userPromise.then(userData => console.log(userData.name));
 `
-export const awaited =`async function getUserData(): Promise<{ name: string; age: number }> {
-return { name: "Carol", age: 25 };
+
+export const awaited = `
+async function getUserData(): Promise<{ name: string; age: number }> {
+  return { name: "Carol", age: 25 };
 }
 
 async function getNestedPromise(): Promise<Promise<string>> {
-return Promise.resolve(Promise.resolve("Deeply nested!"));
+  return Promise.resolve(Promise.resolve("Deeply nested!"));
 }
 
-// UserData ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getUserData ရဲ့ Return Type (Promise) ကို Awaited လုပ်ထားတာ။
-type UserData = Awaited<ReturnType<typeof getUserData>>; // ရလာမယ့် Type: { name: string; age: number }
+// UserData ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက getUserData ရဲ့ Return Type (Promise) ရဲ့ "အထဲက တကယ့် Data Type" ကို Awaited နဲ့ ထုတ်ယူထားတာပါ။
+type UserData = Awaited<ReturnType<typeof getUserData>>; 
+// ရလာမယ့် Type: { name: string; age: number } (Promise ကြီး ပျောက်သွားပါပြီ)
 
-// NestedString ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getNestedPromise ရဲ့ Return Type (Promise<Promise<string>>) ကို Awaited လုပ်ထားတာ။
-type NestedString = Awaited<ReturnType<typeof getNestedPromise>>; // ရလာမယ့် Type: string
+// NestedString ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getNestedPromise ရဲ့ Return Type (Promise<Promise<string>>) ထဲက အစစ်အမှန် Type ကို ထုတ်ယူတာပါ။
+type NestedString = Awaited<ReturnType<typeof getNestedPromise>>; 
+// ရလာမယ့် Type: string (Promise တွေ အဆင့်ဆင့် ခံနေတာကို ဖောက်ထွက်သွားပါတယ်)
 
 async function displayUser() {
-const user: UserData = await getUserData(); // user ရဲ့ Type က { name: string; age: number } ဖြစ်သွားပြီ။
-console.log(user.name);
+  const user: UserData = await getUserData(); // user ရဲ့ Type က Promise မဟုတ်တော့ဘဲ၊ { name: string; age: number } အတိအကျ ဖြစ်သွားပါပြီ။
+  console.log(user.name);
 
-const nested: NestedString = await getNestedPromise(); // nested ရဲ့ Type က string ဖြစ်သွားပြီ။
-console.log(nested.toUpperCase()); // string function ကို စိတ်ချစွာ ခေါ်သုံးနိုင်ပြီ။
+  const nested: NestedString = await getNestedPromise(); // nested ရဲ့ Type က string အတိအကျ ဖြစ်သွားပါပြီ။
+  console.log(nested.toUpperCase()); // string Function တွေကို စိတ်ချလက်ချ ခေါ်သုံးနိုင်သွားပါပြီ။
 }
 
 displayUser();
-};`
+`;
 
-<Aside title="ရည်ရွယ်ချက်" type="tip">
-  Functions တွေနဲ့ Promises တွေဆီကနေ Type အချက်အလက်တွေကို ထုတ်ယူပေးတဲ့ Utility Types တွေကို သုံးတတ်အောင် သင်ယူဖို့ ဖြစ်ပါတယ်။
+<Aside title="💡 ရည်ရွယ်ချက်" type="tip">
+  Functions တွေနဲ့ Promises တွေဆီကနေ ကိုယ်လိုချင်တဲ့ Type အချက်အလက်တွေကို အလိုအလျောက် ထုတ်ယူ (Extract) ပေးနိုင်တဲ့ အဆင့်မြင့် Utility Types တွေကို အသုံးပြုတတ်လာစေဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
 ## `Parameters<T>`: Function ရဲ့ Parameter Types တွေကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Parameters<Type>` က Function တစ်ခုရဲ့ Parameters တွေရဲ့ Types တွေကို Tuple (အစဉ်လိုက် စုစည်းထားတဲ့) Type တစ်ခုအနေနဲ့ လုပ်ပေးပါတယ်။
-- **ဘယ်လို သုံးမလဲ**: `Parameters<typeof myFunction>` (မှတ်ချက်: `typeof` ကို Function ကိုယ်တိုင်ရဲ့ Type ကို ရယူဖို့ သုံးတာပါ)
+- **ဘာလုပ်ပေးသလဲ**: `Parameters<Type>` ဟာ Function တစ်ခုကနေ လက်ခံမယ့် Parameters တွေရဲ့ Types တွေကို အစဉ်လိုက် စုစည်းထားတဲ့ Tuple Type (Array ပုံစံ Type) တစ်ခုအနေနဲ့ ဖန်တီးပေးပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `Parameters<typeof myFunction>` 
+  - (မှတ်ချက်: `typeof` ကို Variable ဒါမှမဟုတ် Function ရဲ့ Type ကို ရယူဖို့အတွက် TypeScript မှာ အသုံးပြုတာ ဖြစ်ပါတယ်)
 
 <Code lang="typescript" code={parameters} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**: Functions တွေကို ထပ်ဆင့်ခေါ်တဲ့ Higher-Order Functions တွေ၊ Decorators တွေလိုမျိုးမှာ အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် တခြား Function တစ်ခုရဲ့ Signature ကို လိုက်ပြီး Function အသစ်တစ်ခု လုပ်ချင်တဲ့အခါ၊ ဒါမှမဟုတ် Parameters တွေကို Type ပါတဲ့ Tuple အဖြစ် သိမ်းထားချင်တဲ့အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Functions တွေကို Parameter အနေနဲ့ လက်ခံပြီး ထပ်ဆင့်ခေါ်ပေးတဲ့ Higher-Order Functions တွေ၊ Decorators တွေ တည်ဆောက်တဲ့ နေရာမျိုးမှာ အရမ်း အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် တခြား ရှိပြီးသား Function တစ်ခုရဲ့ Parameter ပုံစံ (Signature) အတိုင်း နောက်ထပ် Function အသစ်တစ်ခု လိုက်ရေးချင်တဲ့အခါ၊ ဒါမှမဟုတ် Parameters တွေကို Type စည်းကမ်းချက်ပါတဲ့ Tuple (Array) တစ်ခု အဖြစ် ခေတ္တ သိမ်းဆည်းထားချင်တဲ့ အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
 
 ## `ReturnType<T>`: Function ကနေ ပြန်လာမယ့် (Return) Type ကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `ReturnType<Type>` က Function Type တစ်ခုရဲ့ ပြန်လာတဲ့ Result ရဲ့ Type ကို ရယူပြီး Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `ReturnType<Type>` ဟာ Function Type တစ်ခုကနေ ပြန်လည် ထုတ်ပေးမယ့် (Return လုပ်မယ့်) Result ရဲ့ Type ကို အလိုအလျောက် ရယူပြီး Type အသစ်တစ်ခု အဖြစ် ဖန်တီးပေးပါတယ်။
 - **ဘယ်လို သုံးမလဲ**: `ReturnType<typeof myFunction>`
 
 <Code lang="typescript" code={returnType} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**: Function တစ်ခုရဲ့ Result ကို သိမ်းမယ့် Variable ကို Type သတ်မှတ်ချင်တဲ့အခါ အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် Function တစ်ခုရဲ့ Return Type ကို Manually (ကိုယ်တိုင်) ရေးဖို့ ခက်ခဲနေတဲ့ Generic Functions တွေနဲ့ အလုပ်လုပ်တဲ့အခါမျိုးမှာ အထောက်အကူပြုပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Function တစ်ခုရဲ့ Result ကို လက်ခံ သိမ်းဆည်းမယ့် Variable တစ်ခုကို Type အတိအကျ သတ်မှတ်ပေးချင်တဲ့အခါ အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် Function တစ်ခုရဲ့ Return Type ဟာ အလွန် ရှုပ်ထွေးနေလို့ ကိုယ်တိုင် လိုက်ရေးဖို့ (Manually type) ခက်ခဲနေတဲ့ အခါမျိုးတွေ၊ Generic Functions တွေနဲ့ တွဲဖက် အလုပ်လုပ်တဲ့ အခါမျိုးတွေမှာ အထူး အထောက်အကူ ပြုပါတယ်။
 
 ## `Awaited<T>`: Promise ရဲ့ အထဲက (Resolved) Type ကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Awaited<Type>` က Promise Type တွေကို အဆင့်ဆင့် Unwraps (အထဲက Type ကို ထုတ်ယူ) လုပ်ပေးပါတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `Awaited<Type>` ဟာ Asynchronous လုပ်ငန်းစဉ်တွေမှာ သုံးတဲ့ Promise Type တွေကို အဆင့်ဆင့် Unwraps (အဖုံးတွေ ခွာပြီး အထဲက တကယ့် Type ကို ဆွဲထုတ်) လုပ်ပေးပါတယ်။
 
-  - Type က `Awaited<Promise<X>>` ဆိုရင် `X` ကို ရပါမယ်။
-  - Type က Promise မဟုတ်ရင် မူရင်း Type ကိုပဲ ပြန်ပေးပါမယ်။
-  - Nested Promises တွေ (Promise ထဲမှာ Promise ထပ်ပါတာ) ကိုလည်း ထုတ်ပေးနိုင်ပါတယ်။
+  - ဥပမာ - Type က `Awaited<Promise<string>>` ဆိုရင် `string` ကိုပဲ ရပါမယ်။
+  - အကယ်၍ Type က Promise မဟုတ်ဘူး ဆိုရင်တော့၊ မူရင်း ထည့်ပေးလိုက်တဲ့ Type ကိုပဲ ပြန်ပေးပါမယ်။
+  - Nested Promises တွေ (ဆိုလိုတာက Promise ထဲမှာမှ Promise ထပ်ပါနေတာမျိုး ဥပမာ - `Promise<Promise<number>>`) ဆိုရင်လည်း အထဲဆုံးက တကယ့် Data Type ကို ရောက်တဲ့အထိ ဆွဲထုတ်ပေးနိုင်စွမ်း ရှိပါတယ်။
 
-- **ဘယ်လို သုံးမလဲ**: `Awaited<PromiseType>`
+- **ဘယ်လို သုံးမလဲ**: `Awaited<PromiseType>` ဒါမှမဟုတ် `Awaited<ReturnType<typeof myAsyncFunction>>`
 
 <Code lang="typescript" code={awaited} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**: Asynchronous Operations တွေ (ဥပမာ API ခေါ်တာတွေ) ကနေ ပြန်လာမယ့် Promise ရဲ့ တကယ့် Value Type ကို သိချင်တဲ့အခါ အရမ်း အရေးကြီးပါတယ်။ အထူးသဖြင့် Promise Type က Generic ဖြစ်နေရင် ဒါမှမဟုတ် Promise ထဲမှာ Promise ထပ်ပါနေရင် အထဲက Data Type ကို အလွယ်တကူ ထုတ်ယူဖို့ ကူညီပေးပါတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Asynchronous Operations တွေ (ဥပမာ - Server ဆီကနေ API လှမ်းခေါ်တာတွေ) ကနေ ပြန်လာမယ့် Promise ကြီးရဲ့ အထဲက တကယ့် Data ရဲ့ Value Type အစစ်ကို သိချင်တဲ့အခါ အရမ်းကို အရေးကြီးပါတယ်။ အထူးသဖြင့် Promise Type ကိုယ်တိုင်က Generic ဖြစ်နေရင် ဒါမှမဟုတ် Promise တွေ အထပ်ထပ် ဖြစ်နေရင်၊ အထဲက လိုချင်တဲ့ Data Type ကို အလွယ်တကူ ဆွဲထုတ်ဖို့ ကူညီပေးပါတယ်။

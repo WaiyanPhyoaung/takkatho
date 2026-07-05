@@ -1,38 +1,33 @@
 ---
-title: "Database Structure: Foreign Key"
-description: Foreign Key
+title: "Foreign Key"
+description: "Table များချိတ်ဆက်ရန် Foreign Key အသုံးပြုပုံ"
 ---
 
-## Foreign Key
+import { Aside } from "@astrojs/starlight/components";
 
-Foreign Key က table နှစ်ခုကြားမှာ relationship တစ်ခုကို ဖန်တီးပေးတဲ့ အဓိကကျတဲ့ field (column) တစ်ခုဖြစ်ပါတယ်။ Table နှစ်ခုကို ချိတ်ဆက်ချင်တယ်ဆိုရင် 
-ပထမ table က primary key ကို ကူးယူပြီး ဒုတိယ table ထဲကို ထည့်သွင်းခြင်းဖြင့် ချိတ်ဆက်ရပါတယ်။
-အဲဒီအခါ ပထမ table ထဲက primary key က ဒုတိယ table အတွက် Foreign Key ဖြစ်လာပါတယ်။
+## Foreign Key ဆိုတာ ဘာလဲ?
 
-Foreign Key လို့ခေါ်ရတဲ့အကြောင်းရင်းကတော့ ဒုတိယ table မှာ သူ့ကိုယ်ပိုင် Primary Key ရှိနေပြီးသား ဖြစ်ပြီး
-ပထမ Table တစ်ခုဆီကနေ "ဧည့်သည်" (foreign) အဖြစ် လာရောက်ချိတ်ဆက်ပေးတဲ့ key ဖြစ်တဲ့အတွက် ဖြစ်ပါတယ်။
+**Foreign Key** ဆိုတာ Table နှစ်ခုကြားမှာ ဆက်စပ်မှု (Relationship) တည်ဆောက်ဖို့ အသုံးပြုတဲ့ Field (သို့မဟုတ် Fields များ) ကို ခေါ်တာပါ။ 
 
-ဥပမာ - 
+Foreign Key ရဲ့ အဓိက တာဝန်က Table တစ်ခုက Data နဲ့ နောက် Table တစ်ခုက Data ကို အချင်းချင်း ချိတ်ဆက် (Link) ပေးဖို့ပဲ ဖြစ်ပါတယ်။
 
-**Customers table**
-| `CustomerID` (PK) | Name | Email |
-| ---- | ---- | ---- |
-| `1` | Alice | alice@gmail.com |
-| `2` | Bob | bob@gmail.com |
+> လွယ်လွယ်ပြောရရင် Table တစ်ခုရဲ့ Primary Key ကို နောက် Table တစ်ခုထဲမှာ သွားထည့်လိုက်တဲ့အခါ၊ အဲဒီ ဒုတိယ Table ထဲက Field ကို **Foreign Key** လို့ ခေါ်ပါတယ်။
 
+### ဥပမာ - ဝန်ထမ်းနဲ့ ဌာန
 
-> `CustomerID` က Customers table အတွက် primary key ဖြစ်ပါတယ်။
+| Employees Table | | | | Departments Table | |
+|---|---|---|---|---|---|
+| **EmployeeID (PK)** | Name | **DepartmentID (FK)** | &lt;-&gt; | **DepartmentID (PK)** | DepartmentName |
+| 1 | Alice | 101 | | 101 | HR |
+| 2 | Bob | 102 | | 102 | IT |
 
-**Orders table**
-| OrderID (PK) | OrderDate | `CustomerID` (FK) | 
-| ---- | ----- | ---- |
-| 101 | 2024-06-01 | `1` | 
-| 102 | 2024-05-01 | `1` | 
-| 103 | 2024-07-01 | `2` | 
+ဒီ ဥပမာမှာ -
+- `Departments` Table ရဲ့ **Primary Key** က `DepartmentID` ပါ။
+- အဲဒီ `DepartmentID` ကို `Employees` Table ထဲမှာ ထည့်သွင်း အသုံးပြုထားတဲ့အခါ၊ `Employees` Table ထဲက `DepartmentID` ဟာ **Foreign Key** ဖြစ်သွားပါတယ်။
 
-> `OrderID` ဟာ Orders table အတွက် `Primary Key` ဖြစ်ပါတယ်။ 
->
-> ဒီနေရာမှာ `CustomerID` ကတော့ Orders table မှာ `Foreign Key` ဖြစ်ပြီး၊ Customers table ထဲက `CustomerID (PK)` ကို ရည်ညွှန်းပါတယ်။ ဒီ `Foreign Key` က အော်ဒါတစ်ခုစီကို ဘယ် customer က မှာယူခဲ့တယ်ဆိုတာကို ချိတ်ဆက်ပေးတာပဲ ဖြစ်ပါတယ်။
+ဒီလို ချိတ်ဆက်လိုက်တဲ့အတွက် "Alice ဟာ HR ဌာနက ဖြစ်တယ်" ဆိုတာကို အလွယ်တကူ သိနိုင်သွားပါတယ်။
 
-Customer တစ်ယောက်က အော်ဒါတစ်ခု မှာတဲ့အခါ အဲဒီအော်ဒါရဲ့အချက်အလက်တွေကို Orders table မှာ သိမ်းဆည်းပါတယ်။ 
-ဒီအော်ဒါကို ဘယ် customer က မှာတယ်ဆိုတာသိဖို့ Customers table ထဲက customer ရဲ့ Primary Key ဖြစ်တဲ့ CustomerID ကို Orders table ထဲမှာ Foreign Key အနေဖြင့် ထည့်သွင်းပါတယ်။
+## Foreign Key ရဲ့ အရေးပါပုံ
+
+1. **Data မှန်ကန်စေခြင်း (Referential Integrity):** Foreign Key ရှိနေတဲ့အတွက် မရှိတဲ့ ဌာန (ဥပမာ - DepartmentID 999) ကို ဝန်ထမ်း Table ထဲ ထည့်လို့ မရတော့ပါဘူး။ Data မှားယွင်းမှုတွေကို အလိုအလျောက် ကာကွယ်ပေးပါတယ်။
+2. **Relationships ဖန်တီးပေးခြင်း:** Table တစ်ခုတည်းမှာ Data တွေ အကုန်ပြွတ်သိမ်းမယ့်အစား၊ သက်ဆိုင်ရာ Table အလိုက် ခွဲသိမ်းပြီး Foreign Key တွေကတစ်ဆင့် ပြန်လည် ချိတ်ဆက်ပေးနိုင်ပါတယ်။ ဒါဟာ Relational Database ရဲ့ အဓိက အသက်သွေးကြောပါပဲ။

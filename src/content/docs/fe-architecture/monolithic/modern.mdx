@@ -8,34 +8,33 @@ import ContentImage from "@/components/Content-image.astro"
 import carModule from "@/assets/frontend-architecture/car-module.jpeg"
 
 <Aside title="ခေတ်သစ် Monolith">
-Next.js, Remix, Angular တို့လို Modern Framework တွေက Monolith ကို အားပေးပါတယ်။ ဒါပေမဲ့ သူတို့သွားနေတာက **"Modular Monolith"** ပါ။
-ဒါကို **"Modern Car (Tesla)"** နဲ့ နှိုင်းယှဉ်ကြည့်ရအောင်။
+  Next.js, Remix, Angular တို့လို Modern Framework တွေက Monolith ကိုပဲ အားပေးပါတယ်။ ဒါပေမဲ့ သူတို့သွားနေတဲ့ လမ်းကြောင်းက **"Modular Monolith (စနစ်ကျတဲ့ Monolith)"** ပါ။ ဒါကို **"ခေတ်မီ ကားတစ်စီး (ဥပမာ - Tesla)"** နဲ့ နှိုင်းယှဉ်ကြည့်ရအောင်။
 </Aside>
 
 ### Modern Frameworks = Modern Cars
-Tesla ကားတစ်စီးဟာ အပြင်ကကြည့်ရင် တစ်စီးတည်း (One Unit) ပါ။ ဒါပေမဲ့ အတွင်းပိုင်းမှာ Battery Module, Motor Module, AI Module ဆိုပြီး သီးခြားစီ ဖွဲ့စည်းထားပါတယ်။
+Tesla ကားတစ်စီးဟာ အပြင်ကကြည့်ရင် ကားတစ်စီးတည်း (One Unit) ပါပဲ။ ဒါပေမဲ့ အတွင်းပိုင်းကို ဖြုတ်ကြည့်လိုက်ရင် Battery Module, Motor Module, AI Module ဆိုပြီး အပိုင်းလေးတွေ သီးခြားစီ စနစ်တကျ ဖွဲ့စည်းထားပါတယ်။
 
 <ContentImage src={carModule} alt='car modules' width='400' />
 
 - **Next.js / Remix:**
-  Page တွေ၊ Component တွေ ခွဲရေးထားပေမယ့်၊ နောက်ဆုံး Deploy လုပ်ရင် Server တစ်လုံးတည်း (သို့မဟုတ် Lambda Function တစ်စု) အနေနဲ့ တက်သွားပါတယ်။ ဒါဟာ **Monolith** ပါ။ ဒါပေမဲ့ အရမ်း စနစ်ကျတဲ့ Monolith ပါ။
+  Page တွေ၊ Component တွေကို ဖိုင်တွေ သီးခြားခွဲပြီး ရေးထားပေမယ့်၊ နောက်ဆုံး Deploy လုပ်လိုက်ရင် ဆာဗာ (Server) တစ်လုံးတည်း (သို့မဟုတ် Lambda Function တစ်စု) အနေနဲ့ပဲ တက်သွားပါတယ်။ ဒါဟာ **Monolith** ပါပဲ။ ဒါပေမဲ့ အရမ်း စနစ်ကျတဲ့၊ အပိုင်းလေးတွေ သေသေချာချာ ခွဲထားတဲ့ Monolith မျိုးပါ။
 
 - **Angular:**
-  Module System (NgModules) နဲ့ Feature တွေကို သီးခြားစီ ခွဲထုတ်ထားပါတယ်။ ဒါပေမဲ့ နောက်ဆုံးမှာ `main.js` bundle တစ်ခုတည်း ထွက်လာပါတယ်။
+  သူ့ရဲ့ Module System (NgModules) နဲ့ Feature တွေကို သီးခြားစီ ခွဲထုတ်ထားပါတယ်။ ဒါပေမဲ့ နောက်ဆုံး Build လုပ်လိုက်တဲ့အခါမှာတော့ `main.js` လို့ခေါ်တဲ့ Bundle ဖိုင်တစ်ခုတည်းပဲ ထွက်လာပါတယ်။ ဒါလည်း Monolith ပါပဲ။
 
 ### ဘယ်အချိန်မှာ Monolith မသုံးသင့်ဘူးလဲ? (Micro-Frontends သုံးသင့်ချိန်)
-Tesla ကားတစ်စီး ဝယ်စီးတာက လူတိုင်းအတွက် အဆင်ပြေပါတယ်။ ဒါပေမဲ့ အောက်ပါ အခြေအနေတွေမှာတော့ မရတော့ပါဘူး။
+Tesla ကားတစ်စီး ဝယ်စီးတာက လူအများစုအတွက် အဆင်ပြေပါတယ်။ ဒါပေမဲ့ အောက်ပါ အခြေအနေမျိုးတွေ ရောက်လာရင်တော့ Monolith နဲ့ အဆင်မပြေနိုင်တော့ပါဘူး။
 
-1.  **Team Scale အရမ်းကြီးလာတဲ့အခါ:**
-    Developer ၁၀၀ ကျော်လောက် ရှိလာပြီး၊ Team တစ်ခုချင်းစီက သီးခြား Feature တွေကို တာဝန်ယူရတဲ့အခါ (ဥပမာ - Checkout Team, Search Team, User Profile Team)။
+1.  **Team အရွယ်အစား အရမ်းကြီးလာတဲ့အခါ:**
+    Developer အယောက် ၁၀၀ ကျော်လောက် ရှိလာပြီး၊ Team တစ်ခုချင်းစီက သီးခြား Feature တွေကို တာဝန်ယူလာရတဲ့အခါမျိုးပါ။ (ဥပမာ - Checkout Team သီးသန့်, Search Team သီးသန့်, User Profile Team သီးသန့် စသဖြင့်)။
 
 2.  **Independent Deployment လိုအပ်တဲ့အခါ:**
-    Checkout Team က သူတို့ Feature ကို ပြင်လိုက်ရင်၊ Search Team ရဲ့ Code ကို ပြန် Build/Deploy လုပ်စရာ မလိုချင်တဲ့အခါ။
+    Checkout Team က သူတို့ Feature ကို ပြင်လိုက်တာနဲ့၊ Search Team က ရေးထားတဲ့ Code တွေကိုပါ လိုက်ပြီး ပြန် Build ရတာ၊ Deploy လုပ်ရတာမျိုး မလုပ်ချင်တော့တဲ့အခါ။ (ကိုယ့် Team နဲ့ ကိုယ် သီးခြားစီ တင်ချင်တဲ့အခါ)။
 
 3.  **Technology Diversity လိုချင်တဲ့အခါ:**
-    Legacy Code တွေကို Angular နဲ့ ဆက်ထားပြီး၊ Feature အသစ်တွေကို React နဲ့ ရေးချင်တဲ့အခါမျိုး။
+    အရင်က ရေးခဲ့တဲ့ Legacy Code တွေကို Angular နဲ့ပဲ ဆက်ထားပြီး၊ Feature အသစ်တွေကိုကျတော့ React လိုမျိုး နည်းပညာအသစ်နဲ့ ရေးချင်တဲ့အခါမျိုးပါ။ (နည်းပညာ အမျိုးမျိုး ရောသုံးချင်တဲ့အခါ)။
 
 <Aside title="အနှစ်ချုပ်" type='tip'>
-- **Monolith** ဆိုတာ Deployment Unit တစ်ခုတည်း ဖြစ်ခြင်းကို ဆိုလိုတာပါ။ Code တွေ ရှုပ်ပွနေတာကို ဆိုလိုတာ မဟုတ်ပါဘူး။
-- **Micro-Frontend** ဆိုတာ Team တွေ၊ Deployment တွေကို ခွဲထုတ်ချင်မှသာ သုံးသင့်တဲ့ Advanced Pattern တစ်ခုပါ။ မလိုအပ်ဘဲ သုံးရင် ရှုပ်ထွေးမှု (Complexity) သာ တိုးလာပါလိမ့်မယ်။
+- **Monolith** ဆိုတာ Deployment Unit တစ်ခုတည်း (တစ်ခါတည်း အကုန်တင်ရတဲ့ စနစ်) ဖြစ်ခြင်းကို ဆိုလိုတာပါ။ Code တွေ ရှုပ်ပွနေတာကို ဆိုလိုတာ မဟုတ်ပါဘူး။ Code တွေကို စနစ်တကျ ခွဲရေးထားရင် သုံးရတာ အလွန်ကောင်းပါတယ်။
+- **Micro-Frontend** ဆိုတာ Team တွေ အများကြီးနဲ့ အလုပ်လုပ်တာ၊ Deployment တွေကို သီးခြားစီ ခွဲထုတ်ချင်တာမျိုးတွေအတွက်သာ သုံးသင့်တဲ့ အဆင့်မြင့် (Advanced) Pattern တစ်ခုပါ။ မလိုအပ်ဘဲ သွားသုံးရင် အကျိုးကျေးဇူးထက် ရှုပ်ထွေးမှု (Complexity) သာ ပိုတိုးလာပါလိမ့်မယ်။
 </Aside>

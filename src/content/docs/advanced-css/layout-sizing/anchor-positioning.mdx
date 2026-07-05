@@ -5,46 +5,47 @@ description: "Element များကို အခြား Element တစ်ခ
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="Tooltips & Popovers Made Easy">
-Tooltip တွေ၊ Dropdown Menu တွေကို သက်ဆိုင်ရာ Button နားမှာ ကပ်ထားဖို့ အရင်က JavaScript (Popper.js, Floating UI) လိုအပ်ပါတယ်။ အခု CSS Native ရပါပြီ။
+<Aside title="Tooltip များ ပိုမို လွယ်ကူလာခြင်း (Tooltips Made Easy)">
+အရင်တုန်းက Tooltip တွေ၊ Dropdown Menu တွေကို သက်ဆိုင်ရာ Button နားမှာ သေသေချာချာ ကပ်ထားဖို့ဆိုရင် Popper.js သို့မဟုတ် Floating UI လိုမျိုး JavaScript Library တွေ မဖြစ်မနေ သုံးခဲ့ရပါတယ်။ အခုအခါမှာတော့ CSS အသစ်နဲ့တင် အလွယ်တကူ လုပ်လို့ ရသွားပါပြီ။
 </Aside>
 
 ### အခြေခံ သဘောတရား
-1.  **Anchor Element:** မှီခိုအားထားရမယ့် တိုင် (ဥပမာ - Button)။ `anchor-name` ပေးရမယ်။
-2.  **Positioned Element:** ကပ်မယ့် ကောင် (ဥပမာ - Tooltip)။ `position-anchor` နဲ့ ချိတ်ရမယ်။
+အဓိက အစိတ်အပိုင်း (၂) ခု ပါဝင်ပါတယ်။
+1.  **Anchor Element:** မှီခိုအားထားရမယ့် တိုင် (ဥပမာ - Button)။ သူ့ကို `anchor-name` နာမည်တစ်ခု ပေးထားရပါမယ်။
+2.  **Positioned Element:** သွားကပ်မယ့် ကောင် (ဥပမာ - Tooltip)။ သူကနေပြီး `position-anchor` နဲ့ ဟိုဘက်က နာမည်ကို လှမ်းချိတ်ရပါမယ်။
 
-### Code ဥပမာ
+### Code ရေးသားပုံ ဥပမာ
 
 ```css
-/* 1. Anchor (Button) */
+/* ၁။ Anchor (မှီခိုရမည့် Button) */
 .trigger-btn {
-  anchor-name: --my-anchor;
+  anchor-name: --my-anchor; /* နာမည်တစ်ခု ပေးလိုက်တယ် */
 }
 
-/* 2. Positioned Element (Tooltip) */
+/* ၂။ Positioned Element (သွားကပ်မည့် Tooltip) */
 .tooltip {
   position: absolute;
-  position-anchor: --my-anchor; /* Button ကို လှမ်းချိတ် */
+  position-anchor: --my-anchor; /* Button ရဲ့ နာမည်ကို လှမ်းချိတ်လိုက်တယ် */
   
   /* Button ရဲ့ အပေါ် (top) မှာ ကပ်မယ် */
   bottom: anchor(top);
   
-  /* Button ရဲ့ အလယ် (center) နဲ့ ညှိမယ် */
+  /* Button ရဲ့ အလယ် (center) နဲ့ အချိုးကျ ညှိမယ် */
   left: anchor(center);
   transform: translateX(-50%);
 }
 ```
 
-### Fallback (နေရာမလောက်ရင် ဘာလုပ်မလဲ?)
-Screen အဆုံးရောက်နေလို့ Tooltip ပြစရာနေရာမရှိရင် အလိုအလျောက် နေရာရွှေ့ဖို့ `@position-try` ကို သုံးနိုင်ပါတယ်။
+### Fallback (နေရာမလောက်ရင် ဘယ်လိုလုပ်မလဲ?)
+Screen ရဲ့ အဆုံးကို ရောက်နေလို့ Tooltip ပြစရာ နေရာမရှိတော့ဘူးဆိုရင်၊ အလိုအလျောက် အောက်ဘက်ကို ပြောင်းပြဖို့ (နေရာရွှေ့ဖို့) `@position-try` ကို အသုံးပြုနိုင်ပါတယ်။
 
 ```css
 .tooltip {
-  /* ပုံမှန်ဆို အပေါ်မှာ ပြမယ်၊ မရရင် အောက်မှာ ပြမယ် (flip-block) */
+  /* ပုံမှန်ဆိုရင် အပေါ်မှာ ပြမယ်၊ နေရာမလောက်ရင် အောက်ဘက်ကို လှန်ချပြီး (flip-block) ပြမယ် */
   position-try-fallbacks: flip-block;
 }
 ```
 
 <Aside type="tip">
-DOM Structure အရ Button နဲ့ Tooltip က အဝေးကြီး ဖြစ်နေလည်း (ဥပမာ - Tooltip က `<body>` အောက်ဆုံးမှာ ရှိနေလည်း) ဒီနည်းနဲ့ လှမ်းချိတ်လို့ ရပါတယ်။
+HTML Structure (DOM) အရ Button နဲ့ Tooltip က အဝေးကြီး ဖြစ်နေရင်တောင်မှ (ဥပမာ - Tooltip က `<body>` ရဲ့ အောက်ဆုံးမှာ ရှိနေရင်တောင်) ဒီနည်းလမ်းနဲ့ CSS ကနေ တိုက်ရိုက် လှမ်းချိတ်လို့ ရပါတယ်။
 </Aside>

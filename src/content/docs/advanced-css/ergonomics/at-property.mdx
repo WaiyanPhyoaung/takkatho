@@ -5,24 +5,24 @@ description: "Custom Properties (Variables) များကို Type သတ်
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="Smarter Variables">
-ပုံမှန် CSS Variable (`--color: red`) တွေက စာသား (String) အနေနဲ့ပဲ သိမ်းပါတယ်။ `@property` နဲ့ဆိုရင် "ဒါက အရောင်၊ ဒါက နံပါတ်" ဆိုပြီး Type သတ်မှတ်လို့ ရပါတယ်။
+<Aside title="ပိုမို ထက်မြက်လာသော Variables များ (Smarter Variables)">
+ပုံမှန် CSS Variable (`--color: red`) တွေက ဘာပဲထည့်ထည့် စာသား (String) အနေနဲ့ပဲ မှတ်သားထားပါတယ်။ `@property` ကို သုံးလိုက်ရင်တော့ "ဒါက အရောင်၊ ဒါကတော့ နံပါတ်" ဆိုပြီး တိတိကျကျ အမျိုးအစား (Type) သတ်မှတ်ပေးလို့ ရသွားပါပြီ။
 </Aside>
 
-### ဘာလို့ လိုအပ်တာလဲ?
-အဓိကက **Animation** အတွက်ပါ။ Browser က Variable တစ်ခုကို ဘယ်လို ပြောင်းလဲ (Interpolate) ရမလဲဆိုတာ Type သိမှ လုပ်ပေးနိုင်တာပါ။
+### ဘာကြောင့် လိုအပ်တာလဲ?
+အဓိက အကျိုးကျေးဇူးကတော့ **Animation** တွေ လုပ်တဲ့အခါမှာပါ။ Browser အနေနဲ့ Variable တစ်ခုကို ဘယ်လို ချောချောမွေ့မွေ့ ပြောင်းလဲ (Interpolate) ပေးရမလဲ ဆိုတာကို အဲ့ဒီ Variable ရဲ့ Type ကို သိမှသာ တိတိကျကျ လုပ်ပေးနိုင်တာ ဖြစ်ပါတယ်။
 
 ### အသုံးပြုပုံ
 
 ```css
-/* Variable ကို ကြေညာမယ် */
+/* Variable ကို စနစ်တကျ ကြေညာမယ် */
 @property --my-gradient-angle {
-  syntax: '<angle>'; /* ဒါက ဒီဂရီ ဖြစ်ရမယ် */
-  initial-value: 0deg;
+  syntax: '<angle>'; /* ဒါက ဒီဂရီ (Degree) ဖြစ်ရမယ် လို့ သတ်မှတ်တာပါ */
+  initial-value: 0deg; /* မူလတန်ဖိုး */
   inherits: false;
 }
 
-/* ပြီးရင် Animation လုပ်လို့ရပြီ */
+/* ပြီးရင် Animation မှာ စိတ်ကြိုက် သုံးလို့ရပါပြီ */
 .card {
   background: linear-gradient(var(--my-gradient-angle), blue, purple);
   animation: rotate-gradient 2s linear infinite;
@@ -30,14 +30,14 @@ import { Aside } from "@astrojs/starlight/components";
 
 @keyframes rotate-gradient {
   to {
-    --my-gradient-angle: 360deg; /* Browser က 0 ကနေ 360 ကို ဖြည်းဖြည်းချင်း ပြောင်းပေးတတ်သွားပြီ */
+    --my-gradient-angle: 360deg; /* Browser က 0 ကနေ 360 ကို ဖြည်းဖြည်းချင်း အချိုးကျ ပြောင်းပေးသွားပါလိမ့်မယ် */
   }
 }
 ```
 
-### Syntax Types
-*   `<color>`
-*   `<length>` (px, rem, etc.)
-*   `<angle>` (deg, rad)
-*   `<number>`
-*   `<percentage>`
+### အသုံးပြုနိုင်သော Syntax Types များ
+*   `<color>` (အရောင်များ)
+*   `<length>` (px, rem, စသည့် အရှည်အတိုင်းအတာများ)
+*   `<angle>` (deg, rad စသည့် ထောင့်ချိုးများ)
+*   `<number>` (ကိန်းဂဏန်းများ)
+*   `<percentage>` (ရာခိုင်နှုန်းများ)

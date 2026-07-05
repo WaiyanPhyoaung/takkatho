@@ -1,6 +1,6 @@
 ---
 title: "Database Operations"
-description: "n8n ဖြင့် MySQL, PostgreSQL နှင့် Supabase ကို တိုက်ရိုက် ချိတ်ဆက်ပြီး CRUD Operations လုပ်နည်း"
+description: "n8n ကို သုံးပြီး MySQL, PostgreSQL နဲ့ Supabase တွေကို တိုက်ရိုက် ချိတ်ဆက်ပြီး CRUD Operations လုပ်နည်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
@@ -9,15 +9,15 @@ import BranchFlow from "@/components/diagrams/BranchFlow.astro";
 
 ## Database ကို n8n တွင် ချိတ်ဆက်ခြင်း
 
-n8n သည် MySQL, PostgreSQL, SQLite, MariaDB, MS SQL Server တို့ကို Built-in Node ဖြင့် တိုက်ရိုက် ချိတ်ဆက်နိုင်သည်။ Google Sheets ကို Database ပုံ သုံးနေသည့် Workflow တွေကို Real Database ဖြင့် ပြောင်းရာတွင် ပိုမိုမြန်ဆန်ပြီး Scalable ဖြစ်သည်။
+n8n မှာ MySQL, PostgreSQL, SQLite, MariaDB, MS SQL Server စတဲ့ Database တွေကို Built-in Node တွေနဲ့ တိုက်ရိုက် ချိတ်ဆက်လို့ ရပါတယ်။ Google Sheets ကို Database ပုံစံ သုံးနေတဲ့ Workflow တွေကို တကယ့် Real Database ပြောင်းလိုက်တဲ့အခါ ပိုမြန်ဆန်ပြီး Scale လုပ်ရတာ ပိုလွယ်သွားပါမယ်။
 
 ## MySQL / MariaDB Credential ဖန်တီးနည်း
 
-n8n Credentials → **"MySQL"** ကို ရွေးပြီး:
+n8n Credentials ထဲကနေ **"MySQL"** ကို ရွေးပြီး အောက်ပါအတိုင်း ဖြည့်ပါ -
 
 ```
 MySQL Credential:
-  Host:     localhost (or your DB server IP)
+  Host:     localhost (ဒါမှမဟုတ် သင့် DB server IP)
   Port:     3306
   Database: my_database
   User:     n8n_user
@@ -27,7 +27,7 @@ MySQL Credential:
 ```
 
 <Aside type="caution" title="Database User Permission">
-n8n အတွက် Full Admin User မသုံးပါနဲ့ — `SELECT, INSERT, UPDATE, DELETE` Permission သာပေးထားသည့် Dedicated User ဖန်တီးပါ:
+n8n အတွက် Full Admin User မသုံးတာ ပိုလုံခြုံပါတယ်။ `SELECT, INSERT, UPDATE, DELETE` Permission တွေလောက်ပဲ ပေးထားတဲ့ Dedicated User သီးသန့် ဖန်တီးပါ -
 ```sql
 CREATE USER 'n8n_user'@'%' IDENTIFIED BY 'strong_password';
 GRANT SELECT, INSERT, UPDATE, DELETE ON my_db.* TO 'n8n_user'@'%';
@@ -38,11 +38,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON my_db.* TO 'n8n_user'@'%';
 
 | Operation | Query |
 |-----------|-------|
-| **Select** | Rows ဖတ်ရန် |
-| **Insert** | Row အသစ် ထည့်ရန် |
-| **Update** | Row ပြင်ဆင်ရန် |
-| **Delete** | Row ဖျက်ရန် |
-| **Execute Query** | Custom SQL ရေးရန် |
+| **Select** | Rows တွေကို ဖတ်ဖို့ |
+| **Insert** | Row အသစ် ထည့်ဖို့ |
+| **Update** | ရှိပြီးသား Row ကို ပြင်ဖို့ |
+| **Delete** | Row ကို ဖျက်ဖို့ |
+| **Execute Query** | ကိုယ်တိုင် Custom SQL ရေးဖို့ |
 
 ## CRUD Operations ဥပမာများ
 
@@ -54,7 +54,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON my_db.* TO 'n8n_user'@'%';
     { label: "MySQL: Insert Row", sublabel: "users table", type: "data" },
     { label: "Gmail: Welcome Email", type: "action" }
   ]}
-  caption="Form Submit → Database Save → Welcome Email"
+  caption="Form Submit ဝင်လာတာနဲ့ Database ထဲ သိမ်းပြီး Welcome Email ပို့ခြင်း"
 />
 
 ```sql
@@ -68,7 +68,7 @@ VALUES (
 );
 ```
 
-**MySQL Node (Insert mode) ကို သုံးလျှင် ပိုလွယ်ကူ:**
+**MySQL Node ရဲ့ Insert Mode ကို သုံးရင် ပိုလွယ်ပါတယ် -**
 
 ```
 MySQL Node:
@@ -85,7 +85,7 @@ MySQL Node:
 ### Read — Data ဖတ်ခြင်း
 
 ```sql
--- Pending Orders အားလုံး ဆွဲရန်
+-- Pending Orders တွေ အားလုံးကို ဆွဲထုတ်ဖို့
 SELECT
   o.id,
   o.total_amount,
@@ -106,7 +106,7 @@ LIMIT 100;
     { label: "MySQL: Update Order Status", sublabel: "SET status='paid'", type: "data" },
     { label: "Gmail: Receipt Email", type: "action" }
   ]}
-  caption="Payment ဝင်လာသောအခါ Order Status Update ပြီး Receipt ပို့သည်"
+  caption="Payment အောင်မြင်သွားတာနဲ့ Order Status ပြင်ပြီး ဘောင်ချာ (Receipt) ပို့ခြင်း"
 />
 
 ```sql
@@ -122,7 +122,7 @@ WHERE id = '{{ $json.orderId }}'
 ### Delete — Data ဖျက်ခြင်း
 
 ```sql
--- 90 ရက်ထက် ကြာသော Inactive Sessions ဖျက်ပါ (Cleanup Schedule)
+-- ၉၀ ရက်ထက် ကြာနေတဲ့ Inactive Sessions တွေကို ဖျက်ပါမယ် (Cleanup Schedule)
 DELETE FROM sessions
 WHERE last_active < DATE_SUB(NOW(), INTERVAL 90 DAY)
   AND is_permanent = 0;
@@ -130,7 +130,7 @@ WHERE last_active < DATE_SUB(NOW(), INTERVAL 90 DAY)
 
 ## PostgreSQL Integration
 
-MySQL နှင့် Node ပုံစံ တူသော်လည်း Connection String ကွဲပြားသည်:
+MySQL နဲ့ Node သုံးရတဲ့ ပုံစံတူပေမဲ့ Connection String နည်းနည်း ကွာပါတယ် -
 
 ```
 PostgreSQL Credential:
@@ -139,12 +139,12 @@ PostgreSQL Credential:
   Database: production_db
   User:     n8n_user
   Password: your_password
-  SSL:      Required (Supabase / Neon ဆိုရင်)
+  SSL:      Required (Supabase ဒါမှမဟုတ် Neon လိုမျိုးမှာဆိုရင်)
 ```
 
 ## Supabase Integration
 
-**Supabase** ဟာ PostgreSQL ပေါ်တည်ဆောက်ထားသော Backend-as-a-Service ဖြစ်ပြီး Free Tier ရှိသည်:
+**Supabase** ဟာ PostgreSQL အပေါ်မှာ အခြေခံထားတဲ့ Backend-as-a-Service ဖြစ်ပြီး Free Tier လည်း ရပါတယ် -
 
 <FlowDiagram
   nodes={[
@@ -158,13 +158,13 @@ PostgreSQL Credential:
 ### Supabase Credential
 
 ```
-Supabase Node (HTTP Request ဖြင့် ချိတ်):
+Supabase Node (HTTP Request နဲ့ ချိတ်ဆက်ဖို့):
   URL:    https://your-project.supabase.co/rest/v1/
   Headers:
     apikey:        your-anon-key
     Authorization: Bearer your-anon-key
     Content-Type:  application/json
-    Prefer:        return=representation   ← Insert ပြီးနောက် Row ပြန်ပေးသည်
+    Prefer:        return=representation   ← Insert လုပ်ပြီးတာနဲ့ Row ကို ပြန်ပေးစေဖို့
 ```
 
 ### Supabase CRUD via HTTP Request
@@ -176,24 +176,24 @@ PATCH /orders?id=eq.123   Body: { "status": "paid" }
 DELETE /orders?id=eq.123
 ```
 
-## Transaction — Multiple Queries တစ်ကြိမ်တည်း
+## Transaction — Multiple Queries တစ်ကြိမ်တည်း Run ခြင်း
 
-Order တင်ရာတွင် Stock ကို တစ်ကြိမ်တည်း Update လုပ်ပြီး Rollback တတ်ရမည်:
+Order တစ်ခု တင်လိုက်တဲ့အခါ စတော့ (Stock) ကိုပါ တစ်ကြိမ်တည်း အတူတူ Update လုပ်ပြီး၊ တစ်ခုခု မှားယွင်းသွားရင် Rollback ပြန်လုပ်တတ်ဖို့ လိုပါတယ် -
 
 ```sql
 -- MySQL Execute Query Node
 START TRANSACTION;
 
--- 1. Order ထည့်
+-- ၁. Order အသစ်ထည့်
 INSERT INTO orders (user_id, total) VALUES ({{ $json.userId }}, {{ $json.total }});
 SET @order_id = LAST_INSERT_ID();
 
--- 2. Stock ပြင်
+-- ၂. Stock ပမာဏ လျှော့
 UPDATE products
 SET stock = stock - {{ $json.quantity }}
 WHERE id = {{ $json.productId }} AND stock >= {{ $json.quantity }};
 
--- Stock မလုံလျှင် Rollback
+-- Stock မလုံလောက်ရင် Rollback လုပ်မယ်
 IF ROW_COUNT() = 0 THEN
   ROLLBACK;
   SELECT 'INSUFFICIENT_STOCK' AS result;
@@ -212,7 +212,7 @@ END IF;
     { label: "MySQL: Archive Orders", sublabel: "> 1 year", type: "data" },
     { label: "Slack: Cleanup Report", type: "action" }
   ]}
-  caption="Weekly Database Maintenance — Auto Cleanup နှင့် Archive"
+  caption="Weekly Database Maintenance — အလိုအလျောက် Cleanup နဲ့ Archive လုပ်ခြင်း"
 />
 
 ```sql
@@ -230,8 +230,8 @@ WHERE created_at < DATE_SUB(NOW(), INTERVAL 365 DAY)
   AND status IN ('delivered', 'cancelled');
 ```
 
-<Aside type="tip" title="Query Result ကို n8n ဖြင့် ဖတ်ပါ">
-MySQL Execute Query Node ၏ Output ကို Code Node ဖြင့် `$input.all()` ဖြင့် ဖတ်နိုင်သည်:
+<Aside type="tip" title="Query Result ကို n8n မှာ ဖတ်နည်း">
+MySQL Execute Query Node ကနေ ထွက်လာတဲ့ Output ကို Code Node ထဲမှာ `$input.all()` သုံးပြီး ဖတ်လို့ ရပါတယ် -
 ```javascript
 const rows = $input.all();
 const userCount = rows.length;
@@ -239,4 +239,4 @@ const totalRevenue = rows.reduce((sum, r) => sum + r.json.total, 0);
 ```
 </Aside>
 
-နောက်သင်ခန်းစာမှာ **Production Deployment** — n8n ကို VPS ပေါ် Deploy လုပ်ပြီး Production ပတ်ဝန်းကျင်မှာ Run ဖို့ လေ့လာမည်!
+နောက်သင်ခန်းစာမှာ **Loop & Batching** — Items အများကြီးကို တစ်ခုချင်းစီ ဘယ်လို Loop ပတ်ပြီး အလုပ်လုပ်မလဲဆိုတာ ဆက်လေ့လာကြပါမယ် ခင်ဗျာ။

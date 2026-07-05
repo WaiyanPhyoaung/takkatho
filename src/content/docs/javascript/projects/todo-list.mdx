@@ -3,38 +3,38 @@ title: "Project 2: To-Do List"
 description: "စာရင်းမှတ်သားသော Application တည်ဆောက်ခြင်း"
 ---
 
-ဒါကတော့ Beginner တိုင်း မဖြစ်မနေ ရေးကြည့်ရမယ့် Project ပါပဲ။
+ဒါကတော့ JavaScript စတင် လေ့လာသူတိုင်း မဖြစ်မနေ ရေးကြည့်ရမယ့်၊ DOM Manipulation ကို အကောင်းဆုံး နားလည်သွားစေမယ့် နာမည်ကြီး Project တစ်ခုပဲ ဖြစ်ပါတယ်။
 
-## လိုအပ်ချက်များ
+## လိုအပ်ချက်များ (Requirements)
 
-1.  Input box မှာ စာရိုက်ပြီး Enter (သို့) Add ခလုတ်နှိပ်ရင် List ထဲ ရောက်သွားရမယ်။
-2.  Task ပြီးသွားရင် နှိပ်လိုက်တာနဲ့ မျဉ်းသား (Line-through) သွားရမယ်။
-3.  Delete ခလုတ် နှိပ်ရင် ပျက်သွားရမယ်။
+၁။ Input Box ထဲမှာ စာရိုက်ပြီး "Add" ခလုတ် နှိပ်လိုက်ရင်၊ အဲ့ဒီစာက အောက်က List (စာရင်း) ထဲကို ဝင်ရောက် သွားရပါမယ်။
+၂။ ပြီးမြောက်သွားတဲ့ Task (အလုပ်) တွေကို Mouse နဲ့ Click တစ်ချက် နှိပ်လိုက်တာနဲ့ မျဉ်းသား (Line-through) သွားရပါမယ်။
+၃။ Double Click (နှစ်ချက် ဆက်တိုက်) နှိပ်လိုက်ရင်တော့ အဲ့ဒီ Task ဟာ စာရင်းထဲကနေ အပြီးတိုင် ပျက်သွားရပါမယ်။
 
-## 1. HTML Structure
+## ၁။ HTML Structure (ဖွဲ့စည်းပုံ)
 
 ```html
 <input type="text" id="todo-input" placeholder="Add a new task...">
 <button id="add-btn">Add</button>
 
 <ul id="todo-list">
-    <!-- Tasks will go here -->
+    <!-- User က အသစ်ထည့်လိုက်သော Task (<li>) များသည် ဤနေရာတွင် ဝင်လာမည် ဖြစ်သည် -->
 </ul>
 ```
 
-### ကြိုတင် သိထားသင့်သော အချက်: createElement
+### ကြိုတင် သိထားသင့်သော အချက်: `createElement`
 
-ဒီ Project မှာ HTML ထဲမှာ `<li>` တွေကို ကြိုရေးမထားပါဘူး။ User က Add နှိပ်လိုက်မှသာ JavaScript နဲ့ element အသစ် ဖန်တီးမှာ ဖြစ်ပါတယ်။
-အဲ့ဒီအတွက် `document.createElement("TAG_NAME")` ကို သုံးရပါတယ်။
+ဒီ Project ရဲ့ ထူးခြားချက်ကတော့ HTML ထဲမှာ `<li>` တွေကို ကြိုတင် ရေးသားထားမှာ မဟုတ်ပါဘူး။ User က "Add" ဆိုတဲ့ ခလုတ်ကို နှိပ်လိုက်တဲ့ အချိန်ရောက်မှသာ JavaScript ကို အသုံးပြုပြီး Element အသစ်တွေကို ချက်ချင်း ဖန်တီး (Create) မှာ ဖြစ်ပါတယ်။
+အဲ့ဒီအတွက် `document.createElement("TAG_NAME")` ဆိုတဲ့ Method ကို အသုံးပြုရပါတယ်။
 
-Example:
+ဥပမာအားဖြင့်:
 ```javascript
-const li = document.createElement("li"); // <li></li> အသစ်တစ်ခု ဖန်တီးလိုက်တာပါ
-// သတိပြုရန် - ဖန်တီးရုံပဲ ရှိသေးပြီး screen ပေါ်မှာ မပေါ်သေးပါဘူး။ 
-// appendChild နဲ့ ထည့်ပေးမှ ပေါ်မှာ ဖြစ်ပါတယ်။
+const li = document.createElement("li"); // <li></li> အသစ်တစ်ခုကို ဖန်တီးလိုက်တာပါ
+// သတိပြုရန် - ယခုအချိန်ထိ ဖန်တီးရုံ သက်သက်သာ ရှိသေးပြီး မျက်နှာပြင်ပေါ်မှာ မပေါ်သေးပါဘူး။ 
+// appendChild ကို အသုံးပြုပြီး သက်ဆိုင်ရာ နေရာကို သွားထည့်ပေးမှသာ (Attach လုပ်မှသာ) မြင်ရမှာ ဖြစ်ပါတယ်။
 ```
 
-## 2. JavaScript Logic
+## ၂။ JavaScript Logic (အသက်သွင်းခြင်း)
 
 ```javascript
 const input = document.getElementById("todo-input");
@@ -42,36 +42,40 @@ const addBtn = document.getElementById("add-btn");
 const todoList = document.getElementById("todo-list");
 
 addBtn.addEventListener("click", function() {
-    // 1. Input ထဲက စာကို ယူမယ်
+    // ၁။ Input Box ထဲမှာ User ရိုက်ထည့်လိုက်တဲ့ စာသားကို ယူပါမယ်
     const taskText = input.value;
 
-    if (taskText === "") return; // ဘာမှ မရေးထားရင် မလုပ်ဘူး
+    if (taskText === "") return; // အကယ်၍ ဘာမှ မရေးထားဘဲ Add ကို နှိပ်ခဲ့ရင် ဘာမှ ဆက်မလုပ်ဘဲ ရပ်တန့် (return) ပါမယ်
 
-    // 2. List Item (li) အသစ် တည်ဆောက်မယ်
+    // ၂။ စာရင်း အသစ်အတွက် List Item (<li>) အသစ်တစ်ခု တည်ဆောက်ပါမယ်
     const li = document.createElement("li");
-    li.textContent = taskText;
+    li.textContent = taskText; // <li> ရဲ့ စာသားနေရာမှာ User ရိုက်ထည့်လိုက်တဲ့ စာကို သွားထည့်လိုက်တာပါ
 
-    // 3. Click နှိပ်ရင် ပြီးစီးကြောင်း မှတ်မယ် (Toggle class)
+    // ၃။ Task ကို ပြီးစီးကြောင်း မှတ်သားရန် (Click တစ်ချက်နှိပ်လျှင်)
     li.addEventListener("click", function() {
-        li.classList.toggle("completed"); // CSS မှာ .completed { text-decoration: line-through } ရေးထားရမယ်
+        li.classList.toggle("completed"); 
+        // ဤလုပ်ဆောင်ချက် အလုပ်လုပ်ရန် CSS တွင် .completed { text-decoration: line-through } ဟု ရေးထားရန် လိုအပ်ပါသည်
     });
 
-    // 4. Double Click နှိပ်ရင် ဖျက်မယ်
+    // ၄။ Task ကို ဖျက်ပစ်ရန် (Double Click နှစ်ချက်နှိပ်လျှင်)
     li.addEventListener("dblclick", function() {
-        todoList.removeChild(li);
+        todoList.removeChild(li); // <ul> ထဲကနေ ၎င်း <li> ကို ဖယ်ရှားလိုက်တာပါ
     });
 
-    // 5. ul ထဲကို ထည့်မယ်
+    // ၅။ အစစအရာရာ ပြင်ဆင်ပြီးသွားသော <li> အသစ်လေးကို အပြင်က <ul> ကြီးထဲသို့ အတည်ပြု ထည့်သွင်း (Append) ပါမယ်
     todoList.appendChild(li);
 
-    // 6. Input box ကို ပြန်ရှင်းမယ်
+    // ၆။ နောက်ထပ် စာတွေ ထပ်ရိုက်လို့ ရအောင် Input box ထဲက ဟာတွေကို ပြန်ရှင်းထုတ် (Clear) ပါမယ်
     input.value = "";
 });
 ```
 
 ### CSS အနည်းငယ် (ထပ်ဖြည့်ရန်)
 
+အထက်ပါ JavaScript ကို အပြည့်အဝ အလုပ်လုပ်စေရန် အောက်ပါ CSS လေးကိုပါ သင့်ရဲ့ CSS ဖိုင်ထဲမှာ ထည့်သွင်းပေးပါ။
+
 ```css
+/* ပြီးစီးသွားသော Task များအတွက် ဒီဇိုင်း */
 .completed {
     text-decoration: line-through;
     color: gray;

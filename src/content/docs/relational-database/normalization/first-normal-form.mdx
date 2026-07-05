@@ -1,34 +1,48 @@
 ---
-title: "Normalization: First Normal Form"
-description: First Normal Form
+title: "First Normal Form (1NF)"
+description: "Normalization ၏ ပထမအဆင့် (1NF)"
 ---
 
+import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
-import firstNormalForm from "@/assets/relational-database/first-nf.png";
+import unnormalizedOrder from "@/assets/relational-database/unnormalized-table.png"
+import firstNFOrder from "@/assets/relational-database/first-nf.png"
 
+<Aside title="ရည်ရွယ်ချက်">
+    Database တစ်ခုကို First Normal Form (1NF) အဆင့်ရောက်အောင် ဘယ်လို ပြောင်းလဲရမလဲ ဆိုတာကို နားလည်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
 
-## First Normal Form (1NF) 
+## First Normal Form (1NF) ၏ စည်းမျဉ်းများ
 
-**1NF (First Normal Form)** ဆိုတာက Database Normalization လုပ်ငန်းစဉ်ရဲ့ ပထမဆုံးနှင့် အခြေခံအကျဆုံး စည်းမျဉ်းဖြစ်ပါတယ်။
-1NF ရဲ့ အဓိက စည်းမျဉ်းကတော့ ရှင်းရှင်းလေးပါ။ 
-> **Relation Schema(R) (သို့မဟုတ် Table) ရဲ့ အကွက် (cell) တစ်ကွက်မှာ တန်ဖိုးတစ်ခုတည်းပဲ ရှိရပါမယ်။** 
+Table တစ်ခုဟာ First Normal Form (1NF) အဆင့် ရောက်ဖို့ဆိုရင် အောက်ပါ စည်းမျဉ်း ၂ ခုနဲ့ ကိုက်ညီရပါမယ်:
 
-တန်ဖိုးအများကြီးကို ကော်မာ (,) ခံပြီး ထည့်တာမျိုး လုံးဝလုပ်လို့မရပါဘူး။ <br />
-ဒီလို တန်ဖိုးတစ်ခုတည်းကို **Atomic Value** လို့ခေါ်ပါတယ်။ 
-Atomic value ဆိုတာ အဓိပ္ပာယ်ရှိတဲ့ အစိတ်အပိုင်းတွေအဖြစ် ထပ်ပြီးခွဲခြမ်းလို့မရတဲ့ တန်ဖိုးတစ်ခုတည်းကို ဆိုလိုတာပါ။ <br />
+1. **Cell (အကွက်) တစ်ခုချင်းစီမှာ Value တစ်ခုတည်းသာ ရှိရပါမည်။ (Atomic Values)**
+   - အကွက်တစ်ခုထဲမှာ Comma (,) တွေ ခံပြီး Data တွေ အများကြီး ပြွတ်သိမ်းထားတာမျိုး (Multivalued attributes) လုံးဝ မရှိရပါဘူး။
+2. **Table တွင် Primary Key ရှိရပါမည်။**
+   - Record တွေကို တစ်ခုချင်းစီ တိတိကျကျ ခွဲခြားနိုင်ဖို့ Primary Key မဖြစ်မနေ ပါရှိရပါမယ်။
 
-ဥပမာ – "0912345678, 0998765432" ဆိုတဲ့ phone number တန်ဖိုးက ၂ ခုဖြစ်လို့ non-atomic (1NF ကို ချိုးဖောက်ခြင်း) ဖြစ်ပါတယ်။
+---
 
+## ဥပမာ - မှာယူမှုစာရင်း (Order List)
 
-ကျွန်တော်တို့ရဲ့ `Fig. 3.1` ဥပမာမှာ Orders Table ကို ကြည့်လိုက်ရင် `OrderID 1` အတွက် BookID, BookTitle, Price နှင့် Quantity Columns တွေဟာ ဒီစည်းမျဉ်းကို ချိုးဖောက်နေပါတယ်။ 
-ဒီ Table ကို 1NF အဖြစ် ပြောင်းလဲဖို့အတွက် column(field) တိုင်းရဲ့ record တိုင်းမှာ တန်ဖိုးတစ်ခုတည်းသာ ရှိစေဖို့ လိုအပ်ပါတယ်။ 
+အောက်ပါ ဇယား (Table) ကို ကြည့်ပါ။ ဒါဟာ Normalization လုံးဝ မလုပ်ရသေးတဲ့ အခြေအနေပါ။
 
-**1NF Orders Table:**
+<ContentImage src={unnormalizedOrder} alt="Unnormalized Order Table" />
+*Fig. 3.1: Unnormalized Orders Table*
 
-<ContentImage src={firstNormalForm} alt="1NF Orders Table" />
-<p style="text-align: center;">Fig. 3.2: 1NF Orders Table</p>
+### ပြဿနာကို ရှာဖွေခြင်း
 
+ဒီ ဇယားမှာ `OrderID` က 101 ဖြစ်တဲ့ အတန်းကို ကြည့်ရင်၊ `BookTitle` မှာ "Dune, Foundation" ဆိုပြီး စာအုပ် နှစ်အုပ်နာမည်ကို ရောသိမ်းထားပါတယ်။ အလားတူပဲ `Quantity` (2, 1) နဲ့ `Price` (20, 15) တွေမှာလည်း Data တွေ ရောထွေးနေပါတယ်။ 
 
-အခုဆိုရင် record တစ်ခုချင်းစီရဲ့ အကွက်တိုင်းမှာ တန်ဖိုးတစ်ခုတည်းသာ ရှိနေတဲ့အတွက် ဒီ Table ဟာ **1NF စည်းမျဉ်းနှင့် ကိုက်ညီသွားပါပြီ**။ ဒါပေမဲ့ ကျွန်တော်တို့မှာ redundancy (ထပ်နေတဲ့ data တွေ) အများကြီး ရှိနေပါသေးတယ်။ 
-customer ရဲ့ နာမည်နှင့် လိပ်စာတွေက ထပ်ခါတလဲလဲ ဖြစ်နေပါသေးတယ်။ ဒါဆိုရင်တော့ second normal form ကိုဆက်သွားကြပါမယ်။
+ဒါဟာ 1NF ရဲ့ **"အကွက်တစ်ခုမှာ Value တစ်ခုတည်းပဲ ရှိရမယ်"** ဆိုတဲ့ စည်းမျဉ်းကို ချိုးဖောက်နေတာပါ။ ဒီလိုပုံစံနဲ့ဆိုရင် "Foundation စာအုပ် ဘယ်နှအုပ် ရောင်းရလဲ" လို့ ရှာချင်ရင် အရမ်း ခက်ခဲသွားပါပြီ။
 
+### 1NF သို့ ပြောင်းလဲခြင်း
+
+ဒီ ပြဿနာကို ဖြေရှင်းဖို့ Data တွေကို အကွက်တစ်ခုမှာ တစ်ခုစီဖြစ်အောင် အတန်း (Row) အသစ်တွေ ခွဲထုတ်လိုက်ပါမယ်။
+
+<ContentImage src={firstNFOrder} alt="1NF Order Table" />
+*Fig. 3.2: 1NF Orders Table*
+
+အခုဆိုရင် အကွက်တိုင်းမှာ Value တစ်ခုတည်းပဲ ရှိသွားပါပြီ။ ဒုတိယ စည်းမျဉ်းဖြစ်တဲ့ Primary Key သတ်မှတ်ဖို့ လိုလာပါပြီ။
+
+ဒီ ဇယားမှာ `OrderID` တစ်ခုတည်းနဲ့ Primary Key လုပ်လို့ မရတော့ပါဘူး (101 က နှစ်ကြောင်း ဖြစ်နေလို့ပါ)။ အဲဒီအတွက် `OrderID` နဲ့ `BookID` နှစ်ခုကို ပေါင်းပြီး **Composite Primary Key** အဖြစ် သတ်မှတ်ပေးလိုက်ရင် 1NF အဆင့်ကို အောင်မြင်စွာ ရောက်ရှိသွားပြီ ဖြစ်ပါတယ်။

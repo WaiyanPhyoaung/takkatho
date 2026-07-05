@@ -3,50 +3,52 @@ title: "Objects"
 description: "အချက်အလက်များကို အသေးစိတ် သိမ်းဆည်းခြင်း"
 ---
 
-Array က စာရင်း (List) တစ်ခု လုပ်ဖို့ ကောင်းပေမယ့်၊ ပစ္စည်းတစ်ခုရဲ့ အသေးစိတ် အချက်အလက်တွေ (Properties) ကို သိမ်းဖို့ကျတော့ **Object** က ပိုကောင်းပါတယ်။ (ဥပမာ - လူတစ်ယောက်ရဲ့ နာမည်၊ အသက်၊ အရပ်)
+Array ဟာ ဆင်တူတဲ့ Data တွေကို စာရင်း (List) တစ်ခုအနေနဲ့ သိမ်းဖို့ ကောင်းပါတယ်။ ဒါပေမဲ့ အရာဝတ္ထု တစ်ခုခု ဒါမှမဟုတ် လူတစ်ယောက်ရဲ့ အသေးစိတ် အချက်အလက် (Properties) တွေကို သိမ်းဆည်းဖို့ ဆိုရင်တော့ **Object** ကို အသုံးပြုတာက အကောင်းဆုံး ဖြစ်ပါတယ်။ (ဥပမာ - လူတစ်ယောက်ရဲ့ နာမည်၊ အသက်၊ အရပ်၊ ဝါသနာ စသဖြင့်)
 
 ## Creating Objects (Object တည်ဆောက်ခြင်း)
 
-Object ကို `{}` (Curly Braces) နဲ့ ရေးပါတယ်။ အတွဲလိုက် **Key-Value Pair** ပုံစံနဲ့ ရှိပါတယ်။
+Object ကို တည်ဆောက်တဲ့အခါ `{}` (Curly Braces - တွန့်ကွင်း) ကို အသုံးပြုရပါတယ်။ Object ထဲက အချက်အလက်တွေကို အတွဲလိုက် **Key-Value Pair** (နာမည် နဲ့ တန်ဖိုး) ပုံစံမျိုးနဲ့ သိမ်းဆည်းပါတယ်။
 
 ```javascript
 let person = {
-  name: "Mg Mg",
-  age: 20,
+  name: "Mg Mg", // Key: name, Value: "Mg Mg"
+  age: 20,       // Key: age, Value: 20
   isStudent: true,
-  hobbies: ["Reading", "Gaming"]
+  hobbies: ["Reading", "Gaming"] // Value အနေနဲ့ Array တွေလည်း ထည့်လို့ ရပါတယ်
 };
 ```
 
-*   `name`, `age` ဆိုတာ **Keys** (Properties)
-*   `"Mg Mg"`, `20` ဆိုတာ **Values**
+* `name`, `age`, `isStudent`, `hobbies` တို့ကို **Keys** (သို့မဟုတ် Properties) လို့ ခေါ်ပါတယ်။
+* `"Mg Mg"`, `20`, `true` တို့ကိုတော့ ၎င်းတို့ရဲ့ **Values** (တန်ဖိုးများ) လို့ ခေါ်ပါတယ်။
 
 ## Accessing Properties (Data ယူသုံးခြင်း)
 
-နည်းလမ်း (၂) မျိုး ရှိပါတယ်။
+Object အထဲက Data တွေကို ပြန်လည် ခေါ်ယူ အသုံးပြုချင်ရင် အဓိက နည်းလမ်း (၂) မျိုး ရှိပါတယ်။
 
-### 1. Dot Notation (အသုံးအများဆုံး) `.`
+### ၁။ Dot Notation (အသုံးအများဆုံး နည်းလမ်း) `.`
 ```javascript
-console.log(person.name); // "Mg Mg"
-console.log(person.age);  // 20
+console.log(person.name); // ရလဒ်: "Mg Mg"
+console.log(person.age);  // ရလဒ်: 20
 ```
 
-### 2. Bracket Notation `[]`
+### ၂။ Bracket Notation `[]`
 ```javascript
-console.log(person["name"]); // "Mg Mg"
+console.log(person["name"]); // ရလဒ်: "Mg Mg"
 ```
 
-## Modifying Objects (ပြုပြင်ခြင်း)
+## Modifying Objects (Object အချက်အလက်များကို ပြုပြင်ခြင်း)
+
+Object ထဲက Data တွေကို လိုအပ်သလို အသစ်ထပ်ထည့်တာ၊ ပြင်တာ၊ ဖျက်တာတွေ လုပ်လို့ ရပါတယ်။
 
 ```javascript
-// တန်ဖိုး ပြောင်းမယ်
+// Value ကို ပြင်ဆင် ပြောင်းလဲမည်
 person.age = 21;
 
-// အသစ် ထပ်ထည့်မယ်
+// Property အသစ်တစ်ခု ထပ်ထည့်မည်
 person.city = "Yangon";
 
-// ဖျက်မယ်
+// မလိုအပ်တော့သော Property ကို ဖျက်ပစ်မည်
 delete person.isStudent;
 
-console.log(person);
+console.log(person); // ပြင်ဆင်ပြီးသွားသော Object ကို မြင်ရမည် ဖြစ်သည်
 ```

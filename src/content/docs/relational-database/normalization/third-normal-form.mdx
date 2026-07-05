@@ -1,68 +1,59 @@
 ---
-title: "Normalization: Third Normal Form"
-description: Third Normal Form
+title: "Third Normal Form (3NF)"
+description: "Normalization ၏ တတိယအဆင့် (3NF) နှင့် Transitive Dependency"
 ---
 
+import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
-import thirdNFOrders from "@/assets/relational-database/third-nf-orders.png";
-import thirdNFCustomers from "@/assets/relational-database/third-nf-customers.png";
+import thirdNFOrders from "@/assets/relational-database/third-nf-orders.png"
+import thirdNFCustomers from "@/assets/relational-database/third-nf-customers.png"
 
+<Aside title="ရည်ရွယ်ချက်">
+    Second Normal Form (2NF) မှာ ကျန်ခဲ့တဲ့ ပြဿနာတွေကို ဆက်လက် ဖြေရှင်းပြီး၊ Third Normal Form (3NF) ရဲ့ အဓိက သဘောတရားဖြစ်တဲ့ "Transitive Dependency" အကြောင်းကို နားလည်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
 
-## Third Normal Form
+## 3NF ၏ စည်းမျဉ်းများ
 
-Relation Schema(table) တစ်ခုဟာ Third Normal Form (3NF) ဖြစ်ဖို့ဆိုရင် အောက်ပါစည်းမျဉ်းနှစ်ခုဖြင့် ကိုက်ညီရပါမယ်။
+Table တစ်ခုဟာ Third Normal Form (3NF) အဆင့်ကို ရောက်ဖို့ဆိုရင်:
+1. **2NF အဆင့်မှာ ရှိပြီးသား ဖြစ်ရမယ်။**
+2. **Transitive Dependency (တစ်ဆင့်ခံ မှီခိုမှု) မရှိရဘူး။** Table ထဲက Non-Key Column (Primary Key မဟုတ်တဲ့ Column) တွေဟာ အချင်းချင်း မှီခိုနေတာမျိုး လုံးဝ မရှိရပါဘူး။ Column တိုင်းဟာ Primary Key အပေါ်မှာပဲ တိုက်ရိုက် မှီခိုရပါမယ်။ 
 
-> 1. 2NF ဖြစ်ပြီးသားဖြစ်ရပါမယ်။
-> 
-> 2. Transitive Dependencies တွေကို ဖယ်ရှားဖို့ လိုအပ်ပါတယ်။
+> လွယ်လွယ်မှတ်ရရင်: **"Column တိုင်းဟာ Primary Key အကြောင်းကိုပဲ ပြောရမယ်၊ တခြား Column အကြောင်း မပြောရဘူး။"** (Nothing but the key!)
 
-3NF ရဲ့ အဓိကတာဝန်က 2NF မှာ ကျန်နေသေးတဲ့ ပြဿနာတစ်မျိုးဖြစ်တဲ့ Transitive Dependency ကို ရှင်းထုတ်ဖို့ပါပဲ။
+---
 
-### Transitive Dependency
+## Transitive Dependency ဆိုတာ ဘာလဲ?
 
-Transitive Dependency ဆိုတာက Primary Key မဟုတ်တဲ့ (non-key) column တစ်ခုက တခြား non-key column တစ်ခုကို မှီခိုနေတဲ့ 
-တစ်ဆင့်ခံ ဆက်နွယ်မှုမျိုး ဖြစ်ပါတယ်။
+**Transitive Dependency (တစ်ဆင့်ခံ မှီခိုမှု)** ဆိုတာ သချာၤသဘောတရားအရ `A -> B` ဖြစ်ပြီး `B -> C` ဖြစ်ရင် `A -> C` ဖြစ်တယ် ဆိုတဲ့ သဘောတရားမျိုးပါ။
 
-သင်္ကေတ — 
+Database မှာဆိုရင် Primary Key က `A`၊ Non-Key Column တွေက `B` နဲ့ `C` လို့ သဘောထားကြည့်ပါ။
+- `A` (Primary Key) ကို သိရင် `B` ကို သိနိုင်တယ်။ 
+- ဒါပေမဲ့ `C` က `A` ကို တိုက်ရိုက် မမှီခိုဘဲ `B` ကနေတစ်ဆင့် မှီခိုနေတာမျိုး (B -> C) ကို **Transitive Dependency** လို့ ခေါ်ပါတယ်။
 
-> `A → B` နှင့် `B → C` ဖြစ်ပါက `A → C` ဖြစ်သည်။ 
+### 2NF က Orders Table ကို ပြန်ကြည့်ရအောင်
 
-A သည် B ကို သတ်မှတ်ပြီး B သည် C ကို သတ်မှတ်ပါက A → C ဆိုတဲ့ တစ်ဆင့်ခံ ဆက်နွယ်မှု (Transitive Dependency) ဖြစ်ပေါ်လာပါတယ်။
+2NF အဆင့်တုန်းက ခွဲထုတ်ခဲ့တဲ့ `Orders` Table မှာ:
+- `OrderID` (Primary Key)
+- `CustomerName` (Non-Key)
+- `CustomerAddress` (Non-Key)
+- `OrderDate` (Non-Key) တွေ ပါဝင်ပါတယ်။
 
-ဥပမာ -
+ဒီမှာ ပြဿနာက ဘာလဲဆိုတော့:
+`CustomerAddress` (လိပ်စာ) ဟာ `OrderID` (ဘောင်ချာနံပါတ်) အပေါ်မှာ တိုက်ရိုက် မှီခိုနေတာ မဟုတ်ပါဘူး။ တကယ်တော့ `CustomerAddress` ဟာ `CustomerName` (ဝယ်သူနာမည်) အပေါ်မှာ မှီခိုနေတာပါ။ (`CustomerName -> CustomerAddress`).
 
-| EmployeeID | Name | Department | DepartmentManager |
-| --- | ---- |  ---- | ---- |
-| 101 | Sarah | Sales | John |
-| 102 | Kyle | Engineering | Jane |
-| 103 | Miles | Sales | John |
-| 104 | Alice | Engineering | Jane |
+ဒါကြောင့် Non-Key အချင်းချင်း မှီခိုနေတဲ့ **Transitive Dependency** ဖြစ်နေပါတယ်။
 
-1. `EmployeeID → Name, Name, Department` (EmployeeID ကိုသိရင် Department ကို သိနိုင်ပါတယ်။)
-2. `Department → DepartmentManager` (Department ကိုသိရင် DepartmentManager ကို သိနိုင်ပါတယ်။)
+## 2NF မှ 3NF သို့ ပြောင်းလဲခြင်း
 
-ဒါကြောင့် `transitive dependency` တစ်ခုဖြစ်တဲ့ `EmployeeID → DepartmentManager` ကို ဖန်တီးလိုက်ပါတယ်။
+ဒီ ပြဿနာကို ဖြေရှင်းဖို့ 3NF စည်းမျဉ်းအရ **Non-Key အချင်းချင်း မှီခိုနေတဲ့ အပိုင်းကို သီးသန့် Table အသစ်တစ်ခုအဖြစ် ထပ်မံ ခွဲထုတ်** ပေးရပါမယ်။ 
 
-ဒီမှာ ပြဿနာက `DepartmentManager` ဟာ `Primary Key` ဖြစ်တဲ့ `EmployeeID` အပေါ်မှာ တိုက်ရိုက်မှီခိုနေတာမဟုတ်ဘဲ
-`non-key` ဖြစ်တဲ့ `Department` ကနေတစ်ဆင့် တစ်ဆင့်ခံ မှီခိုနေတာပါ။ ဒါဟာ "မကောင်းတဲ့ မှီခိုမှု (bad dependency)" ဖြစ်ပြီး
-Table ထဲမှာ John နှင့် Jane ဆိုတဲ့ Manager နာမည်တွေ ထပ်ခါထပ်ခါဖြစ်နေတဲ့ Data Redundancy ကို ဖြစ်စေပါတယ်။
+`Orders` Table ထဲက Customer နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေကို `Customers` ဆိုတဲ့ Table အသစ်တစ်ခု လုပ်ပြီး ရွှေ့လိုက်ပါမယ်။ ပြီးရင် `Orders` Table နဲ့ ချိတ်ဆက်ဖို့ `CustomerID` ဆိုတဲ့ Foreign Key လေးပဲ ချန်ထားခဲ့ပါမယ်။
 
-### Third Normal Form (3NF) သို့ ပြောင်းလဲခြင်း။
-ဒါဆိုရင် ကျွန်တော်တို့ရဲ့ `Fig. 3.3.1` 2NF Order table ကို third normal form ဖြစ်အောင် လုပ်ကြည့်ကြရအောင်။
-အဲဒီ Table မှာ Primary Key က OrderID ဖြစ်ပါတယ်။
+| Orders Table (3NF) | Customers Table (3NF) |
+|:---:|:---:|
+| <ContentImage src={thirdNFOrders} alt="3NF Orders Table" /> | <ContentImage src={thirdNFCustomers} alt="3NF Customers Table" /> |
+| CustomerID ကို Foreign Key အဖြစ်ပဲ ထားတော့မယ် | Customer အချက်အလက် သီးသန့် |
 
-1. `OrderID -> CustomerID` (OrderID ကိုသိရင် CustomerID ကို သိနိုင်ပါတယ်။)
-2. `CustomerID -> CustomerName, CustomerAddress` (CustomerID ကိုသိရင် CustomerName နှင့် CustomerAddress ကို သိနိုင်ပါတယ်။)
+အခုဆိုရင် ဇယားတိုင်းမှာ Non-Key Column တွေ အချင်းချင်း မှီခိုတာ မရှိတော့ပါဘူး။ အရာအားလုံးဟာ သက်ဆိုင်ရာ Primary Key အပေါ်မှာပဲ တိုက်ရိုက် မှီခိုနေတော့တဲ့အတွက် **Third Normal Form (3NF)** စည်းမျဉ်းနဲ့ အပြည့်အဝ ကိုက်ညီသွားပါပြီ။ 
 
-ဒီနေရာမှာ `CustomerName` နှင့် `CustomerAddress` တို့ဟာ `Primary Key` ဖြစ်တဲ့ `OrderID` အပေါ် တိုက်ရိုက်မှီခိုမနေဘဲ `non-key` ဖြစ်တဲ့ `CustomerID` ကနေတစ်ဆင့် မှီခိုနေတဲ့အတွက် Transitive Dependency ဖြစ်ပေါ်နေပါတယ်။
-
-3NF ဖြစ်အောင်လုပ်ဖို့အတွက် ဒီတစ်ဆင့်ခံ ဆက်နွယ်မှုကို ဖယ်ရှားပြီး Customer အချက်အလက်တွေကို သီးခြား table တစ်ခုအဖြစ် ခွဲထုတ်ဖို့ လိုအပ်ပါတယ်။
-
-|  |  |  
-| :----: | :----: |
-| <ContentImage src={thirdNFOrders} alt="3NF Orders Table" /> | <ContentImage src={thirdNFCustomers} alt="3NF Customers Table" />  |  
-| Fig. 3.4.1: 3NF Orders Table| Fig. 3.4.2: 3NF Customers Table | 
-
-အခုဆိုရင် ကျွန်တော်တို့ရဲ့ Database ဟာ 3NF အဆင့်ကို ရောက်ရှိသွားပါပြီ။ 
-Table တစ်ခုချင်းစီမှာ သူ့ရဲ့ သီးခြားရည်ရွယ်ချက်တစ်ခုစီ ရှိသွားပြီး data ထပ်နေတာတွေ (redundancy) ကို အနည်းဆုံးဖြစ်အောင် လျှော့ချနိုင်ကာ 
-data တွေကိုလည်း စနစ်တကျ စီမံခန့်ခွဲနိုင်ပြီ ဖြစ်ပါတယ်။
+လက်တွေ့ လုပ်ငန်းခွင် အများစုမှာ ဒီ **3NF** အဆင့်အထိ လုပ်ဆောင်နိုင်ရင်ပဲ Database ဒီဇိုင်းက လုံလောက်စွာ ကောင်းမွန်နေပြီလို့ သတ်မှတ်ကြပါတယ်။

@@ -1,11 +1,11 @@
 ---
-title: " မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
-description: " မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
+title: "မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
+description: "မတော်တဆဖြစ်ရင် ကယ်တင်ပေးမယ့် git reflog"
 ---
 
 import { Aside, Code } from "@astrojs/starlight/components";
-import ContentImage from "@/components/Content-image.astro"
-import gitRebase from "@/assets/git-course/rebase.png"
+import ContentImage from "@/components/Content-image.astro";
+import gitRebase from "@/assets/git-course/rebase.png";
 
 export const mainUpdate = `
 git switch main
@@ -22,14 +22,14 @@ git rebase main
 > **git reflog** ဆိုတာ ဘာလဲဆိုတာကို နားလည်ထားရုံနဲ့ လုံလောက်ပါတယ် ခင်ဗျာ။
 
 <Aside title="ရည်ရွယ်ချက်">
-  `git reflog` ဆိုတာ ဘယ်လောက် အစွမ်းထက်တဲ့ ကယ်ဆယ်ရေး Tool တစ်ခုလဲဆိုတာ သိရှိနားလည်ဖို့ ဖြစ်ပါတယ်။ အခု ချက်ချင်း အသုံးမပြုနိုင်သေးရင်တောင်၊ ဒီလို ကယ်ဆယ်လို့ရတဲ့ နည်းလမ်း ရှိတယ်ဆိုတာ သိထားဖို့ အရေးကြီးပါတယ်။
+  `git reflog` ဆိုတာ ဘယ်လောက် အစွမ်းထက်တဲ့ ကယ်ဆယ်ရေး Tool တစ်ခုလဲ ဆိုတာ သိရှိနားလည်ဖို့ ဖြစ်ပါတယ်။ အခု ချက်ချင်း အသုံးမပြုနိုင်သေးရင်တောင်၊ ဒီလို ကယ်ဆယ်လို့ရတဲ့ နည်းလမ်း ရှိတယ်ဆိုတာ သိထားဖို့ အရေးကြီးပါတယ်။
 </Aside>
 
 **`git reflog` ဆိုတာ ဘာလဲ?**
 - `git reflog` (Reference Log) ဆိုတာ ကိုယ့်ရဲ့ `HEAD` (လက်ရှိ ရောက်နေတဲ့ နေရာ) နဲ့ Branch တွေ အရင်က ဘယ်နေရာတွေ ရောက်ခဲ့ဖူးသလဲ ဆိုတဲ့ မှတ်တမ်းကို အသေးစိတ် သိမ်းထားပေးတာပါ။ ဒါက Repository ထဲက လှုပ်ရှားမှုတိုင်းရဲ့ ကိုယ်ပိုင် မှတ်တမ်းစာအုပ်ပဲ ဖြစ်ပါတယ်။
 
 **ဘာကြောင့် သုံးသင့်သလဲ?** 
-- Branch ကို မတော်တဆ Reset လုပ်မိလို့ Commits တွေ `git log` ထဲကနေ ပျောက်သွားရင်တောင်၊ `reflog` က အဲဒီ Commits တွေ ဘယ်မှာရှိလဲဆိုတာကို သိနေပါတယ်။ 
+- Branch ကို မတော်တဆ Reset လုပ်မိလို့ Commits တွေ `git log` ထဲကနေ ပျောက်သွားရင်တောင်၊ `reflog` က အဲ့ဒီ Commits တွေ ဘယ်မှာရှိလဲ ဆိုတာကို သိနေပါတယ်။ 
 
 **ဥပမာ (Analogy):**
 
@@ -39,7 +39,7 @@ git rebase main
 
 **ဘယ်လို အထောက်အကူ ပြုသလဲ? (အကြမ်းဖျင်း)**
 - မတော်တဆ `git reset --hard` သုံးမိလို့ Commits တွေ "ပျောက်သွားပြီ" လို့ ထင်ရတဲ့အခါ၊ `git reflog` ကို ကြည့်လိုက်ရင် Reset မလုပ်ခင်က ရောက်ခဲ့တဲ့ Commit ရဲ့ Hash ကို ပြန်ရှာတွေ့နိုင်ပါတယ်။
-- အဲဒီ "ပျောက်ဆုံးသွားတဲ့" Commit Hash ကို သုံးပြီး Branch အသစ်တစ်ခု ပြန်ဖန်တီးကာ ကိုယ့်အလုပ်တွေကို အလွယ်တကူ ပြန်ယူနိုင်ပါတယ်။ 
+- အဲ့ဒီ "ပျောက်ဆုံးသွားတဲ့" Commit Hash ကို သုံးပြီး Branch အသစ်တစ်ခု ပြန်ဖန်တီးကာ ကိုယ့်အလုပ်တွေကို အလွယ်တကူ ပြန်ယူနိုင်ပါတယ်။ 
   (ဥပမာ - `git branch recovered-work <lost-commit-hash>`)
 - အခုချိန်မှာ **reflog commands** တွေကို ကျွမ်းကျင်နေဖို့ မလိုသေးပါဘူး။ ကိုယ့် Local Repository အတွက် အစွမ်းထက်တဲ့ အသက်ကယ် Tool တစ်ခု ရှိတယ်ဆိုတာ သိထားရင် အဆင်ပြေပါပြီ ခင်ဗျာ။
 

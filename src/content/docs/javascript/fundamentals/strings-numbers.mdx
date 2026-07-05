@@ -3,60 +3,61 @@ title: "Strings & Numbers"
 description: "စာသားများနှင့် ဂဏန်းများဖြင့် ကစားခြင်း"
 ---
 
-## Working with Strings (စာသားများ)
+## Working with Strings (စာသားများ အသုံးပြုခြင်း)
 
-### String Concatenation (စာသား ဆက်ခြင်း)
-စာသားနှစ်ခုကို ပေါင်းချင်ရင် `+` ကို သုံးလို့ရပါတယ်။
+### String Concatenation (စာသားများ ဆက်ခြင်း)
+စာသား (String) နှစ်ခု သို့မဟုတ် နှစ်ခုထက်ပိုတဲ့ စာသားတွေကို ဆက်ချင်တယ်ဆိုရင် `+` သင်္ကေတကို အသုံးပြုလို့ ရပါတယ်။
 
 ```javascript
 let firstName = "Kyaw";
 let lastName = "Kyaw";
-let fullName = firstName + " " + lastName;
-console.log(fullName); // "Kyaw Kyaw"
+let fullName = firstName + " " + lastName; // ကြားထဲမှာ Space လေး တစ်ခု ထည့်ဆက်လိုက်ပါတယ်
+console.log(fullName); // ရလဒ်: "Kyaw Kyaw"
 ```
 
-### Template Literals (ခေတ်မီ နည်းလမ်း) 
-Backticks (`` ` ``) ကို သုံးပြီး Variable တွေကို စာသားထဲမှာ တိုက်ရိုက် ထည့်ရေးလို့ ရပါတယ်။ ဒါက ပိုလွယ်ပြီး ဖတ်ရတာ အဆင်ပြေပါတယ်။ `${variable}` ပုံစံနဲ့ သုံးရပါတယ်။
+### Template Literals (ခေတ်မီစွာ ရေးသားနည်း) 
+Backticks (`` ` ``) သင်္ကေတကို အသုံးပြုပြီး Variable တွေကို စာသား (String) တွေကြားထဲမှာ တိုက်ရိုက် ထည့်သွင်း ရေးသားလို့ ရပါတယ်။ ဒါဟာ အရင်နည်းလမ်းထက် ပိုမိုလွယ်ကူပြီး ဖတ်ရတာလည်း ရှင်းလင်းပါတယ်။ Variable ကို `${variable_name}` ပုံစံနဲ့ အသုံးပြုရပါတယ်။
 
 ```javascript
 let name = "Aung Aung";
 let age = 20;
 
-// Old way
+// Old way (အရင်တုန်းက ရေးခဲ့ပုံ)
 // let greeting = "Hello " + name + ", you are " + age + " years old.";
 
-// New way (Template Literal)
+// New way - Template Literal (ခေတ်သစ် ရေးနည်း)
 let greeting = `Hello ${name}, you are ${age} years old.`; 
 console.log(greeting);
 ```
 
-## Working with Numbers (ဂဏန်းများ)
+## Working with Numbers (ဂဏန်းများ အသုံးပြုခြင်း)
 
-### Basic Math
-JavaScript က ဂဏန်းသင်္ချာ တွက်ချက်ရာမှာ တော်ပါတယ်။
+### Basic Math (အခြေခံ သင်္ချာ)
+JavaScript ဟာ ဂဏန်းသင်္ချာ (Math) တွက်ချက်မှုတွေ လုပ်ဆောင်ရာမှာ အလွန် မြန်ဆန်ပြီး တိကျပါတယ်။
 
 ```javascript
 let price = 100;
 let tax = 0.5;
-let total = price + (price * tax); // 150
+let total = price + (price * tax); // ရလဒ်: 150
 ```
 
-### Converting Data Types (အမျိုးအစား ပြောင်းခြင်း)
+### Converting Data Types (Data အမျိုးအစား ပြောင်းလဲခြင်း)
 
-တစ်ခါတလေကျရင် String ဖြစ်နေတဲ့ number ကို တွက်ချက်ချင်တာမျိုး ရှိတတ်ပါတယ်။
+လက်တွေ့ Project တွေ လုပ်တဲ့အခါ၊ String အမျိုးအစား ဖြစ်နေတဲ့ ဂဏန်းတွေကို သင်္ချာ တွက်ချက်မှုတွေ လုပ်ချင်တဲ့ အခြေအနေမျိုး ကြုံရတတ်ပါတယ်။ (ဥပမာ - HTML Form ကနေ User ရိုက်ထည့်လိုက်တဲ့ တန်ဖိုးတွေဟာ အမြဲတမ်း String အနေနဲ့ ဝင်လာလေ့ရှိပါတယ်)။
 
-*   `String()` -> စာသားအဖြစ် ပြောင်းမယ်။
-*   `Number()` -> number အဖြစ် ပြောင်းမယ်။
+ဒီလို အခြေအနေမျိုးမှာ Data Type တွေကို ပြောင်းလဲပေးဖို့ လိုအပ်ပါတယ်။
+
+* `String()` -> ပေးလိုက်တဲ့ တန်ဖိုးကို စာသား (String) အဖြစ် ပြောင်းပေးပါတယ်။
+* `Number()` -> ပေးလိုက်တဲ့ တန်ဖိုးကို ဂဏန်း (Number) အဖြစ် ပြောင်းပေးပါတယ်။
 
 ```javascript
-let strNum = "50";
-let trueNum = Number(strNum);
+let strNum = "50"; // ဒါက String ပါ
+let trueNum = Number(strNum); // String "50" ကို Number 50 အဖြစ် ပြောင်းလိုက်ပါပြီ
 
-// အပေါ်က line က strNum ကို number type အဖြစ် ပြောင်းလိုက်တာပါ။
-
-console.log(trueNum + 10); // 60 (ဂဏန်းမို့လို့ ပေါင်းသွားတယ်)
-console.log(strNum + 10);  // "5010" (စာသားမို့လို့ ဘေးမှာ ကပ်သွားတယ်)
+console.log(trueNum + 10); // ရလဒ်: 60 (ဂဏန်း (Number) ဖြစ်သွားတဲ့အတွက် ပေါင်းလဒ် ထွက်လာပါတယ်)
+console.log(strNum + 10);  // ရလဒ်: "5010" (စာသား (String) ဖြစ်နေသေးတဲ့အတွက် စာသားနှစ်ခု ဘေးချင်းကပ် ဆက်သွားတာပါ)
 ```
-> ဒီမှာသတိထားရမှာက string နဲ့ number ကိုပေါင်းရင် string အဖြစ် စာသားနှစ်ခုကို 	ဆက်လိုက်သလိုဖြစ်သွားတာပါ။
 
-Browser ကရတဲ့ Input တွေက အမြဲတမ်း String ဖြစ်နေတတ်လို့ ဒါကို သတိထားရပါမယ်။
+> **အရေးကြီးသော မှတ်သားဖွယ်ရာ:** String နဲ့ Number ကို `+` သင်္ကေတ အသုံးပြုပြီး ပေါင်းလိုက်တဲ့အခါ၊ JavaScript က အဲ့ဒီ အရာနှစ်ခုလုံးကို String အဖြစ် သတ်မှတ်ပြီး စာသားနှစ်ခု ဆက်လိုက်သလိုမျိုး လုပ်ဆောင်သွားပါတယ်။
+
+Browser (ဥပမာ - Input Box တွေ) ကနေ ရရှိလာတဲ့ တန်ဖိုး (Value) တွေဟာ အမြဲတမ်း String ဖြစ်နေတတ်တဲ့အတွက်၊ တွက်ချက်မှုတွေ မလုပ်ခင် `Number()` သုံးပြီး အရင်ပြောင်းဖို့ အမြဲတမ်း သတိထားရပါမယ်။

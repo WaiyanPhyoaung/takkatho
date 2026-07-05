@@ -6,38 +6,38 @@ description: "Modern CSS ၏ အဆင့်မြင့် Feature များ
 import { Aside } from "@astrojs/starlight/components";
 
 <Aside title="ကြိုဆိုပါတယ်">
-Advanced CSS Course မှ ကြိုဆိုပါတယ်။ ဒီ Course မှာတော့ CSS ရဲ့ နောက်ဆုံးပေါ် Feature တွေ၊ Programming Logic တွေနဲ့ Complex Layout တွေကို ဘယ်လို တည်ဆောက်မလဲ ဆိုတာ လေ့လာသွားမှာ ဖြစ်ပါတယ်။
+Advanced CSS Course မှ နွေးထွေးစွာ ကြိုဆိုပါတယ်။ ဒီ Course မှာတော့ CSS ရဲ့ နောက်ဆုံးပေါ် အဆင့်မြင့် Feature တွေ၊ Programming Logic တွေနဲ့ ရှုပ်ထွေးတဲ့ Layout (Complex Layouts) တွေကို ဘယ်လို လွယ်လွယ်ကူကူ တည်ဆောက်မလဲ ဆိုတာကို အသေးစိတ် လေ့လာသွားမှာ ဖြစ်ပါတယ်။
 </Aside>
 
 ### ဘာတွေ လေ့လာရမလဲ?
 
-#### 1. Core Logic & Functions
-CSS မှာ Programming Language တွေလိုမျိုး Logic တွေ (`if()`), Function တွေ ရေးလို့ရနေပါပြီ။
-*   `if()` Function
-*   Custom Functions
-*   Sibling Functions (`sibling-count()`, `sibling-index()`)
+#### ၁။ Core Logic & Functions (အခြေခံ ယုတ္တိနဲ့ လုပ်ဆောင်ချက်များ)
+အရင်တုန်းက CSS ဆိုတာ အရောင်ခြယ်ရုံ သက်သက်လို့ ထင်ခဲ့ကြပေမယ့်၊ အခုအခါမှာတော့ တကယ့် Programming Language တွေလိုပဲ Logic တွေ (ဥပမာ - `if()` စစ်တာမျိုး)၊ Function တွေ တိုက်ရိုက် ရေးလို့ ရလာပါပြီ။
+*   `if()` Function (အခြေအနေပေါ် မူတည်ပြီး ပြောင်းလဲခြင်း)
+*   Custom Functions (မိမိကြိုက်နှစ်သက်ရာ ဖန်တီးခြင်း)
+*   Sibling Functions (`sibling-count()`, `sibling-index()`) (ညီအစ်ကို မောင်နှမ Element တွေကို ရေတွက်ခြင်း)
 *   Stepped Value Functions (`round()`, `mod()`, `rem()`)
 
-#### 2. Layout & Sizing
-Layout တွေကို ပိုမို လွယ်ကူပြီး Dynamic ဖြစ်အောင် တည်ဆောက်နည်းများ။
-*   `field-sizing` (Auto-growing inputs)
-*   `interpolate-size` (Smooth transitions for auto sizes)
-*   Container Scroll State Queries
-*   Anchor Positioning
+#### ၂။ Layout & Sizing (နေရာချထားခြင်းနှင့် အရွယ်အစား ညှိခြင်း)
+Website Layout တွေကို ပိုမို လွယ်ကူပြီး၊ ဝင်ကြည့်တဲ့ Screen အရွယ်အစားပေါ် မူတည်ပြီး အလိုအလျောက် ပြောင်းလဲနိုင်အောင် (Dynamic ဖြစ်အောင်) တည်ဆောက်နည်းများ။
+*   `field-sizing` (စာရိုက်ရင် ရိုက်သလောက် အလိုအလျောက် ကျယ်လာမယ့် Input များ)
+*   `interpolate-size` (Auto Size တွေကြားမှာ ချောမွေ့စွာ ပြောင်းလဲခြင်း)
+*   Container Scroll State Queries (Scroll ဆွဲတဲ့ အခြေအနေကို သိရှိခြင်း)
+*   Anchor Positioning (Element တစ်ခုကို နောက်တစ်ခုနဲ့ ချိတ်ဆက် နေရာချခြင်း)
 
-#### 3. Visuals & UI Components
-UI Component တွေကို ပိုမို လှပသပ်ရပ်အောင် ဖန်တီးနည်းများ။
-*   Customizable `<select>`
-*   `corner-shape` (Squircles)
-*   Scroll Markers
-*   View Transitions (Cross-Document)
+#### ၃။ Visuals & UI Components (အမြင်ပိုင်းဆိုင်ရာ ဖန်တီးမှုများ)
+UI Component တွေကို ပိုမို လှပသပ်ရပ်ပြီး ဆွဲဆောင်မှု ရှိအောင် ဖန်တီးနည်းများ။
+*   Customizable `<select>` (စိတ်ကြိုက် ပြင်ဆင်နိုင်သော Dropdown များ)
+*   `corner-shape` (Squircles - ထောင့်ဝိုင်းပုံစံ အသစ်များ)
+*   Scroll Markers (Scroll ဆွဲတဲ့ နေရာကို ပြသပေးခြင်း)
+*   View Transitions (စာမျက်နှာ ကူးပြောင်းရာတွင် လှပသော Animation များ)
 
-#### 4. Advanced Developer Ergonomics
-Code ကို ပိုမို စနစ်တကျနဲ့ Maintain လုပ်ရလွယ်အောင် ရေးနည်းများ။
-*   `@property` (Typed Custom Properties)
-*   Cascade Layers (`@layer`)
-*   Enhanced `attr()`
+#### ၄။ Advanced Developer Ergonomics (ရေးသားရ လွယ်ကူစေသော စနစ်များ)
+Code တွေကို ပိုမို စနစ်တကျ ဖြစ်အောင်နဲ့ နောက်ပိုင်းမှာ ပြုပြင်ထိန်းသိမ်းရ (Maintain လုပ်ရ) လွယ်ကူအောင် ရေးသားနည်းများ။
+*   `@property` (Type သတ်မှတ်နိုင်သော Custom Variables များ)
+*   Cascade Layers (`@layer`) (စတိုင်များ၏ အရေးပါမှု အဆင့်အတန်း သတ်မှတ်ခြင်း)
+*   Enhanced `attr()` (HTML Attribute များကို ပိုမို အသုံးချခြင်း)
 
 <Aside type="tip">
-ဒီ Course ဟာ Modern Browser တွေမှာ အသစ်ထွက်လာတဲ့ Feature တွေကို အဓိကထားတာမို့၊ တချို့ Feature တွေက Browser Support လိုအပ်ချက် ရှိနိုင်ပါတယ်။
+ဒီ Course ဟာ Modern Browser တွေမှာ အသစ်ထွက်လာတဲ့ Feature တွေကို အဓိကထား ရှင်းပြထားတာ ဖြစ်တဲ့အတွက်၊ တချို့ Feature တွေက Browser အဟောင်းတွေမှာ Support မပေးနိုင်တာမျိုး ရှိနိုင်ပါတယ်။ စမ်းသပ်ကြည့်တဲ့အခါ နောက်ဆုံးပေါ် Browser ကို အသုံးပြုဖို့ အကြံပြုလိုပါတယ်။
 </Aside>

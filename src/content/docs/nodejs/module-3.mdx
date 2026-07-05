@@ -16,7 +16,7 @@ Callback ဆိုတာ Function တစ်ခုထဲကို နောက်
 ```javascript
 import fs from 'fs';
 
-console.log("၁. အလုပ်စတင်ပါပြီ");
+console.log("၁။ အလုပ်စတင်ပါပြီ");
 
 // fs.readFile က Asynchronous ဖြစ်ပါတယ်။
 // ဖတ်လို့ ပြီးသွားရင် နောက်က (err, data) => {} ဆိုတဲ့ Callback Function ကို အလုပ်လုပ်ပေးပါတယ်။
@@ -24,11 +24,11 @@ fs.readFile('example.txt', 'utf8', (err, data) => {
     if (err) {
         console.log("အမှားဖြစ်သွားပါတယ်");
     } else {
-        console.log("၃. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+        console.log("၃။ ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
     }
 });
 
-console.log("၂. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+console.log("၂။ တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
 ```
 
 **ပြဿနာ:** Callback တွေ အများကြီး ဆင့်ကဲ ဆင့်ကဲ ရေးလာရတဲ့အခါ Code တွေ ရှုပ်ထွေးပြီး ဖတ်ရခက်သွားပါတယ်။ အဲ့ဒါကို **Callback Hell** လို့ ခေါ်ပါတယ်။
@@ -47,19 +47,19 @@ Promise မှာ အခြေအနေ (၃) မျိုး ရှိပါတ
 ```javascript
 import fs from 'fs/promises'; // fs ကို Promise အနေနဲ့ သုံးဖို့
 
-console.log("၁. အလုပ်စတင်ပါပြီ");
+console.log("၁။ အလုပ်စတင်ပါပြီ");
 
 fs.readFile('example.txt', 'utf8')
     .then((data) => {
         // အောင်မြင်ရင် ဒီထဲ ရောက်လာပါမယ်
-        console.log("၃. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+        console.log("၃။ ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
     })
     .catch((err) => {
         // Error တက်ရင် ဒီထဲ ရောက်လာပါမယ်
         console.log("အမှားဖြစ်သွားပါတယ်");
     });
 
-console.log("၂. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+console.log("၂။ တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
 ```
 
 ---
@@ -77,13 +77,13 @@ import fs from 'fs/promises';
 // async function ကြေညာခြင်း
 async function readMyFile() {
     try {
-        console.log("၁. ဖိုင်စဖတ်ပါမယ်");
+        console.log("၁။ ဖိုင်စဖတ်ပါမယ်");
         
         // await ကို သုံးပြီး ဖိုင်ဖတ်တာ ပြီးတဲ့အထိ စောင့်ပါမယ်
         // ဒါပေမယ့် ဒီ Function အပြင်ဘက်က Code တွေကိုတော့ ရပ်မထားပါဘူး
         const data = await fs.readFile('example.txt', 'utf8');
         
-        console.log("၂. ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
+        console.log("၂။ ဖိုင်ဖတ်လို့ ပြီးပါပြီ");
     } catch (err) {
         // Error တွေကို try-catch နဲ့ ဖမ်းပါတယ်
         console.log("အမှားဖြစ်သွားပါတယ်:", err);
@@ -91,7 +91,7 @@ async function readMyFile() {
 }
 
 readMyFile();
-console.log("၃. တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
+console.log("၃။ တခြားအလုပ်တွေ ဆက်လုပ်နေပါတယ်");
 ```
 
 **အနှစ်ချုပ်:** Node.js မှာ Code ရေးတဲ့အခါ တတ်နိုင်သမျှ **Async/Await** ကို အသုံးပြုဖို့ အကြံပြုပါတယ်။ Code က ရှင်းလင်းပြီး နားလည်ရ လွယ်ကူလို့ပါ။

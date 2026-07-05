@@ -4,104 +4,115 @@ description: "Parameters<T>, ReturnType<T>, Awaited<T>"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const parameters = `
+// သာမန် Function တစ်ခု
 function greet(name: string, age: number, options?: { verbose: boolean }): void {
   console.log(\`Hello \${name}, age \${age}\`);
 }
 
-// GreetParams ဆိုတဲ့ type အသစ် လုပ်မယ်။ သူက greet function ရဲ့ parameter တွေရဲ့ type ဖြစ်မယ်။
-type GreetParams = Parameters<typeof greet>; // ရလာမယ့် Type: [name: string, age: number, options?: { verbose: boolean }]
+// GreetParams ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက greet Function ရဲ့ Parameter တွေရဲ့ Type တွေကို စုစည်းထားတာ ဖြစ်မယ်။
+type GreetParams = Parameters<typeof greet>; 
+// ရလာမယ့် Type: [name: string, age: number, options?: { verbose: boolean }] (ဒါကို Tuple လို့ ခေါ်ပါတယ်)
 
+// GreetParams ကို အသုံးပြုပြီး Function အသစ်တစ်ခု ရေးမယ်
 function callGreetWithStoredParams(args: GreetParams) {
-greet(...args); // tuple ကို arguments တွေအဖြစ် ပို့ဖို့ spread operator (...) ကို သုံးတယ်။
+  greet(...args); // Tuple အနေနဲ့ လက်ခံထားတဲ့ args တွေကို၊ သီးခြား Arguments တွေအဖြစ် ခွဲပို့ဖို့ Spread Operator (...) ကို သုံးတယ်
 }
 
+// Parameter တွေကို Array (Tuple) အနေနဲ့ ပို့ပေးရုံပါပဲ
 callGreetWithStoredParams(["Bob", 42, { verbose: true }]);
 `;
 
 export const returnType = `
+// API ဆီကနေ User Data လှမ်းယူတဲ့ Function 
 function fetchUser(id: number): Promise<{ id: number; name: string }> {
   return Promise.resolve({ id, name: "User " + id });
 }
 
-// FetchUserReturn ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက fetchUser function ရဲ့ return type ဖြစ်မယ်။
-type FetchUserReturn = ReturnType<typeof fetchUser>; // ရလာမယ့် Type: Promise<{ id: number; name: string }>
+// FetchUserReturn ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက fetchUser Function ကနေ ပြန်ပေးမယ့် (Return လုပ်မယ့်) Type ဖြစ်မယ်။
+type FetchUserReturn = ReturnType<typeof fetchUser>; 
+// ရလာမယ့် Type: Promise<{ id: number; name: string }>
 
 let userPromise: FetchUserReturn = fetchUser(1);
 userPromise.then(userData => console.log(userData.name));
 `
-export const awaited =`async function getUserData(): Promise<{ name: string; age: number }> {
-return { name: "Carol", age: 25 };
+
+export const awaited = `
+async function getUserData(): Promise<{ name: string; age: number }> {
+  return { name: "Carol", age: 25 };
 }
 
 async function getNestedPromise(): Promise<Promise<string>> {
-return Promise.resolve(Promise.resolve("Deeply nested!"));
+  return Promise.resolve(Promise.resolve("Deeply nested!"));
 }
 
-// UserData ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getUserData ရဲ့ Return Type (Promise) ကို Awaited လုပ်ထားတာ။
-type UserData = Awaited<ReturnType<typeof getUserData>>; // ရလာမယ့် Type: { name: string; age: number }
+// UserData ဆိုတဲ့ Type အသစ် ဖန်တီးမယ်။ သူက getUserData ရဲ့ Return Type (Promise) ရဲ့ "အထဲက တကယ့် Data Type" ကို Awaited နဲ့ ထုတ်ယူထားတာပါ။
+type UserData = Awaited<ReturnType<typeof getUserData>>; 
+// ရလာမယ့် Type: { name: string; age: number } (Promise ကြီး ပျောက်သွားပါပြီ)
 
-// NestedString ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getNestedPromise ရဲ့ Return Type (Promise<Promise<string>>) ကို Awaited လုပ်ထားတာ။
-type NestedString = Awaited<ReturnType<typeof getNestedPromise>>; // ရလာမယ့် Type: string
+// NestedString ဆိုတဲ့ Type အသစ် လုပ်မယ်။ သူက getNestedPromise ရဲ့ Return Type (Promise<Promise<string>>) ထဲက အစစ်အမှန် Type ကို ထုတ်ယူတာပါ။
+type NestedString = Awaited<ReturnType<typeof getNestedPromise>>; 
+// ရလာမယ့် Type: string (Promise တွေ အဆင့်ဆင့် ခံနေတာကို ဖောက်ထွက်သွားပါတယ်)
 
 async function displayUser() {
-const user: UserData = await getUserData(); // user ရဲ့ Type က { name: string; age: number } ဖြစ်သွားပြီ။
-console.log(user.name);
+  const user: UserData = await getUserData(); // user ရဲ့ Type က Promise မဟုတ်တော့ဘဲ၊ { name: string; age: number } အတိအကျ ဖြစ်သွားပါပြီ။
+  console.log(user.name);
 
-const nested: NestedString = await getNestedPromise(); // nested ရဲ့ Type က string ဖြစ်သွားပြီ။
-console.log(nested.toUpperCase()); // string function ကို စိတ်ချစွာ ခေါ်သုံးနိုင်ပြီ။
+  const nested: NestedString = await getNestedPromise(); // nested ရဲ့ Type က string အတိအကျ ဖြစ်သွားပါပြီ။
+  console.log(nested.toUpperCase()); // string Function တွေကို စိတ်ချလက်ချ ခေါ်သုံးနိုင်သွားပါပြီ။
 }
 
 displayUser();
-};`
+`;
 
-## Utility Types များ အမြန်ကြည့်နိုင်ရန် (Cheat Sheet)
+## Utility Types များ အမြန်ကြည့်ရန် (Cheat Sheet)
 
-Utility Types တွေရဲ့ အဓိက အချက်အလက်တွေကို အတိုချုပ် စာရင်း ပြန်လုပ်ပေးထားပါတယ်။
+TypeScript မှာ အသုံးအများဆုံး Utility Types တွေရဲ့ အဓိက လုပ်ဆောင်ချက်တွေကို အလွယ်တကူ မှတ်မိစေဖို့ အတိုချုပ် စာရင်း ပြုစုပေးထားပါတယ်။ မေ့သွားတဲ့အခါ ပြန်ကြည့်ဖို့ အကောင်းဆုံးပါပဲ။
 
-- **`Partial<T>`: All properties optional.**<br/>
-  `T` ရဲ့ Properties အားလုံးကို Optional (ပါချင်မှပါ) ဖြစ်အောင် လုပ်ပေးပါတယ်။
+- **`Partial<T>`: Properties အားလုံးကို Optional ပြောင်းခြင်း**<br/>
+  `T` (မူရင်း Type) မှာရှိတဲ့ Properties အားလုံးကို Optional (ပါချင်မှပါ၊ ထည့်ချင်မှ ထည့်) အဖြစ် ပြောင်းလဲပေးပါတယ်။
   <br />
   <br />
-- **`Required<T>`: All properties required.**<br/> 
-  `T` ရဲ့ Properties အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ပေးပါတယ်။
+- **`Required<T>`: Properties အားလုံးကို Required ပြောင်းခြင်း**<br/> 
+  `T` မှာရှိတဲ့ Properties အားလုံးကို (မူလက Optional ဖြစ်နေရင်တောင်) မဖြစ်မနေ ထည့်သွင်းရမယ့် (Required) Properties တွေအဖြစ် ပြောင်းလဲပေးပါတယ်။
   <br />
   <br />
-- **`Readonly<T>`: All properties readonly.**<br/> 
-  `T` ရဲ့ Properties အားလုံးကို ပြင်လို့မရအောင် (Readonly) လုပ်ပေးပါတယ်။
+- **`Readonly<T>`: Properties အားလုံးကို Readonly ပြောင်းခြင်း**<br/> 
+  `T` မှာရှိတဲ့ Properties အားလုံးကို ဖတ်ဖို့ သီးသန့်၊ ထပ်မံ ပြင်ဆင်လို့ မရတော့အောင် (Readonly) အဖြစ် ပြောင်းလဲပေးပါတယ်။
   <br />
   <br />
-- **`Pick<T, K>`: Selects properties K from T.**<br/> 
-  `T` ထဲက ကိုယ်လိုချင်တဲ့ Property `K` တွေကို ရွေးထုတ်ပေးပါတယ်။
+- **`Pick<T, K>`: လိုချင်သော Properties သာ ရွေးထုတ်ခြင်း**<br/> 
+  `T` Type ထဲကနေ ကိုယ်အလိုရှိတဲ့ သီးခြား Property `K` တွေကိုသာ ရွေးချယ် (Select) ဆွဲထုတ်ပေးပါတယ်။
   <br />
   <br />
-- **`Omit<T, K>`: Removes properties K from T.**<br/> 
-  `T` ထဲက ကိုယ်မလိုချင်တဲ့ Property `K` တွေကို ဖယ်ထုတ်ပေးပါတယ်။
+- **`Omit<T, K>`: မလိုချင်သော Properties ကို ဖယ်ရှားခြင်း**<br/> 
+  `T` Type ထဲကနေ ကိုယ်မလိုချင်တဲ့၊ ဖယ်ရှားချင်တဲ့ Property `K` တွေကို ဖယ်ထုတ် (Remove) ပေးပါတယ်။
   <br />
   <br />
-- **`Record<K, T>`: Object with keys of type K and values of type T.**<br/> 
-  Keys တွေက `K` Type ဖြစ်ပြီး Values တွေက `T` Type ဖြစ်တဲ့ Object တစ်ခုကို လုပ်ပေးပါတယ်။
+- **`Record<K, T>`: Key-Value ပုံစံ Object Type အသစ် ဖန်တီးခြင်း**<br/> 
+  Keys (အမည်) တွေက `K` Type ဖြစ်ပြီး၊ Values (တန်ဖိုး) တွေက `T` Type ဖြစ်တဲ့ Object Type အသစ် တစ်ခုကို လွယ်လွယ်ကူကူ ဖန်တီးပေးပါတယ်။
   <br />
   <br />
-- **`Exclude<T, U>`: From union T, remove types assignable to U.**<br/> 
-  Union Type `T` ထဲက `U` နဲ့ တူတဲ့ Types တွေကို ဖယ်ထုတ်ပေးပါတယ်။
+- **`Exclude<T, U>`: Union Type ထဲမှ ဖယ်ရှားခြင်း**<br/> 
+  Union Type ဖြစ်တဲ့ `T` ထဲကနေ၊ `U` မှာ သတ်မှတ်ထားတဲ့ Types တွေနဲ့ တူညီတဲ့ Types တွေကို ဖယ်ရှား (Exclude) ပေးပါတယ်။
   <br />
   <br />
-- **`Extract<T, U>`: From union T, keep only types assignable to U.**<br/> 
-  Union Type `T` ထဲက `U` နဲ့ တူတဲ့ Types တွေကိုပဲ ထားပေးပါတယ်။
+- **`Extract<T, U>`: Union Type ထဲမှ ရွေးထုတ်ခြင်း**<br/> 
+  Union Type ဖြစ်တဲ့ `T` ထဲကနေ၊ `U` မှာ သတ်မှတ်ထားတဲ့ Types တွေနဲ့ တူညီတဲ့ Types တွေကိုသာ သီးသန့် ရွေးချယ် (Extract) ထုတ်ယူပေးပါတယ်။
   <br />
   <br />
-- **`NonNullable<T>`: Remove null and undefined from T.**<br/> 
-  `T` ထဲက `null` နဲ့ `undefined` Types တွေကို ဖယ်ထုတ်ပေးပါတယ်။
+- **`NonNullable<T>`: null နှင့် undefined ဖယ်ရှားခြင်း**<br/> 
+  Type `T` အစုအဝေးထဲကနေ `null` နဲ့ `undefined` Types တွေကို ရှင်းလင်း ဖယ်ရှား (Remove) ပေးပါတယ်။
   <br />
   <br />
-- **`Parameters<F>`: Tuple of function F's parameter types.**<br/> 
-  Function `F` ရဲ့ Parameters တွေရဲ့ Type ကို Tuple အနေနဲ့ ထုတ်ပေးပါတယ်။
+- **`Parameters<F>`: Function ၏ Parameter Types များ ရယူခြင်း**<br/> 
+  Function `F` ကနေ လက်ခံမယ့် Parameters တွေရဲ့ Types အားလုံးကို စုစည်းပြီး Tuple (Array ပုံစံ) Type အဖြစ် ထုတ်ယူပေးပါတယ်။
   <br />
   <br />
-- **`ReturnType<F>`: Return type of function F.**<br/> 
-  Function `F` ကနေ ပြန်လာမယ့် (Return) Type ကို ထုတ်ပေးပါတယ်။
+- **`ReturnType<F>`: Function ၏ Return Type ရယူခြင်း**<br/> 
+  Function `F` ကနေ ပြန်လည် ထုတ်ပေးမယ့် (Return လုပ်မယ့်) Result ရဲ့ Type ကို အလိုအလျောက် ထုတ်ယူပေးပါတယ်။
   <br />
   <br />
-- **`Awaited<P>`: Resolved type of Promise P.**<br/> 
-  Promise `P` ရဲ့ အထဲက ပြန်လာမယ့် (Resolved) Type ကို ထုတ်ပေးပါတယ်။
+- **`Awaited<P>`: Promise ၏ အတွင်းဆုံး Data Type ရယူခြင်း**<br/> 
+  Promise `P` ကြီးရဲ့ အဖုံးကိုခွာပြီး အထဲကနေ အမှန်တကယ် ပြန်လာမယ့် (Resolved ဖြစ်မယ့်) Data Type အစစ်ကို ထုတ်ယူပေးပါတယ်။

@@ -5,30 +5,30 @@ description: "Carousel များအတွက် Scroll Indicator များ
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="Carousel Dots without JS">
-Image Slider (Carousel) တွေမှာ အောက်က အစက်လေးတွေ (Dots) ကို နှိပ်ရင် သက်ဆိုင်ရာ ပုံကို ရောက်သွားတာမျိုး လုပ်ဖို့ JavaScript မလိုတော့ပါဘူး။
+<Aside title="JavaScript မလိုတော့သော Carousel Dots များ (Carousel Dots without JS)">
+Image Slider တွေ (သို့မဟုတ်) Carousel တွေမှာ အောက်နားက အစက်လေးတွေ (Dots) ကို နှိပ်လိုက်ရင် သက်ဆိုင်ရာ ပုံဆီကို ရောက်သွားတာမျိုး လုပ်ဖို့ဆိုရင် အရင်က JavaScript မဖြစ်မနေ လိုအပ်ပါတယ်။ အခုတော့ CSS သီးသန့်နဲ့တင် ရနေပါပြီ။
 </Aside>
 
 ### အသုံးပြုပုံ
-Scroll container ထဲက item တစ်ခုချင်းစီအတွက် `::scroll-marker` ကို ဖန်တီးပေးရပါမယ်။
+Scroll လုပ်လို့ရမယ့် Container ထဲက Item တစ်ခုချင်းစီအတွက် `::scroll-marker` ဆိုတဲ့ Pseudo-element ကို ဖန်တီးပေးရပါမယ်။
 
 ```css
-/* 1. Container */
+/* ၁။ ပင်မ Container */
 .carousel {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   
-  /* Marker တွေကို စုပြီး ပြမယ့် နေရာ (Group) */
+  /* Marker (အစက်လေးတွေ) ကို အောက်နားမှာ စုပြီး ပြမယ်လို့ သတ်မှတ်တာပါ */
   scroll-marker-group: after; 
 }
 
-/* 2. Items */
+/* ၂။ အထဲက Item တစ်ခုချင်းစီ (ဥပမာ - ပုံများ) */
 .slide {
   width: 100%;
   scroll-snap-align: center;
 }
 
-/* 3. Markers (အစက်လေးတွေ) */
+/* ၃။ Markers (အောက်က အစက်လေးများ၏ ဒီဇိုင်း) */
 .slide::scroll-marker {
   content: "";
   width: 10px;
@@ -38,14 +38,14 @@ Scroll container ထဲက item တစ်ခုချင်းစီအတွက
   cursor: pointer;
 }
 
-/* 4. Active Marker (လက်ရှိ ရောက်နေတဲ့ Slide) */
+/* ၄။ Active Marker (လက်ရှိ ရောက်နေတဲ့ Slide ရဲ့ အစက်ကလေးကို အရောင်ပြောင်းမယ်) */
 .slide::scroll-marker:target-current {
   background: blue;
 }
 ```
 
 ### ဘယ်လို အလုပ်လုပ်လဲ?
-*   Browser က `.slide` တစ်ခုချင်းစီအတွက် Marker တစ်ခု အလိုအလျောက် ထုတ်ပေးမယ်။
-*   အဲဒီ Marker တွေကို `.carousel` ရဲ့ အောက် (`after`) မှာ သွားစုပေးမယ်။
-*   Marker ကို နှိပ်ရင် သက်ဆိုင်ရာ Slide ဆီ Scroll လုပ်ပေးမယ်။
-*   Scroll လုပ်လိုက်ရင်လည်း သက်ဆိုင်ရာ Marker က Active ဖြစ်သွားမယ်။
+*   Browser က `.slide` (ပုံတစ်ပုံချင်းစီ) အတွက် Marker အစက်လေး တစ်ခုစီကို အလိုအလျောက် ဖန်တီးထုတ်ပေးပါတယ်။
+*   အဲ့ဒီ Marker တွေကို `.carousel` ရဲ့ အောက်ဘက် (`after`) မှာ သွားပြီး အုပ်စုလိုက် စုပေးထားပါတယ်။
+*   User က Marker လေးကို နှိပ်လိုက်ရင်၊ သက်ဆိုင်ရာ Slide ဆီကို အလိုအလျောက် Scroll ဆွဲပေးသွားပါမယ်။
+*   ကိုယ်တိုင် Scroll ဆွဲလိုက်ရင်လည်း၊ သက်ဆိုင်ရာ နေရာရောက်တာနဲ့ Marker က သူ့အလိုလို Active အရောင် ပြောင်းသွားမှာ ဖြစ်ပါတယ်။

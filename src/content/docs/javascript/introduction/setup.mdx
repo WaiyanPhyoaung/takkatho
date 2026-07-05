@@ -7,18 +7,18 @@ import { Steps, Aside, LinkCard } from '@astrojs/starlight/components';
 import ContentImage from '@/components/Content-image.astro';
 import alertSample from "@/assets/js/alert.png"
 
-JavaScript ရေးဖို့အတွက် ကွန်ပျူတာ အကောင်းစားကြီးတွေ မလိုပါဘူး။ သင့်မှာ ရှိပြီးသား Browser လေးတစ်ခု ရှိရင် ရပါပြီ။ ဒါပေမဲ့ ပိုကောင်းတဲ့ အတွေ့အကြုံ ရဖို့အတွက် အောက်ပါတို့ကို ပြင်ဆင်ထားရင် အကောင်းဆုံးပါပဲ။
+JavaScript ရေးဖို့အတွက် ကွန်ပျူတာ အကောင်းစားကြီးတွေ မလိုအပ်ပါဘူး။ သင့်ကွန်ပျူတာမှာ ရှိပြီးသား Browser လေးတစ်ခု ရှိနေရင်ပဲ လုံလောက်ပါတယ်။ ဒါပေမဲ့ ပိုမိုကောင်းမွန်တဲ့ အတွေ့အကြုံ (Experience) ရရှိဖို့အတွက် အောက်ပါ Tools တွေကို ပြင်ဆင်ထားရင်တော့ အကောင်းဆုံးပါပဲ။
 
-## 1. Web Browser (Chrome recommended)
+## ၁။ Web Browser (Chrome Recommended)
 
-JavaScript ဟာ Browser တိုင်းမှာ Run လို့ ရပါတယ်။ ဒါပေမဲ့ Developer တွေ အသုံးများဆုံးနဲ့ Debug လုပ်ရတာ အဆင်ပြေဆုံးကတော့ **Google Chrome** ပါပဲ။
+JavaScript ဟာ မည်သည့် Browser မှာမဆို Run လို့ ရပါတယ်။ ဒါပေမဲ့ Web Developer တွေ အများဆုံး အသုံးပြုပြီး၊ မှားယွင်းမှုတွေကို ရှာဖွေပြင်ဆင်ရ (Debug လုပ်ရ) အဆင်ပြေဆုံး ဖြစ်တဲ့ **Google Chrome** ကို အသုံးပြုဖို့ အကြံပြုလိုပါတယ်။
 
-## 2. Code Editor (VS Code recommended)
+## ၂။ Code Editor (VS Code Recommended)
 
-Code တွေ ရေးဖို့အတွက် **Visual Studio Code (VS Code)** ကို အသုံးပြုဖို့ အထူး တိုက်တွန်းပါတယ်။ သူက Free ရသလို၊ Extension တွေ အများကြီးနဲ့မို့ အရမ်း အသုံးဝင်ပါတယ်။
+Code တွေ ရေးသားဖို့အတွက် **Visual Studio Code (VS Code)** ကို အသုံးပြုဖို့ အထူး တိုက်တွန်းပါတယ်။ သူက အခမဲ့ (Free) အသုံးပြုနိုင်တဲ့အပြင်၊ အလုပ်လုပ်ရာမှာ မြန်ဆန်စေမယ့် Extension တွေ အများကြီး ထည့်သွင်းနိုင်တဲ့အတွက် အရမ်းကို အသုံးဝင်ပါတယ်။
 
 <LinkCard
-  title="Visual Studio Code ကို ဒီမှာ Download ရယူပါ"
+  title="Visual Studio Code ကို ဒီနေရာတွင် Download ရယူပါ"
   href="https://code.visualstudio.com/"
   icon="external"
   target="_blank"
@@ -26,34 +26,34 @@ Code တွေ ရေးဖို့အတွက် **Visual Studio Code (VS Cod
 
 ## JavaScript ကို ဘယ်လို Run မလဲ?
 
-JavaScript ကို နည်းလမ်း (၃) မျိုးနဲ့ Run လို့ ရပါတယ်။
+JavaScript ကို အဓိကအားဖြင့် နည်းလမ်း (၃) မျိုးနဲ့ Run လို့ ရပါတယ်။
 
-### 1. Inline Script (HTML ထဲမှာ တိုက်ရိုက်ရေးခြင်း)
+### ၁။ Inline Script (HTML ထဲတွင် တိုက်ရိုက်ရေးခြင်း)
 
-HTML file ထဲမှာ `<script>` tag လေးဖွင့်ပြီး တိုက်ရိုက်ရေးတာပါ။ စမ်းသပ်ရုံလောက်ပဲ သုံးသင့်ပါတယ်။
+HTML file ထဲမှာ `<script>` ဆိုတဲ့ tag လေးဖွင့်ပြီး တိုက်ရိုက် ရေးသားတာ ဖြစ်ပါတယ်။ ဒါပေမဲ့ ဒီနည်းလမ်းကို စမ်းသပ်ရုံလောက်ပဲ သုံးသင့်ပြီး၊ တကယ့် Project တွေမှာတော့ မသုံးသင့်ပါဘူး။
 
 ```html
 <button onclick="alert('Hello!')">Click Me</button>
 ```
 
-### 2. External JS File (အသုံးအများဆုံး နည်းလမ်း)
+### ၂။ External JS File (အသုံးအများဆုံး နည်းလမ်း)
 
-JavaScript code တွေကို `script.js` ဆိုပြီး သီးသန့် file ခွဲထုတ်ပြီး HTML နဲ့ ချိတ်ဆက်တာပါ။ ဒါက အလုပ်လုပ်ရတာ သပ်ရပ်ပြီး အကောင်းဆုံး နည်းလမ်းပါ။
+JavaScript code တွေကို `script.js` လိုမျိုး သီးသန့် ဖိုင်ခွဲထုတ်ပြီးမှ HTML နဲ့ ပြန်လည် ချိတ်ဆက် အသုံးပြုတာ ဖြစ်ပါတယ်။ ဒါဟာ Code တွေကို ရှင်းလင်းသပ်ရပ်စေပြီး လက်တွေ့လုပ်ငန်းခွင်မှာ အသုံးအများဆုံး နည်းလမ်း ဖြစ်ပါတယ်။
 
 ```html
-<!-- index.html -->
+<!-- index.html ထဲတွင် ချိတ်ဆက်ပုံ -->
 <script src="script.js"></script>
 ```
 
-### 3. Browser Console (အမြန်စမ်းသပ်ရန်)
+### ၃။ Browser Console (အမြန်စမ်းသပ်ရန်)
 
-Browser မှာ ချက်ချင်း Code စမ်းကြည့်ချင်ရင် Console ကို သုံးလို့ရပါတယ်။
-1.  Browser (Chrome) မှာ Right Click နှိပ်၊ **Inspect** ကို ရွေးပါ။
-2.  **Console** tab ကို နှိပ်ပါ။
-3.  `alert("Hello World")` လို့ ရေးပြီး Enter ခေါက်ကြည့်ပါ။
+Browser ပေါ်မှာ Code လေးတွေကို ချက်ချင်း စမ်းသပ်ကြည့်ချင်ရင်တော့ Console ကို အသုံးပြုနိုင်ပါတယ်။
+1. Browser (Chrome) ပေါ်မှာ Right Click နှိပ်ပြီး **Inspect** ကို ရွေးချယ်ပါ။
+2. ပေါ်လာတဲ့ မျက်နှာပြင်ထဲက **Console** ဆိုတဲ့ tab ကို နှိပ်ပါ။
+3. အဲ့ဒီမှာ `alert("Hello World")` လို့ ရိုက်ထည့်ပြီး Enter ခေါက်ကြည့်ပါ။
 
-<ContentImage src={alertSample} alt="Browser Console Example" />
+<ContentImage src={alertSample} alt="Browser Console တွင် စမ်းသပ်ပုံ" />
 
-<Aside type="tip" title="လက်တွေ့စမ်းသပ်ရန်">
-  ယခုဖွင့်ထားတဲ့ Browser မှာ F12 (သို့) Right Click > Inspect ကို နှိပ်ပြီး Console မှာ <code>2 + 2</code> လို့ ရိုက်ပြီး Enter ခေါက်ကြည့်ပါ။ အဖြေ <code>4</code> ထွက်လာရင် သင် JavaScript စရေးဖို့ အဆင်သင့် ဖြစ်ပါပြီ!
+<Aside type="tip" title="လက်တွေ့စမ်းသပ်ကြည့်ပါ">
+  ယခု သင်ဖွင့်ထားတဲ့ Browser ပေါ်မှာ `F12` ကို နှိပ်ပါ (သို့မဟုတ်) `Right Click > Inspect` ကို သွားပြီး Console ထဲမှာ <code>2 + 2</code> လို့ ရိုက်ထည့်ပြီး Enter ခေါက်ကြည့်ပါ။ အဖြေ <code>4</code> လို့ ထွက်လာတယ်ဆိုရင်တော့ သင်ဟာ JavaScript စတင်ရေးသားဖို့ အဆင်သင့် ဖြစ်နေပါပြီ!
 </Aside>

@@ -4,17 +4,19 @@ description: "Readonly<T>"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
+
 export const readonly = `
 type ReadonlyUserProfile = {
-   readonly id: number; // ပြင်လို့မရတော့ဘူး
+   readonly id: number; // ဖတ်လို့ပဲရမယ်၊ ပြင်လို့မရတော့ဘူး
    readonly username: string; // ပြင်လို့မရတော့ဘူး
-   readonly email?: string; // ပြင်လို့မရတော့ဘူး (optional ဖြစ်တာ မပြောင်းပါဘူး)
+   readonly email?: string; // ပြင်လို့မရတော့ဘူး (optional ဖြစ်တာကတော့ မပြောင်းလဲပါဘူး)
    readonly bio: string | null; // ပြင်လို့မရတော့ဘူး
    readonly isActive: boolean; // ပြင်လို့မရတော့ဘူး
  }
 `;
 
-export const usage= `
+export const usage = `
+// Readonly<UserProfile> ကို သုံးပြီး appConfig ကို ကြေညာထားတယ်
 const appConfig: Readonly<UserProfile> = {
   id: 0, // System User ID လို့ သဘောထားပါ
   username: "system_config",
@@ -23,19 +25,19 @@ const appConfig: Readonly<UserProfile> = {
   isActive: true
 };
 
-// appConfig ရဲ့ Property တန်ဖိုးကို ပြောင်းလဲဖို့ ကြိုးစားကြည့်မယ်
-// appConfig.username = "new_config"; // Error ပြလိမ့်မယ်။ username က readonly property
-// appConfig.id = 1; // Error ပြလိမ့်မယ်။ id ကလည်း readonly
+// appConfig ရဲ့ Property တန်ဖိုးတစ်ခုခုကို ပြောင်းလဲဖို့ ကြိုးစားကြည့်မယ်
+// appConfig.username = "new_config"; // TypeScript က ချက်ချင်း Error ပြပါလိမ့်မယ်။ username က readonly property ဖြစ်သွားလို့ပါ!
+// appConfig.id = 1; // ဒါလည်း Error ပြပါလိမ့်မယ်။ id ကလည်း readonly ပါပဲ!
 `
 
 ### `Readonly<T>`: Properties အားလုံးကို ပြင်လို့မရအောင် (Read-Only) လုပ်ခြင်း
 
-- **ဘာလုပ်ပေးသလဲ**: `Readonly<T>` က `T` Type မှာရှိတဲ့ Properties အားလုံးကို `readonly` (ဖတ်လို့ပဲရမယ်၊ တန်ဖိုး အသစ် ပြန်ထည့်လို့ မရဘူး) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
-- **ဘယ်လို သုံးမလဲ**: `Readonly<UserProfile>`
-- **ရလာမယ့် Type (ပုံစံ)**:
+- **ဘာလုပ်ပေးသလဲ**: `Readonly<T>` ဟာ `T` Type မှာရှိတဲ့ Properties အားလုံးကို `readonly` (ဖတ်ဖို့ သီးသန့်၊ တန်ဖိုး အသစ် ပြန်လည် ထည့်သွင်း ပြင်ဆင်လို့ မရတော့အောင်) ဖြစ်သွားစေပြီး Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `Readonly<UserProfile>` လို့ ရေးရုံပါပဲ။
+- **ရလာမယ့် Type (ပုံစံ)**: (မျက်စိထဲမှာ အောက်ကပုံစံမျိုး မြင်ယောင်ကြည့်ပါ)
 
 <Code lang="typescript" code={readonly} title="index.ts" />
 
-- **ဘယ်လိုနေရာမှာ သုံးသလဲ**: Program စတဲ့အချိန်မှာပဲ Data တစ်ခါ သတ်မှတ်ပြီးရင် နောက်ထပ် ဘယ်တော့မှ တန်ဖိုး ပြောင်းလဲလို့ မရအောင် လုပ်ချင်တဲ့ Configuration Object မျိုးတွေ၊ ဒါမှမဟုတ် ပြင်ဆင်ခွင့်မရှိတဲ့ Data မျိုးတွေအတွက် အကောင်းဆုံးပါပဲ။
+- **ဘယ်လိုနေရာမှာ သုံးသလဲ**: Application စတင် (Start) တဲ့အချိန်မှာပဲ Data တွေကို တစ်ခါတည်း သတ်မှတ်ပေးပြီးရင်၊ နောက်ထပ် ဘယ်တော့မှ (Run နေတဲ့ အချိန်တစ်လျှောက်လုံး) တန်ဖိုး လိုက်လံ ပြောင်းလဲလို့ မရအောင် ကာကွယ်ချင်တဲ့ Configuration Object မျိုးတွေ၊ ဒါမှမဟုတ် တခြား နေရာတွေကနေ ပြင်ဆင်ခွင့် လုံးဝ မရှိတဲ့ အရေးကြီး Data မျိုးတွေအတွက် အကောင်းဆုံး ဖြစ်ပါတယ်။
 
 <Code lang="typescript" code={usage} title="config.ts" />

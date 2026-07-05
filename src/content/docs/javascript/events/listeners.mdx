@@ -3,43 +3,44 @@ title: "Event Listeners"
 description: "Events များကို နားထောင်ခြင်း (Listening to Events)"
 ---
 
-JavaScript မှာ Event တစ်ခု ဖြစ်လာမှာကို စောင့်နေပြီး၊ ဖြစ်လာခဲ့ရင် Function တစ်ခုခု run ပေးဖို့ `addEventListener` ကို သုံးရပါတယ်။
+JavaScript မှာ Event တစ်ခုခု (ဥပမာ - User က ခလုတ်နှိပ်ခြင်း) ဖြစ်လာမယ့် အချိန်ကို စောင့်ကြည့်နေပြီး၊ အကယ်၍ တကယ် ဖြစ်လာခဲ့ရင် သတ်မှတ်ထားတဲ့ Function တစ်ခုကို အလုပ်လုပ် (Run) ခိုင်းဖို့အတွက် `addEventListener` ဆိုတဲ့ Method ကို အသုံးပြုရပါတယ်။
 
-## Syntax
+## Syntax (ရေးသားပုံ)
 
 ```javascript
 element.addEventListener("event_name", function);
 ```
 
-## ဥပမာ - Click Me Button
+## ဥပမာ (Example) - Click Me Button
 
 ```javascript
-// ၁. Element ကို ရွေးမယ်
+// ၁။ အရင်ဆုံး အလုပ်လုပ်စေချင်တဲ့ Element ကို ရွေးချယ် (Select) ပါမယ်
 const btn = document.querySelector("#my-btn");
 
-// ၂. Event Listener တပ်မယ်
+// ၂။ အဲ့ဒီ Element ပေါ်မှာ Event Listener တပ်ဆင်ပါမယ်
 btn.addEventListener("click", function() {
   alert("Button was clicked! 🎉");
 });
 ```
 
-Function ကို သီးသန့်ခွဲရေးပြီးမှ ထည့်လည်း ရပါတယ်။
+Function ကို အထဲမှာ တိုက်ရိုက် ရေးမယ့်အစား၊ အပြင်မှာ သီးသန့် ခွဲရေးထားပြီးမှ နာမည်နဲ့ ပြန်ခေါ်ထည့်ရင်လည်း ရပါတယ်။
 
 ```javascript
 function handleClick() {
     console.log("Clicked!");
 }
 
-btn.addEventListener("click", handleClick);
+// ခေါ်ထည့်တဲ့အခါ `()` တွန့်ကွင်း မပါတာကို သတိပြုပါ
+btn.addEventListener("click", handleClick); 
 ```
 
 ## The Event Object (`e`)
 
-Event တစ်ခု ဖြစ်တိုင်းမှာ Browser က အဲဒီ Event နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ (ဥပမာ - Mouse ဘယ်နေရာကို နှိပ်လိုက်တာလဲ၊ ဘယ်ခလုတ်ကို နှိပ်တာလဲ) ကို Object တစ်ခုအနေနဲ့ ပို့ပေးပါတယ်။
+Event တစ်ခု ဖြစ်ပွားသွားတဲ့ အခါတိုင်းမှာ Browser ကနေ အဲ့ဒီ Event နဲ့ ပတ်သက်တဲ့ အသေးစိတ် အချက်အလက်တွေ (ဥပမာ - Mouse ရဲ့ ဘယ်နေရာကို နှိပ်လိုက်တာလဲ၊ ကီးဘုတ်ရဲ့ ဘယ်ခလုတ်ကို နှိပ်လိုက်တာလဲ စသဖြင့်) ကို **Object** တစ်ခု အနေနဲ့ ကျွန်တော်တို့ဆီ အလိုအလျောက် ပို့ပေးပါတယ်။ အဲ့ဒီ Object ကို များသောအားဖြင့် `e` သို့မဟုတ် `event` လို့ နာမည်ပေးပြီး လက်ခံရယူလေ့ ရှိပါတယ်။
 
 ```javascript
 btn.addEventListener("click", function(e) {
-    console.log(e); 
-    console.log(e.target); // ဘယ် Element ကို နှိပ်လိုက်တာလဲ ဆိုတာ ပြမယ်
+    console.log(e); // Event နဲ့ ပတ်သက်တဲ့ အချက်အလက် အားလုံးကို ထုတ်ကြည့်နိုင်ပါတယ်
+    console.log(e.target); // User က ဘယ် Element ကို အတိအကျ နှိပ်လိုက်တာလဲ ဆိုတာကို ပြပေးပါတယ်
 });
 ```

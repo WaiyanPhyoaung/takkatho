@@ -1,6 +1,6 @@
 ---
-title: "MV* Architecture Patterns (MVC, MVVM, MVP) "
-description: "MVC, MVVM, and MVP Patterns"
+title: "Flux နှင့် Redux (State Management)"
+description: "Flux and Redux"
 ---
 
 import { Code, Aside } from "@astrojs/starlight/components";
@@ -10,12 +10,12 @@ import ContentImage from '@/components/Content-image.astro';
 export const sliceExample = `
 import { createSlice } from '@reduxjs/toolkit';
 
- const productsSlice = createSlice({
+const productsSlice = createSlice({
   name: 'products',
   initialState: [],
   reducers: {
     addProduct: (state, action) => {
-      // Immer library ပါဝင်တဲ့အတွက် state ကို တိုက်ရိုက်ပြင်နိုင်
+      // Immer library ပါဝင်တဲ့အတွက် state ကို တိုက်ရိုက်ပြင်သလို ရေးလို့ရပါတယ်
       state.push(action.payload);
     },
     removeProduct: (state, action) => {
@@ -24,67 +24,66 @@ import { createSlice } from '@reduxjs/toolkit';
   }
 });
 
-// Action creators တွေကို အလိုအလျောက် generate လုပ်ပေးပြီးသား
+// Action creators တွေကို အလိုအလျောက် generate လုပ်ပေးပြီးသား ဖြစ်ပါတယ်
 export const { addProduct, removeProduct } = productsSlice.actions;
 
-// Reducer ကို store မှာ သုံးဖို့ export လုပ်
+// Reducer ကို store မှာ သုံးဖို့ export လုပ်ပေးပါ
 export default productsSlice.reducer;
 `
 
 <Aside title="ရည်ရွယ်ချက်">
-Application ကြီးလာရင် Data တွေ ဘယ်ကလာပြီး ဘယ်ကိုသွားမှန်း မသိတော့တဲ့ ပြဿနာ (State Management Hell) ကို ဖြေရှင်းဖို့ **Flux** နဲ့ **Redux** ပေါ်လာပါတယ်။
+Application ကြီးလာတဲ့အခါ Data တွေ ဘယ်ကနေ လာပြီး၊ ဘယ်ကို သွားမှန်း မသိတော့လောက်အောင် ရှုပ်ထွေးလာတဲ့ ပြဿနာ (State Management Hell) ကို ဖြေရှင်းဖို့အတွက် **Flux** နဲ့ **Redux** တို့ ပေါ်ထွက်လာတာ ဖြစ်ပါတယ်။
 </Aside>
 
 ### Flux ဆိုတာ ဘာလဲ? (ဘဏ် ဥပမာ)
-Flux ဆိုတာ Facebook က တီထွင်ခဲ့တဲ့ Pattern ပါ။ သူ့ရဲ့ အဓိက သဘောတရားက **"One Way Traffic"** (တစ်လမ်းသွား) ပါ။
-ဘဏ်တစ်ခုကို မြင်ယောင်ကြည့်ပါ။
+Flux ဆိုတာ Facebook က တီထွင်ခဲ့တဲ့ Pattern တစ်ခုပါ။ သူ့ရဲ့ အဓိက သဘောတရားကတော့ **"One Way Traffic"** (Data တွေ တစ်လမ်းမောင်းပဲ သွားရမယ်) ဆိုတာပါပဲ။ ဒါကို နားလည်ဖို့ ဘဏ်တစ်ခုကို မြင်ယောင်ကြည့်ပါ။
 
 <ContentImage src={redux} alt='flux architecture' width='500' />
 
-1.  **View (Customer):** ငွေထုတ်ချင်တယ်။ (Button နှိပ်)
-2.  **Action (Withdrawal Slip):** "10$ ထုတ်မည်" ဆိုတဲ့ စာရွက် (Slip) ဖြည့်ရတယ်။
-3.  **Dispatcher (Bank Teller):** စာရွက်ကို လက်ခံပြီး စစ်ဆေးတယ်။
-4.  **Store (Vault):** ငွေတိုက်ထဲက ပိုက်ဆံ လျော့သွားတယ်။ (State Update)
-5.  **View (Balance Screen):** လက်ကျန်ငွေ ပြောင်းသွားတာကို မြင်ရတယ်။
+1.  **View (Customer):** ငွေထုတ်ချင်တယ်။ (Button ကို နှိပ်လိုက်တယ်)
+2.  **Action (Withdrawal Slip):** "ဒေါ်လာ ၁၀ ထုတ်မည်" ဆိုတဲ့ ငွေထုတ်လွှာ (Slip) ကို ဖြည့်ရတယ်။
+3.  **Dispatcher (Bank Teller):** ဘဏ်ဝန်ထမ်းက စာရွက်ကို လက်ခံပြီး မှန်၊ မမှန် စစ်ဆေးတယ်။
+4.  **Store (Vault):** ငွေတိုက်ထဲက ပိုက်ဆံ လျော့သွားတယ်။ (State Update ဖြစ်သွားတယ်)
+5.  **View (Balance Screen):** လက်ကျန်ငွေ ပြောင်းသွားတာကို Customer က မြင်ရတယ်။
 
-Customer က ငွေတိုက်ထဲ ဝင်ပြီး ပိုက်ဆံ ယူပြေးလို့ မရပါဘူး (Direct State Mutation မရ)။ Slip ဖြည့်ပြီး Teller ကို ပေးမှ ရမှာပါ။ ဒါက Flux ရဲ့ အနှစ်သာရပါပဲ။
+Customer အနေနဲ့ ငွေတိုက်ထဲကို ကိုယ်တိုင်ဝင်ပြီး ပိုက်ဆံ သွားယူပြေးလို့ လုံးဝ မရပါဘူး (Direct State Mutation လုပ်လို့ မရပါ)။ Slip သေချာဖြည့်ပြီး ဝန်ထမ်းကို ပေးမှသာ ရမှာပါ။ ဒါဟာ Flux ရဲ့ အနှစ်သာရပါပဲ။
 
 ### Redux: The Modern Flux
-Redux က Flux ကို ပိုကောင်းအောင် မွမ်းမံထားတာပါ။ အခုခေတ်မှာတော့ **Redux Toolkit (RTK)** ကို သုံးကြပါတယ်။
+Redux ဆိုတာက Flux ရဲ့ သဘောတရားကို ပိုကောင်းအောင်၊ ပိုရှင်းလင်းအောင် မွမ်းမံထားတာပါ။ အခုခေတ်မှာတော့ သုံးရ ပိုလွယ်တဲ့ **Redux Toolkit (RTK)** ကို အဓိက သုံးကြပါတယ်။
 
 #### Redux Toolkit (RTK) နဲ့ ရေးပုံ
-အရင်က Redux ရေးရတာ ရှုပ်ပေမယ့် RTK မှာ `createSlice` နဲ့ အရမ်း လွယ်သွားပါပြီ။
+အရင်က Redux ရေးရတာ ဖိုင်တွေ အများကြီးနဲ့ ရှုပ်ထွေးပေမယ့်၊ အခု RTK မှာတော့ `createSlice` ကို သုံးလိုက်တာနဲ့ အရမ်းကို လွယ်ကူသွားပါပြီ။
 
 <Code code={sliceExample} lang="javascript" title="productSlice.js" />
 
 ### အဓိက ပါဝင်တဲ့ အရာများ
-1.  **Store:** Application တစ်ခုလုံးရဲ့ Data တွေ သိမ်းထားတဲ့ "ဗဟိုဘဏ်"။
-2.  **Slice:** Feature တစ်ခုချင်းစီအတွက် ခွဲထားတဲ့ "ဌာနခွဲ" (Product Slice, User Slice)။
-3.  **Action:** "ဘာလုပ်မယ်" ဆိုတဲ့ အမိန့်စာ (`addProduct`, `removeProduct`)။
-4.  **Reducer:** အမိန့်စာကို ဖတ်ပြီး Data ပြောင်းပေးတဲ့ "မန်နေဂျာ"။
+1.  **Store:** Application တစ်ခုလုံးရဲ့ Data တွေ အားလုံးကို သိမ်းဆည်းထားတဲ့ "ဗဟိုဘဏ်" ကြီးပါ။
+2.  **Slice:** Feature တစ်ခုချင်းစီအတွက် သီးခြား ခွဲထုတ်ထားတဲ့ "ဌာနခွဲ" တွေပါ။ (ဥပမာ - Product Slice, User Slice)။
+3.  **Action:** "ဘာအလုပ် လုပ်မယ်" ဆိုတာကို ညွှန်ကြားတဲ့ အမိန့်စာပါ။ (ဥပမာ - `addProduct`, `removeProduct`)။
+4.  **Reducer:** အဲဒီ အမိန့်စာကို ဖတ်ပြီး Data ကို တကယ် ပြောင်းလဲပေးတဲ့ "မန်နေဂျာ" ပါ။
 
-> **မှတ်ချက်:** Redux Toolkit မှာ `state.push` လို့ ရေးလို့ ရတာက နောက်ကွယ်မှာ **Immer** ဆိုတဲ့ Library က ကူညီပေးနေလို့ပါ။ တကယ်တမ်း Redux က Immutable (မပြောင်းလဲနိုင်သော) ပါ။`
+> **မှတ်ချက်:** Redux Toolkit မှာ `state.push` လို့ တိုက်ရိုက် ရေးလို့ ရနေတာက၊ နောက်ကွယ်မှာ **Immer** ဆိုတဲ့ Library က အလိုအလျောက် ကူညီပေးနေလို့ပါ။ တကယ်တမ်း Redux ရဲ့ စည်းမျဉ်းအရတော့ State တွေဟာ Immutable (တိုက်ရိုက် ပြောင်းလဲခွင့် မရှိသော) အရာတွေ ဖြစ်ပါတယ်။
 
-ဒီနည်းလမ်းက action တွေနဲ့ reducer တွေကို တစ်နေရာတည်းမှာပဲ စုစည်းထားတဲ့အတွက် ပိုပြီးရှင်းလင်းပြီး စီမံခန့်ခွဲရ လွယ်ကူစေပါတယ်။
+ဒီနည်းလမ်းကို သုံးခြင်းအားဖြင့် Action တွေနဲ့ Reducer တွေကို နေရာတစ်နေရာတည်းမှာ စုစည်းထားနိုင်တဲ့အတွက်၊ Code ပိုမို ရှင်းလင်းပြီး စီမံခန့်ခွဲရတာ အရမ်း လွယ်ကူသွားစေပါတယ်။
 
 ### `productsSlice.actions` ဆိုတာ ဘာလဲ?
-`createSlice` က `reducers` object ထဲမှာ သင်ရေးထားသည့် method တစ်ခုချင်းစီအတွက် **action creator function** ကို အလိုအလျောက် generate လုပ်ပေးပါတယ်။
+`createSlice` က `reducers` object ထဲမှာ ခင်ဗျား ရေးထားတဲ့ Method တစ်ခုချင်းစီအတွက် **Action Creator Function** လေးတွေကို အလိုအလျောက် Generate လုပ်ပေးပါတယ်။
 
 ဥပမာ:
-- သင် `reducers` ထဲမှာ `addProduct(state, action)` လို့ ရေးရင် ⇒ `productsSlice.actions.addProduct` ဆိုတဲ့ function တစ်ခု ရရှိလာမယ်
-- `removeProduct` လည်း အတူတူပဲ ⇒ `productsSlice.actions.removeProduct`
+- `reducers` ထဲမှာ `addProduct(state, action)` လို့ ရေးလိုက်တာနဲ့ ⇒ `productsSlice.actions.addProduct` ဆိုတဲ့ Function တစ်ခု အသင့် ရလာပါမယ်။
+- `removeProduct` လည်း အတူတူပါပဲ ⇒ `productsSlice.actions.removeProduct` ဆိုပြီး ရလာပါမယ်။
 
-ဒီ generated action creator တွေကို **destructure** လုပ်ပြီး export လုပ်ချင်လို့ သုံးထားတာက `export const { addProduct, removeProduct } = productsSlice.actions;` ဖြစ်ပါတယ်။
+ဒီလို အလိုအလျောက် ထွက်လာတဲ့ Function တွေကို **Destructure** လုပ်ပြီး အပြင်ကို Export ထုတ်ချင်လို့ `export const { addProduct, removeProduct } = productsSlice.actions;` လို့ ရေးရတာပါ။
 
 #### Action Creator က ဘာလုပ်ပေးတာလဲ?
-`addProduct({ id: 1, name: 'Book' })` လို့ ခေါ်လိုက်သွားရင် Redux က အောက်ကလို action object တစ်ခုအဖြစ် အလိုအလျောက် ပြောင်းပေးတယ်:
+`addProduct({ id: 1, name: 'Book' })` လို့ ခေါ်လိုက်တာနဲ့၊ Redux က အောက်ကလို Action Object တစ်ခုအနေနဲ့ အလိုအလျောက် ပြောင်းလဲပေးလိုက်ပါတယ်:
 ```js
 { type: 'products/addProduct', payload: { id: 1, name: 'Book' } }
 ```
-အဲဒီ `type` ကို သင်ကိုယ်တိုင် ရေးစရာမလိုတော့တဲ့ အတွက် Typo ပြဿနာ၊ duplication ပြဿနာတွေ လျော့နည်းစေတယ်။
+အဲဒီ `type` နာမည်ရှည်ကြီးကို ကိုယ်တိုင် လိုက်ရေးစရာ မလိုတော့တဲ့အတွက် စာလုံးပေါင်း မှားတဲ့ (Typo) ပြဿနာတွေ၊ Code ထပ်ခါထပ်ခါ ရေးရတဲ့ ပြဿနာတွေ အများကြီး လျော့ကျသွားပါတယ်။
 
 #### ဘယ်နေရာမှာ သုံးလဲ?
-UI component ထဲက event မှာ dispatch လုပ်ဖို့သုံးတယ်
+UI Component တွေကနေ Data ပြောင်းချင်တဲ့အခါ (ဥပမာ Button နှိပ်တဲ့အခါ) `dispatch` လုပ်ဖို့ သုံးပါတယ်။
 ```js
 import { useDispatch } from 'react-redux';
 import { addProduct } from './productSlice';
@@ -99,8 +98,8 @@ function AddButton() {
 }
 ```
 
-### `productsSlice.reducer` ကို ဘာကြောင့် export default လုပ်ရတာလဲ?
-Redux store တည်ဆောက်တဲ့အချိန်မှာ slice တစ်ခုချင်းစီရဲ့ reducer ကို store ကိုပေးရတယ်။ ဥပမာ -
+### `productsSlice.reducer` ကို ဘာကြောင့် Export Default လုပ်ရတာလဲ?
+Redux Store အကြီးကြီးကို တည်ဆောက်တဲ့အချိန်မှာ၊ Slice တစ်ခုချင်းစီမှာ ရှိတဲ့ Reducer တွေကို စုစည်းပြီး Store ထဲကို ထည့်ပေးရလို့ပါ။ ဥပမာ -
 
 ```js
 import { configureStore } from '@reduxjs/toolkit';
@@ -113,12 +112,12 @@ export const store = configureStore({
 });
 ```
 
-### State ကို Component မှာ ဘယ်လို ဖတ်မလဲ?
+### State (Data) ကို Component မှာ ဘယ်လို ဖတ်မလဲ?
 ```js
 import { useSelector } from 'react-redux';
 
 function ProductList() {
-  const products = useSelector(state => state.products); // products slice state
+  const products = useSelector(state => state.products); // Store ထဲက products တွေကို ယူမယ်
   return (
     <ul>
       {products.map(p => <li key={p.id}>{p.name}</li>)}
@@ -127,11 +126,10 @@ function ProductList() {
 }
 ```
 
-<Aside title="Key Points" type="tip">
-1. User → Button နှိပ် = dispatch(addProduct(payload))
-2. Redux → slice reducer ထဲက addProduct run
-3. Immer → state ကို immutable နည်းလမ်းနဲ့ update
-4. Store state အသစ် ပြင်ဆင်ပြီး
-5. useSelector သုံးထားသော component တွေ re-render
+<Aside title="အနှစ်ချုပ် မှတ်သားရန်" type="tip">
+1. User က Button ကို နှိပ်တယ် = `dispatch(addProduct(payload))` ကို ခေါ်လိုက်တယ်။
+2. Redux က Slice ထဲက သက်ဆိုင်ရာ `addProduct` Reducer ကို Run ပေးတယ်။
+3. Immer က State ကို လုံခြုံတဲ့ (Immutable) နည်းလမ်းနဲ့ Update လုပ်ပေးတယ်။
+4. Store ထဲမှာ State (Data) အသစ် ဝင်သွားတယ်။
+5. အဲဒီ Data ကို `useSelector` နဲ့ လှမ်းယူသုံးထားတဲ့ Component တွေ အလိုအလျောက် Re-render ဖြစ် (အသစ်ပြန်ပြ) သွားတယ်။
 </Aside>
-

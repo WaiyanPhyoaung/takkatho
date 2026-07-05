@@ -19,7 +19,7 @@ go mod init bookstore-api
 
 `main.go` ဖိုင်ကို ဖန်တီးပြီး အောက်ပါ Code များကို ရေးသားပါ။
 
-## ၁. Data Model နှင့် Mock Data တည်ဆောက်ခြင်း
+## 1. Data Model နှင့် Mock Data တည်ဆောက်ခြင်း
 
 ```go
 package main
@@ -47,7 +47,7 @@ var books = []Book{
 }
 ```
 
-## ၂. Handlers များ ရေးသားခြင်း
+## 2. Handlers များ ရေးသားခြင်း
 
 ### စာအုပ်အားလုံးကို ပြသခြင်း (GET /books)
 
@@ -81,7 +81,7 @@ func createBook(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## ၃. Router နှင့် Server တည်ဆောက်ခြင်း
+## 3. Router နှင့် Server တည်ဆောက်ခြင်း
 
 Go ရဲ့ Standard `http.ServeMux` ကို သုံးပြီး Route တွေကို ခွဲခြားပါမယ်။
 
@@ -110,7 +110,7 @@ func main() {
 }
 ```
 
-## ၄. API ကို စမ်းသပ်ခြင်း
+## 4. API ကို စမ်းသပ်ခြင်း
 
 Terminal တွင် Server ကို Run ပါ။
 

@@ -3,41 +3,41 @@ title: "Working with Attributes"
 description: "HTML Attribute များ (src, href, class, id) ကို ပြင်ဆင်ခြင်း"
 ---
 
-Image ရဲ့ `src` ပြောင်းမလား? Link ရဲ့ `href` ပြောင်းမလား?
-`getAttribute`, `setAttribute` နဲ့ `removeAttribute` တို့ကို သုံးနိုင်ပါတယ်။
+HTML Element တွေမှာ ပါဝင်တဲ့ Attribute တွေကို ပြင်ဆင်ချင်ပါသလား? ဥပမာ - Image ရဲ့ `src` (ပုံ လမ်းကြောင်း) ပြောင်းမလား? Link ရဲ့ `href` (သွားမယ့် လင့်ခ်) ပြောင်းမလား?
+ဒီလို ပြုပြင်ဖို့အတွက် `getAttribute`, `setAttribute` နဲ့ `removeAttribute` ဆိုတဲ့ Method (၃) ခုကို အသုံးပြုနိုင်ပါတယ်။
 
-## 1. getAttribute (တန်ဖိုး ယူမယ်)
-Attribute တစ်ခုရဲ့ တန်ဖိုးကို လိုချင်ရင် သုံးပါတယ်။
+## ၁။ getAttribute (တန်ဖိုး ရယူခြင်း)
+Attribute တစ်ခုရဲ့ တန်ဖိုး (Value) ကို သိချင်/လိုချင်တဲ့အခါ အသုံးပြုပါတယ်။
 
 ```javascript
 let link = document.querySelector("a");
-let url = link.getAttribute("href");
-console.log(url); // "https://google.com"
+let url = link.getAttribute("href"); // "href" ထဲက တန်ဖိုးကို ဆွဲထုတ်လိုက်တာပါ
+console.log(url); // ဥပမာ - "https://google.com"
 ```
 
-## 2. setAttribute (တန်ဖိုး အသစ်သတ်မှတ်မယ်)
-ရှိပြီးသား တန်ဖိုးကို ပြင်ချင်ရင် (သို့) အသစ်ထည့်ချင်ရင် သုံးပါတယ်။
+## ၂။ setAttribute (တန်ဖိုး အသစ်သတ်မှတ်ခြင်း)
+ရှိပြီးသား Attribute ရဲ့ တန်ဖိုးကို ပြင်ချင်တဲ့အခါ (သို့မဟုတ်) အသစ်တစ်ခု ဖန်တီးထည့်သွင်းချင်တဲ့အခါ အသုံးပြုပါတယ်။
 
 ```javascript
 let img = document.querySelector("img");
-// ပုံ ပြောင်းလိုက်မယ်
+// ပုံဟောင်း နေရာမှာ ပုံအသစ် ပြောင်းထည့်လိုက်ပါမယ်
 img.setAttribute("src", "new-image.png");
 ```
 
-## 3. removeAttribute (ဖျက်မယ်)
-Attribute တစ်ခုလုံးကို ဖျက်ပစ်ချင်ရင် သုံးပါတယ်။
+## ၃။ removeAttribute (ဖျက်ပစ်ခြင်း)
+မလိုအပ်တော့တဲ့ Attribute တစ်ခုလုံးကို အမြစ်ပြတ် ဖျက်ပစ်ချင်တဲ့အခါ သုံးပါတယ်။
 
 ```javascript
 let btn = document.querySelector("button");
-// disabled="true" ကို ဖျက်လိုက်ရင် ခလုတ်နှိပ်လို့ ရသွားမယ်
+// ခလုတ်ကို နှိပ်လို့မရအောင် ပိတ်ထားတဲ့ "disabled" ဆိုတဲ့ Attribute ကို ဖျက်လိုက်ရင် ခလုတ်ပြန်နှိပ်လို့ ရသွားပါမယ်
 btn.removeAttribute("disabled");
 ```
 
-## Direct Property Access (ပိုလွယ်သော နည်းလမ်း)
-Standard attribute အများစုကို `.` ခံပြီး တိုက်ရိုက် ခေါ်လို့လည်း ရပါတယ်။
+## Direct Property Access (ပိုမိုလွယ်ကူသော တိုက်ရိုက်ခေါ်နည်း)
+HTML ရဲ့ စံသတ်မှတ်ချက် (Standard) အတိုင်း ရှိနေတဲ့ Attribute အများစုကိုတော့ `getAttribute` တွေ သုံးနေမယ့် အစား `.` (Dot) ခံပြီး တိုက်ရိုက် ခေါ်သုံးလို့ / ပြင်လို့ ရပါတယ်။
 
 ```javascript
-img.src = "pic.jpg";
-input.value = "Hello";
-link.href = "https://facebook.com";
+img.src = "pic.jpg"; // ပုံပြောင်းမယ်
+input.value = "Hello"; // Input box ထဲ စာထည့်မယ်
+link.href = "https://facebook.com"; // လင့်ခ် ပြောင်းမယ်
 ```

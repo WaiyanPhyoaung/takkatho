@@ -25,7 +25,7 @@ go get github.com/gin-gonic/gin
 
 Go ရဲ့ အားသာချက်တစ်ခုက ပြင်ပ Library တွေ အများကြီး မလိုဘဲ Standard Library ထဲမှာတင် လိုအပ်တာတွေ အစုံအလင် ပါဝင်နေတာပါ။
 
-### ၁. `net/http` (Web Server တည်ဆောက်ခြင်း)
+### 1. `net/http` (Web Server တည်ဆောက်ခြင်း)
 
 Go မှာ Web Server တစ်ခု တည်ဆောက်ဖို့ အလွန်လွယ်ကူပါတယ်။
 
@@ -52,9 +52,9 @@ func main() {
 }
 ```
 
-### ၂. `encoding/json` (JSON Data များ ကိုင်တွယ်ခြင်း)
+### 2. `encoding/json` (JSON Data များ ကိုင်တွယ်ခြင်း)
 
-Web API တွေ ရေးတဲ့အခါ JSON format ကို အများဆုံး အသုံးပြုကြပါတယ်။ Go မှာ Struct တွေနဲ့ JSON ကို အလွယ်တကူ ပြောင်းလဲနိုင်ပါတယ်။
+Web API တွေ ရေးတဲ့အခါ JSON Format ကို အများဆုံး အသုံးပြုကြပါတယ်။ Go မှာ Struct တွေနဲ့ JSON ကို အလွယ်တကူ ပြောင်းလဲနိုင်ပါတယ်။
 
 ```go
 package main
@@ -96,5 +96,5 @@ func main() {
 ```
 
 <Aside type="tip" title="Struct Field များ">
-Struct ထဲက Field တွေကို အခြား Package (ဥပမာ `json` package) ကနေ လှမ်းမြင်နိုင်ဖို့အတွက် **အက္ခရာအကြီး (Capital Letter)** နဲ့ စတင်ရပါမယ်။ အသေးနဲ့စရင် Private ဖြစ်သွားပြီး JSON ထဲမှာ ပါလာမှာ မဟုတ်ပါဘူး။
+Struct ထဲက Field တွေကို အခြား Package (ဥပမာ `json` Package) ကနေ လှမ်းမြင်နိုင်ဖို့အတွက် **အက္ခရာအကြီး (Capital Letter)** နဲ့ စတင်ရပါမယ်။ အသေးနဲ့စရင် Private ဖြစ်သွားပြီး JSON ထဲမှာ ပါလာမှာ မဟုတ်ပါဘူး။
 </Aside>

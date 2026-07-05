@@ -5,55 +5,29 @@ description: "Patterns နှိုင်းယှဉ်ချက်"
 
 import { Aside } from '@astrojs/starlight/components';
 
-ဘယ် Pattern က အကောင်းဆုံးလဲ? အဖြေကတော့ **"Project ပေါ် မူတည်ပါတယ်"**။
+ဘယ် Pattern က အကောင်းဆုံးလဲလို့ မေးရင်၊ အဖြေကတော့ **"ကိုယ့် Project ရဲ့ လိုအပ်ချက်ပေါ် မူတည်ပါတယ်"**။
 
 ### နှိုင်းယှဉ်ချက် ဇယား
 
-| Pattern | အဓိက မင်းသား | Data ချိတ်ဆက်ပုံ | ဘယ်မှာ သုံးလဲ? |
+| Pattern | အဓိက ထိန်းချုပ်သူ (Boss) | Data ချိတ်ဆက်ပုံ | ဘယ်နေရာတွေမှာ သုံးလေ့ရှိလဲ? |
 |---|---|---|---|
-| **MVC** | Controller | Manual (Controller က လုပ်ပေးရ) | Backend Frameworks (Laravel, Rails) |
-| **MVP** | Presenter | Manual (Presenter က အကုန်လုပ်) | Desktop Apps, Legacy Android |
-| **MVVM** | ViewModel | Automatic (Data Binding) | Modern Frontend (Vue, Angular, React*) |
+| **MVC** | Controller | Manual (Controller ကနေ ကိုယ်တိုင် ချိတ်ဆက်ပေးရတယ်) | Backend Frameworks (ဥပမာ - Laravel, Ruby on Rails) |
+| **MVP** | Presenter | Manual (Presenter က အစအဆုံး အကုန်လုပ်ပေးရတယ်) | Desktop Apps, အရင်ခေတ် Android Apps |
+| **MVVM** | ViewModel | Automatic (Data Binding နဲ့ အလိုအလျောက် ချိတ်ဆက်တယ်) | Modern Frontend (ဥပမာ - Vue, Angular, React*) |
 
-> *React က တိတိကျကျ ပြောရင် MVVM မဟုတ်ပါဘူး။ "Component-Based" ပါ။ ဒါပေမယ့် Concept ကတော့ MVVM နဲ့ ဆင်တူပါတယ်။
+> *မှတ်ချက်: React က တိတိကျကျ ပြောရရင် MVVM အစစ် မဟုတ်ပါဘူး။ "Component-Based" လို့ ခေါ်ပါတယ်။ ဒါပေမဲ့ အလုပ်လုပ်တဲ့ သဘောတရား Concept ကတော့ MVVM နဲ့ အရမ်း ဆင်တူပါတယ်။
 
-### ဘာကြောင့် MV* Patterns တွေကို သုံးတာလဲ?
-1.  **Separation of Concerns:** "ထမင်းချက်တဲ့သူ" နဲ့ "ဧည့်ခံတဲ့သူ" ကို ခွဲထားချင်လို့ပါ။ (Logic နဲ့ UI မရောချင်လို့)
-2.  **Testability:** UI မပါဘဲ Logic သက်သက်ကို စစ်ဆေးရ လွယ်ကူစေပါတယ်။
-3.  **Maintainability:** ကုဒ်တွေ ရှင်းလင်းပြီး ပြင်ဆင်ရ လွယ်ကူစေပါတယ်။
+### ဘာကြောင့် MV* Patterns တွေကို သုံးရတာလဲ?
+1.  **Separation of Concerns (တာဝန်ခွဲဝေခြင်း):** "ထမင်းချက်တဲ့သူ" နဲ့ "ဧည့်ခံတဲ့သူ" ရဲ့ အလုပ်ကို သေချာ ခွဲခြားထားချင်လို့ပါ။ (Logic နဲ့ UI ကို တစ်နေရာတည်းမှာ မရောချင်လို့ပါ)
+2.  **Testability (စမ်းသပ်ရ လွယ်ကူခြင်း):** UI တွေ မပါဘဲနဲ့၊ နောက်ကွယ်က Logic သက်သက်ကိုပဲ စမ်းသပ်စစ်ဆေး (Testing လုပ်) ရတာ အရမ်း လွယ်ကူစေပါတယ်။
+3.  **Maintainability (ပြုပြင်ထိန်းသိမ်းရ လွယ်ကူခြင်း):** Code တွေ ရှင်းလင်းသွားတဲ့အတွက် နောက်ပိုင်းမှာ ပြင်ဆင်ရတာ၊ အဆင့်မြှင့်တင်ရတာတွေ လွယ်ကူစေပါတယ်။
 
 <Aside title="အနှစ်ချုပ်" type="tip">
-- **MVC:** Controller က Boss။
-- **MVP:** Presenter က Middleman (ကြားခံ)။
-- **MVVM:** ViewModel က Auto-Sync (အလိုအလျောက် ချိတ်ဆက်)။
+MV* Pattern တွေက Data, UI နဲ့ Control Logic ကို စနစ်တကျ ခွဲခြားပေးတဲ့အတွက် Code တွေကို ထိန်းသိမ်းရ လွယ်ကူစေပါတယ်။
 
-ခေတ်မီ Frontend Development မှာတော့ **MVVM** (သို့မဟုတ် Component-Based) က အသုံးအများဆုံး ဖြစ်ပါတယ်။
-</Aside>
+- **MVC:** Controller က အရာရာကို ထိန်းချုပ်ပြီး (Boss)၊ View က Model ကို စောင့်ကြည့်နေပါတယ်။ UI သိပ်မရှုပ်ထွေးတဲ့ ရိုးရှင်းတဲ့ App တွေအတွက် အဆင်ပြေပါတယ်။
+- **MVP:** Presenter က အလယ်ကနေ ကြားခံ (Middleman) လုပ်ပေးပြီး၊ UI အပြောင်းအလဲတွေကို ပိုပြီး တိတိကျကျ ထိန်းချုပ်ချင်တဲ့အခါမျိုးမှာ သုံးပါတယ်။
+- **MVVM:** ViewModel က Data တွေနဲ့ UI ကို အလိုအလျောက် ချိတ်ဆက် (Auto-Sync) ပေးပါတယ်။ အခုခေတ်လို Dynamic ဖြစ်ပြီး User နဲ့ အပြန်အလှန် (Interactive) အလုပ်လုပ်ရတဲ့ UI တွေအတွက် အကောင်းဆုံးပါပဲ။
 
-| Pattern | Logic | Data ချိတ်ဆက်ပုံ | အသုံးပြုရန် သင့်တော်သည့်နေရာ |
-|---|---|---|---|
-| MVC | Controller | Manual | UI သိပ်မရှုပ်ထွေးတဲ့ app အသေးများ |
-| MVVM | ViewModel | Automatic | Dynamic UI နှင့် two-way binding လိုအပ်သော app များ |
-| MVP | Presenter | Manual | UI ကို တိုက်ရိုက်ထိန်းချုပ်လိုသော app များ |
-
-
-### Frontend မှာ MV Pattern တွေကို ဘာကြောင့်သုံးသင့်လဲ
-- **တာဝန်ခွဲဝေနိုင်ခြင်း -** UI, data နဲ့ logic ကို သီးခြားစီခွဲထားနိုင်တယ်။
-
-- **ထိန်းသိမ်းရလွယ်ကူခြင်း -** App တစ်ခုလုံးကို မထိခိုက်စေဘဲ အစိတ်အပိုင်းတွေကို ပြင်ဆင်ရ၊ အစားထိုးရ လွယ်ကူတယ်။
-
-- **Test လုပ်ရလွယ်ကူခြင်း -** Layer တစ်ခုချင်းစီကို သီးခြားစီ test လုပ်နိုင်တယ်။
-
-- **တိုးချဲ့ရလွယ်ကူခြင်း -** Application အကြီးကြီးတွေကို ထိထိရောက်ရောက် စုဖွဲ့နိုင်တယ်။
-
-<Aside title="အနှစ်ချုပ်" type="tip">
-MV* pattern တွေက data, UI နဲ့ control logic ကို ခွဲခြားပေးတဲ့အတွက် ထိန်းသိမ်းရ တိုးချဲ့ရလွယ်ကူစေတယ်။
-
-- **MVC:** Controller က Model ကို update လုပ်ပြီး View က Model ကို စောင့်ကြည့်တယ်။ ရိုးရှင်းတဲ့ app တွေအတွက် ကောင်းတယ်။
-
-- **MVP:** Presenter က View နဲ့ Model နှစ်ခုလုံးကို စီမံခန့်ခွဲပြီး UI update တွေကို ပိုပြီးထိန်းချုပ်နိုင်တယ်။
-
-- **MVVM:** ViewModel က data တွေကို UI နဲ့ အလိုအလျောက် ချိတ်ဆက်ပေးတယ်။ Dynamic ဖြစ်ပြီး interactive ဖြစ်တဲ့ UI တွေအတွက် အကောင်းဆုံးပဲ။
-
- MV* pattern တွေကို သုံးခြင်းက အထူးသဖြင့် frontend project အကြီးကြီးတွေမှာ app တွေကို test လုပ်ရ၊ ထိန်းသိမ်းရ၊ တိုးချဲ့ရ ပိုလွယ်ကူစေတယ်။
+ခေတ်မီ Frontend Development လောကမှာတော့ **MVVM** (သို့မဟုတ် Component-Based Pattern) က အသုံးအများဆုံး ဖြစ်ပါတယ်။
 </Aside>

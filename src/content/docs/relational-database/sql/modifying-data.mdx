@@ -1,142 +1,72 @@
 ---
-title: "SQL: Data Manipulation Language (DML)"
-description: Data Modification
+title: "Data များ ပြင်ဆင်ခြင်း (INSERT, UPDATE, DELETE)"
+description: "SQL တွင် Data အသစ်ထည့်ခြင်း၊ ပြင်ဆင်ခြင်းနှင့် ဖျက်ခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
 
-## Data Modification
-ဒီ module မှာ data တွေကို ပြင်ဆင်ပြောင်းလဲဖို့အတွက် အခြေခံအကျဆုံး command (၃)ခုဖြစ်တဲ့ INSERT, UPDATE နှင့် DELETE တို့ကို လေ့လာသွားမှာဖြစ်ပါတယ်။
-ဒီ command တွေကို Data Manipulation Language (DML) လို့ခေါ်ပြီး table တွေထဲကို record အသစ်တွေထည့်တာ၊ ရှိပြီးသား record တွေကို ပြင်တာ၊ ဖယ်ရှားတာတွေ လုပ်ဆောင်နိုင်စေပါတယ်။
-
-<Aside title="အရေးကြီးသတိပေးချက်">
-    DML operations တွေက permanent ဖြစ်ပါတယ်။ 
-SELECT query နှင့်မတူဘဲ ဒီ command တွေက သင့် database ထဲက data တွေကို အမှန်တကယ်ပြောင်းလဲပစ်တာဖြစ်ပြီး
-SQL client အများစုမှာ အလွယ်တကူ "Undo" ပြန်လုပ်လို့မရပါဘူး။ ဒါကြောင့် UPDATE နှင့် DELETE ကိုသုံးတဲ့အခါ အထူးသတိထားရပါမယ်။
+<Aside title="ရည်ရွယ်ချက်">
+    Database ထဲက Table တွေမှာ Data အသစ်တွေ ထည့်တာ (`INSERT`)၊ ရှိပြီးသား Data ကို ပြင်တာ (`UPDATE`) နဲ့ မလိုတော့တဲ့ Data ကို ဖျက်တာ (`DELETE`) တွေကို ဘယ်လို လုပ်ဆောင်ရမလဲ ဆိုတာကို လေ့လာကြပါမယ်။
 </Aside>
 
-ဒီသင်ခန်းစာအတွက် နမူနာ `Products` table တစ်ခုကို အသုံးပြုသွားပါမယ်။
+## 1. Data အသစ် ထည့်သွင်းခြင်း (INSERT INTO)
 
-`Products` Table - 
-| ProductID | ProductName | Category | Price | StockQuantity |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | Classic T-Shirt | Apparel | $25.00 | 500 |
-| 2 | Denim Jeans | Apparel | $90.00 | 250 |
-| 3 | Coffee Mug | Kitchenware | $15.50 | NULL |
+Table ထဲကို အတန်း (Row) အသစ်တစ်ခု ထည့်ချင်ရင် `INSERT INTO` ကို အသုံးပြုရပါတယ်။
 
-## Adding Data - INSERT INTO
-INSERT INTO statement ကို table တစ်ခုအတွင်းသို့ data row အသစ်တွေထည့်ဖို့ အသုံးပြုပါတယ်။
-
-Syntax:
-စိတ်အချရဆုံးနှင့် အသုံးအများဆုံး ရေးသားပုံကတော့ သင် data ထည့်ချင်တဲ့ column တွေကို အရင်သတ်မှတ်ပြီးမှ
-အဲ့ဒီ column တွေအတွက် သက်ဆိုင်ရာတန်ဖိုး (values) တွေကို ထည့်ရေးပေးရပါမယ်။
-```
-INSERT INTO table_name (column1, column2, column3) 
+### Syntax
+```sql
+INSERT INTO table_name (column1, column2, column3)
 VALUES (value1, value2, value3);
 ```
+- ပထမကွင်းစစ ထဲမှာ Data ထည့်ချင်တဲ့ Column နာမည်တွေ ရေးရပါတယ်။
+- ဒုတိယ `VALUES` နောက်က ကွင်းစစ ထဲမှာတော့ တကယ့် Data (တန်ဖိုး) တွေကို အစဉ်လိုက် ရေးပေးရပါတယ်။ (စာသားဆိုရင် Single Quote `''` ထဲ ထည့်ရပါတယ်။)
 
-ဥပမာ - ကျွန်တော်တို့ရဲ့ table ထဲကို ပစ္စည်းအသစ်တစ်ခု ထည့်ကြည့်ရအောင်။
-
-```
-INSERT INTO Products (ProductID, ProductName, Category, Price, StockQuantity)
-VALUES (4, 'Keyboard', 'Electronics', 79.99, 150);
-```
-
-INSERT အပြီး Products Table - 
-| ProductID | ProductName | Category | Price | StockQuantity |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | Classic T-Shirt | Apparel | $25.00 | 500 |
-| 2 | Denim Jeans | Apparel | $90.00 | 250 |
-| 3 | Coffee Mug | Kitchenware | $15.50 | NULL |
-| 4 | Keyboard | Electronics | $79.99 | 150 |
-
-row တစ်ခုထက်ပိုပြီး တစ်ခါတည်းထည့်ချင်ရင် ကော်မာ (,) ခြားပြီး value အစုံလိုက် ထည့်ပေးနိုင်ပါတယ်။
-```
-INSERT INTO Products (ProductID, ProductName, Category, Price, StockQuantity) VALUES
-(5, 'Stellar Mouse', 'Electronics', 49.99, 200),
-(6, 'Desk Lamp', 'Office', 35.00, 120);
+### ဥပမာ - ဝန်ထမ်းအသစ် တစ်ယောက် ထည့်ပါ။
+```sql
+INSERT INTO Employees (EmployeeID, FirstName, LastName, Department, Salary, HireDate)
+VALUES (106, 'Frank', 'Thomas', 'Sales', 55000.00, '2023-11-01');
 ```
 
-## Modifying Data - UPDATE
-UPDATE statement ကို table အတွင်းရှိပြီးသား record တွေကို ပြင်ဆင်ဖို့ အသုံးပြုပါတယ်။
+> **မှတ်ချက်:** Primary Key `EmployeeID` က အလိုအလျောက် တိုးတဲ့ (Auto Increment) အမျိုးအစား ဆိုရင်တော့ Column စာရင်းမှာ `EmployeeID` ကို ထည့်ရေးစရာ မလိုပါဘူး။ Database က သူ့ဘာသာ နံပါတ်စဉ် တပ်ပေးသွားပါလိမ့်မယ်။
 
-<Aside title="အရေးကြီးသတိပေးချက်">
-**အရေးကြီးတဲ့ WHERE Clause** <br />
-UPDATE statement တစ်ခုရဲ့ အရေးအကြီးဆုံးအပိုင်းပါ။ 
-WHERE clause က ဘယ် row တွေကို ပြင်ရမလဲဆိုတာ သတ်မှတ်ပေးပါတယ်။ 
-တကယ်လို့ WHERE clause ကို မေ့သွားခဲ့ရင် table တစ်ခုလုံးက row အကုန်လုံးကို ပြောင်းလဲပစ်မိပါလိမ့်မယ်။
-</Aside>
+---
 
-Syntax:
-```
-UPDATE table_name SET column1 = new_value1, column2 = new_value2 WHERE condition;
-```
+## 2. ရှိပြီးသား Data ကို ပြင်ဆင်ခြင်း (UPDATE)
 
-ဥပမာ - "Denim Jeans" (ProductID 2) ရဲ့ ဈေးနှုန်းတက်သွားပါတယ်။
+Table ထဲမှာ ရှိပြီးသား Data တွေကို အချက်အလက် အသစ်နဲ့ အစားထိုး ပြင်ဆင်ချင်ရင် `UPDATE` ကို အသုံးပြုရပါတယ်။
 
-```
-UPDATE Products
-SET Price = 95.00
-WHERE ProductID = 2;
-```
-UPDATE အပြီး Products Table -
-
-| ProductID | ProductName | Category | Price | StockQuantity |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | Classic T-Shirt | Apparel | $25.00 | 500 |
-| 2 | Denim Jeans | Apparel | $95.00 | 250 |
-| 3 | Coffee Mug | Kitchenware | $15.50 | NULL |
-| 4 | Keyboard | Electronics | $79.99 | 150 |
-
-UPDATE statement ထဲမှာ တွက်ချက်မှုတွေလည်း လုပ်နိုင်ပါတယ်။
-
-ဥပမာ - 'Apparel' အမျိုးအစားအားလုံးကို ဈေးနှုန်း ၁၀% လျှော့ပြီး promotion ချပါ။
-
-```
-UPDATE Products
-SET Price = Price * 0.90
-WHERE Category = 'Apparel';
+### Syntax
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
 ```
 
-## Removing Data - DELETE
-DELETE statement ကို table ထဲက ရှိပြီးသား record တွေကို ဖယ်ရှားဖို့ အသုံးပြုပါတယ်။
-
-<Aside title="အရေးကြီးသတိပေးချက်">
-**အရေးကြီးတဲ့ WHERE Clause** <br />
-UPDATE မှာလိုပဲ WHERE clause ကိုမရှိမဖြစ်လိုအပ်ပါတယ်။ 
-WHERE clause ကို ချန်လှပ်ထားခဲ့ရင် `DELETE FROM table_name;` ဆိုတဲ့ command က သင့် table ထဲက data အားလုံးကို အပြီးတိုင် ဖျက်ပစ်ပါလိမ့်မယ်။
-</Aside>
-
-Syntax:
-```
-DELETE FROM table_name WHERE condition;
+### ဥပမာ - Alice ရဲ့ လစာကို $65,000 သို့ တိုးပေးပါ။
+```sql
+UPDATE Employees
+SET Salary = 65000.00
+WHERE FirstName = 'Alice';
 ```
 
-ဥပမာ - "Coffee Mug" (ProductID 3) ကို ဆက်မရောင်းတော့ပါဘူး။
-```
-DELETE FROM Products
-WHERE ProductID = 3;
+> **[WARNING] သတိပြုရန်:** `UPDATE` လုပ်တဲ့အခါ `WHERE` Clause မပါခဲ့ရင် Table ထဲမှာ ရှိသမျှ Row တွေ အကုန်လုံး ပြင်ဆင်သွားပါလိမ့်မယ်။ ဒါကြောင့် **`WHERE` ထည့်ဖို့ ဘယ်တော့မှ မမေ့ပါနဲ့။** (အကောင်းဆုံးကတော့ နာမည်နဲ့ မရှာဘဲ Primary Key ဖြစ်တဲ့ `EmployeeID` နဲ့ တိတိကျကျ ရှာပြီး ပြင်သင့်ပါတယ်။)
+
+---
+
+## 3. Data ကို ဖျက်ပစ်ခြင်း (DELETE)
+
+Table ထဲက မလိုတော့တဲ့ Record တွေကို ဖယ်ရှားပစ်ချင်ရင် `DELETE` ကို အသုံးပြုရပါတယ်။
+
+### Syntax
+```sql
+DELETE FROM table_name
+WHERE condition;
 ```
 
-DELETE အပြီး Products Table - 
-
-| ProductID | ProductName | Category | Price | StockQuantity |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | Classic T-Shirt | Apparel | $22.50 | 500 |
-| 2 | Denim Jeans | Apparel | $85.50 | 250 |
-| 4 | Keyboard | Electronics | $79.99 | 150 |
-
-## Safety First: အကောင်းဆုံး အလေ့အကျင့်
-
-UPDATE ဒါမှမဟုတ် DELETE command ကို မ run ခင်မှာ WHERE clause အတူတူသုံးပြီး SELECT statement တစ်ခု အရင်ရေးကြည့်တာက အလွန်ကောင်းတဲ့ အလေ့အကျင့်တစ်ခုဖြစ်ပါတယ်။ 
-ဒီလိုလုပ်ခြင်းအားဖြင့် ဘယ် row တွေ ပြောင်းလဲ (သို့) အဖျက်ခံရမလဲဆိုတာကို ကြိုတင်စစ်ဆေးနိုင်ပြီး အမှားများမဖြစ်အောင် ကာကွယ်ပေးနိုင်ပါတယ်။
-
-အဆင့် ၁ (ကြိုတင်စစ်ဆေးခြင်း) - ဘယ် row အဖျက်ခံရမလဲဆိုတာ SELECT ဖြင့်ဦးစွာစစ်ဆေးပါ။
-
+### ဥပမာ - EmployeeID 105 ဝန်ထမ်းကို အလုပ်က ထွက်သွား၍ ဖျက်ပစ်ပါ။
+```sql
+DELETE FROM Employees
+WHERE EmployeeID = 105;
 ```
-SELECT * FROM Products WHERE ProductID = 4;
-```
-အဆင့် ၂ (လုပ်ဆောင်ခြင်း) - ကိုယ်ဖျက်ချင်တဲ့ row က မှန်ကန်ကြောင်း သေချာမှသာ DELETE command ကို run ပါ။
-```
-DELETE FROM Products WHERE ProductID = 4;
-```
+
+> **[CAUTION] အလွန် သတိပြုရန်:** `DELETE` မှာလည်း `WHERE` Clause မပါရင် Table ထဲက Data တွေ အကုန်လုံး ပျက်သွားပါလိမ့်မယ်! Data အကုန် ဖျက်ချင်တယ် ဆိုရင်တောင် `DELETE` အစား `TRUNCATE TABLE` ကို သုံးတာက ပိုမြန်ဆန်ပါတယ်။
