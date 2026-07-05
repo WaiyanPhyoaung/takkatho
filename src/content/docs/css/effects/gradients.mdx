@@ -9,12 +9,12 @@ import gradientExample from '@/assets/css/gradients.png'
 import textGradientImg from '@/assets/css/text-gradient.png'
 
 <Aside title="အရောင်စုံ">
-အရောင်တစ်ရောင်တည်း (Solid Color) အစား၊ အရောင်နှစ်ရောင် (သို့) ပိုပြီး ရောစပ်ထားတဲ့ Gradient တွေက ဒီဇိုင်းကို ပိုပြီး ဆွဲဆောင်မှု ရှိစေပါတယ်။
+အရောင် တစ်ရောင်တည်းကိုပဲ (Solid Color) အသုံးပြုမယ့်အစား၊ အရောင်နှစ်ရောင် ဒါမှမဟုတ် အဲဒီထက်ပိုတဲ့ အရောင်တွေကို ရောစပ်ပြီး ဖန်တီးထားတဲ့ Gradient တွေက Website ရဲ့ ဒီဇိုင်းကို ပိုပြီး ဆွဲဆောင်မှု ရှိစေပါတယ် ခင်ဗျာ။
 </Aside>
 
 ### Linear Gradient (အတန်းလိုက် အရောင်ပြေး)
-အရောင်တစ်ခုကနေ နောက်တစ်ခုကို ဖြည်းဖြည်းချင်း ပြောင်းသွားတာပါ။
-`background-image` မှာ သုံးရပါတယ်။
+သူက အရောင်တစ်ခုကနေ နောက်အရောင်တစ်ခုကို တစ်တန်းတည်း (Linear) ဖြည်းဖြည်းချင်း ပြောင်းလဲသွားတဲ့ ပုံစံပါ။
+သူ့ကို သုံးချင်ရင် `background-color` မှာ သုံးလို့မရဘဲ `background-image` မှာ သုံးပေးရပါတယ်။
 
 ```css
 .box {
@@ -34,7 +34,7 @@ import textGradientImg from '@/assets/css/text-gradient.png'
 ```
 
 ### Radial Gradient (အဝိုင်းလိုက် အရောင်ပြေး)
-အလယ်ကနေ ဘေးကို ဖြာထွက်သွားတဲ့ ပုံစံပါ။
+သူကကျတော့ Linear လို တစ်တန်းတည်း မဟုတ်ဘဲ၊ အလယ်ဗဟိုကနေ ဘေးဘက်ကို အဝိုင်းပုံစံ (Radial) ဖြာထွက်သွားတဲ့ Gradient မျိုး ဖြစ်ပါတယ်။
 
 ```css
 .circle {
@@ -45,7 +45,7 @@ import textGradientImg from '@/assets/css/text-gradient.png'
 <ContentImage src={gradientExample} alt="Gradient Example" />
 
 <Aside type="tip">
-**Text Gradient:** စာသားကို Gradient လုပ်ချင်ရင် နည်းနည်း ရှုပ်ပါတယ်။
+**Text Gradient:** Box တွေကို မဟုတ်ဘဲ စာသား (Text) တွေကိုပါ Gradient အရောင် ထည့်ချင်တယ်ဆိုရင်တော့ ရေးရတာ နည်းနည်းလေး ရှုပ်ပါတယ်။ အောက်က Code လေးကို လေ့လာကြည့်ပါ ခင်ဗျာ -
 ```css
 h1 {
   background: linear-gradient(to right, red, blue);

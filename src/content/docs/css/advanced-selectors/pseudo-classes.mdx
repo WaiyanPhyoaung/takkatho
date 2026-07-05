@@ -9,23 +9,23 @@ import hover from '@/assets/css/hover.png'
 import pseudoClasses from '@/assets/css/pseudo-classes.png'
 
 <Aside title="အခြေအနေများ">
-Element တစ်ခုရဲ့ "အခြေအနေ" (State) ပေါ်မူတည်ပြီး ဒီဇိုင်းပြောင်းချင်ရင် Pseudo-classes ကို သုံးပါတယ်။
-Selector နောက်မှာ ကော်လံ (`:`) ခံပြီး ရေးရပါတယ်။
+Element တစ်ခုရဲ့ လက်ရှိ ရောက်နေတဲ့ "အခြေအနေ" (State) အပေါ်မူတည်ပြီး ဒီဇိုင်းကို ပြောင်းလဲချင်တဲ့အခါမှာ Pseudo-classes တွေကို အသုံးပြုကြပါတယ်။
+သူ့ကို ရေးတဲ့အခါ Selector ရဲ့ အနောက်မှာ ကော်လံ (`:`) လေး ခံပြီး ရေးပေးရပါတယ်။
 </Aside>
 
 ### User Action Pseudo-classes
-User က တစ်ခုခု လုပ်လိုက်တဲ့အချိန်မှာ ပြောင်းလဲတာတွေပါ။
+User ဘက်ကနေ Action တစ်ခုခု လုပ်လိုက်တဲ့ အချိန်မျိုးမှာ Style ပြောင်းလဲသွားစေချင်ရင် သုံးပါတယ်။
 
-*   `:hover` - Mouse တင်လိုက်တဲ့အချိန်။
-*   `:active` - Mouse နှိပ်ထားတဲ့အချိန် (Click နှိပ်ပြီး မလွှတ်ခင်)။
-*   `:focus` - Input box ထဲကို စာရိုက်ဖို့ နှိပ်လိုက်တဲ့အချိန် (Keyboard focus ရချိန်)။
-*   `:focus-within` - ကိုယ်တိုင် (သို့) ကိုယ့်ရဲ့ Child တစ်ခုခု Focus ရနေတဲ့အချိန်။
-*   `:focus-visible` - Keyboard မှာ Tab နှိပ်ပြီး သွားတဲ့အချိန်မှာပဲ Focus ပြချင်တဲ့အခါ (Mouse နဲ့ နှိပ်ရင် မပြဘူး)။
+*   `:hover` - Element ပေါ်ကို Mouse သွားတင်လိုက်တဲ့ အချိန်။
+*   `:active` - Mouse ကို ဖိနှိပ်ထားတဲ့ အချိန် (Click နှိပ်လိုက်ပြီး လက်မလွှတ်ခင် အချိန်လေး)။
+*   `:focus` - Input Box ထဲကို စာရိုက်ဖို့အတွက် နှိပ်လိုက်တဲ့ အချိန် (Keyboard Focus ရသွားတဲ့ အချိန်)။
+*   `:focus-within` - Element ကိုယ်တိုင် ဖြစ်စေ၊ ဒါမှမဟုတ် သူ့ရဲ့ Child Element တစ်ခုခုက ဖြစ်စေ Focus ရနေတဲ့ အချိန်။
+*   `:focus-visible` - User က Keyboard ကနေ Tab ခလုတ်နှိပ်ပြီး သွားတဲ့ အချိန်မျိုးမှာပဲ Focus Ring ပြချင်တဲ့အခါ။ (Mouse နဲ့ နှိပ်ရင်တော့ မပြပါဘူး)
 
 <Aside type="tip" title="Focus ကွာခြားချက်များ">
-*   **:focus** - Focus ရတာနဲ့ အလုပ်လုပ်ပါတယ်။ (Mouse နဲ့ နှိပ်နှိပ်၊ Keyboard နဲ့ သွားသွား)
-*   **:focus-within** - Parent Element တစ်ခုက သူ့အထဲက Child တစ်ခုခု Focus ရသွားရင် Parent ပါ Style ပြောင်းချင်တဲ့အခါ သုံးပါတယ်။ (ဥပမာ - Form တစ်ခုလုံးကို Highlight လုပ်တာမျိုး)
-*   **:focus-visible** - User က Keyboard သုံးနေမှ (Tab နှိပ်မှ) Focus Ring ပြပြီး၊ Mouse နဲ့ နှိပ်ရင် မပြချင်တဲ့အခါ သုံးပါတယ်။ (UX ပိုကောင်းပါတယ်)
+*   **:focus** - သူကတော့ Focus ရတာနဲ့ ချက်ချင်း အလုပ်လုပ်ပါတယ်။ (Mouse နဲ့ပဲ နှိပ်နှိပ်၊ Keyboard နဲ့ပဲ သွားသွား အကုန်အလုပ်လုပ်ပါတယ်)
+*   **:focus-within** - Parent Element တစ်ခုရဲ့ အတွင်းမှာရှိတဲ့ Child Element လေးတစ်ခု Focus ရသွားတာနဲ့၊ အပြင်က Parent ကြီးကိုပါ Style လိုက်ပြောင်းချင်တဲ့ အခါမျိုးမှာ သုံးပါတယ်။ (ဥပမာ - Form အကွက်တစ်ခုလုံးကို Highlight လုပ်ပြချင်တာမျိုးပါ)
+*   **:focus-visible** - User က Keyboard ကို အသုံးပြုနေမှသာ (Tab နှိပ်ပြီး သွားနေမှသာ) Focus Ring ကို ပြပေးပြီး၊ Mouse နဲ့ နှိပ်တဲ့အခါမျိုးမှာတော့ ဖျောက်ထားချင်တဲ့အခါ သုံးပါတယ်။ (ဒါက User Experience (UX) ကို ပိုကောင်းစေပါတယ် ခင်ဗျာ)
 </Aside>
 
 ```css
@@ -42,11 +42,11 @@ input:focus {
 <ContentImage src={hover} alt="pseudo classes"  />
 
 ### Structural Pseudo-classes
-Element တွေရဲ့ အစီအစဉ်ပေါ် မူတည်ပြီး ရွေးတာပါ။
+Element တွေရဲ့ ဖွဲ့စည်းတည်ဆောက်ပုံ အစီအစဉ် (Structure) အပေါ် မူတည်ပြီး ရွေးချယ်ချင်တဲ့အခါ သုံးပါတယ်။
 
-*   `:first-child` - ပထမဆုံး child။
-*   `:last-child` - နောက်ဆုံး child။
-*   `:nth-child(n)` - n ခုမြောက် child (ဥပမာ - ဇယားကွက်တွေမှာ တစ်ကြောင်းခြား အရောင်ပြောင်းချင်ရင်)။
+*   `:first-child` - အုပ်စုတစ်ခုထဲက ပထမဆုံး Child Element ကို ရွေးချယ်တာပါ။
+*   `:last-child` - အုပ်စုတစ်ခုထဲက နောက်ဆုံး Child Element ကို ရွေးချယ်တာပါ။
+*   `:nth-child(n)` - မိမိလိုချင်တဲ့ (n) ခုမြောက် Child Element ကို ရွေးချယ်တာပါ။ (ဥပမာ - Table ဇယားကွက်တွေမှာ တစ်ကြောင်းခြားစီ အရောင်လေးတွေ ပြောင်းချင်တဲ့အခါမျိုးမှာ အသုံးများပါတယ်)
 
 ```css
 /* စာရင်းထဲက ပထမဆုံး item */
@@ -64,10 +64,10 @@ tr:nth-child(odd) {
 <ContentImage src={pseudoClasses} alt="pseudo classes"  />
 
 ### Link Pseudo-classes
-Link (`<a>`) တွေအတွက် သီးသန့်ပါ။
+ဒါတွေကတော့ Link (`<a>` tag) တွေအတွက် သီးသန့် အသုံးပြုတဲ့ Pseudo-classes တွေပါ။
 
-*   `:visited` - ဝင်ကြည့်ပြီးသား Link။
-*   `:link` - မဝင်ကြည့်ရသေးတဲ့ Link။
+*   `:visited` - User အနေနဲ့ အရင်က ဝင်ရောက်ကြည့်ရှုပြီးသား ဖြစ်နေတဲ့ Link တွေကို ပြောင်းချင်တဲ့အခါ။
+*   `:link` - တစ်ခါမှ မဝင်ကြည့်ရသေးတဲ့ Link အသစ်တွေကို ပြောင်းချင်တဲ့အခါ။
 
 ```css
 a:visited {
