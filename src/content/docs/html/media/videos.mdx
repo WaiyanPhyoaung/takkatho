@@ -9,11 +9,11 @@ import format from '@/assets/html/format.png'
 
 
 <Aside title="ရည်ရွယ်ချက်">
-ဒီအခန်းမှာတော့ webpage တွေထဲကို `<video>` နဲ့ `<audio>` tag တွေသုံးပြီး media file တွေ ဘယ်လိုထည့်သွင်းရမလဲဆိုတာ လေ့လာကြပါမယ်။ Browser compatibility အတွက် source မျိုးစုံ ဘယ်လိုသုံးရမလဲနဲ့ media အတွက် best practice တွေကိုလည်း သင်ယူရမှာပါ။
+ဒီအခန်းမှာတော့ Webpage တွေထဲကို `<video>` နဲ့ `<audio>` tag တွေသုံးပြီး Media File တွေ ဘယ်လို ထည့်သွင်းရမလဲဆိုတာ လေ့လာကြပါမယ် ခင်ဗျာ။ Browser မျိုးစုံမှာ အဆင်ပြေပြေ အလုပ်လုပ်ဖို့ (Browser Compatibility) အတွက် Source မျိုးစုံ ဘယ်လိုသုံးရမလဲနဲ့ Media တွေအတွက် အကောင်းဆုံး လက်တွေ့အသုံးချနည်း (Best Practices) တွေကိုလည်း သေသေချာချာ သင်ယူရမှာပါ။
 </Aside>
 
 ### Video များ ထည့်သွင်းခြင်း
-`<video>` tag ကိုသုံးပြီး webpage တွေမှာ video တွေကို ထည့်သွင်းနိုင်ပါတယ်။ ဒါက user တွေကို browser ထဲမှာ တိုက်ရိုက် video ကြည့်ခွင့်ပေးပါတယ်။
+`<video>` tag ကိုသုံးပြီး Webpage တွေမှာ Video တွေကို ထည့်သွင်းနိုင်ပါတယ်။ ဒါက User တွေကို Browser ထဲမှာတင် တိုက်ရိုက် Video ကြည့်ခွင့် ပေးပါတယ်။
 
 အခြေခံ Video Tag:
 
@@ -24,19 +24,19 @@ import format from '@/assets/html/format.png'
 </video>
 ```
 <br/>
-- `<video>`: Video ထည့်သွင်းဖို့သုံးတဲ့ tag ပါ။
+- `<video>`: Video ထည့်သွင်းဖို့ သုံးတဲ့ Tag ပါ။
 
 - **`width` and `height`**: Video player ရဲ့ အရွယ်အစားကို သတ်မှတ်ပေးပါတယ်။
 
-- `controls`: အခြေခံ video control တွေ (play, pause, volume) ကို ထည့်ပေးပါတယ်။
+- `controls`: Video အတွက် လိုအပ်တဲ့ အခြေခံ Control တွေ (Play, Pause, Volume) ကို ထည့်ပေးပါတယ်။
 
-- `<source>`: Video file နဲ့ သူ့ရဲ့ format ကို သတ်မှတ်ပေးပါတယ်။ Format မတူတဲ့ source မျိုးစုံ (ဥပမာ .mp4, .webm) ထည့်ပေးနိုင်ပါတယ်။
+- `<source>`: Video file နဲ့ သူ့ရဲ့ Format ကို သတ်မှတ်ပေးပါတယ်။ Format မတူတဲ့ Source မျိုးစုံ (ဥပမာ .mp4, .webm) တွဲပြီး ထည့်ပေးထားနိုင်ပါတယ်။
 
 #### ဘာကြောင့် Source မျိုးစုံ သုံးရတာလဲ?
-Browser တစ်ခုနဲ့တစ်ခုက video format တွေ support လုပ်တာ မတူကြပါဘူး။ Source မျိုးစုံထည့်ပေးထားတော့ browser အားလုံးမှာ အလုပ်လုပ်တာ သေချာသွားတာပေါ့။
+Browser တစ်ခုနဲ့တစ်ခုက Video format တွေ Support လုပ်တာ မတူညီကြပါဘူး။ Source မျိုးစုံကို ထည့်ပေးထားခြင်းအားဖြင့် Browser အားလုံးမှာ အလုပ်လုပ်တာ သေချာသွားတာပေါ့။
 
 ### Audio များ ထည့်သွင်းခြင်း
-`<audio>` tag ကို ခင်ဗျားရဲ့ webpage ထဲကို audio file တွေ (သီချင်း၊ podcast၊ sound effect တွေလိုမျိုး) ထည့်ဖို့ သုံးပါတယ်။
+`<audio>` tag ကို ခင်ဗျားရဲ့ Webpage ထဲမှာ Audio file တွေ (သီချင်း၊ Podcast၊ Sound effect တွေလိုမျိုး) ထည့်သွင်းဖို့ သုံးပါတယ်။
 
 အခြေခံ Audio Tag:
 ```html
@@ -45,29 +45,29 @@ Browser တစ်ခုနဲ့တစ်ခုက video format တွေ suppor
   Your browser does not support the audio element.
 </audio>
 ```
-- `<audio>`: Audio file ထည့်သွင်းဖို့သုံးတဲ့ tag ပါ။
+- `<audio>`: Audio file ထည့်သွင်းဖို့ သုံးတဲ့ Tag ပါ။
 
-- `controls`: Play, pause, volume လိုမျိုး audio control တွေကို ထည့်ပေးပါတယ်။
+- `controls`: Play, Pause, Volume လိုမျိုး Audio control တွေကို ထည့်ပေးပါတယ်။
 
-- `<source>`: Audio file နဲ့ သူ့ရဲ့ format (ဥပမာ .mp3, .ogg) ကို သတ်မှတ်ပေးပါတယ်။
+- `<source>`: Audio file နဲ့ သူ့ရဲ့ Format (ဥပမာ .mp3, .ogg) ကို သတ်မှတ်ပေးပါတယ်။
 
-### Media File များအတွက် အကောင်းဆုံးအလေ့အကျင့်များ
-ခင်ဗျားရဲ့ website မှာ ပုံ၊ video, audio တွေသုံးတဲ့အခါ၊ အောက်ပါအကောင်းဆုံးအလေ့အကျင့်တွေကို ထည့်သွင်းစဉ်းစားသင့်ပါတယ်-
+### Media File များအတွက် အကောင်းဆုံး လက်တွေ့အသုံးချနည်းများ
+ခင်ဗျားရဲ့ Website မှာ ပုံ၊ Video, Audio တွေ သုံးတဲ့အခါ၊ အောက်ပါ အကောင်းဆုံး အလေ့အကျင့်တွေကို ထည့်သွင်း စဉ်းစားသင့်ပါတယ်-
 
-- **ပုံ Size တွေကို Optimize လုပ်ပါ -** ပုံအကြီးကြီးတွေက ခင်ဗျားရဲ့ website ကို နှေးကွေးစေနိုင်ပါတယ်။ အရည်အသွေးနဲ့ file size မျှတအောင် ပုံတွေကို အမြဲ compress လုပ်ပါ။
+- **ပုံ Size တွေကို Optimize လုပ်ပါ -** ပုံအကြီးကြီးတွေက ခင်ဗျားရဲ့ Website ကို အရမ်း နှေးကွေးသွားစေနိုင်ပါတယ်။ အရည်အသွေးနဲ့ File size မျှတအောင် ပုံတွေကို အမြဲတမ်း Compress လုပ်ပေးပါ။
 
-- **Responsive Media ကို သုံးပါ -** ခင်ဗျားရဲ့ media file တွေက မတူညီတဲ့ screen size တွေအလိုက် အလိုက်သင့်ပြောင်းလဲသွားအောင် Responsive CSS တွေကို သုံးပါ။
+- **Responsive Media ကို သုံးပါ -** ခင်ဗျားရဲ့ Media file တွေက မတူညီတဲ့ Screen size တွေအလိုက် အလိုက်သင့် ပြောင်းလဲသွားအောင် Responsive CSS တွေကို အသုံးပြုပါ။
 
-- **စာသားဖြင့် အစားထိုးဖော်ပြချက်တွေ ထည့်ပေးပါ -** Accessibility အတွက် ပုံတွေမှာ alt text ကို အမြဲသုံးပါ။ Video နဲ့ audio တွေအတွက်တော့ transcripts ဒါမှမဟုတ် captions တွေ ထည့်ပေးဖို့ စဉ်းစားပါ။
+- **စာသားဖြင့် အစားထိုး ဖော်ပြချက်တွေ ထည့်ပေးပါ -** Accessibility အတွက် ပုံတွေမှာ alt text ကို အမြဲသုံးပါ။ Video နဲ့ Audio တွေအတွက်တော့ Transcripts ဒါမှမဟုတ် Captions တွေ ထည့်ပေးဖို့ စဉ်းစားပါ။
 
-- **Browser တွေမှာ အဆင်ပြေအောင်လုပ်ပါ -** Video နဲ့ audio တွေ browser အားလုံးမှာ အလုပ်လုပ်တာသေချာအောင် format မျိုးစုံသုံးပါ။
+- **Browser တွေမှာ အဆင်ပြေအောင် လုပ်ပါ -** Video နဲ့ Audio တွေ Browser အားလုံးမှာ အဆင်ပြေပြေ အလုပ်လုပ်တာ သေချာအောင် Format မျိုးစုံကို တွဲသုံးပေးပါ။
 
 <Aside type="tip" title="အကျဉ်းချုပ်">
-- **ပုံများ -** `<img>` tag ကို **src နဲ့ alt** တို့နဲ့အတူ သုံးပါတယ်။
+- **ပုံများ -** `<img>` tag ကို **src နဲ့ alt** တို့နဲ့အတူ အမြဲ သုံးပါတယ်။
 
-- **Video -** `<video>` tag နဲ့ video တွေကို ထည့်သွင်းနိုင်ပြီး၊ browser compatibility အတွက် source မျိုးစုံ ပေးနိုင်ပါတယ်။
+- **Video -** `<video>` tag နဲ့ Video တွေကို ထည့်သွင်းနိုင်ပြီး၊ Browser အားလုံး အဆင်ပြေအောင် Source မျိုးစုံ ပေးနိုင်ပါတယ်။
 
-- **Audio -** `<audio>` tag ကိုသုံးပြီး audio တွေထည့်သွင်းနိုင်ပါတယ်၊ video တွေလိုပဲ format မျိုးစုံသုံးနိုင်ပါတယ်။
+- **Audio -** `<audio>` tag ကိုသုံးပြီး Audio တွေ ထည့်သွင်းနိုင်ပါတယ်၊ Video တွေလိုပဲ Format မျိုးစုံ သုံးနိုင်ပါတယ်။
 
-- **အလေ့အကျင့်‌ကောင်းများ -** Media တွေကို မြန်မြန် load ဖြစ်အောင် optimize လုပ်ပါ၊ accessibility အတွက် စာသားဖော်ပြချက်တွေ ရေးပါ၊ ပြီးတော့ device မျိုးစုံအတွက် responsive ဖြစ်အောင်လုပ်ပါ။
+- **အလေ့အကျင့်‌ကောင်းများ -** Media တွေကို မြန်မြန် Load ဖြစ်အောင် Optimize လုပ်ပါ၊ Accessibility အတွက် စာသားဖော်ပြချက်တွေ ရေးပါ၊ ပြီးတော့ Device မျိုးစုံအတွက် Responsive ဖြစ်အောင် လုပ်ပေးပါ ခင်ဗျာ။
 </Aside>
