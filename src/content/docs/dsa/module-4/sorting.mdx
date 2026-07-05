@@ -10,12 +10,14 @@ import { Aside } from "@astrojs/starlight/components";
 Data တွေကို ငယ်စဉ်ကြီးလိုက် (သို့) ကြီးစဉ်ငယ်လိုက် စီချင်တဲ့အခါ ဘယ်လို စီမလဲ?
 
 ### The Bad: Bubble Sort
+
 ဒါကတော့ အူကြောင်ကြောင် အနိုင်ဆုံး နည်းလမ်းပါ။
 ဘေးချင်းကပ်နေတဲ့ နှစ်ခုကို ယှဉ်မယ်။ နေရာမှားနေရင် လဲမယ် (Swap)။ ဒီလိုမျိုး အစအဆုံး အကြိမ်ကြိမ် လုပ်မယ်။
 -   အရမ်းနှေးတယ်။ ($O(n^2)$)
 -   လေ့လာသင်ယူဖို့အတွက်ပဲ ကောင်းတယ်။ လက်တွေ့ မသုံးသင့်ဘူး။
 
 ### The Good: Merge Sort & Quick Sort
+
 ဒါတွေက **"Divide and Conquer" (ခွဲထုတ်ပြီးမှ အုပ်ချုပ်သည်)** ဗျူဟာကို သုံးပါတယ်။
 -   စာရင်းအကြီးကြီးကို အပိုင်းသေးသေးလေးတွေ အရင်ခွဲလိုက်တယ်။
 -   အပိုင်းသေးလေးတွေကို အရင်စီတယ်။
@@ -24,15 +26,17 @@ Data တွေကို ငယ်စဉ်ကြီးလိုက် (သို
 ဒါဆိုရင် အများကြီး ပိုမြန်သွားပါတယ်။ ($O(n \log n)$)
 
 ### The Cheat Code
-Programming Language တိုင်းမှာ `array.sort()` ဆိုပြီး ပါလာတတ်ပါတယ်။
+
+Programming Languages တိုင်းမှာ `array.sort()` ဆိုပြီး ပါလာတတ်ပါတယ်။
 ဒါတွေက နောက်ကွယ်မှာ အမြန်ဆုံး Algorithm (ဥပမာ Timsort - Python/Java, QuickSort - JS V8 Engine) တွေကို သုံးပေးထားတာပါ။
-လက်တွေ့ဘဝမှာတော့ ကိုယ်တိုင် Bubble Sort ရေးနေစရာ မလိုပါဘူး။ Built-in Function တွေကို ဘယ်အချိန် သုံးရမလဲ သိဖို့က ပိုအရေးကြီးပါတယ်။
+လက်တွေ့ဘဝမှာတော့ ကိုယ်တိုင် Bubble Sort ရေးနေစရာ မလိုပါဘူး။ Built-in Functions တွေကို ဘယ်အချိန် သုံးရမလဲ သိဖို့က ပိုအရေးကြီးပါတယ်။
 
 <Aside title="Stability">
-Sorting မှာ **Stable** ဖြစ်တယ်ဆိုတာ တန်ဖိုးတူတဲ့ Item တွေရဲ့ မူလရှေ့နောက် အစီအစဉ် မပျက်သွားတာကို ပြောတာပါ။ (ဥပမာ - နာမည်နဲ့ အရင်စီထားပြီးသား စာရင်းကို အသက်နဲ့ ထပ်စီတဲ့အခါ၊ အသက်တူရင် နာမည်အစီအစဉ် မပျက်သွားတာမျိုးပေါ့။) Merge Sort က Stable ဖြစ်ပြီး၊ Quick Sort က ပုံမှန်အားဖြင့် မဖြစ်ပါဘူး။
+Sorting မှာ **Stable** ဖြစ်တယ်ဆိုတာ တန်ဖိုးတူတဲ့ Items တွေရဲ့ မူလရှေ့နောက် အစီအစဉ် မပျက်သွားတာကို ပြောတာပါ။ (ဥပမာ - နာမည်နဲ့ အရင်စီထားပြီးသား စာရင်းကို အသက်နဲ့ ထပ်စီတဲ့အခါ၊ အသက်တူရင် နာမည်အစီအစဉ် မပျက်သွားတာမျိုးပေါ့။) Merge Sort က Stable ဖြစ်ပြီး၊ Quick Sort က ပုံမှန်အားဖြင့် မဖြစ်ပါဘူး။
 </Aside>
 
-### Visual Guides
+## Visual Guides
+
 ![Bubble Sort Pass-by-Pass](../../../../assets/dsa/bubble-sort-pass-by-pass.svg)
 ![Divide & Conquer Split/Merge Diagram](../../../../assets/dsa/divide-conquer-split-merge-diagram.svg)
 ![Runtime Comparison Chart](../../../../assets/dsa/runtime-comparison-chart.svg)

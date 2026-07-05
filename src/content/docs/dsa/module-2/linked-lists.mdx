@@ -11,6 +11,7 @@ Array နဲ့ မတူတာက Linked List က Memory မှာ တစ်ဆ
 နေရာအနှံ့ ကြဲဖြန့်နေနိုင်တယ်။ တစ်ခုနဲ့ တစ်ခု **Link (ချိတ်ဆက်မှု)** လေးတွေနဲ့ ဆွဲထားကြတာပါ။
 
 ### Visual Analogy: A Scavenger Hunt
+
 Array က စာအုပ်စင်တစ်ခုလို တစ်စုတစ်စည်းတည်း ရှိတယ်။
 Linked List ကတော့ "ရတနာသိုက်ရှာပုံတော်" (Scavenger Hunt) နဲ့ တူပါတယ်။
 -   ပထမ သဲလွန်စကို တွေ့မယ်။
@@ -18,18 +19,20 @@ Linked List ကတော့ "ရတနာသိုက်ရှာပုံတေ
 -   ဒုတိယ နေရာရောက်မှ တတိယ နေရာကို သိမယ်။
 
 ### Singly vs. Doubly Linked Lists
+
 1.  **Singly Linked List:**
     -   ရှေ့ကိုပဲ သွားလို့ရမယ်။ (Head -> Next -> Next -> Null)
     -   နောက်ပြန် လှည့်လို့မရဘူး။
 2.  **Doubly Linked List:**
     -   ရှေ့ရော နောက်ရော သွားလို့ရမယ်။ (`Prev -> Node -> Next` ကို နှစ်ဖက်လုံး ပြန်သွားလို့ရတဲ့ သဘော)
-    -   Memory ပိုစားမယ် (Pointer နှစ်ခု မှတ်ရလို့)။
+    -   Memory ပိုစားမယ် (Pointers နှစ်ခု မှတ်ရလို့)။
 
 ![Singly vs Doubly Diagram](../../../../assets/dsa/singly-vs-doubly-linked-list.svg)
 
 ![Memory Scatter Illustration](../../../../assets/dsa/memory-scatter-illustration.svg)
 
 ### Project: Music Playlist
+
 သီချင်း Playlist တစ်ခု တည်ဆောက်မယ်ဆိုပါစို့။
 -   **Playing Now:** လက်ရှိ Node
 -   **Next/Skip:** `Next` Pointer ကို သွားမယ်။
@@ -40,6 +43,6 @@ Linked List ကတော့ "ရတနာသိုက်ရှာပုံတေ
 
 <Aside title="Pros & Cons">
 -   **Good:** Insert/Delete (နေရာသိရင်) အရမ်းမြန်တယ်။ Size အရှင် (Dynamic) ဖြစ်တယ်။
--   **Bad:** Random Access မရဘူး။ `arr[50]` လို တန်းခေါ်မရဘဲ၊ ထိပ်ဆုံးကနေ ၅၀ ကြိမ်မြောက်အထိ တဆင့်ချင်း သွားရတယ်။
+-   **Bad:** Random Access မရဘူး။ `arr[50]` လို တန်းခေါ်လို့မရဘဲ၊ ထိပ်ဆုံးကနေ ၅၀ ကြိမ်မြောက်အထိ တစ်ဆင့်ချင်း သွားရတယ်။
 </Aside>
 

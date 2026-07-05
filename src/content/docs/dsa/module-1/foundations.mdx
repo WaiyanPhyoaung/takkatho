@@ -7,12 +7,13 @@ import { Aside } from "@astrojs/starlight/components";
 
 ## The "Big O" Made Simple
 
-Programmer တိုင်း ပါးစပ်ဖျားမှာ ရေပန်းစားတဲ့ **Big O Notation** ဆိုတာ ဘာကြီးလဲ?
+Programmer တိုင်း ပါးစပ်ဖျားမှာ ရေပန်းစားတဲ့ Big O Notation ဆိုတာ ဘာကြီးလဲ?
 ရိုးရိုးလေး ပြောရရင် **"Data တွေ များလာရင် ငါ့ Code က ဘယ်လောက် ပိုနှေးသွားမလဲ?"** ဆိုတာကို တိုင်းတာတဲ့ ပေတံ တစ်ခုပါပဲ။
 
 ![Big O Growth Comparison](../../../../assets/dsa/big-o-growth.svg)
 
 ### Time vs. Space Complexity
+
 Code ကောင်း တစ်ပုဒ်ဖြစ်ဖို့ အချက် (၂) ချက်နဲ့ တိုင်းတာပါတယ်-
 1.  **Time Complexity:** ဘယ်လောက် ကြာမလဲ? (Speed)
 2.  **Space Complexity:** Memory ဘယ်လောက် စားမလဲ? (Storage)
@@ -29,7 +30,8 @@ Loop နှစ်ထပ် (Nested Loop) ပတ်ထားတဲ့ Code မျ
 </Aside>
 
 ### Activity: Race!
-1,000,000 Data ရှိတဲ့ Array တစ်ခုထဲမှာ `x` ပါလား ရှာကြည့်တဲ့အခါ Linear Search (တစ်လုံးချင်းရှာ) နဲ့ Binary Search (ထက်ဝက်ချိုးရှာ) တို့ရဲ့ ကွာခြားချက်ကို လက်တွေ့ စမ်းသပ်ကြည့်သင့်ပါတယ်။
+
+1,000,000 Data ရှိတဲ့ Array တစ်ခုထဲမှာ `x` ပါသလား ရှာကြည့်တဲ့အခါ Linear Search (တစ်လုံးချင်းရှာ) နဲ့ Binary Search (ထက်ဝက်ချိုးရှာ) တို့ရဲ့ ကွာခြားချက်ကို လက်တွေ့ စမ်းသပ်ကြည့်သင့်ပါတယ်။
 
 ![Linear Search vs Binary Search Race](../../../../assets/dsa/search-race-linear-vs-binary.svg)
 
@@ -37,9 +39,10 @@ Loop နှစ်ထပ် (Nested Loop) ပတ်ထားတဲ့ Code မျ
 
 ## Memory Management 101
 
-ကျွန်တော်တို့ ဖန်တီးလိုက်တဲ့ Variable တွေ၊ Object တွေက ကွန်ပျူတာရဲ့ ဘယ်နားမှာ သွားနေလဲ?
+ကျွန်တော်တို့ ဖန်တီးလိုက်တဲ့ Variables တွေ၊ Objects တွေက ကွန်ပျူတာရဲ့ ဘယ်နားမှာ သွားနေလဲ?
 
 ### Stack vs. Heap
+
 Memory မှာ အဓိက (၂) နေရာရှိတယ်။
 
 1.  **Stack:**
@@ -49,10 +52,11 @@ Memory မှာ အဓိက (၂) နေရာရှိတယ်။
 
 2.  **Heap:**
     -   မောင်ပိုင်စီးထားတဲ့ နေရာလွတ်ကြီးလိုပဲ။
-    -   Object တွေ၊ Array အကြီးကြီးတွေ ဒီမှာသိမ်းတယ်။
-    -   Stack လောက် မမြန်ဘူး။ ဒါပေမယ့် နေရာအများကြီးရတယ်။
+    -   Objects တွေ၊ Arrays အကြီးကြီးတွေ ဒီမှာသိမ်းတယ်။
+    -   Stack လောက် မမြန်ဘူး။ ဒါပေမဲ့ နေရာအများကြီးရတယ်။
 
 ### Pointers Explained
+
 **Pointer** ဆိုတာ လိပ်စာကတ်ပြားလေး တစ်ခုပါပဲ။
 `var a = [1, 2, 3]` လို့ ကြေညာလိုက်ရင် `a` ဆိုတဲ့ နာမည်က Stack ပေါ်မှာ ရှိမယ်။ တကယ့် Data `[1, 2, 3]` က Heap ပေါ်မှာ ရှိမယ်။ `a` က Heap ပေါ်က လိပ်စာကိုပဲ ညွှန်ပြ (Point) ပေးထားတာပါ။
 
