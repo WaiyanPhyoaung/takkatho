@@ -37,31 +37,31 @@ const myAppConfig = {
 `
 
 <Aside title="ရည်ရွယ်ချက်" type="tip">
-  satisfies က ဘယ်ပြဿနာကို ဖြေရှင်းပေးလဲဆိုတာ ရိုးရှင်းစွာ နားလည်ဖို့၊ သူ့ရဲ့
+  `satisfies` က ဘယ်ပြဿနာကို ဖြေရှင်းပေးသလဲဆိုတာ ရိုးရှင်းစွာ နားလည်ဖို့၊ သူ့ရဲ့
   အသုံးပြုပုံကို သိဖို့နဲ့ ပိုပြီး တိကျတဲ့ Code တွေ ရေးတတ်ဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
-### Type သတ်မှတ်ရာမှာ အသေးစိတ် အချက်အလက်တွေ ပျောက်ဆုံးသွားခြင်း
+## Type သတ်မှတ်ရာမှာ အသေးစိတ် အချက်အလက်တွေ ပျောက်ဆုံးသွားခြင်း
 
 <Aside title="ရည်ရွယ်ချက်" type="tip">
-  Type Annotation (:) ကို သုံးတဲ့အခါ Object တွေရဲ့ အထဲက အသေးစိတ် အချက်အလက်တွေ
-  ဘာလို့ ပျောက်သွားလဲ၊ ပြီးတော့ အဲဒီအချက်အလက်တွေကို ပြန်သုံးဖို့ ဘာလို့
-  ခက်သွားလဲဆိုတာ နားလည်ဖို့ ဖြစ်ပါတယ်။
+  Type Annotation (`:`) ကို သုံးတဲ့အခါ Object တွေရဲ့ အထဲက အသေးစိတ် အချက်အလက်တွေ
+  ဘာလို့ ပျောက်သွားသလဲ၊ ပြီးတော့ အဲဒီအချက်အလက်တွေကို ပြန်သုံးဖို့ ဘာလို့
+  ခက်သွားသလဲဆိုတာ နားလည်ဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
 ### Typed object တစ်ခု သတ်မှတ်ခြင်း
 
-ကျွန်တော်တို့ App တွေမှာ objects တွေ အများကြီး လုပ်ရတာ များတယ်။ အဲဒီ objects တွေက သတ်မှတ်ထားတဲ့ general structure နဲ့ ကိုက်ညီ ရတယ်။ ဥပမာ application အတွက် configuration object လိုမျိုးပေါ့။
+ကျွန်တော်တို့ App တွေမှာ Objects တွေ အများကြီး ဖန်တီးရလေ့ ရှိပါတယ်။ အဲဒီ Objects တွေက သတ်မှတ်ထားတဲ့ General Structure နဲ့ ကိုက်ညီဖို့ လိုအပ်ပါတယ်။ ဥပမာ - Application အတွက် Configuration Object လိုမျိုးပေါ့ ခင်ဗျာ။
 
 <Code lang="typescript" code={appConfig} title="config.ts" />
 
-အခု အဲဒီ interface နဲ့ ကိုက်ညီတဲ့ အတိအကျ configuration တစ်ခုကို create လုပ်ကြည့်ရအောင်။
+အခု အဲဒီ Interface နဲ့ ကိုက်ညီတဲ့ အတိအကျ Configuration တစ်ခုကို Create လုပ်ကြည့်ရအောင်။
 
 <Code lang="typescript" code={configObj} title="config.ts" />
 
 <Aside title="ရှင်းပြချက်">
-  TypeScript က myAppConfig ကို ကြည့်လိုက်တာနဲ့ env က development ဆိုတာ၊
-  featureFlags ထဲမှာ darkMode တို့ ပါတယ်ဆိုတာ အတိအကျ သိတယ်။
+  TypeScript က `myAppConfig` ကို ကြည့်လိုက်တာနဲ့ `env` က `"development"` ဆိုတာ၊
+  `featureFlags` ထဲမှာ `darkMode` တို့ ပါတယ်ဆိုတာကို အတိအကျ သိပါတယ် ခင်ဗျာ။
 </Aside>
 
 ### Video Lesson

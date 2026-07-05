@@ -102,45 +102,42 @@ console.log(lastString); // Output: "second"
 
 ## Generic Functions
 
-Generics က ခုနက ပြောခဲ့တဲ့ Identity Function လို ရိုးရိုးလေးတွေတင်မကပါဘူး။ တခြား Function အမျိုးမျိုးမှာလည်း သုံးလို့ရတယ်။ ဥပမာအနေနဲ့ Data တစ်ခုခုကို လက်ခံပြီး အဲဒီ Data တစ်ခုတည်း ပါဝင်တဲ့ array တစ်ခု ပြန်ထုတ်ပေးမယ့် Function လေးတစ်ခု ရေးကြည့်ရအောင်။
+Generics က ခုနက ပြောခဲ့တဲ့ Identity Function လို ရိုးရိုးလေးတွေတင်မကပါဘူး။ တခြား Function အမျိုးမျိုးမှာလည်း သုံးလို့ရပါတယ်။ ဥပမာအနေနဲ့ Data တစ်ခုခုကို လက်ခံပြီး အဲဒီ Data တစ်ခုတည်း ပါဝင်တဲ့ Array တစ်ခု ပြန်ထုတ်ပေးမယ့် Function လေးတစ်ခု ရေးကြည့်ရအောင်။
 
 <Code code={code} lang="typescript" title="index.ts" />
 
 <Aside title="မှတ်ချက်">
-  ဒီ wrapInArray Function မှာဆိုရင်လည်း Generic Type T ကို သုံးထားတာ တွေ့ရပါမယ်။
-  Function ကို ခေါ်လိုက်တဲ့အခါ ကျွန်တော်တို့ ထည့်လိုက်တဲ့ input Data ရဲ့ Type
-  ကို ကြည့်ပြီး TypeScript က T က ဘာလဲဆိုတာကို သူဘာသာသူ မှန်းသိသွားတယ်။ Function
-  က ပြန်ထုတ်ပေးမယ့် Type ကိုတော့ T[] (အဲဒီ Type T ရဲ့ array) လို့ တိတိကျကျ
-  သတ်မှတ်ပေးထားတယ်။ ဒီလို Generic သုံးထားတော့ Function တစ်ခုတည်းနဲ့ မတူညီတဲ့
-  Data Type တွေရဲ့ array တွေကို လွယ်လွယ် ဖန်တီးလို့ ရသွားပြီပေါ့။ ပြန်လည်
-  အသုံးပြုလို့ရတယ် (Reusable) ဖြစ်သွားပြီ။
+  ဒီ `wrapInArray` Function မှာဆိုရင်လည်း Generic Type `T` ကို သုံးထားတာ တွေ့ရပါမယ်။
+  Function ကို ခေါ်လိုက်တဲ့အခါ ကျွန်တော်တို့ ထည့်လိုက်တဲ့ Input Data ရဲ့ Type
+  ကို ကြည့်ပြီး TypeScript က `T` ဟာ ဘာလဲဆိုတာကို သူ့ဘာသာသူ မှန်းသိသွားပါတယ်။ Function
+  က ပြန်ထုတ်ပေးမယ့် Type ကိုတော့ `T[]` (အဲဒီ Type `T` ရဲ့ Array) လို့ တိတိကျကျ
+  သတ်မှတ်ပေးထားတယ်။ ဒီလို Generic သုံးထားတော့ Function တစ်ခုတည်းနဲ့တင် မတူညီတဲ့
+  Data Type တွေရဲ့ Array တွေကို လွယ်လွယ် ဖန်တီးလို့ ရသွားပြီပေါ့။ ပြန်လည်
+  အသုံးပြုလို့ရတဲ့ (Reusable) Code ဖြစ်သွားတာပါပဲ ခင်ဗျာ။
 </Aside>
 
 ## Generic Interfaces
 
-Interfaces တွေက object တွေရဲ့ ပုံစံ (shape) ကို သတ်မှတ်ပေးတယ်ဆိုတာ သိထားပြီးသားနော်။ ဒီ Interface တွေရဲ့ ပုံစံကိုလည်း Generics သုံးပြီး ပိုပြီး လိုက်လျောညီထွေ ဖြစ်အောင် လုပ်လို့ရတယ်။ API ကနေ ပြန်လာတဲ့ Response တွေအတွက် Standard ပုံစံတစ်ခု သတ်မှတ်တာက Generic Interface ရဲ့ အကောင်းဆုံး ဥပမာတစ်ခုပဲ။
+Interfaces တွေက Object တွေရဲ့ ပုံစံ (Shape) ကို သတ်မှတ်ပေးတယ်ဆိုတာ သိထားပြီးသားနော်။ ဒီ Interface တွေရဲ့ ပုံစံကိုလည်း Generics သုံးပြီး ပိုပြီး လိုက်လျောညီထွေ ဖြစ်အောင် လုပ်လို့ရပါတယ်။ API ကနေ ပြန်လာတဲ့ Response တွေအတွက် Standard ပုံစံတစ်ခု သတ်မှတ်တာက Generic Interface ရဲ့ အကောင်းဆုံး ဥပမာတစ်ခုပါပဲ။
 
 <Code code={code2} lang="typescript" title="service.ts" />
 
 <br />
 
 <Aside title="မှတ်ချက်">
-  {`ApiResponse<DataType> လို့ Generic Interface တစ်ခုတည်း ရေးလိုက်ရုံနဲ့ API ကနေ User Data ပြန်လာရင် ApiResponse<User> လို့ သုံး၊ Product Data ပြန်လာရင် ApiResponse<Product> လို့ သုံး၊ Product Array ပြန်လာရင် ApiResponse<Product[]> လို့ သုံး... စသဖြင့် လိုအပ်တဲ့ Data Type ကို DataType နေရာမှာ အစားထိုးပြီး သုံးသွားလို့ရပြီ။ UserApiResponse, ProductsApiResponse စသဖြင့် Interface တွေ အများကြီး ထပ်လုပ်နေစရာ မလိုတော့ဘူး။ ဒါက API Response တွေကို ကိုင်တွယ်တဲ့နေရာမှာ ပုံစံတူညီစေပြီး Type မှန်ကန်စိတ်ချရစေတယ်။`}
+  {`ApiResponse<DataType> လို့ Generic Interface တစ်ခုတည်း ရေးလိုက်ရုံနဲ့ API ကနေ User Data ပြန်လာရင် ApiResponse<User> လို့ သုံး၊ Product Data ပြန်လာရင် ApiResponse<Product> လို့ သုံး၊ Product Array ပြန်လာရင် ApiResponse<Product[]> လို့ သုံး... စသဖြင့် လိုအပ်တဲ့ Data Type ကို DataType နေရာမှာ အစားထိုးပြီး သုံးသွားလို့ ရပါပြီ။ UserApiResponse, ProductsApiResponse စသဖြင့် Interface တွေ အများကြီး ထပ်လုပ်နေစရာ မလိုတော့ဘူးပေါ့ ခင်ဗျာ။ ဒါက API Response တွေကို ကိုင်တွယ်တဲ့နေရာမှာ ပုံစံတူညီစေပြီး Type မှန်ကန်စိတ်ချရစေပါတယ်။`}
 </Aside>
 
 ## Generic Classes
 
-Classes တွေမှာလည်း Generics ကို သုံးလို့ရတယ်။ ဥပမာအားဖြင့် Data တွေကို အစီအစဉ်အတိုင်း ထည့်သွင်းပြီး နောက်ဆုံးမှ ထည့်တဲ့ Data ကို အရင်ဆုံး ပြန်ထုတ်ယူရတဲ့ Data Structure တစ်ခုဖြစ်တဲ့ Stack (Last-In, First-Out) ရိုးရိုးလေးတစ်ခုကို Class နဲ့ တည်ဆောက်ကြည့်ရအောင်။
+Classes တွေမှာလည်း Generics ကို သုံးလို့ ရပါတယ်။ ဥပမာအားဖြင့် Data တွေကို အစီအစဉ်အတိုင်း ထည့်သွင်းပြီး နောက်ဆုံးမှ ထည့်တဲ့ Data ကို အရင်ဆုံး ပြန်ထုတ်ယူရတဲ့ Data Structure တစ်ခုဖြစ်တဲ့ Stack (Last-In, First-Out) ရိုးရိုးလေးတစ်ခုကို Class နဲ့ တည်ဆောက်ကြည့်ရအောင်။
 
 <Code code={classGenerics} lang="typescript" title="Stack.ts" />
 
 <br />
 
 <Aside title="မှတ်ချက်">
-  {`Stack<ElementType> Class ကို Generic ဖြစ်အောင် ရေးလိုက်တော့ ဒီ Class က ဘယ် Type ရဲ့ Data တွေကိုမဆို ထိန်းသိမ်းထားနိုင်သွားပြီ။ ဘယ် Type ကို ထိန်းသိမ်းမလဲဆိုတာကို new Stack<number>() ဒါမှမဟုတ် new Stack<string>() လိုမျိုး Object အသစ် ဖန်တီးတဲ့အချိန်မှာ သတ်မှတ်ပေးလိုက်ရုံပဲ။`}
+  {`Stack<ElementType> Class ကို Generic ဖြစ်အောင် ရေးလိုက်တော့ ဒီ Class က ဘယ် Type ရဲ့ Data တွေကိုမဆို ထိန်းသိမ်းထားနိုင်သွားပါပြီ။ ဘယ် Type ကို ထိန်းသိမ်းမလဲဆိုတာကို new Stack<number>() ဒါမှမဟုတ် new Stack<string>() လိုမျိုး Object အသစ် ဖန်တီးတဲ့အချိန်မှာ သတ်မှတ်ပေးလိုက်ရုံပါပဲ ခင်ဗျာ။`}
 </Aside>
 
-> Class ထဲက Method တွေဖြစ်တဲ့ push, pop, peek တွေ အားလုံးကလည်း အဲဒီ သတ်မှတ်လိုက်တဲ့
-> ElementType Type အတိုင်းပဲ အလုပ်လုပ်တော့ Type Safety ကို သေချာစေတယ်။ numberStack
-> ထဲကို string သွားထည့်လို့ မရဘူး၊ stringStack ထဲကို number သွားထည့်လို့ မရဘူး။ ဒါကြောင့်
-> Code တွေ ပိုစိတ်ချရပြီး ပြန်သုံးရ ပိုလွယ်လာတာပေါ့။
+> Class ထဲက Method တွေဖြစ်တဲ့ `push`, `pop`, `peek` တွေ အားလုံးကလည်း အဲဒီ သတ်မှတ်လိုက်တဲ့ `ElementType` Type အတိုင်းပဲ အလုပ်လုပ်တော့ Type Safety ကို သေချာစေပါတယ်။ `numberStack` ထဲကို `string` သွားထည့်လို့ မရဘူး၊ `stringStack` ထဲကို `number` သွားထည့်လို့ မရဘူးပေါ့။ ဒါကြောင့် Code တွေ ပိုစိတ်ချရပြီး ပြန်သုံးရတာ ပိုလွယ်လာတာ ဖြစ်ပါတယ် ခင်ဗျာ။

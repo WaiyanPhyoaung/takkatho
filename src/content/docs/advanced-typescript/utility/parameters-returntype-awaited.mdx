@@ -56,38 +56,37 @@ displayUser();
 };`
 
 <Aside title="ရည်ရွယ်ချက်" type="tip">
-  Function တွေနဲ့ Promise တွေဆီကနေ Type အချက်အလက်တွေကို ထုတ်ယူပေးတဲ့ Utility
-  Type တွေကို သုံးတတ်အောင် သင်ယူဖို့ ဖြစ်ပါတယ်။
+  Functions တွေနဲ့ Promises တွေဆီကနေ Type အချက်အလက်တွေကို ထုတ်ယူပေးတဲ့ Utility Types တွေကို သုံးတတ်အောင် သင်ယူဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
-### Parameters\<T>: Function ရဲ့ Parameter Type တွေကို ရယူခြင်း
+## `Parameters<T>`: Function ရဲ့ Parameter Types တွေကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးလဲ**: Parameters\<Type> က Function တစ်ခုရဲ့ Parameter တွေရဲ့ Type တွေကို tuple (အစဉ်လိုက် စုစည်းထားတဲ့) Type တစ်ခုအနေနဲ့ လုပ်ပေးတယ်။
-- **ဘယ်လို သုံးမလဲ**: Parameters\<typeof myFunction> (မှတ်ချက်: typeof ကို Function ကိုယ်တိုင်ရဲ့ Type ကို ရယူဖို့ သုံးတာပါ)
+- **ဘာလုပ်ပေးသလဲ**: `Parameters<Type>` က Function တစ်ခုရဲ့ Parameters တွေရဲ့ Types တွေကို Tuple (အစဉ်လိုက် စုစည်းထားတဲ့) Type တစ်ခုအနေနဲ့ လုပ်ပေးပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `Parameters<typeof myFunction>` (မှတ်ချက်: `typeof` ကို Function ကိုယ်တိုင်ရဲ့ Type ကို ရယူဖို့ သုံးတာပါ)
 
 <Code lang="typescript" code={parameters} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**:Function တွေကို ထပ်ဆင့်ခေါ်တဲ့ Higher-Order Function တွေ၊ Decorator တွေလိုမျိုးမှာ အသုံးဝင်တယ်။ ဒါမှမဟုတ် တခြား Function တစ်ခုရဲ့ Signature ကို လိုက်ပြီး Function အသစ်တစ်ခု လုပ်ချင်တဲ့အခါ၊ ဒါမှမဟုတ် Parameter တွေကို Type ပါတဲ့ tuple အဖြစ် သိမ်းထားချင်တဲ့အခါမျိုးမှာ သုံးနိုင်တယ်။
+- **ဘယ်အခါသုံးမလဲ**: Functions တွေကို ထပ်ဆင့်ခေါ်တဲ့ Higher-Order Functions တွေ၊ Decorators တွေလိုမျိုးမှာ အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် တခြား Function တစ်ခုရဲ့ Signature ကို လိုက်ပြီး Function အသစ်တစ်ခု လုပ်ချင်တဲ့အခါ၊ ဒါမှမဟုတ် Parameters တွေကို Type ပါတဲ့ Tuple အဖြစ် သိမ်းထားချင်တဲ့အခါမျိုးမှာ သုံးနိုင်ပါတယ်။
 
-### ReturnType&lt;T>: Function ရဲ့ ပြန်လာသော result ရဲ့Type ကို ရယူခြင်း
+## `ReturnType<T>`: Function ကနေ ပြန်လာမယ့် (Return) Type ကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးလဲ**: ReturnType\<Type> က Function Type တစ်ခုရဲ့ ပြန်လာတဲ့ result ရဲ့Type ကို ရယူပြီး Type အသစ်တစ်ခု လုပ်ပေးတယ်။
-- **ဘယ်လို သုံးမလဲ**: ReturnType\<typeof myFunction>
+- **ဘာလုပ်ပေးသလဲ**: `ReturnType<Type>` က Function Type တစ်ခုရဲ့ ပြန်လာတဲ့ Result ရဲ့ Type ကို ရယူပြီး Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `ReturnType<typeof myFunction>`
 
 <Code lang="typescript" code={returnType} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**: Function တစ်ခုရဲ့ Result ကို သိမ်းမယ့် Variable ကို Type သတ်မှတ်ချင်တဲ့အခါ အသုံးဝင်တယ်။ ဒါမှမဟုတ် Function တစ်ခုရဲ့ Return Type ကို manually ရေးဖို့ ခက်ခဲနေတဲ့ Generic Function တွေနဲ့ အလုပ်လုပ်တဲ့အခါမျိုးမှာ အထောက်အကူပြုတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Function တစ်ခုရဲ့ Result ကို သိမ်းမယ့် Variable ကို Type သတ်မှတ်ချင်တဲ့အခါ အသုံးဝင်ပါတယ်။ ဒါမှမဟုတ် Function တစ်ခုရဲ့ Return Type ကို Manually (ကိုယ်တိုင်) ရေးဖို့ ခက်ခဲနေတဲ့ Generic Functions တွေနဲ့ အလုပ်လုပ်တဲ့အခါမျိုးမှာ အထောက်အကူပြုပါတယ်။
 
-### Awaited&lt;T>: Promise ရဲ့ အထဲက (Resolved) Type ကို ရယူခြင်း
+## `Awaited<T>`: Promise ရဲ့ အထဲက (Resolved) Type ကို ရယူခြင်း
 
-- **ဘာလုပ်ပေးလဲ**: Awaited\<Type> က Promise Type တွေကို အဆင့်ဆင့် unwraps (အထဲက Type ကို ထုတ်ယူ) လုပ်ပေးတယ်။
+- **ဘာလုပ်ပေးသလဲ**: `Awaited<Type>` က Promise Type တွေကို အဆင့်ဆင့် Unwraps (အထဲက Type ကို ထုတ်ယူ) လုပ်ပေးပါတယ်။
 
-  - Type က Awaited\<Promise\<X>> ဆိုရင် (X) ကို ရမယ်။
-  - Type က Promise မဟုတ်ရင် မူရင်း Type ကိုပဲ ပြန်ပေးမယ်။
-  - Nested Promise တွေ (Promise ထဲမှာ Promise ထပ်ပါတာ) ကိုလည်း ထုတ်ပေးနိုင်တယ်။
+  - Type က `Awaited<Promise<X>>` ဆိုရင် `X` ကို ရပါမယ်။
+  - Type က Promise မဟုတ်ရင် မူရင်း Type ကိုပဲ ပြန်ပေးပါမယ်။
+  - Nested Promises တွေ (Promise ထဲမှာ Promise ထပ်ပါတာ) ကိုလည်း ထုတ်ပေးနိုင်ပါတယ်။
 
-- **ဘယ်လို သုံးမလဲ**: Awaited\<PromiseType>
+- **ဘယ်လို သုံးမလဲ**: `Awaited<PromiseType>`
 
 <Code lang="typescript" code={awaited} title="index.ts" />
 
-- **ဘယ်အခါသုံးမလဲ**: Asynchronous Operation တွေ (ဥပမာ API ခေါ်တာတွေ) ကနေ ပြန်လာမယ့် Promise ရဲ့ တကယ့် Value Type ကို သိချင်တဲ့အခါ အရမ်း အရေးကြီးတယ်။ အထူးသဖြင့် Promise Type က Generic ဖြစ်နေရင် ဒါမှမဟုတ် Promise ထဲမှာ Promise ထပ်ပါနေရင် အထဲက Data Type ကို အလွယ်တကူ ထုတ်ယူဖို့ ကူညီပေးတယ်။
+- **ဘယ်အခါသုံးမလဲ**: Asynchronous Operations တွေ (ဥပမာ API ခေါ်တာတွေ) ကနေ ပြန်လာမယ့် Promise ရဲ့ တကယ့် Value Type ကို သိချင်တဲ့အခါ အရမ်း အရေးကြီးပါတယ်။ အထူးသဖြင့် Promise Type က Generic ဖြစ်နေရင် ဒါမှမဟုတ် Promise ထဲမှာ Promise ထပ်ပါနေရင် အထဲက Data Type ကို အလွယ်တကူ ထုတ်ယူဖို့ ကူညီပေးပါတယ်။

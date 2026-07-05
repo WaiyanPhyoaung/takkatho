@@ -41,14 +41,14 @@ updateUser(2, { email: "new@example.com", isActive: false });
 
 <Code lang="typescript" code={userprofile} title="index.ts" />
 
-### Partial\<T>: Property အားလုံးကို Optional ဖြစ်အောင် လုပ်ခြင်း
+### `Partial<T>`: Properties အားလုံးကို Optional ဖြစ်အောင် လုပ်ခြင်း
 
-- **ဘာလုပ်ပေးလဲ**: Partial\<T> က T Type မှာရှိတဲ့ Property အားလုံးကို Optional (ပါချင်မှပါ/ထည့်ချင်မှ ထည့်) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးတယ်။
-- **ဘယ်လို သုံးမလဲ**: Partial\<UserProfile>
+- **ဘာလုပ်ပေးသလဲ**: `Partial<T>` က `T` Type မှာရှိတဲ့ Properties အားလုံးကို Optional (ပါချင်မှပါ/ထည့်ချင်မှ ထည့်) ဖြစ်သွားအောင် Type အသစ်တစ်ခု လုပ်ပေးပါတယ်။
+- **ဘယ်လို သုံးမလဲ**: `Partial<UserProfile>`
 - **ရလာမယ့် Type (ပုံစံ)**:
 
 <Code lang="typescript" code={partial} title="index.ts" />
 
-- **ဘယ်လိုနေရာမှာ သုံးလဲ**: User ရဲ့ အချက်အလက်ကို ပြင်ဆင်တဲ့ Function မျိုးတွေအတွက် အသုံးဝင်တယ်။ ပြင်ချင်တဲ့ Field (အချက်အလက်) ကိုပဲ ပို့လိုက်လို့ ရတယ်။
+- **ဘယ်လိုနေရာမှာ သုံးသလဲ**: User ရဲ့ အချက်အလက်ကို ပြင်ဆင်တဲ့ Function မျိုးတွေအတွက် အသုံးဝင်ပါတယ်။ ပြင်ချင်တဲ့ Field (အချက်အလက်) ကိုပဲ ပို့လိုက်လို့ ရပါတယ်။
 
 <Code lang="typescript" code={usage} title="index.ts" />

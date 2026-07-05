@@ -36,27 +36,27 @@ color: "blue", // Key က string၊ Value က string
 };`
 
 <Aside title='ရည်ရွယ်ချက်' type="tip">
- Record\<K, T> Utility Type ကို သုံးပြီး Object တွေအတွက် Type တွေ သတ်မှတ်တတ်ဖို့ ဖြစ်ပါတယ်။ အဲဒီ Object တွေမှာ Key တွေရဲ့ Type က K ဖြစ်ပြီး Value တွေရဲ့ Type က T ဖြစ်ရမယ်။
+ `Record<K, T>` Utility Type ကို သုံးပြီး Object တွေအတွက် Type တွေ သတ်မှတ်တတ်ဖို့ ဖြစ်ပါတယ်။ အဲဒီ Object တွေမှာ Keys တွေရဲ့ Type က `K` ဖြစ်ပြီး Values တွေရဲ့ Type က `T` ဖြစ်ရပါမယ်။
 </Aside>
 
-### Record\<K, T>: Key နဲ့ Value Type တွေပါတဲ့ Object ပုံစံများ သတ်မှတ်ခြင်း
+## `Record<K, T>`: Key နဲ့ Value Types တွေပါတဲ့ Object ပုံစံများ သတ်မှတ်ခြင်း
 
-- **ဘာလုပ်ပေးလဲ**: Record\<K, T> က Object Type တစ်ခုကို လုပ်ပေးတယ်။ အဲဒီ Object ရဲ့ Property Key တွေဟာ K Type ဖြစ်ရမယ်။ Property Value တွေက T Type ဖြစ်ရမယ်။
-  - K (Key) က အများအားဖြင့် string, number, symbol ဒါမှမဟုတ် သီးခြား string / number နာမည်လေးတွေရဲ့ ပေါင်းစပ်မှု (union) ဖြစ်တတ်တယ်။
-  - T (Value) ကတော့ အဲဒီ Key တွေနဲ့ သက်ဆိုင်တဲ့ တန်ဖိုးတွေရဲ့ Type ဖြစ်တယ်။
+- **ဘာလုပ်ပေးသလဲ**: `Record<K, T>` က Object Type တစ်ခုကို ဖန်တီးပေးပါတယ်။ အဲဒီ Object ရဲ့ Property Keys တွေဟာ `K` Type ဖြစ်ရမယ်။ Property Values တွေက `T` Type ဖြစ်ရပါမယ်။
+  - `K` (Key) က အများအားဖြင့် `string`, `number`, `symbol` ဒါမှမဟုတ် သီးခြား String / Number နာမည်လေးတွေရဲ့ ပေါင်းစပ်မှု (Union) ဖြစ်တတ်ပါတယ်။
+  - `T` (Value) ကတော့ အဲဒီ Keys တွေနဲ့ သက်ဆိုင်တဲ့ တန်ဖိုးတွေရဲ့ Type ဖြစ်ပါတယ်။
 - **ဘယ်လို သုံးမလဲ**:
   1. **Feature Flags (အဖွင့်အပိတ်များ):**
-     - Feature Flag တွေက Program ရဲ့ လုပ်ဆောင်ချက် အချို့ကို ဖွင့်/ပိတ် လုပ်နိုင်အောင် ထိန်းချုပ်ဖို့ သုံးတဲ့ Object တွေပဲ။ Key က Feature နာမည်၊ Value က true (ဖွင့်) / false (ပိတ်) ဖြစ်မယ်။
+     - Feature Flags တွေက Program ရဲ့ လုပ်ဆောင်ချက် အချို့ကို ဖွင့်/ပိတ် လုပ်နိုင်အောင် ထိန်းချုပ်ဖို့ သုံးတဲ့ Objects တွေပါပဲ။ Key က Feature နာမည်၊ Value က `true` (ဖွင့်) / `false` (ပိတ်) ဖြစ်ပါမယ်။
 
 <Code lang="typescript" code={featureFlag} title="index.ts" />
 
-    2. **Simple Dictionary/Cache (ရိုးရှင်းသော အဘိဓာန်/မှတ်ဉာဏ်):**
-       - Data တွေကို Key-Value ပုံစံနဲ့ သိမ်းထားတဲ့ Dictionary ဒါမှမဟုတ် Cache မျိုးတွေ လုပ်တဲ့အခါ သုံးနိုင်တယ်။ ဥပမာ User ID ကို Key အဖြစ်၊ User Profile ကို Value အဖြစ် သိမ်းတာမျိုး။
+  2. **Simple Dictionary/Cache (ရိုးရှင်းသော အဘိဓာန်/မှတ်ဉာဏ်):**
+     - Data တွေကို Key-Value ပုံစံနဲ့ သိမ်းထားတဲ့ Dictionary ဒါမှမဟုတ် Cache မျိုးတွေ လုပ်တဲ့အခါ သုံးနိုင်ပါတယ်။ ဥပမာ User ID ကို Key အဖြစ်၊ User Profile ကို Value အဖြစ် သိမ်းတာမျိုးပေါ့။
 
 <Code lang="typescript" code={dictionary} title="index.ts" />
 
-    3. **CSS-in-JS Style Objects (CSS ပုံစံ Object များ):**
-          - JavaScript ထဲမှာ CSS (Cascading Style Sheets) ရဲ့ ပုံစံတွေ သတ်မှတ်တဲ့ Object တွေ လုပ်တဲ့အခါ သုံးနိုင်တယ်။ Key က CSS Property နာမည် (string)၊ Value က CSS တန်ဖိုး (string ဒါမှမဟုတ် number) ဖြစ်မယ်။
+  3. **CSS-in-JS Style Objects (CSS ပုံစံ Object များ):**
+     - JavaScript ထဲမှာ CSS (Cascading Style Sheets) ရဲ့ ပုံစံတွေ သတ်မှတ်တဲ့ Objects တွေ လုပ်တဲ့အခါ သုံးနိုင်ပါတယ်။ Key က CSS Property နာမည် (`string`)၊ Value က CSS တန်ဖိုး (`string` ဒါမှမဟုတ် `number`) ဖြစ်ပါမယ်။
 
 <Code lang="typescript" code={css} title="index.ts" />
 
