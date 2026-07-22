@@ -7,31 +7,40 @@ export const ConsultingModal: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
-    businessType: "",
-    requirements: "",
+    summary: "",
+    budget: "အခြား",
+    source: "YouTube",
   });
+
+  const GOOGLE_FORM_ACTION_URL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSfYVNCAoFRjc1s0-IodUL2STEo7xFbPTiNvTbB9jBXKYFHLpg/formResponse";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Optional n8n / Webhook Endpoint integration
-      const webhookUrl = (import.meta as any).env?.PUBLIC_N8N_WEBHOOK_URL;
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...formData,
-            timestamp: new Date().toISOString(),
-          }),
-        });
-      }
+      // Build form data for Google Form submission
+      const body = new URLSearchParams();
+      body.append("entry.1916612169", formData.name);
+      body.append("entry.747831225", formData.contact);
+      body.append("entry.625197430", formData.summary);
+      body.append("entry.1495079002", formData.budget);
+      body.append("entry.194347537", formData.source);
+
+      // Post directly to Google Form Response endpoint
+      await fetch(GOOGLE_FORM_ACTION_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+      });
+
       setSubmitted(true);
     } catch (err) {
-      console.error("Webhook submission error:", err);
-      // Still allow UI submission state
+      console.error("Form submission error:", err);
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -40,7 +49,7 @@ export const ConsultingModal: React.FC = () => {
 
   const getTelegramUrl = () => {
     const text = encodeURIComponent(
-      `👋 မင်္ဂလာပါ ဝေယံ၊ အလိုအလျောက် Automation မေးမြန်းချင်လို့ပါ:\n\n👤 အမည်: ${formData.name}\n📞 ဆက်သွယ်ရန်: ${formData.contact}\n🏢 လုပ်ငန်း: ${formData.businessType}\n⚡ လိုအပ်ချက်: ${formData.requirements}`
+      `👋 မင်္ဂလာပါ ဝေယံ၊ အလိုအလျောက် Automation မေးမြန်းချင်လို့ပါ:\n\n👤 အမည်: ${formData.name}\n📞 ဆက်သွယ်ရန်: ${formData.contact}\n⚡ လိုအပ်ချက်: ${formData.summary}\n💰 Budget: ${formData.budget}\n🌐 သိရှိခဲ့သည့် လမ်းကြောင်း: ${formData.source}`
     );
     return `https://t.me/share/url?url=&text=${text}`;
   };
@@ -58,8 +67,8 @@ export const ConsultingModal: React.FC = () => {
 
       {/* Modal Dialog */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn">
-          <div className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-stone-950 border border-orange-500/30 text-white shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn overflow-y-auto">
+          <div className="relative w-full max-w-lg my-8 p-6 sm:p-8 rounded-3xl bg-stone-950 border border-orange-500/30 text-white shadow-2xl">
             {/* Close Button */}
             <button
               onClick={() => setIsOpen(false)}
@@ -75,10 +84,10 @@ export const ConsultingModal: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold">ကျေးဇူးတင်ပါသည်!</h3>
                 <p className="text-sm text-stone-300">
-                  သင်၏ မေးမြန်းမှုကို လက်ခံရရှိပါပြီ။ Telegram သို့မဟုတ် Facebook မက်ဆေ့ချ်မှလည်း တိုက်ရိုက် ဆက်သွယ် မေးမြန်းနိုင်ပါသည်။
+                  သင်၏ အချက်အလက်များ Google Form သို့ အောင်မြင်စွာ ရောက်ရှိသွားပါပြီ။ Telegram မှလည်း တိုက်ရိုက် မေးမြန်းနိုင်ပါသည်။
                 </p>
 
-                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <a
                     href={getTelegramUrl()}
                     target="_blank"
@@ -89,7 +98,7 @@ export const ConsultingModal: React.FC = () => {
                   </a>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-sm font-semibold text-stone-300 transition-colors"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-sm font-semibold text-stone-300 transition-colors cursor-pointer"
                   >
                     ပိတ်မည်
                   </button>
@@ -107,6 +116,7 @@ export const ConsultingModal: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Name Field */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 mb-1">အမည် (Name)</label>
                   <input
@@ -119,6 +129,7 @@ export const ConsultingModal: React.FC = () => {
                   />
                 </div>
 
+                {/* Contact Field */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 mb-1">ဖုန်းနံပါတ် သို့မဟုတ် Telegram Handle</label>
                   <input
@@ -131,25 +142,46 @@ export const ConsultingModal: React.FC = () => {
                   />
                 </div>
 
+                {/* Budget Selection Field */}
                 <div>
-                  <label className="block text-xs font-semibold text-stone-300 mb-1">လုပ်ငန်း အမျိုးအစား (Business Type)</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.businessType}
-                    onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    placeholder="Online Shop / Real Estate / Agency"
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none"
-                  />
+                  <label className="block text-xs font-semibold text-stone-300 mb-1">ခန့်မှန်း Budget ပမာဏ (Budget Range)</label>
+                  <select
+                    value={formData.budget}
+                    onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
+                  >
+                    <option value="အခြား">အခြား (Other)</option>
+                    <option value="<$300">&lt; $300</option>
+                    <option value="$300 - $500">$300 - $500</option>
+                    <option value="$500 - $1,000">$500 - $1,000</option>
+                    <option value="$1,000+">$1,000+</option>
+                  </select>
                 </div>
 
+                {/* Where did you hear about us? */}
                 <div>
-                  <label className="block text-xs font-semibold text-stone-300 mb-1">လိုအပ်သော Automation ဖြေရှင်းချက်များ</label>
+                  <label className="block text-xs font-semibold text-stone-300 mb-1">မည်သည့် လမ်းကြောင်းမှ သိရှိခဲ့သနည်း?</label>
+                  <select
+                    value={formData.source}
+                    onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
+                  >
+                    <option value="youtube">YouTube</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="github">GitHub</option>
+                    <option value="friend">မိတ်ဆွေ ညွှန်းဆိုမှု (Friend Recommendation)</option>
+                    <option value="other">အခြား (Other)</option>
+                  </select>
+                </div>
+
+                {/* Requirements / Summary Field */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-300 mb-1">လိုအပ်သော Automation အကြောင်းအရာ စုစည်းချက်</label>
                   <textarea
                     rows={3}
                     required
-                    value={formData.requirements}
-                    onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
+                    value={formData.summary}
+                    onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                     placeholder="Telegram Order Bot, Messenger Auto-reply, CRM Sync..."
                     className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none"
                   />
