@@ -2,7 +2,6 @@
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Search from "@astrojs/starlight/components/Search.astro";
-import ConsultingModal from "../components/ui/ConsultingModal";
 import "../styles/global.css";
 
 interface Props {
@@ -193,6 +192,5 @@ const currentPath = Astro.url.pathname;
         document.getElementById("donation-banner")?.remove();
       });
     </script>
-    <ConsultingModal client:idle />
   </body>
 </html>
