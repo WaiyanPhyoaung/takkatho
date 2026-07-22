@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e1e2e; }
+      .box-str  { fill: #2d2d3f; stroke: #4f46e5; stroke-width: 2; }
+      .box-int  { fill: #2d2d3f; stroke: #0ea5e9; stroke-width: 2; }
+      .box-flt  { fill: #2d2d3f; stroke: #10b981; stroke-width: 2; }
+      .box-bool { fill: #2d2d3f; stroke: #f59e0b; stroke-width: 2; }
+      .code-inner { fill: #181825; }
+      .text-title { font-family: sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; fill: #f8fafc; }
+      .text-val   { font-family: monospace; font-size: 14px; text-anchor: middle; fill: #a5b4fc; }
+      .text-fn    { font-family: monospace; font-size: 11px; text-anchor: middle; fill: #94a3b8; }
+      .text-label { font-family: sans-serif; font-size: 11px; text-anchor: middle; fill: #64748b; }
+      .arrow { stroke: #475569; stroke-width: 1.5; fill: none; }
+      .arr-str  { stroke: #4f46e5; }
+      .arr-int  { stroke: #0ea5e9; }
+      .arr-flt  { stroke: #10b981; }
+      .arr-bool { stroke: #f59e0b; }
+    </style>
+    <marker id="ah-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f46e5"/>
+    </marker>
+    <marker id="ah-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0ea5e9"/>
+    </marker>
+    <marker id="ah-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#10b981"/>
+    </marker>
+    <marker id="ah-amber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <!-- Title -->
+  <text x="400" y="30" class="text-title" font-size="18">Type Conversion — အမျိုးအစား ပြောင်းလဲခြင်း</text>
+
+  <!-- STR box  top-left -->
+  <rect x="60"  y="70" width="170" height="110" rx="8" class="box-str"/>
+  <text x="145" y="95" class="text-title" fill="#a78bfa">String</text>
+  <text x="145" y="115" class="text-label">စာသား</text>
+  <rect x="75"  y="125" width="140" height="40" rx="4" class="code-inner"/>
+  <text x="145" y="150" class="text-val">"20"   "3.14"</text>
+
+  <!-- INT box  top-right -->
+  <rect x="310" y="70" width="170" height="110" rx="8" class="box-int"/>
+  <text x="395" y="95" class="text-title" fill="#7dd3fc">Integer</text>
+  <text x="395" y="115" class="text-label">ကိန်းပြည့်</text>
+  <rect x="325" y="125" width="140" height="40" rx="4" class="code-inner"/>
+  <text x="395" y="150" class="text-val">20   5   -3</text>
+
+  <!-- FLOAT box  bottom-right -->
+  <rect x="560" y="70" width="170" height="110" rx="8" class="box-flt"/>
+  <text x="645" y="95" class="text-title" fill="#6ee7b7">Float</text>
+  <text x="645" y="115" class="text-label">ဒသမကိန်း</text>
+  <rect x="575" y="125" width="140" height="40" rx="4" class="code-inner"/>
+  <text x="645" y="150" class="text-val">3.14   20.0</text>
+
+  <!-- BOOL box  bottom-center -->
+  <rect x="310" y="240" width="170" height="110" rx="8" class="box-bool"/>
+  <text x="395" y="265" class="text-title" fill="#fcd34d">Boolean</text>
+  <text x="395" y="285" class="text-label">မှန်/မှား</text>
+  <rect x="325" y="295" width="140" height="40" rx="4" class="code-inner"/>
+  <text x="395" y="320" class="text-val">True   False</text>
+
+  <!-- str → int  (top arrow right) -->
+  <line x1="232" y1="110" x2="308" y2="110" class="arrow arr-blue" marker-end="url(#ah-blue)"/>
+  <text x="270" y="103" class="text-fn" fill="#7dd3fc">int("20")</text>
+
+  <!-- int → str  (bottom arrow left) -->
+  <line x1="308" y1="130" x2="232" y2="130" class="arrow arr-str" marker-end="url(#ah-purple)"/>
+  <text x="270" y="148" class="text-fn" fill="#a78bfa">str(20)</text>
+
+  <!-- int → float  (top arrow right) -->
+  <line x1="482" y1="110" x2="558" y2="110" class="arrow arr-green" marker-end="url(#ah-green)"/>
+  <text x="520" y="103" class="text-fn" fill="#6ee7b7">float(20)</text>
+
+  <!-- float → int  (bottom arrow left) -->
+  <line x1="558" y1="130" x2="482" y2="130" class="arrow arr-blue" marker-end="url(#ah-blue)"/>
+  <text x="520" y="148" class="text-fn" fill="#7dd3fc">int(3.14)</text>
+
+  <!-- int → bool  (down arrow) -->
+  <line x1="395" y1="182" x2="395" y2="238" class="arrow arr-amber" marker-end="url(#ah-amber)"/>
+  <text x="420" y="215" class="text-fn" fill="#fcd34d">bool(0)→False</text>
+
+  <!-- bool → int  (right of down arrow) -->
+  <line x1="375" y1="238" x2="375" y2="182" class="arrow arr-blue" marker-end="url(#ah-blue)"/>
+  <text x="340" y="215" class="text-fn" fill="#7dd3fc">int(True)→1</text>
+
+  <!-- str → float note -->
+  <text x="145" y="210" class="text-fn" fill="#6ee7b7">float("3.14") → 3.14</text>
+  <text x="145" y="228" class="text-fn" fill="#a78bfa">str(3.14) → "3.14"</text>
+
+  <!-- Notes -->
+  <rect x="30" y="340" width="740" height="28" rx="4" fill="#181825"/>
+  <text x="400" y="359" class="text-fn" text-anchor="middle" fill="#64748b">⚠ int("hello") → ValueError တက်မယ် · int(3.99) → 3 ဒသမကို ဖြတ်ချပစ်မယ် · bool(0)=False, bool(မည်သည့်ကိန်း)=True</text>
+</svg>

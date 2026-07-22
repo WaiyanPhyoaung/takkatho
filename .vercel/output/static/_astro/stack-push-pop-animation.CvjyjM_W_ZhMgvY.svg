@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Stack (LIFO - Last In, First Out)</text>
+    
+    <rect x="300" y="150" width="200" height="200" fill="none" stroke="#334155" stroke-width="2" rx="0"/>
+    <line x1="300" y1="150" x2="300" y2="350" stroke="#334155" stroke-width="4" />
+    <line x1="500" y1="150" x2="500" y2="350" stroke="#334155" stroke-width="4" />
+    <line x1="300" y1="350" x2="500" y2="350" stroke="#334155" stroke-width="4" />
+    
+    <rect x="320" y="300" width="160" height="40" fill="#bfdbfe" stroke="#3b82f6" stroke-width="2" rx="4"/> <text x="400" y="320" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">Plate 1</text>
+    <rect x="320" y="250" width="160" height="40" fill="#93c5fd" stroke="#2563eb" stroke-width="2" rx="4"/> <text x="400" y="270" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">Plate 2</text>
+    <rect x="320" y="200" width="160" height="40" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2" rx="4"/> <text x="400" y="220" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">Plate 3 (Top)</text>
+    
+    <path d="M 200 100 Q 350 100 350 180" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <text x="200" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#22c55e" text-anchor="middle" dominant-baseline="middle">PUSH (Add)</text>
+    
+    <path d="M 450 180 Q 450 100 600 100" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrow-red)"/>
+    <text x="600" y="80" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#ef4444" text-anchor="middle" dominant-baseline="middle">POP (Remove)</text>
+
+    </svg>

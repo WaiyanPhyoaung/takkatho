@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 520" font-family="monospace">
+  <rect width="680" height="520" fill="#1e1e2e"/>
+
+  <text x="340" y="38" fill="#e2e8f0" font-size="20" font-weight="bold" text-anchor="middle">Combinators — Selector များ ချိတ်ဆက်ခြင်း</text>
+
+  <!-- Tree connector lines -->
+  <g stroke="#7c3aed" stroke-width="2" fill="none">
+    <path d="M340 105 L130 165"/>
+    <path d="M340 105 L340 165"/>
+    <path d="M340 105 L555 165"/>
+    <path d="M340 225 L280 285"/>
+    <path d="M340 225 L400 285"/>
+  </g>
+
+  <!-- Root -->
+  <rect x="280" y="70" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="340" y="93" fill="#7dd3fc" font-size="14" text-anchor="middle">div.card</text>
+
+  <!-- Level 2 -->
+  <rect x="70" y="167" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="130" y="190" fill="#e2e8f0" font-size="14" text-anchor="middle">h2</text>
+
+  <rect x="280" y="167" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="340" y="190" fill="#e2e8f0" font-size="14" text-anchor="middle">ul</text>
+
+  <rect x="495" y="167" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="555" y="190" fill="#e2e8f0" font-size="14" text-anchor="middle">p</text>
+
+  <!-- Level 3 -->
+  <rect x="220" y="287" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="280" y="310" fill="#e2e8f0" font-size="14" text-anchor="middle">li</text>
+
+  <rect x="340" y="287" width="120" height="36" rx="6" fill="#2d2d3f" stroke="#7c3aed" stroke-width="2"/>
+  <text x="400" y="310" fill="#e2e8f0" font-size="14" text-anchor="middle">li</text>
+
+  <!-- Legend -->
+  <rect x="40" y="360" width="600" height="140" rx="8" fill="#252536" stroke="#475569" stroke-width="1"/>
+
+  <text x="60" y="390" fill="#a78bfa" font-size="15" font-weight="bold">div li</text>
+  <text x="200" y="390" fill="#e2e8f0" font-size="13">Descendant — div အတွင်းက li အားလုံး</text>
+
+  <text x="60" y="418" fill="#a78bfa" font-size="15" font-weight="bold">ul &gt; li</text>
+  <text x="200" y="418" fill="#e2e8f0" font-size="13">Child — ul ရဲ့ တိုက်ရိုက် သားများသာ</text>
+
+  <text x="60" y="446" fill="#a78bfa" font-size="15" font-weight="bold">h2 + ul</text>
+  <text x="200" y="446" fill="#e2e8f0" font-size="13">Adjacent — h2 နောက် ကပ်လျက် ul</text>
+
+  <text x="60" y="474" fill="#a78bfa" font-size="15" font-weight="bold">h2 ~ p</text>
+  <text x="200" y="474" fill="#e2e8f0" font-size="13">General — h2 နောက်က ညီအစ်ကို p အားလုံး</text>
+</svg>
