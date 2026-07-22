@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Todo List as an Array</text>
+    <rect x="150" y="150" width="150" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="225" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Do Homework</text><text x="225" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">0</text><rect x="300" y="150" width="150" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="375" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Go to Gym</text><text x="375" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">1</text><rect x="450" y="150" width="150" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="525" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Buy Milk</text><text x="525" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">2</text><rect x="600" y="150" width="150" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="675" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle"></text><text x="675" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">3</text>
+    <text x="225" y="120" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Index 0</text>
+    <text x="375" y="120" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Index 1</text>
+    <text x="525" y="120" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Index 2</text>
+    <text x="400" y="280" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#3b82f6" text-anchor="middle" dominant-baseline="middle">Fast access: arr[1] -&gt; 'Go to Gym'</text>
+
+    </svg>

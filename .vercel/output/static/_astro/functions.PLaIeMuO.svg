@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg     { fill: #1e1e2e; }
+      .box    { fill: #2d2d3f; stroke: #4f46e5; stroke-width: 2; }
+      .box-g  { fill: #2d2d3f; stroke: #10b981; stroke-width: 2; }
+      .box-a  { fill: #2d2d3f; stroke: #f59e0b; stroke-width: 2; }
+      .inner  { fill: #181825; }
+      .t-main { font-family: sans-serif; font-size: 14px; text-anchor: middle; fill: #f8fafc; }
+      .t-code { font-family: monospace; font-size: 13px; fill: #a5b4fc; }
+      .t-lbl  { font-family: sans-serif; font-size: 11px; text-anchor: middle; fill: #64748b; }
+      .arrow  { stroke: #475569; stroke-width: 2; fill: none; }
+      .arrow-g { stroke: #10b981; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="ah"  markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#475569"/></marker>
+    <marker id="ahg" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#10b981"/></marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="400" y="28" class="t-main" font-size="18" font-weight="bold">Function — ဘယ်လိုအလုပ်လုပ်သလဲ</text>
+
+  <!-- Input params box -->
+  <rect x="30" y="60" width="200" height="180" rx="8" class="box-a"/>
+  <text x="130" y="85" class="t-main" fill="#fcd34d">Parameters (ထည့်ပေးသည်)</text>
+  <rect x="45"  y="100" width="170" height="120" rx="4" class="inner"/>
+  <text x="55"  y="124" class="t-code">name = "Aung Aung"</text>
+  <text x="55"  y="146" class="t-code">age  = 20</text>
+  <text x="55"  y="168" class="t-code" fill="#64748b">─────────────────</text>
+  <text x="55"  y="190" class="t-code" fill="#94a3b8">greet(name, age)</text>
+  <text x="55"  y="210" class="t-code" fill="#94a3b8">┗ ခေါ်ဆိုခြင်း</text>
+
+  <!-- Arrow to function -->
+  <line x1="232" y1="150" x2="288" y2="150" class="arrow" marker-end="url(#ah)"/>
+
+  <!-- Function body -->
+  <rect x="290" y="60" width="230" height="180" rx="8" class="box"/>
+  <text x="405" y="85" class="t-main" fill="#a78bfa">Function Body</text>
+  <rect x="305" y="100" width="200" height="120" rx="4" class="inner"/>
+  <text x="315" y="122" class="t-code" fill="#c4b5fd">def greet(name, age):</text>
+  <text x="315" y="144" class="t-code">  msg = (</text>
+  <text x="315" y="162" class="t-code">    f"မင်္ဂလာပါ {name}"</text>
+  <text x="315" y="180" class="t-code">    f"{age} နှစ်!"</text>
+  <text x="315" y="198" class="t-code">  )</text>
+  <text x="315" y="216" class="t-code" fill="#10b981">  return msg</text>
+
+  <!-- Arrow to return -->
+  <line x1="522" y1="150" x2="578" y2="150" class="arrow-g" marker-end="url(#ahg)"/>
+
+  <!-- Return value box -->
+  <rect x="580" y="60" width="192" height="180" rx="8" class="box-g"/>
+  <text x="676" y="85" class="t-main" fill="#6ee7b7">Return Value (ပြန်ပေးသည်)</text>
+  <rect x="595" y="100" width="162" height="80" rx="4" class="inner"/>
+  <text x="605" y="126" class="t-code">"မင်္ဂလာပါ</text>
+  <text x="605" y="148" class="t-code"> Aung Aung</text>
+  <text x="605" y="170" class="t-code"> 20 နှစ်!"</text>
+  <text x="676" y="205" class="t-main" font-size="12" fill="#94a3b8">result = greet(...)</text>
+  <text x="676" y="222" class="t-lbl">ပြန်တန်ဖိုးကို Variable ထဲ ထည့်</text>
+
+  <!-- Labels below boxes -->
+  <text x="130"  y="260" class="t-lbl">① ခေါ်သောအခါ ထည့်ပေးသည်</text>
+  <text x="405"  y="260" class="t-lbl">② Function ထဲမှာ အလုပ်လုပ်သည်</text>
+  <text x="676"  y="260" class="t-lbl">③ return နဲ့ ပြန်ပေးသည်</text>
+
+  <!-- print vs return note -->
+  <rect x="30" y="278" width="740" height="46" rx="6" class="inner"/>
+  <text x="400" y="298" class="t-main" font-size="12" text-anchor="middle" fill="#94a3b8">print() vs return() ကွာခြားချက်</text>
+  <text x="400" y="316" class="t-code" font-size="12" text-anchor="middle" fill="#64748b">print() → Screen ပေါ်ပဲ ပြပေးသည် (ဆက်မသုံးနိုင်)   |   return → တန်ဖိုးကို ပြန်ပေးသည် (ဆက်သုံးနိုင်)</text>
+</svg>

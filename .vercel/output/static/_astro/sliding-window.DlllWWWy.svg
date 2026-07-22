@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Sliding Window Technique</text>
+    <rect x="100" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="130" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">a</text><text x="130" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">0</text><rect x="160" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="190" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">b</text><text x="190" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">1</text><rect x="220" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="250" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">c</text><text x="250" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">2</text><rect x="280" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="310" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">a</text><text x="310" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">3</text><rect x="340" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="370" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">b</text><text x="370" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">4</text><rect x="400" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="430" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">c</text><text x="430" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">5</text><rect x="460" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="490" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">b</text><text x="490" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">6</text><rect x="520" y="150" width="60" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="4"/><text x="550" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">b</text><text x="550" y="225" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">7</text>
+    
+    <!-- Window -->
+    <rect x="95" y="145" width="190" height="70" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2" rx="8"/>
+    <text x="190" y="120" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3b82f6" text-anchor="middle" dominant-baseline="middle">Window (Size 3)</text>
+    
+    <path d="M 290 180 L 330 180" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrow-blue)"/>
+    <text x="400" y="280" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Slide the window to the right to find longest substring</text>
+
+    </svg>

@@ -1,0 +1,102 @@
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 260 300"
+  aria-labelledby="title desc"
+  role="img">
+  
+  <ellipse cx="130" cy="228" rx="86" ry="18" class="book-shadow"/>
+  <path class="page-block"
+        d="M50 120
+           q30 -18 80 -18
+           v106
+           q-50 -16 -80 0
+           z"/>
+  <path class="page-block"
+        d="M210 120
+           q-30 -18 -80 -18
+           v106
+           q50 -16 80 0
+           z"/>
+  <line x1="130" y1="102" x2="130" y2="228" class="gutter"/>
+
+  <path d="M50 205 q40 15 80 0" class="page-curve"/>
+  <path d="M130 205 q40 15 80 0" class="page-curve"/>
+
+  <g class="ruled">
+    <line x1="60"  y1="135" x2="120" y2="135"/>
+    <line x1="140" y1="135" x2="200" y2="135"/>
+    <line x1="60"  y1="155" x2="120" y2="155"/>
+    <line x1="140" y1="155" x2="200" y2="155"/>
+    <line x1="60"  y1="175" x2="120" y2="175"/>
+    <line x1="140" y1="175" x2="200" y2="175"/>
+  </g>
+
+  <ellipse cx="130" cy="105" rx="60" ry="15" class="lamp"/>
+
+  <g id="flame" transform-origin="130 60">
+    <path id="flame-shape"
+      d="M130 40
+         C110 60 115 95 130 110
+         C145 95 150 60 130 40z"
+      class="flame"/>
+
+    <animateTransform attributeName="transform"
+      type="scale"
+      values="1 1; 1.05 0.95; 0.95 1.05; 1 1"
+      dur="2.4s"
+      repeatCount="indefinite" />
+  </g>
+
+  <circle cx="130" cy="75" r="60" class="halo"/>
+
+  <defs>
+    <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f2f2f2"/>
+    </linearGradient>
+
+    <linearGradient id="pageGradDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e1e1e"/>
+      <stop offset="100%" stop-color="#2a2a2a"/>
+    </linearGradient>
+
+    <linearGradient id="flameGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#ffe38a"/>
+      <stop offset="60%" stop-color="#ff7b22"/>
+      <stop offset="100%" stop-color="#c82a00"/>
+    </linearGradient>
+
+    <radialGradient id="haloGrad">
+      <stop offset="0%" stop-color="#ffd966"/>
+      <stop offset="60%" stop-color="#ffd966"/>
+      <stop offset="100%" stop-color="#ffd966" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    /* shared styling */
+    .flame { fill:url(#flameGrad); }
+    .halo  { fill:url(#haloGrad); opacity:.25; }
+    .lamp  { fill:#9e6a2f; }
+    .gutter, .page-curve { stroke-width:4; fill:none; }
+    .ruled line { stroke-linecap:round; stroke-width:1.2; }
+
+    /* ── LIGHT MODE ────────────────────────── */
+    @media (prefers-color-scheme: light) {
+      .page-block   { fill:url(#pageGrad);  stroke:#333;   stroke-width:4; }
+      .gutter,
+      .page-curve   { stroke:#333; }
+      .ruled line   { stroke:#b7b7b7; }
+      .book-shadow  { fill:#0003; }
+    }
+
+    /* ── DARK MODE ─────────────────────────── */
+    @media (prefers-color-scheme: dark) {
+      .page-block   { fill:url(#pageGradDark); stroke:#bbb; stroke-width:4; }
+      .gutter,
+      .page-curve   { stroke:#bbb; }
+      .ruled line   { stroke:#444; }
+      .book-shadow  { fill:#0009; }
+    }
+  </style>
+</svg>
