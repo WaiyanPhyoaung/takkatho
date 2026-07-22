@@ -8,15 +8,14 @@ export const ConsultingModal: React.FC = () => {
     name: "",
     contact: "",
     summary: "",
-    budget: "အခြား",
-    source: "youtube",
+    budget: "၅ သိန်းကျပ် နှင့် အောက်",
+    source: "Google",
   });
 
   const GOOGLE_FORM_ACTION_URL =
     "https://docs.google.com/forms/d/e/1FAIpQLSfYVNCAoFRjc1s0-IodUL2STEo7xFbPTiNvTbB9jBXKYFHLpg/formResponse";
 
   const handleSubmit = (e: React.FormEvent) => {
-    // Form is submitted via native HTML form POST to hidden iframe
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -31,9 +30,12 @@ export const ConsultingModal: React.FC = () => {
     return `https://t.me/share/url?url=&text=${text}`;
   };
 
+  const inputStyle =
+    "w-full h-12 px-4 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none transition-colors appearance-none";
+
   return (
     <>
-      {/* Hidden iframe to capture Google Form POST response silently without page reload */}
+      {/* Hidden iframe for native HTML form POST response */}
       <iframe
         name="hidden_gform_iframe"
         id="hidden_gform_iframe"
@@ -117,7 +119,7 @@ export const ConsultingModal: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="ဦးမောင်မောင်"
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none"
+                    className={inputStyle}
                   />
                 </div>
 
@@ -131,7 +133,7 @@ export const ConsultingModal: React.FC = () => {
                     value={formData.contact}
                     onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                     placeholder="09123456789 / @username"
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none"
+                    className={inputStyle}
                   />
                 </div>
 
@@ -142,30 +144,30 @@ export const ConsultingModal: React.FC = () => {
                     name="entry.1495079002"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
+                    className={`${inputStyle} cursor-pointer`}
                   >
+                    <option value="၅ သိန်းကျပ် နှင့် အောက်">၅ သိန်းကျပ် နှင့် အောက်</option>
+                    <option value="၁၀ သိန်းကျပ် နှင့် အောက်">၁၀ သိန်းကျပ် နှင့် အောက်</option>
+                    <option value="၂၀ သိန်းကျပ် နှင့် အောက်">၂၀ သိန်းကျပ် နှင့် အောက်</option>
+                    <option value="၃၀ သိန်းကျပ် နှင့် အောက်">၃၀ သိန်းကျပ် နှင့် အောက်</option>
+                    <option value="၅၀ သိန်းကျပ် နှင့် အောက်">၅၀ သိန်းကျပ် နှင့် အောက်</option>
                     <option value="အခြား">အခြား (Other)</option>
-                    <option value="<$300">&lt; $300</option>
-                    <option value="$300 - $500">$300 - $500</option>
-                    <option value="$500 - $1,000">$500 - $1,000</option>
-                    <option value="$1,000+">$1,000+</option>
                   </select>
                 </div>
 
-                {/* Where did you hear about us? */}
+                {/* Platform Source Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 mb-1">မည်သည့် လမ်းကြောင်းမှ သိရှိခဲ့သနည်း?</label>
                   <select
                     name="entry.194347537"
                     value={formData.source}
                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
+                    className={`${inputStyle} cursor-pointer`}
                   >
-                    <option value="youtube">youtube</option>
-                    <option value="facebook">facebook</option>
-                    <option value="github">github</option>
-                    <option value="friend">မိတ်ဆွေ ညွှန်းဆိုမှု (Friend Recommendation)</option>
-                    <option value="other">အခြား (Other)</option>
+                    <option value="Google">Google</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="အခြား">အခြား (Other)</option>
                   </select>
                 </div>
 
@@ -179,14 +181,14 @@ export const ConsultingModal: React.FC = () => {
                     value={formData.summary}
                     onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                     placeholder="Telegram Order Bot, Messenger Auto-reply, CRM Sync..."
-                    className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none"
+                    className="w-full min-h-[96px] p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none resize-none transition-colors"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 font-bold text-sm text-white shadow-lg transition-all active:scale-95 disabled:opacity-50 mt-2 cursor-pointer"
+                  className="w-full h-12 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 font-bold text-sm text-white shadow-lg transition-all active:scale-95 disabled:opacity-50 mt-2 cursor-pointer"
                 >
                   {loading ? "ပို့ဆောင်နေပါသည်..." : "မေးမြန်းမှု ပို့မည် →"}
                 </button>
