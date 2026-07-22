@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e1e2e; }
+      .box { fill: #2d2d3f; stroke: #4f46e5; stroke-width: 2; rx: 8; }
+      .text-title { fill: #f8fafc; font-family: sans-serif; font-size: 18px; font-weight: bold; text-anchor: middle; }
+      .text-code { fill: #a5b4fc; font-family: monospace; font-size: 14px; }
+      .text-desc { fill: #94a3b8; font-family: sans-serif; font-size: 12px; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- List -->
+  <rect x="50" y="50" width="300" height="120" class="box" />
+  <text x="200" y="80" class="text-title">List (စာရင်း)</text>
+  <text x="200" y="100" class="text-desc">အစီအစဉ်တကျ သိမ်းဆည်းခြင်း၊ ပြင်လို့ရ</text>
+  <rect x="70" y="115" width="260" height="40" fill="#181825" rx="4" />
+  <text x="85" y="140" class="text-code">["Apple", "Banana", "Orange"]</text>
+
+  <!-- Dictionary -->
+  <rect x="450" y="50" width="300" height="120" class="box" />
+  <text x="600" y="80" class="text-title">Dictionary (အဘိဓာန်)</text>
+  <text x="600" y="100" class="text-desc">Key-Value တွဲပြီး သိမ်းဆည်းခြင်း</text>
+  <rect x="470" y="115" width="260" height="40" fill="#181825" rx="4" />
+  <text x="485" y="140" class="text-code">{"name": "Aung", "age": 20}</text>
+
+  <!-- Tuple -->
+  <rect x="50" y="220" width="300" height="120" class="box" />
+  <text x="200" y="250" class="text-title">Tuple</text>
+  <text x="200" y="270" class="text-desc">အစီအစဉ်တကျ သိမ်းဆည်းခြင်း၊ ပြင်လို့မရ</text>
+  <rect x="70" y="285" width="260" height="40" fill="#181825" rx="4" />
+  <text x="85" y="310" class="text-code">("Red", "Green", "Blue")</text>
+
+  <!-- Set -->
+  <rect x="450" y="220" width="300" height="120" class="box" />
+  <text x="600" y="250" class="text-title">Set</text>
+  <text x="600" y="270" class="text-desc">တူညီတာမပါဘဲ စုသိမ်းခြင်း</text>
+  <rect x="470" y="285" width="260" height="40" fill="#181825" rx="4" />
+  <text x="485" y="310" class="text-code">{1, 2, 3, 4, 5}</text>
+
+</svg>

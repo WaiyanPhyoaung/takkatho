@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">DSA Course Roadmap</text>
+    
+    <rect x="100" y="100" width="150" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="175" y="130" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">1. Foundations</text>
+    <line x1="250" y1="130" x2="350" y2="130" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <rect x="350" y="100" width="150" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="425" y="130" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">2. Arrays &amp; Strings</text>
+    <line x1="500" y1="130" x2="600" y2="130" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <rect x="600" y="100" width="150" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="675" y="130" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">3. Hash &amp; Stacks</text>
+    
+    <line x1="675" y1="160" x2="675" y2="220" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <rect x="600" y="220" width="150" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="675" y="250" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">4. Recursion</text>
+    <line x1="600" y1="250" x2="500" y2="250" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <rect x="350" y="220" width="150" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="425" y="250" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" dominant-baseline="middle">5. Trees &amp; Graphs</text>
+    <line x1="350" y1="250" x2="250" y2="250" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)"/>
+    
+    <rect x="100" y="220" width="150" height="60" fill="#dcfce3" stroke="#22c55e" stroke-width="2" rx="8"/> <text x="175" y="250" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#166534" text-anchor="middle" dominant-baseline="middle">6. Advanced DP</text>
+
+    </svg>

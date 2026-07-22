@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+        </marker>
+    </defs>
+    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+    
+    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Undo Feature using Stack</text>
+    
+    <rect x="100" y="150" width="120" height="60" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" rx="8"/> <text x="160" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Type 'Hello'</text>
+    <line x1="220" y1="180" x2="280" y2="180" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <rect x="280" y="150" width="120" height="60" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" rx="8"/> <text x="340" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Bold Text</text>
+    <line x1="400" y1="180" x2="460" y2="180" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <rect x="460" y="150" width="120" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="8"/> <text x="520" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Delete Word</text>
+    
+    <path d="M 520 140 Q 430 80 340 140" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrow-red)"/>
+    <text x="430" y="90" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ef4444" text-anchor="middle" dominant-baseline="middle">Ctrl+Z (Undo)</text>
+    <text x="430" y="250" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Pops 'Delete Word' from the stack</text>
+
+    </svg>
