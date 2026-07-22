@@ -1,242 +1,75 @@
 ---
-title: "Database Operations"
-description: "n8n ကို သုံးပြီး MySQL, PostgreSQL နဲ့ Supabase တွေကို တိုက်ရိုက် ချိတ်ဆက်ပြီး CRUD Operations လုပ်နည်း"
+title: "Database Operations (MySQL, PostgreSQL & Supabase)"
+description: "Google Sheets မှ တကယ့် Production Database များဆီသို့ ပြောင်းလဲခြင်း၊ CRUD Operations၊ Least Privilege User Security နှင့် Transactions"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
-import BranchFlow from "@/components/diagrams/BranchFlow.astro";
 
-## Database ကို n8n တွင် ချိတ်ဆက်ခြင်း
-
-n8n မှာ MySQL, PostgreSQL, SQLite, MariaDB, MS SQL Server စတဲ့ Database တွေကို Built-in Node တွေနဲ့ တိုက်ရိုက် ချိတ်ဆက်လို့ ရပါတယ်။ Google Sheets ကို Database ပုံစံ သုံးနေတဲ့ Workflow တွေကို တကယ့် Real Database ပြောင်းလိုက်တဲ့အခါ ပိုမြန်ဆန်ပြီး Scale လုပ်ရတာ ပိုလွယ်သွားပါမယ်။
-
-## MySQL / MariaDB Credential ဖန်တီးနည်း
-
-n8n Credentials ထဲကနေ **"MySQL"** ကို ရွေးပြီး အောက်ပါအတိုင်း ဖြည့်ပါ -
-
-```
-MySQL Credential:
-  Host:     localhost (ဒါမှမဟုတ် သင့် DB server IP)
-  Port:     3306
-  Database: my_database
-  User:     n8n_user
-  Password: your_password
-
-  SSL:      Enable (Production အတွက်)
-```
-
-<Aside type="caution" title="Database User Permission">
-n8n အတွက် Full Admin User မသုံးတာ ပိုလုံခြုံပါတယ်။ `SELECT, INSERT, UPDATE, DELETE` Permission တွေလောက်ပဲ ပေးထားတဲ့ Dedicated User သီးသန့် ဖန်တီးပါ -
-```sql
-CREATE USER 'n8n_user'@'%' IDENTIFIED BY 'strong_password';
-GRANT SELECT, INSERT, UPDATE, DELETE ON my_db.* TO 'n8n_user'@'%';
-```
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Google Sheets ၏ Data အရေအတွက် ကန့်သတ်ချက်များကို ကျော်လွန်၍ n8n တွင် **MySQL, PostgreSQL သို့မဟုတ် Supabase** Database များကို အသုံးပြုကာ CRUD Operations (Create, Read, Update, Delete) များနှင့် Atomic Transactions များကို လုံခြုံစွာ တည်ဆောက်သွားရန် ဖြစ်ပါတယ်။
 </Aside>
 
-## MySQL Node Operations
+## ဘာကြောင့် Google Sheets မှ Database သို့ ပြောင်းလဲရသလဲ?
 
-| Operation | Query |
-|-----------|-------|
-| **Select** | Rows တွေကို ဖတ်ဖို့ |
-| **Insert** | Row အသစ် ထည့်ဖို့ |
-| **Update** | ရှိပြီးသား Row ကို ပြင်ဖို့ |
-| **Delete** | Row ကို ဖျက်ဖို့ |
-| **Execute Query** | ကိုယ်တိုင် Custom SQL ရေးဖို့ |
+Google Sheets တွင် Data Row ၅,၀၀၀ မှ ၁၀,၀၀၀ အထက် ရောက်ရှိလာပါက:
+- Loading ချိန် ကြာမြင့်လာခြင်း (Latency မြင့်မားခြင်း)။
+- Concurrent Writes (လူအများအပြား တစ်ချိန်တည်း ဝင်ရောက် ရေးသားပါက) Data ပျောက်ဆုံးခြင်း။
+- Complex Queries (ဥပမာ - Customer တစ်ဦး၏ လစဉ် အဝယ်စာရင်း ပေါင်းစပ်တွက်ချက်ခြင်း) ပြုလုပ်ရန် ခက်ခဲခြင်း။
 
-## CRUD Operations ဥပမာများ
+---
 
-### Create — Row အသစ် ထည့်ခြင်း
+## 1. Database Engines ၃ မျိုး နှိုင်းယှဉ်ချက်
 
-<FlowDiagram
-  nodes={[
-    { label: "Webhook: Form Submit", type: "trigger" },
-    { label: "MySQL: Insert Row", sublabel: "users table", type: "data" },
-    { label: "Gmail: Welcome Email", type: "action" }
-  ]}
-  caption="Form Submit ဝင်လာတာနဲ့ Database ထဲ သိမ်းပြီး Welcome Email ပို့ခြင်း"
-/>
+| Engine | သင့်တော်သော အသုံးပြုမှု | n8n တည်ဆောက်ပုံ |
+|---|---|---|
+| **MySQL** | WooCommerce / WordPress Base e-Commerce ဆိုင်များ | Dedicated MySQL Node |
+| **PostgreSQL** | Large-scale Production, Complex JSON Query များ, Self-host n8n Backend | Dedicated Postgres Node |
+| **Supabase** | Cloud-hosted Backend-as-a-Service (PostgreSQL based) | REST API / PostgREST Headers |
 
-```sql
--- MySQL Insert Node (Execute Query mode)
-INSERT INTO users (name, email, created_at, status)
-VALUES (
-  '{{ $json.name }}',
-  '{{ $json.email }}',
-  NOW(),
-  'active'
-);
-```
+---
 
-**MySQL Node ရဲ့ Insert Mode ကို သုံးရင် ပိုလွယ်ပါတယ် -**
+## 2. Least Privilege Security (CRUD-only Database User)
 
-```
-MySQL Node:
-  Operation: Insert
-  Table:     users
-  Columns:   name, email, status, created_at
-  Values:
-    name:       {{ $json.name }}
-    email:      {{ $json.email }}
-    status:     active
-    created_at: {{ $now.toISO() }}
-```
+n8n Credential တွင် Root / Admin Database Account များကို **တိုက်ရိုက် မသုံးပါနှင့်**။
 
-### Read — Data ဖတ်ခြင်း
+Principle of Least Privilege အတိုင်း သီးသန့် ကန့်သတ်ထားသော Database User ကိုသာ ဖန်တီး အသုံးပြုပါ:
 
 ```sql
--- Pending Orders တွေ အားလုံးကို ဆွဲထုတ်ဖို့
-SELECT
-  o.id,
-  o.total_amount,
-  u.name AS customer_name,
-  u.email
-FROM orders o
-JOIN users u ON o.user_id = u.id
-WHERE o.status = 'pending'
-ORDER BY o.created_at DESC
-LIMIT 100;
+-- MySQL / Postgres User Creation Example
+CREATE USER 'n8n_shop_user'@'%' IDENTIFIED BY 'StrongRandomPassword123!';
+GRANT SELECT, INSERT, UPDATE, DELETE ON shop_db.orders TO 'n8n_shop_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON shop_db.customers TO 'n8n_shop_user'@'%';
+FLUSH PRIVILEGES;
 ```
 
-### Update — Row ပြင်ဆင်ခြင်း
+---
 
-<FlowDiagram
-  nodes={[
-    { label: "Webhook: Payment Success", type: "trigger" },
-    { label: "MySQL: Update Order Status", sublabel: "SET status='paid'", type: "data" },
-    { label: "Gmail: Receipt Email", type: "action" }
-  ]}
-  caption="Payment အောင်မြင်သွားတာနဲ့ Order Status ပြင်ပြီး ဘောင်ချာ (Receipt) ပို့ခြင်း"
-/>
+## 3. n8n တွင် အသုံးပြုနိုင်သော 5 Database Operation Modes
+
+```mermaid
+graph TD
+    A[Database Node] --> B[1. Select: Data ရှာဖွေဖတ်ယူခြင်း]
+    A --> C[2. Insert: Data အသစ် ထည့်သွင်းခြင်း]
+    A --> D[3. Update: Data ပြင်ဆင်ပြောင်းလဲခြင်း]
+    A --> E[4. Delete: Data ဟောင်းများ ဖျက်ဆီးခြင်း]
+    A --> F[5. Execute Query: Custom SQL / JOINs ရေးသားခြင်း]
+```
+
+### Hand-on Examples:
+1. **Telegram Webhook → Insert Order:** ဝင်လာသော မက်ဆေ့ချ်များကို `orders` Table သို့ `INSERT` ပြုလုပ်ခြင်း။
+2. **JOIN Query:** `SELECT o.id, c.name, o.total FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.status = 'pending';`
+3. **Payment Status Update:** KPay/WavePay Confirmation ရရှိပါက Status ကို `pending` မှ `paid` သို့ `UPDATE` ပြုလုပ်ခြင်း။
+4. **Scheduled Cleanup:** ရက်ပေါင်း ၉၀ ကျော်လွန်ပြီးသော Temp Session များကို အလိုအလျောက် `DELETE` ပြုလုပ်ခြင်း။
+
+---
+
+## 4. Transactions & Rollback (Atomic Operations)
+
+Order ထည့်သွင်းခြင်း နှင့် Stock နှုတ်ခြင်း ကဲ့သို့သော အလုပ် ၂ ခုတွင် တစ်ခုခု Error တက်ပါက Data လွဲမှားမှု မဖြစ်စေရန် **Atomic Operation (BEGIN ... COMMIT / ROLLBACK)** ဖြင့် ကိုင်တွယ်ရပါမည်:
 
 ```sql
-UPDATE orders
-SET
-  status = 'paid',
-  paid_at = NOW(),
-  transaction_id = '{{ $json.transactionId }}'
-WHERE id = '{{ $json.orderId }}'
-  AND status = 'pending';
-```
-
-### Delete — Data ဖျက်ခြင်း
-
-```sql
--- ၉၀ ရက်ထက် ကြာနေတဲ့ Inactive Sessions တွေကို ဖျက်ပါမယ် (Cleanup Schedule)
-DELETE FROM sessions
-WHERE last_active < DATE_SUB(NOW(), INTERVAL 90 DAY)
-  AND is_permanent = 0;
-```
-
-## PostgreSQL Integration
-
-MySQL နဲ့ Node သုံးရတဲ့ ပုံစံတူပေမဲ့ Connection String နည်းနည်း ကွာပါတယ် -
-
-```
-PostgreSQL Credential:
-  Host:     db.example.com
-  Port:     5432
-  Database: production_db
-  User:     n8n_user
-  Password: your_password
-  SSL:      Required (Supabase ဒါမှမဟုတ် Neon လိုမျိုးမှာဆိုရင်)
-```
-
-## Supabase Integration
-
-**Supabase** ဟာ PostgreSQL အပေါ်မှာ အခြေခံထားတဲ့ Backend-as-a-Service ဖြစ်ပြီး Free Tier လည်း ရပါတယ် -
-
-<FlowDiagram
-  nodes={[
-    { label: "n8n", sublabel: "Automation Layer", type: "action" },
-    { label: "Supabase Node", sublabel: "REST API", type: "data" },
-    { label: "Supabase DB", sublabel: "PostgreSQL", type: "data" }
-  ]}
-  caption="n8n → Supabase API → PostgreSQL Database"
-/>
-
-### Supabase Credential
-
-```
-Supabase Node (HTTP Request နဲ့ ချိတ်ဆက်ဖို့):
-  URL:    https://your-project.supabase.co/rest/v1/
-  Headers:
-    apikey:        your-anon-key
-    Authorization: Bearer your-anon-key
-    Content-Type:  application/json
-    Prefer:        return=representation   ← Insert လုပ်ပြီးတာနဲ့ Row ကို ပြန်ပေးစေဖို့
-```
-
-### Supabase CRUD via HTTP Request
-
-```
-GET /orders?status=eq.pending&order=created_at.desc&limit=50
-POST /orders   Body: { "user_id": 1, "total": 50000 }
-PATCH /orders?id=eq.123   Body: { "status": "paid" }
-DELETE /orders?id=eq.123
-```
-
-## Transaction — Multiple Queries တစ်ကြိမ်တည်း Run ခြင်း
-
-Order တစ်ခု တင်လိုက်တဲ့အခါ စတော့ (Stock) ကိုပါ တစ်ကြိမ်တည်း အတူတူ Update လုပ်ပြီး၊ တစ်ခုခု မှားယွင်းသွားရင် Rollback ပြန်လုပ်တတ်ဖို့ လိုပါတယ် -
-
-```sql
--- MySQL Execute Query Node
 START TRANSACTION;
-
--- ၁. Order အသစ်ထည့်
-INSERT INTO orders (user_id, total) VALUES ({{ $json.userId }}, {{ $json.total }});
-SET @order_id = LAST_INSERT_ID();
-
--- ၂. Stock ပမာဏ လျှော့
-UPDATE products
-SET stock = stock - {{ $json.quantity }}
-WHERE id = {{ $json.productId }} AND stock >= {{ $json.quantity }};
-
--- Stock မလုံလောက်ရင် Rollback လုပ်မယ်
-IF ROW_COUNT() = 0 THEN
-  ROLLBACK;
-  SELECT 'INSUFFICIENT_STOCK' AS result;
-ELSE
-  COMMIT;
-  SELECT @order_id AS result;
-END IF;
+INSERT INTO orders (customer_id, total) VALUES (101, 25000);
+UPDATE products SET stock = stock - 1 WHERE id = 5;
+COMMIT; -- Error ဖြစ်ပါက ROLLBACK;
 ```
-
-## Scheduled Database Cleanup
-
-<FlowDiagram
-  nodes={[
-    { label: "Schedule Trigger", sublabel: "Every Sunday 3am", type: "trigger" },
-    { label: "MySQL: Delete Old Logs", sublabel: "> 30 days", type: "data" },
-    { label: "MySQL: Archive Orders", sublabel: "> 1 year", type: "data" },
-    { label: "Slack: Cleanup Report", type: "action" }
-  ]}
-  caption="Weekly Database Maintenance — အလိုအလျောက် Cleanup နဲ့ Archive လုပ်ခြင်း"
-/>
-
-```sql
--- Cleanup Query 1: Old Logs
-DELETE FROM activity_logs
-WHERE created_at < DATE_SUB(NOW(), INTERVAL 30 DAY);
-
--- Cleanup Query 2: Archive Orders
-INSERT INTO orders_archive SELECT * FROM orders
-WHERE created_at < DATE_SUB(NOW(), INTERVAL 365 DAY)
-  AND status IN ('delivered', 'cancelled');
-
-DELETE FROM orders
-WHERE created_at < DATE_SUB(NOW(), INTERVAL 365 DAY)
-  AND status IN ('delivered', 'cancelled');
-```
-
-<Aside type="tip" title="Query Result ကို n8n မှာ ဖတ်နည်း">
-MySQL Execute Query Node ကနေ ထွက်လာတဲ့ Output ကို Code Node ထဲမှာ `$input.all()` သုံးပြီး ဖတ်လို့ ရပါတယ် -
-```javascript
-const rows = $input.all();
-const userCount = rows.length;
-const totalRevenue = rows.reduce((sum, r) => sum + r.json.total, 0);
-```
-</Aside>
-
-နောက်သင်ခန်းစာမှာ **Loop & Batching** — Items အများကြီးကို တစ်ခုချင်းစီ ဘယ်လို Loop ပတ်ပြီး အလုပ်လုပ်မလဲဆိုတာ ဆက်လေ့လာကြပါမယ် ခင်ဗျာ။

@@ -1,116 +1,63 @@
 ---
-title: "ပထမဆုံး Workflow ဆောက်ကြစို့"
-description: "n8n မှာ Hello World Workflow ကို အဆင့်ဆင့် ဆောက်ကြည့်ခြင်း"
+title: "ပထမဆုံး AI Chatbot Workflow (Telegram + AI + Sheets)"
+description: "Code တစ်ကြောင်းမှ ရေးစရာမလိုဘဲ Telegram Bot, AI (Gemini) နှင့် Google Sheets တို့ကို ချိတ်ဆက်၍ လက်တွေ့ သုံးနိုင်သော Customer Support Automation တည်ဆောက်ခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
 
-## ဆောက်မည့် Workflow
-
-ဒီသင်ခန်းစာမှာ ရိုးရှင်းတဲ့ Workflow တစ်ခုကို အတူတူ ဆောက်ကြည့်ကြပါမယ် -
-
-Button နှိပ်လိုက်တာနဲ့ Data တွေ ထုတ်ပြပြီး Greeting Message ပြပေးမယ့် ပုံစံပါ။
-
-<FlowDiagram
-  nodes={[
-    { label: "Manual Trigger", sublabel: "Button နှိပ်မှ", type: "trigger" },
-    { label: "Set Data", sublabel: "name, course, message", type: "data" },
-    { label: "Code Node", sublabel: "greeting ဖန်တီး", type: "code" }
-  ]}
-  caption="ဒီ Workflow ကနေတဆင့် n8n ရဲ့ အခြေခံ Workflow တည်ဆောက်ပုံကို နားလည်သွားမှာပါ"
-/>
-
-## Step 1: Workflow အသစ် ဖန်တီးပါ
-
-1. Dashboard ကနေ **"+ New Workflow"** ကို နှိပ်ပါ။
-2. Workflow Editor ပွင့်လာပါလိမ့်မယ်။
-3. ဘယ်ဘက်အပေါ်ထောင့်က Workflow Name မှာ **"My First Workflow"** လို့ နာမည်ပေးလိုက်ပါ။
-
-## Step 2: Manual Trigger Node ထည့်ပါ
-
-Canvas ပေါ်က **"+"** ကို နှိပ်ပြီး **"On clicking 'execute'"** ကို ရွေးပါ (ဒါဟာ Manual Trigger ပါ)။
-Canvas ထဲမှာ "When clicking 'Execute Workflow'" ဆိုတဲ့ Node လေး ရောက်လာပါလိမ့်မယ်။
-
-## Step 3: Set Node ထည့်ပြီး Data သတ်မှတ်ပါ
-
-Manual Trigger Node ရဲ့ Output Point (●) ကနေ Drag ဆွဲပြီး **"Set"** Node ကို ရွေးထည့်ပါ။
-
-**Set Node ကို Configure လုပ်ပါ:**
-
-Set Node ရဲ့ Setting ထဲမှာ **"Add Field"** ကို နှိပ်ပြီး အောက်ပါအတိုင်း ထည့်ပါ -
-
-| Field Name | Value |
-|-----------|-------|
-| `name` | `Aung Aung` |
-| `course` | `n8n Beginner` |
-| `message` | `Hello from n8n!` |
-
-Mode ကို "Manual Mapping" အနေနဲ့ ထားပြီး Field တစ်ခုချင်းစီကို ထည့်ပေးရမှာပါ။
-
-## Step 4: Code Node နဲ့ Greeting ဖန်တီးပါ
-
-Set Node ကနေဆက်ပြီး **Code Node** ကို ထပ်ချိတ်ပါ။
-
-Code Node ထဲမှာ အောက်ပါ JavaScript လေး ရေးထည့်ပါ -
-
-```javascript
-// Code Node - JavaScript
-for (const item of $input.all()) {
-  const name = item.json.name;
-  const course = item.json.course;
-
-  item.json.greeting = `🎉 မင်္ဂလာပါ ${name}! ${course} Course ကနေ ကြိုဆိုပါတယ်!`;
-  item.json.timestamp = new Date().toISOString();
-}
-
-return $input.all();
-```
-
-<Aside type="note" title="$input.all() ဆိုတာ">
-`$input.all()` က အရှေ့ Node ကနေ ဝင်လာတဲ့ Items တွေ အားလုံးကို Array ပုံစံနဲ့ ပြန်ပေးတာပါ။ ပြီးတော့ အဲ့ဒီ Array ကို Loop ပတ်ပြီး Item တစ်ခုချင်းစီကို ပြင်ဆင်တာ ဖြစ်ပါတယ်။
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Telegram Bot မှတစ်ဆင့် Customer မေးခွန်းများကို AI (Gemini) ဖြင့် နားလည်စေ၍ အဖြေထုတ်ခိုင်းခြင်း၊ အချက်အလက်များကို Google Sheets ထဲသို့ အလိုအလျောက် သိုလှောင်ခြင်းနှင့် Customer ထံသို့ စာပြန်ပို့ခြင်း အဆင့်များကို Code မရေးဘဲ လက်တွေ့ တည်ဆောက်သွားရန် ဖြစ်ပါတယ်။
 </Aside>
 
-## Step 5: Workflow ကို Run ကြည့်ပါ
+## Workflow ရဲ့ လမ်းကြောင်း (Architecture)
 
-Editor ရဲ့ ညာဘက်အပေါ်ထောင့်မှာရှိတဲ့ **"Execute Workflow"** ကို နှိပ်ပါ (Shortcut: `Ctrl+Enter`) -
+ကျွန်ုပ်တို့ တည်ဆောက်မည့် Workflow တွင် Node ၄ ခုဖြင့် တည်ဆောက်ထားပါမည်:
 
-Expected Result — Code Node ကနေ ဒီလို Output ထွက်လာပါမယ် -
-
-```json
-[
-  {
-    "name": "Aung Aung",
-    "course": "n8n Beginner",
-    "message": "Hello from n8n!",
-    "greeting": "🎉 မင်္ဂလာပါ Aung Aung! n8n Beginner Course ကနေ ကြိုဆိုပါတယ်!",
-    "timestamp": "2025-01-15T09:30:00.000Z"
-  }
-]
+```mermaid
+graph LR
+    A[1. Telegram Trigger] --> B[2. AI Node - Gemini]
+    B --> C[3. Google Sheets Append]
+    C --> D[4. Telegram Send Reply]
 ```
 
-Node တစ်ခုချင်းစီ အောင်မြင်သွားရင် **Green Checkmark** ✅ လေးတွေ ပေါ်လာမှာပါ။
+---
 
-## ဘာတွေ ဖြစ်သွားတာလဲ? (Data Flow နားလည်ခြင်း)
+## Step-by-Step တည်ဆောက်နည်း
 
-Data Flow အဆင့်ဆင့်ကို ပြန်ကြည့်ရအောင် -
+### Step 1: Telegram Trigger ဖန်တီးခြင်း
+1. n8n Canvas တွင် **Telegram Trigger** Node ကို ထည့်သွင်းပါ။
+2. Telegram **@BotFather** ဆီမှ ရရှိလာသော `Bot Token` ကို Credential ထည့်ပါ။
+3. Event ကို **Message** ဟု ရွေးပါ။ (ဒါဆိုရင် Customer မေးခွန်း ရောက်လာပါက Workflow ချက်ချင်း စတင်ပါမည်)။
 
-1. **Manual Trigger** — Output: `[{ json: {} }]` (Empty item လေး ထွက်လာတယ်)
-2. **Set Node** — Output: `[{ json: { name: "Aung Aung", course: "n8n Beginner", message: "Hello from n8n!" } }]` (Data တွေ ဖြည့်လိုက်တယ်)
-3. **Code Node** — Input အနေနဲ့ အရှေ့က Output ကို ယူပြီး / Output: `[{ json: { ...same, greeting: "🎉...", timestamp: "..." } }]` (Greeting နဲ့ Time ထပ်ပေါင်းထည့်လိုက်တယ်)
+### Step 2: AI Node (Google Gemini) ချိတ်ဆက်ခြင်း
+1. Trigger ဘေးတွင် **Basic LLM Chain** သို့မဟုတ် **Google Gemini Chat Model** Node ကို ထည့်ပါ။
+2. [Google AI Studio](https://aistudio.google.com) မှ ရရှိလာသော Gemini API Key ကို ထည့်သွင်းပါ။
+3. **Model:** `gemini-2.5-flash` ကို ရွေးချယ်ပါ။
+4. **Prompt Expression:** `{{ $json.message.text }}` (Customer မေးလာသော စာ) ကို ဆွဲထည့်ပါ။
+5. **System Instructions:** 
+   > "မင်းက ကျွန်တော်တို့ ဆိုင်ရဲ့ ဖော်ရွေတဲ့ Customer Support ပါ။ ဝင်လာတဲ့ မေးခွန်းကို ယဉ်ယဉ်ကျေးကျေးနဲ့ မြန်မာလို အတိုချုံး ပြန်ဖြေပေးပါ။"
 
-## Node ကို Debug လုပ်ခြင်း
+### Step 3: Google Sheets တွင် Data မှတ်တမ်းတင်ခြင်း
+1. AI Node ဘေးတွင် **Google Sheets** Node ကို ထည့်ပါ။
+2. **Operation:** `Append Row`
+3. Column Values များကို Expression ဖြင့် ညွှန်းဆိုပါ:
+   - `Customer Name`: `{{ $json.message.from.first_name }}`
+   - `Inquiry`: `{{ $json.message.text }}`
+   - `AI Response`: `{{ $json.text }}`
 
-Node တစ်ခုကို Click နှိပ်ပြီး **"Input"** / **"Output"** Tab တွေကို ဖွင့်ကြည့်ရင် Data တွေ အဆင့်ဆင့် ဘယ်လို ပြောင်းသွားလဲ မြင်ရပါတယ်။
+### Step 4: Telegram မှတစ်ဆင့် Customer ထံ အဖြေ ပြန်လည် ပို့ဆောင်ခြင်း
+1. **Telegram** (Action Node) ကို ထည့်ပါ။
+2. **Operation:** `Send Message`
+3. **Chat ID:** `{{ $json.message.chat.id }}`
+4. **Text:** `{{ $json.text }}` (AI ထုတ်ပေးထားသော အဖြေ)
 
-ဥပမာ Set Node မှာဆိုရင် Input Tab မှာ Empty Object `{}` ကို မြင်ရပြီး၊ Output Tab မှာတော့ ဖြည့်လိုက်တဲ့ `{ name: "Aung", course: "...", message: "..." }` Data တွေကို မြင်ရမှာပါ။
+---
 
-<Aside type="tip" title="Node ကို ခွဲပြီး Test လုပ်ပါ">
-Workflow တစ်ခုလုံး Run စရာမလိုဘဲ Node တစ်ခုချင်းစီမှာရှိတဲ့ **"Test Step"** ကို နှိပ်ပြီး Test လို့ ရပါတယ်။ အဲ့ဒါက Debug လုပ်ရတာ ပိုမြန်စေပါတယ်။
-</Aside>
+## Live Testing & Verification
 
-## Workflow ကို Save လုပ်ပါ
-
-`Ctrl+S` (သို့) **"Save"** Button နှိပ်ပြီး Workflow ကို သိမ်းထားလိုက်ပါ။
-
-ဒါဆိုရင်တော့ ပထမဆုံး Workflow လေး အောင်မြင်စွာ ဆောက်ပြီးသွားပါပြီ။ နောက်သင်ခန်းစာမှာ **HTTP Request** နဲ့ **Webhook** အကြောင်း လေ့လာပြီး တကယ့် API Integration တွေ စလုပ်ကြပါမယ် ခင်ဗျာ။
+1. n8n တွင် **Test Workflow** ခလုတ်ကို နှိပ်ပါ။
+2. Telegram Bot ထံသို့ စာလှမ်းပို့ပါ (ဥပမာ - "ဆိုင်က ဘယ်အချိန် ပိတ်လဲခင်ဗျာ")။
+3. **ရလဒ်:** 
+   - Gemini မှ မေးခွန်းကို သုံးသပ်ပြီး အဖြေ ထုတ်ပေးမည်။
+   - Google Sheets ထဲသို့ Row အသစ် ဝင်ရောက်မည်။
+   - Telegram ထံသို့ AI ၏ အဖြေ စက္ကန့်ပိုင်းအတွင်း ပြန်ရောက်လာမည် ဖြစ်ပါတယ်။

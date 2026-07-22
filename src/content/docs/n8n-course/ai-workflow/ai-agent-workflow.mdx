@@ -1,175 +1,57 @@
 ---
-title: "n8n AI Agent ဆောက်ခြင်း"
-description: "Tool တွေကို ကိုယ်တိုင် ကိုင်တွယ်ဆုံးဖြတ်နိုင်တဲ့ AI Agent တစ်ခုကို n8n သုံးပြီး ဘယ်လို ဆောက်မလဲ၊ မှတ်ဉာဏ် (Memory) ဘယ်လို ထည့်မလဲ"
+title: "AI Agent ဆောက်ခြင်းနှင့် Hybrid Workflow တည်ဆောက်နည်း"
+description: "AI Agent တွင် Tools များ၊ Memory များ တပ်ဆင်ခြင်းနှင့် Telegram Deterministic System အတွင်းသို့ AI Agent ကို Hybrid ထည့်သွင်း တည်ဆောက်ခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
-import BranchFlow from "@/components/diagrams/BranchFlow.astro";
 
-## AI Agent ဆိုတာ ဘာလဲ?
-
-**AI Agent** ဆိုတာ ရိုးရိုး LLM (ဥပမာ ChatGPT လို) အမေးအဖြေလုပ်ရုံတင် မဟုတ်ဘဲ ပိုမြင့်တဲ့ System တစ်ခုပါ။ AI ကို Tools တွေ (ဥပမာ - Web Search, Database ဝင်ရှာတာ၊ API ခေါ်တာ) ပေးထားလိုက်ပြီး၊ ပေးလိုက်တဲ့ Task တစ်ခု ပြီးမြောက်ဖို့ သူကိုယ်တိုင် စဉ်းစားဆုံးဖြတ်ပြီး အလုပ်လုပ်ခိုင်းတဲ့ Pattern ပါ -
-
-```
-ရိုးရိုး LLM ရဲ့ အလုပ်လုပ်ပုံ:         AI Agent ရဲ့ အလုပ်လုပ်ပုံ:
-  Prompt ပေးလိုက်တယ်                 Prompt ပေးလိုက်တယ်
-     ↓                                   ↓
-  Response တန်းပြန်ဖြေတယ်            [စဉ်းစားမယ်: ဒီအဖြေရဖို့ ငါ ဘာ Tool သုံးရမလဲ?]
-                                         ↓
-                                    [Tool သုံးမယ်: Web ပေါ်မှာ ရှာကြည့်မယ်]
-                                         ↓
-                                    [Tool သုံးမယ်: တွက်ချက်စရာရှိရင် Calculator သုံးမယ်]
-                                         ↓
-                                    [အကုန်ရပြီဆိုမှ နောက်ဆုံး Response ပြန်ဖြေမယ်]
-```
-
-n8n မှာပါတဲ့ **AI Agent Node** (ReAct Agent) က LangChain နည်းပညာကို အသင့်ထည့်ပေးထားလို့ သူကိုယ်တိုင် Tools တွေကို လိုအပ်သလို ရွေးချယ်သုံးစွဲသွားနိုင်ပါတယ်။
-
-## AI Agent Workflow ဆောက်ပုံ
-
-<FlowDiagram
-  nodes={[
-    { label: "Chat Trigger", sublabel: "User Message ဝင်လာမယ်", type: "trigger" },
-    { label: "AI Agent Node", sublabel: "Think → Tool ကို ခေါ်သုံးမယ် → Answer ဖြေမယ်", type: "code" },
-    { label: "Response to User", sublabel: "Chat Response ပြန်ပို့မယ်", type: "end" }
-  ]}
-  caption="User မေးသမျှကို Agent က လိုအပ်တဲ့ Tool တွေ ခေါ်သုံးပြီး ပြန်ဖြေပေးတဲ့ ပုံစံပါ"
-/>
-
-## Agent Node Setup
-
-Canvas ထဲမှာ **"AI Agent"** Node ကို ထည့်ပြီး အောက်ပါ Sub-nodes တွေကို လိုက်ချိတ်ပေးရပါမယ် -
-
-```
-AI Agent Node
-├── Chat Model (ဒါကတော့ မဖြစ်မနေ လိုပါတယ်)
-│   └── [OpenAI GPT-4o] သို့မဟုတ် [Claude Sonnet]
-│
-├── Memory (Optional — အရင် ပြောခဲ့တဲ့ စကားတွေကို မှတ်မိချင်ရင်)
-│   └── [Window Buffer Memory]
-│
-└── Tools (သူ့ကို ပေးသုံးချင်တဲ့ စွမ်းရည်တွေ)
-    ├── [Calculator]       ← သင်္ချာ တွက်ဖို့
-    ├── [SerpAPI Search]   ← Web ပေါ်က ရှာဖွေဖို့
-    ├── [Wikipedia]        ← အချက်အလက် (Knowledge) ရှာဖို့
-    └── [Code Executor]    ← Code တွေကို တိုက်ရိုက် Run ဖို့
-```
-
-**System Prompt** (Agent ရဲ့ ဇာတ်ကောင် / Role သတ်မှတ်ချက်):
-
-```
-You are a helpful assistant for a Myanmar e-commerce company.
-You can:
-- Search for product information
-- Calculate prices and discounts
-- Look up order status from database
-- Answer questions in Myanmar language
-
-Always be polite and concise. Respond in the same language the user wrote in.
-```
-
-## Memory ထည့်ခြင်း — Conversation History
-
-Memory မပါရင် Agent က အရင်တစ်ခေါက် ပြောထားခဲ့တဲ့ စကား (Message) တွေကို မှတ်မိမှာ မဟုတ်ပါဘူး။ **Window Buffer Memory** လေး ထည့်ပေးလိုက်ရင်တော့ စကားပြောခဲ့တဲ့ သမိုင်းကြောင်း (Conversation History) ကို မှတ်ထားပေးနိုင်ပါပြီ -
-
-```
-Memory Configuration:
-  Window Buffer Memory:
-    Context Window Size: 10   ← နောက်ဆုံး ပြောခဲ့တဲ့ Messages ၁၀ ခုကို မှတ်မိမယ်
-    Session Key: {{ $('Chat Trigger').item.json.sessionId }}
-```
-
-<Aside type="note" title="Session Key ဆိုတာ ဘာလဲ?">
-Session Key ဟာ User တစ်ယောက်ချင်းစီရဲ့ စကားပြောမှတ်တမ်းကို သီးသန့်စီ (Separate) ခွဲခြားပေးတာပါ။ Chat UI မှာဆိုရင် `sessionId` ကို သူ့အလိုလို ထုတ်ပေးပါတယ်။ အကယ်၍ Webhook ကနေ ခေါ်သုံးတာဆိုရင်တော့ `{{ $json.userId }}` ကို Session Key အဖြစ် အစားထိုး သုံးနိုင်ပါတယ်။
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Customer Support အတွက် **AI Agent** တစ်ခု တည်ဆောက်ပြီး၊ ထို Agent ကို Telegram Webhook၊ Human Approval Gate နှင့် CRM Updates ပါဝင်သော **Deterministic Hybrid Workflow** အတွင်းသို့ စနစ်တကျ ထည့်သွင်း တည်ဆောက်ရန် ဖြစ်ပါတယ်။
 </Aside>
 
-## Custom Tools ထည့်ခြင်း
+## Hybrid Architecture (EP0 Pattern)
 
-Agent ကို ကိုယ်ပိုင် Database တွေ၊ ကိုယ်ပိုင် API တွေနဲ့ သွားချိတ်ပေးဖို့ဆိုရင် **"Call n8n Workflow" Tool** ကို သုံးရပါတယ် -
-
-<FlowDiagram
-  nodes={[
-    { label: "AI Agent", type: "code" },
-    { label: "Tool: Get Order Status", sublabel: "Workflow ကို လှမ်းခေါ်မယ်", type: "action" },
-    { label: "MySQL: Query Orders", sublabel: "ORDER BY id", type: "data" },
-    { label: "Return to Agent", sublabel: "ရလာတဲ့ ရလဒ် ပြန်ပို့မယ်", type: "end" }
-  ]}
-  caption="Agent ကနေ Database Query လုပ်ပေးမယ့် Tool ကို လှမ်းခေါ်ပြီး Order Status ကို ပြန်ပြတာပါ"
-/>
-
-### Order Status Tool Workflow
-
-Agent ကနေ ဒီ Sub-Workflow ကို Tool အနေနဲ့ သုံးဖို့ ဒီလို Configure လုပ်ပါမယ် -
-
-```javascript
-// Tool Workflow — Get Order Status
-// Input က ဒီလို လာမယ်: { orderId: "ORD-123" }
-const orderId = $json.orderId;
-
-// MySQL Node ကနေ Query သွားလုပ်မယ်
-const query = `SELECT * FROM orders WHERE id = '${orderId}' LIMIT 1`;
-
-// ရလာတဲ့ ရလဒ် (Result) ကို သပ်သပ်ရပ်ရပ်လေးနဲ့ Agent ဆီ ပြန်ပို့ပေးမယ်
-return [{
-  json: {
-    orderId,
-    status: $('MySQL').first().json.status,
-    createdAt: $('MySQL').first().json.created_at,
-    total: $('MySQL').first().json.total_amount,
-    message: `Order ${orderId} ရဲ့ လက်ရှိ အခြေအနေကတော့: ${$('MySQL').first().json.status} ဖြစ်ပါတယ်`
-  }
-}];
+```mermaid
+graph TD
+    A[1. Telegram Webhook Incoming] --> B[2. Log Data to DB - Deterministic]
+    B --> C[3. AI Agent Node - Reason & Pick Tool]
+    C --> D{4. Is Sensitive Action?}
+    D -->|Yes: Refund / Cancel| E[Human Approval via Telegram Bot]
+    D -->|No: FAQ / Search| F[Auto Send Reply to Customer]
+    E -->|Approved| F
+    F --> G[5. Update Notion CRM]
 ```
 
-## Customer Support Agent — Complete Example
+---
 
-<FlowDiagram
-  nodes={[
-    { label: "Chat Trigger", sublabel: "n8n Chat UI ကနေစမယ်", type: "trigger" },
-    { label: "AI Agent", sublabel: "GPT-4o + Memory + Tools စုံစုံလင်လင်", type: "code" },
-    { label: "Window Buffer Memory", sublabel: "နောက်ဆုံး စကား 10 ခွန်း မှတ်မိမယ်", type: "data" },
-    { label: "Chat Response", type: "end" }
-  ]}
-  caption="Memory တွေ Tools တွေ အစုံပါဝင်တဲ့ Customer Support Agent ဥပမာ"
-/>
+## 1. AI Agent တွင် ပါဝင်သော Tools ၃ ခု
 
-Tools တွေ ပေးလိုက်တဲ့အတွက် Agent ဘာတွေ လုပ်နိုင်သွားမလဲ?
+AI Agent ထံသို့ အောက်ပါ **Custom Tools (Sub-workflows)** များကို ချိတ်ဆက်ပေးရပါမည်:
 
-| Tool | ဘယ်အချိန်မှာ အသုံးဝင်မလဲ |
-|------|----------------------|
-| Order Status Lookup | "ကျွန်တော့် Order ORD-456 ဘယ်ရောက်ပြီလဲ?" လို့ မေးလာတဲ့အခါ |
-| Product Search | "အခု လက်ရှိ Laptop အကောင်းဆုံး ဘယ်အမျိုးအစား ရှိလဲ?" လို့ မေးတဲ့အခါ |
-| Calculator | "20% Discount နဲ့ 45,000 တန် ပစ္စည်းဆိုရင် ဘယ်လောက် ကျမလဲ?" လို့ တွက်ခိုင်းတဲ့အခါ |
-| FAQ Knowledge Base | "Return Policy (ပစ္စည်းပြန်အမ်းခွင့်) က ဘယ်လိုရှိလဲ?" လို့ အချက်အလက် မေးတဲ့အခါ |
+1. **Order Lookup Tool (Sub-workflow):** Customer ၏ Order ID ဖြင့် Database / Sheets တွင် Status သွားရောက် စစ်ဆေးခြင်း။
+2. **Product Search Tool (Sub-workflow):** ပစ္စည်း ရရှိနိုင်မှု (Stock) နှင့် ဈေးနှုန်းများကို ရှာဖွေပေးခြင်း။
+3. **FAQ Tool (Vector Store / RAG):** ဆိုင်၏ ပို့ဆောင်ခနှင့် ပိတ်ရက် Policy များကို ပြန်လည် ဖြေကြားပေးခြင်း။
 
-## Agentic Workflow ဥပမာ
+---
 
-User: "ကျွန်တော်ရဲ့ Order ORD-789 ဘယ်ရောက်ပြီလဲ? ပစ္စည်းရောက်ပြီးပြီဆိုရင် Review ရေးဖို့ Link လေး တစ်ခါတည်း ပို့ပေးပါ"
+## 2. Agent ကို Hybrid Workflow တွင် တပ်ဆင်ခြင်း
 
-Agent က အဆင့်ဆင့် စဉ်းစားသွားမယ့် ပုံစံ (Thinking Process):
+1. **Telegram Trigger Node:** Customer မက်ဆေ့ချ်များ လက်ခံခြင်း။
+2. **Deterministic Logging Node:** ဝင်ရောက်လာသော မက်ဆေ့ချ်တိုင်းကို Database သို့ ရေးသွင်းခြင်း (AI မရောက်မီ ကြိုတင် လော့ဂ်ယူခြင်း)။
+3. **AI Agent Node:**
+   - **Chat Model:** `claude-haiku-4-5-20251001` သို့မဟုတ် `gpt-4o-mini`
+   - **Memory:** Simple Memory (`Session ID = {{ $json.message.chat.id }}`)
+   - **Tools:** Order Lookup, Product Search, FAQ
+4. **IF Node (Human Approval Gate):**
+   - AI Agent ၏ တုံ့ပြန်မှုတွင် Refund (ငွေပြန်အမ်းခြင်း) သို့မဟုတ် Order Cancellation ပါဝင်ပါက **Telegram Admin Group** သို့ "Approve/Reject" ခလုတ်ဖြင့် စာပို့၍ လူကိုယ်တိုင် အတည်ပြုချက် တောင်းခံပါ။
+5. **Auto Send & CRM Update:** Admin အတည်ပြုပါက သို့မဟုတ် ပုံမှန် မေးခွန်း ဖြစ်ပါက Customer ထံသို့ Auto-Reply ပို့ဆောင်ပြီး CRM (Notion / Google Sheets) တွင် Log အဆင့်မြှင့်ပါ။
 
-```
-Step 1: Parse Intent (ဘာလိုချင်လဲ အရင်ခွဲခြမ်းမယ်)
-  → "Order status အခြေအနေ သိချင်တယ်" + "ပစ္စည်းရောက်ပြီဆိုရင် Review တောင်းပေးပါ"
+---
 
-Step 2: Use Order Status Tool (Tool ခေါ်သုံးမယ်)
-  → Query: SELECT * FROM orders WHERE id='ORD-789'
-  → Result: { status: "delivered", deliveredAt: "2025-01-10" }
+## Performance & Cost Comparison
 
-Step 3: Decide Next Action (ဘာဆက်လုပ်ရမလဲ ဆုံးဖြတ်မယ်)
-  → Status က delivered ဖြစ်နေပြီ → အဲဒီတော့ Review တောင်းလို့ ရပြီ
-
-Step 4: Use Email Tool (နောက် Tool တစ်ခု ထပ်သုံးမယ်)
-  → Customer ဆီကို Review တောင်းတဲ့ Email လှမ်းပို့မယ်
-
-Step 5: Final Response (နောက်ဆုံး အဖြေ ပြန်ဖြေမယ်)
-  → "ခင်ဗျားရဲ့ Order ORD-789 ကို 2025-01-10 ရက်နေ့ကတည်းက ပို့ဆောင်ပြီး ဖြစ်ပါတယ်။ 
-     Review ရေးလို့ရမယ့် Email ကိုလည်း ပေးပို့ထားပြီး ဖြစ်ပါတယ်။"
-```
-
-<Aside type="tip" title="Agent ကို ဘယ်လို Test စမ်းကြည့်မလဲ?">
-n8n Chat UI လေးကို `http://localhost:5678/webhook/your-chat-path` ဆိုတဲ့ Link ကနေ တိုက်ရိုက် ဖွင့်ပြီး ကိုယ့် Agent နဲ့ စကားပြော စမ်းသပ်ကြည့်လို့ ရပါတယ်။ တကယ့် Production ကို Live မလွှင့်ခင် သေချာ Testing အရင် လုပ်ကြည့်ဖို့ အကြံပေးချင်ပါတယ်။
-</Aside>
-
-နောက်သင်ခန်းစာမှာတော့ **Production Deployment** — n8n ကို VPS ပေါ်မှာ တင်ပြီး တကယ့် Production ပတ်ဝန်းကျင်မှာ ဘယ်လို Run မလဲဆိုတာ လေ့လာကြပါမယ်။
+| နှိုင်းယှဉ်ချက် | Pure Agent-Everything System | Hybrid System (Recommended) |
+|---|---|---|
+| **တုံ့ပြန်မှု ကြာချိန် (Latency)** | ~၅ - ၈ စက္ကန့် (နှေးကွေး) | ~၁.၅ - ၂.၅ စက္ကန့် (အလွန် မြန်ဆန်) |
+| **API Cost ကုန်ကျစရိတ်** | $0.05 / Message | $0.002 / Message (၂၅ ဆ သက်သာ) |
+| **တည်ငြိမ်မှု (Reliability)** | Non-deterministic (အမှား ပါနိုင်) | ၉၉.၉% Deterministic & Safe |

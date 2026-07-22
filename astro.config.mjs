@@ -2796,67 +2796,31 @@ export default defineConfig({
           label: "n8n Workflow Automation",
           items: [
             {
-              label: "1. မိတ်ဆက်",
-              items: [
-                {
-                  label: "n8n ဆိုတာ ဘာလဲ?",
-                  slug: "n8n-course/introduction/what-is-n8n",
-                },
-                {
-                  label: "ထည့်သွင်းခြင်းနှင့် Setup",
-                  slug: "n8n-course/introduction/installation-setup",
-                },
-              ],
+              label: "EP0. Workflow vs AI Agent",
+              slug: "n8n-course/introduction/workflow-vs-agent",
             },
             {
-              label: "2. Core Concepts",
-              items: [
-                {
-                  label: "Nodes ကို နားလည်ခြင်း",
-                  slug: "n8n-course/core-concepts/understanding-nodes",
-                },
-                {
-                  label: "Triggers နှင့် Events",
-                  slug: "n8n-course/core-concepts/triggers-and-events",
-                },
-                {
-                  label: "Credentials နှင့် Security",
-                  slug: "n8n-course/core-concepts/credentials-security",
-                },
-              ],
+              label: "EP1. n8n မိတ်ဆက်နှင့် Setup",
+              slug: "n8n-course/introduction/what-is-n8n",
             },
             {
-              label: "3. ပထမဆုံး Workflow",
-              items: [
-                {
-                  label: "Hello World Workflow",
-                  slug: "n8n-course/first-workflow/hello-world-workflow",
-                },
-                {
-                  label: "HTTP Request နှင့် Webhook",
-                  slug: "n8n-course/first-workflow/http-request-webhook",
-                },
-                {
-                  label: "Data Transformation",
-                  slug: "n8n-course/first-workflow/data-transformation",
-                },
-              ],
+              label: "EP2. Nodes, Triggers & Credentials",
+              slug: "n8n-course/core-concepts/understanding-nodes",
             },
             {
-              label: "4. လက်တွေ့ Automation",
-              items: [
-                {
-                  label: "Email နှင့် Notification",
-                  slug: "n8n-course/real-world/email-notifications",
-                },
-                {
-                  label: "API Integration လက်တွေ့",
-                  slug: "n8n-course/real-world/connecting-apis",
-                },
-              ],
+              label: "EP3. ပထမဆုံး AI Chatbot Workflow",
+              slug: "n8n-course/first-workflow/hello-world-workflow",
             },
             {
-              label: "5. Advanced Topics",
+              label: "EP4. Data Transformation",
+              slug: "n8n-course/first-workflow/data-transformation",
+            },
+            {
+              label: "EP5. Telegram & API Automation",
+              slug: "n8n-course/real-world/email-notifications",
+            },
+            {
+              label: "EP6. Error Handling & Sub-Workflows",
               items: [
                 {
                   label: "Error Handling",
@@ -2869,53 +2833,37 @@ export default defineConfig({
               ],
             },
             {
-              label: "6. Loop နှင့် Batch Processing",
-              items: [
-                {
-                  label: "Loop, Batch & Rate Limiting",
-                  slug: "n8n-course/loop-batch/loop-over-items",
-                },
-              ],
+              label: "EP7. Loop နှင့် Batch Processing",
+              slug: "n8n-course/loop-batch/loop-over-items",
             },
             {
-              label: "7. AI ဖြင့် Automation",
+              label: "EP8. AI Nodes & AI Agent (Hybrid)",
               items: [
                 {
                   label: "AI Nodes မိတ်ဆက်",
                   slug: "n8n-course/ai-workflow/ai-nodes-intro",
                 },
                 {
-                  label: "AI Agent ဆောက်ခြင်း",
+                  label: "AI Agent & Hybrid Workflow",
                   slug: "n8n-course/ai-workflow/ai-agent-workflow",
                 },
               ],
             },
             {
-              label: "8. Database Operations",
-              items: [
-                {
-                  label: "MySQL, PostgreSQL & Supabase",
-                  slug: "n8n-course/database/database-operations",
-                },
-              ],
+              label: "EP9. Database Operations",
+              slug: "n8n-course/database/database-operations",
             },
             {
-              label: "9. Production Deployment",
-              items: [
-                {
-                  label: "VPS တွင် Self-host လုပ်ခြင်း",
-                  slug: "n8n-course/production/self-hosting",
-                },
-              ],
+              label: "EP10. Production Self-Hosting",
+              slug: "n8n-course/production/self-hosting",
             },
             {
-              label: "10. Capstone Project",
-              items: [
-                {
-                  label: "E-commerce Automation System",
-                  slug: "n8n-course/final-project/ecommerce-automation",
-                },
-              ],
+              label: "EP11. Capstone E-Commerce System",
+              slug: "n8n-course/final-project/ecommerce-automation",
+            },
+            {
+              label: "EP12. Messenger Auto-Reply AI Bot",
+              slug: "n8n-course/special/facebook-messenger-bot",
             },
           ],
         },

@@ -1,98 +1,74 @@
 ---
-title: "n8n ဆိုတာ ဘာလဲ?"
-description: "n8n Workflow Automation Tool အကြောင်း မိတ်ဆက်ခြင်း"
+title: "n8n ဆိုတာ ဘာလဲ + ကိုယ့်စက်ထဲ Install လုပ်ခြင်း"
+description: "n8n ၏ အခြေခံ သဘောတရားများ၊ အားသာချက်များနှင့် Local Machine တွင် တည်ဆောက် နည်းလမ်းများ"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  n8n ဆိုသည်မှာ မည်သည့် Tool ဖြစ်ကြောင်း၊ Zapier / Make တို့နှင့် မည်သို့ ကွာခြားကြောင်း နားလည်ပြီး၊ မိမိ၏ ကိုယ်ပိုင် စက်ထဲတွင် အောင်မြင်စွာ Install လုပ်၍ စတင် အသုံးပြုနိုင်ရန် ဖြစ်ပါတယ်။
+</Aside>
 
 ## n8n ဆိုတာ ဘာလဲ?
 
-n8n (အသံထွက်: **n-eight-n**) ဆိုတာ **Open-Source Workflow Automation** Tool တစ်ခုပါ။ Apps, Services နဲ့ APIs တွေကို Code အများကြီး ရေးစရာမလိုဘဲ တစ်ခုနဲ့တစ်ခု ချိတ်ဆက်ပြီး Tasks တွေကို အလိုအလျောက် လုပ်ဆောင်ခိုင်းလို့ ရပါတယ်။
+**n8n** ("အန်-အိတ်-အန်" ဟု ဖတ်ပါသည်) ဆိုသည်မှာ Open-source **Workflow Automation Tool** တစ်ခု ဖြစ်ပါတယ်။
 
-ရိုးရှင်းစွာ ပြောရရင် — **"ဒီအကြောင်းအရာ ဖြစ်ရင်၊ ဒါကို လုပ်ပေး"** ဆိုတဲ့ Automation Rules တွေကို Visual Editor ပေါ်မှာ အလွယ်တကူ တည်ဆောက်လို့ ရပါတယ်။
+"If This, Then That" (ဒီအခြေအနေ ဖြစ်ပေါ်ပါက → ဒီ Action ကို လုပ်ဆောင်ပါ) ဟူသော လုပ်ငန်းစဉ်များကို Code ရေးသားစရာ မလိုဘဲ Node များကို Drag-and-Drop ဖြင့် မြှားများ ချိတ်ဆက်ကာ အလွယ်တကူ တည်ဆောက်နိုင်သော Platform ဖြစ်ပါတယ်။
 
-<FlowDiagram
-  nodes={[
-    { label: "Gmail", sublabel: "Email အသစ်ရောက်မှ", type: "trigger" },
-    { label: "Slack", sublabel: "Notify ပို့ခြင်း", type: "action" },
-    { label: "Google Sheets", sublabel: "Data ထည့်ခြင်း", type: "action" }
-  ]}
-  caption="Email တစ်ခု ရောက်ရင် → Slack ကို ပို့ → Sheet ထည့်"
-/>
+### n8n ရဲ့ အဓိက အားသာချက် ၄ ခု
+1. **Open-source:** အခမဲ့ စတင် အသုံးပြုနိုင်ပြီး Source Code များကို ပွင့်လင်းမြင်သာစွာ ကြည့်ရှုနိုင်ခြင်း။
+2. **Self-hostable:** မိမိ၏ ကိုယ်ပိုင် စက် သို့မဟုတ် VPS Server တွင် တိုက်ရိုက် Host ပြုလုပ်နိုင်သဖြင့် Data Privacy ၁၀၀% လုံခြုံခြင်း။
+3. **400+ Integrations:** Gmail, Telegram, Google Sheets, PostgreSQL, Facebook (Graph API), OpenAI စသည့် App များစွာကို အသင့် ပါဝင်သော Node များဖြင့် ချိတ်ဆက်နိုင်ခြင်း။
+4. **Code Flexibility:** လိုအပ်ပါက JavaScript သို့မဟုတ် Python Code များကို Custom ရေးသား၍ စိတ်ကြိုက် ပြုပြင်နိုင်ခြင်း။
 
-## ဘာကြောင့် n8n ကို သင်ယူသင့်တာလဲ?
+---
 
-### ၁. Repetitive Tasks တွေကို Automate လုပ်နိုင်ခြင်း
+## n8n vs. Zapier vs. Make
 
-Developer, Freelancer ဒါမှမဟုတ် Business Owner ဘယ်သူပဲဖြစ်ဖြစ် တစ်နေ့ကို ထပ်ခါထပ်ခါ လုပ်နေရတဲ့ အလုပ်တွေ ရှိတတ်ပါတယ် -
-- Email စစ်ပြီး Data ကူးရတာ
-- Form Responses တွေကို Database ထဲ ထည့်ရတာ
-- Report လုပ်ပြီး Team ဆီ ပို့ရတာ
+| အင်္ဂါရပ်များ | **n8n** | **Zapier / Make** |
+|---|---|---|
+| **ကုန်ကျစရိတ်** | Self-host ပြုလုပ်ပါက **အခမဲ့ (Unlimited Tasks)** | Task အရေအတွက်အပေါ် မူတည်၍ လစဉ်ကြေး ကြီးမြင့်စွာ ပေးဆောင်ရ |
+| **Data လုံခြုံရေး** | မိမိ၏ စက်/Server တွင်သာ ရှိသည် (High Privacy) | Third-party Cloud ပေါ်တွင် သိုလှောင်ရ |
+| **Code ရေးသားနိုင်မှု** | JavaScript / Python စိတ်ကြိုက် ရေးသားနိုင် | အကန့်အသတ် ရှိ |
+| **သင်ယူရလွယ်ကူမှု** | အခြေခံ နည်းပညာ အယူအဆ အနည်းငယ် လိုအပ် | ချက်ချင်း စတင် သုံးစွဲနိုင် |
 
-ဒါတွေကို n8n နဲ့ **တစ်ကြိမ်တည်း Setup** လုပ်လိုက်ရင် အမြဲတမ်း အလိုအလျောက် အလုပ်လုပ်သွားမှာပါ။
+---
 
-### ၂. Open-Source & Self-Hostable
+## n8n ကို Local စက်ထဲ Install လုပ်နည်း ၃ မျိုး
 
-n8n က Open-Source ဖြစ်လို့ ကိုယ်ပိုင် Server ပေါ်မှာ အခမဲ့ Install လုပ်ပြီး သုံးနိုင်ပါတယ်။ ခင်ဗျားရဲ့ Data Privacy ကိုလည်း အပြည့်အဝ ထိန်းချုပ်ထားနိုင်ပါတယ်။
+### နည်းလမ်း ၁: `npx` ဖြင့် Run ခြင်း (အလွယ်ဆုံး နည်းလမ်း)
 
-### ၃. 400+ Integrations ပါဝင်ခြင်း
+မိမိ စက်တွင် **Node.js (v18.17+)** ရှိပါက Terminal (Command Prompt / PowerShell) တွင် အောက်ပါ Command တစ်ကြောင်းတည်း ရိုက်နှိပ်၍ Run နိုင်ပါတယ်:
 
-n8n မှာ Google Sheets, Gmail, Slack, GitHub, Notion, MySQL စတဲ့ App ၄၀၀ ကျော်နဲ့ Built-in ချိတ်ဆက်ပေးထားပါတယ်။
+```bash
+npx n8n
+```
 
-n8n Integrations (နမူနာ) -
-- **Communication** — Gmail, Outlook, Slack, Discord, Telegram
-- **Data & Storage** — Google Sheets, Airtable, Notion, MySQL
-- **E-commerce** — Shopify, WooCommerce, Stripe
-- **Files** — Google Drive, Dropbox, OneDrive
-- **Development** — GitHub, Jira, Linear, GitLab
-- **AI** — OpenAI, Anthropic, Hugging Face
+ခဏအကြာတွင် Browser တွင် `http://localhost:5678` ဖြင့် n8n Dashboard ပွင့်လာမည် ဖြစ်ပါတယ်။
 
-### ၄. Code လည်း ရေးလို့ရခြင်း
+---
 
-Code-Free သက်သက် မဟုတ်ဘဲ JavaScript ဒါမှမဟုတ် Python Code တွေကိုပါ Node တွေထဲ ထည့်ရေးပြီး Complex Logic တွေ တည်ဆောက်နိုင်ပါတယ်။
+### နည်းလမ်း ၂: Docker ဖြင့် Run ခြင်း (အငြိမ်ဆုံး နည်းလမ်း)
 
-## n8n vs တခြား Automation Tools
+Docker သုံးစွဲသူများအတွက် Container အဖြစ် တည်ဆောက် ရန်းယူနည်း:
 
-| Feature | n8n | Zapier | Make |
-|---------|-----|--------|------|
-| **Open Source** | ✅ Yes | ❌ No | ❌ No |
-| **Self-Hosting** | ✅ Yes | ❌ No | ❌ No |
-| **Free Tier** | ✅ Unlimited (self-host) | Limited | Limited |
-| **Code Support** | ✅ JS/Python | ❌ | Limited |
-| **Custom Logic** | ✅ Full | Limited | Limited |
-| **Integrations** | 400+ | 6000+ | 1500+ |
+```bash
+docker run -it --rm \
+  --name n8n \
+  -p 5678:5678 \
+  -v ~/.n8n:/home/node/.n8n \
+  docker.n8n.io/n8nio/n8n
+```
 
-<Aside type="tip" title="n8n ကို ဘယ်သူတွေ သုံးသင့်သလဲ?">
-- **Developer / DevOps** — Workflow Automation, API Integration
-- **Data Team** — ETL Pipelines, Report Automation
-- **Startup / SME** — Business Process Automation
-- **Freelancer** — Client Workflows တည်ဆောက်ပေးနိုင်ခြင်း
-</Aside>
+---
 
-## n8n ရဲ့ UI ကို ကြိုတင်မြင်ကွင်း
+### နည်းလမ်း ၃: n8n Cloud သုံးစွဲခြင်း
 
-n8n ရဲ့ Editor Interface မှာ Workflow တွေကို Visual Flow အနေနဲ့ မြင်ရမှာပါ။ Left Panel မှာ Node Library ရှိပြီး Canvas ပေါ်မှာ Drag & Drop ဆွဲချိတ်ရုံပါပဲ။ Right Panel ကနေ Node တစ်ခုချင်းစီကို Configure လုပ်နိုင်ပါတယ်။
+Install မလုပ်လိုပါက [n8n.io](https://n8n.io) တွင် Account ဖွင့်လှစ်၍ Cloud Managed Instance အဖြစ်လည်း စတင် သုံးစွဲနိုင်ပါတယ်။
 
-<FlowDiagram
-  nodes={[
-    { label: "Trigger Node", sublabel: "Workflow စတင်ရာ", type: "trigger" },
-    { label: "Action Node", sublabel: "Process လုပ်ခြင်း", type: "action" },
-    { label: "Output", sublabel: "ရလဒ်ထွက်ခြင်း", type: "end" }
-  ]}
-  caption="n8n Editor Interface — Nodes တွေကို Canvas ပေါ် ချိတ်ဆက်ပြီး Workflow တည်ဆောက်ခြင်း"
-/>
+---
 
-## ဘာတွေ လေ့လာမှာလဲ?
+## ဖြစ်တတ်သော အတွေ့များသည့် အမှားများ (Troubleshooting)
 
-ဒီ Course မှာ အောက်ပါ Topics တွေကို တစ်ဆင့်ချင်း လေ့လာသွားမှာပါ -
-
-1. **Installation & Setup** — n8n ကို Local မှာ Run နည်း
-2. **Core Concepts** — Nodes, Triggers, Credentials
-3. **First Workflow** — Hello World ကနေ Real Workflow အထိ
-4. **Real-World Automation** — Email, Webhook, API Integration
-5. **Advanced Patterns** — Error Handling, Sub-Workflows
-
-<Aside type="note" title="လိုအပ်သော Prior Knowledge">
-ဒီ Course ဟာ **Beginner-Friendly** ဖြစ်ပါတယ်။ အခြေခံ Computer သုံးတတ်ရုံနဲ့ စတင် လေ့လာနိုင်ပါတယ်။ Terminal Commands အနည်းငယ် သိထားရင် ပိုအဆင်ပြေပါတယ် ခင်ဗျာ။
-</Aside>
+- **Port 5678 Conflict:** တခြား App က Port 5678 ကို ယူသုံးထားပါက `N8N_PORT=5679 npx n8n` ဖြင့် Port ပြောင်းလဲ Run ပါ။
+- **Permission Error:** Linux/Mac တွင် Permission မရပါက `chmod 700 ~/.n8n` ဖြင့် Folder Permission ပေးပါ။

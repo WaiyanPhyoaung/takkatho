@@ -1,232 +1,56 @@
 ---
-title: "Sub-Workflows နဲ့ Reusability"
-description: "Workflow တွေကို Modular ဖြစ်အောင် ဖန်တီးနည်း၊ Sub-Workflow ခေါ်သုံးနည်းနဲ့ Best Practices များ"
+title: "Sub-Workflows နှင့် Reusability (ထပ်မံ သုံးစွဲနိုင်သော Workflow များနှင့် ရေးသားနည်း)"
+description: "အကြိမ်ကြိမ် ထပ်မံ ရေးသားစရာ မလိုဘဲ Workflow များကို Function ကဲ့သို့ ပြန်လည် ထုပ်ပိုး သုံးစွဲနိုင်သည့် Sub-Workflows အယူအဆ"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
-import BranchFlow from "@/components/diagrams/BranchFlow.astro";
-import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  **DRY (Don't Repeat Yourself)** အယူအဆအတိုင်း ထပ်ခါထပ်ခါ သုံးနေရသော Logic များ (ဥပမာ - မြန်မာ ဖုန်းနံပါတ် Format ပြုလုပ်ခြင်း) ကို သီးသန့် Sub-Workflow အဖြစ် ထုပ်ပိုး၍ အခြား Workflow များမှ လှမ်းခေါ် သုံးစွဲနည်းကို သင်ယူရန် ဖြစ်ပါတယ်။
+</Aside>
 
 ## Sub-Workflow ဆိုတာ ဘာလဲ?
 
-**Sub-Workflow** ဆိုတာ Main Workflow အကြီးတစ်ခုကနေ တခြား Workflow သေးသေးလေးတစ်ခုကို လှမ်းခေါ်သုံးတဲ့ Pattern ပါ။ Programming မှာဆိုရင် **Function** တစ်ခု ရေးထားသလိုပါပဲ — တစ်ကြိမ် ဖန်တီးထားပြီး နေရာများစွာမှာ ပြန်ခေါ်သုံး (Reuse) လို့ ရပါတယ်။
+Sub-Workflow ဆိုသည်မှာ Programming ရှိ **Function** တစ်ခုကဲ့သို့ ဖြစ်ပါတယ်။
 
-Sub-Workflow မသုံးရင် ဘာဖြစ်မလဲဆိုတော့ Email ပို့တဲ့ Logic, Slack ပို့တဲ့ Logic တွေကို Workflow အသစ်ဆောက်တိုင်း ထပ်ခါတလဲလဲ ရေးနေရပါမယ် (Code Duplicated ဖြစ်မယ်)။ Sub-Workflow သုံးလိုက်ရင်တော့ "Email ပို့တဲ့ Sub-Workflow" တစ်ခုတည်း ဆောက်ထားပြီး Order Workflow တွေကနေဖြစ်ဖြစ်၊ Invoice Workflow ကနေဖြစ်ဖြစ် အဲ့ဒီတစ်ခုတည်းကို လှမ်းခေါ်သုံးလို့ ရသွားပါပြီ (DRY Principle ပါ)။
-
-## Sub-Workflow ဖန်တီးနည်း
-
-### Step 1: Reusable Workflow အရင်ဆောက်ပါ
-
-ဥပမာ - "Send Notification" ဆိုတဲ့ Sub-Workflow တစ်ခု ဆောက်ကြည့်ရအောင် -
-
-<BranchFlow
-  input="Execute Workflow Trigger (Input Data လက်ခံမယ့်နေရာ)"
-  condition='Channel = "slack"?'
-  truePath={["Slack: Post Message"]}
-  falsePath={["Gmail: Send Email"]}
-  trueLabel="YES ✅"
-  falseLabel="NO ❌"
-/>
-
-Sub-Workflow ရဲ့ နောက်ဆုံး Node မှာ **"Set: Return Result"** Node လေး ထည့်ပေးပြီး ခေါ်တဲ့သူ (Caller) ဆီကို Result ပြန်ပို့ပေးဖို့ လိုပါတယ်။
-
-**Execute Workflow Trigger Node** — Sub-Workflow တွေအတွက် Manual Trigger နေရာမှာ ဒီ Node ကို သုံးရပါတယ် -
-
-```
-Expected Input (Main Workflow ကနေ လှမ်းပို့ပေးမယ့် Data ပုံစံ):
-{
-  "channel": "slack",     // ဒါမှမဟုတ် "email"
-  "message": "...",
-  "recipient": "...",
-  "subject": "..."        // Email အတွက်သာ
-}
-```
-
-### Step 2: Main Workflow မှ ခေါ်သုံးပါ
-
-Main Workflow ထဲမှာ **"Execute Workflow"** Node ကို ထည့်ပါ -
-
-<FlowDiagram
-  nodes={[
-    { label: "Order Received", type: "trigger" },
-    { label: "Process Order", type: "action" },
-    { label: "Execute Workflow", sublabel: "Send Notification Sub-WF ကို ခေါ်မယ်", type: "action" }
-  ]}
-  caption="Main Workflow ကနေ Sub-Workflow ကို လှမ်းခေါ်ခြင်း"
-/>
-
-Execute Workflow Node ကို ဒီလို Configure လုပ်ပါ -
-- Workflow: [Send Notification ဆိုတဲ့ Workflow ကို ရွေးပါ]
-- Mode: Run once with all items
-- Input Data:
-
-| Field | Value |
-|-------|-------|
-| channel | slack |
-| message | `{{ $json.orderSummary }}` |
-| recipient | #orders |
-
-## Common Sub-Workflow Patterns
-
-### Pattern 1: Shared Utility 
-
-နေရာများစွာမှာ ခဏခဏ သုံးရတဲ့ အလုပ်လေးတွေအတွက် Utility Sub-Workflows တွေ ဆောက်ထားလေ့ရှိပါတယ် -
-- **"Format Myanmar Phone Number"** — ဖုန်းနံပါတ်တွေကို +959... ပုံစံ ပြောင်းပေးဖို့
-- **"Validate Email Address"** — Email ပုံစံ မှန်မမှန် စစ်ဖို့
-- **"Calculate Tax"** — အခွန် တွက်ချက်ဖို့
-- **"Generate Unique ID"** — UUID တွေ၊ Ticket Number တွေ ထုတ်ပေးဖို့
-
-**"Format Phone Number" Sub-Workflow ရဲ့ ဥပမာ -**
-
-```javascript
-// Code Node in Sub-Workflow
-const phone = $input.first().json.phone;
-
-// ဂဏန်းမဟုတ်တာတွေ အကုန်ဖျက်မယ်
-let clean = phone.replace(/\D/g, '');
-
-// မြန်မာ Country Code မပါရင် ထည့်မယ်
-if (clean.startsWith('09')) {
-  clean = '+959' + clean.slice(2);
-} else if (!clean.startsWith('959')) {
-  clean = '+959' + clean;
-} else {
-  clean = '+' + clean;
-}
-
-return [{ json: { formattedPhone: clean, original: phone } }];
-```
-
-### Pattern 2: API Client Sub-Workflow
-
-API Credential တွေနဲ့ လှမ်းခေါ်တဲ့ Logic အားလုံးကို တစ်နေရာတည်းမှာပဲ သိမ်းထားချင်တဲ့အခါ -
-
-<FlowDiagram
-  nodes={[
-    { label: "Execute Workflow Trigger", type: "trigger" },
-    { label: "HTTP Request", sublabel: "GET /admin/orders.json", type: "action" },
-    { label: "Code Node", sublabel: "Format Response ပြင်ဆင်မယ်", type: "code" },
-    { label: "Return: Formatted Orders", type: "end" }
-  ]}
-  caption='Sub-Workflow: "Shopify: Get Orders"'
-/>
-
-Main Workflow ကနေ ခေါ်တဲ့အခါ -
-
-```
-[Execute Workflow: "Shopify: Get Orders"]
-  Input အနေနဲ့: { status: "pending", limit: 50 }
-           │
-           ▼
-[ရလာတဲ့ Order တွေကို ဆက်ပြီး Process လုပ်မယ်...]
-```
-
-### Pattern 3: Parallel Sub-Workflow Execution
-
-Items အများကြီးကို တစ်ပြိုင်နက်တည်း (Parallel) Process လုပ်ချင်တဲ့အခါ -
-
-<FlowDiagram
-  nodes={[
-    { label: "Get 100 Customers", type: "data" },
-    { label: "Split into Batches of 10", type: "action" },
-    { label: "Execute Workflow x10 (parallel)", sublabel: "Process Customer Sub-WF", type: "action" },
-    { label: "Merge Results", type: "action" }
-  ]}
-  caption="Customers 100 ယောက်ကို Batch 10 ခုခွဲပြီး Parallel Process လုပ်ခြင်း"
-/>
-
-## Execution Modes
-
-Execute Workflow Node မှာ သုံးလို့ရတဲ့ Execution Mode (၂) မျိုး ရှိပါတယ် -
-
-**Mode 1: "Run once with all items"**
-- Sub-workflow ကို တစ်ကြိမ်ပဲ ခေါ်တယ်။ ပါလာတဲ့ Items အားလုံးကို တစ်ခေါက်တည်းနဲ့ ပို့ပေးလိုက်တယ်။
-- Batch Processing လုပ်ချင်ရင် ဒါကို သုံးတာ ပိုကောင်းပါတယ်။
-
-**Mode 2: "Run once for each item"**
-- Item တစ်ခုရှိရင် တစ်ကြိမ် ခေါ်တယ်။ (ဥပမာ Item ၁၀ ခုဆိုရင် Sub-workflow ကို ၁၀ ခါ ပြန်ခေါ်မယ်)
-- Item တစ်ခုချင်းစီကို သီးခြားစီ Process လုပ်ချင်ရင် သုံးပါတယ်။
-
-## Workflow Organization — Best Practices
-
-### Naming Convention (နာမည်ပေးစနစ်)
-
-Workflow တွေကို နာမည်ပေးတဲ့အခါ စနစ်ကျဖို့ အရေးကြီးပါတယ် -
-
-```
-ကောင်းသော နာမည်ပေးခြင်း:
-✅ "Core: Send Email Notification"
-✅ "Integration: Shopify Get Orders"
-✅ "Utility: Validate & Format Phone"
-✅ "Daily: Morning Report"
-
-ရှောင်ကြဉ်ရမည့် နာမည်များ:
-❌ "Workflow 1"
-❌ "test"
-❌ "new workflow copy (2)"
-```
-
-### Folder Structure
-
-n8n မှာ Workflow တွေကို ဒီလို အုပ်စုခွဲ (Organize) ထားသင့်ပါတယ် -
-- **Core (Sub-workflows)** — Send Notification လိုမျိုး အဓိက အစိတ်အပိုင်းတွေ
-- **Integrations** — Shopify: Sync Orders, Google Sheets: Update လိုမျိုး တခြား App တွေနဲ့ ချိတ်တဲ့အပိုင်းတွေ
-- **Scheduled** — Daily Report ပို့တာမျိုး အချိန်နဲ့ Run တဲ့ Workflow တွေ
-- **Triggers** — Webhook: Contact Form, Payment စသဖြင့် အပြင်ကနေ လာခေါ်မယ့် အပိုင်းတွေ
-
-## Sub-Workflow vs Inline Logic
-
-Workflow တစ်ခုတည်းမှာ အကုန်ဆက်ရေးမလား (Inline) သီးသန့်ခွဲထုတ်မလား (Sub-Workflow) ဆိုတာ နှိုင်းယှဉ်ချက်ပါ -
-
-| | Sub-Workflow သုံးခြင်း | Inline အကုန်ရေးခြင်း |
-|---|---|---|
-| **Reuse လုပ်နိုင်မှု** | ✅ တခြားနေရာတွေကပါ လှမ်းခေါ်လို့ရတယ် | ❌ ဒီ Workflow တစ်ခုတည်းမှာပဲ သုံးလို့ရမယ် |
-| **ပြင်ဆင်ရလွယ်ကူမှု** | ✅ တစ်နေရာတည်း ပြင်လိုက်ရင် အကုန်ပြောင်းသွားမယ် | ❌ နေရာတိုင်း လိုက်ပြင်နေရမယ် |
-| **Testing** | ✅ သီးသန့်ခွဲပြီး စမ်းသပ်လို့ လွယ်တယ် | ❌ Workflow အကြီးကြီးထဲမှာ ရောနေလို့ စမ်းရခက်တယ် |
-| **ရှုပ်ထွေးမှု** | ❌ အစမှာ Setup လုပ်ရတာ နည်းနည်းပိုရှုပ်တယ် | ✅ အလွယ်တကူ ဆက်ရေးသွားလို့ ရတယ် |
-| **မြန်ဆန်မှု (Performance)** | ❌ Sub-Workflow ခေါ်ရတဲ့အတွက် နည်းနည်းပိုကြာနိုင်တယ် | ✅ တိုက်ရိုက်သွားလို့ ပိုမြန်တယ် |
-
-<Aside type="tip" title="Sub-Workflow ကို ဘယ်အချိန် သုံးမလဲ">
-ဒီ Logic ကြီးကို နောက်ထပ် **Workflow ၂ ခု ဒါမှမဟုတ် အဲ့ဒီထက်ပိုပြီး** ပြန်သုံးဖြစ်မယ်ဆိုရင်တော့ သေချာပေါက် Sub-Workflow သာ ဖန်တီးလိုက်ပါ။ တစ်ခါတည်းပဲ သုံးဖြစ်မယ်ဆိုရင်တော့ Inline ပဲ ရေးတာ အကောင်းဆုံးပါ။
-</Aside>
-
-## Complete Production Workflow Example
-
-E-Commerce Order Processing အတွက် တကယ်သုံးလို့ရမယ့် Workflow ဥပမာ -
-
-<BranchFlow
-  input="Webhook: New Order ဝင်လာပြီ → Core: Validate Order Data ကို Sub-workflow နဲ့ အရင်စစ်မယ်"
-  condition="Order က Valid ဖြစ်ရဲ့လား?"
-  truePath={["IF: Total > 500 လား?", "Set: VIP / Standard သတ်မှတ်မယ်", "Core: Email Sub-WF ကို ခေါ်မယ်", "Integration: Sheets + Notion + Airtable Sub-WFs တွေကို ခေါ်မယ်"]}
-  falsePath={["Core: Send Error Alert (Sub-workflow) ဆီ လွှဲပေးလိုက်မယ်"]}
-  trueLabel="VALID ✅"
-  falseLabel="INVALID ❌"
-/>
+မိမိ၏ Workflow များစွာတွင် ထပ်ခါထပ်ခါ သုံးနေရသော Logic များကို သီးသန့် Workflow အဖြစ် ဖန်တီးထားပြီး၊ အဓိက Parent Workflow မှ **Execute Workflow** Node ကို သုံး၍ Parameter များ ပို့ဆောင်ကာ ရလဒ် ပြန်လည် တောင်းယူခြင်း ဖြစ်ပါတယ်။
 
 ---
 
-## Course ပြီးဆုံးသွားပါပြီ!
+## 1. Sub-Workflow ဖန်တီးနည်း (ဥပမာ - Format MM Phone Number)
 
-ဒီ Course တစ်လျှောက်လုံးမှာ ကျွန်တော်တို့ အတူတူ လေ့လာခဲ့တာတွေကတော့ -
+```mermaid
+graph LR
+    A[Parent Workflow] -->|1. Call with '0979123456'| B[Execute Workflow Node]
+    B -->|2. Trigger| C[Execute Workflow Trigger Node]
+    C -->|3. Format Logic| D[Code / Set Node]
+    D -->|4. Return '+95979123456'| E[Parent Workflow receives clean data]
+```
 
-- ✅ n8n ဆိုတာ ဘာလဲ — Automation Tool Overview တွေကို နားလည်ခဲ့တယ်
-- ✅ Installation & Setup — ကိုယ့်စက် (Local) မှာ ဘယ်လို Run မလဲ လေ့လာခဲ့တယ်
-- ✅ Nodes & Workflows — n8n ရဲ့ အဓိက အစိတ်အပိုင်းတွေကို သိခဲ့တယ်
-- ✅ Triggers & Events — Workflow တစ်ခု ဘယ်အချိန်မှာ စတင်မလဲဆိုတာ လေ့လာခဲ့တယ်
-- ✅ Credentials — API တွေ လုံခြုံစွာ ချိတ်ဆက်နည်း သိခဲ့တယ်
-- ✅ HTTP Request & Webhook — API Integration အကြောင်း လေ့လာခဲ့တယ်
-- ✅ Data Transformation — IF, Switch, Code, Set တွေနဲ့ Data တွေ ကစားနည်း သိခဲ့တယ်
-- ✅ Email & Notification Automation — တကယ့် လက်တွေ့သုံး Notification တွေ ဆောက်ခဲ့တယ်
-- ✅ Real-world API Integration — Database တွေ၊ App တွေနဲ့ ချိတ်ဆက်ခဲ့တယ်
-- ✅ Error Handling — Production-ready ဖြစ်တဲ့ Workflow တွေ ဖန်တီးနည်း လေ့လာခဲ့တယ်
-- ✅ Sub-Workflows — သပ်သပ်ရပ်ရပ်နဲ့ ပြန်သုံးလို့ရတဲ့ Modular Pattern တွေ ရေးတတ်ခဲ့ပြီ
+### Step 1: Sub-Workflow အသစ် ဖန်တီးခြင်း
+1. Workflow အသစ်တစ်လုံး ဖွင့်၍ Trigger အဖြစ် **Execute Workflow Trigger** ကို ထည့်ပါ။
+2. **Code Node** ထည့်၍ ဝင်ရောက်လာသော ဖုန်းနံပါတ် မည်သည့် ပုံစံမဆို (`09...`, `959...`, `+959...`) ကို စံနှုန်းမီ `+959...` Format သို့ ပြောင်းလဲပါ:
 
-**နောက်ထပ် ဆက်လုပ်ဖို့ (Next Steps):**
-1. n8n Template Library ထဲမှာ တခြားသူတွေ ရေးထားတာတွေကို လေ့လာကြည့်ပါ — community.n8n.io
-2. ကိုယ်တိုင် Automation Idea အသစ်တစ်ခု စဉ်းစားပြီး ဆောက်ကြည့်ပါ
-3. နောက်ဆုံးအနေနဲ့ n8n ကို VPS သို့မဟုတ် Cloud ပေါ်မှာ ကိုယ်တိုင် Deploy (Self-host) လုပ်ကြည့်ပါ
+```javascript
+let phone = $input.item.json.phone || "";
+phone = phone.replace(/[^0-9]/g, ""); // Remove dashes & spaces
+if (phone.startsWith("09")) {
+  phone = "+959" + phone.slice(2);
+} else if (phone.startsWith("959")) {
+  phone = "+" + phone;
+}
+return { json: { formattedPhone: phone } };
+```
 
-<Aside type="tip" title="Community မှာ ပါဝင်ပါ">
-n8n Community Forum: community.n8n.io ကို သွားပြီး ကိုယ်သိချင်တာတွေ မေးနိုင်သလို၊ ကိုယ်ရေးထားတဲ့ Template အမိုက်စားတွေကိုလည်း တခြားသူတွေနဲ့ Share လို့ ရပါတယ် ခင်ဗျာ!
-</Aside>
+### Step 2: Parent Workflow မှ လှမ်းခေါ် သုံးစွဲခြင်း
+1. အဓိက Workflow ထဲတွင် **Execute Workflow** Node ကို ထည့်ပါ။
+2. Source တွင် **Database / Saved Workflow** ကို ရွေး၍ ခုနက ဖန်တီးခဲ့သော "Core: Format MM Phone" ကို ရွေးပါ။
+3. Input Field တွင် `phone` တန်ဖိုးကို ပို့ပေးလိုက်ပါက သန့်စင်ပြီးသော ဖုန်းနံပါတ် ရလဒ် ပြန်လည် ရရှိမည် ဖြစ်ပါတယ်။
+
+---
+
+## Sub-Workflow အသုံးပြုခြင်း၏ အဓိက အားသာချက်များ
+
+1. **Maintainability (ပြင်ဆင်ရ လွယ်ကူခြင်း):** Logic ပြောင်းလဲပါက Sub-Workflow တစ်ခုတည်းတွင် ပြင်ရုံဖြင့် သုံးထားသော Workflow များစွာတွင် အလိုအလျောက် ပြောင်းလဲသွားခြင်း။
+2. **Clean Canvas (သပ်ရပ်သော Workflow):** Parent Workflow တွင် Node ပေါင်းများစွာ ရှုပ်ထွေးမနေတော့ဘဲ စနစ်တကျ ဖြစ်သွားခြင်း။
+3. **Shared Utilities:** Team တစ်ခုလုံး ပူးတွဲ သုံးနိုင်သော Common Tools (ဥပမာ - Phone Formatter, Currency Converter, Custom Email Sender) များ ဖန်တီးနိုင်ခြင်း။

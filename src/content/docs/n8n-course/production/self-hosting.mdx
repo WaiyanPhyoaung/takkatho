@@ -1,71 +1,42 @@
 ---
-title: "n8n ကို VPS မှာ Self-host လုပ်နည်း"
-description: "Docker Compose သုံးပြီး n8n ကို ကိုယ်ပိုင် VPS (Production) ပေါ်မှာ တင်မယ့်နည်းလမ်း၊ Domain နဲ့ SSL ဘယ်လို ချိတ်မလဲ"
+title: "Production Self-Hosting (VPS & Docker Deployment)"
+description: "n8n ကို VPS Server ပေါ်တွင် Docker Compose, PostgreSQL 15, Nginx Reverse Proxy, Let's Encrypt SSL နှင့် Backups များဖြင့် Production-ready Deploy ပြုလုပ်ခြင်း"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
 
-## ဘာကြောင့် Self-Host လုပ်သင့်တာလဲ?
+<Aside title="💡 ရည်ရွယ်ချက်">
+  n8n Cloud ၏ Execution Cost ကြီးမြင့်မှုများကို ကျော်လွန်၍ မိမိ၏ ကိုယ်ပိုင် VPS Server ပေါ်တွင် **Docker Compose (PostgreSQL 15 + n8n)** ဖြင့် တည်ငြိမ် လုံခြုံစွာ Production Self-Host ပြုလုပ်နည်းကို အစအဆုံး သင်ယူရန် ဖြစ်ပါတယ်။
+</Aside>
 
-| | n8n Cloud (အသင့်သုံး) | Self-Hosted (ကိုယ်တိုင်တင်) |
+## n8n Cloud vs. Self-hosted VPS
+
+| အကြောင်းအရာ | n8n Cloud | Self-hosted VPS (Recommended) |
 |---|---|---|
-| **Cost (ကုန်ကျစရိတ်)** | တစ်လကို $20+ | VPS ဖိုး တစ်လ ~$5-10 လောက်ပဲ |
-| **Workflow အကန့်အသတ်** | Plan အပေါ် မူတည်ပြီး ကန့်သတ်ချက်ရှိတယ် | ကန့်သတ်ချက်မရှိ (Unlimited) |
-| **Data Privacy (လုံခြုံရေး)** | Cloud ပေါ်မှာ သိမ်းတယ် | ကိုယ်ပိုင် Server ထဲမှာမို့ ပိုလုံခြုံတယ် |
-| **Customization** | လိုသလို ပြင်လို့ သိပ်မရဘူး | Full Control ရတယ်၊ စိတ်ကြိုက်လုပ်လို့ ရတယ် |
-| **Maintenance** | သူတို့ဘာသာ လုပ်ပေးတယ် | ကိုယ်တိုင် Update လုပ်ရမယ်၊ ထိန်းသိမ်းရမယ် |
+| **ကုန်ကျစရိတ်** | $20+ / လ (Execution အရေအတွက်ပေါ် မူတည်၍ တက်သည်) | $5 - $10 / လ (Flat Rate - Unlimited Executions) |
+| **Database Engine** | Managed Database | PostgreSQL 15 (Docker Container) |
+| **Data Control** | Third-party Cloud | မိမိ၏ ကိုယ်ပိုင် VPS (Full Privacy) |
+| **Maintenance** | Auto-managed | Docker Compose, Backups, SSL ကိုယ်တိုင် ထိန်းချုပ် |
 
-## VPS အတွက် လိုအပ်ချက်များ
+---
 
-```
-အနည်းဆုံး ရှိသင့်တဲ့ Specs:
-  CPU:  1 vCPU
-  RAM:  1 GB (2 GB ဆိုရင်တော့ ပိုကောင်းပါတယ်)
-  Disk: 20 GB SSD
-  OS:   Ubuntu 22.04 LTS
+## 1. Docker Compose Stack (PostgreSQL 15 + n8n)
 
-အကြံပြုချင်တဲ့ Hosting Providers များ:
-  DigitalOcean, Vultr, Linode, Hetzner, AWS EC2
-```
-
-## Docker Compose သုံးပြီး Deploy လုပ်နည်း
-
-### Step 1: VPS ကို အရင် Setup လုပ်မယ်
-
-```bash
-# Ubuntu 22.04 ပေါ်မှာ Docker သွင်းမယ်
-curl -fsSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-newgrp docker
-
-# Docker Compose ပါ တစ်ခါတည်း သွင်းမယ်
-sudo apt install docker-compose-plugin -y
-```
-
-### Step 2: n8n အတွက် ဖိုင်တွဲ (Directory) ဆောက်မယ်
-
-```bash
-mkdir ~/n8n && cd ~/n8n
-mkdir -p data postgres-data
-```
-
-### Step 3: docker-compose.yml ဖန်တီးမယ်
+VPS Server (Ubuntu 22.04 LTS, 1-2 vCPU, 2GB RAM) ပေါ်တွင် အဆင်သင့် သုံးနိုင်သော `docker-compose.yml` တည်ဆောက်ပုံ:
 
 ```yaml
-# docker-compose.yml
 version: '3.8'
 
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: n8n
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: n8n
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=DB_STRONG_PASSWORD_HERE
+      - POSTGRES_DB=n8n
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres_storage:/var/lib/postgresql/data
 
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -73,176 +44,61 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=${DOMAIN}
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://${DOMAIN}/
-      - N8N_ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
-      - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n
       - DB_POSTGRESDB_USER=n8n
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_POSTGRESDB_PASSWORD=DB_STRONG_PASSWORD_HERE
+      - N8N_ENCRYPTION_KEY=YOUR_ENCRYPTION_KEY_HERE
       - EXECUTIONS_DATA_PRUNE=true
-      - EXECUTIONS_DATA_MAX_AGE=336    # 14 days (၁၄ ရက်ကြာရင် မှတ်တမ်းဟောင်းတွေ ဖြတ်မယ်)
+      - EXECUTIONS_DATA_MAX_AGE=168
     volumes:
-      - ./data:/home/node/.n8n
+      - n8n_storage:/home/node/.n8n
     depends_on:
       - postgres
 
 volumes:
-  postgres-data:
+  postgres_storage:
+  n8n_storage:
 ```
 
-### Step 4: Environment Variables တွေ ထည့်ဖို့ .env ဖိုင် ဖန်တီးမယ်
+<Aside type="caution" title="⚠️ N8N_ENCRYPTION_KEY ၏ အရေးပါမှု">
+  `openssl rand -hex 32` ဖြင့် ထုတ်ယူရရှိသော `N8N_ENCRYPTION_KEY` သည် မိမိ၏ Credentials များ (API Keys, Passwords) ကို Encrypt လုပ်ရန် သုံးသော သော့ဖြစ်ပါတယ်။ ဤ Key ပျောက်ဆုံးပါက Credentials များ အားလုံး ပျက်စီးသွားမည် ဖြစ်သဖြင့် လုံခြုံစွာ Backup မှတ်ထားပါ။
+</Aside>
 
-```bash
-# .env file
-DOMAIN=n8n.yourdomain.com
-POSTGRES_PASSWORD=super_secure_password_here
-ENCRYPTION_KEY=random_32_character_string_here
+---
 
-# Encryption Key အသစ်တစ်ခု ထုတ်ချင်ရင် ဒီ Command လေး Run လိုက်ပါ:
-openssl rand -hex 32
-```
+## 2. Domain, Nginx Reverse Proxy & SSL Setup
 
-### Step 5: n8n ကို စတင် Run မယ်
-
-```bash
-docker compose up -d
-
-# ပြဿနာတစ်ခုခု ရှိမရှိ Log ကို ဝင်ကြည့်ချင်ရင်:
-docker compose logs -f n8n
-```
-
-## Nginx Reverse Proxy နဲ့ SSL (HTTPS) ချိတ်ဆက်နည်း
-
-တကယ့် Production မှာ n8n ကို လုံခြုံတဲ့ HTTPS (လော့ခ်ချိတ်) နဲ့ သုံးဖို့အတွက် Nginx နဲ့ Let's Encrypt ကို သုံးပါမယ် -
-
-<FlowDiagram
-  nodes={[
-    { label: "Internet", sublabel: "HTTPS :443 ဝင်လာမယ်", type: "trigger" },
-    { label: "Nginx", sublabel: "SSL ကို Nginx က ဖြေရှင်းမယ်", type: "action" },
-    { label: "n8n", sublabel: "localhost:5678 ဆီ လွှဲပေးမယ်", type: "end" }
-  ]}
-  caption="Nginx ကို အလယ်ခံ (Reverse Proxy) အဖြစ်ထားပြီး HTTPS နဲ့ လာသမျှကို n8n ဆီ လွှဲပေးတဲ့ ပုံစံပါ"
-/>
-
-```bash
-# Nginx ကို အရင်သွင်းမယ်
-sudo apt install nginx certbot python3-certbot-nginx -y
-
-# Nginx Config ဖိုင် အသစ်တစ်ခု ဆောက်မယ်
-sudo nano /etc/nginx/sites-available/n8n
-```
+Telegram Trigger Webhook များ (HTTPS မဖြစ်မနေ လိုအပ်သည်) အလုပ်လုပ်စေရန် Nginx နှင့် Let's Encrypt SSL (Certbot) ကို တပ်ဆင်ရပါမည်:
 
 ```nginx
-# /etc/nginx/sites-available/n8n ထဲမှာ အောက်ကစာတွေ ထည့်ပါ
 server {
     server_name n8n.yourdomain.com;
 
     location / {
         proxy_pass http://localhost:5678;
+        proxy_set_header Connection '';
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-
-        # WebSocket support (n8n အလုပ်လုပ်ဖို့ ဒါလေး မဖြစ်မနေ လိုပါတယ်)
-        proxy_read_timeout 86400;
+        chunked_transfer_encoding off;
+        proxy_buffering off;
+        proxy_cache off;
     }
 }
 ```
 
 ```bash
-# Config ကို ဖွင့်ပေးမယ် (Enable လုပ်မယ်)
-sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/
-sudo nginx -t   # မှားနေတာ ရှိမရှိ စမ်းသပ်ကြည့်မယ်
-sudo systemctl reload nginx
-
-# SSL Certificate (Free) ယူဖို့အတွက် Certbot ကို သုံးမယ်
+# Obtain Free SSL Certificate
 sudo certbot --nginx -d n8n.yourdomain.com
 ```
 
-<Aside type="note" title="Domain ရဲ့ DNS ချိတ်ဆက်မှု">
-ကိုယ့် Domain ရဲ့ DNS Setting ထဲက A Record မှာ VPS ရဲ့ IP Address ကို သွားညွှန်ထားဖို့ မမေ့ပါနဲ့နော် -
-```
-A Record ➡️ n8n.yourdomain.com ➡️ 123.456.789.0
-```
-DNS ချိတ်ဆက်ပြီးရင် အပြည့်အဝ အလုပ်လုပ်ဖို့ (Propagation) (၁) မိနစ်၊ (၂) မိနစ်လောက်တော့ စောင့်ပေးရပါမယ်။
-</Aside>
+---
 
-## n8n ကို ဘယ်လို Update လုပ်မလဲ?
+## 3. Maintenance & Automated Backups (Cron Job)
+
+- **Execution Cleanup (Prune):** Database မဖောင်းပွစေရန် `EXECUTIONS_DATA_PRUNE=true` ဖြင့် ၇ ရက်ထက် ကျော်လွန်သော Log များကို အလိုအလျောက် ရှင်းထုတ်ပါ။
+- **Automated Backup Script:** ညစဉ် 2 AM တွင် Postgres Dump ယူ၍ Backup ပြုလုပ်ရန် Cron Job သတ်မှတ်ပါ:
 
 ```bash
-# နောက်ဆုံးထွက် Version ကို ဆွဲချမယ်
-docker compose pull n8n
-
-# ပြီးရင် Restart ချမယ် (Downtime ၃၀ စက္ကန့်တောင် မကြာပါဘူး)
-docker compose up -d n8n
-
-# Version အသစ် တက်မတက် ပြန်စစ်ကြည့်မယ်
-docker compose exec n8n n8n --version
+0 2 * * * pg_dump -U n8n -h localhost n8n > /backups/n8n_backup_$(date +\%F).sql
 ```
-
-## Backup Strategy (Data တွေ အရန်သိမ်းဆည်းနည်း)
-
-<FlowDiagram
-  nodes={[
-    { label: "n8n Workflow Export", sublabel: "JSON ဖိုင်အနေနဲ့ ထုတ်မယ်", type: "data" },
-    { label: "PostgreSQL Dump", sublabel: "Database ကြီးကို pg_dump နဲ့ ထုတ်မယ်", type: "data" },
-    { label: "Upload to S3 / GDrive", sublabel: "VPS အပြင်ဘက်ကို တင်သိမ်းမယ်", type: "action" }
-  ]}
-  caption="နေ့စဉ် (Daily) Workflows တွေနဲ့ Database တွေကို အရန်သိမ်းဆည်းခြင်း (Backup)"
-/>
-
-```bash
-# အလိုအလျောက် Backup ယူပေးမယ့် Script ပါ (Automated Backup Script)
-#!/bin/bash
-
-DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/root/backups"
-mkdir -p $BACKUP_DIR
-
-# 1. Workflow တွေကို JSON အနေနဲ့ Backup ယူမယ်
-docker compose exec n8n n8n export:workflow \
-  --all \
-  --output=$BACKUP_DIR/workflows_$DATE.json
-
-# 2. Database ကိုပါ Backup ယူမယ်
-docker compose exec postgres pg_dump \
-  -U n8n n8n > $BACKUP_DIR/db_$DATE.sql
-
-# 3. ဖိုင်တွေကို ချုံ့မယ် (Compress လုပ်မယ်)
-tar -czf $BACKUP_DIR/n8n_backup_$DATE.tar.gz \
-  $BACKUP_DIR/workflows_$DATE.json \
-  $BACKUP_DIR/db_$DATE.sql
-
-# 4. ရက် ၃၀ ကျော်နေတဲ့ Backup အဟောင်းတွေကို ဖျက်မယ်
-find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
-
-echo "Backup complete: n8n_backup_$DATE.tar.gz"
-```
-
-```bash
-# အဲ့ဒီ Script ကို နေ့တိုင်း မနက် ၂ နာရီမှာ Run ဖို့ Cron ထည့်မယ်
-crontab -e
-0 2 * * * /root/backup-n8n.sh >> /var/log/n8n-backup.log 2>&1
-```
-
-<Aside type="tip" title="Workflow တွေကို Git နဲ့ Version Control လုပ်ထားပါ">
-n8n ထဲက Workflows တွေကို JSON အနေနဲ့ Export ထုတ်ပြီး ကိုယ့်ရဲ့ Git Repository (ဥပမာ - GitHub/GitLab) ထဲကို Push လုပ်သိမ်းထားတာ အကောင်းဆုံးပါ။ အဖွဲ့လိုက် အလုပ်လုပ်တဲ့နေရာတွေ (Team Collaboration) နဲ့ အမှားတစ်ခုခုဖြစ်ရင် နောက်ပြန်ဆုတ်ဖို့ (Rollback) လုပ်တဲ့နေရာတွေမှာ အရမ်း အသုံးဝင်ပါတယ် -
-```bash
-n8n export:workflow --all --output=./workflows/
-git add workflows/
-git commit -m "feat: add email automation workflow"
-git push
-```
-</Aside>
-
-နောက်ဆုံး သင်ခန်းစာအနေနဲ့ **Capstone Project** ပါ — ဒီ Course တစ်ခုလုံးမှာ လေ့လာခဲ့သမျှ သင်ခန်းစာတွေ အားလုံးကို ပေါင်းစပ်ပြီး တကယ့် လက်တွေ့သုံးလို့ရမယ့် Real E-commerce Automation System အကြီးကြီးတစ်ခုကို အတူတူ တည်ဆောက်ကြည့်ကြပါမယ် ခင်ဗျာ!

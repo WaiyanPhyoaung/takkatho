@@ -1,183 +1,52 @@
 ---
-title: "n8n မှာ AI Nodes တွေ သုံးနည်း"
-description: "n8n ရဲ့ Built-in AI Nodes တွေဖြစ်တဲ့ OpenAI, Anthropic Claude, LangChain စတာတွေကို Workflow ထဲ ဘယ်လို ထည့်သုံးမလဲ"
+title: "AI Nodes မိတ်ဆက် (Chat Models, Chains & Memory)"
+description: "n8n တွင် ပါဝင်သော AI Node Family - Chat Models, LLM Chains, Simple Memory နှင့် Tools များ မိတ်ဆက်"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
-import BranchFlow from "@/components/diagrams/BranchFlow.astro";
-import ParallelFlow from "@/components/diagrams/ParallelFlow.astro";
 
-## n8n ရဲ့ AI Capabilities
-
-n8n Version 1.0 ကစပြီး **AI / LangChain Nodes** တွေကို အသင့်ပါ (Built-in) ထည့်ပေးထားပါတယ်။ ဒီ Nodes တွေကို သုံးပြီး Code တွေ အများကြီး ရေးစရာမလိုဘဲ AI အားဖြည့်ထားတဲ့ Automation Workflow တွေ ဆောက်လို့ ရနေပါပြီ။
-
-n8n မှာ အသင့်သုံးနိုင်တဲ့ AI Nodes တွေကတော့ -
-
-| Category | Nodes ဥပမာများ |
-|----------|-------|
-| **Chat Models** | OpenAI GPT-4o, Anthropic Claude, Google Gemini, Ollama |
-| **Chains** | Basic LLM Chain, Summarize Chain, Q&A Chain |
-| **Agents** | ReAct Agent, Plan & Execute Agent |
-| **Memory** | Window Buffer Memory, Summary Memory |
-| **Tools** | Calculator, SerpAPI Search, Wikipedia, Code Execution |
-| **Embeddings** | OpenAI Embeddings, Ollama Embeddings |
-| **Vector Stores** | Pinecone, Supabase Vector, In-Memory |
-
-## Basic LLM Chain — အရိုးရှင်းဆုံး AI ခေါ်သုံးနည်း
-
-**Basic LLM Chain** ဆိုတာကတော့ AI ဆီကို Prompt တစ်ခု ပေးလိုက်ပြီး သူ ပြန်ဖြေတဲ့ အဖြေ (Response) ကို ရယူတဲ့ ပုံစံပါပဲ -
-
-<FlowDiagram
-  nodes={[
-    { label: "Trigger / Input", type: "trigger" },
-    { label: "Basic LLM Chain", sublabel: "Prompt + Model", type: "code" },
-    { label: "Use AI Response", type: "action" }
-  ]}
-  caption="အရိုးရှင်းဆုံး AI ကို လှမ်းခေါ်တဲ့ ပုံစံ (Pattern)"
-/>
-
-### Basic LLM Chain ဖြည့်စွက်နည်း (Configuration)
-
-Canvas ထဲကနေ **"Basic LLM Chain"** Node ကို ထည့်လိုက်ပါ -
-
-```
-Basic LLM Chain Node:
-  Chat Model:    [OpenAI GPT-4o-mini]    ← Sub-node အနေနဲ့ လာချိတ်ရမယ်
-  Prompt:
-  """
-  You are a helpful assistant.
-  Summarize the following text in 3 bullet points in Myanmar language:
-
-  {{ $json.text }}
-  """
-```
-
-Chat Model ကိုကျတော့ ထိပ်က Node ထဲမှာ တိုက်ရိုက် မရွေးဘဲ Input Socket လေးဆီကို **Sub-node** ပုံစံနဲ့ သွားချိတ်ပေးရပါတယ် -
-
-```
-[Basic LLM Chain]
-      ↑
-[OpenAI Chat Model]   ← Sub-node (Model Provider အနေနဲ့ အောက်က ချိတ်တယ်)
-```
-
-### AI Response ကို ဘယ်လို ဖတ်မလဲ?
-
-Basic LLM Chain ကနေ အလုပ်လုပ်ပြီး ထွက်လာတဲ့ Output ပုံစံက ဒီလိုပါ -
-
-```json
-{
-  "response": {
-    "text": "• ပထမ အချက်...\n• ဒုတိယ အချက်...\n• တတိယ အချက်..."
-  }
-}
-```
-
-အဲဒီတော့ တခြားနေရာတွေကနေ လှမ်းဖတ်ချင်ရင် `{{ $json.response.text }}` ဆိုပြီး Expression နဲ့ ခေါ်သုံးရုံပါပဲ။
-
-## Chat Models တွေ ဘယ်လို ချိတ်ဆက်မလဲ?
-
-### 1. OpenAI GPT-4o-mini (စျေးသက်သာချင်ရင်)
-
-1. အရင်ဆုံး OpenAI API Key ကို n8n Credential ထဲမှာ သွားထည့်ပါ။
-2. ပြီးရင် Canvas မှာ **"OpenAI Chat Model"** Node ကို ခေါ်ပြီး အပေါ်က Basic LLM Chain ရဲ့ အောက် (Sub-node) မှာ သွားချိတ်ပါ။
-
-```
-OpenAI Chat Model:
-  Credential:  [OpenAI API]
-  Model:       gpt-4o-mini
-  Temperature: 0.7    ← 0 ဆိုရင် တိကျမယ်၊ 1 ဆိုရင် ပို Creative ဖြစ်မယ်
-  Max Tokens:  1000
-```
-
-### 2. Anthropic Claude 3.5 Haiku (မြန်ပြီး ဉာဏ်ကောင်းချင်ရင်)
-
-```
-Anthropic Chat Model:
-  Credential:  [Anthropic API]
-  Model:       claude-haiku-4-5-20251001
-  Temperature: 0.5
-```
-
-<Aside type="tip" title="Model ရွေးချယ်မှုဆိုင်ရာ အကြံပြုချက်">
-- **Cheap & Fast (စျေးသက်သာ၊ မြန်)** → GPT-4o-mini, Claude Haiku
-- **Balanced (မျှတ)** → GPT-4o, Claude Sonnet
-- **Most Capable (အစွမ်းအထက်ဆုံး)** → GPT-4o, Claude Opus
-- **Privacy / Local (ကိုယ်ပိုင် Server)** → Ollama (ကိုယ့်စက်ထဲမှာပဲ Run မယ်)
+<Aside title="💡 ရည်ရွယ်ချက်">
+  n8n တွင် ပါဝင်သော AI Node Family များ၏ အမျိုးအစား ၅ ခု (Chat Models, Chains, Memory, Tools နှင့် Vector Stores) ကို နားလည်ပြီး၊ မည်သည့် နေရာတွင် မည်သည့် Node ကို သုံးစွဲရမည်ကို ခွဲခြား သိရှိစေရန် ဖြစ်ပါတယ်။
 </Aside>
 
-## လက်တွေ့ Project: Email Auto-Summarizer
+## n8n AI Node Categories ၅ ခု
 
-Email အသစ် ဝင်လာတိုင်း ဖတ်ရလွယ်အောင် AI နဲ့ အနှစ်ချုပ် (Summary) လုပ်ပြီး Slack ပေါ် လှမ်းပို့ပေးမယ့် Workflow လေးပါ -
-
-<FlowDiagram
-  nodes={[
-    { label: "Gmail Trigger", sublabel: "New Email", type: "trigger" },
-    { label: "Basic LLM Chain", sublabel: "Claude: Summarize", type: "code" },
-    { label: "Slack", sublabel: "Post Summary", type: "action" }
-  ]}
-  caption="Email ဝင်မယ် → AI က အနှစ်ချုပ်မယ် → Slack ကို ပို့မယ် (အဓိကအချက်တွေကို Auto-extract လုပ်တာပါ)"
-/>
-
-```
-Prompt Template:
-"""
-You are an email assistant for a Myanmar developer.
-Summarize this email concisely in Myanmar language.
-Extract: sender intent, action needed, urgency level (low/medium/high).
-
-From: {{ $json.from[0].address }}
-Subject: {{ $json.subject }}
-Body: {{ $json.text.slice(0, 3000) }}
-
-Response format:
-📋 အဓိကအကြောင်းအရာ: ...
-✅ လုပ်ဆောင်ရမည့်အချက်: ...
-⚡ အရေးပေါ်မှု: [low/medium/high]
-"""
+```mermaid
+graph TD
+    A[n8n AI Family] --> B[1. Chat Models - Brain]
+    A --> C[2. Chains - Single Task Flow]
+    A --> D[3. Memory - Conversation Context]
+    A --> E[4. Tools - Real-world Actions]
+    A --> F[5. Vector Stores - RAG & Knowledge]
 ```
 
-## Sentiment Analysis Workflow
+---
 
-Customer တွေဆီက ဝင်လာတဲ့ Feedback တွေကို AI သုံးပြီး အကောင်း (Positive) နဲ့ အဆိုး (Negative) ခွဲထုတ်မယ်၊ ပြီးရင် ဦးစားပေး အဆင့် (Priority) ခွဲမယ့် ဥပမာပါ -
+## 1. Chat Models (AI ၏ ဦးနှောက်)
 
-<BranchFlow
-  input="Webhook: Customer Feedback ဝင်လာပြီ"
-  condition="AI က Negative လို့ သတ်မှတ်လား?"
-  truePath={["Slack: #urgent ကို ပို့မယ်", "Jira Ticket အသစ် ဖွင့်မယ်"]}
-  falsePath={["Thank You Email ပြန်ပို့မယ်", "Sheets ထဲ မှတ်ထားမယ်"]}
-  trueLabel="😠 Negative"
-  falseLabel="😊 Positive"
-/>
+Chat Model Node များသည် LLM (Large Language Model) များထံသို့ တိုက်ရိုက် ချိတ်ဆက်ပေးသော Node များ ဖြစ်ပါသည်:
 
-```javascript
-// Code Node — Parse AI Sentiment Response
-const aiResponse = $json.response.text.toLowerCase();
+- **OpenAI Chat Model:** `gpt-4o`, `gpt-4o-mini` (High quality & tool calling)
+- **Anthropic Chat Model:** `claude-haiku-4-5-20251001` (Fast & highly cost-effective)
+- **Google Gemini Chat Model:** `gemini-2.5-flash` (Multi-modal support)
+- **Ollama Chat Model:** Local တွင် Self-host ထားသော Open-source Models (Llama, Mistral) များအား zero API cost ဖြင့် သုံးစွဲခြင်း။
 
-// ပါလာတဲ့ စာသားအပေါ် မူတည်ပြီး Sentiment ခွဲမယ်
-const sentiment = aiResponse.includes('negative') || aiResponse.includes('angry')
-  ? 'negative'
-  : aiResponse.includes('positive') || aiResponse.includes('happy')
-    ? 'positive'
-    : 'neutral';
+---
 
-// လိုအပ်မယ့် Data တွေ ပေါင်းထည့်ပြီး ပြန်ပို့မယ်
-return [{ json: { ...$json, sentiment, needsUrgentResponse: sentiment === 'negative' } }];
-```
+## 2. Chains vs. Agents
 
-## Translation Workflow
+| အင်္ဂါရပ် | LLM Chains (Single Call / Chain) | AI Agents |
+|---|---|---|
+| **အလုပ်လုပ်ပုံ** | လမ်းကြောင်း တိကျစွာ သတ်မှတ်ထားသော Flow | AI အလိုအလျောက် Tool ကို ရွေးချယ် စဉ်းစားသော ReAct Loop |
+| **ခန့်မှန်းရရှိနိုင်မှု** | Deterministic (ကြိုတင် မှန်းဆရ လွယ်ကူ) | Non-deterministic |
+| **သင့်တော်သော အသုံးပြုမှု** | Summarization, Text Translation | Customer Support, Dynamic Multi-step Reasoning |
 
-ဘာသာစကား အများကြီး (Multi-language) ကို AI သုံးပြီး အလိုအလျောက် ပြန်ဆို (Translate) မယ့် Workflow ပါ -
+---
 
-<ParallelFlow
-  source="Webhook: Content Text ဝင်လာမယ်"
-  sourceType="trigger"
-  targets={["AI: Translate to English", "AI: Translate to Japanese", "AI: Translate to Thai"]}
-  caption="Content စာသား တစ်ကြိမ် ရေးလိုက်တာနဲ့ ဘာသာစကား ၃ မျိုးကို တပြိုင်တည်း ဘာသာပြန်သွားမယ်"
-/>
+## 3. Memory (Conversation Context)
 
-<Aside type="note" title="AI Token ကုန်ကျစရိတ် (Cost)">
-AI Node တစ်ကြိမ် Run တိုင်းမှာ သင်ပေးလိုက်တဲ့ စာ (Input) နဲ့ သူပြန်ဖြေတဲ့ စာ (Output) Tokens နှစ်ခုစလုံးအတွက် ကုန်ကျစရိတ် ရှိပါတယ်။ အဲဒါကြောင့် စာရှည်ကြီးတွေ (Long Prompt) ထည့်မယ့်အစား `.slice(0, 2000)` လိုမျိုး ဖြတ်ပြီးမှ ထည့်တာ ပိုကောင်းပါတယ်။ တကယ့် Production မသုံးခင်မှာ Token Cost ကို Calculator တွေနဲ့ တွက်ကြည့်သင့်ပါတယ် — ဥပမာ OpenAI Tokenizer: platform.openai.com/tokenizer ကို သုံးနိုင်ပါတယ်။
-</Aside>
+AI Models များသည် Default အားဖြင့် မက်ဆေ့ချ် တစ်ခုနှင့် တစ်ခုအကြား Memory မရှိကြပါ။
 
-နောက်သင်ခန်းစာမှာတော့ **AI Agent** တွေအကြောင်း — n8n ထဲက AI တွေကို ကိုယ်တိုင် Tools တွေ ကိုင်တွယ်သုံးစွဲခွင့်ပေးပြီး AI Agent လေးတွေ ဘယ်လို ဆောက်မလဲဆိုတာ လေ့လာကြပါမယ်။
+- **Simple Memory (Window Buffer Memory):**
+  - **Context Window Length:** အရင် ပြောကြားခဲ့သော မက်ဆေ့ချ် Pairs ဘယ်နှစ်ခုကို မှတ်ထားမည်လဲ (ဥပမာ - `10`)။
+  - **Session ID:** Customer ၏ Telegram Chat ID သို့မဟုတ် User ID ကို Session ID အဖြစ် သတ်မှတ်၍ တစ်ဦးချင်းစီ၏ စကားပြောဆိုမှုများကို သီးခြား ခွဲခြား သိုလှောင်ခြင်း။

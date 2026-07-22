@@ -1,232 +1,73 @@
 ---
-title: "Data Transformation"
-description: "n8n မှာ Data ပုံစံပြောင်းလဲနည်းနဲ့ IF, Switch, Merge Nodes တွေအကြောင်း"
+title: "Data Transformation: Data ကို ပုံသွင်းခြင်း"
+description: "Data Format ချို့ယွင်းမှုများကို ပြုပြင်ခြင်း၊ Field များ Map ပြုလုပ်ခြင်း၊ Node ဖြင့် ရေဆေးသန့်စင်ခြင်းနှင့် Branching Nodes (IF / Switch / Merge)"
 ---
 
 import { Aside } from "@astrojs/starlight/components";
-import BranchFlow from "@/components/diagrams/BranchFlow.astro";
-import FlowDiagram from "@/components/diagrams/FlowDiagram.astro";
 
-## Data Transformation ဆိုတာ ဘာလဲ?
+<Aside title="💡 ရည်ရွယ်ချက်">
+  မတူညီသော App များထံမှ စီးဆင်းလာသော Data များ (Data Format Mismatches) ကို စနစ်တကျ ရေဆေးသန့်စင်ခြင်း၊ Field Name များ Map ပြုလုပ်ခြင်းနှင့် လမ်းကြောင်း ခွဲခြားခြင်း (Branching) များကို နားလည်စေရန် ဖြစ်ပါတယ်။
+</Aside>
 
-Real-world Workflow တွေမှာ API တစ်ခုကနေ Data ယူပြီး နောက် App တစ်ခုမှာ သွားထည့်တဲ့အခါ Format တွေက ကွာနေတတ်ပါတယ်။ Data Transformation ဆိုတာ အဲ့ဒီလို Format မကိုက်ညီတာတွေကို ပြုပြင်ပေးတာပါ -
+## ဘာကြောင့် Data Transformation ကို ပြုလုပ်ရသလဲ?
 
-- Source API ရဲ့ `user_name` → Slack မှာ `username` လို့ ပြောင်းပေးရမယ်
-- Source API ရဲ့ `date_ts` → Slack မှာ `text` လို့ ပြောင်းပေးရမယ်
-- Source API ရဲ့ `amount` → Slack မှာ `blocks` ထဲ ထည့်ပေးရမယ်
+Automation စနစ်များ ပျက်စီးရသည့် အဓိက အကြောင်းရင်းမှာ **App တစ်ခုနှင့် တစ်ခု Data လက်ခံသည့် Format မတူညီခြင်း** ကြောင့် ဖြစ်ပါတယ်။
 
-## Set Node — Field တွေ ပြောင်းလဲခြင်း
+ဥပမာ - Website Form ဘက်မှ `{ "user_name": "Mg Mg", "EMAIL": "MG@GMAIL.COM" }` ဟု ပေးပို့လိုက်သော်လည်း Google Sheets ဘက်မှ `username` နှင့် `email` စာလုံးအသေးဟု တောင်းဆိုနေပါက ကြားထဲတွင် **Data Transformation (Adapter)** ပြုလုပ်ပေးရန် လိုအပ်ပါတယ်။
 
-**Set Node** ဟာ Data ထဲက Field တွေကို အသစ်ထည့်တာ၊ ပြင်တာ၊ ဖျက်တာတွေ လုပ်ဖို့ သုံးပါတယ် -
+---
 
-### Mode 1: Manual Mapping
+## 1. Set (Edit Fields) Node
 
-Visual Editor ကနေ Field တစ်ခုချင်းစီကို သတ်မှတ်ပေးလို့ ရပါတယ် -
+**Set Node** သည် Field များ အသစ် ဖန်တီးပေးခြင်း၊ Field Name များ Map ပြုလုပ်ပေးခြင်းနှင့် တန်ဖိုးများကို ပြောင်းလဲပေးခြင်းတို့တွင် အဓိက သုံးသော Node ဖြစ်ပါတယ်။
 
-| Name (field) | Value |
-|---|---|
-| `fullName` | `{{ $json.first + " " + $json.last }}` |
-| `email` | `{{ $json.email.toLowerCase() }}` |
-| `joinedAt` | `{{ $now.toISO() }}` |
+### အသုံးများသော Built-in Functions:
 
-### Mode 2: JSON
+#### String Manipulation (စာသားများ):
+- `{{ $json.name.toLowerCase() }}` : စာလုံးအသေး ပြောင်းခြင်း။
+- `{{ $json.name.trim() }}` : မလိုလားအပ်သော ရှေ့နောက် Space များကို ဖယ်ရှားခြင်း။
+- `{{ $json.text.slice(0, 100) }}` : စာလုံး ၁၀၀ ဖြတ်ယူခြင်း။
 
-Output ထွက်လာမယ့် JSON ကို တိုက်ရိုက် ရေးပေးလို့လည်း ရပါတယ် -
+#### Number & Date (ဂဏန်းနှင့် ရက်စွဲ):
+- `{{ Math.round($json.price) }}` : အနီးစပ်ဆုံး ကိန်းပြည့် ပြောင်းခြင်း။
+- `{{ $now.plus({ days: 7 }).toFormat('dd MMM yyyy') }}` : ရက်စွဲ ပြင်ဆင်ခြင်း။
 
-```json
-{
-  "fullName": "={{ $json.first + ' ' + $json.last }}",
-  "email": "={{ $json.email.toLowerCase() }}",
-  "status": "active"
-}
+---
+
+## 2. Logic & Branching Nodes
+
+```mermaid
+graph TD
+    A[Incoming Order Data] --> B{IF / Switch Node}
+    B -->|Total > 50,000 MMK| C[VIP Path - Fast Shipping & Notification]
+    B -->|Standard Order| D[Standard Order Path]
 ```
 
-## Code Node — Complex Transformation
+### IF Node (လမ်းကြောင်း ၂ ခု ခွဲခြင်း)
+- Condition တစ်ခုကို စစ်ဆေး၍ `True` သို့မဟုတ် `False` လမ်းကြောင်း ၂ ခုသို့ ခွဲပေးပါတယ်။
+- **ဥပမာ:** Order Total > 50,000 MMK ဖြစ်ပါက VIP Path သို့ သွားရန်၊ မဟုတ်ပါက Standard Path သို့ သွားရန်။
 
-Complex Logic တွေ သုံးချင်ရင်တော့ JavaScript ဒါမှမဟုတ် Python ကို Code Node ထဲမှာ ရေးနိုင်ပါတယ် -
+### Switch Node (လမ်းကြောင်း အများအပြား ခွဲခြင်း)
+- Condition အများအပြား (ဥပမာ - Payment Method အလိုက် KPay / WavePay / KBZ Bank / CB Bank) ဖြင့် လမ်းကြောင်း ၄-၅ ခုအထိ ခွဲထုတ်ပေးနိုင်ပါတယ်။
 
-### ဥပမာ: API Data ကို ပြင်ဆင်ခြင်း
+### Merge Node (လမ်းကြောင်း ပြန်လည် ပေါင်းစပ်ခြင်း)
+- သီးခြား စီးဆင်းလာသော လမ်းကြောင်း ၂ ခု သို့မဟုတ် Data များကို ပြန်လည် ပေါင်းစည်းရန် (Combine / Append / Choose Branch) သုံးစွဲပါတယ်။
+
+---
+
+## 3. Code Node (Custom JS / Python)
+
+Set Node ဖြင့် မလုံလောက်သော Complex Data Logic များ (ဥပမာ - Array များထဲမှ Data သီးသန့် Filter လုပ်ခြင်း) အတွက် **Code Node** တွင် Custom JavaScript / Python ရေးသားနိုင်ပါတယ်:
 
 ```javascript
-// Code Node - JavaScript
-// API ကနေ orders list ကို ရယူပြီး လိုသလို ပြုပြင်ခြင်း
-
+// Complex Array Transformation
 return $input.all().map(item => {
-  const order = item.json;
-
   return {
     json: {
-      orderId: order.id,
-      customer: `${order.billing.first_name} ${order.billing.last_name}`,
-      total: `$${(order.total / 100).toFixed(2)}`,
-      status: order.status.toUpperCase(),
-      date: new Date(order.date_created).toLocaleDateString('my-MM'),
-      itemCount: order.line_items.length
+      orderId: item.json.id,
+      formattedTotal: `${item.json.total.toLocaleString()} MMK`,
+      isVip: item.json.total >= 50000
     }
   };
 });
 ```
-
-### Python Mode
-
-```python
-# Code Node - Python
-result = []
-
-for item in _input.all():
-    order = item['json']
-    result.append({
-        'json': {
-            'id': order['id'],
-            'total': f"${order['total'] / 100:.2f}",
-            'status': order['status'].upper()
-        }
-    })
-
-return result
-```
-
-## IF Node — Conditional Branching
-
-**IF Node** က Condition ကို စစ်ပြီး Data ကို True လမ်းကြောင်းနဲ့ False လမ်းကြောင်း (၂) ခု ခွဲပေးပါတယ် -
-
-<BranchFlow
-  input="Customer Order"
-  condition="amount > 100?"
-  truePath={["Set: VIP Tag", "Send VIP Email"]}
-  falsePath={["Set: Standard Tag", "Send Standard Email"]}
-  trueLabel="TRUE ✅"
-  falseLabel="FALSE ❌"
-/>
-
-### IF Node Configuration
-
-```
-Condition: {{ $json.amount }} > 100
-
-  Value 1:   {{ $json.amount }}   (Number)
-  Operation: Greater Than
-  Value 2:   100
-```
-
-### Multiple Conditions
-
-```
-AND Condition (၂ ခုလုံး True ဖြစ်မှ):
-  amount > 100
-  AND status === "completed"
-
-OR Condition (တစ်ခုခု True ဖြစ်ရုံနဲ့):
-  status === "pending"
-  OR status === "processing"
-```
-
-## Switch Node — Multiple Paths
-
-**Switch Node** ဟာ IF လိုမျိုးပါပဲ၊ ဒါပေမဲ့ လမ်းကြောင်း **(၂) ခုထက် ပိုခွဲချင်တဲ့အခါ** သုံးပါတယ် -
-
-<FlowDiagram
-  nodes={[
-    { label: "Switch Node", sublabel: "status field စစ်", type: "condition" },
-    { label: "pending → Payment Reminder", type: "action" },
-    { label: "shipped → Tracking Email", type: "action" },
-    { label: "delivered → Review Request", type: "action" }
-  ]}
-  caption="Switch Node — Status ပေါ်မူတည်ပြီး Path (၃) ခုခွဲသည်"
-/>
-
-**Switch Node Configuration:**
-
-```
-Mode: Rules
-
-Case 1: {{ $json.status }} === "pending"    → Output 0
-Case 2: {{ $json.status }} === "shipped"    → Output 1
-Case 3: {{ $json.status }} === "delivered"  → Output 2
-Default:                                    → Output 3
-```
-
-## Merge Node — Data တွေ ပေါင်းခြင်း
-
-Node (၂) ခုကနေ လာတဲ့ Data တွေကို ပေါင်းချင်တဲ့အခါ **Merge Node** ကို သုံးပါတယ် -
-
-Merge Node Modes -
-- **Append** — A items အောက်မှာ B items ကို ဆက်ထည့်တယ်
-- **Combine** — တူညီတဲ့ Field တွေကို Match လုပ်ပြီး Join တယ်
-- **Choose Branch** — A ဒါမှမဟုတ် B ကို Condition နဲ့ ရွေးတယ်
-
-**ဥပမာ — User နဲ့ Order Data ပေါင်းခြင်း:**
-
-```
-[Get User from DB] ──▶ ┌──────────────┐
-                       │  Merge Node  │──▶ { user + order }
-[Get Order from API]──▶│  (Combine)   │
-                       └──────────────┘
-
-Merge by: user_id (common field)
-```
-
-## n8n Expressions — Built-in Functions
-
-n8n Expression တွေမှာ Built-in အနေနဲ့ သုံးလို့ရတဲ့ Helper Functions တွေ ရှိပါတယ် -
-
-### String Functions
-
-```
-{{ $json.name.toUpperCase() }}       → "AUNG AUNG"
-{{ $json.email.toLowerCase() }}      → "aung@gmail.com"
-{{ $json.text.trim() }}              → အစ/အဆုံး Whitespace ဖျက်
-{{ $json.name.includes("Aung") }}    → true / false
-{{ $json.title.slice(0, 50) }}       → ပထမ Character ၅၀
-```
-
-### Number Functions
-
-```
-{{ Math.round($json.price) }}           → အနီးစပ်ဆုံး ကိန်းပြည့် ယူ
-{{ Number($json.amount).toFixed(2) }}   → ဒသမ နေရာ ၂ နေရာ ယူ
-{{ $json.items.length }}                → Array အရေအတွက်
-```
-
-### Date Functions
-
-```
-{{ $now.toISO() }}                → "2025-01-15T09:00:00.000Z"
-{{ $now.toFormat('yyyy-MM-dd') }} → "2025-01-15"
-{{ $now.plus({days: 7}).toISO() }}→ ဒီနေ့ကနေ (၇) ရက်ကြာ Date
-```
-
-<Aside type="tip" title="Expression Editor">
-Expression တွေ ရေးတဲ့အခါ `{{ }}` ထဲကို Click လိုက်ရင် **Expression Editor** ပွင့်လာပါမယ်။ Autocomplete ပါပြီး Node ရဲ့ Output ကို Real-time ချက်ချင်း ကြည့်လို့ ရပါတယ်။
-</Aside>
-
-## Practical: E-commerce Order Processing
-
-ဒီ Workflow မှာဆိုရင် Order တစ်ခု ဝင်လာတဲ့အခါ Customer ရဲ့ Status (Total အပေါ်မူတည်ပြီး) ကွဲပြားတဲ့ Email တွေကို ပို့ပေးမှာပါ -
-
-<BranchFlow
-  input="Webhook: New Order → Set: Format Order Data"
-  condition="Total > 100?"
-  truePath={["Set: VIP Tag", "Gmail: VIP Email (Free Shipping)"]}
-  falsePath={["Set: Standard Tag", "Gmail: Standard Email"]}
-  trueLabel="TRUE ✅ VIP"
-  falseLabel="FALSE ❌ Standard"
-/>
-
-```javascript
-// Set Node (VIP Path)
-{
-  "emailTemplate": "vip",
-  "subject": "VIP Order Confirmation + Free Shipping!",
-  "discount": 10
-}
-
-// Set Node (Standard Path)
-{
-  "emailTemplate": "standard",
-  "subject": "Order Confirmed!",
-  "discount": 0
-}
-```
-
-နောက်သင်ခန်းစာမှာ တကယ့် Real-World Automation Workflows တွေကို ဆက်ပြီး လေ့လာကြပါမယ် ခင်ဗျာ။
