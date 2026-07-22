@@ -1,0 +1,60 @@
+---
+title: "Production Best Practices, Volumes & Security"
+description: "Docker ကို Production တွင် တည်ငြိမ် လုံခြုံစွာ သုံးစွဲရန် Data Volumes, Security Best Practices နှင့် Container Pruning"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Production Environment တွင် Docker အသုံးပြုရာ၌ Data ပျောက်ဆုံးမှု မရှိစေရေးအတွက် **Volume Persistence** နားလည်ခြင်း၊ **Security** ဖြည့်ဆည်းခြင်းနှင့် Storage ရှင်းလင်းခြင်းများကို သင်ယူရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Data Persistence (Docker Volumes)
+
+Containers များသည် Stateless (ဖျက်လိုက်ပါက အတွင်းရှိ Data များ ပျောက်ကွယ်သွားသည်) ဖြစ်သဖြင့် Database Data များကို **Docker Volumes** ဖြင့် Host Machine ပေါ်သို့ မဖြစ်မနေ Persist လုပ်ရပါမည်။
+
+### Volume အမျိုးအစား ၃ ခု:
+
+1. **Named Volumes (အကြံပြုချက်):** Docker မှ စီမံသော Volume (ဥပမာ - `docker run -v mydata:/var/lib/postgresql/data postgres`)။
+2. **Bind Mounts:** Host စက်၏ သီးသန့် Folder ကို Container ထဲ တိုက်ရိုက် Mount လုပ်ခြင်း (Development အတွက် သင့်တော်သည်)။
+3. **Tmpfs Mounts:** In-memory တွင်သာ ခဏတာ သိမ်းဆည်းခြင်း။
+
+---
+
+## 2. Production Security Best Practices
+
+### Rule 1: Root User အဖြစ် Container ကို မ run ပါနှင့်
+Dockerfile တွင် Non-root User သတ်မှတ်ပါ:
+
+```dockerfile
+# Create non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+```
+
+### Rule 2: Minimal Base Images ကို ရွေးချယ်ပါ
+- `node:20` (Size: ~1GB - တိုက်ခိုက်ခံရနိုင်ခြေ များသည်) အစား **`node:20-alpine`** (Size: ~170MB - လုံခြုံပြီး ပေါ့ပါးသည်) ကို သုံးပါ။
+
+### Rule 3: `.dockerignore` သုံးစွဲပါ
+မလိုလားအပ်သော File များ (ဥပမာ - `node_modules`, `.env`, `.git`) ကို Image ထဲ မပါဝင်စေရန် `.dockerignore` တွင် ထည့်သွင်းပါ:
+
+```text
+node_modules
+.env
+.git
+dist
+```
+
+---
+
+## 3. Storage Pruning (မလိုလားအပ်သော Files ရှင်းလင်းခြင်း)
+
+Container Build များပြားလာပါက Disk Space ပြည့်သွားနိုင်သဖြင့် အောက်ပါ Command များဖြင့် ပုံမှန် ရှင်းထုတ်ပါ:
+
+```bash
+# မသုံးတော့သော Containers, Networks, Images (Dangling) များကို ရှင်းလင်းခြင်း
+docker system prune -f
+
+# မသုံးသော Volumes ပါ ပေါင်း၍ ရှင်းလင်းခြင်း
+docker system prune -a --volumes
+```

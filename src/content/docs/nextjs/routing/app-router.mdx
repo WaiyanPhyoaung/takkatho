@@ -1,0 +1,61 @@
+---
+title: "App Router နှင့် File-System Routing"
+description: "Next.js App Router ၏ Folder Structure၊ Reserved Conventions (page, layout, loading, error) နှင့် Dynamic Routes"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Next.js ၏ **App Router (`app/` directory)** အလုပ်လုပ်ပုံ၊ File-system Routing စည်းမျဉ်းများ၊ Layouts ၊ Loading နှင့် Error UI Conventions များကို လေ့လာသွားရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Special File Conventions (Reserved File Names)
+
+App Router တွင် Folder တစ်ခုချင်းစီသည် URL Segment တစ်ခု ဖြစ်ပြီး၊ ၎င်း Folder အတွင်း အောက်ပါ သီးသန့် File Name များကို သုံးနိုင်ပါတယ်။
+
+- **`page.tsx`:** ထို URL Path ၏ UI Page (မဖြစ်မနေ ပါဝင်ရမည်)။
+- **`layout.tsx`:** သက်ဆိုင်ရာ Sub-pages များအားလုံး မျှဝေသုံးစွဲမည့် Shared Layout (Sidebar, Header, Footer)။
+- **`loading.tsx`:** Data Fetching ပြုလုပ်စဉ် ပေါ်လာမည့် Loading Spinner / Skeleton UI (React Suspense ဘက်မှ အလိုအလျောက် သုံးသည်)။
+- **`error.tsx`:** Runtime Error တက်ပါက အလိုအလျောက် ပြသပေးမည့် Error Boundary UI။
+- **`not-found.tsx`:** 404 Page UI။
+
+---
+
+## 2. File-system Routing ဥပမာ
+
+```text
+app/
+├── layout.tsx         --> Root Layout (<html> & <body>)
+├── page.tsx           --> Route: "/" (Home Page)
+├── about/
+│   └── page.tsx       --> Route: "/about"
+└── dashboard/
+    ├── layout.tsx     --> Dashboard Shared Sidebar
+    ├── page.tsx       --> Route: "/dashboard"
+    └── analytics/
+        └── page.tsx   --> Route: "/dashboard/analytics"
+```
+
+---
+
+## 3. Dynamic Routes & Catch-all Routes
+
+### Dynamic Route (`[id]`)
+Folder Name ကို တွန့်ကွင်း `[id]` ဖြင့် ပေးပါက Dynamic Parameter အဖြစ် သုံးနိုင်ပါတယ်:
+
+- Folder: `app/products/[id]/page.tsx` --> Route: `/products/123`, `/products/abc`
+
+```tsx
+// app/products/[id]/page.tsx
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  return <h1>Product Details ID: {id}</h1>;
+}
+```
+
+### Catch-all Route (`[...slug]`)
+- Folder: `app/docs/[...slug]/page.tsx` --> Route: `/docs/features/authentication`, `/docs/setup`

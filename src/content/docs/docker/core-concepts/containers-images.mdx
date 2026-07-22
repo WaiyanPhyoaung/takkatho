@@ -1,0 +1,76 @@
+---
+title: "Containers, Images & Essential CLI Commands"
+description: "Docker Images နှင့် Containers တို့၏ ကွာခြားချက်များ၊ Docker Hub နှင့် အခြေခံ မဖြစ်မနေ သုံးရမည့် CLI Commands များ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Docker Images (Blueprint) နှင့် Containers (Live Process) တို့၏ သဘောတရားကို ခွဲခြားသိမြင်ပြီး၊ အခြေခံ Docker CLI Commands များကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်စေရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## Images vs. Containers (Class vs. Instance)
+
+Object-Oriented Programming (OOP) သဘောတရားအတိုင်း နှိုင်းယှဉ်ပါက:
+
+- **Docker Image:** Class သို့မဟုတ် Blueprint နှင့် တူပါတယ်။ Read-only ဖြစ်ပြီး Application တည်ဆောက်ရန် ညွှန်ကြားချက်များ ပါဝင်သည်။
+- **Docker Container:** Object သို့မဟုတ် Instance နှင့် တူပါတယ်။ Image မှတစ်ဆင့် ရယူ၍ တကယ့် Process အဖြစ် အသက်ဝင် run နေသော အခြေအနေ ဖြစ်ပါတယ်။
+
+```text
+Docker Image (Template) ----[ docker run ]----> Docker Container (Running Application)
+```
+
+---
+
+## Docker Registry (Docker Hub)
+
+**Docker Hub** (`hub.docker.com`) ဆိုသည်မှာ Developer များ ဖန်တီးထားသော အဆင်သင့်သုံး Docker Images များကို သိမ်းဆည်းရာ Public Registry ဖြစ်ပါသည် (GitHub နှင့် သဘောတရား တူသည်)။
+
+ဥပမာ - `nginx`, `node`, `postgres`, `redis`, `python` စသည့် Official Images များကို အသင့် Pull ယူ၍ သုံးနိုင်ပါတယ်။
+
+---
+
+## မဖြစ်မနေ သိထားရမည့် Docker CLI Commands များ
+
+### 1. Containers Run ခြင်းနှင့် စီမံခြင်း
+
+```bash
+# Docker Hub မှ Nginx Image ကို ယူ၍ Container အဖြစ် Run ခြင်း
+docker run -d -p 8080:80 --name my-web-server nginx
+
+# လက်ရှိ Run နေသော Containers များကို ကြည့်ခြင်း
+docker ps
+
+# ရပ်တန့်ထားသော Containers များပါ အားလုံး ကြည့်ခြင်း
+docker ps -a
+
+# Container များကို ရပ်တန့်ခြင်း / ပြန်လည် စတင်ခြင်း
+docker stop my-web-server
+docker start my-web-server
+
+# Container ကို ဖျက်ပစ်ခြင်း
+docker rm my-web-server
+```
+
+### 2. Images စီမံခြင်း
+
+```bash
+# Docker Hub မှ Image ကို ဆွဲယူခြင်း
+docker pull postgres:15
+
+# စက်ထဲရှိ Images များ စာရင်း ကြည့်ခြင်း
+docker images
+
+# Image ကို ဖျက်ပစ်ခြင်း
+docker rmi postgres:15
+```
+
+### 3. Container အတွင်းသို့ ဝင်ရောက်ခြင်းနှင့် Logs ကြည့်ခြင်း
+
+```bash
+# Container ၏ Output Logs များကို ကြည့်ခြင်း
+docker logs -f my-web-server
+
+# Container အတွင်းရှိ Terminal သို့ ဝင်ရောက်ခြင်း
+docker exec -it my-web-server bash
+```

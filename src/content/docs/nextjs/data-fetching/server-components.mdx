@@ -1,0 +1,80 @@
+---
+title: "React Server Components (RSC) & Data Fetching"
+description: "React Server Components (RSC) နှင့် Client Components ('use client') တို့၏ ကွာခြားချက်များ၊ Data Fetching နှင့် Caching Strategies"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Next.js App Router ၏ အနှစ်သာရဖြစ်သော **React Server Components (RSC)** နှင့် **Client Components** တို့၏ ကွာခြားချက်များကို ရှင်းလင်းစွာ ခွဲခြားနိုင်ပြီး၊ Server-side Data Fetching ကို ကျွမ်းကျင်စွာ ပြုလုပ်ရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## React Server Components (RSC) vs. Client Components
+
+Next.js App Router တွင် Component တိုင်းသည် Default အားဖြင့် **Server Component** ဖြစ်ပါတယ်။
+
+| အင်္ဂါရပ် | Server Components (Default) | Client Components (`'use client'`) |
+|---|---|---|
+| **Run ရာနေရာ** | Server ပေါ်တွင်သာ Run သည် (Zero JS bundle to client) | Browser (Client) ပေါ်တွင် Hydrate ဖြစ်သည် |
+| **Direct DB Access** | Database / API Secrets များကို တိုက်ရိုက် ခေါ်ယူနိုင်သည် | Direct DB Access မရပါ (API / Action မှတစ်ဆင့် ခေါ်ရသည်) |
+| **React Hooks** | `useState`, `useEffect`, `onClick` သုံး၍ **မရပါ** | `useState`, `useEffect`, `onClick` သုံး၍ **ရပါသည်** |
+| **Security** | API Keys များ Leak မဖြစ်ဘဲ လုံခြုံသည် | Bundle ထဲ ပါသဖြင့် Public ဖြစ်နိုင်သည် |
+
+---
+
+## 1. Server Component တွင် Data Fetching ပြုလုပ်ပုံ
+
+`async/await` ကို Component တိုက်ရိုက် တွင် ရေးသားနိုင်ပါတယ်:
+
+```tsx
+// app/users/page.tsx (Server Component)
+interface User {
+  id: number;
+  name: string;
+}
+
+export default async function UsersPage() {
+  // Server ဘက်မှ တိုက်ရိုက် Fetching ပြုလုပ်ခြင်း
+  const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+    next: { revalidate: 3600 }, // 1 နာရီတိုင်း Cache ပြန်လည် Revalidate လုပ်မည်
+  });
+  const users: User[] = await res.json();
+
+  return (
+    <div>
+      <h1>User List</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+---
+
+## 2. ဘယ်အချိန်မှာ `'use client'` ကို သုံးရမလဲ?
+
+Interactive ဖြစ်သော Event Handler များ၊ Form Input State များ သို့မဟုတ် Browser APIs (`localStorage`, `window`) များကို သုံးလိုပါက File ၏ အပေါ်ဆုံးတွင် `'use client'` ထည့်သွင်းပေးရပါမည်:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+
+<Aside title="💡 Best Practice">
+  Component များကို တတ်နိုင်သမျှ **Server Component** အဖြစ်သာ ထားရှိပြီး၊ `onClick` သို့မဟုတ် State လိုအပ်သော ခလုတ်/Form သီးသန့် အစိတ်အပိုင်း သေးသေးလေးများကိုသာ Leaf Client Component အဖြစ် `'use client'` ခွဲထုတ် ရေးသားပါ။
+</Aside>

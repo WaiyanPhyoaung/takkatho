@@ -1,0 +1,90 @@
+---
+title: "Dockerfile ဖြင့် ကိုယ်ပိုင် Docker Image တည်ဆောက်ခြင်း"
+description: "Dockerfile ရေးသားနည်း၊ Instructions များ (FROM, WORKDIR, COPY, RUN, CMD) နှင့် Multi-stage Build အယူအဆ"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  မိမိ၏ Application Code များကို Custom Docker Image အဖြစ် ပြောင်းလဲရန် **Dockerfile** ရေးသားနည်းနှင့် စနစ်ကျသော Build Layers အယူအဆကို သင်ယူရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## Dockerfile ဆိုတာ ဘာလဲ?
+
+**Dockerfile** ဆိုသည်မှာ Docker Image တည်ဆောက်ရာတွင် အဆင့်ဆင့် လုပ်ဆောင်ရမည့် ညွှန်ကြားချက်များ (Instructions) ပါဝင်သည့် ရိုးရိုး Text File ဖြစ်ပါတယ်။
+
+---
+
+## 1. Node.js Express App အတွက် ဥပမာ Dockerfile
+
+```dockerfile
+# 1. Base Image ရွေးချယ်ခြင်း
+FROM node:20-alpine
+
+# 2. Container တွင်း Working Directory သတ်မှတ်ခြင်း
+WORKDIR /app
+
+# 3. Dependency File များကို အရင် ကူးယူခြင်း (Layer Caching အတွက်)
+COPY package*.json ./
+
+# 4. Dependencies များ Install လုပ်ခြင်း
+RUN npm install
+
+# 5. ကျန်ရှိသော Source Code များကို ကူးယူခြင်း
+COPY . .
+
+# 6. Container ၏ Port ကို သတ်မှတ်ခြင်း
+EXPOSE 3000
+
+# 7. Container စတင်ချိန်တွင် Run မည့် Command
+CMD ["node", "server.js"]
+```
+
+---
+
+## 2. Dockerfile Instructions များ၏ တာဝန်
+
+- `FROM`: Image ၏ အခြေခံ (Base Image) ကို သတ်မှတ်ခြင်း (ဥပမာ - `node:20-alpine`, `python:3.11-slim`)။
+- `WORKDIR`: Container အတွင်း အလုပ်လုပ်မည့် Folder လမ်းကြောင်း သတ်မှတ်ခြင်း။
+- `COPY`: Host စက်ထဲမှ ဖိုင်များကို Container အတွင်းသို့ ကူးယူခြင်း။
+- `RUN`: Image တည်ဆောက်စဉ် (Build Time) တွင် Command များ run ခြင်း (ဥပမာ - `npm install`)။
+- `CMD`: Container တကယ် စတင် run ချိန် (Runtime) တွင် Executable Command ကို ရန်းခြင်း။
+
+---
+
+## 3. Docker Build Command
+
+Dockerfile မှတစ်ဆင့် Image တည်ဆောက်ရန်:
+
+```bash
+# Docker Image ကို Build လုပ်ပြီး tag (နာမည်) ပေးခြင်း
+docker build -t my-node-app:1.0 .
+
+# တည်ဆောက်ပြီးသော Image ကို Run ခြင်း
+docker run -d -p 3000:3000 --name my-app-instance my-node-app:1.0
+```
+
+---
+
+## 4. Multi-Stage Builds ( Image Size သေးငယ်အောင် ပြုလုပ်ခြင်း)
+
+Next.js သို့မဟုတ် Go App များကို Build လုပ်ရာတွင် Image Size သေးငယ်ပြီး လုံခြုံစေရန် Stage မတူဘဲ ခွဲခြား တည်ဆောက်နည်း:
+
+```dockerfile
+# Stage 1: Build Stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Production Stage (ပေါ့ပါးသော Output ဖြင့်သာ Run မည်)
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm install --only=production
+
+CMD ["node", "dist/index.js"]
+```

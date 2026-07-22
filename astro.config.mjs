@@ -2867,10 +2867,56 @@ export default defineConfig({
             },
           ],
         },
-        // {
-        // 	label: 'Reference',
-        // 	autogenerate: { directory: 'reference' },
-        // },
+        {
+          label: "Docker & Containerization",
+          items: [
+            {
+              label: "1. မိတ်ဆက်နှင့် Concept",
+              slug: "docker/introduction/what-is-docker",
+            },
+            {
+              label: "2. Containers & Images CLI",
+              slug: "docker/core-concepts/containers-images",
+            },
+            {
+              label: "3. Dockerfile တည်ဆောက်ခြင်း",
+              slug: "docker/dockerfile/building-images",
+            },
+            {
+              label: "4. Docker Compose Multi-Container",
+              slug: "docker/docker-compose/multi-container",
+            },
+            {
+              label: "5. Production Best Practices & Security",
+              slug: "docker/production/best-practices",
+            },
+          ],
+        },
+        {
+          label: "Next.js Full-Stack Framework",
+          items: [
+            {
+              label: "1. Next.js မိတ်ဆက်",
+              slug: "nextjs/introduction/what-is-nextjs",
+            },
+            {
+              label: "2. App Router & File-System Routing",
+              slug: "nextjs/routing/app-router",
+            },
+            {
+              label: "3. React Server Components & Data Fetching",
+              slug: "nextjs/data-fetching/server-components",
+            },
+            {
+              label: "4. Server Actions & Form Mutations",
+              slug: "nextjs/server-actions/mutations",
+            },
+            {
+              label: "5. Vercel Deployment, Env & SEO",
+              slug: "nextjs/deployment/vercel-deployment",
+            },
+          ],
+        },
       ],
     }),
   ],

@@ -1,0 +1,92 @@
+---
+title: "Vercel Deployment, Environment Variables & SEO"
+description: "Next.js App ကို Vercel ပေါ်သို့ တည်ငြိမ်စွာ Deploy ပြုလုပ်ခြင်း၊ Environment Variables များနှင့် Metadata API (SEO)"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Next.js Application ကို Production အဖြစ် **Vercel Global Edge Network** ပေါ်သို့ အလွယ်တကူ Deploy ပြုလုပ်ခြင်း၊ Environment Variables များနှင့် Metadata API (SEO Optimization) များကို သင်ယူရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Metadata API ဖြင့် SEO Optimization ပြုလုပ်ခြင်း
+
+Next.js App Router တွင် Page တိုင်းအတွက် Metadata များကို Type-safe အဖြစ် သတ်မှတ်နိုင်ပါတယ်:
+
+```typescript
+// app/page.tsx သို့မဟုတ် app/layout.tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Takkatho Dev - Learning Platform",
+  description: "မြန်မာ နည်းပညာနှင့် AI သင်ခန်းစာများ",
+  openGraph: {
+    title: "Takkatho Dev - Learning Platform",
+    description: "မြန်မာ နည်းပညာနှင့် AI သင်ခန်းစာများ",
+    images: ["/og-image.png"],
+  },
+};
+```
+
+---
+
+## 2. Environment Variables (`.env.local`)
+
+Secrets (Database Password, API Keys) များကို `.env.local` တွင် ထည့်သွင်းပါ:
+
+```text
+# Server-only Environment Variable (Client သို့ မရောက်ပါ)
+DATABASE_URL="postgres://user:password@localhost:5432/mydb"
+OPENAI_API_KEY="sk-proj-123456..."
+
+# Client-accessible Environment Variable (NEXT_PUBLIC_ ဖြင့် စရမည်)
+NEXT_PUBLIC_SITE_URL="https://takkatho.dev"
+```
+
+---
+
+## 3. Vercel ပေါ်သို့ Deploy ပြုလုပ်နည်း ၃ မျိုး
+
+```mermaid
+graph LR
+    A[GitHub Repository Push] --> B[Vercel Automatic CI/CD Pipeline]
+    B --> C[Global Edge Network Deploy]
+    C --> D[Live SSL URL - my-app.vercel.app]
+```
+
+### နည်းလမ်း ၁: GitHub Integration (အလွယ်ဆုံးနှင့် အကြံပြုချက်)
+1. GitHub Repository သို့ Code များကို Push လုပ်ပါ။
+2. [Vercel Dashboard](https://vercel.com) သို့ ဝင်ရောက်၍ **Import Project** ပြုလုပ်ပါ။
+3. Environment Variables များကို တိုးမြှင့် ထည့်သွင်း၍ **Deploy** ကို နှိပ်ပါ။
+4. နောက်ပိုင်းတွင် GitHub သို့ `git push` ပြုလုပ်တိုင်း Vercel မှ အလိုအလျောက် CI/CD Build & Deploy ပြုလုပ်သွားမည် ဖြစ်ပါတယ်။
+
+### နည်းလမ်း ၂: Vercel CLI ဖြင့် Deploy ခြင်း
+```bash
+# Vercel CLI install လုပ်ခြင်း
+npm i -g vercel
+
+# Project Root Folder တွင် Command ရိုက်နှိပ်၍ Deploy ခြင်း
+vercel
+```
+
+---
+
+## 4. Image Optimization (`<Image />` Component)
+
+Layout Shift (CLS Error) များကို ကာကွယ်ရန်နှင့် WebP Format သို့ အလိုအလျောက် ပြောင်းလဲပေးရန် Next.js ၏ `<Image />` ကို သုံးပါ:
+
+```tsx
+import Image from "next/image";
+import profilePic from "@/assets/profile.jpg";
+
+export default function Profile() {
+  return (
+    <Image
+      src={profilePic}
+      alt="User Profile"
+      placeholder="blur" // Loading ချိန်တွင် Blur ကြိုပြပေးသည်
+      className="rounded-full"
+    />
+  );
+}
+```
