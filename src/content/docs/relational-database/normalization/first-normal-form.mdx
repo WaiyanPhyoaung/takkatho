@@ -5,44 +5,45 @@ description: "Normalization ၏ ပထမအဆင့် (1NF)"
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
-import unnormalizedOrder from "@/assets/relational-database/unnormalized-table.png"
-import firstNFOrder from "@/assets/relational-database/first-nf.png"
+import unnormalizedOrder from "@/assets/relational-database/unnormalized-table.png";
+import firstNFOrder from "@/assets/relational-database/first-nf.png";
 
-<Aside title="ရည်ရွယ်ချက်">
-    Database တစ်ခုကို First Normal Form (1NF) အဆင့်ရောက်အောင် ဘယ်လို ပြောင်းလဲရမလဲ ဆိုတာကို နားလည်စေဖို့ ဖြစ်ပါတယ်။
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Database Table တစ်ခုကို First Normal Form (1NF) အဆင့်ရောက်အောင် မည်သို့ ပြောင်းလဲ သတ်မှတ်ရမည်ကို ရှင်းရှင်းလင်းလင်း နားလည်သွားစေဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
-## First Normal Form (1NF) ၏ စည်းမျဉ်းများ
+## First Normal Form (1NF) ၏ စည်းမျဉ်း ၂ ခု
 
-Table တစ်ခုဟာ First Normal Form (1NF) အဆင့် ရောက်ဖို့ဆိုရင် အောက်ပါ စည်းမျဉ်း ၂ ခုနဲ့ ကိုက်ညီရပါမယ်:
+Table တစ်ခုသည် First Normal Form (1NF) အဆင့် သတ်မှတ်ချက် ပြည့်မီရန် အောက်ပါ စည်းမျဉ်း ၂ ခုနှင့် ရာနှုန်းပြည့် ကိုက်ညီရပါမည်:
 
-1. **Cell (အကွက်) တစ်ခုချင်းစီမှာ Value တစ်ခုတည်းသာ ရှိရပါမည်။ (Atomic Values)**
-   - အကွက်တစ်ခုထဲမှာ Comma (,) တွေ ခံပြီး Data တွေ အများကြီး ပြွတ်သိမ်းထားတာမျိုး (Multivalued attributes) လုံးဝ မရှိရပါဘူး။
-2. **Table တွင် Primary Key ရှိရပါမည်။**
-   - Record တွေကို တစ်ခုချင်းစီ တိတိကျကျ ခွဲခြားနိုင်ဖို့ Primary Key မဖြစ်မနေ ပါရှိရပါမယ်။
+1. **Atomic Values (အကွက်တစ်ခုစီတွင် Single Value သာ ရှိရမည်):**
+   Cell တစ်ခုတည်းတွင် Comma (,) ခံ၍ Data များစွာ ရောပြွမ်း သိုလှောင်ထားခြင်း (Multivalued Attributes) လုံးဝ မရှိရပါ။
+2. **Primary Key တည်ရှိရမည်:**
+   Record တိုင်းကို မထပ်ဘဲ တိကျစွာ ခွဲခြားပေးနိုင်သော Primary Key (သို့မဟုတ် Composite Primary Key) မဖြစ်မနေ ပါရှိရပါမည်။
 
 ---
 
-## ဥပမာ - မှာယူမှုစာရင်း (Order List)
+## လက်တွေ့ ဥပမာ - မှာယူမှုစာရင်း (Order List)
 
-အောက်ပါ ဇယား (Table) ကို ကြည့်ပါ။ ဒါဟာ Normalization လုံးဝ မလုပ်ရသေးတဲ့ အခြေအနေပါ။
+အောက်ပါ ဇယားသည် Normalization လုံးဝ ပြုလုပ်ထားခြင်း မရှိသေးသော Unnormalized Table ဖြစ်ပါတယ်။
 
 <ContentImage src={unnormalizedOrder} alt="Unnormalized Order Table" />
 *Fig. 3.1: Unnormalized Orders Table*
 
 ### ပြဿနာကို ရှာဖွေခြင်း
 
-ဒီ ဇယားမှာ `OrderID` က 101 ဖြစ်တဲ့ အတန်းကို ကြည့်ရင်၊ `BookTitle` မှာ "Dune, Foundation" ဆိုပြီး စာအုပ် နှစ်အုပ်နာမည်ကို ရောသိမ်းထားပါတယ်။ အလားတူပဲ `Quantity` (2, 1) နဲ့ `Price` (20, 15) တွေမှာလည်း Data တွေ ရောထွေးနေပါတယ်။ 
+ဒီ Table တွင် `OrderID` `101` ရှိသော Row ကို ကြည့်ပါက `BookTitle` တွင် "Dune, Foundation" ဟု စာအုပ် ၂ အုပ် နာမည်ကို ရောပြွမ်း သိမ်းဆည်းထားတာ တွေ့ရပါမယ်။ အလားတူ `Quantity` (2, 1) နှင့် `Price` (20, 15) များတွင်လည်း Data များ ရှုပ်ထွေး ရောပြွမ်းနေပါတယ်။
 
-ဒါဟာ 1NF ရဲ့ **"အကွက်တစ်ခုမှာ Value တစ်ခုတည်းပဲ ရှိရမယ်"** ဆိုတဲ့ စည်းမျဉ်းကို ချိုးဖောက်နေတာပါ။ ဒီလိုပုံစံနဲ့ဆိုရင် "Foundation စာအုပ် ဘယ်နှအုပ် ရောင်းရလဲ" လို့ ရှာချင်ရင် အရမ်း ခက်ခဲသွားပါပြီ။
+ဒါဟာ 1NF ရဲ့ **"Cell တစ်ခုစီတွင် Atomic Value သာ ရှိရမည်"** ဆိုတဲ့ စည်းမျဉ်းကို ချိုးဖောက်နေခြင်း ဖြစ်ပါတယ်။ ဒီလို ရောသိမ်းထားပါက "Foundation" စာအုပ် ရောင်းအားကို သီးခြား Search/Query ပြုလုပ်ရန် ခက်ခဲသွားပါလိမ့်မယ်။
 
 ### 1NF သို့ ပြောင်းလဲခြင်း
 
-ဒီ ပြဿနာကို ဖြေရှင်းဖို့ Data တွေကို အကွက်တစ်ခုမှာ တစ်ခုစီဖြစ်အောင် အတန်း (Row) အသစ်တွေ ခွဲထုတ်လိုက်ပါမယ်။
+ဒီ ပြဿနာကို ဖြေရှင်းရန် Data များကို Cell တစ်ခုစီတွင် Single Value ဖြစ်အောင် Row အသစ်များအဖြစ် ခွဲထုတ်လိုက်ပါမည်။
 
 <ContentImage src={firstNFOrder} alt="1NF Order Table" />
 *Fig. 3.2: 1NF Orders Table*
 
-အခုဆိုရင် အကွက်တိုင်းမှာ Value တစ်ခုတည်းပဲ ရှိသွားပါပြီ။ ဒုတိယ စည်းမျဉ်းဖြစ်တဲ့ Primary Key သတ်မှတ်ဖို့ လိုလာပါပြီ။
+အခုဆိုရင် Cell တိုင်းတွင် Atomic Value သာ ရှိသွားပါပြီ။ ထို့နောက် ဒုတိယ စည်းမျဉ်းအတိုင်း Primary Key သတ်မှတ်ပေးရပါမယ်။
 
-ဒီ ဇယားမှာ `OrderID` တစ်ခုတည်းနဲ့ Primary Key လုပ်လို့ မရတော့ပါဘူး (101 က နှစ်ကြောင်း ဖြစ်နေလို့ပါ)။ အဲဒီအတွက် `OrderID` နဲ့ `BookID` နှစ်ခုကို ပေါင်းပြီး **Composite Primary Key** အဖြစ် သတ်မှတ်ပေးလိုက်ရင် 1NF အဆင့်ကို အောင်မြင်စွာ ရောက်ရှိသွားပြီ ဖြစ်ပါတယ်။
+ဒီ Table တွင် `OrderID` တစ်ခုတည်းဖြင့် Primary Key ပြုလုပ်၍ မရတော့ပါ (`101` သည် Row 2 ခု ဖြစ်နေ၍)။ ထို့ကြောင့် `OrderID` နှင့် `BookID` နှစ်ခုကို ပေါင်းစပ်၍ **Composite Primary Key** အဖြစ် သတ်မှတ်ပေးလိုက်ပါက 1NF အဆင့်သို့ အောင်မြင်စွာ ရောက်ရှိသွားပြီ ဖြစ်ပါတယ်။
+

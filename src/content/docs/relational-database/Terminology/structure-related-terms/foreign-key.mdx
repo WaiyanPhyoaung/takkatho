@@ -7,27 +7,33 @@ import { Aside } from "@astrojs/starlight/components";
 
 ## Foreign Key ဆိုတာ ဘာလဲ?
 
-**Foreign Key** ဆိုတာ Table နှစ်ခုကြားမှာ ဆက်စပ်မှု (Relationship) တည်ဆောက်ဖို့ အသုံးပြုတဲ့ Field (သို့မဟုတ် Fields များ) ကို ခေါ်တာပါ။ 
+**Foreign Key** ဆိုတာ Table နှစ်ခုကြားမှာ ဆက်စပ်မှု (Relational Relationship) တည်ဆောက်ဖို့နဲ့ Data Integrity ထိန်းသိမ်းဖို့ အသုံးပြုတဲ့ Field (သို့မဟုတ် Field ပေါင်းစပ်မှု) ဖြစ်ပါတယ်။
 
-Foreign Key ရဲ့ အဓိက တာဝန်က Table တစ်ခုက Data နဲ့ နောက် Table တစ်ခုက Data ကို အချင်းချင်း ချိတ်ဆက် (Link) ပေးဖို့ပဲ ဖြစ်ပါတယ်။
+လွယ်လွယ်ပြောရရင်: Parent Table တစ်ခုရဲ့ Primary Key ကို Child Table ထဲမှာ Reference အနေနဲ့ ယူသုံးထားတဲ့ Field ကို Child Table ရဲ့ **Foreign Key** လို့ ခေါ်ဆိုပါတယ်။
 
-> လွယ်လွယ်ပြောရရင် Table တစ်ခုရဲ့ Primary Key ကို နောက် Table တစ်ခုထဲမှာ သွားထည့်လိုက်တဲ့အခါ၊ အဲဒီ ဒုတိယ Table ထဲက Field ကို **Foreign Key** လို့ ခေါ်ပါတယ်။
+<Aside title="💡 လက်တွေ့ ဥပမာ - ဝန်ထမ်း (Employee) နှင့် ဌာန (Department)">
+  - `departments` Table ရဲ့ **Primary Key** ဟာ `department_id` ဖြစ်ပါတယ်။
+  - အဲ့ဒီ `department_id` ကို `employees` Table ထဲမှာ ချိတ်ဆက် ထည့်သွင်းလိုက်တဲ့အခါ `employees` Table ထဲက `department_id` ဟာ **Foreign Key** ဖြစ်လာပါတယ်။
+</Aside>
 
-### ဥပမာ - ဝန်ထမ်းနဲ့ ဌာန
+### Table ချိတ်ဆက်ပုံ ဇယား
 
-| Employees Table | | | | Departments Table | |
-|---|---|---|---|---|---|
-| **EmployeeID (PK)** | Name | **DepartmentID (FK)** | &lt;-&gt; | **DepartmentID (PK)** | DepartmentName |
-| 1 | Alice | 101 | | 101 | HR |
-| 2 | Bob | 102 | | 102 | IT |
+**`employees` Table (Child)**
+| id (PK) | name | department_id (FK) |
+|---|---|---|
+| 1 | Alice | 101 |
+| 2 | Bob | 102 |
 
-ဒီ ဥပမာမှာ -
-- `Departments` Table ရဲ့ **Primary Key** က `DepartmentID` ပါ။
-- အဲဒီ `DepartmentID` ကို `Employees` Table ထဲမှာ ထည့်သွင်း အသုံးပြုထားတဲ့အခါ၊ `Employees` Table ထဲက `DepartmentID` ဟာ **Foreign Key** ဖြစ်သွားပါတယ်။
+**`departments` Table (Parent)**
+| department_id (PK) | department_name |
+|---|---|
+| 101 | HR |
+| 102 | IT |
 
-ဒီလို ချိတ်ဆက်လိုက်တဲ့အတွက် "Alice ဟာ HR ဌာနက ဖြစ်တယ်" ဆိုတာကို အလွယ်တကူ သိနိုင်သွားပါတယ်။
+ဒီလို Foreign Key နဲ့ ချိတ်ဆက်လိုက်တဲ့အတွက် "Alice ရဲ့ ဌာနဟာ HR (101) ဖြစ်တယ်" ဆိုတာကို Query ပြုလုပ်ပြီး ရယူနိုင်သွားပါတယ်။
 
-## Foreign Key ရဲ့ အရေးပါပုံ
+## Foreign Key ရဲ့ အဓိက အကျိုးကျေးဇူးများ
 
-1. **Data မှန်ကန်စေခြင်း (Referential Integrity):** Foreign Key ရှိနေတဲ့အတွက် မရှိတဲ့ ဌာန (ဥပမာ - DepartmentID 999) ကို ဝန်ထမ်း Table ထဲ ထည့်လို့ မရတော့ပါဘူး။ Data မှားယွင်းမှုတွေကို အလိုအလျောက် ကာကွယ်ပေးပါတယ်။
-2. **Relationships ဖန်တီးပေးခြင်း:** Table တစ်ခုတည်းမှာ Data တွေ အကုန်ပြွတ်သိမ်းမယ့်အစား၊ သက်ဆိုင်ရာ Table အလိုက် ခွဲသိမ်းပြီး Foreign Key တွေကတစ်ဆင့် ပြန်လည် ချိတ်ဆက်ပေးနိုင်ပါတယ်။ ဒါဟာ Relational Database ရဲ့ အဓိက အသက်သွေးကြောပါပဲ။
+1. **Referential Integrity (အချက်အလက် ကိုက်ညီ မှန်ကန်မှု):** Foreign Key တည်ရှိနေတဲ့အတွက် Parent Table (`departments`) ထဲမှာ မရှိသေးတဲ့ ID (ဥပမာ - `999`) ကို Child Table (`employees`) ထဲမှာ သွားရောက် ရေးသွင်းလို့ မရအောင် Database က အလိုအလျောက် တားဆီးပေးပါတယ်။
+2. **Cascading Operations:** Parent Table မှ Data ဖျက်ပစ်ပါက သို့မဟုတ် ပြင်ဆင်ပါက Child Table ရှိ Data များကိုလည်း `ON DELETE CASCADE` သို့မဟုတ် `ON UPDATE CASCADE` စည်းမျဉ်းများဖြင့် အလိုအလျောက် လိုက်ပါ ပြုပြင်ပေးနိုင်ပါတယ်။
+

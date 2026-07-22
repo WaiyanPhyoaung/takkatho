@@ -7,23 +7,22 @@ import { Aside } from "@astrojs/starlight/components";
 
 ## Table ဆိုတာ ဘာလဲ?
 
-**Table** ဆိုတာ Database ရဲ့ အဓိက အသက်သွေးကြောပါပဲ။ သူက ကိုယ်သိမ်းချင်တဲ့ အကြောင်းအရာ (Subject) တစ်ခုနဲ့ ပတ်သက်တဲ့ အချက်အလက် (Data) တွေကို ဇယားပုံစံနဲ့ စုစည်းသိမ်းဆည်းပေးတဲ့ နေရာပါ။
+**Table** ဆိုတာ Relational Database တစ်ခုလုံးရဲ့ အခြေခံအကျဆုံးနဲ့ အဓိက Storage အစိတ်အပိုင်း ဖြစ်ပါတယ်။ ခင်ဗျား သိမ်းဆည်းချင်တဲ့ Subject / Entity တစ်ခုခု (ဥပမာ - Users, Products, Orders) နဲ့ ပတ်သက်တဲ့ Data တွေကို ဇယား (Table) ပုံစံနဲ့ စုစည်း သိုလှောင်ပေးတဲ့ နေရာ ဖြစ်ပါတယ်။
 
-Table တွေကို ခေါ်ဝေါ်တဲ့ နာမည်ကွဲတွေလည်း ရှိပါတယ်။
-- Relational Database ရဲ့ အစောပိုင်း သီအိုရီတွေမှာဆိုရင် Table ကို **Relation** လို့ ခေါ်ပါတယ်။
-- Programmer တွေကတော့ **Entity** သို့မဟုတ် **Class** လို့ ခေါ်လေ့ရှိပါတယ်။
-- သာမန် User တွေအတွက်တော့ "ဖိုင် (File)" ဒါမှမဟုတ် "စာရင်း (List)" လို့ မြင်နိုင်ပါတယ်။
+Table တွေကို နယ်ပယ်အလိုက် ခေါ်ဝေါ်တဲ့ နာမည်များ:
+- Relational Model သီအိုရီအရ Table ကို **Relation** လို့ ခေါ်ဆိုပါတယ်။
+- Object-Oriented Programming (OOP) တွင် **Entity** သို့မဟုတ် **Class** ရဲ့ Representation လို့ ယူဆနိုင်ပါတယ်။
+- Non-technical သမားများအတွက်မူ Excel Sheet သို့မဟုတ် စာရင်းဇယား (List/File) ပုံစံမျိုး ဖြစ်ပါတယ်။
 
-<Aside title="Data တွေကို Table ထဲမှာပဲ သိမ်းပါတယ်">
-Database တစ်ခုလုံးမှာ Data (အချက်အလက်) တွေကို လက်တွေ့ သိမ်းဆည်းတဲ့ တစ်ခုတည်းသော နေရာဟာ **Table** ပါပဲ။ ကျန်တဲ့ Database Objects တွေ (ဥပမာ - Views, Functions, Procedures) တွေဟာ Data တွေကို တိုက်ရိုက် မသိမ်းပါဘူး။ သူတို့က Table ထဲမှာ ရှိပြီးသား Data တွေကို ပြန်ယူသုံးတာ (သို့) ကိုင်တွယ်တာမျိုးပဲ လုပ်တာပါ။
+<Aside title="💡 Data များကို Table ထဲတွင်သာ သိုလှောင်ပါသည်">
+  Database တစ်ခုလုံးမှာ Data ကို လက်တွေ့ Physical Storage အနေနဲ့ သိမ်းဆည်းတဲ့ တစ်ခုတည်းသော နေရာဟာ **Table** ဖြစ်ပါတယ်။ ကျန်တဲ့ Database Objects တွေ (ဥပမာ - Views, Stored Procedures, Functions) တွေဟာ Data ကို ကိုယ်တိုင် မသိမ်းဆည်းဘဲ Table ထဲက Data ကို Query လုပ်ခြင်း သို့မဟုတ် Logic ထိန်းချုပ်ခြင်း သာ ပြုလုပ်ကြတာ ဖြစ်ပါတယ်။
 </Aside>
 
 ## Table အမျိုးအစားများ
 
-Database ထဲမှာ ပါဝင်တဲ့ Table တွေကို သူတို့ရဲ့ အသုံးဝင်ပုံနဲ့ ပါဝင်တဲ့ Data တွေအပေါ် မူတည်ပြီး အဓိက ၃ မျိုး ခွဲခြားနိုင်ပါတယ်:
+Database Architecture ထဲမှာ ပါဝင်တဲ့ Table တွေကို သူတို့ရဲ့ Role အပေါ် မူတည်ပြီး အဓိက ၃ မျိုး ခွဲခြားနိုင်ပါတယ်:
 
-1. **Data Table:** နေ့စဉ် အသုံးပြုနေတဲ့ အဓိက Data တွေကို သိမ်းဆည်းပေးတဲ့ Table တွေပါ။ (ဥပမာ - `Users` Table, `Orders` Table, `Products` Table)
-2. **Validation Table:** ကိုယ်ထည့်လိုက်တဲ့ Data တွေ မှန်ကန်မှု ရှိ/မရှိ စစ်ဆေးဖို့ (Validate လုပ်ဖို့) အသုံးပြုတဲ့ Table တွေပါ။ Data Entry လုပ်တဲ့အခါ အမှားနည်းအောင် ထိန်းချုပ်ပေးပါတယ်။ (ဥပမာ - `Cities` Table မှာ ရန်ကုန်၊ မန္တလေး လို့ ကြိုထည့်ထားပြီး အဲဒီစာရင်းထဲကပဲ ရွေးခိုင်းတာမျိုး)
-3. **Linking Table:** Table နှစ်ခု ကြားမှာ ဆက်စပ်မှု (Many-to-Many Relationship) ရှိနေတဲ့အခါ အဲဒီ Table နှစ်ခုကို ချိတ်ဆက်ပေးဖို့ ကြားခံအဖြစ် သုံးတဲ့ Table ပါ။ (ဥပမာ - `Students` နဲ့ `Courses` ကြားက `Student_Courses` Table)
+1. **Data Table (Master / Transaction Table):** Business ရဲ့ အဓိက Data တွေကို သိမ်းဆည်းပေးသည့် Table များ။ (ဥပမာ - `users` Table, `orders` Table, `products` Table)
+2. **Validation / Lookup Table:** Data Entry လုပ်တဲ့အခါ မှားယွင်းမှု မရှိအောင် ထိန်းချုပ်ရန် ကြိုတင် သတ်မှတ်ထားသော စာရင်းများ။ (ဥပမာ - `user_roles` Table, `order_status` Table)
+3. **Linking / Junction Table:** Table နှစ်ခု ကြားမှာ Many-to-Many Relationship ရှိတဲ့အခါ ထို Table နှစ်ခုကို ချိတ်ဆက်ပေးရန် ကြားခံ သုံးသည့် Table။ (ဥပမာ - `student_courses` Table)
 
-ဒီ Table အမျိုးအစားတွေ အားလုံးက ပုံစံတူ အလုပ်လုပ်ကြပေမယ့် Database ထဲမှာ သူတို့ရဲ့ အခန်းကဏ္ဍ (Role) ကတော့ မတူညီကြပါဘူး။

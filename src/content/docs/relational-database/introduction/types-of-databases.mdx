@@ -5,39 +5,41 @@ description: "Relational နှင့် Non-Relational Database တို့၏
 
 import { Aside } from "@astrojs/starlight/components";
 
-<Aside title="ရည်ရွယ်ချက်">
-    Database အမျိုးအစားတွေကို ခွဲခြားသိမြင်နိုင်ဖို့နဲ့ **Relational Database** နဲ့ **Non-Relational Database** တို့ရဲ့ အဓိက ကွာခြားချက်တွေကို နားလည်စေဖို့ ဖြစ်ပါတယ်။
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Database အမျိုးအစားတွေကို ခွဲခြားသိမြင်နိုင်ဖို့နဲ့ **Relational Database** နဲ့ **Non-Relational Database (NoSQL)** တို့ရဲ့ အဓိက ကွာခြားချက်တွေကို နားလည်စေဖို့ ဖြစ်ပါတယ်။
 </Aside>
 
 ## Database အမျိုးအစားများ (Types of Databases)
 
-Database တွေကို အဓိကအားဖြင့် အမျိုးအစား ၂ မျိုး ခွဲခြားနိုင်ပါတယ်:
-1. **Relational Database**
-2. **Non-Relational Database**
+Modern Technology လောကမှာ Database တွေကို အဓိကအားဖြင့် အမျိုးအစား ၂ မျိုး ခွဲခြားထားပါတယ်:
+
+1. **Relational Database (SQL)**
+2. **Non-Relational Database (NoSQL)**
 
 ### 1. Relational Database (SQL Database)
 
-**Relational Database** ဆိုတာ Data တွေကို ဇယား (Table) ပုံစံနဲ့ သိမ်းဆည်းပေးတဲ့ စနစ်ပါ။ Table တစ်ခုနဲ့ တစ်ခုကြားမှာ ဆက်စပ်မှု (Relationship) တွေ ရှိပါတယ်။ ဒီ Database တွေကို စီမံဖို့အတွက် **SQL (Structured Query Language)** ကို အသုံးပြုပါတယ်။
+**Relational Database** ဆိုတာ Data တွေကို ဇယား (Table) ပုံစံနဲ့ စနစ်တကျ သိမ်းဆည်းပေးတဲ့ စနစ်ဖြစ်ပါတယ်။ Table တစ်ခုနဲ့ တစ်ခုကြားမှာလည်း ခိုင်မာတဲ့ ဆက်စပ်မှု (Relationship) တွေ ရှိပါတယ်။ ဒီ Database တွေကို စီမံခန့်ခွဲဖို့နဲ့ Data ရယူဖို့အတွက် **SQL (Structured Query Language)** ကို အသုံးပြုကြပါတယ်။
 
 **အားသာချက်များ:**
-- Data တွေကို စနစ်တကျ (Structured) သိမ်းဆည်းနိုင်တယ်။
-- Table တွေကြားထဲက ဆက်စပ်မှု (Relationships) တွေကို ရှင်းရှင်းလင်းလင်း သတ်မှတ်နိုင်တယ်။
-- အချက်အလက် မှန်ကန်တိကျမှု (Data Integrity) အတွက် စည်းမျဉ်း (Rules) တွေ ချမှတ်ထားလို့ ရတယ်။
+- Data တွေကို စနစ်တကျ Structured ပုံစံနဲ့ သိမ်းဆည်းနိုင်ခြင်း
+- Table တွေကြားထဲက ဆက်စပ်မှု (Relationships) တွေကို ရှင်းရှင်းလင်းလင်း သတ်မှတ်နိုင်ခြင်း
+- Data မှန်ကန်တိကျမှု (Data Integrity) အတွက် စည်းမျဉ်း (Constraints/Rules) တွေ ချမှတ်ထားနိုင်ခြင်း
 
-**ဥပမာ:** MySQL, PostgreSQL, Oracle, Microsoft SQL Server
+**ထင်ရှားသော ဥပမာများ:** PostgreSQL, MySQL, Oracle, Microsoft SQL Server, SQLite
 
 ### 2. Non-Relational Database (NoSQL Database)
 
-**Non-Relational Database** ကတော့ Data တွေကို Table တွေနဲ့ မသိမ်းဘဲ တခြားပုံစံတွေ (ဥပမာ - Document, Key-Value, Graph, Wide-Column) နဲ့ သိမ်းဆည်းတဲ့ စနစ်ပါ။
+**Non-Relational Database** ကတော့ Data တွေကို ပုံမှန် Table ပုံစံနဲ့ မသိမ်းဘဲ တခြား Flexibility ရှိတဲ့ ပုံစံတွေ (ဥပမာ - Document, Key-Value, Graph, Wide-Column) နဲ့ သိမ်းဆည်းတဲ့ စနစ် ဖြစ်ပါတယ်။
 
 **အားသာချက်များ:**
-- Data ပုံစံ (Schema) က ပြောင်းလွယ်ပြင်လွယ် (Flexible) ရှိတယ်။
-- ပုံစံမကျတဲ့ Data တွေ (Unstructured Data) ဥပမာ - Text တွေ၊ JSON တွေကို သိမ်းဖို့ သင့်တော်တယ်။
-- Data အရေအတွက် အရမ်းများလာတဲ့အခါ (High Volume) မြန်မြန်ဆန်ဆန် အလုပ်လုပ်နိုင်တယ်။
+- Data Structure (Schema) က ပြောင်းလွယ်ပြင်လွယ် (Flexible) ရှိခြင်း
+- Unstructured Data တွေ (ဥပမာ - Text၊ JSON၊ Images Metadata) ကို သိမ်းဆည်းရလွယ်ကူခြင်း
+- High Volume Data များလာတဲ့အခါ Horizontal Scaling အလွယ်တကူ လုပ်နိုင်ခြင်း
 
-**ဥပမာ:** MongoDB, Redis, Cassandra, Neo4j
+**ထင်ရှားသော ဥပမာများ:** MongoDB, Redis, Cassandra, Neo4j, DynamoDB
 
-### ဘယ်လို အခြေအနေမှာ ဘာကို ရွေးချယ်သင့်လဲ?
+### ဘယ်လို အခြေအနေမှာ ဘာကို ရွေးချယ်သင့်သလဲ?
 
-- **Data တွေက တိကျတဲ့ ပုံစံတစ်ခု ရှိတယ်၊ Table တွေ အချင်းချင်းလည်း ဆက်စပ်မှုတွေ ရှိတယ်ဆိုရင်:** **Relational Database** ကို ရွေးချယ်သင့်ပါတယ်။ ဥပမာ - ဘဏ်လုပ်ငန်း (Banking System)၊ စာရင်းကိုင် (Accounting) ပိုင်းတွေမှာဆိုရင် Relational Database က အကောင်းဆုံးပါ။
-- **Data ပုံစံတွေက အမြဲပြောင်းလဲနေတယ်၊ တိကျတဲ့ ပုံစံမရှိဘူးဆိုရင်:** **Non-Relational Database** ကို ရွေးချယ်သင့်ပါတယ်။ ဥပမာ - Social Media Feed တွေ၊ Product Catalog တွေအတွက် ပိုသင့်တော်ပါတယ်။
+- **Data တွေက တိကျတဲ့ Structure ရှိပြီး Table တွေကြား ဆက်စပ်မှု ခိုင်မာရမယ်ဆိုရင်:** **Relational Database** ကို ရွေးချယ်သင့်ပါတယ်။ ဥပမာ - Banking System၊ E-commerce Payment၊ Accounting ပိုင်းတွေမှာ Relational Database က မရှိမဖြစ် ဖြစ်ပါတယ်။
+- **Data ပုံစံက အမြဲ ပြောင်းလဲနေပြီး High-speed Real-time Data တွေ ဖြစ်တယ်ဆိုရင်:** **Non-Relational Database** ကို ရွေးချယ်သင့်ပါတယ်။ ဥပမာ - Social Media Feed၊ Real-time Analytics၊ Product Catalogs တွေမှာ NoSQL က ပိုမို သင့်တော်ပါတယ်။
+

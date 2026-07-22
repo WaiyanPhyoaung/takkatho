@@ -7,34 +7,37 @@ import { Aside } from "@astrojs/starlight/components";
 
 ## Alternate Key ဆိုတာ ဘာလဲ?
 
-**Alternate Key** ဆိုတာ Table ထဲမှာရှိတဲ့ Candidate Key တွေထဲကမှ **Primary Key အဖြစ် ရွေးချယ်မခံရတဲ့ ကျန်တဲ့ Key တွေကို** ခေါ်တာပါ။
+**Alternate Key** ဆိုတာ Table တစ်ခုမှာ ရှိတဲ့ Candidate Keys တွေထဲကမှ **Primary Key အဖြစ် ရွေးချယ်မခံရဘဲ ကျန်ရစ်ခဲ့တဲ့ Key များကို** ခေါ်ဆိုတာ ဖြစ်ပါတယ်။
 
-ဥပမာ - ကျောင်းသား Table မှာ `StudentID`, `NRC_Number`, `Email` တွေ အားလုံးက Candidate Keys တွေ ဖြစ်ပါတယ်။
-တကယ်လို့ आपण `StudentID` ကို **Primary Key** အဖြစ် ရွေးချယ်လိုက်ပြီဆိုရင်၊ ကျန်ခဲ့တဲ့ `NRC_Number` နဲ့ `Email` တို့ဟာ **Alternate Keys** တွေ ဖြစ်သွားပါတယ်။
+<Aside title="💡 လက်တွေ့ ဥပမာ">
+  ကျောင်းသား Table တစ်ခုမှာ `student_id`, `nrc_number`, `email` ဆိုပြီး Candidate Keys ၃ ခု ရှိတယ်ဆိုပါစို့။
+  
+  တကယ်လို့ ခင်ဗျားက `student_id` ကို **Primary Key** အဖြစ် သတ်မှတ်လိုက်ပြီဆိုရင်၊ ကျန်ခဲ့တဲ့ `nrc_number` နဲ့ `email` တို့ဟာ **Alternate Keys** တွေ ဖြစ်သွားပါတယ်။
+</Aside>
 
-### Alternate Key ရဲ့ အရေးပါပုံ
-- Alternate Key တွေဟာ Primary Key လိုပဲ Record တွေကို တိတိကျကျ (Unique) ခွဲခြားပေးနိုင်စွမ်း ရှိပါတယ်။ 
-- သူတို့ကို အသုံးပြုပြီးတော့လည်း Data တွေကို မြန်မြန်ဆန်ဆန် ရှာဖွေနိုင်အောင် (Index လုပ်ပြီး) သုံးလေ့ရှိပါတယ်။
-- အကယ်၍ အကြောင်းအမျိုးမျိုးကြောင့် လက်ရှိ Primary Key ကို ဆက်မသုံးချင်တော့ဘူးဆိုရင်၊ Alternate Key တွေထဲက တစ်ခုကို Primary Key အသစ်အဖြစ် အစားထိုး အသုံးပြုနိုင်ပါတယ်။
+### Alternate Key ရဲ့ အဓိက အရေးပါပုံ
+- Alternate Key များသည် Primary Key ကဲ့သို့ပင် Record များကို တိကျစွာ ခွဲခြားပေးနိုင်စွမ်း ရှိကြပါတယ်။
+- Database တည်ဆောက်တဲ့အခါ Alternate Key များကို `UNIQUE Index` သတ်မှတ်ပေးခြင်းဖြင့် Data ရှာဖွေရ မြန်ဆန်အောင် (Query Performance မြှင့်တင်ရန်) အသုံးပြုကြပါတယ်။
 
 ---
 
 ## Non-Key ဆိုတာ ဘာလဲ?
 
-**Non-Key** ဆိုတာ Candidate Key, Primary Key, Alternate Key, Foreign Key ဘာ Key အမျိုးအစားမှ မဟုတ်တဲ့ သာမန် Field (Column) တွေကို ခေါ်တာပါ။
+**Non-Key** ဆိုတာ Candidate Key, Primary Key, Alternate Key, Foreign Key မည်သည့် Key အမျိုးအစားမှ မဟုတ်သည့် သာမန် Data Field များကို ခေါ်ဆိုခြင်း ဖြစ်ပါတယ်။
 
-သူတို့ရဲ့ ရည်ရွယ်ချက်က Record တွေကို ခွဲခြားဖို့ ဒါမှမဟုတ် ချိတ်ဆက်ဖို့ မဟုတ်ဘဲ၊ သက်ဆိုင်ရာ အကြောင်းအရာရဲ့ အချက်အလက် (Attributes) တွေကို ဖော်ပြပေးဖို့ သက်သက်သာ ဖြစ်ပါတယ်။
+သူတို့ရဲ့ ရည်ရွယ်ချက်က Record တွေကို Unique ခွဲခြားဖို့ သို့မဟုတ် Table ချိတ်ဆက်ဖို့ မဟုတ်ဘဲ၊ သက်ဆိုင်ရာ Entity ရဲ့ သာမန် အချက်အလက် (Attributes) များကို ဖော်ပြ သိမ်းဆည်းရန် ဖြစ်ပါတယ်။
 
-ဥပမာ - `Employees` Table မှာ `Name` (နာမည်), `Address` (လိပ်စာ), `HireDate` (အလုပ်ဝင်တဲ့ရက်) ဆိုတဲ့ Field တွေဟာ သာမန် အချက်အလက်တွေသာ ဖြစ်တဲ့အတွက် **Non-Keys** တွေ ဖြစ်ကြပါတယ်။
+ဥပမာ - `employees` Table တွင် `name`, `address`, `hire_date` စသည့် Field များသည် သာမန် Data သိမ်းဆည်းခြင်း ဖြစ်၍ **Non-Keys** တွေ ဖြစ်ကြပါတယ်။
 
 ---
 
 ## Key ဝေါဟာရများ အနှစ်ချုပ်
 
-| ဝေါဟာရ (Term) | အဓိပ္ပာယ် (Meaning) |
+| ဝေါဟာရ (Term) | အဓိပ္ပာယ် (Description) |
 |---|---|
-| **Candidate Key** | Record တွေကို တိတိကျကျ ခွဲခြားပေးနိုင်တဲ့ မည်သည့် Field မဆို (Primary Key ဖြစ်ခွင့်ရှိသူများ)။ |
-| **Primary Key** | Candidate Key တွေထဲကမှ အဓိက အမှတ်အသားအဖြစ် ရွေးချယ်လိုက်တဲ့ တစ်ခုတည်းသော Key။ |
-| **Alternate Key** | Primary Key အဖြစ် ရွေးချယ်မခံရဘဲ ကျန်ရစ်ခဲ့တဲ့ Candidate Key များ။ |
-| **Foreign Key** | တခြား Table တစ်ခုနဲ့ ချိတ်ဆက် (Link) လုပ်ရန် အသုံးပြုသော Key။ |
-| **Non-Key** | မည်သည့် Key အမျိုးအစားမှ မဟုတ်သော သာမန် အချက်အလက် Field များ။ |
+| **Candidate Key** | Record များကို Unique ခွဲခြားနိုင်သော Key များ (Primary Key ဖြစ်ခွင့်ရှိသူများ) |
+| **Primary Key** | Candidate Keys ထဲမှ အဓိက သတ်မှတ်ထားသော Unique Key တစ်ခု |
+| **Alternate Key** | Primary Key အဖြစ် ရွေးချယ်မခံရဘဲ ကျန်ရစ်ခဲ့သော Candidate Keys များ |
+| **Foreign Key** | Parent Table နှင့် ချိတ်ဆက် (Link) ရန် Child Table တွင် သုံးသည့် Key |
+| **Non-Key** | မည်သည့် Key မှ မဟုတ်သော သာမန် Attribute Field များ |
+
