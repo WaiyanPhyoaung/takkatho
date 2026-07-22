@@ -9,42 +9,19 @@ export const ConsultingModal: React.FC = () => {
     contact: "",
     summary: "",
     budget: "အခြား",
-    source: "YouTube",
+    source: "youtube",
   });
 
   const GOOGLE_FORM_ACTION_URL =
     "https://docs.google.com/forms/d/e/1FAIpQLSfYVNCAoFRjc1s0-IodUL2STEo7xFbPTiNvTbB9jBXKYFHLpg/formResponse";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    // Form is submitted via native HTML form POST to hidden iframe
     setLoading(true);
-
-    try {
-      // Build form data for Google Form submission
-      const body = new URLSearchParams();
-      body.append("entry.1916612169", formData.name);
-      body.append("entry.747831225", formData.contact);
-      body.append("entry.625197430", formData.summary);
-      body.append("entry.1495079002", formData.budget);
-      body.append("entry.194347537", formData.source);
-
-      // Post directly to Google Form Response endpoint
-      await fetch(GOOGLE_FORM_ACTION_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: body.toString(),
-      });
-
-      setSubmitted(true);
-    } catch (err) {
-      console.error("Form submission error:", err);
-      setSubmitted(true);
-    } finally {
+    setTimeout(() => {
       setLoading(false);
-    }
+      setSubmitted(true);
+    }, 600);
   };
 
   const getTelegramUrl = () => {
@@ -56,6 +33,14 @@ export const ConsultingModal: React.FC = () => {
 
   return (
     <>
+      {/* Hidden iframe to capture Google Form POST response silently without page reload */}
+      <iframe
+        name="hidden_gform_iframe"
+        id="hidden_gform_iframe"
+        style={{ display: "none" }}
+        title="Google Form Frame"
+      />
+
       {/* Floating Trigger Button */}
       <button
         onClick={() => { setIsOpen(true); setSubmitted(false); }}
@@ -105,7 +90,13 @@ export const ConsultingModal: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form
+                action={GOOGLE_FORM_ACTION_URL}
+                method="POST"
+                target="hidden_gform_iframe"
+                onSubmit={handleSubmit}
+                className="space-y-4"
+              >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-2xl bg-orange-500/20 text-orange-400 font-bold text-xl flex items-center justify-center">
                     ⚡
@@ -121,6 +112,7 @@ export const ConsultingModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-stone-300 mb-1">အမည် (Name)</label>
                   <input
                     type="text"
+                    name="entry.1916612169"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -134,6 +126,7 @@ export const ConsultingModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-stone-300 mb-1">ဖုန်းနံပါတ် သို့မဟုတ် Telegram Handle</label>
                   <input
                     type="text"
+                    name="entry.747831225"
                     required
                     value={formData.contact}
                     onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
@@ -146,6 +139,7 @@ export const ConsultingModal: React.FC = () => {
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 mb-1">ခန့်မှန်း Budget ပမာဏ (Budget Range)</label>
                   <select
+                    name="entry.1495079002"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                     className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
@@ -162,13 +156,14 @@ export const ConsultingModal: React.FC = () => {
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 mb-1">မည်သည့် လမ်းကြောင်းမှ သိရှိခဲ့သနည်း?</label>
                   <select
+                    name="entry.194347537"
                     value={formData.source}
                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
                     className="w-full p-3 rounded-xl bg-stone-900 border border-stone-800 focus:border-orange-500 text-sm text-white outline-none cursor-pointer"
                   >
-                    <option value="youtube">YouTube</option>
-                    <option value="facebook">Facebook</option>
-                    <option value="github">GitHub</option>
+                    <option value="youtube">youtube</option>
+                    <option value="facebook">facebook</option>
+                    <option value="github">github</option>
                     <option value="friend">မိတ်ဆွေ ညွှန်းဆိုမှု (Friend Recommendation)</option>
                     <option value="other">အခြား (Other)</option>
                   </select>
@@ -179,6 +174,7 @@ export const ConsultingModal: React.FC = () => {
                   <label className="block text-xs font-semibold text-stone-300 mb-1">လိုအပ်သော Automation အကြောင်းအရာ စုစည်းချက်</label>
                   <textarea
                     rows={3}
+                    name="entry.625197430"
                     required
                     value={formData.summary}
                     onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
