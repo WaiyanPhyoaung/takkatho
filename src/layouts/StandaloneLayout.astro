@@ -2,6 +2,7 @@
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Search from "@astrojs/starlight/components/Search.astro";
+import ConsultingModal from "../components/ui/ConsultingModal";
 import "../styles/global.css";
 
 interface Props {
@@ -51,6 +52,13 @@ const currentPath = Astro.url.pathname;
           <div class="standalone-header-search">
             <Search />
           </div>
+          <!-- Nav Links -->
+          <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+            <a href="/courses" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Courses</a>
+            <a href="/roadmaps" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Roadmaps</a>
+            <a href="/about" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">About</a>
+          </div>
+
           <!-- Right Actions -->
           <div class="standalone-header-actions flex items-center gap-3">
             <!-- Theme Toggle -->
@@ -185,5 +193,6 @@ const currentPath = Astro.url.pathname;
         document.getElementById("donation-banner")?.remove();
       });
     </script>
+    <ConsultingModal client:idle />
   </body>
 </html>

@@ -1,0 +1,136 @@
+---
+import StandaloneLayout from "../layouts/StandaloneLayout.astro";
+
+const roadmaps = [
+  {
+    id: "fullstack",
+    title: "Full-Stack Web Developer Path",
+    titleBurmese: "Full-Stack Web Developer လမ်းကြောင်း",
+    badge: "Most Popular",
+    color: "from-amber-500 to-orange-500",
+    borderColor: "border-amber-500/30",
+    bgGlow: "bg-amber-500/10",
+    description: "HTML မီးရိုးမှသည် Modern Full-Stack (Next.js, Node.js) Application များ တည်ဆောက်နိုင်သည်အထိ အဆင့်ဆင့် လေ့လာရန် လမ်းကြောင်း။",
+    steps: [
+      { step: "01", title: "HTML Fundamentals", slug: "/html/introduction/welcome-to-html", desc: "Web ၏ အခြေခံ အရိုးဆောက်တည်ပုံ" },
+      { step: "02", title: "CSS & Modern Styling", slug: "/css/introduction/welcome", desc: "Flexbox, Grid နှင့် Responsive Web Design" },
+      { step: "03", title: "JavaScript Essentials", slug: "/javascript/introduction/intro", desc: "DOM Manipulation, Events & Async JS" },
+      { step: "04", title: "TypeScript Mastery", slug: "/typescript/module-1", desc: "Type Safety, Interfaces & Generics" },
+      { step: "05", title: "Node.js & Backend APIs", slug: "/nodejs/module-1", desc: "REST APIs, Express & Server-side Logic" },
+      { step: "06", title: "Next.js Full-Stack", slug: "/nextjs/introduction/what-is-nextjs", desc: "App Router, RSC, Server Actions & Vercel Deploy" },
+    ]
+  },
+  {
+    id: "ai-automation",
+    title: "AI & Business Automation Path",
+    titleBurmese: "AI & Business Automation လမ်းကြောင်း",
+    badge: "2026 In-Demand",
+    color: "from-purple-500 to-indigo-500",
+    borderColor: "border-purple-500/30",
+    bgGlow: "bg-purple-500/10",
+    description: "AI Tools, n8n Automation Workflows, Python Scripting နှင့် Docker Containerization တို့ဖြင့် Business Ops များကို အလိုအလျောက် ပြုလုပ်ခြင်း။",
+    steps: [
+      { step: "01", title: "AI Proficiency & Prompting", slug: "/ai-proficiency/foundations/introduction", desc: "ChatGPT, Claude & AI Workflows မိတ်ဆက်" },
+      { step: "02", title: "n8n Workflow Automation", slug: "/n8n-course/introduction/workflow-vs-agent", desc: "Telegram Bots, API Integrations & AI Agents" },
+      { step: "03", title: "Python Programming", slug: "/python/module-0", desc: "Automation Scripting & Data Handling" },
+      { step: "04", title: "Docker & Containerization", slug: "/docker/introduction/what-is-docker", desc: "VPS Self-hosting & Multi-container Deployments" },
+    ]
+  },
+  {
+    id: "architecture",
+    title: "Backend & Systems Architect Path",
+    titleBurmese: "Backend & Software Architect လမ်းကြောင်း",
+    badge: "Advanced Level",
+    color: "from-blue-500 to-cyan-500",
+    borderColor: "border-blue-500/30",
+    bgGlow: "bg-blue-500/10",
+    description: "Database Design, System Scaling, Web Performance နှင့် Distributed Architecture ရေးဆွဲနိုင်မည့် Senior-level လမ်းကြောင်း။",
+    steps: [
+      { step: "01", title: "SQL Fundamentals", slug: "/sql-course/introduction/what-is-sql", desc: "Queries, Joins, Aggregations & Database CRUD" },
+      { step: "02", title: "Relational Database Design", slug: "/relational-database/introduction/welcome-to-database", desc: "Normalization (1NF-5NF) & Primary/Foreign Keys" },
+      { step: "03", title: "MongoDB (NoSQL)", slug: "/mongodb-course/introduction/what-is-mongodb", desc: "Document Stores, Aggregations & Atlas Cloud" },
+      { step: "04", title: "Web Performance Optimization", slug: "/web-performance/introduction/why-web-performance", desc: "Core Web Vitals, Caching, Bundle Optimization" },
+      { step: "05", title: "Software Architecture & Systems", slug: "/software-architecture/foundations/foundations", desc: "Monolith vs Microservices, C4 Model & ADRs" },
+    ]
+  }
+];
+---
+
+<StandaloneLayout
+  title="Learning Roadmaps"
+  description="Curated career learning paths for Myanmar developers and tech enthusiasts - Full-Stack, AI Automation, and Systems Architecture"
+>
+  <div class="neo-page min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header Section -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-4">
+          🗺️ Guided Career Paths
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
+          Takkatho <span class="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Learning Roadmaps</span>
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          ဘယ်ကနေ စတင် လေ့လာရမှန်း မသိဖြစ်နေပါသလား? မိမိ သွားလိုသော နည်းပညာ လမ်းကြောင်းအလိုက် အဆင့်ဆင့် ရွေးချယ် လေ့လာနိုင်ပါသည်။
+        </p>
+      </div>
+
+      <!-- Roadmap Cards -->
+      <div class="space-y-16">
+        {roadmaps.map((roadmap) => (
+          <div class={`relative rounded-3xl p-6 sm:p-10 bg-white dark:bg-stone-900/60 border ${roadmap.borderColor} shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl`}>
+            
+            <!-- Roadmap Title & Description -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-100 dark:border-stone-800">
+              <div>
+                <span class={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-md text-white bg-gradient-to-r ${roadmap.color} mb-3`}>
+                  {roadmap.badge}
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  {roadmap.titleBurmese}
+                  <span class="block text-base font-normal text-gray-500 dark:text-gray-400 mt-1">{roadmap.title}</span>
+                </h2>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-400 max-w-md">
+                {roadmap.description}
+              </p>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {roadmap.steps.map((item) => (
+                <a
+                  href={item.slug}
+                  class="group relative flex flex-col justify-between p-5 rounded-2xl bg-gray-50 dark:bg-stone-800/40 border border-gray-200/80 dark:border-stone-700/50 hover:bg-white dark:hover:bg-stone-800 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div>
+                    <div class="flex items-center justify-between mb-3">
+                      <span class={`text-xs font-black px-2.5 py-1 rounded-full text-white bg-gradient-to-r ${roadmap.color}`}>
+                        STEP {item.step}
+                      </span>
+                      <svg class="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div class="mt-4 pt-3 border-t border-gray-100 dark:border-stone-700/40 text-xs font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-1">
+                    သင်ခန်းစာ သို့သွားမည် &rarr;
+                  </div>
+                </a>
+              ))}
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</StandaloneLayout>
