@@ -16,14 +16,33 @@ export const ConsultingModal: React.FC = () => {
     setLoading(true);
 
     try {
-      // Simulate webhook submission
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      // Optional n8n / Webhook Endpoint integration
+      const webhookUrl = (import.meta as any).env?.PUBLIC_N8N_WEBHOOK_URL;
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      }
       setSubmitted(true);
     } catch (err) {
-      console.error(err);
+      console.error("Webhook submission error:", err);
+      // Still allow UI submission state
+      setSubmitted(true);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getTelegramUrl = () => {
+    const text = encodeURIComponent(
+      `👋 မင်္ဂလာပါ ဝေယံ၊ အလိုအလျောက် Automation မေးမြန်းချင်လို့ပါ:\n\n👤 အမည်: ${formData.name}\n📞 ဆက်သွယ်ရန်: ${formData.contact}\n🏢 လုပ်ငန်း: ${formData.businessType}\n⚡ လိုအပ်ချက်: ${formData.requirements}`
+    );
+    return `https://t.me/share/url?url=&text=${text}`;
   };
 
   return (
@@ -31,7 +50,7 @@ export const ConsultingModal: React.FC = () => {
       {/* Floating Trigger Button */}
       <button
         onClick={() => { setIsOpen(true); setSubmitted(false); }}
-        className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-sm shadow-2xl flex items-center gap-2 transition-all hover:scale-105 active:scale-95 group cursor-pointer"
+        className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-sm shadow-2xl flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer"
       >
         <span className="text-base animate-bounce">🤖</span>
         <span>Automation Consulting</span>
@@ -56,14 +75,25 @@ export const ConsultingModal: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold">ကျေးဇူးတင်ပါသည်!</h3>
                 <p className="text-sm text-stone-300">
-                  သင်၏ မေးမြန်းမှုကို လက်ခံရရှိပါပြီ။ တတ်ကျွမ်းသူများမှ အမြန်ဆုံး ပြန်လည် ဆက်သွယ်ပေးပါမည်။
+                  သင်၏ မေးမြန်းမှုကို လက်ခံရရှိပါပြီ။ Telegram သို့မဟုတ် Facebook မက်ဆေ့ချ်မှလည်း တိုက်ရိုက် ဆက်သွယ် မေးမြန်းနိုင်ပါသည်။
                 </p>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="mt-4 px-6 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-sm font-semibold text-white cursor-pointer"
-                >
-                  ပိတ်မည်
-                </button>
+
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={getTelegramUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm transition-all flex items-center justify-center gap-2"
+                  >
+                    <span>💬 Telegram မှတိုက်ရိုက် ပြောဆိုမည်</span>
+                  </a>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-sm font-semibold text-stone-300 transition-colors"
+                  >
+                    ပိတ်မည်
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -130,7 +160,7 @@ export const ConsultingModal: React.FC = () => {
                   disabled={loading}
                   className="w-full py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 font-bold text-sm text-white shadow-lg transition-all active:scale-95 disabled:opacity-50 mt-2 cursor-pointer"
                 >
-                  {loading ? "ပို့ဆောင်နေပါသည်..." : "မေးမြန်းမှု ပို့မည် &rarr;"}
+                  {loading ? "ပို့ဆောင်နေပါသည်..." : "မေးမြန်းမှု ပို့မည် →"}
                 </button>
               </form>
             )}

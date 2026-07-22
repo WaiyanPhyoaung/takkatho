@@ -124,7 +124,7 @@ export const Quiz: React.FC<QuizProps> = ({ title = "သင်ခန်းစာ
             disabled={Object.keys(selectedAnswers).length < questions.length}
             className="w-full sm:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:opacity-50 font-bold text-white text-sm transition-all shadow-lg active:scale-95 ml-auto cursor-pointer"
           >
-            အဖြေများ စစ်ဆေးမည် &rarr;
+            အဖြေများ စစ်ဆေးမည် →
           </button>
         )}
       </div>
