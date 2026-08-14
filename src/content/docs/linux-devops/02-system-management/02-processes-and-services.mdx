@@ -1,0 +1,166 @@
+---
+title: "Linux Processes, System Resources နှင့် Systemd Services"
+description: "Process Monitoring (htop, ps, free, df)၊ Systemd Background Services ဖန်တီးခြင်း၊ Auto-restart Configuration နှင့် Journalctl Log Streaming"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
+import LessonCompletion from "../../../../components/mdx/LessonCompletion";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Terminal ကို ပိတ်လိုက်သော်လည်း Backend Application (Node.js / Python / Go) များသည် Server ပေါ်တွင် **၂၄ နာရီ မရပ်မနား အလုပ်လုပ်နေစေရန်** နှင့် Server Crash ဖြစ်သွားပါက အလိုအလျောက် ပြန်လည် စတင်နိုင်စေရန် **Linux Systemd Services** ကို စနစ်တကျ ရေးဆွဲရပါမည်။
+</Aside>
+
+## Server Resources စစ်ဆေးခြင်း (`free`, `df`, `htop`)
+
+Server လေးလံနေသည့်အခါ အဓိက အကြောင်းရင်း ၃ ခုဖြစ်သည့် **CPU, RAM သို့မဟုတ် Disk Space** ပြည့်မပြည့်ကို အရင်ဆုံး စစ်ဆေးရပါမည်:
+
+```bash
+# 1. RAM Memory သုံးစွဲမှုကို MB/GB ဖြင့် ရှင်းလင်းစွာ ကြည့်ခြင်း
+free -h
+
+# 2. Hard Disk Storage ပမာဏ ကျန်ရှိမှုကို ကြည့်ခြင်း (Disk Free)
+df -h
+
+# 3. CPU Core အလိုက် နှင့် RAM သုံးစွဲနေသော Processes များကို Real-time UI ဖြင့် ကြည့်ခြင်း
+htop
+```
+
+---
+
+## Running Processes များကို ရှာဖွေခြင်းနှင့် ပိတ်ပစ်ခြင်း (`ps`, `kill`)
+
+အကယ်၍ Application တစ်ခုသည် Hang ဖြစ်နေပါက သို့မဟုတ် Port တစ်ခုကို မလွှတ်ဘဲ ဖြစ်နေပါက:
+
+```bash
+# Node.js နှင့် သက်ဆိုင်သော Running Process များကို ရှာမည်
+ps aux | grep node
+
+# Port 3000 ကို မည်သည့် Process က သုံးနေကြောင်း ရှာမည်
+sudo lsof -i :3000
+```
+
+ရှာတွေ့သော **PID (Process ID)** ကို သုံး၍ ပိတ်ပစ်နိုင်ပါတယ်:
+
+```bash
+# Process ID 14205 ကို အတင်းအကျပ် ပိတ်ပစ်မည် (-9 Force Kill)
+kill -9 14205
+
+# node နာမည်ပါသော process အားလုံးကို တစ်ခါတည်း သတ်ပစ်မည်
+pkill -f node
+```
+
+---
+
+## အဘယ်ကြောင့် `node server.js` ဟု တိုက်ရိုက် Run ရုံဖြင့် မလုံလောက်သနည်း?
+
+Developer များ အလေ့အကျင့်မှားတစ်ခုမှာ Terminal တွင် `node server.js &` ဟု Run ထားခဲ့ခြင်း ဖြစ်သည်။ ၎င်းတွင် ဆိုးကျိုး ၃ ခု ရှိပါတယ်:
+1. SSH Terminal Session ပြတ်တောက်သွားပါက App ရပ်တန့်သွားနိုင်သည်။
+2. Unhandled Exception ကြောင့် App Crash ဖြစ်သွားပါက အလိုအလျောက် ပြန်မတက်နိုင်ပါ။
+3. Server Reboot ကျသွားပါက Application ပြန်လည် အလုပ်မလုပ်တော့ပါ။
+
+**ဖြေရှင်းချက်:** Linux ၏ တရားဝင် Service Manager ဖြစ်သော **Systemd** ကို သုံးရပါမည်။
+
+---
+
+## Production Systemd Service ဖန်တီးနည်း (လက်တွေ့ ဥပမာ)
+
+Node.js Backend API အတွက် Systemd Service ဖိုင်တစ်ခု ရေးဆွဲကြည့်ပါမည်:
+
+### အဆင့် ၁: Service File အသစ် ဆောက်ခြင်း
+```bash
+sudo nano /etc/systemd/system/myapi.service
+```
+
+### အဆင့် ၂: Configuration ထည့်သွင်းခြင်း
+```ini
+[Unit]
+Description=My Production Node.js API Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/projects/my-api
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production PORT=3000
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### အဓိက အရေးကြီးသော အချက်များ:
+- **`User=ubuntu`:** လုံခြုံရေးအရ root အစား သာမန် user အနေဖြင့် Run စေခြင်း။
+- **`Restart=always`:** Error ကြောင့် Crash ဖြစ်သွားပါက ၅ စက္ကန့်အတွင်း အလိုအလျောက် ပြန် Restart လုပ်ပေးရန် သတ်မှတ်ခြင်း။
+- **`Environment`:** Production Environment Variables များကို သတ်မှတ်ပေးခြင်း။
+
+---
+
+## `systemctl` ဖြင့် Service ကို ထိန်းချုပ်ခြင်း
+
+Service file ရေးဆွဲပြီးပါက Linux စနစ်ကို ပြန်လည် Reload လုပ်ပြီး စတင်ရပါမည်:
+
+```bash
+# 1. Systemd Daemon ကို Configuration အသစ် ဖတ်ခိုင်းခြင်း
+sudo systemctl daemon-reload
+
+# 2. Service ကို ချက်ချင်း စတင် Run မည်
+sudo systemctl start myapi
+
+# 3. Server Reboot ကျတိုင်း အလိုအလျောက် စတင် Run ရန် Enable လုပ်မည်
+sudo systemctl enable myapi
+
+# 4. Service အခြေအနေ (Active / Running) မှန်မမှန် စစ်ဆေးမည်
+sudo systemctl status myapi
+```
+
+အခြား အသုံးဝင်သော Commands များ:
+```bash
+sudo systemctl stop myapi     # ရပ်တန့်မည်
+sudo systemctl restart myapi  # ပြန်လည်စတင်မည်
+```
+
+---
+
+## `journalctl` ဖြင့် Service Logs များကို Live စောင့်ကြည့်ခြင်း
+
+Systemd ဖြင့် Run ထားသော Service ၏ `console.log()` အားလုံးကို **`journalctl`** ဖြင့် စစ်ဆေးနိုင်ပါတယ်:
+
+```bash
+# myapi ၏ နောက်ဆုံး Log များကို Real-time Streaming ဖြင့် စောင့်ကြည့်မည် (-f Follow, -u Unit)
+journalctl -u myapi -f
+
+# နောက်ဆုံးထွက် Log လိုင်း ၁၀၀ ကိုသာ ကြည့်မည်
+journalctl -u myapi -n 100 --no-pager
+```
+
+---
+
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
+
+<Quiz
+  client:idle
+  title="Systemd & Process Management စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "Systemd Service File တွင် 'Restart=always' ဟု ထည့်သွင်းခြင်း၏ အကျိုးကျေးဇူးမှာ အဘယ်နည်း?",
+      options: [
+        "Server Disk Space ကို သက်သာစေသည်",
+        "Application သည် Error ကြောင့် ရပ်တန့်သွားပါက အလိုအလျောက် ပြန်လည် စတင်ပေးသည်",
+        "RAM အသုံးပြုမှုကို ထက်ဝက် လျှော့ချပေးသည်",
+        "SSH Port ကို အလိုအလျောက် ပိတ်ပေးသည်"
+      ],
+      correctAnswer: 1,
+      explanation: "'Restart=always' သည် App Crash ဖြစ်သွားတိုင်း စက္ကန့်ပိုင်းအတွင်း အလိုအလျောက် ပြန်လည် အသက်သွင်းပေးသဖြင့် Zero-downtime ဖြစ်စေပါသည်။"
+    }
+  ]}
+/>
+
+<LessonCompletion
+  client:idle
+  lessonId="linux-devops-04-processes-systemd"
+  lessonTitle="Processes and Systemd Services"
+/>

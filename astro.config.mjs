@@ -2918,6 +2918,76 @@ export default defineConfig({
             },
           ],
         },
+        {
+          label: "Linux & Cloud DevOps",
+          items: [
+            {
+              label: "1. Linux CLI အခြေခံ",
+              items: [
+                {
+                  label: "1. Navigation & File System",
+                  slug: "linux-devops/01-cli-basics/01-navigation-and-files",
+                },
+                {
+                  label: "2. Permissions & Users Management",
+                  slug: "linux-devops/01-cli-basics/02-permissions-and-users",
+                },
+              ],
+            },
+            {
+              label: "2. System Management",
+              items: [
+                {
+                  label: "1. APT Package Manager",
+                  slug: "linux-devops/02-system-management/01-package-management",
+                },
+                {
+                  label: "2. Processes & Systemd Services",
+                  slug: "linux-devops/02-system-management/02-processes-and-services",
+                },
+              ],
+            },
+            {
+              label: "3. Server Security & Hardening",
+              items: [
+                {
+                  label: "1. SSH Keys & Access Hardening",
+                  slug: "linux-devops/03-server-security/01-ssh-keys-and-access",
+                },
+                {
+                  label: "2. UFW Firewall & Fail2ban",
+                  slug: "linux-devops/03-server-security/02-firewall-and-hardening",
+                },
+              ],
+            },
+            {
+              label: "4. Nginx Web Server & SSL",
+              items: [
+                {
+                  label: "1. Nginx Fundamentals & Static Hosting",
+                  slug: "linux-devops/04-nginx-reverse-proxy/01-nginx-fundamentals",
+                },
+                {
+                  label: "2. Reverse Proxy & Let's Encrypt SSL",
+                  slug: "linux-devops/04-nginx-reverse-proxy/02-reverse-proxy-and-ssl",
+                },
+              ],
+            },
+            {
+              label: "5. CI/CD Pipeline Automation",
+              items: [
+                {
+                  label: "1. GitHub Actions CI Basics",
+                  slug: "linux-devops/05-cicd-automation/01-github-actions-basics",
+                },
+                {
+                  label: "2. Automated VPS Deployment",
+                  slug: "linux-devops/05-cicd-automation/02-automated-vps-deployment",
+                },
+              ],
+            },
+          ],
+        },
       ],
     }),
   ],
