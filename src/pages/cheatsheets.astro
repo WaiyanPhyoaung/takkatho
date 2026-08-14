@@ -1,0 +1,31 @@
+---
+import StandaloneLayout from "../layouts/StandaloneLayout.astro";
+import CheatSheetsViewer from "../components/CheatSheetsViewer";
+---
+
+<StandaloneLayout
+  title="Developer Cheat Sheets (ကူးယူသုံးစွဲနိုင်သော အမြန်လမ်းညွှန်များ)"
+  description="Git, Docker, Linux, SQL, CSS Flexbox/Grid, n8n Automation အစရှိသော Developer မရှိမဖြစ် Command များနှင့် Code Snippets များကို အလွယ်တကူ ရှာဖွေ ကူးယူနိုင်သော Visual Reference Hub"
+>
+  <div class="neo-page min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header Section -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-4">
+          ⚡ Quick Reference Hub
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
+          Developer <span class="bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 bg-clip-text text-transparent">Cheat Sheets</span>
+        </h1>
+        <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+          အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေ ကူးယူနိုင်မည့် <b>Git, Docker, Linux, SQL, CSS နှင့် n8n Automation</b> Command များနှင့် Code Snippets များ စုစည်းမှု။
+        </p>
+      </div>
+
+      <!-- Interactive React Cheat Sheets Component -->
+      <CheatSheetsViewer client:load />
+
+    </div>
+  </div>
+</StandaloneLayout>

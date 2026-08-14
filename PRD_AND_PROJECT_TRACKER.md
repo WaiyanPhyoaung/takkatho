@@ -154,8 +154,8 @@
 | **M1.2** | Interactive `<CodePlayground />`, `<Quiz />`, `<LessonCompletion />` | ✅ Completed | Completed |
 | **M1.3** | Course Cards Sync on `/courses` (Docker, Next.js, MongoDB, Linux) | ✅ Completed | Completed |
 | **M1.4** | Linux & Cloud DevOps Course (`/linux-devops` 10 lessons) | ✅ Completed | Completed |
-| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`) | 🔄 Next Up | Sprint 3 |
-| **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 📋 Planned | Sprint 4 |
+| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`) | ✅ Completed | Completed |
+| **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 
 ---
