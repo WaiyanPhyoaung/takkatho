@@ -605,27 +605,28 @@
     display: contents;
   }
 
+  /* Flex (not a fixed 3-column grid): the header has four children, and a
+     3-column grid pushed the theme toggle onto a second row outside the bar. */
   .standalone-header {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    display: flex;
     align-items: center;
     gap: 0.75rem;
+    height: 100%;
   }
 
   .standalone-header-logo {
     flex-shrink: 0;
-    justify-self: start;
   }
 
   .standalone-header-search {
-    justify-self: center;
+    flex: 1 1 auto;
     width: 100%;
     max-width: 18rem;
   }
 
   .standalone-header-actions {
     flex-shrink: 0;
-    justify-self: end;
+    margin-left: auto;
   }
 
   .standalone-header-search {
@@ -693,10 +694,6 @@
   }
 
   @media (max-width: 768px) {
-    .standalone-header {
-      grid-template-columns: auto minmax(0, 1fr) auto;
-    }
-
     .standalone-header-search {
       max-width: 14rem;
     }
@@ -1162,4 +1159,26 @@ html {
   .upcoming-section {
     padding: 2rem 1.5rem;
   }
+}
+
+/* Hide scrollbar on horizontally-scrolling pill/tab rows (cheat sheets filters).
+   Declared after the global ::-webkit-scrollbar rules so it wins. */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge/IE */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Starlight's base styles leave form controls as content-box, so a full-width
+   input with horizontal padding overflows its wrapper (cheat sheets search bar).
+   Force border-box for every form control inside standalone pages. */
+.neo-page input,
+.neo-page textarea,
+.neo-page select {
+  box-sizing: border-box;
+  max-width: 100%;
 }

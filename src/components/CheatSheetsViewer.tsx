@@ -8,9 +8,9 @@ import {
   Database,
   Layers,
   Zap,
-  Globe,
   Code,
   FolderGit2,
+  X,
 } from "lucide-react";
 
 type CheatItem = {
@@ -272,8 +272,27 @@ export const CheatSheetsViewer: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
 
-  const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopy = async (text: string, id: string) => {
+    // navigator.clipboard is unavailable on insecure origins and older browsers,
+    // so fall back to a temporary textarea instead of failing silently.
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        /* nothing more we can do */
+      }
+      document.body.removeChild(textarea);
+    }
     setCopiedIndex(id);
     setTimeout(() => setCopiedIndex(null), 2000);
   };
@@ -300,60 +319,105 @@ export const CheatSheetsViewer: React.FC = () => {
     }).filter((section) => section.items.length > 0);
   }, [selectedCategory, searchQuery]);
 
+  const totalMatches = useMemo(
+    () => filteredSections.reduce((sum, section) => sum + section.items.length, 0),
+    [filteredSections],
+  );
+
   return (
     <div className="w-full space-y-8">
       {/* Controls Bar: Search & Category Pills */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-stone-900/70 border border-gray-200 dark:border-stone-800 shadow-sm backdrop-blur-xl">
+      <div className="flex flex-col xl:flex-row xl:items-center gap-3 xl:gap-4 p-4 rounded-2xl bg-white dark:bg-stone-900/70 border border-gray-200 dark:border-stone-800 shadow-sm backdrop-blur-xl">
         {/* Search Input */}
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <div className="relative w-full min-w-0 xl:w-80 xl:shrink-0">
+          <Search
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+          />
           <input
+            id="cheatsheet-search"
             type="text"
+            inputMode="search"
+            autoComplete="off"
+            aria-label="Command သို့မဟုတ် အကြောင်းအရာ ရှာဖွေရန်"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Command သို့မဟုတ် အကြောင်းအရာ ရှာဖွေပါ (e.g. reset, port, grid, telegram)..."
-            className="w-full h-11 pl-10 pr-4 rounded-xl bg-gray-50 dark:bg-stone-950 border border-gray-200 dark:border-stone-800 focus:border-orange-500 text-sm text-gray-900 dark:text-white outline-none transition-all placeholder:text-gray-400"
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setSearchQuery("");
+            }}
+            placeholder="Command ရှာဖွေပါ (reset, port, grid...)"
+            className="w-full min-w-0 h-11 pl-10 pr-10 rounded-xl bg-gray-50 dark:bg-stone-950 border border-gray-200 dark:border-stone-800 text-sm text-gray-900 dark:text-white outline-none transition-colors placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
           />
           {searchQuery && (
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 px-1.5 py-0.5 rounded"
+              aria-label="ရှာဖွေမှုကို ရှင်းလင်းမည်"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 grid place-items-center w-6 h-6 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-100 hover:bg-gray-200/70 dark:hover:bg-stone-800 transition-colors cursor-pointer"
             >
-              ✕
+              <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
         {/* Categories Horizontal Scroll */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            const isSelected = selectedCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20"
-                    : "bg-gray-100 dark:bg-stone-800 text-gray-600 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-700"
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
+        <div className="-mx-1 min-w-0 xl:flex-1 overflow-x-auto scrollbar-hide">
+          <div
+            role="group"
+            aria-label="Category filter"
+            className="flex w-max items-center gap-2 px-1 py-0.5"
+          >
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40 ${
+                    isSelected
+                      ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20"
+                      : "bg-gray-100 dark:bg-stone-800 text-gray-600 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-700"
+                  }`}
+                >
+                  <Icon aria-hidden="true" className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      {/* Result Count */}
+      <p
+        aria-live="polite"
+        className="-mt-4 px-1 text-xs text-gray-500 dark:text-gray-400"
+      >
+        {totalMatches} command
+        {totalMatches !== 1 ? "s" : ""} တွေ့ရှိသည်
+        {searchQuery.trim() && (
+          <>
+            {" — "}
+            <strong className="font-semibold text-gray-700 dark:text-gray-200">
+              "{searchQuery.trim()}"
+            </strong>
+          </>
+        )}
+      </p>
 
       {/* Cheat Sheets Grid Sections */}
       {filteredSections.length === 0 ? (
         <div className="text-center py-16 p-6 rounded-3xl bg-gray-50 dark:bg-stone-900/40 border border-dashed border-gray-300 dark:border-stone-800">
           <p className="text-gray-500 dark:text-gray-400 text-base mb-2">
-            ရှာဖွေတွေ့ရှိချက် မရှိပါ: "{searchQuery}"
+            {searchQuery.trim()
+              ? `ရှာဖွေတွေ့ရှိချက် မရှိပါ: "${searchQuery.trim()}"`
+              : "ဒီ Category အတွက် အကြောင်းအရာ မရှိသေးပါ"}
           </p>
           <button
+            type="button"
             onClick={() => { setSearchQuery(""); setSelectedCategory("all"); }}
             className="text-xs font-bold text-orange-500 hover:underline"
           >
@@ -415,7 +479,7 @@ export const CheatSheetsViewer: React.FC = () => {
 
                         {/* Code Block */}
                         <div className="relative mt-2 p-3 rounded-xl bg-gray-900 text-amber-300 dark:text-amber-400 font-mono text-xs overflow-x-auto leading-relaxed border border-stone-800">
-                          <pre className="pr-8 whitespace-pre-wrap break-all">{item.command}</pre>
+                          <pre className="pr-8 whitespace-pre-wrap break-words">{item.command}</pre>
 
                           {/* 1-Click Copy Button */}
                           <button

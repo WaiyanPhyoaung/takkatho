@@ -11,7 +11,14 @@ interface Props {
 
 const { title, description = "Myanmar Programming Learning Platform" } =
   Astro.props;
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+const navLinks = [
+  { href: "/courses", label: "Courses" },
+  { href: "/roadmaps", label: "Roadmaps" },
+  { href: "/cheatsheets", label: "Cheat Sheets" },
+  { href: "/about", label: "About" },
+];
 ---
 
 <!doctype html>
@@ -53,14 +60,24 @@ const currentPath = Astro.url.pathname;
           </div>
           <!-- Nav Links -->
           <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
-            <a href="/courses" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Courses</a>
-            <a href="/roadmaps" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Roadmaps</a>
-            <a href="/cheatsheets" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Cheat Sheets</a>
-            <a href="/about" class="text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">About</a>
+            {navLinks.map((link) => (
+              <a
+                href={link.href}
+                aria-current={currentPath === link.href ? "page" : undefined}
+                class:list={[
+                  "transition-colors hover:text-orange-500 dark:hover:text-orange-400",
+                  currentPath === link.href
+                    ? "text-orange-600 dark:text-orange-400"
+                    : "text-gray-700 dark:text-gray-300",
+                ]}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
 
           <!-- Right Actions -->
-          <div class="standalone-header-actions flex items-center gap-3">
+          <div class="standalone-header-actions flex items-center gap-2">
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"
@@ -94,7 +111,69 @@ const currentPath = Astro.url.pathname;
                 ></path>
               </svg>
             </button>
+
+            <!-- Mobile Menu Toggle -->
+            <button
+              id="mobile-menu-toggle"
+              type="button"
+              class="md:hidden p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-400 transition-colors duration-200"
+              aria-label="Menu ဖွင့်ရန်"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+            >
+              <svg
+                id="mobile-menu-icon-open"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+              <svg
+                id="mobile-menu-icon-close"
+                class="w-5 h-5 hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Panel -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden border-t border-gray-200/80 dark:border-stone-800/80 bg-white/95 dark:bg-[#0c0a09]/95 backdrop-blur-xl"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                aria-current={currentPath === link.href ? "page" : undefined}
+                class:list={[
+                  "py-3 text-base font-semibold border-b border-gray-100 dark:border-stone-900 last:border-b-0 transition-colors",
+                  currentPath === link.href
+                    ? "text-orange-600 dark:text-orange-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400",
+                ]}
+              >
+                {link.label}
+              </a>
+            ))
+          }
         </div>
       </div>
     </nav>
@@ -191,6 +270,34 @@ const currentPath = Astro.url.pathname;
 
       document.getElementById("dismiss-banner")?.addEventListener("click", () => {
         document.getElementById("donation-banner")?.remove();
+      });
+
+      const menuToggle = document.getElementById("mobile-menu-toggle");
+      const menuPanel = document.getElementById("mobile-menu");
+      const menuIconOpen = document.getElementById("mobile-menu-icon-open");
+      const menuIconClose = document.getElementById("mobile-menu-icon-close");
+
+      const setMenuOpen = (open: boolean) => {
+        menuPanel?.classList.toggle("hidden", !open);
+        menuIconOpen?.classList.toggle("hidden", open);
+        menuIconClose?.classList.toggle("hidden", !open);
+        menuToggle?.setAttribute("aria-expanded", String(open));
+      };
+
+      menuToggle?.addEventListener("click", () => {
+        setMenuOpen(menuPanel?.classList.contains("hidden") ?? false);
+      });
+
+      // Reset the panel when resizing up to the desktop nav so it can't stay
+      // stuck open behind the inline links.
+      window
+        .matchMedia("(min-width: 768px)")
+        .addEventListener("change", (event) => {
+          if (event.matches) setMenuOpen(false);
+        });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
       });
     </script>
   </body>
