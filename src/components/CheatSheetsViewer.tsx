@@ -1,280 +1,229 @@
-import React, { useState, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Check, Copy, Search, X } from "lucide-react";
 import {
-  Search,
-  Copy,
-  Check,
-  Terminal,
-  GitBranch,
-  Database,
-  Layers,
-  Zap,
-  Code,
-  FolderGit2,
-  X,
-} from "lucide-react";
+  CHEATSHEET_DATA,
+  type CheatCategoryId,
+  type CheatItem,
+  type CheatLang,
+} from "../data/cheatsheets";
 
-type CheatItem = {
-  command: string;
-  descBurmese: string;
-  tag?: string;
+/* ------------------------------------------------------------------ *
+ * Syntax highlighting
+ *
+ * A small purpose-built tokenizer. Commands here are short and known,
+ * so this stays far cheaper than pulling in a highlighter, and it lets
+ * colour carry meaning: what you run, what you pass it, what you must
+ * replace before running it.
+ * ------------------------------------------------------------------ */
+
+type TokenKind =
+  | "plain"
+  | "comment"
+  | "string"
+  | "flag"
+  | "placeholder"
+  | "keyword"
+  | "property"
+  | "number"
+  | "expression"
+  | "operator";
+
+type Token = { text: string; kind: TokenKind };
+
+const SQL_KEYWORDS = new Set([
+  "select", "from", "where", "insert", "into", "values", "update", "set",
+  "delete", "create", "table", "index", "alter", "add", "column", "drop",
+  "join", "left", "right", "inner", "outer", "on", "group", "by", "order",
+  "having", "limit", "offset", "as", "and", "or", "not", "null", "is", "in",
+  "distinct", "count", "sum", "avg", "min", "max", "rank", "over",
+  "partition", "with", "union", "all", "begin", "commit", "rollback",
+  "primary", "key", "foreign", "references", "cascade", "default", "asc",
+  "desc", "explain", "analyze", "conflict", "do", "nothing", "interval",
+  "case", "when", "then", "else", "end", "exists", "between", "like",
+]);
+
+const JS_KEYWORDS = new Set([
+  "const", "let", "var", "function", "return", "await", "async", "if", "else",
+  "for", "of", "in", "while", "try", "catch", "finally", "throw", "new",
+  "typeof", "instanceof", "type", "interface", "export", "import", "default",
+  "class", "extends", "this", "null", "undefined", "true", "false", "void",
+]);
+
+/*
+ * The flag group deliberately swallows its own leading whitespace instead of
+ * using a lookbehind: a lookbehind would be a parse-time SyntaxError on older
+ * Safari and take the whole component down with it. Requiring the space also
+ * stops `feature/new-page` from colouring `-page` as a flag.
+ */
+const TOKEN_PATTERN =
+  /(\{\{[\s\S]*?\}\})|('[^']*'|"[^"]*"|`[^`]*`)|(<[a-zA-Z_][\w-]*>)|(\/\/[^\n]*)|(\/\*[\s\S]*?\*\/)|(\s-{1,2}[a-zA-Z][\w-]*)|(\b\d+(?:\.\d+)?\b)|(&&|\|\||[|;>])/g;
+
+function classifyWord(word: string, lang: CheatLang): TokenKind {
+  const lower = word.toLowerCase();
+  if (lang === "sql" && SQL_KEYWORDS.has(lower)) return "keyword";
+  if ((lang === "js" || lang === "n8n") && JS_KEYWORDS.has(word)) return "keyword";
+  return "plain";
+}
+
+function tokenizeLine(line: string, lang: CheatLang, isFirstLine: boolean): Token[] {
+  // Whole-line comments: '#' only counts in shell, so CSS hex colours survive.
+  const trimmed = line.trimStart();
+  if (
+    trimmed.startsWith("//") ||
+    trimmed.startsWith("/*") ||
+    trimmed.startsWith("*") ||
+    (lang === "shell" && trimmed.startsWith("#"))
+  ) {
+    return [{ text: line, kind: "comment" }];
+  }
+
+  const tokens: Token[] = [];
+  let lastIndex = 0;
+
+  const pushPlain = (text: string) => {
+    if (!text) return;
+    // In CSS, `property:` is the structural half of the line.
+    if (lang === "css") {
+      const propertyMatch = text.match(/^(\s*)([a-z-]+)(\s*:)/);
+      if (propertyMatch) {
+        if (propertyMatch[1]) tokens.push({ text: propertyMatch[1], kind: "plain" });
+        tokens.push({ text: propertyMatch[2], kind: "property" });
+        tokens.push({ text: propertyMatch[3], kind: "plain" });
+        text = text.slice(propertyMatch[0].length);
+        if (!text) return;
+      }
+    }
+
+    // Split on word boundaries so keywords can be picked out individually.
+    const parts = text.split(/([A-Za-z_$][\w$.-]*)/g);
+    parts.forEach((part, index) => {
+      if (!part) return;
+      if (index % 2 === 1) {
+        let kind = classifyWord(part, lang);
+        // The executable is the first word of a shell command.
+        if (
+          kind === "plain" &&
+          lang === "shell" &&
+          isFirstLine &&
+          tokens.every((t) => !t.text.trim())
+        ) {
+          kind = "keyword";
+        }
+        tokens.push({ text: part, kind });
+      } else {
+        tokens.push({ text: part, kind: "plain" });
+      }
+    });
+  };
+
+  for (const match of line.matchAll(TOKEN_PATTERN)) {
+    const index = match.index ?? 0;
+    pushPlain(line.slice(lastIndex, index));
+    const [full, expression, string, placeholder, lineComment, blockComment, flag, num, operator] =
+      match;
+    if (expression) tokens.push({ text: full, kind: "expression" });
+    else if (string) tokens.push({ text: full, kind: "string" });
+    else if (placeholder) tokens.push({ text: full, kind: "placeholder" });
+    else if (lineComment || blockComment) tokens.push({ text: full, kind: "comment" });
+    else if (flag) {
+      // Give back the leading whitespace the pattern had to consume.
+      const leading = full.length - full.trimStart().length;
+      if (leading) tokens.push({ text: full.slice(0, leading), kind: "plain" });
+      tokens.push({ text: full.slice(leading), kind: "flag" });
+    }
+    else if (num) tokens.push({ text: full, kind: "number" });
+    else if (operator) tokens.push({ text: full, kind: "operator" });
+    lastIndex = index + full.length;
+  }
+  pushPlain(line.slice(lastIndex));
+
+  return tokens;
+}
+
+const HighlightedCommand: React.FC<{ command: string; lang: CheatLang }> = ({
+  command,
+  lang,
+}) => {
+  const lines = command.split("\n");
+  const showLineNumbers = lines.length > 1;
+
+  return (
+    <code className="cs-code">
+      {lines.map((line, lineIndex) => (
+        <span className="cs-code-line" key={lineIndex}>
+          {showLineNumbers && (
+            <span className="cs-code-gutter" aria-hidden="true">
+              {lineIndex + 1}
+            </span>
+          )}
+          <span className="cs-code-text">
+            {tokenizeLine(line, lang, lineIndex === 0).map((token, tokenIndex) => (
+              <span className={`cs-t-${token.kind}`} key={tokenIndex}>
+                {token.text}
+              </span>
+            ))}
+            {line === "" ? " " : null}
+          </span>
+        </span>
+      ))}
+    </code>
+  );
 };
 
-type CheatSection = {
-  id: string;
-  category: "git" | "docker" | "linux" | "sql" | "css" | "n8n";
-  title: string;
-  titleBurmese: string;
-  icon: string;
-  color: string;
-  items: CheatItem[];
+/* ------------------------------------------------------------------ *
+ * Categories
+ * ------------------------------------------------------------------ */
+
+const CATEGORIES: { id: CheatCategoryId | "all"; label: string }[] = [
+  { id: "all", label: "all" },
+  ...CHEATSHEET_DATA.map((section) => ({
+    id: section.id,
+    label: section.id === "javascript" ? "js / ts" : section.id,
+  })),
+];
+
+/**
+ * `$` means paste it in a terminal. A language tag means it belongs in your
+ * source. That distinction is the first thing you need to know about a
+ * snippet, so it sits where your eye lands first.
+ */
+const LANG_SIGIL: Record<CheatLang, string> = {
+  shell: "$",
+  sql: "sql",
+  css: "css",
+  js: "js",
+  n8n: "n8n",
 };
 
-const CHEATSHEET_DATA: CheatSection[] = [
-  {
-    id: "git",
-    category: "git",
-    title: "Git Version Control",
-    titleBurmese: "Git မရှိမဖြစ် Commands များ",
-    icon: "git",
-    color: "from-orange-500 to-red-500",
-    items: [
-      {
-        command: "git switch -c feature/new-page",
-        descBurmese: "Branch အသစ်ဆောက်ပြီး ချက်ချင်း ကူးပြောင်းလုပ်ကိုင်မည်",
-        tag: "Branching",
-      },
-      {
-        command: "git add -A && git commit -m 'feat: update ui'",
-        descBurmese: "ပြင်ဆင်ချက်အားလုံးကို stage လုပ်ပြီး commit မှတ်မည်",
-        tag: "Commit",
-      },
-      {
-        command: "git reset --soft HEAD~1",
-        descBurmese: "နောက်ဆုံး commit ကို ဖျက်ပြီး code ပြင်ဆင်ချက်များကို staged အဖြစ် ပြန်ချန်ထားမည် (Undo)",
-        tag: "Undo",
-      },
-      {
-        command: "git restore --staged <file>",
-        descBurmese: "git add လုပ်ထားသော ဖိုင်ကို unstaged အဖြစ် ပြန်ပြောင်းမည်",
-        tag: "Undo",
-      },
-      {
-        command: "git stash push -m 'wip-feature'",
-        descBurmese: "လက်ရှိ မပြီးသေးသော code များကို ယာယီ ဖယ်သိမ်းထားမည်",
-        tag: "Stash",
-      },
-      {
-        command: "git stash pop",
-        descBurmese: "ယာယီ သိမ်းဆည်းထားသော code များကို ပြန်လည် ထုတ်ယူမည်",
-        tag: "Stash",
-      },
-      {
-        command: "git log --oneline --graph --all",
-        descBurmese: "Commit history များကို သစ်ကိုင်းပုံစံဖြင့် တစ်ကြောင်းတည်း ရှင်းလင်းစွာ ကြည့်မည်",
-        tag: "Logs",
-      },
-      {
-        command: "git clean -fd",
-        descBurmese: "Git မသိမ်းထားသော Untracked files နှင့် folders အားလုံးကို အပြီးသတ် ဖျက်ထုတ်မည်",
-        tag: "Cleanup",
-      },
-    ],
-  },
-  {
-    id: "docker",
-    category: "docker",
-    title: "Docker & Docker Compose",
-    titleBurmese: "Docker CLI & Containers စီမံခန့်ခွဲမှု",
-    icon: "docker",
-    color: "from-blue-500 to-cyan-500",
-    items: [
-      {
-        command: "docker run -d -p 8080:80 --name my-web nginx:alpine",
-        descBurmese: "Nginx container ကို background တွင် port 8080 ဖွင့်၍ စတင် run မည်",
-        tag: "Containers",
-      },
-      {
-        command: "docker ps -a",
-        descBurmese: "Run နေသော (သို့) ရပ်တန့်နေသော Containers အားလုံး၏ စာရင်းကို ကြည့်မည်",
-        tag: "Containers",
-      },
-      {
-        command: "docker exec -it <container_id> sh",
-        descBurmese: "Run နေသော Container အတွင်းသို့ Terminal ဖြင့် ဝင်ရောက် အလုပ်လုပ်မည်",
-        tag: "Exec",
-      },
-      {
-        command: "docker compose up -d --build",
-        descBurmese: "Docker Compose service များကို image အသစ် build လုပ်ပြီး background တွင် စတင်မည်",
-        tag: "Compose",
-      },
-      {
-        command: "docker compose logs -f <service_name>",
-        descBurmese: "Compose service ၏ Logs များကို Real-time streaming စောင့်ကြည့်မည်",
-        tag: "Logs",
-      },
-      {
-        command: "docker system prune -af --volumes",
-        descBurmese: "မသုံးတော့သော Containers, Images, Networks နှင့် Volumes အားလုံးကို ရှင်းလင်း၍ Disk နေရာ ပြန်ယူမည်",
-        tag: "Cleanup",
-      },
-    ],
-  },
-  {
-    id: "linux",
-    category: "linux",
-    title: "Linux & VPS Server",
-    titleBurmese: "Ubuntu Server & Terminal Commands",
-    icon: "terminal",
-    color: "from-emerald-500 to-teal-500",
-    items: [
-      {
-        command: "ls -lah",
-        descBurmese: "ဖိုင်အရွယ်အစား (MB/GB)၊ hidden files နှင့် permissions အားလုံးကို စာရင်းကြည့်မည်",
-        tag: "CLI",
-      },
-      {
-        command: "tail -f /var/log/nginx/error.log",
-        descBurmese: "Nginx Error logs များကို real-time အသစ်တက်လာတိုင်း ချက်ချင်း စောင့်ကြည့်မည်",
-        tag: "Logs",
-      },
-      {
-        command: "chmod 644 <file> && chmod 755 <folder>",
-        descBurmese: "Web files များအတွက် အသင့်တော်ဆုံး Standard Permissions များ သတ်မှတ်မည်",
-        tag: "Security",
-      },
-      {
-        command: "sudo systemctl restart <service_name>",
-        descBurmese: "Systemd background service (e.g. nginx, nodejs) ကို ပြန်လည်စတင်မည်",
-        tag: "Systemd",
-      },
-      {
-        command: "sudo journalctl -u <service_name> -f",
-        descBurmese: "Systemd service ၏ console.log output များကို real-time ခြေရာခံမည်",
-        tag: "Systemd",
-      },
-      {
-        command: "sudo ufw allow 80/tcp && sudo ufw allow 443/tcp",
-        descBurmese: "Web traffic များအတွက် HTTP (80) နှင့် HTTPS (443) firewall ports များကို ဖွင့်ပေးမည်",
-        tag: "Firewall",
-      },
-      {
-        command: "sudo certbot --nginx -d example.com",
-        descBurmese: "Let's Encrypt ဖြင့် အခမဲ့ HTTPS SSL certificate ထုတ်ယူပြီး Nginx တွင် auto တပ်ဆင်မည်",
-        tag: "SSL",
-      },
-    ],
-  },
-  {
-    id: "sql",
-    category: "sql",
-    title: "SQL & Database Queries",
-    titleBurmese: "SQL ဒေတာဘေ့စ် မေးခွန်းထုတ်မှုများ",
-    icon: "database",
-    color: "from-amber-500 to-yellow-500",
-    items: [
-      {
-        command: "SELECT u.id, u.name, COUNT(o.id) AS total_orders\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nWHERE u.status = 'active'\nGROUP BY u.id, u.name\nHAVING COUNT(o.id) > 5\nORDER BY total_orders DESC\nLIMIT 20;",
-        descBurmese: "Active users များထဲမှ Order ၅ ခုထက်ပိုသော သူများကို တွက်ချက်၍ အများဆုံးမှ အနည်းဆုံးသို့ စီပြခြင်း",
-        tag: "Aggregations",
-      },
-      {
-        command: "INSERT INTO users (name, email, role)\nVALUES ('Mg Mg', 'mgmg@example.com', 'developer')\nON CONFLICT (email) DO UPDATE SET updated_at = NOW();",
-        descBurmese: "ဒေတာအသစ် ထည့်သွင်းခြင်း (Email တူနေပါက update လုပ်ပေးမည့် Upsert ပုံစံ)",
-        tag: "CRUD",
-      },
-      {
-        command: "CREATE INDEX idx_users_email ON users(email);",
-        descBurmese: "Email ဖြင့် ရှာဖွေရာတွင် မြန်ဆန်စေရန် B-Tree Index တည်ဆောက်ခြင်း",
-        tag: "Indexing",
-      },
-      {
-        command: "EXPLAIN ANALYZE SELECT * FROM orders WHERE created_at >= NOW() - INTERVAL '7 days';",
-        descBurmese: "Query ၏ အမှန်တကယ် Run ချိန်နှင့် Index Scan အလုပ်လုပ်ပုံကို စစ်ဆေးခြင်း",
-        tag: "Performance",
-      },
-    ],
-  },
-  {
-    id: "css",
-    category: "css",
-    title: "CSS Flexbox & Modern Grid",
-    titleBurmese: "ခေတ်မီ CSS Layout Snippets",
-    icon: "layers",
-    color: "from-purple-500 to-indigo-500",
-    items: [
-      {
-        command: "/* အရာအားလုံးကို အလယ်ဗဟိုတည့်တည့် ချထားနည်း (Center Anything) */\ndisplay: grid;\nplace-items: center;",
-        descBurmese: "Container အတွင်းရှိ မည်သည့်အရာမဆို ဒေါင်လိုက်ရော အလျားလိုက်ပါ အလယ်တည့်တည့် ပို့ဆောင်နည်း",
-        tag: "Centering",
-      },
-      {
-        command: "/* Auto-Responsive Cards Grid (Media Queries မလိုဘဲ အလိုအလျောက် ကျစ်လစ်စေသည်) */\ndisplay: grid;\ngrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\ngap: 1.5rem;",
-        descBurmese: "Screen အရွယ်အစားအလိုက် ၁ လိုင်းတွင် ၂ ကဒ်/၃ ကဒ် အလိုအလျောက် ချိန်ညှိပေးသည့် Responsive Grid",
-        tag: "Grid",
-      },
-      {
-        command: "/* Flexbox Navigation Header (ဘယ်/ညာ ခွဲထုတ်ခြင်း) */\ndisplay: flex;\njustify-content: space-between;\nalign-items: center;\ngap: 1rem;",
-        descBurmese: "Logo ကို ဘယ်ဘက်၊ Nav links များကို ညာဘက်တွင် ညီညာစွာ ခွဲခြားထားခြင်း",
-        tag: "Flexbox",
-      },
-      {
-        command: "/* စာကြောင်းရှည်များကို အစက် ၃ စက် (...) ဖြင့် အလိုအလျောက် ဖြတ်ပေးခြင်း */\noverflow: hidden;\ntext-overflow: ellipsis;\nwhite-space: nowrap;",
-        descBurmese: "Text Truncation (စာကြောင်း ဘောင်ကျော်ပါက ... ဖြင့် ပြသခြင်း)",
-        tag: "Typography",
-      },
-    ],
-  },
-  {
-    id: "n8n",
-    category: "n8n",
-    title: "n8n Workflow Automation",
-    titleBurmese: "n8n Core Nodes & Expressions",
-    icon: "zap",
-    color: "from-rose-500 to-pink-500",
-    items: [
-      {
-        command: "// n8n Code Node ထဲတွင် JSON Data ကို Filter ပြုလုပ်ခြင်း\nreturn $input.all().filter(item => item.json.price > 50000);",
-        descBurmese: "Input data များထဲမှ စျေးနှုန်း ၅ သောင်းအထက် ပစ္စည်းများကိုသာ စစ်ထုတ်ခြင်း",
-        tag: "Code Node",
-      },
-      {
-        command: "https://api.telegram.org/bot<TOKEN>/sendMessage?chat_id=<CHAT_ID>&text={{ encodeURIComponent('🔔 New Order: ' + $json.order_id) }}",
-        descBurmese: "Telegram Bot သို့ HTTP Request Node မှတစ်ဆင့် Message အလိုအလျောက် ပို့ခြင်း",
-        tag: "Telegram Bot",
-      },
-      {
-        command: "{{ $now.plus({ days: 7 }).toFormat('yyyy-MM-dd') }}",
-        descBurmese: "လက်ရှိရက်စွဲမှ ၇ ရက်ပေါင်းပြီး ISO Format ဖြင့် ထုတ်ယူခြင်း (Date Math)",
-        tag: "Expression",
-      },
-      {
-        command: "{{ $json.body.email || 'customer@example.com' }}",
-        descBurmese: "Webhook မှ လာသော Email မရှိပါက Default Email ထည့်သွင်းပေးခြင်း (Fallback)",
-        tag: "Expression",
-      },
-    ],
-  },
-];
-
-const CATEGORIES = [
-  { id: "all", label: "အားလုံး (All)", icon: Layers },
-  { id: "git", label: "Git", icon: GitBranch },
-  { id: "docker", label: "Docker", icon: FolderGit2 },
-  { id: "linux", label: "Linux / VPS", icon: Terminal },
-  { id: "sql", label: "SQL", icon: Database },
-  { id: "css", label: "CSS Layouts", icon: Code },
-  { id: "n8n", label: "n8n Automation", icon: Zap },
-];
+/* ------------------------------------------------------------------ *
+ * Component
+ * ------------------------------------------------------------------ */
 
 export const CheatSheetsViewer: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<CheatCategoryId | "all">("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const resetTimer = useRef<number | undefined>(undefined);
 
-  const handleCopy = async (text: string, id: string) => {
-    // navigator.clipboard is unavailable on insecure origins and older browsers,
-    // so fall back to a temporary textarea instead of failing silently.
+  useEffect(() => () => window.clearTimeout(resetTimer.current), []);
+
+  // ⌘K / Ctrl+K focuses search, the way every other developer tool behaves.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  const handleCopy = useCallback(async (text: string, id: string) => {
+    // navigator.clipboard is absent on insecure origins and older browsers,
+    // so fall back rather than failing silently.
     try {
       if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
       await navigator.clipboard.writeText(text);
@@ -289,221 +238,220 @@ export const CheatSheetsViewer: React.FC = () => {
       try {
         document.execCommand("copy");
       } catch {
-        /* nothing more we can do */
+        /* nothing further we can do */
       }
       document.body.removeChild(textarea);
     }
-    setCopiedIndex(id);
-    setTimeout(() => setCopiedIndex(null), 2000);
-  };
+    setCopiedId(id);
+    window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setCopiedId(null), 2000);
+  }, []);
 
-  const filteredSections = useMemo(() => {
-    return CHEATSHEET_DATA.filter((section) => {
-      if (selectedCategory !== "all" && section.category !== selectedCategory) {
-        return false;
-      }
-      return true;
-    }).map((section) => {
-      if (!searchQuery.trim()) return section;
-      const q = searchQuery.toLowerCase();
-      const matchingItems = section.items.filter(
-        (item) =>
-          item.command.toLowerCase().includes(q) ||
-          item.descBurmese.toLowerCase().includes(q) ||
-          (item.tag && item.tag.toLowerCase().includes(q))
-      );
-      return {
-        ...section,
-        items: matchingItems,
-      };
-    }).filter((section) => section.items.length > 0);
-  }, [selectedCategory, searchQuery]);
+  const query = searchQuery.trim().toLowerCase();
 
-  const totalMatches = useMemo(
-    () => filteredSections.reduce((sum, section) => sum + section.items.length, 0),
-    [filteredSections],
+  const sections = useMemo(() => {
+    return CHEATSHEET_DATA.filter(
+      (section) => selectedCategory === "all" || section.id === selectedCategory,
+    )
+      .map((section) => {
+        if (!query) return section;
+        const items = section.items.filter(
+          (item) =>
+            item.command.toLowerCase().includes(query) ||
+            item.descBurmese.toLowerCase().includes(query) ||
+            item.tag?.toLowerCase().includes(query),
+        );
+        return { ...section, items };
+      })
+      .filter((section) => section.items.length > 0);
+  }, [selectedCategory, query]);
+
+  const matchCount = useMemo(
+    () => sections.reduce((sum, section) => sum + section.items.length, 0),
+    [sections],
   );
 
-  return (
-    <div className="w-full space-y-8">
-      {/* Controls Bar: Search & Category Pills */}
-      <div className="flex flex-col xl:flex-row xl:items-center gap-3 xl:gap-4 p-4 rounded-2xl bg-white dark:bg-stone-900/70 border border-gray-200 dark:border-stone-800 shadow-sm backdrop-blur-xl">
-        {/* Search Input */}
-        <div className="relative w-full min-w-0 xl:w-80 xl:shrink-0">
-          <Search
-            aria-hidden="true"
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-          />
-          <input
-            id="cheatsheet-search"
-            type="text"
-            inputMode="search"
-            autoComplete="off"
-            aria-label="Command သို့မဟုတ် အကြောင်းအရာ ရှာဖွေရန်"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Escape") setSearchQuery("");
-            }}
-            placeholder="Command ရှာဖွေပါ (reset, port, grid...)"
-            className="w-full min-w-0 h-11 pl-10 pr-10 rounded-xl bg-gray-50 dark:bg-stone-950 border border-gray-200 dark:border-stone-800 text-sm text-gray-900 dark:text-white outline-none transition-colors placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              aria-label="ရှာဖွေမှုကို ရှင်းလင်းမည်"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 grid place-items-center w-6 h-6 rounded-md text-gray-400 hover:text-gray-700 dark:hover:text-gray-100 hover:bg-gray-200/70 dark:hover:bg-stone-800 transition-colors cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
+  const isFiltered = query !== "" || selectedCategory !== "all";
 
-        {/* Categories Horizontal Scroll */}
-        <div className="-mx-1 min-w-0 xl:flex-1 overflow-x-auto scrollbar-hide">
-          <div
-            role="group"
-            aria-label="Category filter"
-            className="flex w-max items-center gap-2 px-1 py-0.5"
-          >
-            {CATEGORIES.map((cat) => {
-              const Icon = cat.icon;
-              const isSelected = selectedCategory === cat.id;
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+  };
+
+  return (
+    <div className="cs-root">
+      {/* Command bar */}
+      <div className="cs-bar">
+        <div className="cs-bar-inner">
+          <div className="cs-field">
+            <Search className="cs-field-icon" aria-hidden="true" />
+            <input
+              ref={inputRef}
+              id="cheatsheet-search"
+              type="text"
+              inputMode="search"
+              autoComplete="off"
+              spellCheck={false}
+              aria-label="Command သို့မဟုတ် အကြောင်းအရာ ရှာဖွေရန်"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setSearchQuery("");
+              }}
+              placeholder="ရှာဖွေပါ — git reset, port, grid, telegram…"
+              className="cs-input"
+            />
+            {searchQuery ? (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="ရှာဖွေမှုကို ရှင်းလင်းမည်"
+                className="cs-field-clear"
+              >
+                <X className="cs-icon-sm" />
+              </button>
+            ) : (
+              <kbd className="cs-kbd" aria-hidden="true">
+                ⌘K
+              </kbd>
+            )}
+          </div>
+
+          <div className="cs-cats" role="group" aria-label="Category filter">
+            {CATEGORIES.map((category) => {
+              const isSelected = selectedCategory === category.id;
               return (
                 <button
-                  key={cat.id}
+                  key={category.id}
                   type="button"
                   aria-pressed={isSelected}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex shrink-0 items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40 ${
-                    isSelected
-                      ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20"
-                      : "bg-gray-100 dark:bg-stone-800 text-gray-600 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-700"
-                  }`}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`cs-cat${isSelected ? " is-active" : ""}`}
                 >
-                  <Icon aria-hidden="true" className="w-3.5 h-3.5" />
-                  <span>{cat.label}</span>
+                  {category.label}
                 </button>
               );
             })}
           </div>
         </div>
+
+        <div className="cs-bar-meta">
+          <span aria-live="polite">
+            <strong>{matchCount}</strong> command{matchCount === 1 ? "" : "s"}
+            {query ? (
+              <>
+                {" "}
+                matching <em>{searchQuery.trim()}</em>
+              </>
+            ) : null}
+          </span>
+          {isFiltered ? (
+            <button type="button" onClick={resetFilters} className="cs-reset">
+              Clear filters
+            </button>
+          ) : null}
+        </div>
       </div>
 
-      {/* Result Count */}
-      <p
-        aria-live="polite"
-        className="-mt-4 px-1 text-xs text-gray-500 dark:text-gray-400"
-      >
-        {totalMatches} command
-        {totalMatches !== 1 ? "s" : ""} တွေ့ရှိသည်
-        {searchQuery.trim() && (
-          <>
-            {" — "}
-            <strong className="font-semibold text-gray-700 dark:text-gray-200">
-              "{searchQuery.trim()}"
-            </strong>
-          </>
-        )}
-      </p>
-
-      {/* Cheat Sheets Grid Sections */}
-      {filteredSections.length === 0 ? (
-        <div className="text-center py-16 p-6 rounded-3xl bg-gray-50 dark:bg-stone-900/40 border border-dashed border-gray-300 dark:border-stone-800">
-          <p className="text-gray-500 dark:text-gray-400 text-base mb-2">
-            {searchQuery.trim()
-              ? `ရှာဖွေတွေ့ရှိချက် မရှိပါ: "${searchQuery.trim()}"`
-              : "ဒီ Category အတွက် အကြောင်းအရာ မရှိသေးပါ"}
+      {/* Results */}
+      {sections.length === 0 ? (
+        <div className="cs-empty">
+          <p className="cs-empty-title">
+            {query ? (
+              <>
+                <span className="cs-t-comment">#</span> ရှာဖွေတွေ့ရှိချက် မရှိပါ —{" "}
+                <em>{searchQuery.trim()}</em>
+              </>
+            ) : (
+              "ဒီ Category အတွက် အကြောင်းအရာ မရှိသေးပါ"
+            )}
           </p>
-          <button
-            type="button"
-            onClick={() => { setSearchQuery(""); setSelectedCategory("all"); }}
-            className="text-xs font-bold text-orange-500 hover:underline"
-          >
-            Filter များကို အစမှ ပြန်လည်စတင်မည်
+          <p className="cs-empty-hint">
+            Command အမည်တစ်စိတ်တစ်ပိုင်း (reset, port, grid) ဖြင့် ပြန်ရှာကြည့်ပါ။
+          </p>
+          <button type="button" onClick={resetFilters} className="cs-empty-reset">
+            Clear filters
           </button>
         </div>
       ) : (
-        <div className="space-y-10">
-          {filteredSections.map((section) => (
-            <div
-              key={section.id}
-              className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-stone-900/60 border border-gray-200 dark:border-stone-800/80 shadow-lg backdrop-blur-xl"
-            >
-              {/* Section Header */}
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-stone-800">
-                <div
-                  className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${section.color} flex items-center justify-center text-white font-bold shadow-md`}
-                >
-                  {section.category === "git" && <GitBranch className="w-5 h-5" />}
-                  {section.category === "docker" && <FolderGit2 className="w-5 h-5" />}
-                  {section.category === "linux" && <Terminal className="w-5 h-5" />}
-                  {section.category === "sql" && <Database className="w-5 h-5" />}
-                  {section.category === "css" && <Code className="w-5 h-5" />}
-                  {section.category === "n8n" && <Zap className="w-5 h-5" />}
-                </div>
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-                    {section.titleBurmese}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                    {section.title}
-                  </p>
-                </div>
+        <div className="cs-sections">
+          {sections.map((section) => (
+            <section key={section.id} className="cs-section" aria-labelledby={`cs-${section.id}`}>
+              <header className="cs-section-head">
+                <span className="cs-sigil" aria-hidden="true">
+                  {section.sigil}
+                </span>
+                <h2 id={`cs-${section.id}`} className="cs-section-title">
+                  {section.titleBurmese}
+                </h2>
+                <span className="cs-rule" aria-hidden="true" />
+                <span className="cs-section-count">
+                  {section.items.length} command{section.items.length === 1 ? "" : "s"}
+                </span>
+              </header>
+              <p className="cs-section-sub">{section.title}</p>
+
+              <div className="cs-grid">
+                {section.items.map((item, index) => (
+                  <CommandRow
+                    key={`${section.id}-${index}`}
+                    item={item}
+                    id={`${section.id}-${index}`}
+                    isCopied={copiedId === `${section.id}-${index}`}
+                    onCopy={handleCopy}
+                  />
+                ))}
               </div>
-
-              {/* Items Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {section.items.map((item, index) => {
-                  const itemId = `${section.id}-${index}`;
-                  const isCopied = copiedIndex === itemId;
-
-                  return (
-                    <div
-                      key={itemId}
-                      className="group relative flex flex-col justify-between p-4 rounded-2xl bg-gray-50/80 dark:bg-stone-950/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 transition-all hover:shadow-md"
-                    >
-                      <div>
-                        {/* Tag and Explanation */}
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
-                            {item.descBurmese}
-                          </span>
-                          {item.tag && (
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 shrink-0">
-                              {item.tag}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Code Block */}
-                        <div className="relative mt-2 p-3 rounded-xl bg-gray-900 text-amber-300 dark:text-amber-400 font-mono text-xs overflow-x-auto leading-relaxed border border-stone-800">
-                          <pre className="pr-8 whitespace-pre-wrap break-words">{item.command}</pre>
-
-                          {/* 1-Click Copy Button */}
-                          <button
-                            onClick={() => handleCopy(item.command, itemId)}
-                            className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-stone-800/90 hover:bg-stone-700 text-stone-300 hover:text-white transition-all shadow-sm cursor-pointer"
-                            title="Copy code"
-                          >
-                            {isCopied ? (
-                              <Check className="w-3.5 h-3.5 text-green-400" />
-                            ) : (
-                              <Copy className="w-3.5 h-3.5" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            </section>
           ))}
         </div>
       )}
     </div>
+  );
+};
+
+const CommandRow: React.FC<{
+  item: CheatItem;
+  id: string;
+  isCopied: boolean;
+  onCopy: (text: string, id: string) => void;
+}> = ({ item, id, isCopied, onCopy }) => {
+  const isMultiline = item.command.includes("\n");
+
+  return (
+    <article className={`cs-row${isMultiline ? " is-wide" : ""}${isCopied ? " is-copied" : ""}`}>
+      <div className="cs-terminal">
+        <span className={`cs-prompt cs-prompt-${item.lang}`} aria-hidden="true">
+          {isCopied ? <Check className="cs-icon-sm" /> : LANG_SIGIL[item.lang]}
+        </span>
+        <pre className="cs-pre">
+          <HighlightedCommand command={item.command} lang={item.lang} />
+        </pre>
+        <button
+          type="button"
+          onClick={() => onCopy(item.command, id)}
+          className="cs-copy"
+          aria-label={isCopied ? "ကူးယူပြီးပါပြီ" : "Command ကို ကူးယူမည်"}
+        >
+          {isCopied ? (
+            <>
+              <Check className="cs-icon-sm" />
+              <span>Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy className="cs-icon-sm" />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+
+      <footer className="cs-row-foot">
+        <p className="cs-desc">{item.descBurmese}</p>
+        {item.tag ? <span className="cs-tag">{item.tag}</span> : null}
+      </footer>
+    </article>
   );
 };
 

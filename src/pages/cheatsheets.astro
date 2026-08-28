@@ -1,31 +1,166 @@
 ---
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 import CheatSheetsViewer from "../components/CheatSheetsViewer";
+import { CHEATSHEET_DATA, TOTAL_COMMANDS } from "../data/cheatsheets";
+import "../styles/cheatsheets.css";
+
+const categoryCount = CHEATSHEET_DATA.length;
 ---
 
 <StandaloneLayout
   title="Developer Cheat Sheets (ကူးယူသုံးစွဲနိုင်သော အမြန်လမ်းညွှန်များ)"
-  description="Git, Docker, Linux, SQL, CSS Flexbox/Grid, n8n Automation အစရှိသော Developer မရှိမဖြစ် Command များနှင့် Code Snippets များကို အလွယ်တကူ ရှာဖွေ ကူးယူနိုင်သော Visual Reference Hub"
+  description="Git, Docker, Linux/VPS, SQL, CSS, JavaScript, npm နှင့် n8n Automation အစရှိသော Developer မရှိမဖြစ် Command များနှင့် Code Snippets များကို အလွယ်တကူ ရှာဖွေ ကူးယူနိုင်သော Quick Reference Hub"
 >
-  <div class="neo-page min-h-screen py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Header Section -->
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-4">
-          ⚡ Quick Reference Hub
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
-          Developer <span class="bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 bg-clip-text text-transparent">Cheat Sheets</span>
-        </h1>
-        <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-          အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေ ကူးယူနိုင်မည့် <b>Git, Docker, Linux, SQL, CSS နှင့် n8n Automation</b> Command များနှင့် Code Snippets များ စုစည်းမှု။
+  <div class="neo-page cs-page min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <header class="cs-hero">
+        <p class="cs-hero-eyebrow">
+          <span class="cs-hero-prompt">$</span> takkatho/cheatsheets
         </p>
-      </div>
+        <h1 class="cs-hero-title">
+          ရှာပါ။ ကူးပါ။ <span class="cs-hero-accent">ဆက်လုပ်ပါ။</span>
+        </h1>
+        <p class="cs-hero-lede">
+          အလုပ်လုပ်နေစဉ် အမြန်လိုအပ်သော Command များကို စုစည်းထားသည်။
+        </p>
+        <dl class="cs-hero-stats">
+          <div>
+            <dt>Commands</dt>
+            <dd>{TOTAL_COMMANDS}</dd>
+          </div>
+          <div>
+            <dt>Categories</dt>
+            <dd>{categoryCount}</dd>
+          </div>
+          <div>
+            <dt>Search</dt>
+            <dd><kbd>⌘K</kbd></dd>
+          </div>
+        </dl>
+      </header>
 
-      <!-- Interactive React Cheat Sheets Component -->
       <CheatSheetsViewer client:load />
-
     </div>
   </div>
 </StandaloneLayout>
+
+<style>
+  .cs-page {
+    padding-bottom: 5rem;
+    background: #fbfaf8;
+    /*
+     * .neo-page sets overflow-x:hidden to clip the homepage's decorative blur
+     * blobs. That forces overflow-y to `auto`, which makes it a scroll
+     * container and silently kills the sticky command bar. This page has no
+     * such decorations and no horizontal overflow, so restore `visible`.
+     */
+    overflow: visible;
+  }
+
+  :global(:root.dark) .cs-page {
+    background: #0c0a09;
+  }
+
+  .cs-hero {
+    padding: 3.5rem 0 2rem;
+  }
+
+  .cs-hero-eyebrow {
+    margin: 0 0 1.25rem;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: #6b7a89;
+  }
+
+  .cs-hero-prompt {
+    color: #f97316;
+    font-weight: 700;
+  }
+
+  /*
+   * Burmese caps at 700: Noto Sans Myanmar only ships 300-700 here, and asking
+   * for 800 makes the browser synthesise a bold that mangles stacked glyphs.
+   * The generous line-height is also for Burmese - stacked marks need the room,
+   * and a Latin-tuned 1.3 clips them.
+   */
+  .cs-hero-title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.85;
+    color: #16202b;
+  }
+
+  :global(:root.dark) .cs-hero-title {
+    color: #f2f6fa;
+  }
+
+  .cs-hero-accent {
+    color: #f97316;
+  }
+
+  .cs-hero-lede {
+    max-width: 34rem;
+    margin: 0 0 2rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #5c6b7a;
+  }
+
+  :global(:root.dark) .cs-hero-lede {
+    color: #8a99a8;
+  }
+
+  .cs-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 0;
+  }
+
+  .cs-hero-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cs-hero-stats dt {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8a99a8;
+  }
+
+  .cs-hero-stats dd {
+    margin: 0;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #16202b;
+  }
+
+  :global(:root.dark) .cs-hero-stats dd {
+    color: #f2f6fa;
+  }
+
+  .cs-hero-stats kbd {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #e5e1d9;
+    border-radius: 0.375rem;
+    background: #f2efe9;
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: #4a5765;
+  }
+
+  :global(:root.dark) .cs-hero-stats kbd {
+    border-color: #232b35;
+    background: #171e26;
+    color: #97a5b3;
+  }
+</style>

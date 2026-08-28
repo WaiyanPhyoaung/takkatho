@@ -1,0 +1,614 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+/*
+ * Cheat sheets — "terminal manual".
+ *
+ * Deliberate choice: the command surface stays dark in both themes. A command
+ * should look like the place it is about to be pasted, and it keeps the syntax
+ * colours identical in light and dark. Only the page around it changes.
+ *
+ * Left unlayered on purpose: global.css sets `* { font-family: var(--font-ui) }`
+ * inside @layer base, and unlayered rules win over layered ones, so the mono
+ * face survives here without !important.
+ */
+
+.cs-root {
+  /* Terminal surface — identical in both themes */
+  --cs-surface: #0f1620;
+  --cs-surface-hover: #141e2a;
+  --cs-surface-line: #1e2a38;
+  --cs-code-fg: #dbe4ee;
+
+  /* Syntax roles */
+  --cs-brand: #f97316;
+  --cs-mint: #4ade80;
+  --cs-sky: #5cc8f5;
+  --cs-violet: #c7a9ff;
+  --cs-mute: #7c8b9c;
+
+  /* Page chrome — themed */
+  --cs-fg: #16202b;
+  --cs-muted: #5c6b7a;
+  --cs-line: #e5e1d9;
+  --cs-chip: #f2efe9;
+  --cs-chip-fg: #4a5765;
+  --cs-bar-bg: rgba(252, 251, 249, 0.86);
+
+  --cs-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  color: var(--cs-fg);
+}
+
+:root.dark .cs-root {
+  --cs-fg: #e8edf3;
+  --cs-muted: #8a99a8;
+  --cs-line: #232b35;
+  --cs-chip: #171e26;
+  --cs-chip-fg: #97a5b3;
+  --cs-bar-bg: rgba(12, 10, 9, 0.86);
+}
+
+/* ---------------------------------------------------------------- *
+ * Command bar
+ * ---------------------------------------------------------------- */
+
+.cs-bar {
+  position: sticky;
+  top: 4rem; /* clears the fixed 64px site header */
+  z-index: 30;
+  margin-bottom: 2.5rem;
+  padding: 0.875rem 0 0.75rem;
+  background: var(--cs-bar-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--cs-line);
+}
+
+.cs-bar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cs-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.cs-field-icon {
+  position: absolute;
+  left: 0.875rem;
+  width: 1rem;
+  height: 1rem;
+  color: var(--cs-muted);
+  pointer-events: none;
+}
+
+.cs-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 2.875rem;
+  padding: 0 2.75rem 0 2.5rem;
+  border: 1px solid var(--cs-line);
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--cs-fg);
+  font-family: var(--cs-mono);
+  font-size: 0.875rem;
+  outline: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.cs-input::placeholder {
+  color: var(--cs-muted);
+}
+
+.cs-input:focus-visible {
+  border-color: var(--cs-brand);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.22);
+}
+
+.cs-kbd,
+.cs-field-clear {
+  position: absolute;
+  right: 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--cs-mono);
+}
+
+.cs-kbd {
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--cs-line);
+  border-radius: 0.375rem;
+  background: var(--cs-chip);
+  color: var(--cs-chip-fg);
+  font-size: 0.6875rem;
+  pointer-events: none;
+}
+
+.cs-field-clear {
+  width: 1.625rem;
+  height: 1.625rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--cs-muted);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.cs-field-clear:hover {
+  background: var(--cs-chip);
+  color: var(--cs-fg);
+}
+
+/* Categories wrap rather than scroll: seven items fit in two rows on the
+   narrowest phone, so every option stays visible instead of hiding offscreen. */
+.cs-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.cs-cat {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--cs-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cs-muted);
+  font-family: var(--cs-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.cs-cat:hover {
+  color: var(--cs-fg);
+  border-color: var(--cs-muted);
+}
+
+.cs-cat.is-active {
+  background: var(--cs-brand);
+  border-color: var(--cs-brand);
+  color: #fff;
+}
+
+.cs-bar-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-family: var(--cs-mono);
+  font-size: 0.75rem;
+  color: var(--cs-muted);
+}
+
+.cs-bar-meta strong {
+  color: var(--cs-fg);
+  font-weight: 600;
+}
+
+.cs-bar-meta em {
+  color: var(--cs-brand);
+  font-style: normal;
+}
+
+.cs-reset {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--cs-brand);
+  font-family: var(--cs-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- *
+ * Sections — a rule and a label, not another card
+ * ---------------------------------------------------------------- */
+
+.cs-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.cs-section-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.cs-sigil {
+  flex-shrink: 0;
+  font-family: var(--cs-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cs-brand);
+  letter-spacing: 0.04em;
+}
+
+.cs-section-title {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--cs-fg);
+  /* Burmese stacked marks need more than a Latin-tuned 1.5 or they collide
+     with the rule beside them. */
+  line-height: 1.9;
+}
+
+.cs-rule {
+  flex: 1 1 auto;
+  min-width: 1rem;
+  height: 1px;
+  background: var(--cs-line);
+}
+
+.cs-section-count {
+  flex-shrink: 0;
+  font-family: var(--cs-mono);
+  font-size: 0.6875rem;
+  color: var(--cs-muted);
+  white-space: nowrap;
+}
+
+.cs-section-sub {
+  margin: 0.25rem 0 1.25rem;
+  padding-left: calc(0.75rem + 0.625rem);
+  font-family: var(--cs-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cs-muted);
+}
+
+/* ---------------------------------------------------------------- *
+ * Command rows
+ * ---------------------------------------------------------------- */
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 1100px) {
+  .cs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Multi-line snippets take the full width, which also keeps the one-liners
+     paired at an even height instead of leaving ragged gaps. */
+  .cs-row.is-wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.cs-row {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--cs-surface-line);
+  border-radius: 0.875rem;
+  background: var(--cs-surface);
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.cs-row:hover {
+  border-color: #33455a;
+}
+
+.cs-row.is-copied {
+  border-color: var(--cs-mint);
+}
+
+.cs-terminal {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  /* Right padding reserves the copy button's lane so wrapped command text can
+     never run underneath it. */
+  padding: 0.875rem 3rem 0.75rem 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .cs-terminal {
+    padding-right: 5.25rem;
+  }
+}
+
+.cs-prompt {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border-radius: 0.3rem;
+  font-family: var(--cs-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* `$` = run it in a terminal. A language tag = it goes in your source. */
+.cs-prompt-shell {
+  color: var(--cs-brand);
+  background: rgba(249, 115, 22, 0.12);
+}
+.cs-prompt-sql {
+  color: var(--cs-sky);
+  background: rgba(92, 200, 245, 0.12);
+}
+.cs-prompt-css {
+  color: var(--cs-violet);
+  background: rgba(199, 169, 255, 0.14);
+}
+.cs-prompt-js {
+  color: #f5d76e;
+  background: rgba(245, 215, 110, 0.12);
+}
+.cs-prompt-n8n {
+  color: var(--cs-mint);
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.cs-row.is-copied .cs-prompt {
+  color: var(--cs-mint);
+  background: rgba(74, 222, 128, 0.16);
+}
+
+.cs-pre {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 0.125rem;
+  overflow-x: auto;
+  background: none;
+  border: 0;
+}
+
+.cs-code {
+  display: block;
+  font-family: var(--cs-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--cs-code-fg);
+  background: none;
+  white-space: pre;
+}
+
+.cs-code-line {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cs-code-gutter {
+  flex-shrink: 0;
+  width: 1ch;
+  text-align: right;
+  color: #566a7e;
+  user-select: none;
+}
+
+.cs-code-text {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Syntax roles */
+.cs-t-keyword {
+  color: var(--cs-brand);
+  font-weight: 600;
+}
+.cs-t-flag {
+  color: var(--cs-sky);
+}
+.cs-t-string {
+  color: var(--cs-mint);
+}
+.cs-t-number {
+  color: var(--cs-mint);
+}
+.cs-t-placeholder {
+  color: var(--cs-violet);
+  font-style: italic;
+}
+.cs-t-expression {
+  color: var(--cs-violet);
+}
+.cs-t-property {
+  color: var(--cs-sky);
+}
+.cs-t-comment {
+  color: var(--cs-mute);
+}
+.cs-t-operator {
+  color: #94a3b8;
+}
+
+.cs-copy {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--cs-surface-line);
+  border-radius: 0.375rem;
+  background: var(--cs-surface);
+  color: var(--cs-mute);
+  font-family: var(--cs-mono);
+  font-size: 0.6875rem;
+  cursor: pointer;
+  /* Copying is this page's whole job, so the button is always visible. Fading
+     it in on hover would hide the primary action - and hide it permanently on
+     touch, where there is no hover at all. */
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.cs-copy:hover {
+  color: var(--cs-brand);
+  border-color: var(--cs-brand);
+  background: var(--cs-surface-hover);
+}
+
+.cs-row.is-copied .cs-copy {
+  color: var(--cs-mint);
+  border-color: var(--cs-mint);
+}
+
+/* Narrow screens: icon only. The label costs more room than it earns, and the
+   aria-label still announces the action. */
+.cs-copy span {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .cs-copy span {
+    display: inline;
+  }
+}
+
+/* ⌘K is meaningless without a hardware keyboard, and the space is better
+   spent on the query on a phone. */
+.cs-kbd {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .cs-kbd {
+    display: inline-flex;
+  }
+
+  .cs-input {
+    padding-right: 4.25rem;
+  }
+}
+
+.cs-row-foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem 0.75rem;
+  border-top: 1px solid var(--cs-surface-line);
+}
+
+/* No line clamp: the explanation is why the command is here. */
+.cs-desc {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  color: #9fb0c0;
+}
+
+.cs-tag {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-family: var(--cs-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8195a8; /* lifted for AA against the dark row surface */
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- *
+ * Empty state — an invitation, not an apology
+ * ---------------------------------------------------------------- */
+
+.cs-empty {
+  padding: 3.5rem 1.5rem;
+  border: 1px dashed var(--cs-line);
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.cs-empty-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--cs-mono);
+  font-size: 0.9375rem;
+  color: var(--cs-fg);
+}
+
+.cs-empty-title em {
+  color: var(--cs-brand);
+  font-style: normal;
+}
+
+.cs-empty-hint {
+  margin: 0 0 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--cs-muted);
+}
+
+.cs-empty-reset {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cs-brand);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--cs-brand);
+  font-family: var(--cs-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.cs-empty-reset:hover {
+  background: var(--cs-brand);
+  color: #fff;
+}
+
+.cs-icon-sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* ---------------------------------------------------------------- *
+ * Quality floor
+ * ---------------------------------------------------------------- */
+
+.cs-root :focus-visible {
+  outline: 2px solid var(--cs-brand);
+  outline-offset: 2px;
+}
+
+.cs-input:focus-visible {
+  outline: none; /* replaced by the ring above */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-root * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
