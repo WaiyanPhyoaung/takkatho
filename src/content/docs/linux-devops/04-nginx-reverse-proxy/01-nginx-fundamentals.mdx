@@ -4,6 +4,7 @@ description: "Nginx Event-driven Architecture၊ Installation၊ Server Blocks (
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
 import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
@@ -129,11 +130,38 @@ sudo systemctl reload nginx
 
 ---
 
-## 🎯 သင်ခန်းစာ အနှစ်ချုပ် Checklist
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
 
-- [ ] Configuration ဖိုင်များကို `/etc/nginx/sites-available/` တွင် ရေးပြီး `sites-enabled/` သို့ Symlink ချိတ်ပါ။
-- [ ] Nginx reload မလုပ်မီ `sudo nginx -t` ဖြင့် syntax အမှား အမြဲ စစ်ဆေးပါ။
-- [ ] SPA Router များ (React/Next.js client) အတွက် `try_files $uri $uri/ /index.html;` ကို ထည့်သွင်းပါ။
+<Quiz
+  client:idle
+  title="Nginx Fundamentals စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "Nginx configuration ဖိုင်အသစ် ရေးဆွဲပြီးတိုင်း reload မလုပ်မီ 'sudo nginx -t' ကို အဘယ်ကြောင့် အမြဲ run ရသနည်း?",
+      options: [
+        "Website ၏ SSL Certificate ကို refresh လုပ်ရန်",
+        "Nginx config ဖိုင်တွင် syntax အမှား သို့မဟုတ် semicolon (;) ကျန်ခဲ့ခြင်း ရှိမရှိ စစ်ဆေးပြီး Web Server ရပ်တန့်မသွားစေရန်",
+        "Nginx process ကို background သို့ ပို့ဆောင်ရန်",
+        "Browser cache များကို ရှင်းထုတ်ရန်"
+      ],
+      correctAnswer: 1,
+      explanation: "nginx -t သည် syntax testing command ဖြစ်ပြီး syntax မှားယွင်းနေပါက reload လုပ်မိသည့်အခါ Web Server တစ်ခုလုံး crash ဖြစ်သွားခြင်းမှ ကြိုတင် ကာကွယ်ပေးပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "React သို့မဟုတ် Vue SPA (Single Page Application) ကို Nginx ဖြင့် host ရာတွင် 'try_files $uri $uri/ /index.html;' ကို မထည့်သွင်းပါက မည်သည့် ပြဿနာ ဖြစ်ပေါ်နိုင်သနည်း?",
+      options: [
+        "Website အရောင်များ ပျက်သွားနိုင်သည်",
+        "User များက Inner page (ဥပမာ /about သို့မဟုတ် /dashboard) တွင် Page Refresh နှိပ်လိုက်ပါက 404 Not Found error တက်သွားနိုင်သည်",
+        "Database ချိတ်ဆက်မှု ပြတ်တောက်သွားမည်",
+        "Server Disk Space ပြည့်သွားမည်"
+      ],
+      correctAnswer: 1,
+      explanation: "SPA များတွင် routing ကို client JavaScript က ထိန်းချုပ်ထားသဖြင့် server ပေါ်တွင် ထို folder အမှန်တကယ် မရှိပါက 404 တက်တတ်ပါသည်။ try_files က index.html ဆီသို့ အမြဲ fallback ပြန်လွှဲပေးပါသည်။"
+    }
+  ]}
+/>
 
 <LessonCompletion
   client:idle

@@ -4,6 +4,7 @@ description: "Asymmetric SSH Key Pair Generation (Ed25519 vs RSA)၊ Password-le
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
 import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
@@ -118,11 +119,38 @@ Password တောင်းဆိုခြင်း မရှိဘဲ ချက
 
 ---
 
-## 🎯 သင်ခန်းစာ အနှစ်ချုပ်
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
 
-- [ ] အမြဲတမ်း `ed25519` SSH Key algorithm ကို သုံးပါ။
-- [ ] Server ပေါ်တွင် `PasswordAuthentication no` သတ်မှတ်ပါ။
-- [ ] Root User ဖြင့် တိုက်ရိုက် Login မဝင်ဘဲ `sudo` User ဖြင့်သာ ဝင်ရောက်ပါ။
+<Quiz
+  client:idle
+  title="SSH Keys & Security စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "SSH Key Pair (Private Key နှင့် Public Key) နှင့် ပတ်သက်၍ အောက်ပါတို့အနက် မည်သည့်အချက်သည် မှန်ကန်သနည်း?",
+      options: [
+        "Private Key ကို Server ပေါ်တင်ပြီး၊ Public Key ကို မိမိစက်ထဲ သိမ်းရသည်",
+        "Private Key (id_ed25519) သည် မိမိ Laptop ထဲတွင်သာ အလုံပိတ် သိမ်းဆည်းရမည်ဖြစ်ပြီး၊ Public Key (id_ed25519.pub) ကိုသာ Server ၏ authorized_keys ထဲသို့ ထည့်ရသည်",
+        "Key နှစ်ခုလုံးကို GitHub ပေါ်တွင် public တင်ထားရသည်",
+        "SSH Key သုံးပါက Server Password ကို ပိုမို လွယ်ကူသော စာလုံးများ ပြောင်းထားရသည်"
+      ],
+      correctAnswer: 1,
+      explanation: "Private Key သည် မည်သူ့ကိုမျှ လုံးဝ မပြသရသော လျှို့ဝှက်သော့ဖြစ်ပြီး၊ Public Key သည် Server သို့မဟုတ် ဝန်ဆောင်မှုများပေါ်တွင် ချိတ်ဆက်သိမ်းဆည်းရသည့် အများသုံး သော့ခလောက် ဖြစ်ပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "Server ၏ sshd_config တွင် 'PasswordAuthentication no' ဟု သတ်မှတ်ခြင်း၏ အဓိက အကျိုးကျေးဇူးမှာ အဘယ်နည်း?",
+      options: [
+        "SSH Port နံပါတ်ကို 80 သို့ အလိုအလျောက် ပြောင်းလဲပေးသည်",
+        "Server Disk Space ကို 50% လျှော့ချပေးသည်",
+        "Hacker Bots များ၏ Automated Password Brute-force တိုက်ခိုက်မှုများကို ၁၀၀% ရပ်တန့်စေနိုင်သည်",
+        "SSH ဖြင့် Login ဝင်ချိန်ကို ပိုမို မြန်ဆန်စေသည်"
+      ],
+      correctAnswer: 2,
+      explanation: "စကားဝှက်ဖြင့် login ဝင်ခွင့်ကို လုံးဝ ပိတ်လိုက်သောအခါ Cryptographic Key မရှိသူ မည်သူမျှ (Hacker များ အကြိမ်သန်းပေါင်းများစွာ စကားဝှက် ရိုက်မှန်းသော်လည်း) Server ထဲသို့ ဝင်ရောက်နိုင်ခြင်း မရှိတော့ပါ။"
+    }
+  ]}
+/>
 
 <LessonCompletion
   client:idle
