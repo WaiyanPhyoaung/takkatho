@@ -57,82 +57,169 @@ const roadmaps = [
   }
 ];
 ---
-
 <StandaloneLayout
   title="Learning Roadmaps"
   description="Curated career learning paths for Myanmar developers and tech enthusiasts - Full-Stack, AI Automation, and Systems Architecture"
 >
-  <div class="neo-page min-h-screen py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Header Section -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-4">
+  <div class="neo-page neo-roadmaps min-h-screen">
+    <!-- Header -->
+    <div
+      class="relative overflow-hidden border-b border-gray-100 dark:border-stone-900"
+    >
+      <div
+        class="absolute inset-x-0 -top-24 h-64 bg-gradient-to-b from-orange-500/10 to-transparent blur-2xl"
+      >
+      </div>
+      <div
+        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 text-center"
+      >
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-xs uppercase tracking-wider mb-5"
+        >
           🗺️ Guided Career Paths
         </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
-          Takkatho <span class="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Learning Roadmaps</span>
+        <h1
+          class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4"
+        >
+          Takkatho <span
+            class="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent"
+            >Learning Roadmaps</span
+          >
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-400">
-          ဘယ်ကနေ စတင် လေ့လာရမှန်း မသိဖြစ်နေပါသလား? မိမိ သွားလိုသော နည်းပညာ လမ်းကြောင်းအလိုက် အဆင့်ဆင့် ရွေးချယ် လေ့လာနိုင်ပါသည်။
+        <p
+          class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed"
+        >
+          ဘယ်ကနေ စတင် လေ့လာရမှန်း မသိဖြစ်နေပါသလား? မိမိ သွားလိုသော နည်းပညာ
+          လမ်းကြောင်းအလိုက် အဆင့်ဆင့် ရွေးချယ် လေ့လာနိုင်ပါသည်။
         </p>
-      </div>
 
-      <!-- Roadmap Cards -->
-      <div class="space-y-16">
-        {roadmaps.map((roadmap) => (
-          <div class={`relative rounded-3xl p-6 sm:p-10 bg-white dark:bg-stone-900/60 border ${roadmap.borderColor} shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl`}>
-            
-            <!-- Roadmap Title & Description -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-100 dark:border-stone-800">
-              <div>
-                <span class={`inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-md text-white bg-gradient-to-r ${roadmap.color} mb-3`}>
+        <!-- Quick jump -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-2.5">
+          {
+            roadmaps.map((roadmap) => (
+              <a
+                href={`#${roadmap.id}`}
+                class={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-white bg-gradient-to-r ${roadmap.color} shadow-md transition-transform hover:-translate-y-0.5`}
+              >
+                <span>{roadmap.title.replace(" Path", "")}</span>
+                <span class="rounded-full bg-black/15 px-1.5 tabular-nums">
+                  {roadmap.steps.length}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Roadmap Cards -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="space-y-14">
+        {
+          roadmaps.map((roadmap) => (
+            <section
+              id={roadmap.id}
+              class={`relative scroll-mt-24 overflow-hidden rounded-3xl border ${roadmap.borderColor} bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-2xl sm:p-10 dark:bg-stone-900/60`}
+            >
+              <div
+                class={`pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full ${roadmap.bgGlow} blur-3xl`}
+              />
+
+              <!-- Roadmap Title & Description -->
+              <div class="relative mb-8 border-b border-gray-100 pb-6 dark:border-stone-800">
+                <span
+                  class={`mb-3 inline-block rounded-md bg-gradient-to-r px-3 py-1 text-xs font-bold uppercase tracking-wider text-white ${roadmap.color}`}
+                >
                   {roadmap.badge}
                 </span>
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">
                   {roadmap.titleBurmese}
-                  <span class="block text-base font-normal text-gray-500 dark:text-gray-400 mt-1">{roadmap.title}</span>
                 </h2>
+                <p class="mt-1 text-base font-normal text-gray-500 dark:text-gray-400">
+                  {roadmap.title}
+                </p>
+                <p class="mt-4 max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  {roadmap.description}
+                </p>
+                <p class="mt-4 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 dark:bg-stone-800 dark:text-stone-300">
+                  {roadmap.steps.length} အဆင့် · အစမှ အဆုံး
+                </p>
               </div>
-              <p class="text-sm text-gray-600 dark:text-gray-400 max-w-md">
-                {roadmap.description}
-              </p>
-            </div>
 
-            <!-- Steps Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {roadmap.steps.map((item) => (
-                <a
-                  href={item.slug}
-                  class="group relative flex flex-col justify-between p-5 rounded-2xl bg-gray-50 dark:bg-stone-800/40 border border-gray-200/80 dark:border-stone-700/50 hover:bg-white dark:hover:bg-stone-800 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <div>
-                    <div class="flex items-center justify-between mb-3">
-                      <span class={`text-xs font-black px-2.5 py-1 rounded-full text-white bg-gradient-to-r ${roadmap.color}`}>
-                        STEP {item.step}
-                      </span>
-                      <svg class="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-orange-500 transition-colors">
-                      {item.title}
-                    </h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <div class="mt-4 pt-3 border-t border-gray-100 dark:border-stone-700/40 text-xs font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-1">
-                    သင်ခန်းစာ သို့သွားမည် →
-                  </div>
-                </a>
-              ))}
-            </div>
-
-          </div>
-        ))}
+              <!-- Steps Grid -->
+              <ol class="relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {roadmap.steps.map((item) => (
+                  <li class="flex">
+                    <a
+                      href={item.slug}
+                      class="group flex w-full flex-col justify-between rounded-2xl border border-gray-200/80 bg-gray-50 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-orange-400/60 hover:bg-white hover:shadow-lg dark:border-stone-700/50 dark:bg-stone-800/40 dark:hover:border-orange-500/40 dark:hover:bg-stone-800"
+                    >
+                      <div>
+                        <div class="mb-3 flex items-center justify-between">
+                          <span
+                            class={`rounded-full bg-gradient-to-r px-2.5 py-1 text-xs font-black text-white ${roadmap.color}`}
+                          >
+                            STEP {item.step}
+                          </span>
+                          <svg
+                            class="h-5 w-5 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-orange-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            />
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 transition-colors group-hover:text-orange-500 dark:text-white">
+                          {item.title}
+                        </h3>
+                        <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                          {item.desc}
+                        </p>
+                      </div>
+                      <div class="mt-4 flex items-center gap-1 border-t border-gray-100 pt-3 text-xs font-semibold text-orange-600 dark:border-stone-700/40 dark:text-orange-400">
+                        သင်ခန်းစာ သို့သွားမည် →
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))
+        }
       </div>
 
+      <!-- Closing CTA -->
+      <div
+        class="neo-cta-panel mt-16 flex flex-col items-center gap-5 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent px-6 py-12 text-center"
+      >
+        <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">
+          လမ်းကြောင်း ရွေးပြီးသွားပါက
+        </h2>
+        <p class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+          သင်တန်းအားလုံးကို စာရင်းအလိုက် ကြည့်နိုင်ပါသည်။ အလုပ်လုပ်နေစဉ်
+          Command များ အမြန်ရှာဖွေရန် Cheat Sheets ကို သုံးပါ။
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a
+            href="/courses"
+            class="neo-btn inline-flex items-center justify-center gap-2 bg-orange-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-orange-600"
+          >
+            သင်တန်းအားလုံး ကြည့်မည် →
+          </a>
+          <a
+            href="/cheatsheets"
+            class="neo-btn inline-flex items-center justify-center gap-2 border border-gray-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-gray-800 backdrop-blur-md transition-all hover:border-orange-500/50 dark:border-stone-800 dark:bg-stone-900/80 dark:text-gray-200"
+          >
+            ⚡ Cheat Sheets
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </StandaloneLayout>

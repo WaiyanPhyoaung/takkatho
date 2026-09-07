@@ -11,7 +11,6 @@ interface Props {
 
 const { title, description = "Myanmar Programming Learning Platform" } =
   Astro.props;
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -60,7 +59,29 @@ const currentPath = Astro.url.pathname;
           </div>
 
           <!-- Right Actions -->
-          <div class="standalone-header-actions flex items-center gap-3">
+          <div class="standalone-header-actions flex items-center gap-2">
+            <!-- Mobile Nav Toggle -->
+            <button
+              id="nav-toggle"
+              class="md:hidden p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-400 transition-colors duration-200"
+              aria-label="Toggle navigation"
+              aria-expanded="false"
+              aria-controls="mobile-nav"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 7h16M4 12h16M4 17h16"></path>
+              </svg>
+            </button>
+
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"
@@ -96,6 +117,19 @@ const currentPath = Astro.url.pathname;
             </button>
           </div>
         </div>
+
+        <!-- Mobile Nav Panel -->
+        <div
+          id="mobile-nav"
+          class="md:hidden hidden -mx-4 px-4 pb-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 bg-white/95 dark:bg-[#0c0a09]/95 border-t border-gray-100 dark:border-stone-900"
+        >
+          <div class="flex flex-col pt-2 text-sm font-semibold">
+            <a href="/courses" class="py-3 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Courses</a>
+            <a href="/roadmaps" class="py-3 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Roadmaps</a>
+            <a href="/cheatsheets" class="py-3 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Cheat Sheets</a>
+            <a href="/about" class="py-3 text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors">About</a>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -107,10 +141,10 @@ const currentPath = Astro.url.pathname;
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center gap-4">
           <div class="w-8 flex-shrink-0 hidden sm:block"></div>
           <div class="flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 text-white text-sm">
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 flex-shrink-0 hidden sm:block" fill="currentColor" viewBox="0 0 24 24">
               <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
             </svg>
-            <span class="font-medium">            ဒီ Platform လေး ဆက်ပြီးရပ်တည်နိုင်ဖို့ ကူညီပေးပါဦးနော် 🙏</span>
+            <span class="font-medium">ဒီ Platform လေး ဆက်ပြီးရပ်တည်နိုင်ဖို့ ကူညီပေးပါဦးနော် 🙏</span>
             <a
               href="/about#donation"
               class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-white/25 hover:bg-white/40 font-semibold transition-colors whitespace-nowrap text-white"
@@ -134,14 +168,12 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <!-- Footer -->
-    <footer
-      class="bg-gray-50 dark:bg-gray-950 relative z-10"
-    >
+    <footer class="bg-gray-50 dark:bg-[#0c0a09] relative z-10">
       <div
         class="max-w-7xl mx-auto px-4 flex flex-col gap-2 md:flex-row justify-between sm:px-6 lg:px-8 py-12"
       >
         <p class="text-sm text-gray-500 dark:text-gray-500">
-          © 2024 Takkatho. All rights reserved.
+          © {new Date().getFullYear()} Takkatho. All rights reserved.
         </p>
         <p class="text-sm text-gray-500 dark:text-gray-500">
           Made with ❤️ for Myanmar Developers
@@ -187,6 +219,14 @@ const currentPath = Astro.url.pathname;
       themeToggle?.addEventListener("click", () => {
         const currentTheme = html.classList.contains("dark") ? "dark" : "light";
         setTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+
+      const navToggle = document.getElementById("nav-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
+
+      navToggle?.addEventListener("click", () => {
+        const isOpen = mobileNav?.classList.toggle("hidden") === false;
+        navToggle.setAttribute("aria-expanded", String(isOpen));
       });
 
       document.getElementById("dismiss-banner")?.addEventListener("click", () => {

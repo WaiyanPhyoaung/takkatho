@@ -7,25 +7,42 @@ import CheatSheetsViewer from "../components/CheatSheetsViewer";
   title="Developer Cheat Sheets (ကူးယူသုံးစွဲနိုင်သော အမြန်လမ်းညွှန်များ)"
   description="Git, Docker, Linux, SQL, CSS Flexbox/Grid, n8n Automation အစရှိသော Developer မရှိမဖြစ် Command များနှင့် Code Snippets များကို အလွယ်တကူ ရှာဖွေ ကူးယူနိုင်သော Visual Reference Hub"
 >
-  <div class="neo-page min-h-screen py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <!-- Header Section -->
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-4">
-          ⚡ Quick Reference Hub
+  <div class="neo-page neo-cheatsheets min-h-screen">
+    <!-- Header -->
+    <div class="relative overflow-hidden border-b border-gray-100 dark:border-stone-900">
+      <div
+        class="absolute inset-x-0 -top-24 h-64 bg-gradient-to-b from-orange-500/10 to-transparent blur-2xl"
+      >
+      </div>
+      <div
+        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 text-center"
+      >
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold text-xs uppercase tracking-wider mb-5"
+        >
+          ⚡ Quick Reference
         </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
-          Developer <span class="bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 bg-clip-text text-transparent">Cheat Sheets</span>
+        <h1
+          class="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4"
+        >
+          Developer <span
+            class="bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 bg-clip-text text-transparent"
+            >Cheat Sheets</span
+          >
         </h1>
-        <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-          အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေ ကူးယူနိုင်မည့် <b>Git, Docker, Linux, SQL, CSS နှင့် n8n Automation</b> Command များနှင့် Code Snippets များ စုစည်းမှု။
+        <p
+          class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed"
+        >
+          အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေ ကူးယူနိုင်မည့် <b class="font-semibold"
+            >Git, Docker, Linux, SQL, CSS နှင့် n8n</b
+          > Command များ စုစည်းမှု။
         </p>
       </div>
+    </div>
 
-      <!-- Interactive React Cheat Sheets Component -->
+    <!-- Interactive React Cheat Sheets Component -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
       <CheatSheetsViewer client:load />
-
     </div>
   </div>
 </StandaloneLayout>

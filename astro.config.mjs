@@ -26,6 +26,9 @@ export default defineConfig({
     starlight({
       plugins: [starlightThemeNova()],
       expressiveCode: true,
+      // src/pages/404.astro is the site's 404 page; without this both routes
+      // claim /404 and Astro warns about the collision.
+      disable404Route: true,
       title: "တက္ကသိုလ် (Takkatho) - Myanmar Programming Learning Platform",
       description:
         "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။ Myanmar developers များအတွက် အထူးပြုလုပ်ထားသည့် ခေတ်မီ learning platform။",

@@ -27,11 +27,9 @@ import {
 import {
   Search,
   BookOpen,
-  Clock,
   ArrowRight,
   Filter,
   Users,
-  Star,
   Zap,
   Code,
   Database,
@@ -43,7 +41,6 @@ import {
   Sparkles,
   Loader2,
   GraduationCap,
-  PlayCircle,
   X,
   Palette,
 } from "lucide-react";

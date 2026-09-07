@@ -1,5 +1,6 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import heroImage from "../assets/hero.svg";
 ---
 
 <StarlightPage
@@ -13,7 +14,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
     <div class="not-found-content">
       <div class="error-icon">
         <img
-          src="/src/assets/hero.svg"
+          src={heroImage.src}
           alt="404 Error"
           width="120"
           height="120"

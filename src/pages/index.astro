@@ -1,6 +1,11 @@
 ---
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 import { coursesData } from "@/components/CoursesListing";
+
+const totalLessons = coursesData.reduce(
+  (sum, course) => sum + course.lessons,
+  0,
+);
 ---
 
 <StandaloneLayout
@@ -17,8 +22,13 @@ import { coursesData } from "@/components/CoursesListing";
       </div>
       <canvas
         id="matrix-canvas"
-        class="absolute inset-0 w-full h-full pointer-events-none opacity-60 dark:opacity-80 mix-blend-multiply dark:mix-blend-screen"
+        class="absolute inset-0 w-full h-full pointer-events-none opacity-25 dark:opacity-80 mix-blend-multiply dark:mix-blend-screen"
       ></canvas>
+      <!-- Vignette: keeps the headline readable over the animated background -->
+      <div
+        class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_60%_55%_at_50%_45%,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.5)_45%,transparent_75%)] dark:bg-[radial-gradient(ellipse_60%_55%_at_50%_45%,rgba(12,10,9,0.8)_0%,rgba(12,10,9,0.4)_45%,transparent_75%)]"
+      >
+      </div>
 
       <!-- Gradient Orbs -->
       <div
@@ -36,18 +46,17 @@ import { coursesData } from "@/components/CoursesListing";
       </div>
 
       <div
-        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32"
+        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28"
       >
         <div class="text-center">
           <!-- Main Heading -->
           <h1
-            class="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight relative"
+            class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight relative"
           >
             <span
               class="text-orange-600 dark:text-orange-500 drop-shadow-[0_0_25px_rgba(234,88,12,0.4)]"
               >တက္ကသိုလ်</span
             >
-            <br />
           </h1>
 
           <!-- Subtitle -->
@@ -63,11 +72,11 @@ import { coursesData } from "@/components/CoursesListing";
 
           <!-- CTA Buttons -->
           <div
-            class="hero-cta flex flex-wrap items-center justify-center gap-3 mb-16 relative z-10"
+            class="hero-cta flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-14 relative z-10"
           >
             <a
               href="/courses"
-              class="neo-btn group flex items-center py-3.5 px-6 gap-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-base hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-orange-500/25 rounded-2xl"
+              class="neo-btn group inline-flex items-center justify-center py-4 px-7 gap-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-base transition-all duration-300 shadow-lg shadow-orange-500/25"
             >
               <span>သင်ခန်းစာများ</span>
               <svg
@@ -84,20 +93,8 @@ import { coursesData } from "@/components/CoursesListing";
               </svg>
             </a>
             <a
-              href="/roadmaps"
-              class="neo-btn group flex items-center py-3.5 px-6 gap-2.5 bg-white/80 backdrop-blur-md dark:bg-stone-900/80 border border-gray-200 dark:border-stone-800 text-gray-800 dark:text-gray-200 font-semibold text-base hover:-translate-y-0.5 transition-all duration-300 rounded-2xl hover:border-orange-500/50"
-            >
-              <span>🗺️ Career Roadmaps</span>
-            </a>
-            <a
-              href="/cheatsheets"
-              class="neo-btn group flex items-center py-3.5 px-6 gap-2.5 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-orange-500/30 text-orange-600 dark:text-orange-400 font-semibold text-base hover:-translate-y-0.5 transition-all duration-300 rounded-2xl hover:bg-orange-500/20"
-            >
-              <span>⚡ Cheat Sheets</span>
-            </a>
-            <a
               href="/about"
-              class="neo-btn group flex items-center py-3.5 px-6 gap-2 bg-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium text-sm transition-colors"
+              class="neo-btn group inline-flex items-center justify-center py-4 px-7 gap-2.5 bg-white/80 backdrop-blur-md dark:bg-stone-900/80 border border-gray-200 dark:border-stone-800 text-gray-800 dark:text-gray-200 font-semibold text-base transition-all duration-300 hover:border-orange-500/50"
             >
               <span>ကျွန်ုပ်တို့အကြောင်း</span>
             </a>
@@ -124,7 +121,7 @@ import { coursesData } from "@/components/CoursesListing";
               <div
                 class="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400"
               >
-                380+
+                {totalLessons}+
               </div>
               <div
                 class="text-sm text-orange-800/70 dark:text-orange-300/70 mt-1"
@@ -154,7 +151,7 @@ import { coursesData } from "@/components/CoursesListing";
     </section>
 
     <!-- Where to Start Section -->
-    <section class="py-16 dark:bg-[#0c0a09] neo-alt relative">
+    <section class="py-20 dark:bg-[#0c0a09] neo-alt relative">
       <div
         class="absolute inset-0 bg-[linear-gradient(to_right,#f9731610_1px,transparent_1px),linear-gradient(to_bottom,#f9731610_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"
       >
@@ -189,7 +186,7 @@ import { coursesData } from "@/components/CoursesListing";
     </section>
 
     <!-- Community Banners -->
-    <section class="py-4 dark:bg-[#0c0a09] neo-alt relative">
+    <section class="pb-16 dark:bg-[#0c0a09] neo-alt relative">
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-center relative z-10"
       >
@@ -250,7 +247,7 @@ import { coursesData } from "@/components/CoursesListing";
     </section>
 
     <!-- Developer Cheat Sheets Hub Showcase Section -->
-    <section class="py-12 dark:bg-[#0c0a09] relative overflow-hidden">
+    <section class="py-20 dark:bg-[#0c0a09] relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-500/20 backdrop-blur-xl shadow-xl">
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
@@ -276,32 +273,32 @@ import { coursesData } from "@/components/CoursesListing";
 
           <!-- Quick Preview Cards Grid -->
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#git" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🌿</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">Git Commands</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Undo, Stash, Branch</p>
             </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-blue-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#docker" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-blue-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐳</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">Docker CLI</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Run, Compose, Exec</p>
             </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-emerald-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#linux" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-emerald-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐧</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">Linux Server</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Systemd, UFW, Tail</p>
             </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-amber-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#sql" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-amber-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🗄️</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">SQL Queries</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">JOINs, GROUP BY, Index</p>
             </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-purple-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#css" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-purple-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">CSS Layouts</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Flexbox, Auto-Grid</p>
             </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-rose-500/50 hover:shadow-md transition-all group text-center">
+            <a href="/cheatsheets#n8n" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-rose-500/50 hover:shadow-md transition-all group text-center">
               <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">⚡</div>
               <h3 class="text-xs font-bold text-gray-900 dark:text-white">n8n Workflow</h3>
               <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Webhook, Telegram Bot</p>
@@ -325,9 +322,6 @@ import { coursesData } from "@/components/CoursesListing";
           >
             လူကြိုက်များသော သင်ခန်းစာများ
           </h2>
-          <!-- <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"> -->
-          <!-- Beginner မှ Advanced အဆင့်အထိ စနစ်တကျ လေ့လာနိုင်မည့် သင်တန်းများ
-          </p> -->
         </div>
 
         <!-- Course Grid -->
@@ -786,7 +780,7 @@ import { coursesData } from "@/components/CoursesListing";
         <div class="text-center mt-12">
           <a
             href="/courses"
-            class="neo-btn inline-flex items-center gap-2 sm:px-4 lg:px-8 py-4 bg-white/80 backdrop-blur-md dark:bg-gray-900/80 text-orange-700 dark:text-orange-400 font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10"
+            class="neo-btn inline-flex items-center gap-2 px-6 sm:px-7 lg:px-8 py-4 bg-white/80 backdrop-blur-md dark:bg-gray-900/80 text-orange-700 dark:text-orange-400 font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10"
           >
             <span>သင်တန်းအားလုံးကို ကြည့်ရှုရန်</span>
             <svg
@@ -1208,14 +1202,13 @@ import { coursesData } from "@/components/CoursesListing";
       >
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <!-- <div class="text-center mb-16">
-
+        <div class="text-center mb-16">
           <h2
-            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-sm"
           >
             ဘာကြောင့် တက္ကသိုလ် ကို ရွေးချယ်ရမလဲ?
           </h2>
-        </div> -->
+        </div>
 
         <div
           class="neo-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"

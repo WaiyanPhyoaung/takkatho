@@ -1,16 +1,15 @@
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Search,
-  Copy,
   Check,
-  Terminal,
-  GitBranch,
-  Database,
-  Layers,
-  Zap,
-  Globe,
   Code,
+  Copy,
+  Database,
   FolderGit2,
+  GitBranch,
+  Layers,
+  Search,
+  Terminal,
+  Zap,
 } from "lucide-react";
 
 type CheatItem = {
@@ -257,186 +256,407 @@ const CHEATSHEET_DATA: CheatSection[] = [
   },
 ];
 
-const CATEGORIES = [
-  { id: "all", label: "အားလုံး (All)", icon: Layers },
+type Category = CheatSection["category"];
+
+type Accent = {
+  /** Icon tile gradient */
+  gradient: string;
+  /** Tag chip + accent text */
+  chip: string;
+  /** Card hover border */
+  hover: string;
+  /** Active pill background */
+  pill: string;
+};
+
+const ACCENTS: Record<Category, Accent> = {
+  git: {
+    gradient: "from-orange-500 to-red-500",
+    chip: "bg-orange-500/10 text-orange-600 dark:text-orange-300",
+    hover: "hover:border-orange-400/60 dark:hover:border-orange-500/50",
+    pill: "bg-orange-500 text-white shadow-md shadow-orange-500/25",
+  },
+  docker: {
+    gradient: "from-sky-500 to-cyan-500",
+    chip: "bg-sky-500/10 text-sky-600 dark:text-sky-300",
+    hover: "hover:border-sky-400/60 dark:hover:border-sky-500/50",
+    pill: "bg-sky-500 text-white shadow-md shadow-sky-500/25",
+  },
+  linux: {
+    gradient: "from-emerald-500 to-teal-500",
+    chip: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
+    hover: "hover:border-emerald-400/60 dark:hover:border-emerald-500/50",
+    pill: "bg-emerald-500 text-white shadow-md shadow-emerald-500/25",
+  },
+  sql: {
+    gradient: "from-amber-500 to-yellow-500",
+    chip: "bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    hover: "hover:border-amber-400/60 dark:hover:border-amber-500/50",
+    pill: "bg-amber-500 text-white shadow-md shadow-amber-500/25",
+  },
+  css: {
+    gradient: "from-violet-500 to-indigo-500",
+    chip: "bg-violet-500/10 text-violet-600 dark:text-violet-300",
+    hover: "hover:border-violet-400/60 dark:hover:border-violet-500/50",
+    pill: "bg-violet-500 text-white shadow-md shadow-violet-500/25",
+  },
+  n8n: {
+    gradient: "from-rose-500 to-pink-500",
+    chip: "bg-rose-500/10 text-rose-600 dark:text-rose-300",
+    hover: "hover:border-rose-400/60 dark:hover:border-rose-500/50",
+    pill: "bg-rose-500 text-white shadow-md shadow-rose-500/25",
+  },
+};
+
+const CATEGORY_ICONS: Record<Category, React.ElementType> = {
+  git: GitBranch,
+  docker: FolderGit2,
+  linux: Terminal,
+  sql: Database,
+  css: Code,
+  n8n: Zap,
+};
+
+const CATEGORIES: { id: string; label: string; icon: React.ElementType }[] = [
+  { id: "all", label: "အားလုံး", icon: Layers },
   { id: "git", label: "Git", icon: GitBranch },
   { id: "docker", label: "Docker", icon: FolderGit2 },
   { id: "linux", label: "Linux / VPS", icon: Terminal },
   { id: "sql", label: "SQL", icon: Database },
-  { id: "css", label: "CSS Layouts", icon: Code },
-  { id: "n8n", label: "n8n Automation", icon: Zap },
+  { id: "css", label: "CSS", icon: Code },
+  { id: "n8n", label: "n8n", icon: Zap },
 ];
+
+const TOTAL_ITEMS = CHEATSHEET_DATA.reduce(
+  (sum, section) => sum + section.items.length,
+  0,
+);
+
+const matches = (item: CheatItem, query: string) => {
+  const q = query.toLowerCase();
+  return (
+    item.command.toLowerCase().includes(q) ||
+    item.descBurmese.toLowerCase().includes(q) ||
+    (item.tag ?? "").toLowerCase().includes(q)
+  );
+};
+
+/** Wrap every occurrence of the query in a <mark> so hits are easy to spot. */
+const Highlight: React.FC<{ text: string; query: string }> = ({
+  text,
+  query,
+}) => {
+  const q = query.trim();
+  if (!q) return <>{text}</>;
+
+  const parts: React.ReactNode[] = [];
+  const lower = text.toLowerCase();
+  const needle = q.toLowerCase();
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    const hit = lower.indexOf(needle, cursor);
+    if (hit === -1) {
+      parts.push(text.slice(cursor));
+      break;
+    }
+    if (hit > cursor) parts.push(text.slice(cursor, hit));
+    parts.push(
+      <mark
+        key={`${hit}-${parts.length}`}
+        className="rounded bg-amber-300/70 px-0.5 text-inherit dark:bg-amber-400/30"
+      >
+        {text.slice(hit, hit + needle.length)}
+      </mark>,
+    );
+    cursor = hit + needle.length;
+  }
+
+  return <>{parts}</>;
+};
 
 export const CheatSheetsViewer: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
-    setCopiedIndex(id);
-    setTimeout(() => setCopiedIndex(null), 2000);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const filteredSections = useMemo(() => {
-    return CHEATSHEET_DATA.filter((section) => {
-      if (selectedCategory !== "all" && section.category !== selectedCategory) {
-        return false;
+  // Deep links such as /cheatsheets#docker land on that category preselected.
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash && hash in ACCENTS) setSelectedCategory(hash);
+  }, []);
+
+  // "/" focuses search, Escape clears it.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const typing =
+        target?.tagName === "INPUT" || target?.tagName === "TEXTAREA";
+
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        searchRef.current?.focus();
       }
-      return true;
-    }).map((section) => {
-      if (!searchQuery.trim()) return section;
-      const q = searchQuery.toLowerCase();
-      const matchingItems = section.items.filter(
-        (item) =>
-          item.command.toLowerCase().includes(q) ||
-          item.descBurmese.toLowerCase().includes(q) ||
-          (item.tag && item.tag.toLowerCase().includes(q))
-      );
-      return {
-        ...section,
-        items: matchingItems,
-      };
-    }).filter((section) => section.items.length > 0);
+      if (event.key === "Escape" && typing) {
+        setSearchQuery("");
+        searchRef.current?.blur();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  /** Per-category hit counts, so the pills can show how much is behind them. */
+  const counts = useMemo(() => {
+    const q = searchQuery.trim();
+    const byCategory = CHEATSHEET_DATA.reduce<Record<string, number>>(
+      (acc, section) => {
+        acc[section.category] = q
+          ? section.items.filter((item) => matches(item, q)).length
+          : section.items.length;
+        return acc;
+      },
+      {},
+    );
+    byCategory.all = Object.values(byCategory).reduce((a, b) => a + b, 0);
+    return byCategory;
+  }, [searchQuery]);
+
+  const filteredSections = useMemo(() => {
+    const q = searchQuery.trim();
+    return CHEATSHEET_DATA.filter(
+      (section) =>
+        selectedCategory === "all" || section.category === selectedCategory,
+    )
+      .map((section) =>
+        q
+          ? { ...section, items: section.items.filter((i) => matches(i, q)) }
+          : section,
+      )
+      .filter((section) => section.items.length > 0);
   }, [selectedCategory, searchQuery]);
 
-  return (
-    <div className="w-full space-y-8">
-      {/* Controls Bar: Search & Category Pills */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-stone-900/70 border border-gray-200 dark:border-stone-800 shadow-sm backdrop-blur-xl">
-        {/* Search Input */}
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Command သို့မဟုတ် အကြောင်းအရာ ရှာဖွေပါ (e.g. reset, port, grid, telegram)..."
-            className="w-full h-11 pl-10 pr-4 rounded-xl bg-gray-50 dark:bg-stone-950 border border-gray-200 dark:border-stone-800 focus:border-orange-500 text-sm text-gray-900 dark:text-white outline-none transition-all placeholder:text-gray-400"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 px-1.5 py-0.5 rounded"
-            >
-              ✕
-            </button>
-          )}
-        </div>
+  const shown = filteredSections.reduce((sum, s) => sum + s.items.length, 0);
+  const isFiltered = Boolean(searchQuery.trim()) || selectedCategory !== "all";
 
-        {/* Categories Horizontal Scroll */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            const isSelected = selectedCategory === cat.id;
-            return (
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+  };
+
+  return (
+    <div className="w-full">
+      {/* ---------- Toolbar ---------- */}
+      <div className="sticky top-16 z-30 -mx-4 mb-10 bg-white/95 px-4 py-4 backdrop-blur-md sm:-mx-6 sm:px-6 dark:bg-[#0c0a09]/95">
+        <div className="rounded-2xl border border-gray-200/80 bg-white/85 p-4 shadow-sm backdrop-blur-xl dark:border-stone-800 dark:bg-stone-900/85">
+          {/* Search: own row, so long placeholders can never push the pills */}
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <input
+              ref={searchRef}
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Command ရှာဖွေပါ..."
+              aria-label="Search commands"
+              className="h-12 w-full min-w-0 rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-24 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-orange-500 focus:bg-white dark:border-stone-800 dark:bg-stone-950 dark:text-white dark:focus:bg-stone-950 [&::-webkit-search-cancel-button]:hidden"
+            />
+            <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
+              {searchQuery ? (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  aria-label="Clear search"
+                  className="cursor-pointer rounded-lg px-2 py-1 text-xs font-semibold text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-stone-800 dark:hover:text-white"
+                >
+                  Clear
+                </button>
+              ) : (
+                <kbd className="hidden rounded-md border border-gray-200 bg-white px-1.5 py-0.5 font-mono text-[11px] text-gray-500 sm:block dark:border-stone-700 dark:bg-stone-900 dark:text-gray-400">
+                  /
+                </kbd>
+              )}
+            </div>
+          </div>
+
+          {/* Category pills: wrap instead of scroll, so nothing overflows */}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.id;
+              const count = counts[cat.id] ?? 0;
+              const accent =
+                cat.id === "all"
+                  ? "bg-gray-900 text-white shadow-md shadow-gray-900/20 dark:bg-white dark:text-gray-900"
+                  : ACCENTS[cat.id as Category].pill;
+
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  aria-pressed={isSelected}
+                  className={`flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold transition-all ${
+                    isSelected
+                      ? accent
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
+                  } ${count === 0 ? "opacity-40" : ""}`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  <span>{cat.label}</span>
+                  <span
+                    className={`rounded-full px-1.5 text-[10px] font-bold tabular-nums ${
+                      isSelected ? "bg-black/15" : "bg-black/5 dark:bg-white/10"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Result count */}
+          <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3 text-xs text-gray-500 dark:border-stone-800">
+            <span className="tabular-nums">
+              {shown} / {TOTAL_ITEMS} commands
+            </span>
+            {isFiltered && (
               <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20"
-                    : "bg-gray-100 dark:bg-stone-800 text-gray-600 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-700"
-                }`}
+                type="button"
+                onClick={resetFilters}
+                className="cursor-pointer font-semibold text-orange-600 hover:underline dark:text-orange-400"
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{cat.label}</span>
+                Reset
               </button>
-            );
-          })}
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Cheat Sheets Grid Sections */}
+      {/* ---------- Results ---------- */}
       {filteredSections.length === 0 ? (
-        <div className="text-center py-16 p-6 rounded-3xl bg-gray-50 dark:bg-stone-900/40 border border-dashed border-gray-300 dark:border-stone-800">
-          <p className="text-gray-500 dark:text-gray-400 text-base mb-2">
-            ရှာဖွေတွေ့ရှိချက် မရှိပါ: "{searchQuery}"
+        <div className="rounded-3xl border border-dashed border-gray-300 bg-gray-50 px-6 py-20 text-center dark:border-stone-800 dark:bg-stone-900/40">
+          <Search className="mx-auto mb-4 h-8 w-8 text-gray-300 dark:text-stone-700" />
+          <p className="mb-1 text-base font-semibold text-gray-800 dark:text-gray-200">
+            ရှာဖွေတွေ့ရှိချက် မရှိပါ
           </p>
+          <p className="mb-5 text-sm text-gray-500">"{searchQuery}"</p>
           <button
-            onClick={() => { setSearchQuery(""); setSelectedCategory("all"); }}
-            className="text-xs font-bold text-orange-500 hover:underline"
+            type="button"
+            onClick={resetFilters}
+            className="cursor-pointer rounded-full bg-orange-500 px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-orange-600"
           >
-            Filter များကို အစမှ ပြန်လည်စတင်မည်
+            Filter များ ရှင်းလင်းမည်
           </button>
         </div>
       ) : (
-        <div className="space-y-10">
-          {filteredSections.map((section) => (
-            <div
-              key={section.id}
-              className="rounded-3xl p-6 sm:p-8 bg-white dark:bg-stone-900/60 border border-gray-200 dark:border-stone-800/80 shadow-lg backdrop-blur-xl"
-            >
-              {/* Section Header */}
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-stone-800">
-                <div
-                  className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${section.color} flex items-center justify-center text-white font-bold shadow-md`}
-                >
-                  {section.category === "git" && <GitBranch className="w-5 h-5" />}
-                  {section.category === "docker" && <FolderGit2 className="w-5 h-5" />}
-                  {section.category === "linux" && <Terminal className="w-5 h-5" />}
-                  {section.category === "sql" && <Database className="w-5 h-5" />}
-                  {section.category === "css" && <Code className="w-5 h-5" />}
-                  {section.category === "n8n" && <Zap className="w-5 h-5" />}
-                </div>
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-                    {section.titleBurmese}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                    {section.title}
-                  </p>
-                </div>
-              </div>
+        <div className="space-y-12">
+          {filteredSections.map((section) => {
+            const accent = ACCENTS[section.category];
+            const SectionIcon = CATEGORY_ICONS[section.category];
 
-              {/* Items Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {section.items.map((item, index) => {
-                  const itemId = `${section.id}-${index}`;
-                  const isCopied = copiedIndex === itemId;
+            return (
+              <section key={section.id} id={section.id} className="scroll-mt-40">
+                {/* Section header */}
+                <div className="mb-5 flex items-center gap-3.5">
+                  <div
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.gradient} text-white shadow-lg`}
+                  >
+                    <SectionIcon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="text-lg font-bold leading-[1.9] text-gray-900 sm:text-xl dark:text-white">
+                      {section.titleBurmese}
+                    </h2>
+                    <p className="text-xs text-gray-500 sm:text-sm">
+                      {section.title}
+                    </p>
+                  </div>
+                  <span className="ml-auto shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-bold tabular-nums text-gray-600 dark:bg-stone-800 dark:text-stone-300">
+                    {section.items.length}
+                  </span>
+                </div>
 
-                  return (
-                    <div
-                      key={itemId}
-                      className="group relative flex flex-col justify-between p-4 rounded-2xl bg-gray-50/80 dark:bg-stone-950/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 transition-all hover:shadow-md"
-                    >
-                      <div>
-                        {/* Tag and Explanation */}
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="text-xs font-medium text-gray-700 dark:text-gray-300 line-clamp-2">
-                            {item.descBurmese}
-                          </span>
+                {/* Items */}
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  {section.items.map((item, index) => {
+                    const itemId = `${section.id}-${index}`;
+                    const isCopied = copiedId === itemId;
+
+                    return (
+                      <article
+                        key={itemId}
+                        className={`group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-lg dark:border-stone-800 dark:bg-stone-900 ${accent.hover}`}
+                      >
+                        {/* Explanation */}
+                        <div className="flex items-start justify-between gap-3 px-4 pb-3 pt-4">
+                          <p className="text-[13px] font-medium leading-7 text-gray-700 dark:text-gray-300">
+                            <Highlight
+                              text={item.descBurmese}
+                              query={searchQuery}
+                            />
+                          </p>
                           {item.tag && (
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 shrink-0">
+                            <span
+                              className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${accent.chip}`}
+                            >
                               {item.tag}
                             </span>
                           )}
                         </div>
 
-                        {/* Code Block */}
-                        <div className="relative mt-2 p-3 rounded-xl bg-gray-900 text-amber-300 dark:text-amber-400 font-mono text-xs overflow-x-auto leading-relaxed border border-stone-800">
-                          <pre className="pr-8 whitespace-pre-wrap break-all">{item.command}</pre>
-
-                          {/* 1-Click Copy Button */}
-                          <button
-                            onClick={() => handleCopy(item.command, itemId)}
-                            className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-stone-800/90 hover:bg-stone-700 text-stone-300 hover:text-white transition-all shadow-sm cursor-pointer"
-                            title="Copy code"
-                          >
-                            {isCopied ? (
-                              <Check className="w-3.5 h-3.5 text-green-400" />
-                            ) : (
-                              <Copy className="w-3.5 h-3.5" />
-                            )}
-                          </button>
+                        {/* Terminal-style code block */}
+                        <div className="mt-auto border-t border-gray-100 bg-[#12100e] dark:border-stone-800 dark:bg-[#0a0806]">
+                          <div className="flex items-center justify-between border-b border-white/5 px-3 py-1.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="h-2 w-2 rounded-full bg-red-500/70" />
+                              <span className="h-2 w-2 rounded-full bg-amber-400/70" />
+                              <span className="h-2 w-2 rounded-full bg-emerald-500/70" />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleCopy(item.command, itemId)}
+                              aria-label="Copy command"
+                              className="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-stone-400 transition-colors hover:bg-white/10 hover:text-white"
+                            >
+                              {isCopied ? (
+                                <>
+                                  <Check className="h-3 w-3 text-emerald-400" />
+                                  <span className="text-emerald-400">
+                                    Copied
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" />
+                                  <span>Copy</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                          <pre className="max-h-64 overflow-auto px-4 py-3.5 font-mono text-xs leading-relaxed text-amber-300 [overflow-wrap:anywhere] whitespace-pre-wrap">
+                            <Highlight
+                              text={item.command}
+                              query={searchQuery}
+                            />
+                          </pre>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
         </div>
       )}
     </div>
