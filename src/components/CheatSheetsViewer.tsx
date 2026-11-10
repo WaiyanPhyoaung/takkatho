@@ -182,6 +182,8 @@ const CATEGORIES: { id: CheatCategoryId | "all"; label: string }[] = [
   })),
 ];
 
+const VALID_CATEGORIES = new Set<string>(CATEGORIES.map((category) => category.id));
+
 /**
  * `$` means paste it in a terminal. A language tag means it belongs in your
  * source. That distinction is the first thing you need to know about a
@@ -207,6 +209,22 @@ export const CheatSheetsViewer: React.FC = () => {
   const resetTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => () => window.clearTimeout(resetTimer.current), []);
+
+  // Shareable filters: /cheatsheets?category=git&q=reset opens pre-filtered,
+  // which is how the homepage cards deep-link here. State starts at "all" so
+  // the server-rendered HTML and the first client render match; the URL is
+  // read after hydration, and only then written back.
+  const [urlReady, setUrlReady] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category");
+    if (category && VALID_CATEGORIES.has(category)) {
+      setSelectedCategory(category as CheatCategoryId);
+    }
+    const q = params.get("q");
+    if (q) setSearchQuery(q);
+    setUrlReady(true);
+  }, []);
 
   // ⌘K / Ctrl+K focuses search, the way every other developer tool behaves.
   useEffect(() => {
@@ -273,6 +291,16 @@ export const CheatSheetsViewer: React.FC = () => {
 
   const isFiltered = query !== "" || selectedCategory !== "all";
 
+  useEffect(() => {
+    if (!urlReady) return;
+    const url = new URL(window.location.href);
+    if (selectedCategory === "all") url.searchParams.delete("category");
+    else url.searchParams.set("category", selectedCategory);
+    if (query) url.searchParams.set("q", searchQuery.trim());
+    else url.searchParams.delete("q");
+    window.history.replaceState(window.history.state, "", url);
+  }, [urlReady, selectedCategory, query, searchQuery]);
+
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("all");
@@ -298,7 +326,7 @@ export const CheatSheetsViewer: React.FC = () => {
               onKeyDown={(event) => {
                 if (event.key === "Escape") setSearchQuery("");
               }}
-              placeholder="ရှာဖွေပါ — git reset, port, grid, telegram…"
+              placeholder="Command ရှာရန်၊ ဥပမာ git reset, port, grid"
               className="cs-input"
             />
             {searchQuery ? (
@@ -359,8 +387,8 @@ export const CheatSheetsViewer: React.FC = () => {
           <p className="cs-empty-title">
             {query ? (
               <>
-                <span className="cs-t-comment">#</span> ရှာဖွေတွေ့ရှိချက် မရှိပါ —{" "}
-                <em>{searchQuery.trim()}</em>
+                <span className="cs-t-comment">#</span>{" "}
+                <em>{searchQuery.trim()}</em> နှင့် ကိုက်ညီသော Command မရှိပါ
               </>
             ) : (
               "ဒီ Category အတွက် အကြောင်းအရာ မရှိသေးပါ"

@@ -133,7 +133,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
           </button>
           <button
             onClick={runCode}
-            className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-orange-700 to-amber-700 hover:from-orange-800 hover:to-amber-800 text-white font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
           >
             Run Code ⚡
           </button>

@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Padauk:wght@400;700&display=swap");
+/*
+ * Fonts (Geist + Noto Sans Myanmar) load from <link> tags in the document head:
+ * StandaloneLayout.astro for the main pages, the Starlight `head` config in
+ * astro.config.mjs for lessons. They used to be @import-ed here, which made the
+ * browser download this file before it could discover the font CSS.
+ */
 
 @layer base, starlight, theme, components, utilities;
 

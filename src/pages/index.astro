@@ -1,6 +1,27 @@
 ---
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 import { coursesData } from "@/components/CoursesListing";
+import YouTube from "@/components/YouTube.astro";
+import { courseDirOf, lessonCountFor, totalLessons } from "../lib/course-stats.mjs";
+import { CHEATSHEET_DATA, TOTAL_COMMANDS } from "../data/cheatsheets";
+
+// Lesson counts on the hand-built cards below come from the sidebar, so they
+// stay right when lessons are added. They were hand-typed and had drifted
+// (the JavaScript card said 9; the course has 36).
+const lessons = (href: string) => lessonCountFor(courseDirOf(href));
+
+// Homepage cheat sheet cards, built from the same data as /cheatsheets. Each
+// card deep-links to its category, so the teaser can never list a category the
+// page doesn't have, or miss one it does.
+const cheatsheetCards = CHEATSHEET_DATA.map((section) => ({
+  id: section.id,
+  sigil: section.sigil,
+  title: section.title,
+  hint: [...new Set(section.items.map((item) => item.tag).filter(Boolean))]
+    .slice(0, 3)
+    .join(", "),
+  count: section.items.length,
+}));
 ---
 
 <StandaloneLayout
@@ -67,7 +88,7 @@ import { coursesData } from "@/components/CoursesListing";
           >
             <a
               href="/courses"
-              class="neo-btn group flex items-center py-3.5 px-6 gap-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-base hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-orange-500/25 rounded-2xl"
+              class="neo-btn group flex items-center py-3.5 px-6 gap-2.5 bg-orange-700 hover:bg-orange-800 text-white font-semibold text-base hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-orange-500/25 rounded-2xl"
             >
               <span>သင်ခန်းစာများ</span>
               <svg
@@ -103,6 +124,45 @@ import { coursesData } from "@/components/CoursesListing";
             </a>
           </div>
 
+          {/*
+            Continue learning. Lesson pages record the last lesson opened
+            (see RECORD_LAST_LESSON in astro.config.mjs). This stays hidden for
+            new visitors; for returning ones the inline script fills it in while
+            the page is still parsing, so it appears without shifting the layout.
+          */}
+          <div id="continue-learning" class="relative z-10 -mt-8 mb-12" hidden>
+            <a
+              id="continue-learning-link"
+              href="/courses"
+              class="group inline-flex max-w-full items-center gap-3 rounded-2xl border border-orange-500/25 bg-white/80 dark:bg-stone-900/70 px-4 py-3 text-left shadow-sm backdrop-blur-md transition-colors hover:border-orange-500/60"
+            >
+              <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-orange-700 text-white" aria-hidden="true">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs font-semibold text-orange-700 dark:text-orange-400">ဆက်လေ့လာရန်</span>
+                <span id="continue-learning-title" class="block truncate text-sm font-semibold text-gray-900 dark:text-white"></span>
+                <span id="continue-learning-course" class="block truncate text-xs text-gray-600 dark:text-gray-400"></span>
+              </span>
+            </a>
+          </div>
+          <script is:inline>
+            (() => {
+              try {
+                const data = JSON.parse(localStorage.getItem("takkatho-last-lesson") || "null");
+                // Same-site paths only ("/x", never "//host"), and nothing stale.
+                const fresh = data && Date.now() - Number(data.at) < 180 * 86_400_000;
+                if (!fresh || typeof data.path !== "string" || !/^\/(?!\/)/.test(data.path)) return;
+                document.getElementById("continue-learning-link").href = data.path;
+                document.getElementById("continue-learning-title").textContent = String(data.title || "");
+                document.getElementById("continue-learning-course").textContent = String(data.course || "");
+                document.getElementById("continue-learning").hidden = false;
+              } catch {
+                // Blocked storage or a malformed entry: show nothing.
+              }
+            })();
+          </script>
+
           <!-- Stats -->
           <div
             class="neo-stats inline-flex flex-wrap items-center justify-center gap-8 md:gap-12 px-8 py-6 relative z-10"
@@ -111,7 +171,7 @@ import { coursesData } from "@/components/CoursesListing";
               <div
                 class="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400"
               >
-                {coursesData.length}+
+                {coursesData.length}
               </div>
               <div
                 class="text-sm text-orange-800/70 dark:text-orange-300/70 mt-1"
@@ -124,7 +184,7 @@ import { coursesData } from "@/components/CoursesListing";
               <div
                 class="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-400"
               >
-                380+
+                {totalLessons}
               </div>
               <div
                 class="text-sm text-orange-800/70 dark:text-orange-300/70 mt-1"
@@ -174,15 +234,8 @@ import { coursesData } from "@/components/CoursesListing";
         <div class="flex justify-center">
           <div
             class="relative w-full max-w-2xl overflow-hidden rounded-3xl shadow-2xl shadow-orange-500/10 dark:shadow-orange-500/5 ring-1 ring-black/5 dark:ring-white/5"
-            style="padding-top: 56.25%;"
           >
-            <iframe
-              class="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/mgY1YjAP9oc"
-              title="Where to start learning programming"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            <YouTube id="mgY1YjAP9oc" title="Programming ကို ဘယ်ကနေ စတင်လေ့လာရမလဲ" />
           </div>
         </div>
       </div>
@@ -252,61 +305,50 @@ import { coursesData } from "@/components/CoursesListing";
     <!-- Developer Cheat Sheets Hub Showcase Section -->
     <section class="py-12 dark:bg-[#0c0a09] relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-500/20 backdrop-blur-xl shadow-xl">
+        <div class="rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-500/20 backdrop-blur-xl shadow-xl">
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
             <div>
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 mb-3">
-                ⚡ Developer Utilities
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500/10 text-orange-700 dark:text-orange-400 mb-3">
+                <span class="font-mono" aria-hidden="true">$</span> Developer Utilities
               </span>
               <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
-                Developer <span class="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Cheat Sheets</span> Hub
+                Developer <span class="bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent">Cheat Sheets</span> Hub
               </h2>
-              <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl">
-                အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေပြီး ၁-ချက်နှိပ် ကူးယူနိုင်မည့် Git, Docker, Linux, SQL, CSS နှင့် n8n Commands စုစည်းမှု။
+              <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">
+                အလုပ်လုပ်နေစဉ် ရှာပြီး တစ်ချက်နှိပ်ရုံဖြင့် ကူးယူနိုင်သော Command
+                {TOTAL_COMMANDS} ခု၊ Category {CHEATSHEET_DATA.length} ခု။
               </p>
             </div>
             <a
               href="/cheatsheets"
-              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-sm shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 shrink-0"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-orange-700 to-amber-700 hover:from-orange-800 hover:to-amber-800 text-white font-bold text-sm shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 shrink-0"
             >
               <span>Cheat Sheets အားလုံး ကြည့်မည်</span>
-              <span>→</span>
+              <span aria-hidden="true">→</span>
             </a>
           </div>
 
-          <!-- Quick Preview Cards Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🌿</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Git Commands</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Undo, Stash, Branch</p>
-            </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-blue-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐳</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Docker CLI</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Run, Compose, Exec</p>
-            </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-emerald-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐧</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Linux Server</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Systemd, UFW, Tail</p>
-            </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-amber-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🗄️</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">SQL Queries</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">JOINs, GROUP BY, Index</p>
-            </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-purple-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">CSS Layouts</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Flexbox, Auto-Grid</p>
-            </a>
-            <a href="/cheatsheets" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-rose-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">⚡</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">n8n Workflow</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Webhook, Telegram Bot</p>
-            </a>
-          </div>
+          <ul class="m-0 list-none p-0 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" role="list">
+            {
+              cheatsheetCards.map((card) => (
+                <li>
+                  <a
+                    href={`/cheatsheets?category=${card.id}`}
+                    class="flex h-full flex-col gap-1 p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all"
+                  >
+                    <span class="font-mono text-xs font-bold text-orange-700 dark:text-orange-400" aria-hidden="true">
+                      {card.sigil}
+                    </span>
+                    <h3 class="m-0 text-sm font-bold text-gray-900 dark:text-white">{card.title}</h3>
+                    <span class="text-xs text-gray-600 dark:text-gray-400">{card.hint}</span>
+                    <span class="mt-auto pt-2 font-mono text-xs text-gray-600 dark:text-gray-400">
+                      {card.count} commands
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </section>
@@ -326,8 +368,8 @@ import { coursesData } from "@/components/CoursesListing";
             လူကြိုက်များသော သင်ခန်းစာများ
           </h2>
           <!-- <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"> -->
-          <!-- Beginner မှ Advanced အဆင့်အထိ စနစ်တကျ လေ့လာနိုင်မည့် သင်တန်းများ
-          </p> -->
+          {/* Beginner မှ Advanced အဆင့်အထိ စနစ်တကျ လေ့လာနိုင်မည့် သင်တန်းများ
+          </p> */}
         </div>
 
         <!-- Course Grid -->
@@ -387,7 +429,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  20 lessons
+                  {lessons("/git-course/introduction/why-git")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -463,7 +505,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  25 lessons
+                  {lessons("/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -538,7 +580,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  16 lessons
+                  {lessons("/ai-proficiency/foundations/introduction")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -612,7 +654,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  8 lessons
+                  {lessons("/html/introduction/welcome-to-html")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -686,7 +728,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  9 lessons
+                  {lessons("/javascript/introduction/intro")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -760,7 +802,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  15 lessons
+                  {lessons("/fe-architecture/introduction/welcome")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -879,7 +921,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  8 lessons
+                  {lessons("/python")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -953,7 +995,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  8 lessons
+                  {lessons("/java")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1027,7 +1069,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  10 lessons
+                  {lessons("/golang")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1102,7 +1144,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  6 lessons
+                  {lessons("/sql-course/introduction/what-is-sql")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1177,7 +1219,7 @@ import { coursesData } from "@/components/CoursesListing";
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  9 lessons
+                  {lessons("/typescript")} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1208,14 +1250,14 @@ import { coursesData } from "@/components/CoursesListing";
       >
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <!-- <div class="text-center mb-16">
+        {/* <div class="text-center mb-16">
 
           <h2
             class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4"
           >
             ဘာကြောင့် တက္ကသိုလ် ကို ရွေးချယ်ရမလဲ?
           </h2>
-        </div> -->
+        </div> */}
 
         <div
           class="neo-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"

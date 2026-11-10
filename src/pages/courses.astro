@@ -1,11 +1,41 @@
 ---
-import { CoursesListing, coursesData } from "@/components/CoursesListing";
+import {
+  CoursesListing,
+  coursesData,
+  type CourseFacts,
+} from "@/components/CoursesListing";
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
+import { courseFor, totalLessons } from "../lib/course-stats.mjs";
+import { SITE } from "../config/site.mjs";
+
+// Only the small per-course facts cross into the browser bundle, not the sidebar.
+const facts: CourseFacts = Object.fromEntries(
+  coursesData.map((course) => {
+    const fact = courseFor(course.dir);
+    if (!fact) throw new Error(`Course "${course.id}" has no sidebar group "${course.dir}".`);
+    return [course.dir, { href: fact.href, lessonCount: fact.lessonCount }];
+  }),
+);
+
+// ItemList in Google's "summary page" shape: each entry needs only a position
+// and the URL of a real page, and every URL is unique. Each URL here is the
+// first page of that course's sidebar, so none of them 404.
+// https://developers.google.com/search/docs/appearance/structured-data/course
+const courseListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: coursesData.map((course, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: new URL(facts[course.dir].href, SITE).href,
+  })),
+};
 ---
 
 <StandaloneLayout
   title="Programming Courses"
-  description="Comprehensive programming courses designed for Myanmar developers - from beginner to advanced level"
+  description={`မြန်မာဘာသာဖြင့် အခမဲ့ Programming သင်ခန်းစာ ${coursesData.length} ခု၊ Lesson ${totalLessons} ခု။ HTML, CSS, JavaScript, TypeScript, Python, Go, SQL, Docker, Linux နှင့် Software Architecture.`}
+  jsonLd={[courseListSchema]}
 >
   <div class="neo-page neo-courses">
     <!-- Hero Section -->
@@ -43,7 +73,7 @@ import StandaloneLayout from "../layouts/StandaloneLayout.astro";
               ></path>
             </svg>
             <span class="text-sm font-medium text-amber-700 dark:text-amber-300"
-              >{coursesData.length}+ Courses Available</span
+              >{coursesData.length} Courses · {totalLessons} Lessons</span
             >
           </div>
 
@@ -124,7 +154,7 @@ import StandaloneLayout from "../layouts/StandaloneLayout.astro";
     <!-- Courses Listing -->
     <section class="py-8 bg-white dark:bg-gray-950 neo-alt">
       <div class="courses-wrapper">
-        <CoursesListing client:load />
+        <CoursesListing client:load facts={facts} />
       </div>
     </section>
   </div>

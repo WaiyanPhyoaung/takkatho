@@ -11,6 +11,13 @@ const categoryCount = CHEATSHEET_DATA.length;
   title="Developer Cheat Sheets (ကူးယူသုံးစွဲနိုင်သော အမြန်လမ်းညွှန်များ)"
   description="Git, Docker, Linux/VPS, SQL, CSS, JavaScript, npm နှင့် n8n Automation အစရှိသော Developer မရှိမဖြစ် Command များနှင့် Code Snippets များကို အလွယ်တကူ ရှာဖွေ ကူးယူနိုင်သော Quick Reference Hub"
 >
+  <!-- Only this page uses the mono face, so only this page loads it. -->
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&display=swap"
+  />
+
   <div class="neo-page cs-page min-h-screen">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
@@ -71,12 +78,26 @@ const categoryCount = CHEATSHEET_DATA.length;
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.75rem;
     letter-spacing: 0.02em;
-    color: #6b7a89;
+    color: #56636f;
+  }
+
+  :global(:root.dark) .cs-hero-eyebrow {
+    color: #8a99a8;
+  }
+
+  /* #f97316 on the light page is 2.7:1; these pass AA in each mode. */
+  .cs-hero-prompt,
+  .cs-hero-accent {
+    color: #c2410c;
   }
 
   .cs-hero-prompt {
-    color: #f97316;
     font-weight: 700;
+  }
+
+  :global(:root.dark) .cs-hero-prompt,
+  :global(:root.dark) .cs-hero-accent {
+    color: #fb923c;
   }
 
   /*
@@ -97,9 +118,7 @@ const categoryCount = CHEATSHEET_DATA.length;
     color: #f2f6fa;
   }
 
-  .cs-hero-accent {
-    color: #f97316;
-  }
+
 
   .cs-hero-lede {
     max-width: 34rem;
@@ -128,10 +147,14 @@ const categoryCount = CHEATSHEET_DATA.length;
 
   .cs-hero-stats dt {
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #8a99a8;
+    color: #5c6b7a;
+  }
+
+  :global(:root.dark) .cs-hero-stats dt {
+    color: #9aa8b6;
   }
 
   .cs-hero-stats dd {

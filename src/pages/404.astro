@@ -1,127 +1,131 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { courseRootRedirects } from "../lib/course-stats.mjs";
+
+// Starlight renders `title` as the page's only <h1>. The old page added a
+// second one, loaded its image from /src/assets/hero.svg (src/ is never
+// served, so it was broken in production), and offered only history.back(),
+// which does nothing for someone who arrived from a bad link.
+const links = [
+  { href: "/", label: "ပင်မစာမျက်နှာ", hint: "Home" },
+  { href: "/courses", label: "သင်ခန်းစာများ", hint: "Courses" },
+  { href: "/cheatsheets", label: "Cheat Sheets", hint: "Commands" },
+];
 ---
 
 <StarlightPage
   frontmatter={{
-    title: "Not Found",
+    title: "စာမျက်နှာကို မတွေ့ပါ",
+    description: "ဒီလိပ်စာမှာ စာမျက်နှာ မရှိပါ။",
     tableOfContents: false,
+    pagefind: false,
+    head: [{ tag: "meta", attrs: { name: "robots", content: "noindex" } }],
   }}
   hasSidebar={false}
 >
-  <div class="not-found-container">
-    <div class="not-found-content">
-      <div class="error-icon">
-        <img
-          src="/src/assets/hero.svg"
-          alt="404 Error"
-          width="120"
-          height="120"
-        />
-      </div>
+  {/*
+    "/git-course" gets a real 301 at the edge, but that rule cannot also match
+    "/git-course/", which lands here. Forward exactly those course roots and
+    nothing else, so genuine 404s still show this page.
+  */}
+  <script is:inline define:vars={{ redirects: courseRootRedirects }}>
+    const target = redirects[location.pathname.replace(/\/+$/, "")];
+    if (target) location.replace(target + location.search + location.hash);
+  </script>
 
-      <h1>404 Not Found</h1>
-      <p>သင်ရှာဖွေနေသော စာမျက်နှာကို မတွေ့ပါ</p>
-
-      <div class="action-buttons">
-        <button onclick="history.back()" class="btn-primary"> Go Back </button>
-      </div>
-    </div>
+  <div class="not-found not-content">
+    <img src="/favicon.svg" alt="" width="96" height="96" class="not-found-logo" />
+    <p class="not-found-code" aria-hidden="true">404</p>
+    <p class="not-found-text">
+      ဒီလိပ်စာမှာ စာမျက်နှာ မရှိပါ။ လိပ်စာကို ပြန်စစ်ပါ၊ သို့မဟုတ် အောက်ပါ နေရာများမှ ဆက်သွားပါ။
+    </p>
+    <ul class="not-found-links" role="list">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href}>
+              <span class="not-found-link-label">{link.label}</span>
+              <span class="not-found-link-hint">{link.hint}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="not-found-search">
+      သင်ခန်းစာတစ်ခုကို ရှာနေလျှင် အပေါ်ရှိ Search ကို သုံးပါ။
+    </p>
   </div>
 </StarlightPage>
 
 <style>
-  .not-found-container {
-    padding-block: 2rem;
+  .not-found {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .not-found-content {
+    gap: 1rem;
+    padding-block: 2rem 3rem;
     text-align: center;
-    position: relative;
-    z-index: 10;
-    animation: fadeIn 0.8s ease-out forwards;
-    max-width: 90%;
   }
 
-  .error-icon {
-    display: inline-flex;
-    margin-bottom: 1rem;
-    color: var(--sl-color-accent);
+  .not-found-logo {
+    width: 96px;
+    height: 96px;
   }
 
-  h1 {
-    font-size: 2rem;
+  .not-found-code {
+    margin: 0;
+    font-size: clamp(3rem, 12vw, 5rem);
     font-weight: 700;
-    margin: 0 0 0.5rem;
-    background: linear-gradient(
-      to right,
-      var(--sl-color-gray-2),
-      var(--sl-color-accent),
-      var(--sl-color-accent-high)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     line-height: 1;
+    color: var(--sl-color-accent-high);
   }
 
-  p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
+  .not-found-text {
+    max-width: 32rem;
+    margin: 0;
+    line-height: 1.9;
+    color: var(--sl-color-gray-2);
+  }
+
+  .not-found-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem;
+    width: min(100%, 32rem);
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .not-found-links a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .not-found-links a:hover,
+  .not-found-links a:focus-visible {
+    border-color: var(--sl-color-accent);
+  }
+
+  .not-found-link-label {
+    font-weight: 600;
+  }
+
+  .not-found-link-hint {
+    font-size: var(--sl-text-xs);
     color: var(--sl-color-gray-3);
   }
 
-  .action-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .btn-primary {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border: none;
-    font-size: 1rem;
-    text-decoration: none;
-  }
-
-  .btn-primary {
-    background-color: var(--sl-color-gray-7);
-    color: var(--sl-color-white);
-    border: 1px solid var(--sl-color-gray-6);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 0 0px 3px var(--sl-color-accent-low);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 5rem;
-    }
-
-    p {
-      font-size: 1.1rem;
-    }
+  .not-found-search {
+    margin: 0.5rem 0 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
   }
 </style>

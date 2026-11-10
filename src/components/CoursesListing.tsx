@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useRef,
-  useCallback,
-  type JSX,
-} from "react";
+import React, { useMemo, useState, type JSX } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
@@ -25,30 +18,26 @@ import {
   SelectValue,
 } from "./ui/select";
 import {
-  Search,
+  ArrowRight,
   BookOpen,
   Clock,
-  ArrowRight,
-  Filter,
-  Users,
-  Star,
-  Zap,
   Code,
   Database,
-  Globe,
+  Filter,
   GitBranch,
+  Globe,
+  GraduationCap,
+  Palette,
   Rocket,
+  Search,
+  Sparkles,
   Target,
   TrendingUp,
-  Sparkles,
-  Loader2,
-  GraduationCap,
-  PlayCircle,
+  Users,
   X,
-  Palette,
+  Zap,
 } from "lucide-react";
 
-// Type definitions
 export type Course = {
   id: string;
   title: string;
@@ -56,13 +45,18 @@ export type Course = {
   difficulty: "beginner" | "intermediate" | "advanced";
   category: string;
   icon: keyof typeof icons;
-  href: string;
-  lessons: number;
+  /** Course folder under src/content/docs, e.g. "git-course". */
+  dir: string;
   tags: string[];
   estimatedTime?: string;
-  rating?: number;
-  students?: number;
 };
+
+/**
+ * Per-course facts derived at build time from the docs sidebar
+ * (src/lib/course-stats.mjs), keyed by course folder. Passed in as a prop so
+ * the sidebar itself never ships to the browser.
+ */
+export type CourseFacts = Record<string, { href: string; lessonCount: number }>;
 
 // Course data
 export const coursesData: Course[] = [
@@ -74,12 +68,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "globe",
-    href: "/html/introduction/welcome-to-html",
-    lessons: 24,
+    dir: "html",
     tags: ["HTML", "Web Basics", "Markup"],
     estimatedTime: "2 weeks",
-    rating: 4.4,
-    students: 4200,
   },
   {
     id: "css",
@@ -89,12 +80,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "palette",
-    href: "/css/introduction/welcome",
-    lessons: 25,
+    dir: "css",
     tags: ["CSS", "Design", "Responsive"],
     estimatedTime: "3 weeks",
-    rating: 4.5,
-    students: 3500,
   },
   {
     id: "javascript",
@@ -104,12 +92,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "code",
-    href: "/javascript/introduction/intro",
-    lessons: 36,
+    dir: "javascript",
     tags: ["JavaScript", "DOM", "Interactivity"],
     estimatedTime: "4 weeks",
-    rating: 4.8,
-    students: 2800,
   },
   {
     id: "dsa",
@@ -119,12 +104,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Computer Science",
     icon: "trending",
-    href: "/dsa",
-    lessons: 15,
+    dir: "dsa",
     tags: ["Algorithms", "Optimization", "Problem Solving"],
     estimatedTime: "8 weeks",
-    rating: 4.9,
-    students: 100,
   },
   {
     id: "python",
@@ -134,12 +116,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Programming",
     icon: "code",
-    href: "/python",
-    lessons: 14,
+    dir: "python",
     tags: ["Python", "Basics", "OOP"],
     estimatedTime: "4 weeks",
-    rating: 4.8,
-    students: 1200,
   },
   {
     id: "java",
@@ -149,12 +128,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Programming",
     icon: "code",
-    href: "/java",
-    lessons: 7,
+    dir: "java",
     tags: ["Java", "Basics", "OOP"],
     estimatedTime: "5 weeks",
-    rating: 4.8,
-    students: 1100,
   },
   {
     id: "nodejs",
@@ -164,12 +140,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "database",
-    href: "/nodejs",
-    lessons: 7,
+    dir: "nodejs",
     tags: ["Node.js", "Backend", "Express"],
     estimatedTime: "5 weeks",
-    rating: 4.8,
-    students: 1500,
   },
   {
     id: "typescript",
@@ -179,12 +152,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Programming",
     icon: "code",
-    href: "/typescript",
-    lessons: 7,
+    dir: "typescript",
     tags: ["TypeScript", "JavaScript", "Types"],
     estimatedTime: "5 weeks",
-    rating: 4.9,
-    students: 1800,
   },
   {
     id: "golang",
@@ -194,12 +164,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Programming",
     icon: "code",
-    href: "/golang",
-    lessons: 9,
+    dir: "golang",
     tags: ["Go", "Backend", "Concurrency"],
     estimatedTime: "6 weeks",
-    rating: 4.9,
-    students: 1300,
   },
   {
     id: "advanced-css",
@@ -209,12 +176,9 @@ export const coursesData: Course[] = [
     difficulty: "advanced",
     category: "Web Development",
     icon: "palette",
-    href: "/advanced-css/introduction/welcome",
-    lessons: 13,
+    dir: "advanced-css",
     tags: ["CSS", "Advanced", "Architecture"],
     estimatedTime: "5 weeks",
-    rating: 4.9,
-    students: 1500,
   },
   {
     id: "sql-course",
@@ -224,12 +188,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Database",
     icon: "database",
-    href: "/sql-course/introduction/what-is-sql",
-    lessons: 8,
+    dir: "sql-course",
     tags: ["SQL", "Database", "Queries", "MySQL", "PostgreSQL"],
     estimatedTime: "2 weeks",
-    rating: 4.8,
-    students: 1500,
   },
   {
     id: "websocket",
@@ -239,26 +200,20 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "rocket",
-    href: "/websocket/introduction/what-is-websocket",
-    lessons: 13,
+    dir: "websocket",
     tags: ["Real-time", "WebSocket", "Communication"],
     estimatedTime: "6 weeks",
-    rating: 4.8,
-    students: 1250,
   },
   {
     id: "advanced-typescript",
     title: "Advanced TypeScript",
     description: "TypeScript ၏ အဆင့်မြင့်သဘောတရားများကို နက်နက်နဲနဲ လေ့လာခြင်း",
     difficulty: "advanced",
-    category: "Programming Languages",
+    category: "Programming",
     icon: "code",
-    href: "/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript",
-    lessons: 26,
+    dir: "advanced-typescript",
     tags: ["TypeScript", "Generics", "Utility Types"],
     estimatedTime: "10 weeks",
-    rating: 4.9,
-    students: 2100,
   },
   {
     id: "git-course",
@@ -268,12 +223,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Development Tools",
     icon: "git",
-    href: "/git-course/introduction/why-git",
-    lessons: 25,
+    dir: "git-course",
     tags: ["Git", "Version Control", "Collaboration"],
     estimatedTime: "4 weeks",
-    rating: 4.7,
-    students: 3200,
   },
   {
     id: "web-performance",
@@ -283,12 +235,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "zap",
-    href: "/web-performance/introduction/why-web-performance",
-    lessons: 21,
+    dir: "web-performance",
     tags: ["Performance", "Optimization", "Core Web Vitals"],
     estimatedTime: "8 weeks",
-    rating: 4.6,
-    students: 1800,
   },
   {
     id: "software-architecture",
@@ -298,12 +247,9 @@ export const coursesData: Course[] = [
     difficulty: "advanced",
     category: "System Design",
     icon: "users",
-    href: "/software-architecture/foundations/foundations",
-    lessons: 24,
+    dir: "software-architecture",
     tags: ["Architecture", "Microservices", "Design Patterns"],
     estimatedTime: "12 weeks",
-    rating: 4.9,
-    students: 950,
   },
   {
     id: "relational-database",
@@ -313,12 +259,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Database",
     icon: "database",
-    href: "/relational-database/introduction/welcome-to-database",
-    lessons: 30,
+    dir: "relational-database",
     tags: ["SQL", "Database Design", "Normalization"],
     estimatedTime: "6 weeks",
-    rating: 4.5,
-    students: 1650,
   },
   {
     id: "frontend-architecture",
@@ -328,12 +271,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "code",
-    href: "/fe-architecture/introduction/welcome",
-    lessons: 17,
+    dir: "fe-architecture",
     tags: ["Frontend", "Architecture", "Patterns"],
     estimatedTime: "8 weeks",
-    rating: 4.7,
-    students: 1200,
   },
   {
     id: "ai-proficiency",
@@ -343,12 +283,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Artificial Intelligence",
     icon: "sparkles",
-    href: "/ai-proficiency/foundations/introduction",
-    lessons: 12,
+    dir: "ai-proficiency",
     tags: ["AI", "Machine Learning", "LLM", "RAG"],
     estimatedTime: "12 weeks",
-    rating: 4.8,
-    students: 500,
   },
   {
     id: "n8n-course",
@@ -358,12 +295,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Automation",
     icon: "zap",
-    href: "/n8n-course/introduction/what-is-n8n",
-    lessons: 15,
+    dir: "n8n-course",
     tags: ["n8n", "Automation", "No-Code", "Workflow", "AI"],
     estimatedTime: "6 weeks",
-    rating: 4.9,
-    students: 320,
   },
   {
     id: "docker",
@@ -373,12 +307,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "DevOps",
     icon: "rocket",
-    href: "/docker/introduction/what-is-docker",
-    lessons: 5,
+    dir: "docker",
     tags: ["Docker", "Containers", "DevOps", "Compose"],
     estimatedTime: "3 weeks",
-    rating: 4.9,
-    students: 1400,
   },
   {
     id: "nextjs",
@@ -388,12 +319,9 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "code",
-    href: "/nextjs/introduction/what-is-nextjs",
-    lessons: 5,
+    dir: "nextjs",
     tags: ["Next.js", "React", "Full-Stack", "SSR", "App Router"],
     estimatedTime: "4 weeks",
-    rating: 4.9,
-    students: 2200,
   },
   {
     id: "mongodb-course",
@@ -403,12 +331,9 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Database",
     icon: "database",
-    href: "/mongodb-course/introduction/what-is-mongodb",
-    lessons: 5,
+    dir: "mongodb-course",
     tags: ["MongoDB", "NoSQL", "Database", "Atlas"],
     estimatedTime: "2 weeks",
-    rating: 4.9,
-    students: 1200,
   },
   {
     id: "linux-devops",
@@ -418,17 +343,12 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "DevOps",
     icon: "zap",
-    href: "/linux-devops",
-    lessons: 11,
+    dir: "linux-devops",
     tags: ["Linux", "Ubuntu", "DevOps", "Nginx", "VPS", "CI/CD", "SSH", "Security"],
     estimatedTime: "4 weeks",
-    rating: 4.9,
-    students: 950,
   },
 ];
 
-// compute count once; external modules can import if needed
-export const coursesCount = coursesData.length;
 
 const difficultyConfig: Record<
   Course["difficulty"],
@@ -492,99 +412,71 @@ const DifficultyBadge: React.FC<{ difficulty: Course["difficulty"] }> = ({
   );
 };
 
-const CourseStats: React.FC<{ course: Course }> = ({ course }) => {
+const CourseStats: React.FC<{
+  lessonCount: number;
+  estimatedTime?: string;
+}> = ({ lessonCount, estimatedTime }) => (
+  <div className="mt-3 flex items-center gap-4 text-xs">
+    <span className="flex items-center gap-1">
+      <BookOpen className="w-3 h-3" aria-hidden="true" />
+      {lessonCount} lessons
+    </span>
+    {estimatedTime && (
+      <span className="flex items-center gap-1">
+        <Clock className="w-3 h-3" aria-hidden="true" />
+        {estimatedTime}
+      </span>
+    )}
+  </div>
+);
+
+const matchesQuery = (course: Course, query: string): boolean => {
+  if (!query) return true;
   return (
-    <div className="mt-3 flex items-center gap-4 text-xs">
-      <div className="flex items-center gap-1">
-        <BookOpen className="w-3 h-3" />
-        <span>{course.lessons} lessons</span>
-      </div>
-    </div>
+    course.title.toLowerCase().includes(query) ||
+    course.description.toLowerCase().includes(query) ||
+    course.tags.some((tag) => tag.toLowerCase().includes(query))
   );
 };
 
-export function CoursesListing(): JSX.Element {
+const categories: string[] = [
+  ...new Set(coursesData.map((course) => course.category)),
+];
+
+/*
+ * Every course renders on the server. There used to be a simulated 300ms
+ * "Loading courses" state and a scroll-triggered pager over static data that
+ * is already in memory; that made the built /courses page ship zero course
+ * cards (search engines saw only a spinner) and blanked the grid on every
+ * keystroke.
+ */
+export function CoursesListing({ facts }: { facts: CourseFacts }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  // Scroll-based pagination: how many "pages" worth of courses are visible.
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
-  const coursesPerPage: number = 9;
 
-  // Get unique categories
-  const categories: string[] = [
-    ...new Set(coursesData.map((course) => course.category)),
-  ];
+  const query = searchTerm.trim().toLowerCase();
 
-  // Filter courses based on search and filters
-  const filteredCourses = useMemo<Course[]>(() => {
-    return coursesData.filter((course: Course) => {
-      const matchesSearch =
-        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.tags.some((tag: string) =>
-          tag.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
-
-      const matchesDifficulty =
-        selectedDifficulty === "all" ||
-        course.difficulty === selectedDifficulty;
-      const matchesCategory =
-        selectedCategory === "all" || course.category === selectedCategory;
-
-      return matchesSearch && matchesDifficulty && matchesCategory;
-    });
-  }, [searchTerm, selectedDifficulty, selectedCategory]);
-
-  // Scroll-based pagination
-  const totalPages: number = Math.ceil(filteredCourses.length / coursesPerPage);
-  const visibleCount: number = Math.min(
-    filteredCourses.length,
-    currentPage * coursesPerPage,
-  );
-  const visibleCourses: Course[] = filteredCourses.slice(0, visibleCount);
-  const hasMore: boolean = visibleCount < filteredCourses.length;
-
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastCourseElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (isLoading || isLoadingMore) return;
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
-            setIsLoadingMore(true);
-            setTimeout(() => {
-              setCurrentPage((prev) => prev + 1);
-              setIsLoadingMore(false);
-            }, 250);
-          }
-        },
-        { rootMargin: "200px" },
-      );
-
-      if (node) observer.current.observe(node);
-    },
-    [isLoading, isLoadingMore, hasMore],
+  const filteredCourses = useMemo<Course[]>(
+    () =>
+      coursesData.filter(
+        (course) =>
+          matchesQuery(course, query) &&
+          (selectedDifficulty === "all" ||
+            course.difficulty === selectedDifficulty) &&
+          (selectedCategory === "all" || course.category === selectedCategory),
+      ),
+    [query, selectedDifficulty, selectedCategory],
   );
 
-  // Reset to first page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, selectedDifficulty, selectedCategory]);
+  const isFiltered =
+    query !== "" || selectedDifficulty !== "all" || selectedCategory !== "all";
 
-  // Simulate loading state
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm, selectedDifficulty, selectedCategory]);
+  const clearFilters = () => {
+    setSearchTerm("");
+    setSelectedDifficulty("all");
+    setSelectedCategory("all");
+  };
 
   return (
     <div className="w-full not-content">
@@ -593,9 +485,15 @@ export function CoursesListing(): JSX.Element {
         <div className="flex flex-col lg:flex-row lg:flex-wrap gap-4 items-start lg:items-center">
           {/* Search Bar */}
           <div className="courses-search relative flex-1 min-w-0 w-full lg:w-auto text-sm">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4"
+              aria-hidden="true"
+            />
             <Input
               type="text"
+              inputMode="search"
+              autoComplete="off"
+              aria-label="Search courses"
               placeholder="Search courses, topics, or technologies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -608,13 +506,12 @@ export function CoursesListing(): JSX.Element {
             {/* Difficulty Filter */}
             <Select
               value={selectedDifficulty}
-              onValueChange={(value) =>
-                setSelectedDifficulty(
-                  value as "beginner" | "intermediate" | "advanced" | "all",
-                )
-              }
+              onValueChange={setSelectedDifficulty}
             >
-              <SelectTrigger className="w-full sm:min-w-[150px]">
+              <SelectTrigger
+                className="w-full sm:min-w-[150px]"
+                aria-label="Filter by level"
+              >
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
@@ -630,7 +527,10 @@ export function CoursesListing(): JSX.Element {
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="w-full sm:min-w-[200px]">
+              <SelectTrigger
+                className="w-full sm:min-w-[200px]"
+                aria-label="Filter by category"
+              >
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -647,148 +547,120 @@ export function CoursesListing(): JSX.Element {
 
         {/* Results Summary & Active Filters */}
         <div className="flex mt-4 md:mt-6 flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-sm">
-            <Filter className="w-4 h-4" />
+          <div className="flex items-center gap-2 text-sm" aria-live="polite">
+            <Filter className="w-4 h-4" aria-hidden="true" />
             <span>
               {filteredCourses.length} course
               {filteredCourses.length !== 1 ? "s" : ""} found
-              {searchTerm && (
+              {query && (
                 <span>
                   {" "}
-                  for <strong>"{searchTerm}"</strong>
+                  for <strong>"{searchTerm.trim()}"</strong>
                 </span>
               )}
             </span>
           </div>
 
-          {/* Clear Filters */}
-          {(searchTerm ||
-            selectedDifficulty !== "all" ||
-            selectedCategory !== "all") && (
+          {isFiltered && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedDifficulty("all");
-                setSelectedCategory("all");
-              }}
+              onClick={clearFilters}
               className=" flex justify-center items-center"
             >
-              <X className="w-4 h-4 mr-2" />
+              <X className="w-4 h-4 mr-2" aria-hidden="true" />
               <span className="pt-1">Clear all filters</span>
             </Button>
           )}
         </div>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="flex items-center justify-center py-16">
-            <div className="flex items-center gap-3">
-              <Loader2 className="w-6 h-6 animate-spin" />
-              <span>Loading courses...</span>
-            </div>
-          </div>
-        )}
-
-        {/* Courses Grid */}
-        {!isLoading && (
-          <div className="courses-grid grid grid-cols-1 mt:2 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {visibleCourses.map((course) => (
-              <Card
-                key={course.id}
-                className="group transition-all duration-300 h-full flex flex-col overflow-hidden pt-2"
-              >
-                {/* Card Header */}
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-xl group-hover:scale-105 transition-transform duration-300">
-                      <CourseIcon
-                        icon={course.icon}
-                        className="w-7 block h-7 text-accent"
-                      />
+        {filteredCourses.length > 0 ? (
+          <div className="courses-grid grid grid-cols-1 md:mt-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredCourses.map((course) => {
+              const fact = facts[course.dir];
+              return (
+                <Card
+                  key={course.id}
+                  className="group transition-all duration-300 h-full flex flex-col overflow-hidden pt-2"
+                >
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-xl group-hover:scale-105 transition-transform duration-300">
+                        <CourseIcon
+                          icon={course.icon}
+                          className="w-7 block h-7 text-accent"
+                        />
+                      </div>
+                      <DifficultyBadge difficulty={course.difficulty} />
                     </div>
-                    <DifficultyBadge difficulty={course.difficulty} />
-                  </div>
 
-                  <CardTitle className="text-xl font-semibold transition-colors duration-300 line-clamp-2">
-                    {course.title}
-                  </CardTitle>
-                </CardHeader>
+                    <CardTitle className="text-xl font-semibold transition-colors duration-300 line-clamp-2">
+                      {/* A real heading so screen readers can jump between
+                          courses. Inherits the card title styling because
+                          this project does not load Tailwind's preflight. */}
+                      <h2 className="m-0 [font-size:inherit] [font-weight:inherit] [line-height:inherit]">
+                        {course.title}
+                      </h2>
+                    </CardTitle>
+                  </CardHeader>
 
-                <CardContent className="flex-1">
-                  <CardDescription className="text-sm leading-relaxed line-clamp-3 ">
-                    {course.description}
-                  </CardDescription>
+                  <CardContent className="flex-1">
+                    <CardDescription className="text-sm leading-relaxed line-clamp-3 ">
+                      {course.description}
+                    </CardDescription>
 
-                  {/* Course Stats */}
-                  <CourseStats course={course} />
+                    <CourseStats
+                      lessonCount={fact?.lessonCount ?? 0}
+                      estimatedTime={course.estimatedTime}
+                    />
 
-                  {/* Tags */}
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {course.tags.slice(0, 3).map((tag) => (
-                      <Badge
-                        key={tag}
-                        variant="secondary"
-                        className="text-xs px-2 py-1 transition-colors border-0"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                    {course.tags.length > 3 && (
-                      <Badge
-                        variant="secondary"
-                        className="text-xs px-2 py-1 transition-colors border-0"
-                      >
-                        +{course.tags.length - 3} more
-                      </Badge>
-                    )}
-                  </div>
-                </CardContent>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {course.tags.slice(0, 3).map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="text-xs px-2 py-1 transition-colors border-0"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                      {course.tags.length > 3 && (
+                        <Badge
+                          variant="secondary"
+                          className="text-xs px-2 py-1 transition-colors border-0"
+                        >
+                          +{course.tags.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                  </CardContent>
 
-                {/* Card Footer */}
-                <CardFooter className="pt-4">
-                  <a href={course.href} className="w-full">
-                    <Button className="w-full cursor-pointer group/btn border-1 shadow-md transition-all duration-300">
-                      Start Learning
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-200" />
+                  <CardFooter className="pt-4">
+                    {/* One link styled as a button: a <button> nested in an
+                        <a> is invalid HTML and is announced twice. */}
+                    <Button
+                      asChild
+                      className="w-full cursor-pointer group/btn border-1 shadow-md transition-all duration-300"
+                    >
+                      <a href={fact?.href ?? `/${course.dir}`}>
+                        Start Learning
+                        <span className="sr-only">: {course.title}</span>
+                        <ArrowRight
+                          className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-200"
+                          aria-hidden="true"
+                        />
+                      </a>
                     </Button>
-                  </a>
-                </CardFooter>
-              </Card>
-            ))}
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
-        )}
-
-        {/* Scroll-based pagination footer */}
-        {!isLoading && filteredCourses.length > 0 && (
-          <div className="flex flex-col items-center gap-3 pt-8">
-            <p className="text-sm">
-              Showing {visibleCount} of {filteredCourses.length} courses
-            </p>
-
-            {hasMore && (
-              <div className="flex items-center gap-3" aria-live="polite">
-                {isLoadingMore && <Loader2 className="w-5 h-5 animate-spin" />}
-                <span className="text-sm">
-                  {isLoadingMore ? "Loading more..." : "Scroll to load more"}
-                </span>
-              </div>
-            )}
-
-            {/* Sentinel element observed by IntersectionObserver */}
-            {hasMore && (
-              <div ref={lastCourseElementRef} className="h-1 w-full" />
-            )}
-          </div>
-        )}
-
-        {/* Empty State */}
-        {!isLoading && filteredCourses.length === 0 && (
+        ) : (
           <Card className="text-center py-20 border-2 border-dashed">
             <CardContent className="space-y-8">
               <div className="w-28 h-28 mx-auto rounded-full flex items-center justify-center">
-                <Search className="w-14 h-14" />
+                <Search className="w-14 h-14" aria-hidden="true" />
               </div>
 
               <div className="space-y-3">
@@ -796,22 +668,15 @@ export function CoursesListing(): JSX.Element {
                   No courses found
                 </CardTitle>
                 <CardDescription className="text-lg max-w-lg mx-auto leading-relaxed">
-                  We couldn't find any courses matching your criteria. Try
-                  adjusting your search terms or clearing the filters to explore
-                  all available courses.
+                  No course matches that search. Try a shorter word such as
+                  "git" or "sql", or clear the filters to see all{" "}
+                  {coursesData.length} courses.
                 </CardDescription>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedDifficulty("all");
-                    setSelectedCategory("all");
-                  }}
-                >
-                  <GraduationCap className="w-4 h-4 mr-2" />
+                <Button variant="secondary" onClick={clearFilters}>
+                  <GraduationCap className="w-4 h-4 mr-2" aria-hidden="true" />
                   View all courses
                 </Button>
               </div>

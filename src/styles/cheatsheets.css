@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
-
 /*
- * Cheat sheets — "terminal manual".
+ * Cheat sheets, styled as a terminal manual.
+ *
+ * JetBrains Mono loads from a <link> in cheatsheets.astro, not an @import here.
  *
  * Deliberate choice: the command surface stays dark in both themes. A command
  * should look like the place it is about to be pasted, and it keeps the syntax
@@ -26,7 +26,11 @@
   --cs-violet: #c7a9ff;
   --cs-mute: #7c8b9c;
 
-  /* Page chrome — themed */
+  /* Page chrome, themed. --cs-accent-text is the orange for text on the page
+     itself: #f97316 passes on the dark command rows but measures about
+     2.7:1 on the light page, under the 4.5:1 AA minimum. */
+  --cs-accent-text: #c2410c;
+  --cs-on-accent-bg: #c2410c;
   --cs-fg: #16202b;
   --cs-muted: #5c6b7a;
   --cs-line: #e5e1d9;
@@ -41,6 +45,7 @@
 }
 
 :root.dark .cs-root {
+  --cs-accent-text: #fb923c;
   --cs-fg: #e8edf3;
   --cs-muted: #8a99a8;
   --cs-line: #232b35;
@@ -182,8 +187,8 @@
 }
 
 .cs-cat.is-active {
-  background: var(--cs-brand);
-  border-color: var(--cs-brand);
+  background: var(--cs-on-accent-bg);
+  border-color: var(--cs-on-accent-bg);
   color: #fff;
 }
 
@@ -205,7 +210,7 @@
 }
 
 .cs-bar-meta em {
-  color: var(--cs-brand);
+  color: var(--cs-accent-text);
   font-style: normal;
 }
 
@@ -213,7 +218,7 @@
   border: 0;
   background: none;
   padding: 0;
-  color: var(--cs-brand);
+  color: var(--cs-accent-text);
   font-family: var(--cs-mono);
   font-size: 0.75rem;
   cursor: pointer;
@@ -242,7 +247,7 @@
   font-family: var(--cs-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--cs-brand);
+  color: var(--cs-accent-text);
   letter-spacing: 0.04em;
 }
 
@@ -562,7 +567,7 @@
 }
 
 .cs-empty-title em {
-  color: var(--cs-brand);
+  color: var(--cs-accent-text);
   font-style: normal;
 }
 
@@ -574,17 +579,18 @@
 
 .cs-empty-reset {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--cs-brand);
+  border: 1px solid var(--cs-accent-text);
   border-radius: 0.5rem;
   background: transparent;
-  color: var(--cs-brand);
+  color: var(--cs-accent-text);
   font-family: var(--cs-mono);
   font-size: 0.75rem;
   cursor: pointer;
 }
 
 .cs-empty-reset:hover {
-  background: var(--cs-brand);
+  background: var(--cs-on-accent-bg);
+  border-color: var(--cs-on-accent-bg);
   color: #fff;
 }
 

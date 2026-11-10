@@ -3,15 +3,67 @@ import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Search from "@astrojs/starlight/components/Search.astro";
 import "../styles/global.css";
+import {
+  DEFAULT_DESCRIPTION,
+  OG_IMAGE,
+  SITE,
+  SITE_NAME,
+  SITE_NAME_MY,
+  SOCIAL,
+} from "../config/site.mjs";
 
 interface Props {
   title: string;
   description?: string;
+  /** Root-relative or absolute 1200x630 image for link previews. */
+  image?: string;
+  imageAlt?: string;
+  /** Extra JSON-LD objects for this page only. */
+  jsonLd?: Record<string, unknown>[];
 }
 
-const { title, description = "Myanmar Programming Learning Platform" } =
-  Astro.props;
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = OG_IMAGE.path,
+  imageAlt = OG_IMAGE.alt,
+  jsonLd = [],
+} = Astro.props;
+
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isHome = currentPath === "/";
+const fullTitle = `${title} | ${SITE_NAME}`;
+// Trailing slash, to match the sitemap and the Starlight lesson pages. Both
+// /courses and /courses/ serve the page, so this is what tells search engines
+// they are one URL.
+const canonical = new URL(isHome ? "/" : `${currentPath}/`, SITE).href;
+const imageUrl = new URL(image, SITE).href;
+
+// Google reads the site name from WebSite markup on the homepage, and
+// Organization markup there links the brand to its social profiles.
+// https://developers.google.com/search/docs/appearance/site-names
+const siteSchemas = isHome
+  ? [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE_NAME_MY,
+        alternateName: [SITE_NAME, "takkatho.dev"],
+        url: `${SITE}/`,
+        inLanguage: "my",
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: SITE_NAME,
+        alternateName: SITE_NAME_MY,
+        url: `${SITE}/`,
+        logo: `${SITE}/android-chrome-512x512.png`,
+        sameAs: [SOCIAL.facebook, SOCIAL.youtube, SOCIAL.github],
+      },
+    ]
+  : [];
+const schemas = [...siteSchemas, ...jsonLd];
 
 const navLinks = [
   { href: "/courses", label: "Courses" },
@@ -19,6 +71,14 @@ const navLinks = [
   { href: "/cheatsheets", label: "Cheat Sheets" },
   { href: "/about", label: "About" },
 ];
+
+const communityLinks = [
+  { href: SOCIAL.facebook, label: "Facebook" },
+  { href: SOCIAL.youtube, label: "YouTube" },
+  { href: SOCIAL.github, label: "GitHub" },
+];
+
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -26,19 +86,97 @@ const navLinks = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <title>{title} | Takkatho</title>
+    <link rel="canonical" href={canonical} />
+
+    {/*
+      Runs before first paint, so dark-mode readers never see a white flash.
+      The old version of this script sat at the end of <body>, after the page
+      had already painted in light mode.
+
+      It mirrors astro-theme-toggle 0.6.1, the toggle starlight-theme-nova
+      gives the lesson pages: same localStorage key ("theme-toggle"), same
+      values, and the key is removed when the choice matches the system. That
+      is what makes a choice here carry over to the lessons and back.
+    */}
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        let stored = null;
+        try {
+          stored = localStorage.getItem("theme-toggle");
+          if (Number(localStorage.getItem("takkatho-banner-hidden-until")) > Date.now()) {
+            root.dataset.bannerHidden = "";
+          }
+        } catch {
+          // Storage can be blocked (private mode, strict settings). Use the system theme.
+        }
+        const theme =
+          stored === "dark" || stored === "light"
+            ? stored
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        root.classList.toggle("dark", theme === "dark");
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+      })();
+    </script>
+
+    {/*
+      Fonts load from <head> rather than an @import inside the CSS. With
+      @import the browser had to download the site CSS before it could even
+      discover the font CSS. Preconnect opens both font connections early;
+      fonts.gstatic.com needs crossorigin because font files are fetched in
+      CORS mode, otherwise only the DNS lookup happens early.
+    */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Noto+Sans+Myanmar:wght@400..700&display=swap"
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#111827" />
+
+    <!-- Link previews (Facebook, Telegram, X, LinkedIn) -->
+    <meta property="og:type" content={isHome ? "website" : "article"} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content={String(OG_IMAGE.width)} />
+    <meta property="og:image:height" content={String(OG_IMAGE.height)} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content="my_MM" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    {
+      schemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+
+    <slot name="head" />
   </head>
   <body
     class="min-h-screen bg-gray-50 dark:bg-[#0c0a09] text-gray-900 dark:text-gray-100 antialiased"
   >
+    <a href="#main-content" class="skip-link">အကြောင်းအရာသို့ ကျော်သွားရန်</a>
+
     <!-- Navigation -->
     <nav
+      aria-label="Main"
       class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0c0a09]/80 backdrop-blur-xl"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,10 +185,13 @@ const navLinks = [
           <a
             href="/"
             class="standalone-header-logo flex items-center gap-3 group"
+            aria-label={`${SITE_NAME_MY} ${SITE_NAME}, home`}
           >
             <img
               src="/favicon.svg"
-              alt="Takkatho"
+              alt=""
+              width="56"
+              height="56"
               class="w-14 h-14"
               loading="eager"
             />
@@ -60,20 +201,22 @@ const navLinks = [
           </div>
           <!-- Nav Links -->
           <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
-            {navLinks.map((link) => (
-              <a
-                href={link.href}
-                aria-current={currentPath === link.href ? "page" : undefined}
-                class:list={[
-                  "transition-colors hover:text-orange-500 dark:hover:text-orange-400",
-                  currentPath === link.href
-                    ? "text-orange-600 dark:text-orange-400"
-                    : "text-gray-700 dark:text-gray-300",
-                ]}
-              >
-                {link.label}
-              </a>
-            ))}
+            {
+              navLinks.map((link) => (
+                <a
+                  href={link.href}
+                  aria-current={currentPath === link.href ? "page" : undefined}
+                  class:list={[
+                    "transition-colors hover:text-orange-700 dark:hover:text-orange-400",
+                    currentPath === link.href
+                      ? "text-orange-700 dark:text-orange-400"
+                      : "text-gray-700 dark:text-gray-300",
+                  ]}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
           </div>
 
           <!-- Right Actions -->
@@ -81,14 +224,17 @@ const navLinks = [
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"
-              class="p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-400 transition-colors duration-200"
-              aria-label="Toggle theme"
+              type="button"
+              class="p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-700 dark:text-orange-400 transition-colors duration-200"
+              aria-label="Dark mode"
+              aria-pressed="false"
             >
               <svg
                 class="w-5 h-5 hidden dark:block"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   stroke-linecap="round"
@@ -102,6 +248,7 @@ const navLinks = [
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   stroke-linecap="round"
@@ -116,7 +263,7 @@ const navLinks = [
             <button
               id="mobile-menu-toggle"
               type="button"
-              class="md:hidden p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-600 dark:text-orange-400 transition-colors duration-200"
+              class="md:hidden p-2.5 rounded-xl bg-orange-100/50 dark:bg-orange-950/30 hover:bg-orange-200/50 dark:hover:bg-orange-900/50 text-orange-700 dark:text-orange-400 transition-colors duration-200"
               aria-label="Menu ဖွင့်ရန်"
               aria-expanded="false"
               aria-controls="mobile-menu"
@@ -128,6 +275,7 @@ const navLinks = [
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 stroke-width="2"
+                aria-hidden="true"
               >
                 <path
                   stroke-linecap="round"
@@ -141,6 +289,7 @@ const navLinks = [
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 stroke-width="2"
+                aria-hidden="true"
               >
                 <path
                   stroke-linecap="round"
@@ -166,8 +315,8 @@ const navLinks = [
                 class:list={[
                   "py-3 text-base font-semibold border-b border-gray-100 dark:border-stone-900 last:border-b-0 transition-colors",
                   currentPath === link.href
-                    ? "text-orange-600 dark:text-orange-400"
-                    : "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400",
+                    ? "text-orange-700 dark:text-orange-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-orange-700 dark:hover:text-orange-400",
                 ]}
               >
                 {link.label}
@@ -179,52 +328,125 @@ const navLinks = [
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-16">
-      <!-- Donation Banner -->
-      <div id="donation-banner" class="relative overflow-hidden bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"></div>
+    <main id="main-content" tabindex="-1" class="pt-16 outline-none">
+      {/*
+        Donation banner. Dark text on the orange gradient: the old white text
+        sat on amber-500 in the middle, which no browser contrast check passes.
+        Dismissing it now hides it for 14 days instead of until the next click.
+      */}
+      <aside
+        id="donation-banner"
+        aria-label="Donation"
+        class="relative overflow-hidden bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 text-stone-900"
+      >
+        <div
+          class="absolute inset-0 opacity-15"
+          style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"
+        >
+        </div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center gap-4">
           <div class="w-8 flex-shrink-0 hidden sm:block"></div>
-          <div class="flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 text-white text-sm">
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <div class="flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm">
+            <svg class="w-4 h-4 flex-shrink-0 hidden sm:block" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
             </svg>
-            <span class="font-medium">            ဒီ Platform လေး ဆက်ပြီးရပ်တည်နိုင်ဖို့ ကူညီပေးပါဦးနော် 🙏</span>
+            <span class="font-medium">ဒီ Platform လေး ဆက်ပြီးရပ်တည်နိုင်ဖို့ ကူညီပေးပါဦးနော် 🙏</span>
             <a
               href="/about#donation"
-              class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-white/25 hover:bg-white/40 font-semibold transition-colors whitespace-nowrap text-white"
+              class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-stone-900 hover:bg-stone-800 font-semibold transition-colors whitespace-nowrap text-white"
             >
-              Donate လုပ်ရန် →
+              Donate လုပ်ရန် <span aria-hidden="true">→</span>
             </a>
           </div>
           <button
             id="dismiss-banner"
-            aria-label="Close"
-            class="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
+            type="button"
+            aria-label="Donation banner ကို ပိတ်ရန်"
+            class="flex-shrink-0 w-8 h-8 rounded-full bg-stone-900/10 hover:bg-stone-900/20 flex items-center justify-center transition-colors"
           >
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-      </div>
+      </aside>
 
       <slot />
     </main>
 
     <!-- Footer -->
     <footer
-      class="bg-gray-50 dark:bg-gray-950 relative z-10"
+      class="bg-gray-50 dark:bg-gray-950 relative z-10 border-t border-gray-200/70 dark:border-stone-900"
     >
-      <div
-        class="max-w-7xl mx-auto px-4 flex flex-col gap-2 md:flex-row justify-between sm:px-6 lg:px-8 py-12"
-      >
-        <p class="text-sm text-gray-500 dark:text-gray-500">
-          © 2024 Takkatho. All rights reserved.
-        </p>
-        <p class="text-sm text-gray-500 dark:text-gray-500">
-          Made with ❤️ for Myanmar Developers
-        </p>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
+        <div>
+          <a href="/" class="inline-flex items-center gap-2.5" aria-label={`${SITE_NAME_MY} ${SITE_NAME}, home`}>
+            <img src="/favicon.svg" alt="" width="40" height="40" class="w-10 h-10" loading="lazy" />
+            <span class="text-lg font-bold text-gray-900 dark:text-white">{SITE_NAME_MY}</span>
+          </a>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            မြန်မာဘာသာဖြင့် အခမဲ့ Programming သင်ခန်းစာများ။
+          </p>
+        </div>
+
+        <nav aria-labelledby="footer-learn">
+          <h2 id="footer-learn" class="m-0 text-xs font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-200">
+            Learn
+          </h2>
+          <ul class="mt-3 mb-0 list-none p-0 space-y-2 text-sm" role="list">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div>
+          <h2 id="footer-community" class="m-0 text-xs font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-200">
+            Community
+          </h2>
+          <ul class="mt-3 mb-0 list-none p-0 space-y-2 text-sm" role="list" aria-labelledby="footer-community">
+            {
+              communityLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a
+                href="/about#donation"
+                class="text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
+              >
+                Donate
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200/70 dark:border-stone-900">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-2 md:flex-row md:justify-between text-sm text-gray-600 dark:text-gray-400"
+        >
+          <p>© {year} {SITE_NAME}. All rights reserved.</p>
+          <p>Made with ❤️ for Myanmar Developers</p>
+        </div>
       </div>
     </footer>
 
@@ -232,44 +454,62 @@ const navLinks = [
     <Analytics />
 
     <script>
+      const root = document.documentElement;
       const themeToggle = document.getElementById("theme-toggle");
-      const html = document.documentElement;
-      const storageKey = "theme-toggle";
+      const prefersDark = matchMedia("(prefers-color-scheme: dark)");
+      // Same key and rules as astro-theme-toggle on the lesson pages.
+      const THEME_KEY = "theme-toggle";
+      const BANNER_KEY = "takkatho-banner-hidden-until";
+      const BANNER_DAYS = 14;
 
-      const systemTheme = () =>
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+      type Theme = "light" | "dark";
+      const systemTheme = (): Theme => (prefersDark.matches ? "dark" : "light");
 
-      const storedTheme = () => {
-        const value = localStorage.getItem(storageKey);
-        return value === "dark" || value === "light" ? value : null;
-      };
-
-      const applyTheme = (theme: string) => {
-        html.classList.toggle("dark", theme === "dark");
-        html.dataset.theme = theme;
-        html.style.colorScheme = theme;
-      };
-
-      const setTheme = (theme: string) => {
-        if (theme === systemTheme()) {
-          localStorage.removeItem(storageKey);
-        } else {
-          localStorage.setItem(storageKey, theme);
+      const storedTheme = (): Theme | null => {
+        try {
+          const value = localStorage.getItem(THEME_KEY);
+          return value === "dark" || value === "light" ? value : null;
+        } catch {
+          return null;
         }
-        applyTheme(theme);
       };
 
-      setTheme(storedTheme() ?? systemTheme());
+      const applyTheme = (theme: Theme) => {
+        root.classList.toggle("dark", theme === "dark");
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
+      };
+
+      const storeTheme = (theme: Theme) => {
+        try {
+          // Matching the system means "follow the system", so drop the key.
+          if (theme === systemTheme()) localStorage.removeItem(THEME_KEY);
+          else localStorage.setItem(THEME_KEY, theme);
+        } catch {
+          // Storage blocked: the choice still applies for this page view.
+        }
+      };
+
+      applyTheme(root.classList.contains("dark") ? "dark" : "light");
 
       themeToggle?.addEventListener("click", () => {
-        const currentTheme = html.classList.contains("dark") ? "dark" : "light";
-        setTheme(currentTheme === "dark" ? "light" : "dark");
+        const next: Theme = root.classList.contains("dark") ? "light" : "dark";
+        storeTheme(next);
+        applyTheme(next);
+      });
+
+      prefersDark.addEventListener("change", () => {
+        if (!storedTheme()) applyTheme(systemTheme());
       });
 
       document.getElementById("dismiss-banner")?.addEventListener("click", () => {
         document.getElementById("donation-banner")?.remove();
+        try {
+          localStorage.setItem(BANNER_KEY, String(Date.now() + BANNER_DAYS * 86_400_000));
+        } catch {
+          // Storage blocked: the banner just returns on the next page.
+        }
       });
 
       const menuToggle = document.getElementById("mobile-menu-toggle");
@@ -290,11 +530,9 @@ const navLinks = [
 
       // Reset the panel when resizing up to the desktop nav so it can't stay
       // stuck open behind the inline links.
-      window
-        .matchMedia("(min-width: 768px)")
-        .addEventListener("change", (event) => {
-          if (event.matches) setMenuOpen(false);
-        });
+      matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
+        if (event.matches) setMenuOpen(false);
+      });
 
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") setMenuOpen(false);
@@ -302,3 +540,38 @@ const navLinks = [
     </script>
   </body>
 </html>
+
+<style is:global>
+  /* Hidden until focused, then the first thing a keyboard user reaches. */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    background: #1c1917;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform 0.15s ease;
+  }
+
+  .skip-link:focus-visible {
+    transform: none;
+    outline: 3px solid #f97316;
+    outline-offset: 2px;
+  }
+
+  /* Set before first paint by the head script, so a dismissed banner never flashes. */
+  html[data-banner-hidden] #donation-banner {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link {
+      transition: none;
+    }
+  }
+</style>
