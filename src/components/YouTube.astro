@@ -1,0 +1,174 @@
+---
+/**
+ * Click-to-load YouTube player.
+ *
+ * A plain YouTube iframe downloads about 980 KB of player code (base.js alone
+ * is 472 KB) the moment the page loads, whether or not anyone presses play.
+ * Measured with Lighthouse on this site in November 2026. This renders the
+ * thumbnail and a real button instead, and swaps in the player only on click.
+ * Lighthouse calls this a facade:
+ * https://developer.chrome.com/docs/lighthouse/performance/third-party-facades
+ *
+ * The player uses youtube-nocookie.com, YouTube's privacy-enhanced mode.
+ *
+ * Usage in MDX:
+ *   import YouTube from "@/components/YouTube.astro";
+ *   <YouTube id="hiToREU6Zrw" title="Git ဘာကြောင့် လိုအပ်လဲ" />
+ */
+interface Props {
+  /** The video ID from the YouTube URL (the part after v= or /embed/). */
+  id: string;
+  /** What the video is about. Read out by screen readers. */
+  title: string;
+  /** Optional start offset in seconds. */
+  start?: number;
+}
+
+const { id, title, start } = Astro.props;
+
+if (!/^[\w-]{11}$/.test(id)) {
+  throw new Error(`YouTube: "${id}" is not an 11-character video ID.`);
+}
+
+const params = new URLSearchParams({ autoplay: "1", rel: "0" });
+if (start) params.set("start", String(start));
+
+const embedUrl = `https://www.youtube-nocookie.com/embed/${id}?${params}`;
+const watchUrl = `https://www.youtube.com/watch?v=${id}`;
+// hqdefault exists for every video; maxresdefault does not.
+const thumbnail = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+---
+
+<div class="yt-facade not-content" data-embed={embedUrl} data-title={title}>
+  <button type="button" class="yt-facade-button" aria-label={`ဗီဒီယို ဖွင့်ရန်: ${title}`}>
+    <img
+      src={thumbnail}
+      alt=""
+      width="480"
+      height="360"
+      loading="lazy"
+      decoding="async"
+      class="yt-facade-thumb"
+    />
+    <span class="yt-facade-play" aria-hidden="true">
+      <svg viewBox="0 0 68 48" width="68" height="48">
+        <path
+          d="M66.5 7.7c-.8-2.9-3-5.2-5.9-6C55.3.3 34 .3 34 .3s-21.3 0-26.6 1.4c-2.9.8-5.1 3.1-5.9 6C.1 13 .1 24 .1 24s0 11 1.4 16.3c.8 2.9 3 5.2 5.9 6C12.7 47.7 34 47.7 34 47.7s21.3 0 26.6-1.4c2.9-.8 5.1-3.1 5.9-6 1.4-5.3 1.4-16.3 1.4-16.3s0-11-1.4-16.3z"
+          fill="#f00"></path>
+        <path d="M45 24 27 14v20z" fill="#fff"></path>
+      </svg>
+    </span>
+  </button>
+  <a class="yt-facade-fallback" href={watchUrl} target="_blank" rel="noopener noreferrer">
+    YouTube တွင် ကြည့်ရန်
+  </a>
+</div>
+
+<script>
+  // Delegated, so one listener serves every video on the page and videos
+  // added later still work.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as Element | null)?.closest(".yt-facade-button");
+    const facade = button?.closest<HTMLElement>(".yt-facade");
+    if (!facade?.dataset.embed) return;
+
+    const iframe = document.createElement("iframe");
+    iframe.src = facade.dataset.embed;
+    iframe.title = facade.dataset.title ?? "YouTube video";
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.className = "yt-facade-frame";
+
+    facade.replaceChildren(iframe);
+    facade.classList.add("is-playing");
+    iframe.focus();
+  });
+</script>
+
+<style>
+  /* No outer margin: lesson pages already space their blocks, and the
+     homepage places the player inside its own framed container. */
+  .yt-facade {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: #0f0f0f;
+  }
+
+  .yt-facade-button {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  /* hqdefault is 4:3 with letterbox bars; cover crops them away in a 16:9 box. */
+  .yt-facade-thumb {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .yt-facade-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+  }
+
+  .yt-facade-button:hover .yt-facade-play,
+  .yt-facade-button:focus-visible .yt-facade-play {
+    opacity: 1;
+  }
+
+  .yt-facade-button:focus-visible {
+    outline: 3px solid #f97316;
+    outline-offset: -3px;
+  }
+
+  /* Visible only to keyboard and screen-reader users, as a way out to YouTube. */
+  .yt-facade-fallback {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.75rem;
+    text-decoration: none;
+    clip-path: inset(50%);
+  }
+
+  .yt-facade-fallback:focus-visible {
+    clip-path: none;
+    outline: 2px solid #f97316;
+  }
+
+  .yt-facade :global(.yt-facade-frame) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yt-facade-play {
+      transition: none;
+    }
+  }
+</style>
