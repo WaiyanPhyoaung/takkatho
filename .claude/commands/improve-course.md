@@ -10,7 +10,7 @@ When invoked with `/improve-course [course-name]`, follow this exact workflow:
 
 ## Step 1: Map the course
 
-Read every file under `src/content/docs/[course-name]/` and the sidebar entries in `astro.config.mjs`. Build a mental map of:
+Read every file under `src/content/docs/[course-name]/` and the course's group in `src/config/sidebar.mjs` (the sidebar moved out of `astro.config.mjs` in November 2026). Build a mental map of:
 - All existing modules and what they cover
 - The progression (does each module build on the previous?)
 - The sidebar order
@@ -135,7 +135,7 @@ Execute in this order:
 
 4. **Create new module files** — use the same MDX pattern as existing modules (`import { Aside }`, `import ContentImage`, Myanmar-language explanations).
 
-5. **Update astro.config.mjs** — add all new modules to the correct sidebar in the correct position.
+5. **Update src/config/sidebar.mjs.** Add all new modules to the course's group in the correct position.
 
 ---
 
@@ -166,13 +166,23 @@ Ask for each concept explanation: "Could a Myanmar high school graduate with no 
 
 ## Step 7: Update the sidebar config
 
-In `astro.config.mjs`, add new modules in logical order. Use this pattern:
+In `src/config/sidebar.mjs`, add new modules to the course's group in logical order. Use this pattern:
 ```js
 {
   label: 'Module Title',
   slug: '[course-name]/module-slug',
 }
 ```
+
+Do not edit lesson counts by hand anywhere. The course cards, the homepage stats and the `/courses` list all read counts from this sidebar at build time (`src/lib/course-stats.mjs`), and the build fails if a course card points at a folder with no sidebar group.
+
+For a video, use the click-to-load component instead of an `<iframe>`:
+```mdx
+import YouTube from "@/components/YouTube.astro";
+
+<YouTube id="VIDEO_ID" title="What the video covers" />
+```
+A raw YouTube iframe downloads about 980 KB of player code on page load.
 
 ---
 

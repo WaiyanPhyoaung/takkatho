@@ -62,13 +62,20 @@ takkatho/
 ├── public/                 # Static assets
 ├── src/
 │   ├── assets/            # Images and media files
+│   ├── config/
+│   │   ├── sidebar.mjs    # Lesson order for every course; add new lessons here
+│   │   └── site.mjs       # Canonical origin (www.takkatho.dev), name, social links
 │   ├── content/
 │   │   └── docs/          # Course content (MDX files)
-│   ├── components/        # Reusable components
+│   ├── components/        # Reusable components (YouTube.astro for videos)
+│   ├── data/
+│   │   └── cheatsheets.ts # Cheat sheet commands for /cheatsheets
 │   ├── layouts/           # Page layouts
+│   ├── lib/
+│   │   └── course-stats.mjs # Lesson counts and course links, derived from the sidebar
 │   └── styles/
 │       └── global.css     # Global styles and design system
-├── astro.config.mjs       # Astro configuration
+├── astro.config.mjs       # Astro configuration (head tags, redirects, integrations)
 ├── package.json           # Dependencies and scripts
 └── README.md             # This file
 ```

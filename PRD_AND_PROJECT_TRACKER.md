@@ -34,35 +34,38 @@
 
 ## 3. Current Platform Status & Content Audit
 
-လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၃ ခု** နှင့် **သင်ခန်းစာပေါင်း ၃၇၅+ ခု** ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
+လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု** နှင့် **သင်ခန်းစာပေါင်း 373 ခု** ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
 
 ### 📚 Course Library Breakdown
 
+Lesson counts are the number of lessons in each course's sidebar group (`src/config/sidebar.mjs`), excluding a course's own overview page. The site computes them at build time, so this table is the only place they are written by hand. Regenerate with: `node --input-type=module -e "import {courses} from './src/lib/course-stats.mjs'; for (const c of courses) console.log(c.dir, c.lessonCount)"`.
+
 | Course Name | Category | Level | Lessons | Status | Key Topics Covered |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **HTML Fundamentals** | Web Basics | Beginner | 8 | ✅ Live | Semantic HTML5, Forms, Tables, Media, Best Practices |
-| **CSS Mastery** | Styling | Beginner | 11 | ✅ Live | Box Model, Flexbox, Grid, Animations, Responsive Design |
-| **Advanced CSS** | Styling | Advanced | 15 | ✅ Live | Container Queries, `@property`, Cascade Layers, View Transitions |
-| **Interactive JavaScript** | Web Dev | Beginner | 9 | ✅ Live | DOM, Events, Async JS, Counter & Todo Projects, `<CodePlayground />` |
-| **TypeScript** | Programming | Intermediate | 9 | ✅ Live | Types, Interfaces, Unions, Classes, Modules |
-| **Advanced TypeScript** | Programming | Advanced | 25 | ✅ Live | Generics Constraints, `satisfies`, Utility Types, Mini Projects |
-| **Python Programming** | Programming | Beginner | 8 | ✅ Live | Syntax, Data Structures, OOP, Error Handling |
-| **Golang** | Systems / Backend | Intermediate | 10 | ✅ Live | Goroutines, Channels, Pointers, REST APIs |
-| **Java Programming** | Enterprise / OOP | Beginner | 8 | ✅ Live | OOP Principles, Collections Framework, Exception Handling |
-| **Node.js & Express** | Backend | Intermediate | 8 | ✅ Live | Event Loop, File System, REST APIs, Express Middleware |
+| **HTML Fundamentals** | Web Basics | Beginner | 24 | ✅ Live | Semantic HTML5, Forms, Tables, Media, Best Practices |
+| **CSS Mastery** | Styling | Beginner | 25 | ✅ Live | Box Model, Flexbox, Grid, Animations, Responsive Design |
+| **Advanced CSS** | Styling | Advanced | 13 | ✅ Live | Container Queries, `@property`, Cascade Layers, View Transitions |
+| **Interactive JavaScript** | Web Dev | Beginner | 36 | ✅ Live | DOM, Events, Async JS, Counter & Todo Projects, `<CodePlayground />` |
+| **TypeScript** | Programming | Intermediate | 7 | ✅ Live | Types, Interfaces, Unions, Classes, Modules |
+| **Advanced TypeScript** | Programming | Advanced | 26 | ✅ Live | Generics Constraints, `satisfies`, Utility Types, Mini Projects |
+| **Python Programming** | Programming | Beginner | 14 | ✅ Live | Syntax, Data Structures, OOP, Error Handling |
+| **Golang** | Systems / Backend | Intermediate | 9 | ✅ Live | Goroutines, Channels, Pointers, REST APIs |
+| **Java Programming** | Enterprise / OOP | Beginner | 7 | ✅ Live | OOP Principles, Collections Framework, Exception Handling |
+| **Node.js & Express** | Backend | Intermediate | 7 | ✅ Live | Event Loop, File System, REST APIs, Express Middleware |
 | **Next.js (App Router)** | Full-Stack | Intermediate | 5 | ✅ Live | Server Components (RSC), Server Actions, Routing, Vercel Deploy |
-| **SQL Masterclass** | Database | Beginner | 6 | ✅ Live | CRUD, WHERE Clause, ORDER BY, Aggregations, GROUP BY, JOINs |
-| **Relational Database Design**| Database | Intermediate | 16 | ✅ Live | Normalization (1NF–5NF), Keys, Relationships, DDL/DML |
+| **SQL Masterclass** | Database | Beginner | 8 | ✅ Live | CRUD, WHERE Clause, ORDER BY, Aggregations, GROUP BY, JOINs |
+| **Relational Database Design**| Database | Intermediate | 30 | ✅ Live | Normalization (1NF–5NF), Keys, Relationships, DDL/DML |
 | **MongoDB (NoSQL)** | Database | Beginner | 5 | ✅ Live | Document model, Collections, CRUD, Aggregations, Atlas Cloud |
-| **Data Structures & Algorithms**| Computer Science| Intermediate | 20 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
+| **Data Structures & Algorithms**| Computer Science| Intermediate | 15 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
 | **Docker & Containers** | DevOps | Intermediate | 5 | ✅ Live | Images, Containers, Dockerfile, Docker Compose, Production Tips |
-| **n8n Workflow Automation** | Automation | Beginner | 17 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
-| **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 16 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
-| **Git Version Control** | Tooling | Beginner | 20 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
-| **WebSocket Technology** | Real-time | Intermediate | 12 | ✅ Live | TCP Handshake, HTTP Upgrade, Full-duplex messaging, Chat App |
-| **Web Performance** | Optimization | Intermediate | 18 | ✅ Live | Core Web Vitals (LCP, CLS, INP), CDN, Caching, Bundle Splitting |
-| **Frontend Architecture** | Architecture | Intermediate | 15 | ✅ Live | Component Architecture, Redux/Flux, Micro-frontends, Rendering |
-| **Software Architecture** | Systems Design | Advanced | 22 | ✅ Live | Monolith vs Microservices, C4 Model, ADRs, Saga Pattern, CQRS |
+| **n8n Workflow Automation** | Automation | Beginner | 15 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
+| **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 12 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
+| **Git Version Control** | Tooling | Beginner | 25 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
+| **WebSocket Technology** | Real-time | Intermediate | 13 | ✅ Live | TCP Handshake, HTTP Upgrade, Full-duplex messaging, Chat App |
+| **Web Performance** | Optimization | Intermediate | 21 | ✅ Live | Core Web Vitals (LCP, CLS, INP), CDN, Caching, Bundle Splitting |
+| **Frontend Architecture** | Architecture | Intermediate | 17 | ✅ Live | Component Architecture, Redux/Flux, Micro-frontends, Rendering |
+| **Software Architecture** | Systems Design | Advanced | 24 | ✅ Live | Monolith vs Microservices, C4 Model, ADRs, Saga Pattern, CQRS |
+| **Linux, Cloud VPS & DevOps** | DevOps | Intermediate | 10 | ✅ Live | Linux CLI, Permissions, systemd, SSH, UFW, Nginx Reverse Proxy, GitHub Actions CI/CD |
 
 ---
 
@@ -79,7 +82,7 @@
 - `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage`.
 
 ### 3. Global Full-Text Search
-- Powered by Starlight + Pagefind indexing all 375+ lessons with Burmese and English search keyword recognition.
+- Powered by Starlight + Pagefind, indexing 385 pages (373 lessons plus course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
 
 ---
 
@@ -149,12 +152,12 @@
 
 | Milestone | Target Feature / Task | Status | Target Timeline |
 | :--- | :--- | :--- | :--- |
-| **M1.0** | 23 Core Technical Courses (375+ lessons) | ✅ Completed | Completed |
+| **M1.0** | 24 Core Technical Courses (373 lessons) | ✅ Completed | Completed |
 | **M1.1** | Career Roadmaps (`/roadmaps`) | ✅ Completed | Completed |
 | **M1.2** | Interactive `<CodePlayground />`, `<Quiz />`, `<LessonCompletion />` | ✅ Completed | Completed |
 | **M1.3** | Course Cards Sync on `/courses` (Docker, Next.js, MongoDB, Linux) | ✅ Completed | Completed |
 | **M1.4** | Linux & Cloud DevOps Course (`/linux-devops` 10 lessons) | ✅ Completed | Completed |
-| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`) | ✅ Completed | Completed |
+| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`, 120 commands in 8 categories) | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 
@@ -167,3 +170,20 @@ Takkatho ရှိ သင်ခန်းစာအသစ်များ ရေး
 2. **Technical Terms**: Standard English technical terms များ (e.g. *API, Docker, Microservice, Prompt, Database, State, Props, Hook*) ကို မူရင်း English အတိုင်း ထားရှိရန်။
 3. **Natural Phrasing**: တိုက်ရိုက် ဘာသာပြန်ခြင်း (Literal translation) မဟုတ်ဘဲ မြန်မာပြည်မှ Developer များ အလွယ်တကူ သဘောပေါက်နိုင်သော စကားပြောဟန်ဖြင့် ရေးသားရန်။
 4. **Code Quality**: Code ဥပမာတိုင်းတွင် Comments များ၊ Visual Diagrams (Mermaid/SVG) များနှင့် Real-world analogies များ ထည့်သွင်းပေးရန်။
+
+---
+
+## 8. Site conventions for editors (November 2026)
+
+These replace older habits that let the site drift out of sync with itself.
+
+| Task | Where | Notes |
+| :--- | :--- | :--- |
+| Add or reorder lessons | `src/config/sidebar.mjs` | Moved out of `astro.config.mjs`. Lesson counts, course card links and redirects for bare course URLs (`/git-course` and so on) all come from this file. |
+| Add a course card | `src/components/CoursesListing.tsx` | Set `dir` to the course folder. Do not type a lesson count; the build fails if `dir` has no sidebar group. |
+| Embed a video | `<YouTube id="..." title="..." />` | `src/components/YouTube.astro`. Loads nothing from YouTube until clicked. A raw iframe costs about 980 KB per page. |
+| Change the site address | `src/config/site.mjs` | `SITE` is `https://www.takkatho.dev`, the host Vercel serves. Canonical tags, the sitemap and link previews all use it. |
+| Add a cheat sheet command | `src/data/cheatsheets.ts` | The homepage teaser and its counts update on their own. |
+| Fonts | `<head>` links | Never `@import` fonts in CSS; it delays text rendering. |
+
+The theme toggle on the main pages shares the `theme-toggle` localStorage key with the lesson pages' toggle (from `starlight-theme-nova`), so a reader's choice follows them between the two.
