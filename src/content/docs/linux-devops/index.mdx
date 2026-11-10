@@ -1,0 +1,87 @@
+---
+title: "Linux, Cloud VPS & DevOps မိတ်ဆက် (Course Overview)"
+description: "Linux Operating System အခြေခံမှသည် Cloud Server (VPS) စီမံခန့်ခွဲခြင်း၊ SSH လုံခြုံရေး၊ Nginx Reverse Proxy နှင့် GitHub Actions CI/CD အထိ လေ့လာမည့် သင်ရိုးလမ်းညွှန်"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import LessonCompletion from "../../../components/mdx/LessonCompletion";
+
+<Aside title="👋 မင်္ဂလာပါ">
+  **Linux, Cloud VPS & DevOps Fundamentals** သင်ရိုးမှ ကြိုဆိုပါတယ်။ ဤသင်ရိုးသည် ခင်ဗျား၏ Code များကို Local စက်ထဲတွင်သာ မဟုတ်ဘဲ အင်တာနက်လောကထဲရှိ **Production Cloud Server** ပေါ်တွင် ၂၄ နာရီ မရပ်မနား တည်ငြိမ်စွာ အလုပ်လုပ်နိုင်စေရန် အခြေခံမှစ၍ အဆင့်ဆင့် လေ့ကျင့်ပေးမည့် လက်တွေ့ သင်ရိုးဖြစ်ပါတယ်။
+</Aside>
+
+## အဘယ်ကြောင့် Linux & DevOps ကို Developer တိုင်း တတ်မြောက်ထားသင့်သနည်း?
+
+ယနေ့ခေတ် ကမ္ဘာ့ Web Server များ၊ Cloud ပလက်ဖောင်းများ (AWS, Google Cloud, DigitalOcean, Hetzner) နှင့် Docker Containers များ၏ **၉၀% ကျော်သည် Linux (အထူးသဖြင့် Ubuntu / Debian)** ပေါ်တွင် အခြေခံ လည်ပတ်နေကြပါတယ်။
+
+ခင်ဗျားအနေဖြင့် မည်မျှပင် ကောင်းမွန်သော Code များ ရေးသားနိုင်ပါစေ —
+- Server ပေါ်သို့ မည်သို့ တင်ရမည်ကို မသိပါက၊
+- Error တက်၍ Server ကျသွားသည့်အခါ Auto-restart မလုပ်နိုင်ပါက၊
+- Hacker များ၏ SSH Brute-force တိုက်ခိုက်မှုဒဏ်ကို မကာကွယ်နိုင်ပါက၊
+Application တစ်ခုသည် Production အဆင့်သို့ ရောက်ရှိနိုင်မည် မဟုတ်ပါ။
+
+---
+
+## Production Deployment Architecture (စနစ်တစ်ခုလုံး၏ ဖွဲ့စည်းပုံ)
+
+ဤသင်ရိုးတွင် အောက်ဖော်ပြပါ **Full Production Workflow** တစ်ခုလုံးကို အစအဆုံး ကိုယ်တိုင် တည်ဆောက်သွားပါမည်:
+
+```mermaid
+graph TD
+    subgraph Local["💻 Developer Laptop"]
+        Code["Code Development (Git Commit)"]
+    end
+
+    subgraph GitHub["🐙 GitHub Repository"]
+        Push["git push origin main"]
+        Actions["⚙️ GitHub Actions CI Runner<br/>(Lint, Test, Typecheck)"]
+    end
+
+    subgraph VPS["☁️ Production Cloud VPS (Ubuntu 24.04 LTS)"]
+        UFW["🛡️ UFW Firewall & Fail2ban"]
+        Nginx["🌐 Nginx Web Server (Port 80/443)<br/>Let's Encrypt SSL (HTTPS)"]
+        ReverseProxy["🔄 Reverse Proxy Pass"]
+        Systemd["⚡ Systemd Background Service<br/>(Node.js / Docker App :3000)"]
+    end
+
+    Code --> Push
+    Push --> Actions
+    Actions -->|SSH Deploy via Secrets| VPS
+    UFW --> Nginx
+    Nginx --> ReverseProxy
+    ReverseProxy --> Systemd
+```
+
+---
+
+## 📚 သင်ရိုးတွင် ပါဝင်မည့် အဓိက Modules ၅ ခု
+
+| Module | ခေါင်းစဉ် | အဓိက လေ့လာရမည့် အကြောင်းအရာများ |
+| :---: | :--- | :--- |
+| **01** | **Linux CLI Essentials** | Directory Hierarchy (`/`, `/var`, `/etc`), Navigation Commands (`ls -la`, `cd`, `rm -rf`, `tail -f`), File Permissions Matrix (`chmod 644/755`), User & Sudo Management |
+| **02** | **System & Processes** | APT Package Manager (`update` vs `upgrade -y`), System Resources (`htop`, `df -h`, `free -m`), Production Systemd Service ဖန်တီးခြင်းနှင့် `journalctl` Live Logs |
+| **03** | **Server Security** | Ed25519 SSH Key Cryptography, Password-less Login, `sshd_config` Hardening, UFW Firewall Rules, Fail2ban Brute-force ကာကွယ်မှုနှင့် Swap Memory Setup |
+| **04** | **Nginx & HTTPS SSL** | Event-driven Architecture, Server Blocks (`sites-available` vs `sites-enabled`), Static Web Hosting, Reverse Proxy Pass to Node.js/Docker, Let's Encrypt Certbot SSL |
+| **05** | **CI/CD Automation** | GitHub Actions Pipeline Concepts, `.github/workflows` YAML Syntax, Automated Testing, GitHub Secrets ဖြင့် VPS ပေါ်သို့ SSH Zero-Downtime Deployment |
+
+---
+
+## ကြိုတင် လိုအပ်ချက်များ (Prerequisites)
+
+- အခြေခံ Terminal အသုံးပြုဖူးသူ (Mac, Linux သို့မဟုတ် Windows WSL / Git Bash)။
+- Git & GitHub အသုံးပြုပုံ အခြေခံ နားလည်ထားခြင်း။
+- Cloud VPS တစ်လုံး (DigitalOcean, Hetzner, AWS EC2 သို့မဟုတ် VirtualBox / Local Ubuntu VM ဖြင့်လည်း အခမဲ့ လိုက်ပါ စမ်းသပ်နိုင်ပါသည်)။
+
+---
+
+## စတင် လေ့လာရန် အဆင်သင့်ဖြစ်ပြီလား?
+
+ပထမဆုံး သင်ခန်းစာဖြစ်သည့် **Linux Terminal အခြေခံနှင့် File System စီမံခန့်ခွဲခြင်း** သို့ တိုက်ရိုက် သွားရောက် လေ့လာလိုက်ပါ:
+
+👉 **[Module 1: Navigation & File System သို့ သွားမည် →](/linux-devops/01-cli-basics/01-navigation-and-files)**
+
+<LessonCompletion
+  client:idle
+  lessonId="linux-devops-00-overview"
+  lessonTitle="Course Overview"
+/>

@@ -2922,6 +2922,10 @@ export default defineConfig({
           label: "Linux & Cloud DevOps",
           items: [
             {
+              label: "မိတ်ဆက် (Course Overview)",
+              slug: "linux-devops",
+            },
+            {
               label: "1. Linux CLI အခြေခံ",
               items: [
                 {

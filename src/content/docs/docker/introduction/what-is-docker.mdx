@@ -4,6 +4,8 @@ description: "Docker ၏ အခြေခံ သဘောတရားများ
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
+import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   "Works on my machine" (ငါ့စက်ထဲမှာတော့ အလုပ်လုပ်တယ်) ဟူသော ပြဿနာကို ဖြေရှင်းပေးသည့် **Docker** နှင့် **Containerization Technology** ၏ အခြေခံ သဘောတရားများကို နားလည်စေရန် ဖြစ်ပါတယ်။
@@ -50,3 +52,43 @@ graph TD
 1. **Consistency (ညီညွတ်မှု):** Developer ၏ စက်တွင် run သော Container သည် Staging နှင့် Production Server ပေါ်တွင် ၁၀၀% တူညီစွာ အလုပ်လုပ်သည်။
 2. **Isolation (သီးခြား ကင်းလွတ်မှု):** Container တစ်ခုအတွင်း ဖြစ်ပေါ်သော Error သည် အခြား Container များ သို့မဟုတ် Host OS ကို ထိခိုက်မှု မရှိပါ။
 3. **Efficiency (ထိရောက်မှု):** Resource သုံးစွဲမှု အလွန် နည်းပါးသဖြင့် Server တစ်ခုတည်းတွင် Containers များစွာ ပြိုင်တူ Run နိုင်သည်။
+---
+
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
+
+<Quiz
+  client:idle
+  title="Docker အခြေခံ စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "Docker Container နှင့် Virtual Machine (VM) တို့၏ အဓိက ကွာခြားချက်မှာ အဘယ်နည်း?",
+      options: [
+        "Container သည် Host OS ၏ Kernel ကို မျှဝေသုံးစွဲသဖြင့် အလွန်ပေါ့ပါးပြီး စက္ကန့်ပိုင်းအတွင်း ချက်ချင်း စတင်နိုင်သည်",
+        "Virtual Machine သည် Container ထက် ပိုမိုပေါ့ပါးသည်",
+        "Container တိုင်းတွင် သီးသန့် Guest OS အပြည့်အစုံ ပါဝင်သည်",
+        "Container သည် Windows တွင်သာ အလုပ်လုပ်ပြီး VM သည် Linux တွင်သာ အလုပ်လုပ်သည်"
+      ],
+      correctAnswer: 0,
+      explanation: "Container သည် သီးသန့် Guest OS မပါဘဲ Host OS Kernel ကို မျှဝေသုံးစွဲသောကြောင့် MB အနည်းငယ်သာ သုံးစွဲပြီး Instant boot ဖြစ်ပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "Docker သည် 'Works on my machine' ပြဿနာကို မည်သို့ ဖြေရှင်းပေးသနည်း?",
+      options: [
+        "Developer ၏ Laptop ကို Cloud ပေါ်သို့ တင်ပေးခြင်းဖြင့်",
+        "Code သာမက ၎င်း အလုပ်လုပ်ရန် လိုအပ်သော Runtime, Libraries, Dependencies အားလုံးကို Container အဖြစ် တစ်ပြေးညီ ထုပ်ပိုးပေးခြင်းဖြင့်",
+        "Operating System အားလုံးကို အလိုအလျောက် Update လုပ်ပေးခြင်းဖြင့်",
+        "Node.js version များကို အလိုအလျောက် ရွေးချယ်ပေးခြင်းဖြင့်"
+      ],
+      correctAnswer: 1,
+      explanation: "Containerization နည်းပညာသည် Environment တစ်ခုလုံးကို Package ပြုလုပ်ထားသဖြင့် Developer စက်တွင် run သောပုံစံနှင့် Production Server ပေါ်တွင် run သောပုံစံ ၁၀၀% တူညီစေပါသည်။"
+    }
+  ]}
+/>
+
+<LessonCompletion
+  client:idle
+  lessonId="docker-01-intro"
+  lessonTitle="Docker Introduction"
+/>

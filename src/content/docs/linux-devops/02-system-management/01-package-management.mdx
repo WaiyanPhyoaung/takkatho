@@ -4,6 +4,7 @@ description: "Ubuntu/Debian APT Package Manager၊ Update vs Upgrade ခြာ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
 import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
@@ -116,6 +117,39 @@ npm -v
 - [ ] ပုံမှန် လုံခြုံရေး Patch များ ရရှိစေရန် `sudo apt upgrade -y` ပြုလုပ်ပါ။
 - [ ] Server တွင် Disk Space ရှင်းလင်းရန် `sudo apt autoremove -y` ကို အခါအားလျော်စွာ သုံးပါ။
 - [ ] နောက်ဆုံးထွက် Runtime (Node.js/Docker) များအတွက် Official External Repository ထည့်သွင်းနည်းကို သုံးပါ။
+
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
+
+<Quiz
+  client:idle
+  title="APT Package Management စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "'sudo apt update' နှင့် 'sudo apt upgrade' တို့၏ အဓိက ခြားနားချက်မှာ အဘယ်နည်း?",
+      options: [
+        "update သည် package များ၏ version metadata စာရင်းသစ်ကိုသာ ဆွဲယူပြီး၊ upgrade သည် လက်ရှိ software များကို version သစ်သို့ အမှန်တကယ် ပြောင်းလဲတင်ပေးခြင်း ဖြစ်သည်",
+        "update သည် OS တစ်ခုလုံးကို ပြန် install လုပ်ပြီး၊ upgrade သည် RAM ကို ရှင်းလင်းပေးသည်",
+        "နှစ်ခုလုံးသည် အတူတူပင် ဖြစ်ပြီး မည်သည့်အရာကို သုံးသုံး ရနိုင်သည်",
+        "upgrade ကို အရင် run ပြီးမှ update ကို run ရသည်"
+      ],
+      correctAnswer: 0,
+      explanation: "update သည် repository server များဆီမှ package catalog အသစ်ကိုသာ download ဆွဲယူခြင်းဖြစ်ပြီး၊ software များကို အမှန်တကယ် install/upgrade မလုပ်သေးပါ။ upgrade ကသာ အသစ်တင်ပေးခြင်း ဖြစ်ပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "Server တွင် မလိုအပ်တော့သော library ဖိုင်ဟောင်းများနှင့် dependencies များကို ရှင်းထုတ်ရန် မည်သည့် command ကို သုံးရမည်နည်း?",
+      options: [
+        "sudo apt clean-all",
+        "sudo apt autoremove -y",
+        "sudo apt delete",
+        "sudo rm -rf /etc/apt"
+      ],
+      correctAnswer: 1,
+      explanation: "apt autoremove သည် အခြား package များနှင့် ဆက်နွယ်မှု မရှိတော့သည့် orphaned packages များကို အလိုအလျောက် သန့်ရှင်းဖယ်ရှားပေးပါသည်။"
+    }
+  ]}
+/>
 
 <LessonCompletion
   client:idle

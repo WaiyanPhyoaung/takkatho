@@ -4,6 +4,7 @@ description: "Linux Directory Structure Hierarchy၊ Terminal Navigation နှ�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
 import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
@@ -182,6 +183,39 @@ nano /etc/nginx/nginx.conf
 - [ ] `cd ~/projects/my-server` ထဲသို့ ဝင်ပါ။
 - [ ] `nano app.js` ဖြင့် `console.log("Hello Linux Server");` ဟု ရေးပြီး `Ctrl+O` ဖြင့် Save လုပ်ပါ။
 - [ ] `cat app.js` ဖြင့် ရေးထားသော Code ကို ပြန်လည် စစ်ဆေးပါ။
+
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
+
+<Quiz
+  client:idle
+  title="Linux Navigation & Files စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "Linux တွင် .env ကဲ့သို့သော အစက် (.) ဖြင့် စတင်သည့် Hidden Files များကို ကြည့်ရှုလိုပါက မည်သည့် command flag ကို သုံးရမည်နည်း?",
+      options: [
+        "ls -h",
+        "ls -a (သို့မဟုတ်) ls -la",
+        "ls -s",
+        "ls -r"
+      ],
+      correctAnswer: 1,
+      explanation: "-a (all) flag သည် အစက် (.) ဖြင့် စတင်သော hidden files များကိုပါ ထုတ်ပြပေးပြီး၊ -la သည် အသေးစိတ် permissions များနှင့်အတူ ပြသပေးပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "Production Server ပေါ်တွင် အသစ်တက်လာသော Error Logs များကို Real-time မျက်ခြည်မပြတ် စောင့်ကြည့်ရန် မည်သည့် command ကို သုံးသင့်သနည်း?",
+      options: [
+        "cat error.log",
+        "nano error.log",
+        "tail -f error.log",
+        "grep error.log"
+      ],
+      correctAnswer: 2,
+      explanation: "tail -f (-f ဆိုသည်မှာ follow) သည် ဖိုင်ထဲသို့ Log စာကြောင်းအသစ်များ ရောက်ရှိလာတိုင်း Terminal တွင် အလိုအလျောက် တိုက်ရိုက် ထုတ်ပြပေးပါသည်။"
+    }
+  ]}
+/>
 
 <LessonCompletion
   client:idle

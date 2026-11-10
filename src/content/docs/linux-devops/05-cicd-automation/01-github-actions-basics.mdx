@@ -4,6 +4,7 @@ description: "Continuous Integration & Deployment (CI/CD) မိတ်ဆက်�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "../../../../components/mdx/Quiz";
 import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
@@ -104,11 +105,38 @@ jobs:
 
 ---
 
-## 🎯 သင်ခန်းစာ အနှစ်ချုပ် Checklist
+## 🧠 အသိပညာ စစ်ဆေးမှု (Quiz)
 
-- [ ] `.github/workflows/` folder အောက်တွင် YAML ဖိုင်များ ထားရှိပါ။
-- [ ] Pull Request တိုင်းတွင် Test များနှင့် Build များကို CI ဖြင့် အလိုအလျောက် စစ်ဆေးပါ။
-- [ ] CI အောင်မြင်မှသာ Main branch သို့ Merge ခွင့်ပြုသည့် Branch Protection Rules များ သတ်မှတ်ပါ။
+<Quiz
+  client:idle
+  title="GitHub Actions CI စစ်ဆေးမှု"
+  questions={[
+    {
+      id: "q1",
+      question: "CI/CD Pipeline Runner ပေါ်တွင် 'npm install' အစား 'npm ci' ကို အဘယ်ကြောင့် အသုံးပြုသင့်သနည်း?",
+      options: [
+        "npm ci သည် package-lock.json ထဲရှိ version အတိုင်း တိကျစွာ install လုပ်ပေးပြီး အလွန် လျင်မြန်ကာ builds များကို consistent ဖြစ်စေသောကြောင့်",
+        "npm ci သည် GitHub repository ကို အလိုအလျောက် deploy လုပ်ပေးသောကြောင့်",
+        "npm ci သုံးပါက TypeScript compile လုပ်စရာ မလိုတော့သောကြောင့်",
+        "npm install သည် Linux OS ပေါ်တွင် အလုပ်မလုပ်သောကြောင့်"
+      ],
+      correctAnswer: 0,
+      explanation: "npm ci (Clean Install) သည် package-lock.json အတိုင်း တိကျစွာ match ဖြစ်အောင် install လုပ်ပေးပြီး package version ကွဲလွဲမှုကြောင့် ဖြစ်တတ်သော CI build errors များကို ကာကွယ်ပေးပါသည်။"
+    },
+    {
+      id: "q2",
+      question: "GitHub Actions workflow ဖိုင်များကို repository ၏ မည်သည့် folder လမ်းကြောင်းတွင် သိမ်းဆည်းရမည်နည်း?",
+      options: [
+        "/scripts/actions/",
+        ".github/workflows/",
+        "/src/ci/",
+        "/workflows/"
+      ],
+      correctAnswer: 1,
+      explanation: "GitHub Actions သည် repository root ရှိ .github/workflows/ folder အောက်ရှိ YAML ဖိုင်များ (*.yml သို့မဟုတ် *.yaml) ကိုသာ အလိုအလျောက် detect လုပ်ပြီး execute လုပ်ပေးပါသည်။"
+    }
+  ]}
+/>
 
 <LessonCompletion
   client:idle
