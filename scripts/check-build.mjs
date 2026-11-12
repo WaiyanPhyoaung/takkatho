@@ -9,8 +9,9 @@
  *
  *   npm run check        check an existing dist/ without rebuilding
  */
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { SITE } from "../src/config/site.mjs";
 import { courseRootRedirects, totalLessons } from "../src/lib/course-stats.mjs";
 import { loadStarlightEnglish } from "../src/lib/starlight-burmese-ui.mjs";
@@ -120,6 +121,33 @@ if (existsSync(vercelConfig)) {
     const hit = routes.find((r) => r.src === `^${from}$` && r.headers?.Location === to);
     if (!hit) fail("Course root redirects", `${from} -> ${to} missing from ${vercelConfig}`);
   }
+}
+
+// Three DSA diagrams were byte-for-byte copies of other diagrams, so lessons
+// showed the wrong picture under the right caption. The bundler merges
+// identical files into one asset, so dist/ can't show this; hash the source
+// images that lessons reference instead. Optional third argument: another
+// docs folder, used to test this script itself.
+const DOCS = process.argv[3] ?? "src/content/docs";
+const IMAGE_REF = /(?:\]\(|from\s+["'])(\.{1,2}\/[^)"'\s]+\.(?:svg|png|jpe?g|webp|gif|avif))/g;
+const imagesByHash = new Map();
+(function walk(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) walk(path);
+    else if (/\.mdx?$/.test(entry.name)) {
+      for (const [, ref] of readFileSync(path, "utf8").matchAll(IMAGE_REF)) {
+        const image = resolve(dirname(path), ref);
+        if (!existsSync(image)) continue; // astro build already fails on these
+        const hash = createHash("sha256").update(readFileSync(image)).digest("hex");
+        if (!imagesByHash.has(hash)) imagesByHash.set(hash, new Set());
+        imagesByHash.get(hash).add(relative(process.cwd(), image));
+      }
+    }
+  }
+})(DOCS);
+for (const images of imagesByHash.values()) {
+  if (images.size > 1) fail("Lesson images are not copies of each other", [...images].join(" = "));
 }
 
 if (failures.length) {

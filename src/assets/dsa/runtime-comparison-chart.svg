@@ -1,37 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
-        </marker>
-        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
-        </marker>
-        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
-        </marker>
-    </defs>
-    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-    
-    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Big O Complexity Chart</text>
-    <line x1="100" y1="350" x2="700" y2="350" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="100" y1="350" x2="100" y2="80" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="720" y="350" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="start" dominant-baseline="middle">Elements (n)</text>
-    <text x="100" y="60" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Operations</text>
-    
-    <!-- O(1) -->
-    <line x1="100" y1="300" x2="650" y2="300" stroke="#22c55e" stroke-width="3" />
-    <text x="670" y="300" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#22c55e" text-anchor="start" dominant-baseline="middle">O(1)</text>
-    
-    <!-- O(log n) -->
-    <path d="M 100 350 Q 200 250 650 200" stroke="#3b82f6" stroke-width="3" fill="none" />
-    <text x="670" y="200" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#3b82f6" text-anchor="start" dominant-baseline="middle">O(log n)</text>
-    
-    <!-- O(n) -->
-    <line x1="100" y1="350" x2="600" y2="100" stroke="#eab308" stroke-width="3" />
-    <text x="620" y="100" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#eab308" text-anchor="start" dominant-baseline="middle">O(n)</text>
-    
-    <!-- O(n^2) -->
-    <path d="M 100 350 Q 300 350 400 100" stroke="#ef4444" stroke-width="3" fill="none" />
-    <text x="420" y="100" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ef4444" text-anchor="start" dominant-baseline="middle">O(n²)</text>
-
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Runtime comparison: steps to sort n items">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+  <text x="400" y="38" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Runtime comparison: steps to sort n items</text>
+    <text x="400" y="70" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#64748b" text-anchor="middle" dominant-baseline="middle">Steps counted as comparisons, worst case for each algorithm.</text>
+  <text x="115" y="108" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Items (n)</text>
+  <text x="305" y="108" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">Bubble sort, O(n²)</text>
+  <text x="515" y="108" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">Merge sort, O(n log n)</text>
+  <text x="675" y="108" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">Merge does</text>
+  <line x1="50" y1="128" x2="750" y2="128" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="50" y="140" width="700" height="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="6"/>
+  <text x="115" y="158.0" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">10</text>
+  <text x="305" y="158.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">45</text>
+  <text x="515" y="158.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">25</text>
+  <text x="675" y="158.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">1.8× fewer</text>
+  <rect x="50" y="184" width="700" height="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="6"/>
+  <text x="115" y="202.0" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">100</text>
+  <text x="305" y="202.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">4,950</text>
+  <text x="515" y="202.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">573</text>
+  <text x="675" y="202.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">8.6× fewer</text>
+  <rect x="50" y="228" width="700" height="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="6"/>
+  <text x="115" y="246.0" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1,000</text>
+  <text x="305" y="246.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">499,500</text>
+  <text x="515" y="246.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">8,977</text>
+  <text x="675" y="246.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">56× fewer</text>
+  <rect x="50" y="272" width="700" height="36" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" rx="6"/>
+  <text x="115" y="290.0" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">10,000</text>
+  <text x="305" y="290.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">49,995,000</text>
+  <text x="515" y="290.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">123,617</text>
+  <text x="675" y="290.0" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">404× fewer</text>
+  <text x="400" y="345" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">Quick sort averages O(n log n) too, but bad pivot choices can push it to O(n²).</text>
+  <text x="400" y="372" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">At 10 items the two are close. At 10,000, bubble sort does about 400 times the work.</text>
+</svg>

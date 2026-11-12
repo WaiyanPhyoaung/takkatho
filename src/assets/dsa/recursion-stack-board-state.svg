@@ -1,34 +1,99 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
-    <defs>
-        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
-        </marker>
-        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
-        </marker>
-        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
-        </marker>
-    </defs>
-    <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-    
-    <text x="400" y="40" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Sudoku Backtracking</text>
-    
-    <rect x="350" y="100" width="100" height="100" fill="none" stroke="#334155" stroke-width="2" rx="0"/>
-    <line x1="350" y1="133" x2="450" y2="133" stroke="#334155" stroke-width="1" />
-    <line x1="350" y1="166" x2="450" y2="166" stroke="#334155" stroke-width="1" />
-    <line x1="383" y1="100" x2="383" y2="200" stroke="#334155" stroke-width="1" />
-    <line x1="416" y1="100" x2="416" y2="200" stroke="#334155" stroke-width="1" />
-    
-    <text x="366" y="116" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">5</text>
-    <text x="400" y="116" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
-    <text x="366" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">6</text>
-    
-    <text x="400" y="150" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#ef4444" text-anchor="middle" dominant-baseline="middle">3</text>
-    <path d="M 480 150 L 420 150" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
-    <text x="550" y="150" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#ef4444" text-anchor="start" dominant-baseline="middle">Conflict! (Row has 3)</text>
-    
-    <path d="M 550 170 Q 500 200 420 160" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)"/>
-    <text x="550" y="190" font-family="system-ui, sans-serif" font-size="14" font-weight="normal" fill="#3b82f6" text-anchor="start" dominant-baseline="middle">Backtrack &amp; Try 4</text>
-
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Recursion stack + board state">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+  <text x="400" y="38" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Recursion stack + board state</text>
+    <text x="160" y="72" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">1. Dead end</text>
+  <rect x="68" y="88" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="91.0" y="112.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="114" y="88" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="137.0" y="112.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="160" y="88" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="183.0" y="112.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="206" y="88" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="229.0" y="112.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="68" y="134" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="91.0" y="158.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="114" y="134" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="137.0" y="158.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="160" y="134" width="46" height="46" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="183.0" y="158.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="206" y="134" width="46" height="46" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="229.0" y="158.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">?</text>
+  <rect x="68" y="180" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="91.0" y="204.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="114" y="180" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="137.0" y="204.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="160" y="180" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="206" y="180" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="229.0" y="204.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="68" y="226" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="91.0" y="250.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="114" y="226" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="137.0" y="250.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="160" y="226" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="183.0" y="250.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="206" y="226" width="46" height="46" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="229.0" y="250.0" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="68" y="88" width="184" height="184" fill="none" stroke="#334155" stroke-width="2.5"/>
+  <line x1="160.0" y1="88" x2="160.0" y2="272" stroke="#334155" stroke-width="2.5"/>
+  <line x1="68" y1="180.0" x2="252" y2="180.0" stroke="#334155" stroke-width="2.5"/>
+  <text x="160" y="294" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">Row 2, col 4: 1, 3 and 4 are in the row,</text>
+  <text x="160" y="312" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">2 is in the column. Nothing fits.</text>
+  <text x="420" y="72" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">Call stack</text>
+  <text x="540" y="104" font-family="system-ui, sans-serif" font-size="12" font-weight="normal" fill="#64748b" text-anchor="start" dominant-baseline="middle">top</text>
+  <rect x="310" y="90" width="220" height="80" fill="#fee2e2" stroke="#ef4444" stroke-width="2" rx="6"/>
+  <text x="420" y="110" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">solve(row 2, col 4)</text>
+  <text x="420" y="132" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">tried 1, 2, 3, 4</text>
+  <text x="420" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="bold" fill="#b91c1c" text-anchor="middle" dominant-baseline="middle">return false</text>
+  <rect x="310" y="182" width="220" height="80" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="6"/>
+  <text x="420" y="202" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">solve(row 2, col 3)</text>
+  <text x="420" y="224" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">placed 1</text>
+  <text x="420" y="244" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">waits for the call above</text>
+  <text x="420" y="294" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">The top call fails and pops off.</text>
+  <text x="420" y="312" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#334155" text-anchor="middle" dominant-baseline="middle">The call below erases 1, tries 2.</text>
+  <text x="665" y="72" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" fill="#334155" text-anchor="middle" dominant-baseline="middle">2. After backtracking</text>
+  <rect x="585" y="88" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="605.0" y="109.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="625" y="88" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="645.0" y="109.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="665" y="88" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="685.0" y="109.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="705" y="88" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="725.0" y="109.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="585" y="128" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="605.0" y="149.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="625" y="128" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="645.0" y="149.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="665" y="128" width="40" height="40" fill="#dcfce7" stroke="#22c55e" stroke-width="1"/>
+  <text x="685.0" y="149.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="705" y="128" width="40" height="40" fill="#dcfce7" stroke="#22c55e" stroke-width="1"/>
+  <text x="725.0" y="149.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="585" y="168" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="605.0" y="189.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="625" y="168" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="645.0" y="189.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="665" y="168" width="40" height="40" fill="#dcfce7" stroke="#22c55e" stroke-width="1"/>
+  <text x="685.0" y="189.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#15803d" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="705" y="168" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="725.0" y="189.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="585" y="208" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="605.0" y="229.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">2</text>
+  <rect x="625" y="208" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="645.0" y="229.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">1</text>
+  <rect x="665" y="208" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="685.0" y="229.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">4</text>
+  <rect x="705" y="208" width="40" height="40" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="725.0" y="229.0" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">3</text>
+  <rect x="585" y="88" width="160" height="160" fill="none" stroke="#334155" stroke-width="2.5"/>
+  <line x1="665.0" y1="88" x2="665.0" y2="248" stroke="#334155" stroke-width="2.5"/>
+  <line x1="585" y1="168.0" x2="745" y2="168.0" stroke="#334155" stroke-width="2.5"/>
+  <text x="665" y="276" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#15803d" text-anchor="middle" dominant-baseline="middle">Row 2, col 3 now holds 2.</text>
+  <text x="665" y="294" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#15803d" text-anchor="middle" dominant-baseline="middle">Row 2, col 4 takes 1.</text>
+  <text x="665" y="312" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#15803d" text-anchor="middle" dominant-baseline="middle">Row 3, col 3 takes 1. Solved.</text>
+  <rect x="50" y="340" width="700" height="42" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" rx="6"/>
+  <text x="400" y="361" font-family="system-ui, sans-serif" font-size="13" font-weight="normal" fill="#0f172a" text-anchor="middle" dominant-baseline="middle">Each empty cell is one call. No valid digit? Return false, and the cell before tries its next digit.</text>
+</svg>
