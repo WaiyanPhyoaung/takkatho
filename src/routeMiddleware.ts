@@ -1,4 +1,9 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
+import {
+  needsDescription,
+  openingProse,
+  toDescription,
+} from "./lib/lesson-description.mjs";
 
 export const onRequest = defineRouteMiddleware((context) => {
   // Get the base path of the current URL
@@ -30,5 +35,23 @@ export const onRequest = defineRouteMiddleware((context) => {
   }
   if (pagination.next && !pagination.next.href.startsWith(currentBase)) {
     pagination.next = undefined;
+  }
+
+  // Lessons whose description just repeats the title get one built from their
+  // opening paragraph (see src/lib/lesson-description.mjs). A description
+  // written in the frontmatter always wins.
+  const route = context.locals.starlightRoute;
+  const { title, description } = route.entry.data;
+  const body = (route.entry as { body?: unknown }).body;
+  if (needsDescription(title, description) && typeof body === "string") {
+    const generated = toDescription(openingProse(body));
+    if (generated) {
+      for (const tag of route.head) {
+        const key = tag.attrs?.name ?? tag.attrs?.property;
+        if (tag.tag === "meta" && (key === "description" || key === "og:description")) {
+          tag.attrs = { ...tag.attrs, content: generated };
+        }
+      }
+    }
   }
 });
