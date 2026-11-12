@@ -241,7 +241,8 @@ export const CheatSheetsViewer: React.FC = () => {
 
   const handleCopy = useCallback(async (text: string, id: string) => {
     // navigator.clipboard is absent on insecure origins and older browsers,
-    // so fall back rather than failing silently.
+    // so fall back to the deprecated execCommand, which still works there.
+    let copied = true;
     try {
       if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
       await navigator.clipboard.writeText(text);
@@ -254,12 +255,14 @@ export const CheatSheetsViewer: React.FC = () => {
       document.body.appendChild(textarea);
       textarea.select();
       try {
-        document.execCommand("copy");
+        copied = document.execCommand("copy"); // false when the browser refused
       } catch {
-        /* nothing further we can do */
+        copied = false;
       }
       document.body.removeChild(textarea);
     }
+    // Only confirm a copy that happened.
+    if (!copied) return;
     setCopiedId(id);
     window.clearTimeout(resetTimer.current);
     resetTimer.current = window.setTimeout(() => setCopiedId(null), 2000);

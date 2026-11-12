@@ -15,7 +15,8 @@ export const ConsultingModal: React.FC = () => {
   const GOOGLE_FORM_ACTION_URL =
     "https://docs.google.com/forms/d/e/1FAIpQLSfYVNCAoFRjc1s0-IodUL2STEo7xFbPTiNvTbB9jBXKYFHLpg/formResponse";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // No preventDefault: the form posts natively to the hidden iframe.
+  const handleSubmit = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
