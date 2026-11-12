@@ -31,18 +31,44 @@ const imgHeight = height
   : typeof src !== "string" && src
     ? src.height
     : undefined;
+
+/*
+ * Responsive variants. Every lesson image used to ship as one file at its
+ * full width (usually 1024px) to every device. Measured in Chrome, lesson
+ * images render 760px wide on large screens, 600px at 1280px, and about
+ * 100vw minus 4rem on tablets and phones (296px on a 360px phone). The
+ * browser now picks the smallest file that is sharp at the device's pixel
+ * density, which on a typical 2x Android phone is about 640px instead of
+ * 1024px.
+ *
+ * An explicit width or height means the author fixed the display size, so
+ * those images get 1x and 2x variants of that size instead. Astro never
+ * upscales, so variants wider than the source are skipped.
+ */
+const STEPS = [360, 480, 640, 800, 1024, 1280, 1600];
+const fixedSize = width !== undefined || height !== undefined;
+const sourceWidth = typeof src !== "string" ? src.width : undefined;
+const widths =
+  !fixedSize && sourceWidth
+    ? [...new Set([...STEPS.filter((step) => step < sourceWidth), sourceWidth])]
+    : undefined;
+const sizes = widths ? "(min-width: 50rem) 760px, calc(100vw - 4rem)" : undefined;
+const densities = fixedSize ? [1, 2] : undefined;
 ---
 
 <div class="flex justify-center p-4">
   {
     isPassthrough ? (
-      <img src={imageSrc} alt={alt} width={imgWidth} height={imgHeight} />
+      <img src={imageSrc} alt={alt} width={imgWidth} height={imgHeight} loading="lazy" decoding="async" />
     ) : (
       <Image
         src={src as any}
         alt={alt}
         width={width ? Number(width) : undefined}
         height={height ? Number(height) : undefined}
+        widths={widths}
+        sizes={sizes}
+        densities={densities}
       />
     )
   }
