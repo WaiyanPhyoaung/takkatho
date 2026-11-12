@@ -66,7 +66,8 @@ takkatho/
 │   │   ├── sidebar.mjs    # Lesson order for every course; add new lessons here
 │   │   └── site.mjs       # Canonical origin (www.takkatho.dev), name, social links
 │   ├── content/
-│   │   └── docs/          # Course content (MDX files)
+│   │   ├── docs/          # Course content (MDX files)
+│   │   └── i18n/my.json   # Optional Burmese overrides for Starlight's interface text
 │   ├── components/        # Reusable components (YouTube.astro for videos)
 │   ├── data/
 │   │   └── cheatsheets.ts # Cheat sheet commands for /cheatsheets
@@ -75,6 +76,9 @@ takkatho/
 │   │   └── course-stats.mjs # Lesson counts and course links, derived from the sidebar
 │   └── styles/
 │       └── global.css     # Global styles and design system
+├── scripts/
+│   ├── check-build.mjs    # Post-build checks; runs as part of npm run build
+│   └── generate-favicons.mjs # PNG icons from public/favicon.svg (npm run favicons)
 ├── astro.config.mjs       # Astro configuration (head tags, redirects, integrations)
 ├── package.json           # Dependencies and scripts
 └── README.md             # This file
@@ -84,7 +88,8 @@ takkatho/
 
 ### Prerequisites
 
-- Node.js 18+ or Bun
+- Node.js 26 (see `.nvmrc`; with nvm, run `nvm install` then `nvm use`). Astro 7 needs at least 22.23.4, and Vercel builds this site on Node 26.
+- npm. The lockfile is `package-lock.json`, the same one Vercel installs from, so avoid other package managers.
 - Git
 
 ### Installation
@@ -92,42 +97,35 @@ takkatho/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/takkatho.git
+   git clone https://github.com/WaiyanPhyoaung/takkatho.git
    cd takkatho
    ```
 
-2. **Install dependencies**
+2. **Install dependencies** exactly as locked
 
    ```bash
-   # Using bun (recommended)
-   bun install
-
-   # Or using npm
-   npm install
+   npm ci
    ```
 
-3. **Start development server**
+3. **Start the development server**
 
    ```bash
-   # Using bun
-   bun dev
-
-   # Or using npm
    npm run dev
    ```
 
-4. **Open your browser**
-   Navigate to `http://localhost:4321`
+4. **Open your browser** at `http://localhost:4321`
 
 ## 📜 Available Scripts
 
-| Command           | Action                                       |
-| ----------------- | -------------------------------------------- |
-| `bun dev`         | Start development server at `localhost:4321` |
-| `bun build`       | Build production site to `./dist/`           |
-| `bun preview`     | Preview production build locally             |
-| `bun astro add`   | Add Astro integrations                       |
-| `bun astro check` | Run type checking                            |
+| Command            | Action                                                                     |
+| ------------------ | -------------------------------------------------------------------------- |
+| `npm run dev`      | Start the development server at `localhost:4321`                           |
+| `npm run build`    | Build to `./dist/`, then run `scripts/check-build.mjs` on the output       |
+| `npm run check`    | Re-run the build checks on an existing `./dist/` without rebuilding        |
+| `npm run preview`  | Serve the production build locally                                         |
+| `npm run favicons` | Regenerate the PNG icons in `public/` from `public/favicon.svg`            |
+
+`npm run build` fails if a check fails, and so does the Vercel deploy, which keeps the last good version live. The checks cover the problems this site has had: raw interface keys showing instead of text, course cards missing from the server-rendered `/courses` page, URLs on the wrong host, raw YouTube iframes, broken `/src/` image paths, and missing course redirects.
 
 ## 🎯 Course Categories
 

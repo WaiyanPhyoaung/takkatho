@@ -185,5 +185,8 @@ These replace older habits that let the site drift out of sync with itself.
 | Change the site address | `src/config/site.mjs` | `SITE` is `https://www.takkatho.dev`, the host Vercel serves. Canonical tags, the sitemap and link previews all use it. |
 | Add a cheat sheet command | `src/data/cheatsheets.ts` | The homepage teaser and its counts update on their own. |
 | Fonts | `<head>` links | Never `@import` fonts in CSS; it delays text rendering. |
+| Change the logo | `public/favicon.svg`, then `npm run favicons` | Also copy it to `src/assets/logo.svg`, which Starlight uses for the lesson header. |
+| Check a build | `npm run build` | Runs `scripts/check-build.mjs` after building; a failed check fails the Vercel deploy too. |
+| Node version | `.nvmrc` (26) | Astro 7 needs Node 22.23.4 or newer; `package.json` pins Vercel to Node 26. |
 
 The theme toggle on the main pages shares the `theme-toggle` localStorage key with the lesson pages' toggle (from `starlight-theme-nova`), so a reader's choice follows them between the two.
