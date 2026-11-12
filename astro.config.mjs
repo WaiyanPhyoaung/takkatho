@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import { fileURLToPath } from "url";
 import starlight from "@astrojs/starlight";
 import starlightThemeNova from "starlight-theme-nova";
 import react from "@astrojs/react";
@@ -43,6 +42,26 @@ const RECORD_LAST_LESSON = `(() => {
   });
 })();`;
 
+// starlight-theme-nova 0.12.3 stores its mobile menu's open/closed state in
+// aria-controls ("true"/"false"), overwriting the correct value, the id of the
+// sidebar. Lighthouse flags that as an invalid ARIA value on every lesson page.
+// This moves the state to aria-expanded and restores aria-controls. It only
+// acts on the values "true" and "false", so once Nova fixes the bug upstream
+// it does nothing and can be deleted. Overriding Nova's header to swap in a
+// fixed button was tried first and broke the header's search box layout.
+const FIX_NOVA_MENU_ARIA = `addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector("nova-mobile-menu-toggle");
+  if (!toggle) return;
+  const fix = () => {
+    const value = toggle.getAttribute("aria-controls");
+    if (value !== "true" && value !== "false") return;
+    toggle.setAttribute("aria-expanded", value);
+    toggle.setAttribute("aria-controls", "starlight__sidebar");
+  };
+  new MutationObserver(fix).observe(toggle, { attributes: true, attributeFilter: ["aria-controls"] });
+  fix();
+});`;
+
 const FONT_STYLESHEET =
   "https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Noto+Sans+Myanmar:wght@400..700&display=swap";
 
@@ -50,6 +69,11 @@ const FONT_STYLESHEET =
 export default defineConfig({
   site: SITE,
   output: "static",
+  // Astro 7 changed the default to "jsx", which drops whitespace that contains
+  // a line break. Many templates here put Burmese text and a link on separate
+  // lines ("...အတွက်" then <a>), and would lose the space between them.
+  // https://docs.astro.build/en/guides/upgrade-to/v7/
+  compressHTML: true,
   // Bare course URLs such as /git-course used to 404 because those courses
   // have no overview page. Each now 301s to the course's first lesson.
   redirects: courseRootRedirects,
@@ -61,7 +85,16 @@ export default defineConfig({
     sitemap(),
     react(),
     starlight({
-      plugins: [starlightThemeNova(), burmeseUiStrings()],
+      plugins: [
+        // "css": Nova ships its own precompiled styles. Its default, "detect"
+        // (new in 0.11), switches it to Tailwind mode when it sees the Tailwind
+        // Vite plugin. Tailwind skips node_modules when scanning for classes,
+        // so Nova's header classes were never generated and the lesson header
+        // became a full-screen overlay. Nova's own tailwind.css would fix that
+        // but also moves this site's md/lg breakpoints and Starlight's colors.
+        starlightThemeNova({ stylingSystem: "css" }),
+        burmeseUiStrings(),
+      ],
       // Lessons are Burmese. Without this every page declared lang="en", so
       // screen readers read Burmese text with an English voice.
       locales: {
@@ -74,10 +107,13 @@ export default defineConfig({
       title: "တက္ကသိုလ် (Takkatho) - Myanmar Programming Learning Platform",
       description:
         "လေ့လာပါ မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများ။ TypeScript, WebSocket, Git, Web Performance, Software Architecture နှင့် Database များကို ကျွမ်းကျင်အောင် သင်ယူပါ။ Myanmar developers များအတွက် အထူးပြုလုပ်ထားသည့် ခေတ်မီ learning platform။",
+      // A "./" path into src/assets, as Starlight documents. The old
+      // "public/favicon.svg" only resolved by accident under Vite 5, and
+      // Vite 8's bundler rejects it. Same file as public/favicon.svg, which
+      // stays where it is for the browser tab icon.
       logo: {
         replacesTitle: true,
-        light: "public/favicon.svg",
-        dark: "public/favicon.svg",
+        src: "./src/assets/logo.svg",
         alt: "Takkatho University",
       },
       customCss: ["./src/styles/global.css"],
@@ -144,6 +180,7 @@ export default defineConfig({
         { tag: "meta", attrs: { name: "geo.region", content: "MM" } },
 
         { tag: "script", content: RECORD_LAST_LESSON },
+        { tag: "script", content: FIX_NOVA_MENU_ARIA },
 
         // No JSON-LD here any more. This array used to put four blocks on
         // every lesson: a course list of 7 (there are 24) whose URLs all
@@ -159,15 +196,10 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [
-      // @ts-ignore - Type mismatch between Vite plugin versions
-      tailwindcss(),
-    ],
-    resolve: {
-      alias: {
-        "@/*": fileURLToPath(new URL("./src/*", import.meta.url)),
-      },
-    },
+    // The "@/..." import alias comes from `paths` in tsconfig.json, which Astro
+    // reads itself. The Vite alias that used to sit here had the key "@/*",
+    // which Vite matches literally, so it never applied to any import.
+    plugins: [tailwindcss()],
   },
 
   adapter: vercel({
