@@ -11,7 +11,7 @@ import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
   ဒီသင်ခန်းစာမှာတော့ Frontend Code တွေကို ရောထွေးမနေစေဘဲ သီးခြားလွတ်လပ်တဲ့ အစိတ်အပိုင်း (Modules) လေးတွေအဖြစ် ခွဲထုတ်ပြီး စနစ်တကျ ဖွဲ့စည်းတည်ဆောက်တဲ့ **Modular Architecture** အကြောင်းကို လေ့လာသွားမှာပါ။
 </Aside>
 
-### Modular Architecture ဆိုတာ ဘာလဲ?
+## Modular Architecture ဆိုတာ ဘာလဲ?
 Modular Architecture ကို အလွယ်ဆုံး မြင်ယောင်ကြည့်ချင်ရင် **"စမတ်ဖုန်း (Smartphone)"** တစ်လုံးကို ပြေးမြင်လိုက်ပါ။
 ဖုန်းတစ်လုံးရဲ့ အထဲမှာ -
 - 📷 **Camera Module** (ကင်မရာ အလုပ်လုပ်တဲ့ အပိုင်း)
@@ -24,7 +24,7 @@ Software ရေးတဲ့အခါမှာလည်း ဒီသဘောတ�
 - `Product` Module (List, Detail, Search တွေ ပါမယ်)
 - `Cart` Module (Add to cart, Checkout တွေ ပါမယ်)
 
-### Modular နဲ့ Micro-Frontend: ဘာကွာလဲ?
+## Modular နဲ့ Micro-Frontend: ဘာကွာလဲ?
 ဒီနှစ်ခုက ဆင်တူသလိုနဲ့ ကွဲပြားပါတယ်။ လူမှားအများဆုံး အပိုင်းမလို့ ဥပမာလေးနဲ့ ရှင်းပြချင်ပါတယ်။
 
 | Architecture | ဥပမာ | ရှင်းလင်းချက် |
@@ -34,12 +34,12 @@ Software ရေးတဲ့အခါမှာလည်း ဒီသဘောတ�
 
 > **အတိုချုပ်မှတ်ရန်:** Modular ဆိုတာ Project တစ်ခုတည်းရဲ့ အတွင်းပိုင်းမှာပဲ အခန်းတွေ ကန့်လိုက်တာပါ။ Micro-Frontend ဆိုတာကတော့ Project အကြီးကြီးကို Project အသေးလေးတွေ ခွဲထုတ်ပြီးမှ ပြန်ဆက်တာမျိုးပါ။
 
-### ဘာကြောင့် Modular ကို သုံးသင့်တာလဲ?
+## ဘာကြောင့် Modular ကို သုံးသင့်တာလဲ?
 1.  **Organization (စနစ်ကျခြင်း):** Code တွေ ရှာရတာ အရမ်း လွယ်ကူသွားပါတယ်။ ဥပမာ - `Cart` နဲ့ ပတ်သက်တဲ့ ပြဿနာ ရှိလာရင် `Cart` Module ထဲကိုပဲ တန်းသွားရှာလိုက်ရုံပါပဲ။
 2.  **Lazy Loading (လိုအပ်မှ ခေါ်သုံးခြင်း):** User က တကယ် လိုအပ်တဲ့ အချိန်ရောက်မှသာ သက်ဆိုင်ရာ Module ကို Load လုပ်လို့ရပါတယ်။ (ဥပမာ - Admin Page ကို User သာမန် ဝင်လာချိန်မှာ Load မလုပ်ဘဲ၊ Admin ဝင်လာမှသာ Load လုပ်တာမျိုးပါ)။
 3.  **Encapsulation (သီးခြားတည်ရှိခြင်း):** Module တစ်ခုက ပြဿနာတက်သွားရင် (ဥပမာ - Error တက်ရင်) ကျန်တဲ့ Module တွေကို သွားပြီး မထိခိုက်အောင် ကာကွယ်ထားနိုင်ပါတယ်။
 
-### ES Modules (The Standard Way)
+## ES Modules (The Standard Way)
 JavaScript မှာ `import` နဲ့ `export` ကို သုံးပြီး Module တွေ ခွဲထုတ်ရေးသားတာဟာ စံသတ်မှတ်ချက် (Standard) တစ်ခု ဖြစ်နေပါပြီ။
 
 ```javascript
@@ -55,7 +55,7 @@ console.log(add(1, 2));
 
 ဒီနည်းလမ်းကို သုံးပြီး ကိုယ့်ရဲ့ Code တွေကို သန့်ရှင်းသပ်ရပ်အောင်၊ ရှုပ်မသွားအောင် ထိန်းသိမ်းနိုင်ပါတယ်။
 
-### Lazy Loading နှင့် Code Splitting
+## Lazy Loading နှင့် Code Splitting
 ဒါတွေက Web App ရဲ့ Performance ပိုကောင်းလာအောင် လုပ်ပေးတဲ့ နည်းလမ်းတွေပါ။
 
 - **Lazy Loading:** Module တွေကို အစကတည်းက အကုန်လုံး ဆွဲမတင်ဘဲ၊ User က တကယ် လိုအပ်လာတဲ့ အချိန်ကျမှသာ Load လုပ်တာဖြစ်လို့ App စဖွင့်ဖွင့်ချင်းမှာ အရမ်း မြန်ဆန်စေပါတယ်။

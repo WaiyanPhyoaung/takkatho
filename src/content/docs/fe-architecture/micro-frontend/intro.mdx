@@ -11,7 +11,7 @@ import microFrontend from '@/assets/frontend-architecture/micro-frontend.png'
 Application အကြီးကြီးတွေကို Team အများကြီးနဲ့ ဝိုင်းရေးတဲ့အခါ၊ တစ်ယောက်ရေးတာကို နောက်တစ်ယောက်က ထိုင်စောင့်နေရတဲ့ အခြေအနေမျိုး မဖြစ်ရအောင်၊ လုပ်ငန်းစဉ်တွေ ပိုမိုမြန်ဆန်လာအောင် **Micro-Frontend Architecture** ကို အသုံးပြုကြပါတယ်။
 </Aside>
 
-### Micro-Frontend ဆိုတာ ဘာလဲ?
+## Micro-Frontend ဆိုတာ ဘာလဲ?
 Micro-Frontend ဆိုတာကို အလွယ်တကူ မြင်ယောင်ကြည့်ချင်ရင် **"Shopping Mall (ကုန်တိုက်ကြီး)"** တစ်ခုနဲ့ ခိုင်းနှိုင်းလို့ ရပါတယ်။
 ကုန်တိုက်ကြီး (Shell App) တစ်ခုရဲ့ အထဲမှာ -
 - 🍔 **Food Court** (အစားအသောက်ဆိုင်တန်း)
@@ -30,12 +30,12 @@ Software ရေးတဲ့နေရာမှာလည်း ဒီအတို�
 
 <ContentImage src={microFrontend} alt="Micro frontend Architecture" />
 
-### ဘယ်လို အလုပ်လုပ်သလဲ?
+## ဘယ်လို အလုပ်လုပ်သလဲ?
 1.  **The Shell (Container):** ဒါက ကုန်တိုက်ရဲ့ အဆောက်အအုံ ကြီးပါ။ သူက Header, Footer နဲ့ Navigation (လမ်းညွှန်) တွေကို အဓိက ကိုင်တွယ်ပါတယ်။
 2.  **The Micro-Frontends:** ဒါကတော့ အထဲမှာ ဖွင့်ထားတဲ့ ဆိုင်ခန်းတွေပါ။ (ဥပမာ - Checkout, Profile, Product List အစရှိသဖြင့်)
 3.  **Integration:** User ဝင်လာတဲ့အခါ Shell ကနေ လိုအပ်တဲ့ Micro-Frontend (ဆိုင်ခန်း) ကို လှမ်းခေါ်ပြီး ပြသပေးတာ ဖြစ်ပါတယ်။
 
-### ဘယ်အချိန်မှာ သုံးသင့်လဲ?
+## ဘယ်အချိန်မှာ သုံးသင့်လဲ?
 - 🏢 **Enterprise Level:** ကုမ္ပဏီ အရမ်းကြီးပြီး Developer ရာနဲ့ချီ ရှိနေတဲ့အခါ။
 - 🚀 **Independent Deployment:** Team တစ်ခုက တခြား Team ပြီးတာကို စောင့်စရာ မလိုဘဲ၊ ကိုယ့်အပိုင်း ပြီးတာနဲ့ ကိုယ်တိုင် သီးခြား (Independent) Deploy လုပ်ချင်တဲ့အခါ။
 - 🛠 **Legacy Migration:** Code အဟောင်းကြီးကနေ နည်းပညာအသစ်ကို တဖြည်းဖြည်းချင်း ပြောင်းလဲချင်တဲ့အခါ (ဥပမာ - အရင်က jQuery နဲ့ ရေးထားတာကို၊ အခု React ကို တစ်စစီ ပြောင်းရေးတာမျိုး)။

@@ -11,11 +11,11 @@ import flowChart from '@/assets/software-architecture/flowchart-database.png'
   "Polyglot Persistence" ဆိုတဲ့ သဘောတရားကို နားလည်ပြီး၊ မတူညီတဲ့ Database အမျိုးအစားတွေ (SQL နှင့် NoSQL အမျိုးမျိုး) ကို ဘယ်အချိန်မှာ ရွေးချယ်သင့်တယ်ဆိုတာ ခင်ဗျားတို့ သိရှိစေရန် ဖြစ်ပါတယ်။
 </Aside>
 
-### Polyglot Persistence: လုပ်ငန်းအလိုက် အသင့်တော်ဆုံး Tool ကို သုံးစွဲခြင်း
+## Polyglot Persistence: လုပ်ငန်းအလိုက် အသင့်တော်ဆုံး Tool ကို သုံးစွဲခြင်း
 
 Monolith တည်ဆောက်ပုံမှာဆိုရင်၊ သင်က များသောအားဖြင့် အရာအားလုံးအတွက် Database အကြီးကြီးတစ်ခုတည်းကိုပဲ ရွေးချယ်လေ့ရှိတယ်။ Microservices လောကမှာတော့ ခင်ဗျားက **Polyglot Persistence** ကို သုံးနိုင်ပါတယ် — ဒါက Service တစ်ခုချင်းစီရဲ့ သီးသန့်လိုအပ်ချက်အပေါ်မူတည်ပြီး၊ အဲဒီ Service အတွက် အကောင်းဆုံးအလုပ်လုပ်မယ့် မတူညီတဲ့ Database အမျိုးအစားတွေကို ရွေးချယ်အသုံးပြုတဲ့ သဘောတရားဖြစ်ပါတယ်။
 
-#### SQL (Relational) Databases တွေကို ဘယ်အချိန်မှာ သုံးမလဲ
+### SQL (Relational) Databases တွေကို ဘယ်အချိန်မှာ သုံးမလဲ
 (ဥပမာ - PostgreSQL, MySQL, SQL Server)
 
 - **အသင့်တော်ဆုံးအခြေအနေများ -**
@@ -24,7 +24,7 @@ Monolith တည်ဆောက်ပုံမှာဆိုရင်၊ သင�
   - Data တွေကြားမှာ ဆက်စပ်မှုတွေရှုပ်ထွေးပြီး Query လုပ်ရတာများတဲ့အခါ။
 - **ဥပမာ Service -** `UserService` သို့မဟုတ် `AccountingService`
 
-#### NoSQL (Non-Relational) Databases တွေကို ဘယ်အချိန်မှာ သုံးမလဲ
+### NoSQL (Non-Relational) Databases တွေကို ဘယ်အချိန်မှာ သုံးမလဲ
 
 - **Document Databases (ဥပမာ - MongoDB, Couchbase)**
   - **အသင့်တော်ဆုံး -** ဖွဲ့စည်းပုံအတိအကျမရှိတဲ့၊ ပြောင်းလွယ်ပြင်လွယ်ရှိတဲ့ Data တွေအတွက်။ Item တစ်ခုချင်းစီမှာ မတူညီတဲ့ Structure တွေ ရှိနိုင်ပါတယ်။

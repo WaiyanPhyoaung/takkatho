@@ -117,7 +117,7 @@ const ratingOptions: SelectOption<number>[] = [ // options array ရဲ့ Type 
 // ဒီလို သုံးလိုက်တာနဲ့ Select Component ရဲ့ ValueType က number ဖြစ်သွားပြီ၊ onChange callback ကလည်း number Type ကိုပဲ ပြန်ပို့ပေးမယ်လို့ TypeScript က သိတယ်
 `;
 
-### Data များကို Generic ပုံစံဖြင့် ဆွဲယူခြင်း (Fetching Data)
+## Data များကို Generic ပုံစံဖြင့် ဆွဲယူခြင်း (Fetching Data)
 
 ကျွန်တော်တို့ Application တွေ ရေးတဲ့အခါ အပြင်က API (Application Programming Interface) တွေဆီကနေ Data တွေ သွားယူရတာကို အမြဲလိုလို လုပ်ရပါတယ်။ ဒီ Data ယူတဲ့ Logic (အလုပ်လုပ်ပုံ) တစ်ခုလုံးကို Generic ဖြစ်အောင် ရေးထားတာက အရမ်းကို အသုံးဝင်ပြီး၊ လုပ်ငန်းခွင်မှာ လုပ်ရိုးလုပ်စဉ် (Best Practice) လိုတောင် ဖြစ်နေပါပြီ။
 
@@ -130,7 +130,7 @@ const ratingOptions: SelectOption<number>[] = [ // options array ရဲ့ Type 
   ဒီ Function ကို ကြည့်ရင် `ResponseType` ဆိုတဲ့ Generic Type နဲ့ ရေးထားတာ တွေ့ရပါမယ်။ ဒီ Function ကို ခေါ်တဲ့အခါ (ဥပမာ `fetchData` မှာ `User` Type သတ်မှတ်ပြီး ခေါ်တာမျိုး) `ResponseType` နေရာမှာ ဘယ် Type (ဥပမာ `User` Type) ဖြစ်ရမယ်ဆိုတာကို ကျွန်တော်တို့ တိတိကျကျ သတ်မှတ်ပေးလိုက်တယ်။ ဒါကြောင့် API ကနေ ပြန်လာမယ့် `ApiResponse` ထဲက `data` Field ဟာ ကျွန်တော်တို့ သတ်မှတ်လိုက်တဲ့ `User` Type ဖြစ်ရမယ်လို့ TypeScript က အလိုအလျောက် သိသွားပါပြီ။ ဒီလိုရေးတာက API Call တွေကို Type မှန်ကန်စိတ်ချရစေပြီး၊ Data ယူတဲ့ Logic ကိုလည်း နေရာတိုင်းမှာ ပြန်လည် အသုံးပြုလို့ရအောင် လုပ်ပေးပါတယ်။ `Axios` လိုမျိုး Data ယူတဲ့ နာမည်ကြီး Libraries တွေမှာလည်း ဒီလို Generic နည်းလမ်းတွေ အများဆုံး သုံးထားတာ တွေ့ရပါလိမ့်မယ်။
 </Aside>
 
-### UI Components များ (ဥပမာ - React)
+## UI Components များ (ဥပမာ - React)
 
 Website ဒါမှမဟုတ် Application တွေအတွက် UI (User Interface) Components တွေ ရေးတဲ့အခါ (ဥပမာ - Lists တွေ၊ Tables တွေ၊ Dropdowns တွေ) Data အမျိုးမျိုးကို ပြသနိုင်တဲ့ Components တွေ လိုအပ်လာတတ်ပါတယ်။ ဒီလို Components တွေကို Generic သုံးပြီး ရေးတာက တကယ်ကို လက်တွေ့ကျကျ အသုံးဝင်ပါတယ်။
 

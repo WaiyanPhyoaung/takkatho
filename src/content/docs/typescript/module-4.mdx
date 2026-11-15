@@ -7,7 +7,7 @@ TypeScript မှာ Type တစ်ခုတည်း မဟုတ်ဘဲ၊ T
 
 ---
 
-### 1. Union Types (ဒါမှမဟုတ် ဒါ)
+## 1. Union Types (ဒါမှမဟုတ် ဒါ)
 
 Variable တစ်ခုက Type တစ်မျိုးထက် ပိုပြီး လက်ခံနိုင်တယ်ဆိုရင် `|` (Pipe) သင်္ကေတကို သုံးပြီး Union Type ဖန်တီးလို့ ရပါတယ်။ "ဒါမှမဟုတ် ဒါ" လို့ အဓိပ္ပာယ်ရပါတယ်။
 
@@ -20,7 +20,7 @@ id = "A-101";  // ✅ မှန်ပါတယ်
 id = true;     // ❌ Error: boolean လက်မခံပါဘူး
 ```
 
-#### Function များတွင် Union သုံးခြင်း
+### Function များတွင် Union သုံးခြင်း
 
 ```typescript
 function printId(id: number | string) {
@@ -31,7 +31,7 @@ printId(101);
 printId("202B");
 ```
 
-#### Type Narrowing (Type ကို စစ်ဆေးခြင်း)
+### Type Narrowing (Type ကို စစ်ဆေးခြင်း)
 
 Union Type သုံးထားတဲ့အခါ၊ အဲ့ဒီ Variable ကို မသုံးခင်မှာ သူက ဘာ Type လဲဆိုတာကို အရင် စစ်ဆေး (Narrowing) ပေးဖို့ လိုအပ်တတ်ပါတယ်။
 
@@ -49,7 +49,7 @@ function processId(id: number | string) {
 
 ---
 
-### 2. Literal Types (တိကျသော တန်ဖိုးများ)
+## 2. Literal Types (တိကျသော တန်ဖိုးများ)
 
 Type နေရာမှာ `string` လို့ ရေးမယ့်အစား၊ တိကျတဲ့ စာသား (ဥပမာ - `"success"`) ကိုပဲ လက်ခံမယ်လို့ သတ်မှတ်လို့ ရပါတယ်။ အဲ့ဒါကို Literal Type လို့ ခေါ်ပါတယ်။ Union နဲ့ တွဲသုံးလေ့ ရှိပါတယ်။
 
@@ -64,7 +64,7 @@ status = "failed";  // ❌ Error: "failed" ဆိုတာ မပါပါဘူ
 
 ---
 
-### 3. Intersection Types (နှစ်ခုလုံး ပေါင်းစပ်ခြင်း)
+## 3. Intersection Types (နှစ်ခုလုံး ပေါင်းစပ်ခြင်း)
 
 Intersection Type ကတော့ `&` (Ampersand) သင်္ကေတကို သုံးပါတယ်။ "ဒါရော၊ ဒါရော နှစ်ခုလုံး ပါရမယ်" လို့ အဓိပ္ပာယ်ရပါတယ်။ များသောအားဖြင့် Object Type တွေကို ပေါင်းစပ်တဲ့အခါ သုံးပါတယ်။
 

@@ -9,7 +9,7 @@ description: "Node.js အတွက် အသုံးအများဆုံး
 
 ---
 
-### 1. Express ကို Install လုပ်ခြင်း
+## 1. Express ကို Install လုပ်ခြင်း
 
 အရင်ဆုံး သင့် Project ထဲမှာ Express ကို Install လုပ်ရပါမယ်။ Terminal မှာ အောက်ပါအတိုင်း ရိုက်ပါ။
 
@@ -20,7 +20,7 @@ npm install express
 
 ---
 
-### 2. Express ဖြင့် Server တည်ဆောက်ခြင်း
+## 2. Express ဖြင့် Server တည်ဆောက်ခြင်း
 
 `app.js` ဖိုင်တစ်ခု ဖန်တီးပြီး အောက်ပါ Code တွေကို ရေးပါ။
 
@@ -52,7 +52,7 @@ app.listen(PORT, () => {
 
 ---
 
-### 3. JSON Data ပြန်ပို့ခြင်း (API)
+## 3. JSON Data ပြန်ပို့ခြင်း (API)
 
 Express မှာ JSON Data ပြန်ပို့ချင်ရင် `res.json()` ကို သုံးလိုက်ရုံပါပဲ။ `JSON.stringify()` တွေ ပြောင်းနေစရာ မလိုတော့ပါဘူး။
 
@@ -70,7 +70,7 @@ app.get('/api/users', (req, res) => {
 
 ---
 
-### 4. URL Parameters (ပြောင်းလဲနိုင်သော လမ်းကြောင်းများ)
+## 4. URL Parameters (ပြောင်းလဲနိုင်သော လမ်းကြောင်းများ)
 
 User တစ်ယောက်ချင်းစီရဲ့ အချက်အလက်ကို ယူချင်တဲ့အခါ (ဥပမာ - `/api/users/1`, `/api/users/2`) URL မှာ ပါလာတဲ့ ဂဏန်းကို ဖမ်းယူဖို့ `req.params` ကို သုံးပါတယ်။
 
@@ -89,7 +89,7 @@ app.get('/api/users/:id', (req, res) => {
 
 ---
 
-### 5. Middleware (ကြားခံ လုပ်ဆောင်ချက်များ)
+## 5. Middleware (ကြားခံ လုပ်ဆောင်ချက်များ)
 
 Middleware ဆိုတာ Request ဝင်လာတဲ့အချိန်နဲ့ Response ပြန်မပို့ခင် ကြားထဲမှာ အလုပ်လုပ်ပေးတဲ့ Function တွေပါ။ ဥပမာ - User က Login ဝင်ထားလား စစ်ဆေးတာ၊ ဝင်လာတဲ့ Data တွေကို ပြင်ဆင်ပေးတာ မျိုးတွေမှာ သုံးပါတယ်။
 
@@ -110,7 +110,7 @@ app.get('/', (req, res) => {
 });
 ```
 
-#### Built-in Middleware (အသင့်ပါဝင်သော Middleware)
+### Built-in Middleware (အသင့်ပါဝင်သော Middleware)
 
 User ဆီကနေ (ဥပမာ - Form ကနေ) ပို့လိုက်တဲ့ JSON Data တွေကို လက်ခံရယူဖို့ Express မှာ အသင့်ပါဝင်တဲ့ Middleware ကို သုံးပေးရပါတယ်။
 

@@ -9,7 +9,7 @@ Node.js ရဲ့ အကြီးမားဆုံး အားသာချက�
 
 ---
 
-### 1. package.json ဖန်တီးခြင်း
+## 1. package.json ဖန်တီးခြင်း
 
 Node.js Project တစ်ခု စတော့မယ်ဆိုရင် အရင်ဆုံး `package.json` ဆိုတဲ့ ဖိုင်တစ်ခုကို ဖန်တီးရပါတယ်။ ဒီဖိုင်က သင့် Project ရဲ့ နာမည်၊ Version နဲ့ ဘာ Package တွေ သုံးထားလဲ ဆိုတာကို မှတ်သားထားပေးမယ့် ဖိုင်ပါ။
 
@@ -22,7 +22,7 @@ npm init -y
 
 ---
 
-### 2. Package များ Install လုပ်ခြင်း
+## 2. Package များ Install လုပ်ခြင်း
 
 ဥပမာအနေနဲ့ စာသားတွေကို အရောင်လေးတွေနဲ့ ထုတ်ပေးတဲ့ `chalk` ဆိုတဲ့ Package ကို Install လုပ်ကြည့်ရအောင်။
 
@@ -36,7 +36,7 @@ npm install chalk
 2. `package.json` ထဲက `dependencies` ဆိုတဲ့ နေရာမှာ `chalk` ဆိုပြီး ဝင်သွားပါမယ်။
 3. `package-lock.json` ဆိုတဲ့ ဖိုင်အသစ် ထွက်လာပါမယ်။ (Package တွေရဲ့ Version အတိအကျကို မှတ်ထားပေးတာပါ)
 
-#### Install လုပ်ထားသော Package ကို အသုံးပြုခြင်း
+### Install လုပ်ထားသော Package ကို အသုံးပြုခြင်း
 
 ```javascript
 // app.js
@@ -50,7 +50,7 @@ console.log(chalk.green.underline('အောင်မြင်ပါသည်။
 
 ---
 
-### 3. Development Packages (devDependencies)
+## 3. Development Packages (devDependencies)
 
 တချို့ Package တွေက Code ရေးနေတုန်း (Development အချိန်) မှာပဲ လိုအပ်ပြီး၊ တကယ် အသုံးပြုမယ့်အချိန် (Production) မှာ မလိုအပ်ပါဘူး။ ဥပမာ - Code ပြင်လိုက်တာနဲ့ Server ကို အလိုအလျောက် Restart ချပေးတဲ့ `nodemon` လို Package မျိုးပါ။
 
@@ -62,7 +62,7 @@ npm install nodemon --save-dev
 
 ---
 
-### 4. Scripts များ ရေးသားခြင်း
+## 4. Scripts များ ရေးသားခြင်း
 
 `package.json` ဖိုင်ထဲက `scripts` ဆိုတဲ့ နေရာမှာ ကိုယ်ပိုင် Command တွေ ရေးလို့ရပါတယ်။
 
@@ -92,7 +92,7 @@ npm install nodemon --save-dev
 
 ---
 
-### 5. node_modules ကို ဘယ်တော့မှ မပို့ပါနဲ့
+## 5. node_modules ကို ဘယ်တော့မှ မပို့ပါနဲ့
 
 သင့် Project ကို GitHub ပေါ် တင်တဲ့အခါဖြစ်ဖြစ်၊ သူငယ်ချင်းဆီ ပို့တဲ့အခါဖြစ်ဖြစ် `node_modules` Folder ကြီးကို ထည့်မပို့ရပါဘူး။ (Size အရမ်းကြီးလို့ပါ)။
 

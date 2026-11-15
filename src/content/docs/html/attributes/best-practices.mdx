@@ -15,11 +15,11 @@ import inputsImage from '@/assets/html/inputs.png'
 
 သပ်ရပ်ပြီး သုံးစွဲရ လွယ်ကူတဲ့ HTML code တွေ ရေးဖို့ ဒီအချက်တွေကို လိုက်နာပေးပါ။
 
-#### 1. အဓိပ္ပာယ်ရှိတဲ့ Semantic Tag များကို သုံးပါ
+## 1. အဓိပ္ပာယ်ရှိတဲ့ Semantic Tag များကို သုံးပါ
 - `<div>` နဲ့ `<span>` လို ယေဘုယျဆန်တဲ့ Tag တွေအစား Semantic tag တွေ (`<article>`, `<section>`, `<header>`, `<footer>` စသည်) ကို အမြဲ ရွေးချယ်သုံးပါ။ 
 - Semantic tag တွေက Content ကို အဓိပ္ပာယ်ရှိစေပြီး SEO နဲ့ Accessibility ကို အများကြီး ပိုကောင်းစေပါတယ်။
 
-#### 2. ပုံတွေအတွက် alt Attribute ကို အမြဲ သုံးပါ
+## 2. ပုံတွေအတွက် alt Attribute ကို အမြဲ သုံးပါ
 - `alt` attribute ကိုသုံးပြီး ပုံအတွက် ဖော်ပြချက်စာသားတစ်ခု အမြဲတမ်း ပေးပါ။ ဒါက Screen Reader တွေအတွက် Accessibility ကို ပိုကောင်းစေသလို၊ SEO အတွက်လည်း များစွာ အထောက်အကူ ပြုပါတယ်။
 
 **ဥပမာ -**
@@ -27,7 +27,7 @@ import inputsImage from '@/assets/html/inputs.png'
 ```html
 <img src="logo.png" alt="Company Logo">
 ```
-#### 3. id Attribute ကို Unique ဖြစ်အောင် သုံးပါ
+## 3. id Attribute ကို Unique ဖြစ်အောင် သုံးပါ
 - `id` attribute ဟာ Element တစ်ခုစီတိုင်းအတွက် သီးသန့်ဖြစ်ရပါမယ်။ (စာမျက်နှာတစ်ခုမှာ တူညီတဲ့ id နှစ်ခု မရှိရပါဘူး)
 - CSS ဒါမှမဟုတ် JavaScript နဲ့ Element တွေကို သီးသန့် လှမ်းခေါ်ဖို့ အဓိက သုံးပါတယ်။
 
@@ -37,7 +37,7 @@ import inputsImage from '@/assets/html/inputs.png'
 <p id="unique-paragraph">This is a unique paragraph.</p>
 ```
 
-#### 4. Form တွေမှာ ဆက်စပ်တဲ့ Element တွေကို `<fieldset>` Tag သုံးပြီး အုပ်စုဖွဲ့ပါ
+## 4. Form တွေမှာ ဆက်စပ်တဲ့ Element တွေကို `<fieldset>` Tag သုံးပြီး အုပ်စုဖွဲ့ပါ
 - Form တွေမှာ Accessibility ပိုကောင်းစေဖို့ ဆက်စပ်တဲ့ Element တွေကို `<fieldset>` tag သုံးပြီး အုပ်စုဖွဲ့သင့်ပါတယ်။
 
 **ဥပမာ -**
@@ -49,7 +49,7 @@ import inputsImage from '@/assets/html/inputs.png'
   <input type="email" name="email">
 </fieldset>
 ```
-#### 5. Inline Style များကို ရှောင်ကြဉ်ပါ
+## 5. Inline Style များကို ရှောင်ကြဉ်ပါ
 - Inline style (ဥပမာ `style="color: red;"`) တွေ သုံးမယ့်အစား၊ ပြင်ပ CSS Stylesheet ကို သုံးတာက Code တွေကို သပ်သပ်စီ ခွဲခြားထားနိုင်ပြီး ပြုပြင်ထိန်းသိမ်းရ (Maintain) ပိုလွယ်ကူစေပါတယ်။
 
 **ဥပမာ(မကောင်း) (Inline Style) -**
@@ -71,7 +71,7 @@ CSS file ထဲမှာ:
 }
 ```
 
-#### 6. ရှင်းလင်းပြီး နားလည်လွယ်တဲ့ Link စာသားများ ပေးပါ
+## 6. ရှင်းလင်းပြီး နားလည်လွယ်တဲ့ Link စာသားများ ပေးပါ
 - "Click Here" လိုမျိုး မရှင်းလင်းတဲ့ Link စာသားတွေကို ရှောင်ပါ။ Link ကို နှိပ်လိုက်ရင် ဘယ်ကို ရောက်သွားမလဲဆိုတာကို ရှင်းရှင်းလင်းလင်း ဖော်ပြနိုင်တဲ့ စာသားမျိုး ဖြစ်သင့်ပါတယ်။
 
 **ဥပမာ(မကောင်း) -**
@@ -84,7 +84,7 @@ CSS file ထဲမှာ:
 ```html
 <a href="about.html">Learn more about our company</a>
 ```
-#### 7. SEO အတွက် meta Tag များကို သုံးပါ
+## 7. SEO အတွက် meta Tag များကို သုံးပါ
 `<meta>` tag က Search Engine တွေကို Page description, Keywords, Viewport settings လိုမျိုး အရေးကြီးတဲ့ အချက်အလက်တွေ ပေးရာမှာ ကူညီပါတယ်။
 
 **ဥပမာ -**
@@ -93,7 +93,7 @@ CSS file ထဲမှာ:
 <meta name="description" content="Learn HTML basics">
 <meta name="keywords" content="HTML, web development, beginner">
 ```
-### အဖြစ်များသော HTML အမှားများ
+## အဖြစ်များသော HTML အမှားများ
 
 - **Tag များကို မပိတ်မိခြင်း -** `<p>` ဒါမှမဟုတ် `<li>` လို Tag တွေကို ဖွင့်ပြီးရင် အမြဲတမ်း ပြန်ပိတ်ဖို့ မမေ့ပါနဲ့။
 

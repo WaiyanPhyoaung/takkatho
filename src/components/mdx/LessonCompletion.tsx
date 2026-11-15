@@ -35,9 +35,9 @@ export const LessonCompletion: React.FC<LessonCompletionProps> = ({ lessonId }) 
           {completed ? "✓" : "📖"}
         </div>
         <div>
-          <h4 className="font-bold text-base text-gray-900 dark:text-white">
+          <h2 className="font-bold text-base text-gray-900 dark:text-white">
             {completed ? "သင်ခန်းစာ ပြီးမြောက်ပါပြီ!" : "ဒီသင်ခန်းစာ ဖတ်ပြီးပြီလား?"}
-          </h4>
+          </h2>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {completed ? "သင်၏ လေ့လာမှု တိုးတက်မှုကို သိမ်းဆည်းပြီးပါပြီ" : "ပြီးမြောက်ကြောင်း မှတ်သားထားရန် အောက်ပါ ခလုတ်ကို နှိပ်ပါ"}
           </p>

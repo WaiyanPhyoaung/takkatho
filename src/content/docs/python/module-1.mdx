@@ -21,7 +21,7 @@ import typeConvImg from "@/assets/python/type-conversion.svg";
 Module 0 (Setup) ကို အရင်ပြီးအောင်လုပ်ပြီး Python နဲ့ VS Code တပ်ဆင်ပြီးမှသာ ဒီ Module ကို ဆက်ကြည့်ပေးပါ။
 </Aside>
 
-### Variables ဆိုတာ ဘာလဲ?
+## Variables ဆိုတာ ဘာလဲ?
 
 Variable ဆိုတာ Data တွေကို သိမ်းထားပေးတဲ့ **"သေတ္တာလေး"** တွေနဲ့ တူပါတယ်။ သေတ္တာပေါ်မှာ နာမည်တပ်ထားပြီး အထဲမှာ ကိုယ်သိမ်းချင်တဲ့ တန်ဖိုးကို ထည့်ထားလို့ ရပါတယ်။
 
@@ -58,11 +58,11 @@ price = [5000, 3000] # List ဖြစ်သွား
 
 ---
 
-### Data Types (ဒေတာ အမျိုးအစားများ)
+## Data Types (ဒေတာ အမျိုးအစားများ)
 
 Python မှာ အဓိက Data Type **၅** မျိုး ရှိပါတယ်:
 
-#### ၁. String (စာသား)
+### ၁. String (စာသား)
 စာသားတွေကို သိမ်းဖို့ သုံးပါတယ်။ `""` (Double Quote) ဒါမှမဟုတ် `''` (Single Quote) ထဲမှာ ရေးပေးရပါတယ်:
 
 ```python
@@ -74,7 +74,7 @@ print(type(name))     # <class 'str'>
 print(len(name))      # 9  (စာလုံး အရေအတွက်)
 ```
 
-#### ၂. Integer (ကိန်းပြည့်)
+### ၂. Integer (ကိန်းပြည့်)
 ဒသမဂဏန်း မပါတဲ့ ကိန်းဂဏန်းတွေပါ:
 
 ```python
@@ -85,7 +85,7 @@ negative = -5
 print(type(age))   # <class 'int'>
 ```
 
-#### ၃. Float (ဒသမကိန်း)
+### ၃. Float (ဒသမကိန်း)
 ဒသမဂဏန်း ပါတဲ့ ကိန်းဂဏန်းတွေပါ:
 
 ```python
@@ -96,7 +96,7 @@ temperature = -2.5
 print(type(price))   # <class 'float'>
 ```
 
-#### ၄. Boolean
+### ၄. Boolean
 `True` (မှန်တယ်) ဒါမှမဟုတ် `False` (မှားတယ်) ဆိုတဲ့ တန်ဖိုး နှစ်ခုပဲ ရှိပါတယ်:
 
 ```python
@@ -106,7 +106,7 @@ is_raining = False
 print(type(is_student))   # <class 'bool'>
 ```
 
-#### ၅. None
+### ၅. None
 
 `None` ဆိုတာ **"တန်ဖိုး မရှိသေးဘူး"** လို့ အဓိပ္ပာယ်ရပါတယ်။ Variable တစ်ခုကို တည်ဆောက်ထားပြီး ဘာမှ မထည့်ဘဲ နောက်မှ ထည့်ဖို့ Plan ရှိတဲ့အခါမျိုးမှာ သုံးလို့ရပါတယ်။
 
@@ -124,7 +124,7 @@ if result is None:
 
 ---
 
-### type() — Data Type စစ်ဆေးနည်း
+## type() — Data Type စစ်ဆေးနည်း
 
 ဘယ် Variable ကိုမဆို `type()` Function နဲ့ စစ်ဆေးကြည့်လို့ ရပါတယ်:
 
@@ -144,7 +144,7 @@ print(type(empty))   # <class 'NoneType'>
 
 ---
 
-### Type Conversion — Type ပြောင်းလဲခြင်း
+## Type Conversion — Type ပြောင်းလဲခြင်း
 
 <ContentImage src={typeConvImg} alt="Python Type Conversion" />
 
@@ -187,9 +187,9 @@ int(float("99.5"))  # 99  — ဒီလို ဆင့်ပြောင်း�
 
 ---
 
-### Operators
+## Operators
 
-#### Arithmetic Operators (ပေါင်းနှုတ်မြှောက်စား)
+### Arithmetic Operators (ပေါင်းနှုတ်မြှောက်စား)
 
 ```python
 a = 10
@@ -204,7 +204,7 @@ print(a % b)   # 1   (Mod — ကြွင်းရလဒ်)
 print(a ** b)  # 1000 (a ကို b ထပ် — 10³)
 ```
 
-#### Comparison Operators (နှိုင်းယှဉ်စစ်ဆေးခြင်း)
+### Comparison Operators (နှိုင်းယှဉ်စစ်ဆေးခြင်း)
 
 နှိုင်းယှဉ်တဲ့ Operators တွေက စစ်ဆေးပြီး `True` ဒါမှမဟုတ် `False` ပြန်ပေးပါတယ်:
 
@@ -222,7 +222,7 @@ print(x <= y)   # False  (ငယ်တယ် သို့မဟုတ် တူ�
 
 ---
 
-### f-strings — ရှင်းလင်းတဲ့ Text Formatting
+## f-strings — ရှင်းလင်းတဲ့ Text Formatting
 
 ```python
 name = "Su Su"
@@ -241,7 +241,7 @@ print(f"Next year: {age + 1}") # Next year: 23
 
 ---
 
-### Multiple Assignment
+## Multiple Assignment
 
 ```python
 # Variable တစ်ချက်တည်း — ဂိမ်းအမှတ်တွေကို ကနဦး 0 သတ်မှတ်ခြင်း
@@ -263,7 +263,7 @@ print(mg_mg_score, su_su_score)   # 92 85
 
 ---
 
-### ဖြစ်တတ်တဲ့ အမှားများ
+## ဖြစ်တတ်တဲ့ အမှားများ
 
 ```python
 # ၁. Type မစစ်ဆေးဘဲ ပေါင်းခြင်း

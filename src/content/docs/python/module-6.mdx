@@ -21,7 +21,7 @@ Program တွေ ရေးတဲ့အခါ Data တွေကို Memory ထ
 
 ---
 
-### File Handling
+## File Handling
 
 Python မှာ File တွေကို `open()` Function သုံးပြီး ဝင်ရောက်နိုင်ပါတယ်။ Mode (၃) မျိုး ရှိပါတယ်:
 
@@ -37,7 +37,7 @@ open("file.txt", "r", encoding="utf-8")
 ```
 </Aside>
 
-#### File ထဲကို ရေးခြင်း
+### File ထဲကို ရေးခြင်း
 
 ```python
 # "w" Mode — ဖိုင်ကို ဆောက်ပြီး ရေးပါမယ် (ရှိပြီးသားဆိုရင် ဖျက်ပြီး ပြန်ရေးပါတယ်)
@@ -52,7 +52,7 @@ print("ရေးပြီးပါပြီ!")
 **`with open(...)` ကို ဘာကြောင့် သုံးမလဲ?**
 `with` Block ပြီးသွားတာနဲ့ ဖိုင်ကို **အလိုအလျောက် ပိတ်** (Close) ပေးပါတယ်။ ကိုယ်တိုင် `file.close()` ရိုက်စရာ မလိုတော့ပါဘူး — မေ့ပြီး မပိတ်မိတာမျိုး မဖြစ်နိုင်တော့ပါဘူး။
 
-#### File ကနေ ဖတ်ခြင်း
+### File ကနေ ဖတ်ခြင်း
 
 ```python
 import os
@@ -72,7 +72,7 @@ else:
             print(line.strip())   # strip() သုံးပြီး နောက်ဆုံးက \n ကို ဖြုတ်မယ်
 ```
 
-#### Append — ဆက်ထည့်ခြင်း
+### Append — ဆက်ထည့်ခြင်း
 
 ```python
 # "a" Mode — ရှိပြီးသားအနောက်မှာ ဆက်ရေးပါမယ် (မဖျက်ပါဘူး)
@@ -82,7 +82,7 @@ with open("student.txt", "a", encoding="utf-8") as file:
 
 ---
 
-### JSON File — Data ကို Structure နဲ့ သိမ်းခြင်း
+## JSON File — Data ကို Structure နဲ့ သိမ်းခြင်း
 
 JSON (JavaScript Object Notation) ဆိုတာ Data ကို **မည်သည့် Programming Language မဆို ဖတ်နိုင်တဲ့** Format နဲ့ သိမ်းပေးတဲ့ Standard ပါ — Python Dictionary ပုံစံနဲ့ ဆင်တူပြီး Program ၂ ခုကြား Data ဖလှယ်ဖို့၊ API တွေမှာ Response Format အဖြစ် ကမ္ဘာတစ်ဝှမ်း သုံးကြပါတယ်:
 
@@ -128,7 +128,7 @@ print(type(loaded))       # <class 'dict'>
 
 ---
 
-### Error Handling (try / except)
+## Error Handling (try / except)
 
 Code ရေးတဲ့အခါ မထင်မှတ်ဘဲ Error တွေ တက်တတ်ပါတယ်။ ဆိုင်မှာ အချိုရည်မှာတဲ့ Customer ကို "ဒီ Flavor မရှိရင် ဒါလေးပေးလိုက်" ဆိုပြီး ကြိုပြင်ဆင်ထားသလိုမျိုး — try/except နဲ့ Error တက်ရင် ဘာလုပ်မလဲ ဆိုတာကို ကြိုသတ်မှတ်ထားနိုင်ပါတယ်။
 
@@ -141,7 +141,7 @@ except ZeroDivisionError:
     print("သုညနဲ့ စားလို့ မရပါဘူး")
 ```
 
-#### Error မျိုးစုံ ကိုင်တွယ်ခြင်း
+### Error မျိုးစုံ ကိုင်တွယ်ခြင်း
 
 ```python
 def get_age():
@@ -175,7 +175,7 @@ get_age()
 
 ---
 
-### raise — ကိုယ်ပိုင် Error ဖန်တီးခြင်း
+## raise — ကိုယ်ပိုင် Error ဖန်တီးခြင်း
 
 `raise` ကို သုံးပြီး Input မှားယွင်းတဲ့အခါ ကိုယ်တိုင် Error ပြခိုင်းလို့ ရပါတယ်:
 
@@ -201,7 +201,7 @@ except ValueError as e:
 
 ---
 
-### ပေါင်းစပ် ဥပမာ — Student Record System
+## ပေါင်းစပ် ဥပမာ — Student Record System
 
 ```python
 import json

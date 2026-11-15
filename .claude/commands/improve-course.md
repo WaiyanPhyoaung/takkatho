@@ -214,5 +214,6 @@ But the core structure always applies: objectives → concept → analogy → ex
 Key rules:
 - Never change UI styles — do not modify CSS files, component styling, Tailwind classes, or visual design. Colors, fonts, spacing, and layout appearance must stay as-is.
 - Content structure is fair game — adding sections, reordering content within a module, adding new modules, restructuring headings, and reorganizing explanations are all allowed.
+- Headings start at `##` (the page title is the only `#`) and go down one level at a time: `##` then `###`, never `##` then `####`. Headings inside list items count too. `npm run build` fails on a skipped level.
 - When adding Myanmar analogies, use real Myanmar life situations — tea shop orders, kyat prices, township names, family structures — not generic analogies that could be from any culture.
 - Every new diagram must have a Myanmar-language caption and label the key parts.

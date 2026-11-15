@@ -12,7 +12,7 @@ import semanticImage from '@/assets/html/semantic.png'
 ဒီအခန်းမှာတော့ Semantic HTML သုံးခြင်းကြောင့် Accessibility နဲ့ SEO ကို ဘယ်လို အကျိုးပြုတယ်ဆိုတာနဲ့ ကောင်းမွန်တဲ့ Page Structure ဘယ်လို တည်ဆောက်ရမလဲဆိုတဲ့ Best Practices တွေကို ဆက်ပြီး လေ့လာကြပါမယ် ခင်ဗျာ။
 </Aside>
 
-### Semantic HTML သုံးခြင်းရဲ့ Accessibility အကျိုးကျေးဇူးများ
+## Semantic HTML သုံးခြင်းရဲ့ Accessibility အကျိုးကျေးဇူးများ
 Semantic HTML ကို သုံးတာက Screen Reader လိုမျိုး အထောက်အကူပြု နည်းပညာတွေအတွက် Content ကို ပိုမို နားလည်လွယ်စေတဲ့အတွက် Accessibility ကို အများကြီး ပိုကောင်းစေပါတယ်။ 
 
 **Screen Reader အတွက် ဥပမာ -** <br/>
@@ -20,7 +20,7 @@ Screen reader တစ်ခုက Page ရဲ့ ခေါင်းပိုင�
 
 <ContentImage src={semanticImage} alt="Non-semantic vs Semantic" />
 
-### ARIA Attributes — Accessibility ကို ထပ်မံ မြှင့်တင်ခြင်း
+## ARIA Attributes — Accessibility ကို ထပ်မံ မြှင့်တင်ခြင်း
 Semantic HTML tag တွေချည်း သက်သက်နဲ့ မလုံလောက်တဲ့ နေရာတွေမှာ **ARIA (Accessible Rich Internet Applications)** attributes တွေ ထပ်ထည့်နိုင်ပါတယ်။ ဒီ Attribute တွေက Screen reader တွေကို Content ရဲ့ အဓိပ္ပာယ်ကို ပိုကောင်းကောင်း နားလည်အောင် ကူညီပေးပါတယ်။
 
 **အသုံးဝင်ဆုံး ARIA attribute အချို့:**
@@ -48,17 +48,17 @@ Semantic HTML tag တွေချည်း သက်သက်နဲ့ မလု
 Semantic HTML tag တွေကို ရွေးချယ်သုံးတာကို အမြဲ ဦးစားပေးပါ — `<nav>`, `<header>`, `<main>` တွေ သုံးရင် ARIA မလိုဘဲ Accessibility ကောင်းနေပါပြီ။ ARIA ကိုတော့ Semantic tag တွေနဲ့တင် မလုံလောက်တော့တဲ့ အခြေအနေမျိုးမှာမှ ထပ်ဖြည့်ပါ ခင်ဗျာ။
 </Aside>
 
-### Semantic HTML အတွက် အလေ့အကျင့်ကောင်းများ
-##### 1. မှန်ကန်တဲ့ Tag များကို သုံးပါ 
+## Semantic HTML အတွက် အလေ့အကျင့်ကောင်းများ
+### 1. မှန်ကန်တဲ့ Tag များကို သုံးပါ 
     Content နဲ့ သင့်တော်တဲ့၊ အဓိပ္ပာယ်ရှိတဲ့ Tag ကို သုံးပါ (ဥပမာ - Blog post အတွက် `<article>`, Menu အတွက် `<nav>`)။
 
-##### 2. `<div>` ကို အလွန်အကျွံ မသုံးပါနဲ့ 
+### 2. `<div>` ကို အလွန်အကျွံ မသုံးပါနဲ့ 
 `<div>` က အရာအားလုံးကို ထည့်လို့ရတဲ့ Container ဆိုပေမဲ့ နေရာတကာမှာ လျှောက်မသုံးပါနဲ့။ သူ့အစား Structure ပိုကျတဲ့၊ အဓိပ္ပာယ် ပိုရှိတဲ့ Semantic tag တွေကို သုံးပါ။
 
-##### 3. Page Structure ကို စဉ်းစားပါ
+### 3. Page Structure ကို စဉ်းစားပါ
 Tag တွေရဲ့ အစီအစဉ်ကို အမြဲတမ်း စဉ်းစားပါ။ ခင်ဗျားရဲ့ Page ဟာ `<header>` (အပေါ်ပိုင်း) ကနေ `<main>` (အဓိက Content) ကိုဖြတ်ပြီး `<footer>` (အောက်ခြေပိုင်း) မှာ ဆုံးသင့်ပါတယ်။
 
-##### 4. ရှင်းလင်းတဲ့ ခေါင်းစဉ်များ ပေးပါ
+### 4. ရှင်းလင်းတဲ့ ခေါင်းစဉ်များ ပေးပါ
 `<nav>`, `<header>`, `<footer>`, ဒါမှမဟုတ် `<section>` လို Tag တွေ သုံးတဲ့အခါ အထဲမှာပါတဲ့ Content တွေက ရှင်းလင်းပြီး အဓိပ္ပာယ်ရှိနေဖို့ သေချာပါစေ။
 
 <Aside type="tip"  title="အနှစ်ချုပ်">

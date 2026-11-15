@@ -21,7 +21,7 @@ import scopeImg from "@/assets/python/scope.svg";
 Module 1 (Variables), Module 1.5 (String Methods) နဲ့ Module 2 (Control Flow) ကို ပြီးမှသာ ဆက်ကြည့်ပေးပါ။ Loops နဲ့ Conditionals တွေကို သိပြီးမှ Functions ကို ပိုနားလည်နိုင်မှာပါ။
 </Aside>
 
-### Function ဆိုတာ ဘာလဲ?
+## Function ဆိုတာ ဘာလဲ?
 
 Function ဆိုတာ Code တွေကို အစုလိုက် ဖွဲ့ထားတာပါ — **"ဟင်းချက်နည်း (Recipe)"** တစ်ခုနဲ့ တူပါတယ်။ ဟင်းချက်နည်း တစ်ကြိမ်ရေးထားရင် ကြိုက်တဲ့အချိန်တိုင်း အဲ့ဒီနည်းအတိုင်း ချက်လို့ ရသလိုပဲ — Function ကို တစ်ကြိမ် ဖန်တီးပြီးရင် လိုတဲ့အချိန်တိုင်း ခေါ်သုံးနိုင်ပါတယ်။
 
@@ -31,7 +31,7 @@ Function ဆိုတာ Code တွေကို အစုလိုက် ဖွ
 
 ---
 
-### Function ဘယ်လို တည်ဆောက်မလဲ?
+## Function ဘယ်လို တည်ဆောက်မလဲ?
 
 Python မှာ Function ကို `def` (define) Keyword နဲ့ စပါတယ်:
 
@@ -46,7 +46,7 @@ say_hello()
 say_hello()   # ကြိုက်သလောက် ခေါ်သုံးနိုင်ပါတယ်
 ```
 
-#### Docstrings — Function ကိုရှင်းပြတဲ့ မှတ်ချက်
+### Docstrings — Function ကိုရှင်းပြတဲ့ မှတ်ချက်
 
 Function ထဲ ပထမဆုံး `"""..."""` (Triple Quote) ကို **Docstring** လို့ ခေါ်ပါတယ်။ Function က ဘာလုပ်သလဲ ဆိုတာကို ရှင်းပြပေးတဲ့ Documentation ပါ:
 
@@ -66,7 +66,7 @@ def greet(name):
 
 ---
 
-### Parameters နဲ့ Arguments
+## Parameters နဲ့ Arguments
 
 Function ထဲကို အပြင်ကနေ Data ထည့်ပေးလို့ ရပါတယ်:
 
@@ -78,7 +78,7 @@ greet("Aung Aung")         # "Aung Aung" ← Argument (ခေါ်ချိန�
 greet("Su Su")
 ```
 
-#### Multiple Parameters
+### Multiple Parameters
 
 ```python
 def introduce(name, age, city):
@@ -89,7 +89,7 @@ introduce("Aung", 20, "ရန်ကုန်")
 introduce("Su", 22, "မန္တလေး")
 ```
 
-#### Default Parameters (ပုံသေ တန်ဖိုးများ)
+### Default Parameters (ပုံသေ တန်ဖိုးများ)
 
 Parameter ကို Default Value ပေးထားနိုင်ပါတယ် — Argument မထည့်ပေးရင် Default ကို သုံးသွားပါမယ်:
 
@@ -125,7 +125,7 @@ def add_item(item, items=None):
 
 ---
 
-### Return — အဖြေ ပြန်ပေးခြင်း
+## Return — အဖြေ ပြန်ပေးခြင်း
 
 ```python
 def add_numbers(a, b):
@@ -152,7 +152,7 @@ result = good_function(3, 4)
 print(result)    # 7  ✅
 ```
 
-#### Multiple Return Values
+### Multiple Return Values
 
 Python မှာ Return Value ၂ ခုနဲ့ အထက် ပြန်ပေးနိုင်ပါတယ်:
 
@@ -169,7 +169,7 @@ print(f"အမြင့်ဆုံး Score: {highest}")  # 91
 
 ---
 
-### Lambda Functions — Anonymous Functions
+## Lambda Functions — Anonymous Functions
 
 Lambda ဆိုတာ **နာမည်မဲ့ Function** ပါ။ တစ်ကြောင်းတည်းနဲ့ ရေးလို့ရပြီး Argument တစ်ခုနဲ့ Expression တစ်ခု Return ပေးပါတယ်:
 
@@ -199,7 +199,7 @@ Lambda ကို **Function တစ်ကြောင်းတည်းပဲ ရ
 
 ---
 
-### Variable Scope (Local vs Global)
+## Variable Scope (Local vs Global)
 
 <ContentImage src={scopeImg} alt="Python Variable Scope" />
 
@@ -244,7 +244,7 @@ count = increment(count)   # Function ကနေ return လာတဲ့ တန်
 
 ---
 
-### Function တည်ဆောက်ရာမှာ ဖြစ်တတ်တဲ့ အမှားများ
+## Function တည်ဆောက်ရာမှာ ဖြစ်တတ်တဲ့ အမှားများ
 
 ```python
 # ၁. self ကို မမေ့ပါနဲ့ — OOP မှာ Method ရေးရင် (Module 5 မှာ ဆက်သင်ပါမယ် — Class Methods တွေမှာ self ပါရပါမယ်)

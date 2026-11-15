@@ -35,7 +35,7 @@ export default productsSlice.reducer;
 Application ကြီးလာတဲ့အခါ Data တွေ ဘယ်ကနေ လာပြီး၊ ဘယ်ကို သွားမှန်း မသိတော့လောက်အောင် ရှုပ်ထွေးလာတဲ့ ပြဿနာ (State Management Hell) ကို ဖြေရှင်းဖို့အတွက် **Flux** နဲ့ **Redux** တို့ ပေါ်ထွက်လာတာ ဖြစ်ပါတယ်။
 </Aside>
 
-### Flux ဆိုတာ ဘာလဲ? (ဘဏ် ဥပမာ)
+## Flux ဆိုတာ ဘာလဲ? (ဘဏ် ဥပမာ)
 Flux ဆိုတာ Facebook က တီထွင်ခဲ့တဲ့ Pattern တစ်ခုပါ။ သူ့ရဲ့ အဓိက သဘောတရားကတော့ **"One Way Traffic"** (Data တွေ တစ်လမ်းမောင်းပဲ သွားရမယ်) ဆိုတာပါပဲ။ ဒါကို နားလည်ဖို့ ဘဏ်တစ်ခုကို မြင်ယောင်ကြည့်ပါ။
 
 <ContentImage src={redux} alt='flux architecture' width='500' />
@@ -48,15 +48,15 @@ Flux ဆိုတာ Facebook က တီထွင်ခဲ့တဲ့ Pattern �
 
 Customer အနေနဲ့ ငွေတိုက်ထဲကို ကိုယ်တိုင်ဝင်ပြီး ပိုက်ဆံ သွားယူပြေးလို့ လုံးဝ မရပါဘူး (Direct State Mutation လုပ်လို့ မရပါ)။ Slip သေချာဖြည့်ပြီး ဝန်ထမ်းကို ပေးမှသာ ရမှာပါ။ ဒါဟာ Flux ရဲ့ အနှစ်သာရပါပဲ။
 
-### Redux: The Modern Flux
+## Redux: The Modern Flux
 Redux ဆိုတာက Flux ရဲ့ သဘောတရားကို ပိုကောင်းအောင်၊ ပိုရှင်းလင်းအောင် မွမ်းမံထားတာပါ။ အခုခေတ်မှာတော့ သုံးရ ပိုလွယ်တဲ့ **Redux Toolkit (RTK)** ကို အဓိက သုံးကြပါတယ်။
 
-#### Redux Toolkit (RTK) နဲ့ ရေးပုံ
+### Redux Toolkit (RTK) နဲ့ ရေးပုံ
 အရင်က Redux ရေးရတာ ဖိုင်တွေ အများကြီးနဲ့ ရှုပ်ထွေးပေမယ့်၊ အခု RTK မှာတော့ `createSlice` ကို သုံးလိုက်တာနဲ့ အရမ်းကို လွယ်ကူသွားပါပြီ။
 
 <Code code={sliceExample} lang="javascript" title="productSlice.js" />
 
-### အဓိက ပါဝင်တဲ့ အရာများ
+## အဓိက ပါဝင်တဲ့ အရာများ
 1.  **Store:** Application တစ်ခုလုံးရဲ့ Data တွေ အားလုံးကို သိမ်းဆည်းထားတဲ့ "ဗဟိုဘဏ်" ကြီးပါ။
 2.  **Slice:** Feature တစ်ခုချင်းစီအတွက် သီးခြား ခွဲထုတ်ထားတဲ့ "ဌာနခွဲ" တွေပါ။ (ဥပမာ - Product Slice, User Slice)။
 3.  **Action:** "ဘာအလုပ် လုပ်မယ်" ဆိုတာကို ညွှန်ကြားတဲ့ အမိန့်စာပါ။ (ဥပမာ - `addProduct`, `removeProduct`)။
@@ -66,7 +66,7 @@ Redux ဆိုတာက Flux ရဲ့ သဘောတရားကို ပိ
 
 ဒီနည်းလမ်းကို သုံးခြင်းအားဖြင့် Action တွေနဲ့ Reducer တွေကို နေရာတစ်နေရာတည်းမှာ စုစည်းထားနိုင်တဲ့အတွက်၊ Code ပိုမို ရှင်းလင်းပြီး စီမံခန့်ခွဲရတာ အရမ်း လွယ်ကူသွားစေပါတယ်။
 
-### `productsSlice.actions` ဆိုတာ ဘာလဲ?
+## `productsSlice.actions` ဆိုတာ ဘာလဲ?
 `createSlice` က `reducers` object ထဲမှာ ခင်ဗျား ရေးထားတဲ့ Method တစ်ခုချင်းစီအတွက် **Action Creator Function** လေးတွေကို အလိုအလျောက် Generate လုပ်ပေးပါတယ်။
 
 ဥပမာ:
@@ -75,14 +75,14 @@ Redux ဆိုတာက Flux ရဲ့ သဘောတရားကို ပိ
 
 ဒီလို အလိုအလျောက် ထွက်လာတဲ့ Function တွေကို **Destructure** လုပ်ပြီး အပြင်ကို Export ထုတ်ချင်လို့ `export const { addProduct, removeProduct } = productsSlice.actions;` လို့ ရေးရတာပါ။
 
-#### Action Creator က ဘာလုပ်ပေးတာလဲ?
+### Action Creator က ဘာလုပ်ပေးတာလဲ?
 `addProduct({ id: 1, name: 'Book' })` လို့ ခေါ်လိုက်တာနဲ့၊ Redux က အောက်ကလို Action Object တစ်ခုအနေနဲ့ အလိုအလျောက် ပြောင်းလဲပေးလိုက်ပါတယ်:
 ```js
 { type: 'products/addProduct', payload: { id: 1, name: 'Book' } }
 ```
 အဲဒီ `type` နာမည်ရှည်ကြီးကို ကိုယ်တိုင် လိုက်ရေးစရာ မလိုတော့တဲ့အတွက် စာလုံးပေါင်း မှားတဲ့ (Typo) ပြဿနာတွေ၊ Code ထပ်ခါထပ်ခါ ရေးရတဲ့ ပြဿနာတွေ အများကြီး လျော့ကျသွားပါတယ်။
 
-#### ဘယ်နေရာမှာ သုံးလဲ?
+### ဘယ်နေရာမှာ သုံးလဲ?
 UI Component တွေကနေ Data ပြောင်းချင်တဲ့အခါ (ဥပမာ Button နှိပ်တဲ့အခါ) `dispatch` လုပ်ဖို့ သုံးပါတယ်။
 ```js
 import { useDispatch } from 'react-redux';
@@ -98,7 +98,7 @@ function AddButton() {
 }
 ```
 
-### `productsSlice.reducer` ကို ဘာကြောင့် Export Default လုပ်ရတာလဲ?
+## `productsSlice.reducer` ကို ဘာကြောင့် Export Default လုပ်ရတာလဲ?
 Redux Store အကြီးကြီးကို တည်ဆောက်တဲ့အချိန်မှာ၊ Slice တစ်ခုချင်းစီမှာ ရှိတဲ့ Reducer တွေကို စုစည်းပြီး Store ထဲကို ထည့်ပေးရလို့ပါ။ ဥပမာ -
 
 ```js
@@ -112,7 +112,7 @@ export const store = configureStore({
 });
 ```
 
-### State (Data) ကို Component မှာ ဘယ်လို ဖတ်မလဲ?
+## State (Data) ကို Component မှာ ဘယ်လို ဖတ်မလဲ?
 ```js
 import { useSelector } from 'react-redux';
 

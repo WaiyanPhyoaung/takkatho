@@ -113,6 +113,34 @@ if (!read("robots.txt").includes(`Sitemap: ${SITE}/sitemap-index.xml`)) {
   fail("robots.txt names the sitemap on the served origin", "update public/robots.txt");
 }
 
+// Heading order, using axe-core's heading-order rule (what Lighthouse runs): a
+// heading may be at most one level deeper than the heading before it. 172
+// lessons used to jump from the page title (h1) straight to h3 or h4. The
+// scanner reads quoted attributes whole, because code blocks keep raw code
+// such as "<h1>" in a data-code attribute, and skips script and style bodies.
+const TAG = /<(\/?)([a-zA-Z][\w-]*)((?:\s+[^\s=>/]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*)\s*\/?>/g;
+const headingLevels = (html) => {
+  const levels = [];
+  TAG.lastIndex = 0;
+  for (let m; (m = TAG.exec(html)); ) {
+    const name = m[2].toLowerCase();
+    if (m[1]) continue;
+    if (name === "script" || name === "style") {
+      const end = html.indexOf(`</${name}`, TAG.lastIndex);
+      if (end === -1) break;
+      TAG.lastIndex = end;
+    } else if (/^h[1-6]$/.test(name)) {
+      levels.push(Number(name[1]));
+    }
+  }
+  return levels;
+};
+for (const { file, html } of pages) {
+  const levels = headingLevels(html);
+  const i = levels.findIndex((level, j) => j > 0 && level - levels[j - 1] > 1);
+  if (i !== -1) fail("Headings skip no levels", `${file}: h${levels[i - 1]} then h${levels[i]}`);
+}
+
 // Bare course URLs must redirect (Vercel adapter output, when present).
 const vercelConfig = process.argv[2] ? join(DIST, "..", "vercel-config.json") : ".vercel/output/config.json";
 if (existsSync(vercelConfig)) {

@@ -13,7 +13,7 @@ import mvp from '@/assets/frontend-architecture/mvp.png'
 Frontend လောကမှာ မကြာခဏ ကြားရတတ်တဲ့ **MVC, MVVM, MVP** ဆိုတာတွေက ဘာတွေလဲ? ဒါတွေဟာ ကိုယ့်ရဲ့ Code တွေကို ဘယ်လို စနစ်တကျ ခွဲခြားရေးသားမလဲ ဆိုတာကို လမ်းညွှန်ပေးတဲ့ ပုံစံ (Patterns) တွေ ဖြစ်ပါတယ်။
 </Aside>
 
-### MV* ဆိုတာ ဘာလဲ? (စားသောက်ဆိုင် ဥပမာ)
+## MV* ဆိုတာ ဘာလဲ? (စားသောက်ဆိုင် ဥပမာ)
 ဒီ Pattern တွေကို လွယ်လွယ်ကူကူ နားလည်ဖို့ **"စားသောက်ဆိုင် တစ်ဆိုင်"** ကို မြင်ယောင်ကြည့်ပါ။
 
 1.  **Model (မီးဖိုချောင်):**
@@ -35,14 +35,14 @@ Frontend လောကမှာ မကြာခဏ ကြားရတတ်တဲ
 
 ---
 
-### ၁။ MVC (Model-View-Controller)
+## ၁။ MVC (Model-View-Controller)
 ဒါက အရင်ခေတ်က အသုံးအများဆုံး ပုံစံပါ။
 - **Controller** က "သူဌေး (Boss)" လိုပါပဲ။ User ဘာလုပ်လဲဆိုတာကို နားထောင်ပြီး၊ Model ကို သွားခိုင်းပါတယ်။
 - **View** က Model ထဲက Data တွေ ပြောင်းသွားရင် သူ့ဟာသူ အလိုလို လိုက်ပြောင်းလဲဖို့ ကြိုးစားပါတယ်။
 
 <ContentImage src={mvc} alt="MVC diagram" />
 
-### ၂။ MVP (Model-View-Presenter)
+## ၂။ MVP (Model-View-Presenter)
 MVC နဲ့ ဆင်တူပေမယ့် **Presenter** က ပိုပြီး အာဏာရှိပါတယ်။
 - View က ဘာမှ မသိပါဘူး။ Presenter ခိုင်းတာကိုပဲ တစ်သဝေမတိမ်း လုပ်ရပါတယ်။
 - ဥပမာ - "Button နှိပ်လိုက်ပြီ" လို့ View က သတင်းပို့ရင်၊ Presenter ကနေ "ဒါဆို Loading လေး ပြလိုက်" လို့ ပြန်ခိုင်းပါတယ်။
@@ -50,7 +50,7 @@ MVC နဲ့ ဆင်တူပေမယ့် **Presenter** က ပိုပ�
 
 <ContentImage src={mvp} alt="MVP diagram" />
 
-### ၃။ MVVM (Model-View-ViewModel)
+## ၃။ MVVM (Model-View-ViewModel)
 ဒါကတော့ အခုခေတ် Modern Frontend Frameworks တွေဖြစ်တဲ့ Vue, Angular နဲ့ React (တစိတ်တပိုင်း) တွေမှာ သုံးတဲ့ ပုံစံပါ။
 - **ViewModel** က View နဲ့ "ကော်" နဲ့ ကပ်ထားသလိုမျိုး အလိုအလျောက် ချိတ်ဆက်ထားပါတယ် (Data Binding လို့ ခေါ်တယ်)။
 - Model ထဲက Data ပြောင်းတာနဲ့၊ View မှာ အလိုလို ချက်ချင်း လိုက်ပြောင်းသွားပါတယ်။

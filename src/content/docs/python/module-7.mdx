@@ -20,7 +20,7 @@ Programming လုပ်တဲ့အခါ အရာအားလုံးကိ�
 
 ---
 
-### Module ဆိုတာ ဘာလဲ?
+## Module ဆိုတာ ဘာလဲ?
 
 Module ဆိုတာ Python Code တွေ ရေးထားတဲ့ `.py` ဖိုင် တစ်ခုပါပဲ — Functions, Variables, Classes တွေ ပါဝင်နိုင်ပါတယ်။ `import` လုပ်ပြီး အလွယ်တကူ ယူသုံးနိုင်ပါတယ်:
 
@@ -32,9 +32,9 @@ from math import sqrt, pi, floor  # ← လိုအပ်တာတွေကိ�
 
 ---
 
-### Built-in Modules — Python မှာ အသင့်ပါတဲ့ Module များ
+## Built-in Modules — Python မှာ အသင့်ပါတဲ့ Module များ
 
-#### math — သင်္ချာ လုပ်ဆောင်ချက်များ
+### math — သင်္ချာ လုပ်ဆောင်ချက်များ
 
 ```python
 import math
@@ -48,7 +48,7 @@ print(math.pow(2, 10))  # 1024.0  (2 ရဲ့ 10 ထပ်)
 print(math.log(100, 10))  # 2.0  (log base 10 of 100)
 ```
 
-#### random — ကျပန်းဂဏန်းများ
+### random — ကျပန်းဂဏန်းများ
 
 ```python
 import random
@@ -68,7 +68,7 @@ random.shuffle(cards)
 print(cards)   # [3, 1, 5, 2, 4]  ← ကျပန်း ဖြစ်သွားပြီ
 ```
 
-#### datetime — ရက်စွဲနဲ့ အချိန်
+### datetime — ရက်စွဲနဲ့ အချိန်
 
 ```python
 from datetime import datetime, date, timedelta
@@ -88,7 +88,7 @@ last_week = now - timedelta(weeks=1)
 print(f"မနက်ဖြန်: {tomorrow.strftime('%Y-%m-%d')}")
 ```
 
-#### os — Operating System လုပ်ဆောင်ချက်များ
+### os — Operating System လုပ်ဆောင်ချက်များ
 
 ```python
 import os
@@ -103,7 +103,7 @@ os.makedirs("my_folder", exist_ok=True)  # Folder အသစ် ဆောက်�
 
 ---
 
-### ကိုယ်ပိုင် Module ဆောက်ခြင်း
+## ကိုယ်ပိုင် Module ဆောက်ခြင်း
 
 Function တွေကို သီးသန့် ဖိုင်တစ်ခုထဲမှာ ထည့်ပြီး Module အဖြစ် ယူသုံးနိုင်ပါတယ်:
 
@@ -133,7 +133,7 @@ print(greet("Su"))   # မင်္ဂလာပါ Su!
 
 ---
 
-### if `__name__` == `'__main__':` Pattern
+## if `__name__` == `'__main__':` Pattern
 
 ဒါဟာ Python မှာ အများသုံးတဲ့ Pattern တစ်ခုဖြစ်ပြီး Code ကို တိုက်ရိုက် Run တဲ့ အချိန်နဲ့ Module အဖြစ် Import လုပ်တဲ့ အချိန်ကို ခွဲခြားပေးပါတယ်:
 
@@ -167,7 +167,7 @@ Python File တစ်ခုကို Module အဖြစ် Import လုပ်�
 
 ---
 
-### Package ဆိုတာ ဘာလဲ?
+## Package ဆိုတာ ဘာလဲ?
 
 Package ဆိုတာ Module တွေ အများကြီးကို Folder တစ်ခုထဲမှာ စုထားတာပါ:
 
@@ -189,7 +189,7 @@ pip install django
 ```
 </Aside>
 
-#### ခေါ်ဆိုနည်း နှစ်ခု နှိုင်းယှဉ်ခြင်း
+### ခေါ်ဆိုနည်း နှစ်ခု နှိုင်းယှဉ်ခြင်း
 
 ```python
 # နည်း ၁: Module တစ်ခုလုံးကို ယူမယ်
@@ -206,7 +206,7 @@ result = sqrt(16)         # တိုက်ရိုက် ခေါ်သုံ
 
 ---
 
-### ဥပမာ — ကောင်းမွန်တဲ့ Module ပုံစံ
+## ဥပမာ — ကောင်းမွန်တဲ့ Module ပုံစံ
 
 ```python
 # grade_calculator.py

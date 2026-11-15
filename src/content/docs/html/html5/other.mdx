@@ -12,11 +12,11 @@ import svg from '@/assets/html/svg.png';
 ဒီအခန်းမှာတော့ HTML5 ရဲ့ `<audio>`, `<video>`, `<canvas>`, `<svg>`, `<details>/<summary>` element တွေ၊ Local Storage နဲ့ Data Attribute တွေကို ဆက်ပြီး လေ့လာကြပါမယ် ခင်ဗျာ။ ဒီ Feature တွေကြောင့် ကျွန်တော်တို့ရဲ့ Web page တွေက ပိုပြီး Powerful ဖြစ်သွားမှာပါ။
 </Aside>
 
-### `<audio>` နှင့် `<video>` Elements များ
+## `<audio>` နှင့် `<video>` Elements များ
 
 HTML5 ကြောင့် Flash လိုမျိုး တခြား ပြင်ပ Plugin တွေ မလိုတော့ဘဲ Audio, Video လို Media တွေကို Website တွေမှာ အလွယ်တကူ ထည့်သွင်းနိုင်လာပါတယ်။
 
-#### `<audio>` Tag:
+### `<audio>` Tag:
 `<audio>` element ကို Webpage မှာ အသံဖိုင်တွေ (Audio) ထည့်ဖို့ သုံးပါတယ်။ MP3, Ogg, WAV လို Audio format မျိုးစုံကို Support ပေးပါတယ်။
 
 **ဥပမာ -**
@@ -30,7 +30,7 @@ HTML5 ကြောင့် Flash လိုမျိုး တခြား ပ�
 ```
 `controls` attribute ကတော့ Play, Pause လုပ်တာတွေ၊ အသံအတိုးအကျယ် (Volume) Control တွေကို အလိုအလျောက် ထည့်ပေးသွားမှာပါ။
 
-#### `<video>` Tag:
+### `<video>` Tag:
 `<audio>` နဲ့ အလားတူပဲ `<video>` tag က Video content တွေ ထည့်သွင်းဖို့အတွက် ဖြစ်ပါတယ်။
 
 **ဥပမာ -**
@@ -44,7 +44,7 @@ HTML5 ကြောင့် Flash လိုမျိုး တခြား ပ�
 ```
 `controls` က Play/Pause, Volume control နဲ့ တခြား လိုအပ်တဲ့ Control တွေကို ထည့်ပေးသွားမှာပါ။
 
-### `<canvas>` Element
+## `<canvas>` Element
 `<canvas>` tag က JavaScript ကိုသုံးပြီး Webpage ပေါ်မှာ Graphics တွေကို တိုက်ရိုက် ဆွဲခွင့်ပေးပါတယ်။ သူ့ကို Dynamic graphics တွေ၊ Animation တွေ၊ ဒါမှမဟုတ် Game element တွေ ဖန်တီးတဲ့နေရာမှာ အဓိက သုံးပါတယ်။
 
 **ဥပမာ -**
@@ -63,10 +63,10 @@ let ctx = canvas.getContext("2d");
 ctx.fillStyle = "blue";
 ctx.fillRect(50, 50, 150, 100);  // Draws a blue rectangle
 ```
-#### `<canvas>` က ဘာကြောင့် အသုံးဝင်တာလဲ?
+### `<canvas>` က ဘာကြောင့် အသုံးဝင်တာလဲ?
 Game တွေ၊ Animation တွေနဲ့ Real-time visualization တွေလိုမျိုး Interactive ဖြစ်တဲ့ Graphics တွေ ဖန်တီးဖို့အတွက် အသင့်တော်ဆုံးပါပဲ။
 
-### SVG (Scalable Vector Graphics)
+## SVG (Scalable Vector Graphics)
 HTML5 မှာ SVG ကိုလည်း မိတ်ဆက်ပေးခဲ့ပါတယ်။ SVG ဆိုတာက XML format ကိုသုံးပြီး Vector graphics တွေ ဖန်တီးတဲ့ နည်းလမ်းတစ်ခုပါ။ JPEG, PNG တို့လို ရိုးရိုးပုံတွေနဲ့ မတူတာက SVG တွေက အရွယ်အစားကို ကြိုက်သလောက် ချဲ့ချုံ့လုပ်လည်း အရည်အသွေး (Quality) လုံးဝ မကျသွားပါဘူး။ ဒါကြောင့် Responsive web design အတွက် အသင့်တော်ဆုံး ဖြစ်ပါတယ်။
 
 **ဥပမာ -**
@@ -80,14 +80,14 @@ HTML5 မှာ SVG ကိုလည်း မိတ်ဆက်ပေးခဲ�
 
 <ContentImage src={svg} alt="SVG example" height={200} width={200} />
 
-#### ဘာကြောင့် SVG ကို သုံးသင့်လဲ?
+### ဘာကြောင့် SVG ကို သုံးသင့်လဲ?
 - **အရွယ်အစား ပြောင်းလွယ်ခြင်း -** SVG တွေက အရွယ်အစား ချဲ့ချုံ့လုပ်လိုက်ပေမဲ့ အရည်အသွေး လုံးဝ မကျသွားပါဘူး။
 
 - **အပြန်အလှန် တုံ့ပြန်နိုင်ခြင်း -** SVG တွေကို CSS နဲ့ Style ပြင်လို့ရသလို၊ JavaScript နဲ့လည်း Interactive ဖြစ်အောင် ချိတ်ဆက် လုပ်ဆောင်နိုင်ပါတယ်။
 
 <ContentImage src={svgVsPng} alt="SVG vs PNG comparison" height={300}  />
 
-### `<details>` နှင့် `<summary>` Elements
+## `<details>` နှင့် `<summary>` Elements
 `<details>` element ကို သုံးပြီး JavaScript လုံးဝ မလိုဘဲ Show/Hide လုပ်နိုင်တဲ့ Collapsible content section လေးတွေ ဖန်တီးနိုင်ပါတယ်။ `<summary>` ကတော့ Click နှိပ်ရမယ့် ခေါင်းစဉ် Label ဖြစ်ပါတယ်။
 
 **ဥပမာ -**
@@ -101,8 +101,8 @@ HTML5 မှာ SVG ကိုလည်း မိတ်ဆက်ပေးခဲ�
 
 ဒီ Code လေးက FAQ section တွေ၊ Accordion menu တွေ ဖန်တီးဖို့အတွက် အသင့်တော်ဆုံးပါ — JavaScript တစ်ကြောင်းမှ မရေးဘဲ Browser ရဲ့ Built-in behavior ကိုသုံးပြီး Expand/Collapse လုပ်နိုင်ပါတယ်။
 
-### Local Storage နှင့် Data Attributes
-#### 1. Local Storage:
+## Local Storage နှင့် Data Attributes
+### 1. Local Storage:
 HTML5 က Page ကို ပိတ်လိုက်ပြီးရင်တောင်မှ User ရဲ့ Browser ထဲမှာ Data တွေကို သိမ်းထားနိုင်တဲ့ Local Storage ကို မိတ်ဆက်ပေးခဲ့ပါတယ်။ ဒီ Data တွေက User က Browser cache ကို မရှင်းမချင်း ဒါမှမဟုတ် ခင်ဗျားရဲ့ Code ကနေ လှမ်းမဖျက်မချင်း အမြဲ တည်ရှိနေမှာပါ။
 
 **ဥပမာ -**
@@ -113,7 +113,7 @@ var user = localStorage.getItem("username");
 ```
 Local storage ကို User preference တွေ (ဥပမာ - Dark mode/Light mode ရွေးထားတာ)၊ Form data တွေလိုမျိုး Data တွေကို Session တစ်ခုပြီးတစ်ခု မှတ်ထားဖို့ အဓိက သုံးပါတယ်။
 
-#### 2. Data Attributes:
+### 2. Data Attributes:
 Data attribute တွေက Page ရဲ့ အမြင်ပိုင်း (UI) ကို မထိခိုက်စေဘဲ HTML tag တွေထဲမှာ လိုအပ်တဲ့ အပို Data တွေ ထည့်ခွင့်ပေးပါတယ်။ ဒီ Attribute တွေကို `data-` ဆိုတဲ့ စကားလုံးနဲ့ စရေးရပါတယ်။
 
 **ဥပမာ -**

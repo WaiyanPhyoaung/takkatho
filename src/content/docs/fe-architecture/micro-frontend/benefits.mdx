@@ -7,22 +7,22 @@ import { Aside } from "@astrojs/starlight/components";
 
 Micro-Frontend ကို သုံးခြင်းရဲ့ အကြီးမားဆုံး အကျိုးကျေးဇူးကတော့ **"လွတ်လပ်ခြင်း (Independence)"** ပါပဲ။
 
-### ၁။ Independent Deployment (သီးခြား Deploy လုပ်နိုင်ခြင်း)
+## ၁။ Independent Deployment (သီးခြား Deploy လုပ်နိုင်ခြင်း)
 ဒါက အရေးအကြီးဆုံး အချက်ပါ။
 - ဥပမာ - `Checkout` Team က သူတို့ Feature ကို ရေးလို့ပြီးသွားတာနဲ့ တန်းပြီး Deploy လုပ်လို့ရပါတယ်။
 - တခြား `Profile` Team က မပြီးသေးလို့ ဆိုပြီး စောင့်နေစရာ မလိုတော့ပါဘူး။
 ဒါကြောင့် ကုမ္ပဏီတစ်ခုလုံးရဲ့ Release Cycle (Product အသစ်ထွက်တဲ့ အရှိန်) တွေ ပိုပြီး မြန်ဆန်လာပါတယ်။
 
-### ၂။ Technology Agnostic (ကြိုက်ရာ နည်းပညာ သုံးနိုင်ခြင်း)
+## ၂။ Technology Agnostic (ကြိုက်ရာ နည်းပညာ သုံးနိုင်ခြင်း)
 - Team A က React ကို ပိုကျွမ်းကျင်ရင် React သုံးလို့ရပါတယ်။
 - Team B က Vue ကို ပိုကျွမ်းကျင်ရင် Vue သုံးလို့ရပါတယ်။
 - Team C က Angular ကို ပိုကျွမ်းကျင်ရင် Angular သုံးလို့ရပါတယ်။
 နောက်ဆုံးမှာ အားလုံးက Web Page တစ်ခုတည်းအောက်မှာ လာပြီး ပေါင်းစည်းသွားမှာပါ။ (ဒါပေမဲ့ သတိထားရမှာက Framework တွေ အများကြီး ရောသုံးတဲ့အခါ Browser ဘက်မှာ Load လုပ်ရတာ များပြီး Performance ကျသွားတတ်ပါတယ်)။
 
-### ၃။ Isolated Faults (ပြဿနာများ သီးခြားဖြစ်ခြင်း)
+## ၃။ Isolated Faults (ပြဿနာများ သီးခြားဖြစ်ခြင်း)
 `Checkout` Micro-Frontend မှာ Error တက်ပြီး ပျက်သွားရင်တောင်၊ `Product List` အပိုင်းကတော့ ဆက်ပြီး အလုပ်လုပ်နေမှာပါ။ App တစ်ခုလုံး "ဖြူ" သွားတာ (White Screen of Death) မျိုး မဖြစ်တော့တဲ့အတွက် User Experience ကို အများကြီး ကာကွယ်ပေးနိုင်ပါတယ်။
 
-### စိန်ခေါ်မှုများ (Challenges)
+## စိန်ခေါ်မှုများ (Challenges)
 Micro-Frontend က ကောင်းပေမယ့် အလကားတော့ မရပါဘူး။
 1.  **Complexity:** အစပိုင်းမှာ Setup လုပ်ရတာ အရမ်း ရှုပ်ထွေးပါတယ်။ (Webpack Module Federation တို့၊ Single-SPA တို့လို Advanced Tool တွေကို ကျွမ်းကျင်ဖို့ လိုအပ်ပါတယ်)။
 2.  **Performance:** Framework တွေ ထပ်နေရင် (ဥပမာ - React Version နှစ်ခုကို တစ်ပြိုင်နက် Load လုပ်မိတာမျိုး) Website က အရမ်း လေးသွားနိုင်ပါတယ်။

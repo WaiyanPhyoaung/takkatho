@@ -14,12 +14,12 @@ import formSubmission from '@/assets/html/form-submission.svg'
 ဒီအခန်းမှာတော့ User တွေဆီက Data တွေကို Website ဆီ လှမ်းပို့ပေးနိုင်တဲ့ HTML Form တွေ ဘယ်လို ဖန်တီးရမလဲဆိုတာ လေ့လာကြပါမယ် ခင်ဗျာ။ Form တွေက Contact Page တွေ၊ စစ်တမ်းတွေ၊ Register လုပ်တာတွေ၊ နဲ့ Login ဝင်တာတွေအတွက် မရှိမဖြစ် လိုအပ်ပါတယ်။ Form element တွေ၊ Input တွေ၊ Label တွေ၊ Dropdown တွေ၊ Textarea တွေ၊ နဲ့ Button တွေအကြောင်း သေသေချာချာ သင်ယူရမှာပါ။
 </Aside>
 
-### Form ဆိုတာ ဘာလဲ?
+## Form ဆိုတာ ဘာလဲ?
 Form ဆိုတာက User တွေဆီက အချက်အလက်တွေကို စုဆောင်းပြီး Server ဆီကို ပို့ပေးတဲ့ HTML Element တစ်ခုပါ။
 
 **ဥပမာနှိုင်းယှဉ်ချက်** — Form ကို Digital ဖြည့်လွှာတစ်ခုလို သဘောထားနိုင်ပါတယ်။ ဘဏ်မှာ Account ဖွင့်တဲ့အခါ ဖြည့်ရတဲ့ ဖြည့်လွှာလိုမျိုးပါပဲ — User က ဖြည့်ပြီး Submit နှိပ်လိုက်ရင် Server ဆီကို ပေးပို့သွားတာ ဖြစ်ပါတယ်။
 
-##### အသုံးပြုပုံများ -
+### အသုံးပြုပုံများ -
 
 - Website ပေါ်က Contact form တွေ
 - User register လုပ်ခြင်း သို့မဟုတ် Login ဝင်ခြင်း
@@ -28,12 +28,12 @@ Form ဆိုတာက User တွေဆီက အချက်အလက်တ�
 
 <ContentImage src={formImage} alt="form sample" height={350} />
 
-### Form Submission Flow (ဖောင်တင်သွင်းတဲ့ ဖြစ်စဉ်)
+## Form Submission Flow (ဖောင်တင်သွင်းတဲ့ ဖြစ်စဉ်)
 User တစ်ယောက်က Submit ကို နှိပ်လိုက်ရင် ဘာတွေဖြစ်သွားသလဲ ဆိုတာကို အရင် ကြည့်လိုက်ရအောင်။ စာပို့တာနဲ့ ဥပမာ နှိုင်းထားပါတယ် — ဖြည့်ထားတဲ့ Form = ရေးထားတဲ့ စာ၊ Submit = Post Box ထဲထည့်တာ၊ Server = Post Office လို့ မှတ်ယူနိုင်ပါတယ်။
 
 <ContentImage src={formSubmission} alt="Form Submission Flow Diagram" />
 
-### Form တည်ဆောက်ပုံ
+## Form တည်ဆောက်ပုံ
 Form တစ်ခုကို `<form>` tag နဲ့ ဖန်တီးပါတယ်။ အဓိကကျတဲ့ Attribute နှစ်ခုကတော့-
 
 - `action` – Form data တွေကို ဘယ် URL ဆီ ပို့ရမလဲ သတ်မှတ်ပေးတယ်။
@@ -49,7 +49,7 @@ Form တစ်ခုကို `<form>` tag နဲ့ ဖန်တီးပါတ
 
 - `action="submit_form.php"` — form data တွေကို `submit_form.php` file ဆီ ပို့ပေးမှာ ဖြစ်တယ်။ Password လိုမျိုး အထိန်းအကျောင်း (Sensitive) ဒေတာ ပို့တဲ့အခါ `method="post"` ကို အမြဲ သုံးပါ — URL ထဲမှာ မပြဘဲ ဖောက်ထုတ်ပို့ပေးလို့ ပိုလုံခြုံပါတယ်။
 
-### Input Fields
+## Input Fields
 **Input field** တွေက User တွေ Data ဖြည့်ဖို့ အတွက်သုံးတာပါ။ `<input>` tag ကို `type` attribute အမျိုးမျိုးနဲ့ တွဲသုံးပါတယ်-
 
 | Input Type | ရှင်းလင်းချက် |
@@ -65,7 +65,7 @@ Form တစ်ခုကို `<form>` tag နဲ့ ဖန်တီးပါတ
 
 <ContentImage src={inputsImage} alt="inputs sample" height={300} />
 
-### Labels — Input ခေါင်းစဉ်တပ်ခြင်း
+## Labels — Input ခေါင်းစဉ်တပ်ခြင်း
 `<label>` tag ကို Input field နဲ့ တွဲပြီး ခေါင်းစဉ်တပ်ဖို့ သုံးပါတယ်။ `for` attribute ရဲ့ value က သက်ဆိုင်ရာ Input ရဲ့ `id` value နဲ့ **ကိုက်ညီ**နေဖို့ အလွန် အရေးကြီးပါတယ်။
 
 ```html
@@ -79,7 +79,7 @@ Form တစ်ခုကို `<form>` tag နဲ့ ဖန်တီးပါတ
 - Screen reader တွေက Label ကို ဖတ်ပြပြီး Input မှာ ဘာဖြည့်ရမလဲ ပြောပြပေးပါတယ်
 - `label` မပါဘဲ Input ထဲက `placeholder` လောက်နဲ့ပဲ ထားတာဟာ Accessibility လုံးဝ မကောင်းပါဘူး။
 
-### Fieldset နှင့် Legend — Input တွေကို အုပ်စုဖွဲ့ခြင်း
+## Fieldset နှင့် Legend — Input တွေကို အုပ်စုဖွဲ့ခြင်း
 Form တစ်ခုမှာ Input field တွေ အရမ်း အများကြီး ရှိနေတဲ့အခါ၊ ဆက်စပ်တဲ့ Field တွေကို `<fieldset>` နဲ့ စုဖွဲ့ပြီး `<legend>` နဲ့ ခေါင်းစဉ်တပ်ပေးနိုင်ပါတယ်။ ဒါက Accessibility ကောင်းမွန်သလို ဖတ်ရတာလည်း ပိုသပ်ရပ်သွားစေပါတယ်။
 
 **ဥပမာ —**
@@ -111,7 +111,7 @@ Form တစ်ခုမှာ Input field တွေ အရမ်း အမျာ
 - `<fieldset>` — ဆက်စပ်တဲ့ Input တွေကို ဘောင်ခတ်ပြီး စုစည်းပေးတဲ့ Container ပါ
 - `<legend>` — `<fieldset>` ရဲ့ ခေါင်းစဉ် (ဘောင်ကြိုးပေါ်မှာ ပေါ်ပါတယ်)
 
-### Form Validation Attributes
+## Form Validation Attributes
 HTML မှာ JavaScript ကို မလိုဘဲ Browser ကနေတိုက်ရိုက် Input data တွေကို စစ်ဆေးနိုင်တဲ့ Validation attribute လေးတွေ ရှိပါတယ်။
 
 | Attribute | ရှင်းလင်းချက် | ဥပမာ |

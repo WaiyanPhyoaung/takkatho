@@ -22,7 +22,7 @@ String ဆိုတာကို Module 1 မှာ Data Type တစ်ခုအ�
 
 ---
 
-### String ကို Index နဲ့ ဝင်ရောက်ကြည့်ခြင်း
+## String ကို Index နဲ့ ဝင်ရောက်ကြည့်ခြင်း
 
 String ဆိုတာ **စာလုံးတွေ တစ်ကြောင်းစီ စီထားတဲ့ List** တစ်ခုနဲ့ တူပါတယ်။ Index (နေရာ နံပါတ်) ကို သုံးပြီး တစ်လုံးချင်းစီ ဝင်ကြည့်လို့ ရပါတယ်။
 
@@ -42,7 +42,7 @@ print(name[-2])  # o
 
 ---
 
-### String Slicing — အပိုင်းလိုက် ဖြတ်ယူခြင်း
+## String Slicing — အပိုင်းလိုက် ဖြတ်ယူခြင်း
 
 `[start:end]` Syntax ကို သုံးပြီး String ကို အပိုင်းလိုက် ဖြတ်ယူနိုင်ပါတယ်။
 
@@ -60,7 +60,7 @@ print(word[::-1])  # esruoC nohtyP  (ပြောင်းပြန် ဖတ်
 
 ---
 
-### String Methods — အသုံးများဆုံး ၁၀ ခု
+## String Methods — အသုံးများဆုံး ၁၀ ခု
 
 <ContentImage src={stringImg} alt="Python String Methods" />
 
@@ -79,7 +79,7 @@ print(result)   # HELLO
 ```
 </Aside>
 
-#### ၁. upper() / lower() — အကြီးအသေး ပြောင်းခြင်း
+### ၁. upper() / lower() — အကြီးအသေး ပြောင်းခြင်း
 
 ```python
 name = "aung aung"
@@ -91,7 +91,7 @@ email = "User@Gmail.com"
 print(email.lower())  # user@gmail.com  (စစ်ဆေးဖို့ တူညီအောင်)
 ```
 
-#### ၂. strip() — အပြင်ဘက် Space ဖြတ်ပစ်ခြင်း
+### ၂. strip() — အပြင်ဘက် Space ဖြတ်ပစ်ခြင်း
 
 User Input တွေမှာ အမှားအနေနဲ့ Space တွေ ထည့်တတ်ပါတယ်။ `strip()` ကသာ ဒါကို ဖြေရှင်းပေးပါတယ်။
 
@@ -102,7 +102,7 @@ print(user_input.lstrip())  # "Aung Aung   "  (ဘယ်ဘက်ပဲ ဖြ�
 print(user_input.rstrip())  # "   Aung Aung"  (ညာဘက်ပဲ ဖြတ်)
 ```
 
-#### ၃. replace() — စကားလုံး အစားထိုးခြင်း
+### ၃. replace() — စကားလုံး အစားထိုးခြင်း
 
 ```python
 sentence = "ကျွန်တော် Python ကို မကြိုက်ဘူး"
@@ -114,7 +114,7 @@ clean = "H-e-l-l-o".replace("-", "")
 print(clean)  # Hello
 ```
 
-#### ၄. split() — ဖြတ်ကြောင်းလိုက် ခွဲခြင်း
+### ၄. split() — ဖြတ်ကြောင်းလိုက် ခွဲခြင်း
 
 ```python
 sentence = "Python is awesome"
@@ -128,7 +128,7 @@ print(parts[0])  # Aung
 print(parts[2])  # Yangon
 ```
 
-#### ၅. join() — List ကို String ဖြစ်အောင် ပေါင်းစည်းခြင်း
+### ၅. join() — List ကို String ဖြစ်အောင် ပေါင်းစည်းခြင်း
 
 `split()` ရဲ့ ပြောင်းပြန်ပါ။ List ကို String ဖြစ်အောင် ပေါင်းပေးပါတယ်။
 
@@ -141,7 +141,7 @@ items = ["apple", "banana", "orange"]
 print(", ".join(items))  # apple, banana, orange
 ```
 
-#### ၆. find() / count() — ရှာဖွေခြင်းနှင့် ရေတွက်ခြင်း
+### ၆. find() / count() — ရှာဖွေခြင်းနှင့် ရေတွက်ခြင်း
 
 ```python
 text = "Python Python Python"
@@ -151,7 +151,7 @@ print(text.find("Java"))      # -1  (မတွေ့ရင် -1 ပြန်ပ
 print(text.count("Python"))   # 3   (ဘယ်နှစ်ခါ ပါသလဲ)
 ```
 
-#### ၇. startswith() / endswith() — စစ်ဆေးခြင်း
+### ၇. startswith() / endswith() — စစ်ဆေးခြင်း
 
 ```python
 filename = "report.pdf"
@@ -165,7 +165,7 @@ if filename.endswith(".pdf"):
 
 ---
 
-### f-strings — Python ရဲ့ ပိုမိုကောင်းမွန်တဲ့ Text Formatting
+## f-strings — Python ရဲ့ ပိုမိုကောင်းမွန်တဲ့ Text Formatting
 
 f-string ဆိုတာ String ထဲမှာ Variable တွေ ကြည့်ကောင်းအောင် ထည့်ဖို့ Python 3.6 မှာ ထည့်သွင်းလာတဲ့ နည်းလမ်းပါ။ String ရှေ့မှာ `f` တစ်လုံး ထည့်ပြီး `{}` ထဲမှာ Variable ထည့်ပေးရုံပါပဲ။
 
@@ -195,7 +195,7 @@ print(f"Pi ≈ {pi:.4f}")    # Pi ≈ 3.1416
 
 ---
 
-### လက်တွေ့ ဥပမာ — User Name စစ်ဆေးခြင်း
+## လက်တွေ့ ဥပမာ — User Name စစ်ဆေးခြင်း
 
 String Methods တွေကို ပေါင်းစပ်ပြီး တကယ်တမ်း သုံးကြည့်ပါမယ်:
 

@@ -9,7 +9,7 @@ import { Aside } from "@astrojs/starlight/components";
 Container Queries က Element တစ်ခုရဲ့ အရွယ်အစား (Size) ကို သိရှိသလိုပဲ၊ Scroll State Queries ကတော့ အဲ့ဒီ Element က "Scroll လုပ်နေလား? ထိပ်ဆုံးကို ရောက်နေလား?" ဆိုတဲ့ အခြေအနေ (State) ကို သိရှိနိုင်ပါတယ်။
 </Aside>
 
-### အသုံးပြုပုံ
+## အသုံးပြုပုံ
 Scroll လုပ်လို့ရမယ့် Container တစ်ခုကို `container-type: scroll-state` လို့ အရင် သတ်မှတ်ပေးရပါတယ်။ အဲ့ဒီနောက် သူ့အထဲက Element တွေကို အခြေအနေပေါ် မူတည်ပြီး ပြောင်းလဲဖို့ `@container` နဲ့ ဖမ်းပြီး ရေးရပါတယ်။
 
 ```css
@@ -35,7 +35,7 @@ Scroll လုပ်လို့ရမယ့် Container တစ်ခုကိ�
 }
 ```
 
-### စစ်ဆေးနိုင်သော အခြေအနေများ (Queries)
+## စစ်ဆေးနိုင်သော အခြေအနေများ (Queries)
 *   `scroll-state(stuck: top)`: Sticky ဖြစ်နေတဲ့ Element က အပေါ်ဘက်ကို ကပ်သွားတဲ့ အချိန်။
 *   `scroll-state(stuck: bottom)`: Sticky ဖြစ်နေတဲ့ Element က အောက်ဘက်ကို ကပ်သွားတဲ့ အချိန်။
 *   `scroll-state(snapped: x)`: Scroll Snap Point တစ်ခုခုမှာ အတိအကျ ရပ်သွားတဲ့ အချိန်။

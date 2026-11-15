@@ -13,11 +13,11 @@ import restvsgraphql from "@/assets/software-architecture/restvsgraphql.png"
  Service များအကြား တိုက်ရိုက် Request/Response လုပ်ဆက်သွယ်သည့် နည်းလမ်းများဖြစ်သော REST, GraphQL, နှင့် gRPC တို့၏ အသုံးများသော ပုံစံများကို နားလည်ရန်။
 </Aside>
 
-### APIs: Service များကြားက သဘောတူညီချက်များ
+## APIs: Service များကြားက သဘောတူညီချက်များ
 
 **API (Application Programming Interface)** ဆိုတာ Service တစ်ခုက တခြား Service တွေကို ပေးထားတဲ့ တရားဝင်သဘောတူညီချက် ဒါမှမဟုတ် "Menu" တစ်ခုနဲ့တူပါတယ်။ တခြား Service တစ်ခုက ဘာတွေကို တောင်းဆိုနိုင်သလဲ၊ ပြီးတော့ ဘာတွေကို ပြန်ရမလဲဆိုတာကို အတိအကျ သတ်မှတ်ပေးပါတယ်။ Service တွေက တစ်ခုနဲ့တစ်ခု ရောနှောချိတ်ဆက်မနေဘဲ အတူတကွအလုပ်လုပ်နိုင်ဖို့အတွက် ကောင်းမွန်စွာဒီဇိုင်းဆွဲထားတဲ့၊ ရှင်းလင်းတဲ့ API တွေ လိုအပ်ပါတယ်။
 
-#### REST: Web ရဲ့ အဓိကဘာသာစကား
+### REST: Web ရဲ့ အဓိကဘာသာစကား
 
 **REST (Representational State Transfer)** ဆိုတာက Web API တွေဖန်တီးရာမှာ အကျယ်ပြန့်ဆုံးအသုံးပြုတဲ့ Architectural Style တစ်ခုပါ။ ဒါက Web ရဲ့ အခြေခံမူတွေပေါ်မှာပဲ တည်ဆောက်ထားပါတယ်။
 
@@ -32,7 +32,7 @@ import restvsgraphql from "@/assets/software-architecture/restvsgraphql.png"
 
 > **အကြွေစေ့ထည့်ပြီး ပစ္စည်းထုတ်တဲ့စက် (Vending Machine) -** REST API က Vending Machine တစ်လုံးနဲ့တူပါတယ်။ ခင်ဗျားက သီးခြားလိပ်စာတစ်ခု (C4) ကိုသွားတယ်၊ လုပ်ဆောင်ချက်တစ်ခုအတွက် ခလုတ် (GET) ကိုနှိပ်တယ်၊ ပြီးတော့ ပစ္စည်းကို ရတယ်။ စက်က သင်ဘယ်သူလဲ၊ အရင်တစ်ခေါက် ဘာဝယ်သွားလဲဆိုတာကို မသိပါဘူး။ အရောင်းအဝယ်တစ်ခုချင်းစီက သီးခြားလွတ်လပ်ပါတယ်။
 
-### GraphQL: Data တောင်းဆိုရာမှာ ပိုမိုပြောင်းလွယ်ပြင်လွယ်ရှိခြင်း
+## GraphQL: Data တောင်းဆိုရာမှာ ပိုမိုပြောင်းလွယ်ပြင်လွယ်ရှိခြင်း
 
 **GraphQL** ဆိုတာ Facebook က REST ရဲ့ အကန့်အသတ်တချို့ကို ဖြေရှင်းဖို့ ဒီဇိုင်းဆွဲထားတဲ့ API တွေအတွက် Query Language အသစ်တစ်ခုပါ။
 
@@ -46,7 +46,7 @@ import restvsgraphql from "@/assets/software-architecture/restvsgraphql.png"
 
 <ContentImage src={restvsgraphql} alt="REST vs GRAPHQL"  />
 
-### gRPC: အလွန်မြန်သော အတွင်းပိုင်းဆက်သွယ်မှုများအတွက်
+## gRPC: အလွန်မြန်သော အတွင်းပိုင်းဆက်သွယ်မှုများအတွက်
 
 - **ဘာလဲ -** Google က ထုတ်လုပ်ထားတဲ့ High-performance Communication Framework တစ်ခုပါ။
 - **ဘယ်အချိန်သုံးမလဲ -** အဓိကအားဖြင့် သင့်ရဲ့ အတွင်းပိုင်း **Microservice များအချင်းချင်း ကြား မြန်ဆန်ထိရောက်စွာ ဆက်သွယ်ဖို့အတွက်** သုံးပါတယ်။ Browser တွေ၊ Mobile App တွေက ခေါ်မယ့် Public API တွေအတွက်တော့ ယေဘုယျအားဖြင့် မသုံးပါဘူး။

@@ -13,7 +13,7 @@ import minWidth from "@/assets/css/min-width.png";
 ဒါကြောင့် ခင်ဗျား ရေးဆွဲလိုက်တဲ့ Website ဟာ ကွန်ပျူတာမှာ ကြည့်ကောင်းရုံတင်မကဘဲ၊ ဖုန်း မျက်နှာပြင်မှာလည်း အချိုးအစားကျကျနဲ့ ကြည့်ကောင်းနေဖို့က အရမ်းကို အရေးကြီးပါတယ် ခင်ဗျာ။
 </Aside>
 
-### Media Queries ဆိုတာ ဘာလဲ?
+## Media Queries ဆိုတာ ဘာလဲ?
 သူကတော့ Browser ကို "Screen Size (မျက်နှာပြင် အကျယ်) က ဘယ်လောက်ဆိုရင်တော့၊ ဒီ Style ကို သုံးပေးပါ" ဆိုပြီး အခြေအနေပေး ခိုင်းစေလိုက်တာမျိုး ဖြစ်ပါတယ်။
 
 ```css
@@ -33,7 +33,7 @@ body {
 ```
 <ContentImage src={maxWidth} alt="Media Queries Example" />
 
-### Mobile First Approach
+## Mobile First Approach
 Website ရေးတဲ့အခါ Desktop (ကွန်ပျူတာ) အတွက် အရင်ရေးပြီးမှ ဖုန်းအတွက် လိုက်ပြင်တာထက်၊ **Mobile (ဖုန်း) အတွက် အရင်ရေးပြီးမှ Desktop အတွက် ချဲ့သွားတဲ့နည်းလမ်း (Mobile First Approach)** က ပိုပြီး ခေတ်မီသလို၊ Code ရေးရတာလည်း ပိုရှင်းပါတယ် ခင်ဗျာ။
 
 ```css
@@ -52,7 +52,7 @@ Website ရေးတဲ့အခါ Desktop (ကွန်ပျူတာ) အတ
 
 <ContentImage src={minWidth} alt="Mobile First Media Queries Example" />
 
-### Common Breakpoints (အသုံးများသော Size များ)
+## Common Breakpoints (အသုံးများသော Size များ)
 အပြင်မှာ Device အမျိုးအစားတွေ အများကြီး ရှိပေမဲ့၊ အောက်ပါ အဓိက Breakpoint (ခွဲခြားမယ့် အကျယ်အဝန်း) လေးတွေကို မှတ်ထားမယ်ဆိုရင် တော်တော်လေး အဆင်ပြေပါတယ်။
 
 *   **Mobile:** < 640px (Default styles)
@@ -75,9 +75,9 @@ Website ရေးတဲ့အခါ Desktop (ကွန်ပျူတာ) အတ
 }
 ```
 
-### Advanced Media Queries
+## Advanced Media Queries
 
-#### 1. Logical Operators (and)
+### 1. Logical Operators (and)
 သတ်မှတ်ထားတဲ့ အခြေအနေ နှစ်ခုလုံးနဲ့ ကိုက်ညီမှ (True ဖြစ်မှ) အလုပ်လုပ်စေချင်တယ်ဆိုရင် `and` ကို သုံးလို့ ရပါတယ်။
 
 ```css
@@ -87,7 +87,7 @@ Website ရေးတဲ့အခါ Desktop (ကွန်ပျူတာ) အတ
 }
 ```
 
-#### 2. Orientation (အလျားလိုက်/ဒေါင်လိုက်)
+### 2. Orientation (အလျားလိုက်/ဒေါင်လိုက်)
 User က သူ့ရဲ့ ဖုန်းကို အလျားလိုက် လှဲကြည့်နေတာ (Landscape) လား၊ ဒါမှမဟုတ် ဒေါင်လိုက် ထောင်ကြည့်နေတာ (Portrait) လား ဆိုတာကိုလည်း Media Query သုံးပြီး ခွဲခြားနိုင်ပါသေးတယ်။
 
 ```css

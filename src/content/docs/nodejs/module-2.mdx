@@ -7,7 +7,7 @@ Node.js ရဲ့ အားသာချက်တစ်ခုက ကွန်ပ�
 
 ---
 
-### 1. Path Module (ဖိုင်လမ်းကြောင်းများ စီမံခြင်း)
+## 1. Path Module (ဖိုင်လမ်းကြောင်းများ စီမံခြင်း)
 
 ဖိုင်တွေရဲ့ လမ်းကြောင်း (Directory Path) တွေကို စနစ်တကျ ကိုင်တွယ်ဖို့ `path` module ကို သုံးပါတယ်။ Windows နဲ့ Mac/Linux မှာ ဖိုင်လမ်းကြောင်း ရေးပုံ မတူတဲ့ ပြဿနာကို ဖြေရှင်းပေးပါတယ်။
 
@@ -28,13 +28,13 @@ console.log(path.extname(myPath)); // .txt
 
 ---
 
-### 2. File System (fs) Module
+## 2. File System (fs) Module
 
 ဖိုင်တွေကို ဖတ်ဖို့၊ ရေးဖို့၊ ဖျက်ဖို့ `fs` module ကို သုံးပါတယ်။ `fs` မှာ အလုပ်လုပ်ပုံ (၂) မျိုး ရှိပါတယ်။
 1. **Synchronous (Sync):** အလုပ်တစ်ခု ပြီးမှ နောက်တစ်ခု ဆက်လုပ်တာပါ။ (Code တွေ ရပ်စောင့်နေရပါတယ်)
 2. **Asynchronous (Async):** အလုပ်တစ်ခုကို ခိုင်းထားပြီး၊ မပြီးသေးခင် နောက်အလုပ်တွေကို ဆက်လုပ်တာပါ။ (Node.js မှာ ဒါကို ပိုသုံးသင့်ပါတယ်)
 
-#### ဖိုင်ထဲသို့ စာရေးခြင်း (Write File)
+### ဖိုင်ထဲသို့ စာရေးခြင်း (Write File)
 
 ```javascript
 import fs from 'fs';
@@ -53,7 +53,7 @@ fs.writeFile('message.txt', content, (err) => {
 console.log("ဒီစာက အရင် အလုပ်လုပ်ပါလိမ့်မယ်။ (Non-blocking ဖြစ်လို့ပါ)");
 ```
 
-#### ဖိုင်ထဲမှ စာဖတ်ခြင်း (Read File)
+### ဖိုင်ထဲမှ စာဖတ်ခြင်း (Read File)
 
 ```javascript
 import fs from 'fs';
@@ -70,7 +70,7 @@ fs.readFile('message.txt', 'utf8', (err, data) => {
 });
 ```
 
-#### ဖိုင်အသစ် ထပ်ထည့်ခြင်း (Append File)
+### ဖိုင်အသစ် ထပ်ထည့်ခြင်း (Append File)
 
 ရှိပြီးသား ဖိုင်ထဲကို စာတွေ ထပ်ထည့်ချင်ရင် `appendFile` ကို သုံးပါတယ်။
 
@@ -85,7 +85,7 @@ fs.appendFile('message.txt', newContent, (err) => {
 });
 ```
 
-#### ဖိုင်ကို ဖျက်ခြင်း (Delete File)
+### ဖိုင်ကို ဖျက်ခြင်း (Delete File)
 
 ```javascript
 import fs from 'fs';
@@ -99,5 +99,5 @@ fs.unlink('message.txt', (err) => {
 });
 ```
 
-### မှတ်သားရန်
+## မှတ်သားရန်
 `fs` module ကို သုံးတဲ့အခါ အမြဲတမ်း Asynchronous နည်းလမ်း (Callback သို့မဟုတ် Promises) ကို သုံးဖို့ အကြံပြုပါတယ်။ Synchronous နည်းလမ်း (`fs.writeFileSync`, `fs.readFileSync`) တွေက Server ကို ခဏ ရပ်သွားစေတဲ့အတွက် User တွေ အများကြီး ဝင်လာတဲ့အခါ ပြဿနာ ရှိနိုင်ပါတယ်။

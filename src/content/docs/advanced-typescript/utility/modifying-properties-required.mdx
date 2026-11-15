@@ -34,7 +34,7 @@ const completeProfile: Required<UserProfile> = {
 processCompleteProfile(completeProfile); // အဆင်ပြေပြေ အလုပ်လုပ်ပါတယ်
 `
 
-### `Required<T>`: Properties အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ခြင်း
+## `Required<T>`: Properties အားလုံးကို မဖြစ်မနေ (Required) ဖြစ်အောင် လုပ်ခြင်း
 
 - **ဘာလုပ်ပေးသလဲ**: `Required<T>` ဟာ `Partial<T>` ရဲ့ ပြောင်းပြန်ပါပဲ။ သူက `T` Type မှာရှိတဲ့ Properties အားလုံးကို မဖြစ်မနေ ထည့်သွင်းပေးရမယ့် (Required) Properties တွေ ဖြစ်သွားအောင် ပြောင်းလဲပြီး Type အသစ်တစ်ခု ဖန်တီးပေးပါတယ်။ မူရင်း Type မှာက Optional (`?` သင်္ကေတ ပါတာ) ဖြစ်နေရင်တောင်မှ၊ အဲ့ဒီ `?` ကို ဖြုတ်ပစ်ပြီး မဖြစ်မနေ ထည့်ရမယ့် အရာအဖြစ် ပြောင်းလဲပစ်လိုက်ပါတယ်။
 - **ဘယ်လို သုံးမလဲ**: `Required<UserProfile>` လို့ ရေးရုံပါပဲ။

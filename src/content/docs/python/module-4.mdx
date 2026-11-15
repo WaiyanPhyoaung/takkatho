@@ -25,7 +25,7 @@ Data အများကြီးကို Variable တစ်ခုချင်�
 
 ---
 
-### ၁. Lists (စာရင်းများ)
+## ၁. Lists (စာရင်းများ)
 
 List ဆိုတာ Data တွေကို **အစဉ်လိုက် (Ordered)** စီပြီး `[]` ထဲမှာ သိမ်းထားတာပါ။ ပြင်လို့ ရပါတယ် (Mutable)။
 
@@ -54,7 +54,7 @@ fruits.sort()                  # မူရင်း list ကို Sort
 sorted_fruits = sorted(fruits) # မူရင်း list မပြောင်းဘဲ အသစ် ပြန်ပေး
 ```
 
-#### Slicing
+### Slicing
 
 ```python
 numbers = [0, 1, 2, 3, 4, 5]
@@ -65,7 +65,7 @@ print(numbers[::2])    # [0, 2, 4]   (တစ်ခုကျော် တစ်�
 print(numbers[::-1])   # [5, 4, 3, 2, 1, 0]  (ပြောင်းပြန်)
 ```
 
-#### Built-in Functions နဲ့ List
+### Built-in Functions နဲ့ List
 
 ```python
 scores = [85, 92, 60, 78, 95, 70]
@@ -84,7 +84,7 @@ print(all(s >= 60 for s in scores))   # True  (အကုန် 60+ လား?)
 
 ---
 
-### ၂. Dictionaries (အဘိဓာန်များ)
+## ၂. Dictionaries (အဘိဓာန်များ)
 
 Dictionary က Data တွေကို **Key-Value (ကုဒ်-တန်ဖိုး)** အတွဲနဲ့ `{}` ထဲ သိမ်းပါတယ်။ Key ကို သုံးပြီး Value ကို ချက်ချင်း ရနိုင်ပါတယ်:
 
@@ -138,7 +138,7 @@ if "name" in student:
     print("name ရှိတယ်")
 ```
 
-#### Nested Data Structures — List of Dictionaries
+### Nested Data Structures — List of Dictionaries
 
 လက်တွေ့ Program တွေမှာ Data ဟာ ဒီပုံစံ ဖြစ်တတ်ပါတယ် (API Response ပုံစံနဲ့ တူပါတယ်):
 
@@ -164,7 +164,7 @@ print(f"ပျမ်းမျှ: {average:.1f}")
 
 ---
 
-### ၃. Tuples
+## ၃. Tuples
 
 Tuple က List နဲ့ တူပြီး `()` ကို သုံးပါတယ်။ အဓိကကွာတာက **တစ်ကြိမ် ဆောက်ပြီးရင် ပြင်လို့ မရပါ (Immutable)**:
 
@@ -189,7 +189,7 @@ print(f"Latitude: {lat}, Longitude: {lon}")
 
 ---
 
-### ၄. Sets
+## ၄. Sets
 
 Set က တူညီတဲ့ Value ၂ ခု **မထားနိုင်ပါဘူး (Unique Values Only)**:
 
@@ -233,7 +233,7 @@ if role in valid_users:
 
 ---
 
-### ဘယ် Data Structure ကို ဘယ်အချိန် ရွေးမလဲ?
+## ဘယ် Data Structure ကို ဘယ်အချိန် ရွေးမလဲ?
 
 | Data Structure | ရွေးချယ်သင့်သောအချိန် | ဥပမာ |
 |---|---|---|
@@ -244,7 +244,7 @@ if role in valid_users:
 
 ---
 
-### ဖြစ်တတ်တဲ့ အမှားများ
+## ဖြစ်တတ်တဲ့ အမှားများ
 
 ```python
 # ၁. Dict Key Error

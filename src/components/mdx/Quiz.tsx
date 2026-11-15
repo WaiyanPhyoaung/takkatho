@@ -47,7 +47,7 @@ export const Quiz: React.FC<QuizProps> = ({ title = "သင်ခန်းစာ
           ❓
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <h2 className="text-xl font-bold text-white">{title}</h2>
           <p className="text-xs text-stone-400">မေးခွန်းများကို ဖြေဆိုပြီး မိမိ၏ နားလည်မှုကို စစ်ဆေးပါ</p>
         </div>
       </div>
@@ -56,9 +56,9 @@ export const Quiz: React.FC<QuizProps> = ({ title = "သင်ခန်းစာ
         {questions.map((q, qIdx) => {
           return (
             <div key={qIdx} className="p-5 rounded-2xl bg-stone-900/60 border border-stone-800">
-              <h4 className="font-bold text-base text-white mb-4">
+              <h3 className="font-bold text-base text-white mb-4">
                 {qIdx + 1}. {q.question}
-              </h4>
+              </h3>
 
               <div className="space-y-3">
                 {q.options.map((opt, oIdx) => {

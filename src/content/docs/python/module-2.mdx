@@ -23,7 +23,7 @@ Program တစ်ခု ရေးတဲ့အခါ အပေါ်ကနေ အ
 
 ---
 
-### Indentation (ရှေ့ကွက်လပ် ချန်ခြင်း)
+## Indentation (ရှေ့ကွက်လပ် ချန်ခြင်း)
 
 Python မှာ အရေးအကြီးဆုံး အချက်တစ်ခုကတော့ **Indentation** ပါပဲ။ တခြား Language တွေမှာ `{}` ကို သုံးပြီး Code Block ဖွဲ့ပေမယ့်၊ Python မှာတော့ **Space 4 ချက်** ဒါမှမဟုတ် **1 Tab** ချန်ပြီး ဖွဲ့ပေးရပါတယ်:
 
@@ -38,7 +38,7 @@ Space မချန်ရင် ဒါမှမဟုတ် မညီညာရင
 
 ---
 
-### If / Elif / Else (အခြေအနေ စစ်ဆေးခြင်း)
+## If / Elif / Else (အခြေအနေ စစ်ဆေးခြင်း)
 
 <ContentImage src={controlFlowImg} alt="Control Flow Diagram" />
 
@@ -72,7 +72,7 @@ else:
 print(f"Grade: {grade}")  # Grade: B
 ```
 
-#### Logical Operators (`and`, `or`, `not`)
+### Logical Operators (`and`, `or`, `not`)
 
 ```python
 # and — နှစ်ခုလုံး မှန်မှ True
@@ -93,7 +93,7 @@ if not is_logged_in:
     print("ဦးစွာ Login လုပ်ပေးပါ")
 ```
 
-#### in — Membership စစ်ဆေးခြင်း
+### in — Membership စစ်ဆေးခြင်း
 
 `in` ကို သုံးပြီး List ဒါမှမဟုတ် String ထဲမှာ ပါ၊ မပါ စစ်ဆေးနိုင်ပါတယ်:
 
@@ -112,7 +112,7 @@ if "@" in email:
     print("Valid email format ဖြစ်ပါတယ်")
 ```
 
-#### Ternary Expression (တစ်ကြောင်းတည်း if)
+### Ternary Expression (တစ်ကြောင်းတည်း if)
 
 တိုတောင်းတဲ့ if/else ကို တစ်ကြောင်းတည်းနဲ့ ရေးနိုင်ပါတယ်:
 
@@ -131,9 +131,9 @@ print(f"Score {score} — {result}")  # Score 75 — အောင်
 
 ---
 
-### Loops (ထပ်ခါထပ်ခါ အလုပ်လုပ်ခြင်း)
+## Loops (ထပ်ခါထပ်ခါ အလုပ်လုပ်ခြင်း)
 
-#### For Loop — ကိန်းနံပါတ် (Range)
+### For Loop — ကိန်းနံပါတ် (Range)
 
 ```python
 # range(n) → 0, 1, 2, ..., n-1
@@ -155,7 +155,7 @@ for n in range(1, 11):
 print(f"1-10 ပေါင်းရင် {total}")   # 55
 ```
 
-#### For Loop — List ကို ပတ်ခြင်း
+### For Loop — List ကို ပတ်ခြင်း
 
 ```python
 fruits = ["Apple", "Banana", "Orange"]
@@ -176,7 +176,7 @@ for i, fruit in enumerate(fruits, start=1):
 Loop လုပ်တဲ့အခါ Index (နံပါတ်) ပါ လိုချင်ရင် `enumerate()` ကိုသာ သုံးပေးပါ။ `range(len(fruits))` ဆိုတာမျိုးက Pythonic သိပ်မဖြစ်လို့ ဖတ်ရ ခက်စေပါတယ်။
 </Aside>
 
-#### Nested Loops — Loop ထဲ Loop
+### Nested Loops — Loop ထဲ Loop
 
 ```python
 # မြှောက်ဇယား (Multiplication Table)
@@ -189,7 +189,7 @@ for i in range(1, 4):
 # 3 x 1 = 3    3 x 2 = 6    3 x 3 = 9
 ```
 
-#### While Loop — အခြေအနေ မှန်နေသရွေ့ ဆက်လုပ်ခြင်း
+### While Loop — အခြေအနေ မှန်နေသရွေ့ ဆက်လုပ်ခြင်း
 
 ```python
 count = 1
@@ -219,9 +219,9 @@ Infinite Loop ကို ရပ်ချင်ရင်တော့ **Ctrl + C** 
 
 ---
 
-### Break, Continue, Pass
+## Break, Continue, Pass
 
-#### break — Loop ကို ရပ်ခြင်း
+### break — Loop ကို ရပ်ခြင်း
 
 ```python
 # ပထမဆုံး စုံဂဏန်း ရှာပြီး ရပ်ခြင်း
@@ -232,7 +232,7 @@ for n in range(1, 20):
 # ပထမဆုံး စုံဂဏန်း: 2
 ```
 
-#### continue — ကျော်ပြီး ဆက်ခြင်း
+### continue — ကျော်ပြီး ဆက်ခြင်း
 
 ```python
 # 1-10 အတွင်းက မကိန်းတွေကိုပဲ ထုတ်ပြခြင်း
@@ -243,7 +243,7 @@ for n in range(1, 11):
 # 1 3 5 7 9
 ```
 
-#### pass — နေရာချန်ထားခြင်း
+### pass — နေရာချန်ထားခြင်း
 
 ```python
 # Syntax error မဖြစ်ဖို့ ခေတ္တ ထည့်ပေးထားတဲ့ placeholder ပါ
@@ -256,7 +256,7 @@ if score >= 60:
 
 ---
 
-### ဖြစ်တတ်တဲ့ အမှားများ
+## ဖြစ်တတ်တဲ့ အမှားများ
 
 ```python
 # ၁. if ရဲ့ Condition မှာ = (Assign) ကို == (Compare) နဲ့ မရောပါနဲ့
