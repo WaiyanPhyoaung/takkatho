@@ -1,0 +1,197 @@
+---
+/**
+ * Course request form. Visitors name a course they want; requests go to a
+ * Google Form (see COURSE_REQUEST_FORM in src/config/site.mjs) and land in
+ * its Google Sheet.
+ *
+ * Without JavaScript the form posts straight to Google, which shows its own
+ * "response recorded" page. With JavaScript the script below posts in the
+ * background and shows the result here. Google's form endpoint sends no CORS
+ * headers, so the browser hides its reply: the page can tell a network
+ * failure from a send, not whether Google accepted the request.
+ */
+import StandaloneLayout from "../layouts/StandaloneLayout.astro";
+import { COURSE_REQUEST_FORM } from "../config/site.mjs";
+
+const { id, fields } = COURSE_REQUEST_FORM;
+const action = `https://docs.google.com/forms/d/e/${id}/formResponse`;
+
+// Shared input styling. box-border and [font:inherit] matter: this site does
+// not load Tailwind's preflight, so inputs would otherwise overflow their
+// container and fall back to the browser's default font.
+const inputClass =
+  "box-border w-full rounded-xl border border-gray-300 bg-white px-4 py-3 [font:inherit] text-base text-gray-900 placeholder:text-gray-500 focus:border-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-600/30 dark:border-stone-700 dark:bg-stone-900 dark:text-white dark:placeholder:text-stone-400";
+const labelClass = "block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2";
+const helpClass = "mt-2 mb-0 text-sm text-gray-600 dark:text-gray-400";
+---
+
+<StandaloneLayout
+  title="Request a course"
+  description="Takkatho မှာ လေ့လာချင်တဲ့ Course ကို တောင်းဆိုပါ။ တောင်းဆိုချက်တွေကို ကြည့်ပြီး နောက်ထပ် ထည့်မယ့် Course ကို ရွေးပါတယ်။"
+>
+  <div class="neo-page">
+    <section class="neo-hero relative overflow-hidden">
+      <div class="absolute inset-0 dot-pattern opacity-50"></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 lg:pt-24 text-center">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-5 leading-relaxed">
+          လေ့လာချင်တဲ့ Course ကို ပြောပြပါ
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed m-0">
+          နောက်ထပ် ဘယ် Course ကို ထည့်ရမလဲဆိုတာ ခင်ဗျားတို့ရဲ့ တောင်းဆိုချက်တွေကို ကြည့်ပြီး ဆုံးဖြတ်ပါတယ်။
+        </p>
+      </div>
+    </section>
+
+    <section class="neo-alt">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div class="neo-card p-6 sm:p-8">
+          <form
+            id="course-request-form"
+            action={action}
+            method="POST"
+            class="space-y-6"
+          >
+            <div>
+              <label for="cr-name" class={labelClass}>အမည် <span aria-hidden="true" class="text-orange-700 dark:text-orange-400">*</span></label>
+              <input
+                id="cr-name"
+                name={fields.name}
+                type="text"
+                required
+                maxlength="100"
+                autocomplete="name"
+                class={inputClass}
+              />
+            </div>
+
+            <div>
+              <label for="cr-email" class={labelClass}>Email <span aria-hidden="true" class="text-orange-700 dark:text-orange-400">*</span></label>
+              <input
+                id="cr-email"
+                name={fields.email}
+                type="email"
+                required
+                maxlength="254"
+                autocomplete="email"
+                inputmode="email"
+                aria-describedby="cr-email-help"
+                class={inputClass}
+              />
+              <p id="cr-email-help" class={helpClass}>
+                Email ကို ဒီတောင်းဆိုချက်နဲ့ ပတ်သက်ပြီး ပြန်ဆက်သွယ်ဖို့အတွက်ပဲ သုံးပါမယ်။
+              </p>
+            </div>
+
+            <div>
+              <label for="cr-course" class={labelClass}>လေ့လာချင်တဲ့ Course <span aria-hidden="true" class="text-orange-700 dark:text-orange-400">*</span></label>
+              <input
+                id="cr-course"
+                name={fields.course}
+                type="text"
+                required
+                maxlength="120"
+                placeholder="ဥပမာ - React, Docker"
+                class={inputClass}
+              />
+            </div>
+
+            <div>
+              <label for="cr-description" class={labelClass}>အသေးစိတ် <span aria-hidden="true" class="text-orange-700 dark:text-orange-400">*</span></label>
+              <textarea
+                id="cr-description"
+                name={fields.description}
+                required
+                maxlength="2000"
+                rows="5"
+                aria-describedby="cr-description-help"
+                class={`${inputClass} resize-y min-h-32`}
+              ></textarea>
+              <p id="cr-description-help" class={helpClass}>
+                ဘာကြောင့် လေ့လာချင်တာလဲ၊ Course ထဲမှာ ဘာတွေ ပါစေချင်လဲ ရေးပေးပါ။
+              </p>
+            </div>
+
+            {/* Spam trap: hidden from people and screen readers, so only bots
+                fill it. It has no name, so it is never sent to Google. */}
+            <div class="absolute -left-[10000px] w-px h-px overflow-hidden" aria-hidden="true">
+              <label for="cr-website">Website</label>
+              <input id="cr-website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <button
+                type="submit"
+                class="neo-btn box-border inline-flex items-center justify-center px-6 py-3 [font:inherit] text-base font-semibold text-white bg-orange-700 hover:bg-orange-800 border-0 cursor-pointer disabled:cursor-wait disabled:opacity-70"
+              >
+                တောင်းဆိုချက် ပို့မယ်
+              </button>
+              <p
+                id="course-request-status"
+                role="status"
+                tabindex="-1"
+                class="m-0 text-sm font-medium focus:outline-none"
+              >
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</StandaloneLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#course-request-form");
+  const status = document.querySelector<HTMLElement>("#course-request-status");
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const trap = document.querySelector<HTMLInputElement>("#cr-website");
+
+  const MESSAGES = {
+    sending: "ပို့နေပါတယ်...",
+    sent: "ကျေးဇူးတင်ပါတယ်! ခင်ဗျားရဲ့ တောင်းဆိုချက်ကို ပို့ပြီးပါပြီ။",
+    failed: "ပို့လို့ မရသေးပါ။ Internet ချိတ်ဆက်မှုကို စစ်ပြီး ထပ်ကြိုးစားကြည့်ပါ။",
+  };
+
+  const show = (kind: keyof typeof MESSAGES) => {
+    if (!status) return;
+    status.textContent = MESSAGES[kind];
+    status.classList.toggle("text-green-700", kind === "sent");
+    status.classList.toggle("dark:text-green-400", kind === "sent");
+    status.classList.toggle("text-red-700", kind === "failed");
+    status.classList.toggle("dark:text-red-400", kind === "failed");
+    if (kind !== "sending") status.focus();
+  };
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    // Trim first, so a field holding only spaces counts as empty.
+    for (const field of form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[name], textarea[name]")) {
+      field.value = field.value.trim();
+    }
+    if (!form.reportValidity()) return;
+
+    // A filled spam trap means a bot. Show success and send nothing.
+    if (trap?.value) {
+      form.reset();
+      show("sent");
+      return;
+    }
+
+    const body = new URLSearchParams();
+    for (const [key, value] of new FormData(form)) body.append(key, String(value));
+
+    if (submit) submit.disabled = true;
+    show("sending");
+    try {
+      // no-cors: Google's endpoint sends no CORS headers. The reply is
+      // unreadable, but fetch still rejects on a network failure.
+      await fetch(form.action, { method: "POST", mode: "no-cors", body });
+      form.reset();
+      show("sent");
+    } catch {
+      show("failed");
+    } finally {
+      if (submit) submit.disabled = false;
+    }
+  });
+</script>

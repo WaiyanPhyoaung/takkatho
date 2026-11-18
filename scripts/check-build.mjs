@@ -141,6 +141,27 @@ for (const { file, html } of pages) {
   if (i !== -1) fail("Headings skip no levels", `${file}: h${levels[i - 1]} then h${levels[i]}`);
 }
 
+// The course request form posts to a Google Form. Google's reply is hidden
+// from the page (no CORS headers), so a wrong form id or field name would
+// look like a success while every request is lost. Check the built form
+// against the shape Google Forms uses. COURSE_REQUEST_FORM in
+// src/config/site.mjs holds the values.
+const requestPage = pages.find((p) => p.file === join("request-course", "index.html"));
+const requestForm = requestPage?.html.match(/<form\b[^>]*id="course-request-form"[\s\S]*?<\/form>/)?.[0];
+if (!requestForm) {
+  fail("Course request form", "no #course-request-form on /request-course");
+} else {
+  const action = requestForm.match(/^<form\b[^>]*\saction="([^"]*)"/)?.[1] ?? "";
+  if (!/^https:\/\/docs\.google\.com\/forms\/d\/e\/[\w-]{20,}\/formResponse$/.test(action)) {
+    fail("Course request form posts to a Google Form", `action="${action}" (set COURSE_REQUEST_FORM.id)`);
+  }
+  const names = [...requestForm.matchAll(/\sname="([^"]*)"/g)].map((m) => m[1]);
+  const valid = names.filter((n) => /^entry\.\d+$/.test(n));
+  if (names.length !== 4 || valid.length !== 4 || new Set(valid).size !== 4) {
+    fail("Course request form fields are Google Form entries", `names: ${JSON.stringify(names)} (set COURSE_REQUEST_FORM.fields)`);
+  }
+}
+
 // Bare course URLs must redirect (Vercel adapter output, when present).
 const vercelConfig = process.argv[2] ? join(DIST, "..", "vercel-config.json") : ".vercel/output/config.json";
 if (existsSync(vercelConfig)) {

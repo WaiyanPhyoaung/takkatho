@@ -28,3 +28,22 @@ export const SOCIAL = {
   youtube: "https://www.youtube.com/@takkatho",
   github: "https://github.com/WaiyanPhyoaung/takkatho",
 };
+
+/**
+ * Course request form (/request-course). Requests go to a Google Form, which
+ * keeps them in its linked Google Sheet. The page posts the same fields the
+ * Google Form's own page does, so both values below come from the form's
+ * public /viewform page:
+ *   id      the part of the URL between /forms/d/e/ and /viewform
+ *   fields  each question's input name, "entry.<number>"
+ * scripts/check-build.mjs fails the build if these are missing or malformed.
+ */
+export const COURSE_REQUEST_FORM = {
+  id: "",
+  fields: {
+    name: "",
+    email: "",
+    course: "",
+    description: "",
+  },
+};

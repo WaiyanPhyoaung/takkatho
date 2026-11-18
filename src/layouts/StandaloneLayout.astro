@@ -72,6 +72,10 @@ const navLinks = [
   { href: "/about", label: "About" },
 ];
 
+// A button in the header (desktop), the last item in the mobile menu, and a
+// footer link.
+const REQUEST_COURSE = { href: "/request-course", label: "Request a course" };
+
 const communityLinks = [
   { href: SOCIAL.facebook, label: "Facebook" },
   { href: SOCIAL.youtube, label: "YouTube" },
@@ -200,7 +204,7 @@ const year = new Date().getFullYear();
             <Search />
           </div>
           <!-- Nav Links -->
-          <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+          <div class="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-semibold whitespace-nowrap">
             {
               navLinks.map((link) => (
                 <a
@@ -221,6 +225,13 @@ const year = new Date().getFullYear();
 
           <!-- Right Actions -->
           <div class="standalone-header-actions flex items-center gap-2">
+            <a
+              href={REQUEST_COURSE.href}
+              aria-current={currentPath === REQUEST_COURSE.href ? "page" : undefined}
+              class="hidden md:inline-flex box-border items-center whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-semibold text-white no-underline bg-orange-700 hover:bg-orange-800 transition-colors"
+            >
+              {REQUEST_COURSE.label}
+            </a>
             <!-- Theme Toggle -->
             <button
               id="theme-toggle"
@@ -323,6 +334,13 @@ const year = new Date().getFullYear();
               </a>
             ))
           }
+          <a
+            href={REQUEST_COURSE.href}
+            aria-current={currentPath === REQUEST_COURSE.href ? "page" : undefined}
+            class="box-border mt-3 mb-2 flex justify-center rounded-xl px-4 py-3 text-base font-semibold text-white no-underline bg-orange-700 hover:bg-orange-800 transition-colors"
+          >
+            {REQUEST_COURSE.label}
+          </a>
         </div>
       </div>
     </nav>
@@ -406,6 +424,14 @@ const year = new Date().getFullYear();
                 </li>
               ))
             }
+            <li>
+              <a
+                href={REQUEST_COURSE.href}
+                class="text-gray-600 hover:text-orange-700 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
+              >
+                {REQUEST_COURSE.label}
+              </a>
+            </li>
           </ul>
         </nav>
 

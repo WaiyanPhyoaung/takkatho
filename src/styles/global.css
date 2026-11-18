@@ -679,6 +679,15 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
+  /* From 768 to 1023px the bar also holds the nav links and the "Request a
+     course" button, which leaves the search box too narrow for the ⌘K hint:
+     it spilled over the first nav link. Tablets rarely have a keyboard. */
+  @media (max-width: 1023px) {
+    .standalone-header-search button[data-open-modal] kbd {
+      display: none;
+    }
+  }
+
   .dark .standalone-header-search button[data-open-modal] {
     background: rgba(18, 18, 18, 0.6);
     color: #9ca3af;
