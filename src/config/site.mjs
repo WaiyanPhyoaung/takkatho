@@ -42,7 +42,7 @@ export const COURSE_REQUEST_FORM = {
   id: "1FAIpQLSdTkOhpDPXuGe1ZYUnoLStfLwC9KBebIzpxzr5OyvrBcxR_bw",
   fields: {
     name: "entry.2005620554", // "Name"
-    email: "entry.1045781291", // "Email"
+    email: "entry.981730731", // "Email"
     course: "entry.312348775", // "Course"
     description: "entry.839337160", // "Comments"
   },
