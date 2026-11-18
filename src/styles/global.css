@@ -13,6 +13,24 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Every element sizes with border-box, as Tailwind's utilities assume. This
+ * site doesn't load Tailwind's preflight, and @astrojs/starlight-tailwind
+ * restores only part of it (border: 0 solid), leaving box-sizing to
+ * Starlight's reset. That reset loads on lesson pages only, so on the main
+ * pages padding and borders were added on top of w-full and h-full: the
+ * homepage cheat sheet cards ran into the row below, and the course card
+ * button stuck out of its card. Same rule as Starlight's reset.css, so
+ * lesson pages are unchanged.
+ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
 @theme {
   --color-accent-low: #fff7e6;
   --color-accent: #ffb300;
