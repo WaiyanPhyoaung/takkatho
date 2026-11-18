@@ -39,11 +39,11 @@ export const SOCIAL = {
  * scripts/check-build.mjs fails the build if these are missing or malformed.
  */
 export const COURSE_REQUEST_FORM = {
-  id: "",
+  id: "1FAIpQLSdTkOhpDPXuGe1ZYUnoLStfLwC9KBebIzpxzr5OyvrBcxR_bw",
   fields: {
-    name: "",
-    email: "",
-    course: "",
-    description: "",
+    name: "entry.2005620554", // "Name"
+    email: "entry.1045781291", // "Email"
+    course: "entry.312348775", // "Course"
+    description: "entry.839337160", // "Comments"
   },
 };
