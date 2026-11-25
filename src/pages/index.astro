@@ -1,7 +1,6 @@
 ---
 import StandaloneLayout from "../layouts/StandaloneLayout.astro";
 import { coursesData } from "@/components/CoursesListing";
-import YouTube from "@/components/YouTube.astro";
 import { courseDirOf, lessonCountFor, totalLessons } from "../lib/course-stats.mjs";
 import { CHEATSHEET_DATA, TOTAL_COMMANDS } from "../data/cheatsheets";
 
@@ -105,6 +104,67 @@ const latestFeaturedCourses = LATEST_FEATURED_SPECS.map((spec) => {
     lessonCount: lessonCountFor(course.dir),
   };
 });
+
+// Overview learning-path diagram rendered in the "Where to Start" section.
+const OVERVIEW_FOUNDATIONS = [
+  { label: "HTML & CSS", href: "/html", tag: "Web UI" },
+  { label: "JavaScript", href: "/javascript", tag: "Web Logic" },
+  { label: "Python", href: "/python", tag: "Core Coding" },
+  { label: "Git & GitHub", href: "/git-course", tag: "Workflow" },
+];
+
+const OVERVIEW_TRACKS = [
+  {
+    id: "Track A",
+    title: "Full-Stack Web",
+    subtitle: "Frontend + APIs + SSR",
+    borderClass: "border-amber-500/35",
+    badgeClass:
+      "bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300",
+    stepHover: "hover:border-amber-500/60 hover:text-amber-700 dark:hover:text-amber-300",
+    steps: [
+      { label: "CSS & Layout", href: "/css" },
+      { label: "TypeScript", href: "/typescript" },
+      { label: "Node.js & Express", href: "/nodejs" },
+      { label: "Next.js App Router", href: "/nextjs" },
+    ],
+  },
+  {
+    id: "Track B",
+    title: "AI & Automation",
+    subtitle: "Agents + Data + Scraping",
+    borderClass: "border-purple-500/35",
+    badgeClass:
+      "bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300",
+    stepHover: "hover:border-purple-500/60 hover:text-purple-700 dark:hover:text-purple-300",
+    steps: [
+      { label: "AI Proficiency", href: "/ai-proficiency" },
+      { label: "n8n Workflows", href: "/n8n-course" },
+      { label: "Python Data & Scraping", href: "/python-datascience" },
+      { label: "AI Agents & RAG", href: "/ai-agents" },
+    ],
+  },
+  {
+    id: "Track C",
+    title: "Backend & DevOps",
+    subtitle: "Databases + Cloud + Scale",
+    borderClass: "border-cyan-500/35",
+    badgeClass: "bg-sky-100 dark:bg-sky-900/50 text-sky-800 dark:text-sky-300",
+    stepHover: "hover:border-sky-500/60 hover:text-sky-700 dark:hover:text-sky-300",
+    steps: [
+      { label: "SQL & Relational DB", href: "/sql-course" },
+      { label: "MongoDB NoSQL", href: "/mongodb-course" },
+      { label: "Docker & Linux VPS", href: "/linux-devops" },
+      { label: "Software Architecture", href: "/software-architecture" },
+    ],
+  },
+];
+
+const OVERVIEW_LEVEL_UP = [
+  { label: "Data Structures & Algorithms", href: "/dsa" },
+  { label: "Web Performance", href: "/web-performance" },
+  { label: "Cheat Sheets Hub", href: "/cheatsheets" },
+];
 ---
 
 <StandaloneLayout
@@ -315,29 +375,183 @@ const latestFeaturedCourses = LATEST_FEATURED_SPECS.map((spec) => {
       </div>
     </section>
 
-    <!-- Where to Start Section -->
+    <!-- Where to Start Diagram Overview Section -->
     <section class="py-16 dark:bg-[#0c0a09] neo-alt relative">
       <div
         class="absolute inset-0 bg-[linear-gradient(to_right,#f9731610_1px,transparent_1px),linear-gradient(to_bottom,#f9731610_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"
       >
       </div>
       <div
-        class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
       >
         <h2
           class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4"
         >
           ဘယ်ကနေ စတင်လေ့လာရမလဲ?
         </h2>
-        <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 font-medium">
-          Programming ကို စတင်လေ့လာမည့်သူများအတွက် ဘာတွေလေ့လာရမလဲဆိုတာကို ဒီ
-          Video လေးမှာ ရှင်းပြပေးထားပါတယ်။
+        <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 font-medium">
+          Programming အခြေခံမှစပြီး ခင်ဗျား ရွေးချယ်လိုသည့် Career လမ်းကြောင်းအထိ
+          အဆင့်ဆင့် တက်လှမ်းနိုင်မည့် Learning Overview Diagram (Course တစ်ခုချင်းစီကို နှိပ်၍ တိုက်ရိုက် ဝင်ဖတ်နိုင်ပါတယ်)
         </p>
-        <div class="flex justify-center">
+
+        <!-- Diagram Canvas -->
+        <div
+          class="rounded-3xl p-5 sm:p-8 bg-white/85 dark:bg-stone-950/75 border border-orange-500/20 backdrop-blur-xl shadow-2xl shadow-orange-500/10 dark:shadow-orange-500/5"
+        >
+          <!-- Stage 1: Foundations Root Node -->
           <div
-            class="relative w-full max-w-2xl overflow-hidden rounded-3xl shadow-2xl shadow-orange-500/10 dark:shadow-orange-500/5 ring-1 ring-black/5 dark:ring-white/5"
+            class="max-w-3xl mx-auto rounded-2xl border-2 border-orange-500/35 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent p-4 sm:p-5"
           >
-            <YouTube id="mgY1YjAP9oc" title="Programming ကို ဘယ်ကနေ စတင်လေ့လာရမလဲ" />
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+              <span
+                class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-700 text-white"
+              >
+                Step 1 · Start Here
+              </span>
+              <span class="text-sm font-bold text-gray-900 dark:text-white">
+                Core Foundations (အခြေခံ အုတ်မြစ်)
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-2.5">
+              {
+                OVERVIEW_FOUNDATIONS.map((item, idx) => (
+                  <>
+                    <a
+                      href={item.href}
+                      class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-stone-900 border border-orange-500/25 hover:border-orange-500 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:-translate-y-0.5 transition-all"
+                    >
+                      <span>{item.label}</span>
+                      <span class="text-[11px] font-medium px-1.5 py-0.5 rounded bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300">
+                        {item.tag}
+                      </span>
+                    </a>
+                    {idx < OVERVIEW_FOUNDATIONS.length - 1 && (
+                      <span
+                        class="text-orange-600 dark:text-orange-400 font-bold select-none"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+                    )}
+                  </>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Branching SVG Connectors -->
+          <div class="hidden md:block w-full max-w-4xl mx-auto h-12" aria-hidden="true">
+            <svg
+              viewBox="0 0 900 48"
+              fill="none"
+              class="w-full h-full text-orange-500/60 dark:text-orange-400/50"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M450 0 V20 M150 20 H750 M150 20 V44 M450 20 V44 M750 20 V44"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path d="M144 38 L150 46 L156 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M444 38 L450 46 L456 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M744 38 L750 46 L756 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="flex md:hidden justify-center py-2.5 text-orange-600 dark:text-orange-400" aria-hidden="true">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m0 0l-5-5m5 5l5-5" />
+            </svg>
+          </div>
+
+          <!-- Stage 2: 3 Specialization Tracks -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 text-left">
+            {
+              OVERVIEW_TRACKS.map((track) => (
+                <div
+                  class={`rounded-2xl p-4 sm:p-5 bg-gray-50/90 dark:bg-stone-900/70 border ${track.borderClass} flex flex-col`}
+                >
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class={`px-2.5 py-0.5 rounded-full text-xs font-bold ${track.badgeClass}`}>
+                      {track.id}
+                    </span>
+                    <span class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                      {track.subtitle}
+                    </span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    {track.title}
+                  </h3>
+                  <div class="space-y-2 mt-auto">
+                    {track.steps.map((step, i) => (
+                      <a
+                        href={step.href}
+                        class={`flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-white dark:bg-stone-950/70 border border-gray-200/80 dark:border-stone-800 text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200 ${track.stepHover} transition-colors`}
+                      >
+                        <span class="flex items-center gap-2 min-w-0">
+                          <span class="font-mono text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                            0{i + 1}
+                          </span>
+                          <span class="truncate">{step.label}</span>
+                        </span>
+                        <span class="text-gray-400 shrink-0" aria-hidden="true">→</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Converging Connector to Stage 3 -->
+          <div class="hidden md:block w-full max-w-4xl mx-auto h-10" aria-hidden="true">
+            <svg
+              viewBox="0 0 900 40"
+              fill="none"
+              class="w-full h-full text-orange-500/50 dark:text-orange-400/40"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M150 0 V18 M450 0 V36 M750 0 V18 M150 18 H750"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path d="M444 30 L450 38 L456 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="flex md:hidden justify-center py-2.5 text-orange-600 dark:text-orange-400" aria-hidden="true">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m0 0l-5-5m5 5l5-5" />
+            </svg>
+          </div>
+
+          <!-- Stage 3: Senior Engineering & Quick Actions -->
+          <div
+            class="rounded-2xl border border-gray-200/80 dark:border-stone-800 bg-gray-50/90 dark:bg-stone-900/60 p-4 sm:p-5 flex flex-col lg:flex-row items-center justify-between gap-4"
+          >
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-400 mr-1">
+                Step 3 · Mastery
+              </span>
+              {
+                OVERVIEW_LEVEL_UP.map((item) => (
+                  <a
+                    href={item.href}
+                    class="px-3 py-1.5 rounded-xl bg-white dark:bg-stone-950/80 border border-gray-200/80 dark:border-stone-800 hover:border-orange-500/60 text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+            <a
+              href="/roadmaps"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-700 hover:bg-orange-800 text-white text-xs sm:text-sm font-bold shadow-sm transition-colors shrink-0"
+            >
+              <span>Career Roadmaps အသေးစိတ် ကြည့်မည်</span>
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </div>
