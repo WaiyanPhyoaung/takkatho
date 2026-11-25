@@ -120,7 +120,7 @@ jobs:
         "npm ci သုံးပါက TypeScript compile လုပ်စရာ မလိုတော့သောကြောင့်",
         "npm install သည် Linux OS ပေါ်တွင် အလုပ်မလုပ်သောကြောင့်"
       ],
-      correctAnswer: 0,
+      correctIndex: 0,
       explanation: "npm ci (Clean Install) သည် package-lock.json အတိုင်း တိကျစွာ match ဖြစ်အောင် install လုပ်ပေးပြီး package version ကွဲလွဲမှုကြောင့် ဖြစ်တတ်သော CI build errors များကို ကာကွယ်ပေးပါသည်။"
     },
     {
@@ -132,7 +132,7 @@ jobs:
         "/src/ci/",
         "/workflows/"
       ],
-      correctAnswer: 1,
+      correctIndex: 1,
       explanation: "GitHub Actions သည် repository root ရှိ .github/workflows/ folder အောက်ရှိ YAML ဖိုင်များ (*.yml သို့မဟုတ် *.yaml) ကိုသာ အလိုအလျောက် detect လုပ်ပြီး execute လုပ်ပေးပါသည်။"
     }
   ]}

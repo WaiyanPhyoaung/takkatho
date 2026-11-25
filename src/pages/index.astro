@@ -6,6 +6,9 @@ const totalLessons = coursesData.reduce(
   (sum, course) => sum + course.lessons,
   0,
 );
+
+const lessonsFor = (id: string, fallback: number) =>
+  coursesData.find((c) => c.id === id)?.lessons ?? fallback;
 ---
 
 <StandaloneLayout
@@ -91,6 +94,12 @@ const totalLessons = coursesData.reduce(
                   stroke-width="2"
                   d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
+            </a>
+            <a
+              href="/roadmaps"
+              class="neo-btn group inline-flex items-center justify-center py-4 px-7 gap-2.5 bg-white/90 backdrop-blur-md dark:bg-stone-900/90 border border-orange-500/30 text-orange-600 dark:text-orange-400 font-semibold text-base transition-all duration-300 hover:border-orange-500/60"
+            >
+              <span>🗺️ Career Roadmaps</span>
             </a>
             <a
               href="/about"
@@ -246,20 +255,21 @@ const totalLessons = coursesData.reduce(
       </div>
     </section>
 
-    <!-- Developer Cheat Sheets Hub Showcase Section -->
+    <!-- Developer Cheat Sheets & Career Roadmaps Showcase Section -->
     <section class="py-20 dark:bg-[#0c0a09] relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+        <!-- Cheat Sheets Showcase -->
         <div class="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-500/20 backdrop-blur-xl shadow-xl">
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
             <div>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 mb-3">
                 ⚡ Developer Utilities
               </span>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
+              <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 Developer <span class="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Cheat Sheets</span> Hub
               </h2>
               <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl">
-                အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေပြီး ၁-ချက်နှိပ် ကူးယူနိုင်မည့် Git, Docker, Linux, SQL, CSS နှင့် n8n Commands စုစည်းမှု။
+                အလုပ်လုပ်နေစဉ် အမြန်ရှာဖွေပြီး ၁-ချက်နှိပ် ကူးယူနိုင်မည့် Git, Docker, Linux, SQL, CSS, JS/TS, npm နှင့် n8n Command ၁၂၀ ကျော် စုစည်းမှု။
               </p>
             </div>
             <a
@@ -272,36 +282,72 @@ const totalLessons = coursesData.reduce(
           </div>
 
           <!-- Quick Preview Cards Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <a href="/cheatsheets#git" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🌿</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Git Commands</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Undo, Stash, Branch</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+            <a href="/cheatsheets#git" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-orange-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🌿</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Git</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Branch, Undo</p>
             </a>
-            <a href="/cheatsheets#docker" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-blue-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐳</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Docker CLI</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Run, Compose, Exec</p>
+            <a href="/cheatsheets#docker" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-blue-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🐳</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Docker</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Compose, Exec</p>
             </a>
-            <a href="/cheatsheets#linux" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-emerald-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🐧</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Linux Server</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Systemd, UFW, Tail</p>
+            <a href="/cheatsheets#linux" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-emerald-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🐧</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">Linux</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Systemd, UFW</p>
             </a>
-            <a href="/cheatsheets#sql" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-amber-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🗄️</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">SQL Queries</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">JOINs, GROUP BY, Index</p>
+            <a href="/cheatsheets#sql" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-amber-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🗄️</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">SQL</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">JOINs, Index</p>
             </a>
-            <a href="/cheatsheets#css" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-purple-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">CSS Layouts</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Flexbox, Auto-Grid</p>
+            <a href="/cheatsheets#css" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-purple-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🎨</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">CSS</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Flexbox, Grid</p>
             </a>
-            <a href="/cheatsheets#n8n" class="p-4 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-rose-500/50 hover:shadow-md transition-all group text-center">
-              <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">⚡</div>
-              <h3 class="text-xs font-bold text-gray-900 dark:text-white">n8n Workflow</h3>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Webhook, Telegram Bot</p>
+            <a href="/cheatsheets#javascript" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-yellow-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">🟨</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">JS / TS</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Array, Async</p>
+            </a>
+            <a href="/cheatsheets#npm" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-green-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">📦</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">npm / Node</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Scripts, pnpm</p>
+            </a>
+            <a href="/cheatsheets#n8n" class="p-3.5 rounded-2xl bg-white/80 dark:bg-stone-900/80 border border-gray-200/80 dark:border-stone-800/80 hover:border-rose-500/50 hover:shadow-md transition-all group text-center">
+              <div class="text-xl mb-1.5 group-hover:scale-110 transition-transform">⚡</div>
+              <h3 class="text-xs font-bold text-gray-900 dark:text-white">n8n</h3>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Webhook, Bot</p>
+            </a>
+          </div>
+        </div>
+
+        <!-- Career Roadmaps Quick Strip -->
+        <div class="rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-stone-900/60 border border-gray-200/80 dark:border-stone-800 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-2">
+              🗺️ Guided Learning Paths
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">
+              ဘယ်ဘာသာရပ်ကနေ စတင်ရမလဲ?
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Full-Stack Web, AI &amp; Business Automation နှင့် Backend Systems Architect လမ်းကြောင်း ၃ ခုအတိုင်း အဆင့်ဆင့် လေ့လာပါ။
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2.5 shrink-0">
+            <a href="/roadmaps#fullstack" class="px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 text-xs font-bold transition-colors">
+              Full-Stack →
+            </a>
+            <a href="/roadmaps#ai-automation" class="px-4 py-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 text-xs font-bold transition-colors">
+              AI Automation →
+            </a>
+            <a href="/roadmaps#architecture" class="px-4 py-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-700 dark:text-blue-300 text-xs font-bold transition-colors">
+              Systems Architect →
             </a>
           </div>
         </div>
@@ -329,7 +375,7 @@ const totalLessons = coursesData.reduce(
           class="neo-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
           <!-- Git Version Control -->
-          <a href="/git-course/introduction/why-git" class="group">
+          <a href="/git-course" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -381,7 +427,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  20 lessons
+                  {lessonsFor("git-course", 25)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -404,7 +450,7 @@ const totalLessons = coursesData.reduce(
 
           <!-- Advanced TypeScript -->
           <a
-            href="/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript"
+            href="/advanced-typescript"
             class="group"
           >
             <div
@@ -457,7 +503,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  25 lessons
+                  {lessonsFor("advanced-typescript", 26)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -479,7 +525,7 @@ const totalLessons = coursesData.reduce(
           </a>
 
           <!-- AI Proficiency -->
-          <a href="/ai-proficiency/foundations/introduction" class="group">
+          <a href="/ai-proficiency" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -503,7 +549,7 @@ const totalLessons = coursesData.reduce(
                 </div>
                 <span
                   class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-medium"
-                  >NEW</span
+                  >AI</span
                 >
               </div>
               <h3
@@ -532,7 +578,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  16 lessons
+                  {lessonsFor("ai-proficiency", 12)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -554,7 +600,7 @@ const totalLessons = coursesData.reduce(
           </a>
 
           <!-- HTML -->
-          <a href="/html/introduction/welcome-to-html" class="group">
+          <a href="/html" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -606,7 +652,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  8 lessons
+                  {lessonsFor("html", 24)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -628,7 +674,7 @@ const totalLessons = coursesData.reduce(
           </a>
 
           <!-- JavaScript -->
-          <a href="/javascript/introduction/intro" class="group">
+          <a href="/javascript" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-yellow-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -680,7 +726,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  9 lessons
+                  {lessonsFor("javascript", 36)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -702,7 +748,7 @@ const totalLessons = coursesData.reduce(
           </a>
 
           <!-- Frontend Architecture -->
-          <a href="/fe-architecture/introduction/welcome" class="group">
+          <a href="/fe-architecture" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -754,7 +800,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  15 lessons
+                  {lessonsFor("frontend-architecture", 17)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -820,6 +866,171 @@ const totalLessons = coursesData.reduce(
         <div
           class="neo-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
+          <!-- Linux, Cloud VPS & DevOps -->
+          <a href="/linux-devops" class="group">
+            <div
+              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div
+                  class="p-3 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-500 text-white shadow-lg shadow-emerald-500/25"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                    ></path>
+                  </svg>
+                </div>
+                <span
+                  class="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-medium"
+                  >NEW · DevOps</span
+                >
+              </div>
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"
+              >
+                Linux, Cloud VPS &amp; DevOps
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Ubuntu Server စီမံခန့်ခွဲခြင်း၊ SSH Security၊ Systemd၊ Nginx SSL နှင့် GitHub Actions CI/CD Auto-deploy
+              </p>
+              <div
+                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  </svg>
+                  {lessonsFor("linux-devops", 10)} lessons
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  4 weeks
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- n8n Workflow Automation -->
+          <a href="/n8n-course" class="group">
+            <div
+              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-rose-500/10 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div
+                  class="p-3 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/25"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    ></path>
+                  </svg>
+                </div>
+                <span
+                  class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300 text-xs font-medium"
+                  >Automation</span
+                >
+              </div>
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors"
+              >
+                n8n Workflow Automation
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Apps, APIs နှင့် Telegram/AI Agents များကို ချိတ်ဆက်၍ Task များကို အလိုအလျောက် လုပ်ဆောင်နည်း
+              </p>
+              <div
+                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  </svg>
+                  {lessonsFor("n8n-course", 20)} lessons
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  6 weeks
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Docker & Containerization -->
+          <a href="/docker" class="group">
+            <div
+              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-sky-500/10 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div
+                  class="p-3 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    ></path>
+                  </svg>
+                </div>
+                <span
+                  class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-xs font-medium"
+                  >Intermediate</span
+                >
+              </div>
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors"
+              >
+                Docker &amp; Containerization
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Containers vs VMs၊ Multi-stage Dockerfile နှင့် Docker Compose Multi-container Deployment
+              </p>
+              <div
+                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  </svg>
+                  {lessonsFor("docker", 5)} lessons
+                </span>
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  3 weeks
+                </span>
+              </div>
+            </div>
+          </a>
+
           <!-- Python -->
           <a href="/python" class="group">
             <div
@@ -873,7 +1084,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  8 lessons
+                  {lessonsFor("python", 14)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -889,80 +1100,6 @@ const totalLessons = coursesData.reduce(
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                   4 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Java -->
-          <a href="/java" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-red-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-red-600 to-orange-500 text-white shadow-lg shadow-red-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs font-medium"
-                  >Beginner</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors"
-              >
-                Java Programming
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Java ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Syntax, OOP,
-                Collections နှင့် Exception Handling များ ပါဝင်သည်။
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  8 lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  5 weeks
                 </span>
               </div>
             </div>
@@ -1021,7 +1158,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  10 lessons
+                  {lessonsFor("golang", 9)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1042,83 +1179,8 @@ const totalLessons = coursesData.reduce(
             </div>
           </a>
 
-          <!-- SQL -->
-          <a href="/sql-course/introduction/what-is-sql" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
-                    ></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs font-medium"
-                  >Beginner</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors"
-              >
-                SQL Masterclass
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Database များနှင့် စကားပြောဆိုရန်၊ ဒေတာများ ထိန်းချုပ်ရန်နှင့်
-                တည်ဆောက်ရန် မရှိမဖြစ်လိုအပ်သော SQL ကို အလွယ်ကူဆုံး လေ့လာခြင်း
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  6 lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  2 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- TypeScript -->
-          <a href="/typescript" class="group">
+          <!-- Next.js Full-Stack -->
+          <a href="/nextjs" class="group">
             <div
               class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300"
             >
@@ -1147,12 +1209,10 @@ const totalLessons = coursesData.reduce(
               <h3
                 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
               >
-                TypeScript Programming
+                Next.js Full-Stack
               </h3>
               <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                JavaScript ကို Type System ဖြင့် ပိုမိုခိုင်မာအောင်
-                တည်ဆောက်ခြင်း။ Interfaces, Generics နှင့် Advanced Types များ
-                ပါဝင်သည်။
+                React Server Components (RSC)၊ Server Actions၊ App Router နှင့် Vercel Production Deploy
               </p>
               <div
                 class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
@@ -1171,7 +1231,7 @@ const totalLessons = coursesData.reduce(
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                     ></path>
                   </svg>
-                  9 lessons
+                  {lessonsFor("nextjs", 5)} lessons
                 </span>
                 <span class="flex items-center gap-1">
                   <svg
@@ -1186,7 +1246,7 @@ const totalLessons = coursesData.reduce(
                       stroke-width="2"
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  5 weeks
+                  4 weeks
                 </span>
               </div>
             </div>

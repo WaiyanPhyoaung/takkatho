@@ -11,10 +11,45 @@ import tailwindcss from "@tailwindcss/vite";
 
 import vercel from "@astrojs/vercel";
 
+/**
+ * Convert ```mermaid code blocks into raw <pre class="mermaid"> containers
+ * before Rehype / Expressive Code highlights them as plain text snippets.
+ */
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function remarkMermaid() {
+  /** @param {any} node */
+  const walk = (node) => {
+    if (!node || !Array.isArray(node.children)) return;
+    for (let i = 0; i < node.children.length; i++) {
+      const child = node.children[i];
+      if (child.type === "code" && child.lang === "mermaid") {
+        node.children[i] = {
+          type: "html",
+          value: `<div class="mermaid-container not-content"><pre class="mermaid">${escapeHtml(child.value ?? "")}</pre></div>`,
+        };
+      } else {
+        walk(child);
+      }
+    }
+  };
+  /** @param {any} tree */
+  return (tree) => walk(tree);
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://takkatho.dev",
   output: "static",
+  markdown: {
+    remarkPlugins: [remarkMermaid],
+  },
   integrations: [
     sitemap({
       changefreq: "weekly",
@@ -24,7 +59,27 @@ export default defineConfig({
     }),
     react(),
     starlight({
-      plugins: [starlightThemeNova()],
+      defaultLocale: "root",
+      locales: {
+        root: {
+          label: "မြန်မာ",
+          lang: "my",
+        },
+      },
+      plugins: [
+        starlightThemeNova({
+          nav: [
+            { label: "Courses", href: "/courses" },
+            { label: "Roadmaps", href: "/roadmaps" },
+            { label: "Cheat Sheets", href: "/cheatsheets" },
+            { label: "About", href: "/about" },
+          ],
+        }),
+      ],
+      components: {
+        MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
+        MobileMenuFooter: "./src/components/starlight/MobileMenuFooter.astro",
+      },
       expressiveCode: true,
       // src/pages/404.astro is the site's 404 page; without this both routes
       // claim /404 and Astro warns about the collision.
@@ -318,6 +373,10 @@ export default defineConfig({
               "Relational Database",
               "HTML & CSS",
               "JavaScript",
+              "Linux, Cloud VPS & DevOps",
+              "Docker & Containerization",
+              "n8n Workflow Automation",
+              "Next.js Full-Stack",
             ],
             courseMode: "online",
             availableLanguage: [
@@ -2514,89 +2573,88 @@ export default defineConfig({
             },
           ],
         },
-        // {
-        //   label: "Advanced CSS",
-        //   items: [
-        //     {
-        //       label: "Introduction",
-        //       items: [
-        //         {
-        //           label: "Welcome",
-        //           slug: "advanced-css/introduction/welcome",
-        //         },
-        //       ],
-        //     },
-        //     {
-        //       label: "Core Logic & Functions",
-        //       items: [
-        //         {
-        //           label: "Logic & Functions",
-        //           slug: "advanced-css/core-logic/functions",
-        //         },
-        //       ],
-        //     },
-        //     {
-        //       label: "Layout & Sizing",
-        //       items: [
-        //         {
-        //           label: "Field Sizing",
-        //           slug: "advanced-css/layout-sizing/field-sizing",
-        //         },
-        //         {
-        //           label: "Interpolate Size",
-        //           slug: "advanced-css/layout-sizing/interpolate-size",
-        //         },
-        //         {
-        //           label: "Container Queries",
-        //           slug: "advanced-css/layout-sizing/container-queries",
-        //         },
-        //         {
-        //           label: "Anchor Positioning",
-        //           slug: "advanced-css/layout-sizing/anchor-positioning",
-        //         },
-        //       ],
-        //     },
-        //     {
-        //       label: "Visuals & UI Components",
-        //       items: [
-        //         {
-        //           label: "Custom Select",
-        //           slug: "advanced-css/visuals-ui/custom-select",
-        //         },
-        //         {
-        //           label: "Corner Shape",
-        //           slug: "advanced-css/visuals-ui/corner-shape",
-        //         },
-        //         {
-        //           label: "Scroll Markers",
-        //           slug: "advanced-css/visuals-ui/scroll-markers",
-        //         },
-        //         {
-        //           label: "View Transitions",
-        //           slug: "advanced-css/visuals-ui/view-transitions",
-        //         },
-        //       ],
-        //     },
-
-        //     {
-        //       label: "Developer Ergonomics",
-        //       items: [
-        //         {
-        //           label: "@property",
-        //           slug: "advanced-css/ergonomics/at-property",
-        //         },
-        //         {
-        //           label: "Cascade Layers",
-        //           slug: "advanced-css/ergonomics/cascade-layers",
-        //         },
-        //         {
-        //           label: "Enhanced attr()",
-        //           slug: "advanced-css/ergonomics/attr-function",
-        //         },
-        //       ],
-        //     },
-        //   ],
-        // },
+        {
+          label: "Advanced CSS",
+          items: [
+            {
+              label: "Introduction",
+              items: [
+                {
+                  label: "Welcome",
+                  slug: "advanced-css/introduction/welcome",
+                },
+              ],
+            },
+            {
+              label: "Core Logic & Functions",
+              items: [
+                {
+                  label: "Logic & Functions",
+                  slug: "advanced-css/core-logic/functions",
+                },
+              ],
+            },
+            {
+              label: "Layout & Sizing",
+              items: [
+                {
+                  label: "Field Sizing",
+                  slug: "advanced-css/layout-sizing/field-sizing",
+                },
+                {
+                  label: "Interpolate Size",
+                  slug: "advanced-css/layout-sizing/interpolate-size",
+                },
+                {
+                  label: "Container Queries",
+                  slug: "advanced-css/layout-sizing/container-queries",
+                },
+                {
+                  label: "Anchor Positioning",
+                  slug: "advanced-css/layout-sizing/anchor-positioning",
+                },
+              ],
+            },
+            {
+              label: "Visuals & UI Components",
+              items: [
+                {
+                  label: "Custom Select",
+                  slug: "advanced-css/visuals-ui/custom-select",
+                },
+                {
+                  label: "Corner Shape",
+                  slug: "advanced-css/visuals-ui/corner-shape",
+                },
+                {
+                  label: "Scroll Markers",
+                  slug: "advanced-css/visuals-ui/scroll-markers",
+                },
+                {
+                  label: "View Transitions",
+                  slug: "advanced-css/visuals-ui/view-transitions",
+                },
+              ],
+            },
+            {
+              label: "Developer Ergonomics",
+              items: [
+                {
+                  label: "@property",
+                  slug: "advanced-css/ergonomics/at-property",
+                },
+                {
+                  label: "Cascade Layers",
+                  slug: "advanced-css/ergonomics/cascade-layers",
+                },
+                {
+                  label: "Enhanced attr()",
+                  slug: "advanced-css/ergonomics/attr-function",
+                },
+              ],
+            },
+          ],
+        },
         {
           label: "JavaScript",
           items: [
@@ -2868,6 +2926,31 @@ export default defineConfig({
             {
               label: "EP12. Messenger Auto-Reply AI Bot",
               slug: "n8n-course/special/facebook-messenger-bot",
+            },
+            {
+              label: "Deep Dives (နောက်ထပ် လေ့လာရန်)",
+              items: [
+                {
+                  label: "Local Installation & Setup",
+                  slug: "n8n-course/introduction/installation-setup",
+                },
+                {
+                  label: "Triggers & Events",
+                  slug: "n8n-course/core-concepts/triggers-and-events",
+                },
+                {
+                  label: "Credentials & Security",
+                  slug: "n8n-course/core-concepts/credentials-security",
+                },
+                {
+                  label: "HTTP Request & Webhooks",
+                  slug: "n8n-course/first-workflow/http-request-webhook",
+                },
+                {
+                  label: "Connecting Real-World APIs",
+                  slug: "n8n-course/real-world/connecting-apis",
+                },
+              ],
             },
           ],
         },

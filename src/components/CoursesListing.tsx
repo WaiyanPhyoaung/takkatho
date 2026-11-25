@@ -63,21 +63,6 @@ export type Course = {
 
 // Course data
 export const coursesData: Course[] = [
-  // {
-  //   id: "mongodb-course",
-  //   title: "MongoDB အခြေခံ",
-  //   description:
-  //     "Document-based NoSQL database တစ်ခုဖြစ်တဲ့ MongoDB ရဲ့ အခြေခံသဘောတရားတွေ၊ CRUD လုပ်ဆောင်ချက်တွေနဲ့ Cloud ပေါ်တင်နည်းတွေကို လွယ်လွယ်ကူကူ လေ့လာမယ်။",
-  //   difficulty: "beginner",
-  //   category: "Database",
-  //   icon: "database",
-  //   href: "/mongodb-course/introduction/what-is-mongodb",
-  //   lessons: 5,
-  //   tags: ["MongoDB", "NoSQL", "Database", "Node.js"],
-  //   estimatedTime: "2 weeks",
-  //   rating: 4.9,
-  //   students: 1200,
-  // },
   {
     id: "html",
     title: "HTML",
@@ -86,8 +71,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "globe",
-    href: "/html/introduction/welcome-to-html",
-    lessons: 8,
+    href: "/html",
+    lessons: 24,
     tags: ["HTML", "Web Basics", "Markup"],
     estimatedTime: "2 weeks",
     rating: 4.4,
@@ -101,8 +86,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "palette",
-    href: "/css/introduction/welcome",
-    lessons: 11,
+    href: "/css",
+    lessons: 25,
     tags: ["CSS", "Design", "Responsive"],
     estimatedTime: "3 weeks",
     rating: 4.5,
@@ -116,8 +101,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Web Development",
     icon: "code",
-    href: "/javascript/introduction/intro",
-    lessons: 9,
+    href: "/javascript",
+    lessons: 36,
     tags: ["JavaScript", "DOM", "Interactivity"],
     estimatedTime: "4 weeks",
     rating: 4.8,
@@ -132,7 +117,7 @@ export const coursesData: Course[] = [
     category: "Computer Science",
     icon: "trending",
     href: "/dsa",
-    lessons: 20,
+    lessons: 15,
     tags: ["Algorithms", "Optimization", "Problem Solving"],
     estimatedTime: "8 weeks",
     rating: 4.9,
@@ -147,7 +132,7 @@ export const coursesData: Course[] = [
     category: "Programming",
     icon: "code",
     href: "/python",
-    lessons: 8,
+    lessons: 14,
     tags: ["Python", "Basics", "OOP"],
     estimatedTime: "4 weeks",
     rating: 4.8,
@@ -162,7 +147,7 @@ export const coursesData: Course[] = [
     category: "Programming",
     icon: "code",
     href: "/java",
-    lessons: 8,
+    lessons: 7,
     tags: ["Java", "Basics", "OOP"],
     estimatedTime: "5 weeks",
     rating: 4.8,
@@ -177,7 +162,7 @@ export const coursesData: Course[] = [
     category: "Web Development",
     icon: "database",
     href: "/nodejs",
-    lessons: 8,
+    lessons: 7,
     tags: ["Node.js", "Backend", "Express"],
     estimatedTime: "5 weeks",
     rating: 4.8,
@@ -192,7 +177,7 @@ export const coursesData: Course[] = [
     category: "Programming",
     icon: "code",
     href: "/typescript",
-    lessons: 9,
+    lessons: 7,
     tags: ["TypeScript", "JavaScript", "Types"],
     estimatedTime: "5 weeks",
     rating: 4.9,
@@ -207,27 +192,27 @@ export const coursesData: Course[] = [
     category: "Programming",
     icon: "code",
     href: "/golang",
-    lessons: 10,
+    lessons: 9,
     tags: ["Go", "Backend", "Concurrency"],
     estimatedTime: "6 weeks",
     rating: 4.9,
     students: 1300,
   },
-  // {
-  //   id: "advanced-css",
-  //   title: "Advanced CSS",
-  //   description:
-  //     "Modern CSS Features, Logic, Layouts နှင့် Architecture များကို နက်နက်နဲနဲ လေ့လာခြင်း",
-  //   difficulty: "advanced",
-  //   category: "Web Development",
-  //   icon: "palette",
-  //   href: "/advanced-css/introduction/welcome",
-  //   lessons: 15,
-  //   tags: ["CSS", "Advanced", "Architecture"],
-  //   estimatedTime: "5 weeks",
-  //   rating: 4.9,
-  //   students: 1500,
-  // },
+  {
+    id: "advanced-css",
+    title: "Advanced CSS",
+    description:
+      "Modern CSS Features, Logic, Layouts နှင့် Architecture များကို နက်နက်နဲနဲ လေ့လာခြင်း",
+    difficulty: "advanced",
+    category: "Web Development",
+    icon: "palette",
+    href: "/advanced-css",
+    lessons: 13,
+    tags: ["CSS", "Advanced", "Architecture"],
+    estimatedTime: "5 weeks",
+    rating: 4.9,
+    students: 1500,
+  },
   {
     id: "sql-course",
     title: "SQL အခြေခံ (SQL Masterclass)",
@@ -236,8 +221,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Database",
     icon: "database",
-    href: "/sql-course/introduction/what-is-sql",
-    lessons: 6,
+    href: "/sql-course",
+    lessons: 8,
     tags: ["SQL", "Database", "Queries", "MySQL", "PostgreSQL"],
     estimatedTime: "2 weeks",
     rating: 4.8,
@@ -251,8 +236,8 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "rocket",
-    href: "/websocket/introduction/what-is-websocket",
-    lessons: 12,
+    href: "/websocket",
+    lessons: 13,
     tags: ["Real-time", "WebSocket", "Communication"],
     estimatedTime: "6 weeks",
     rating: 4.8,
@@ -265,8 +250,8 @@ export const coursesData: Course[] = [
     difficulty: "advanced",
     category: "Programming Languages",
     icon: "code",
-    href: "/advanced-typescript/why-is-advanced-ts-needed/why-advanced-typescript",
-    lessons: 25,
+    href: "/advanced-typescript",
+    lessons: 26,
     tags: ["TypeScript", "Generics", "Utility Types"],
     estimatedTime: "10 weeks",
     rating: 4.9,
@@ -280,8 +265,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Development Tools",
     icon: "git",
-    href: "/git-course/introduction/why-git",
-    lessons: 20,
+    href: "/git-course",
+    lessons: 25,
     tags: ["Git", "Version Control", "Collaboration"],
     estimatedTime: "4 weeks",
     rating: 4.7,
@@ -295,8 +280,8 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "zap",
-    href: "/web-performance/introduction/why-web-performance",
-    lessons: 18,
+    href: "/web-performance",
+    lessons: 21,
     tags: ["Performance", "Optimization", "Core Web Vitals"],
     estimatedTime: "8 weeks",
     rating: 4.6,
@@ -310,8 +295,8 @@ export const coursesData: Course[] = [
     difficulty: "advanced",
     category: "System Design",
     icon: "users",
-    href: "/software-architecture/foundations/foundations",
-    lessons: 22,
+    href: "/software-architecture",
+    lessons: 24,
     tags: ["Architecture", "Microservices", "Design Patterns"],
     estimatedTime: "12 weeks",
     rating: 4.9,
@@ -325,8 +310,8 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Database",
     icon: "database",
-    href: "/relational-database/introduction/welcome-to-database",
-    lessons: 16,
+    href: "/relational-database",
+    lessons: 30,
     tags: ["SQL", "Database Design", "Normalization"],
     estimatedTime: "6 weeks",
     rating: 4.5,
@@ -340,8 +325,8 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "code",
-    href: "/fe-architecture/introduction/welcome",
-    lessons: 15,
+    href: "/fe-architecture",
+    lessons: 17,
     tags: ["Frontend", "Architecture", "Patterns"],
     estimatedTime: "8 weeks",
     rating: 4.7,
@@ -355,8 +340,8 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Artificial Intelligence",
     icon: "sparkles",
-    href: "/ai-proficiency/foundations/introduction",
-    lessons: 16,
+    href: "/ai-proficiency",
+    lessons: 12,
     tags: ["AI", "Machine Learning", "LLM", "RAG"],
     estimatedTime: "12 weeks",
     rating: 4.8,
@@ -370,8 +355,8 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Automation",
     icon: "zap",
-    href: "/n8n-course/introduction/what-is-n8n",
-    lessons: 17,
+    href: "/n8n-course",
+    lessons: 20,
     tags: ["n8n", "Automation", "No-Code", "Workflow", "AI"],
     estimatedTime: "6 weeks",
     rating: 4.9,
@@ -385,7 +370,7 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "DevOps",
     icon: "rocket",
-    href: "/docker/introduction/what-is-docker",
+    href: "/docker",
     lessons: 5,
     tags: ["Docker", "Containers", "DevOps", "Compose"],
     estimatedTime: "3 weeks",
@@ -400,7 +385,7 @@ export const coursesData: Course[] = [
     difficulty: "intermediate",
     category: "Web Development",
     icon: "code",
-    href: "/nextjs/introduction/what-is-nextjs",
+    href: "/nextjs",
     lessons: 5,
     tags: ["Next.js", "React", "Full-Stack", "SSR", "App Router"],
     estimatedTime: "4 weeks",
@@ -415,7 +400,7 @@ export const coursesData: Course[] = [
     difficulty: "beginner",
     category: "Database",
     icon: "database",
-    href: "/mongodb-course/introduction/what-is-mongodb",
+    href: "/mongodb-course",
     lessons: 5,
     tags: ["MongoDB", "NoSQL", "Database", "Atlas"],
     estimatedTime: "2 weeks",
@@ -431,7 +416,7 @@ export const coursesData: Course[] = [
     category: "DevOps",
     icon: "zap",
     href: "/linux-devops",
-    lessons: 11,
+    lessons: 10,
     tags: ["Linux", "Ubuntu", "DevOps", "Nginx", "VPS", "CI/CD", "SSH", "Security"],
     estimatedTime: "4 weeks",
     rating: 4.9,
@@ -504,13 +489,36 @@ const DifficultyBadge: React.FC<{ difficulty: Course["difficulty"] }> = ({
   );
 };
 
-const CourseStats: React.FC<{ course: Course }> = ({ course }) => {
+const CourseStats: React.FC<{ course: Course; completedCount?: number }> = ({
+  course,
+  completedCount = 0,
+}) => {
+  const pct =
+    completedCount > 0 && course.lessons > 0
+      ? Math.min(100, Math.round((completedCount / course.lessons) * 100))
+      : 0;
+
   return (
-    <div className="mt-3 flex items-center gap-4 text-xs">
-      <div className="flex items-center gap-1">
-        <BookOpen className="w-3 h-3" />
-        <span>{course.lessons} lessons</span>
+    <div className="mt-3 space-y-2">
+      <div className="flex items-center gap-4 text-xs">
+        <div className="flex items-center gap-1">
+          <BookOpen className="w-3 h-3" />
+          <span>{course.lessons} lessons</span>
+        </div>
+        {completedCount > 0 && (
+          <span className="font-semibold text-green-600 dark:text-green-400">
+            ✓ {completedCount}/{course.lessons} ({pct}%)
+          </span>
+        )}
       </div>
+      {pct > 0 && (
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-stone-800">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-orange-500 to-green-500 transition-all duration-300"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -519,11 +527,34 @@ export function CoursesListing(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [progressMap, setProgressMap] = useState<Record<string, number>>({});
   // Scroll-based pagination: how many "pages" worth of courses are visible.
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const coursesPerPage: number = 9;
+
+  // Read initial ?q= query param (for SearchAction rich snippet URLs) and saved progress.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) setSearchTerm(q);
+
+    try {
+      const raw = localStorage.getItem("takkatho_course_paths");
+      if (raw) {
+        const parsed: Record<string, string[]> = JSON.parse(raw);
+        const counts: Record<string, number> = {};
+        for (const [slug, paths] of Object.entries(parsed)) {
+          if (Array.isArray(paths) && paths.length > 0) {
+            counts[slug] = paths.length;
+          }
+        }
+        setProgressMap(counts);
+      }
+    } catch {
+      /* ignore malformed localStorage */
+    }
+  }, []);
 
   // Get unique categories
   const categories: string[] = [
@@ -734,7 +765,10 @@ export function CoursesListing(): JSX.Element {
                   </CardDescription>
 
                   {/* Course Stats */}
-                  <CourseStats course={course} />
+                  <CourseStats
+                    course={course}
+                    completedCount={progressMap[course.href.split("/")[1] || course.id] ?? 0}
+                  />
 
                   {/* Tags */}
                   <div className="mt-4 flex flex-wrap gap-2">

@@ -50,7 +50,7 @@ const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    url: `${baseUrl}/contact`,
+    url: `${baseUrl}/about`,
   },
   areaServed: {
     "@type": "Country",
@@ -85,7 +85,7 @@ const websiteSchema = {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+      urlTemplate: `${baseUrl}/courses?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },

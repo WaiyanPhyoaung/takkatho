@@ -462,11 +462,31 @@
     color: #f3f4f6 !important;
   }
 
-  .neo-courses [data-slot="card"],
-  .neo-courses [data-slot="card-header"],
-  .neo-courses [data-slot="card-content"],
-  .neo-courses [data-slot="card-footer"] {
-    /* Keep default */
+  /* Rendered Mermaid diagrams inside Starlight markdown pages */
+  .mermaid-container {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-nav);
+    overflow-x: auto;
+    text-align: center;
+  }
+
+  .mermaid-container pre.mermaid {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-ui);
+    white-space: pre-wrap;
+  }
+
+  .mermaid-container svg {
+    max-width: 100%;
+    height: auto;
   }
 
   .neo-courses [data-slot="card"] {

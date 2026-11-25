@@ -1,7 +1,7 @@
 # 🎓 Takkatho (တက္ကသိုလ်) — Product Requirements Document (PRD) & Master Project Tracker
 
-> **Document Status**: Living Document (Updated: August 2026)  
-> **Version**: 1.1.0  
+> **Document Status**: Living Document (Updated: November 2026)  
+> **Version**: 1.2.0  
 > **Live URL**: [https://takkatho.dev](https://takkatho.dev)  
 > **Repository**: [github.com/WaiyanPhyoaung/takkatho](https://github.com/WaiyanPhyoaung/takkatho)
 
@@ -34,35 +34,36 @@
 
 ## 3. Current Platform Status & Content Audit
 
-လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၃ ခု** နှင့် **သင်ခန်းစာပေါင်း ၃၇၅+ ခု** ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
+လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု**, **သင်ခန်းစာပေါင်း 378+ ခု** (စုစုပေါင်း စာမျက်နှာ 408 ခု) နှင့် **Cheat Sheet Commands 120 ခု (8 Categories)** ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
 
 ### 📚 Course Library Breakdown
 
 | Course Name | Category | Level | Lessons | Status | Key Topics Covered |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **HTML Fundamentals** | Web Basics | Beginner | 8 | ✅ Live | Semantic HTML5, Forms, Tables, Media, Best Practices |
-| **CSS Mastery** | Styling | Beginner | 11 | ✅ Live | Box Model, Flexbox, Grid, Animations, Responsive Design |
-| **Advanced CSS** | Styling | Advanced | 15 | ✅ Live | Container Queries, `@property`, Cascade Layers, View Transitions |
-| **Interactive JavaScript** | Web Dev | Beginner | 9 | ✅ Live | DOM, Events, Async JS, Counter & Todo Projects, `<CodePlayground />` |
-| **TypeScript** | Programming | Intermediate | 9 | ✅ Live | Types, Interfaces, Unions, Classes, Modules |
-| **Advanced TypeScript** | Programming | Advanced | 25 | ✅ Live | Generics Constraints, `satisfies`, Utility Types, Mini Projects |
-| **Python Programming** | Programming | Beginner | 8 | ✅ Live | Syntax, Data Structures, OOP, Error Handling |
-| **Golang** | Systems / Backend | Intermediate | 10 | ✅ Live | Goroutines, Channels, Pointers, REST APIs |
-| **Java Programming** | Enterprise / OOP | Beginner | 8 | ✅ Live | OOP Principles, Collections Framework, Exception Handling |
-| **Node.js & Express** | Backend | Intermediate | 8 | ✅ Live | Event Loop, File System, REST APIs, Express Middleware |
+| **HTML Fundamentals** | Web Basics | Beginner | 24 | ✅ Live | Semantic HTML5, Forms, Tables, Media, Best Practices |
+| **CSS Mastery** | Styling | Beginner | 25 | ✅ Live | Box Model, Flexbox, Grid, Animations, Responsive Design |
+| **Advanced CSS** | Styling | Advanced | 13 | ✅ Live | Container Queries, `@property`, Cascade Layers, View Transitions |
+| **Interactive JavaScript** | Web Dev | Beginner | 36 | ✅ Live | DOM, Events, Async JS, Counter & Todo Projects, `<CodePlayground />` |
+| **TypeScript** | Programming | Intermediate | 7 | ✅ Live | Types, Interfaces, Unions, Classes, Modules |
+| **Advanced TypeScript** | Programming | Advanced | 26 | ✅ Live | Generics Constraints, `satisfies`, Utility Types, Mini Projects |
+| **Python Programming** | Programming | Beginner | 14 | ✅ Live | Syntax, Data Structures, OOP, Error Handling |
+| **Golang** | Systems / Backend | Intermediate | 9 | ✅ Live | Goroutines, Channels, Pointers, REST APIs |
+| **Java Programming** | Enterprise / OOP | Beginner | 7 | ✅ Live | OOP Principles, Collections Framework, Exception Handling |
+| **Node.js & Express** | Backend | Intermediate | 7 | ✅ Live | Event Loop, File System, REST APIs, Express Middleware |
 | **Next.js (App Router)** | Full-Stack | Intermediate | 5 | ✅ Live | Server Components (RSC), Server Actions, Routing, Vercel Deploy |
-| **SQL Masterclass** | Database | Beginner | 6 | ✅ Live | CRUD, WHERE Clause, ORDER BY, Aggregations, GROUP BY, JOINs |
-| **Relational Database Design**| Database | Intermediate | 16 | ✅ Live | Normalization (1NF–5NF), Keys, Relationships, DDL/DML |
+| **SQL Masterclass** | Database | Beginner | 8 | ✅ Live | CRUD, WHERE Clause, ORDER BY, Aggregations, GROUP BY, JOINs |
+| **Relational Database Design**| Database | Intermediate | 30 | ✅ Live | Normalization (1NF–5NF), Keys, Relationships, DDL/DML |
 | **MongoDB (NoSQL)** | Database | Beginner | 5 | ✅ Live | Document model, Collections, CRUD, Aggregations, Atlas Cloud |
-| **Data Structures & Algorithms**| Computer Science| Intermediate | 20 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
+| **Data Structures & Algorithms**| Computer Science| Intermediate | 15 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
 | **Docker & Containers** | DevOps | Intermediate | 5 | ✅ Live | Images, Containers, Dockerfile, Docker Compose, Production Tips |
-| **n8n Workflow Automation** | Automation | Beginner | 17 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
-| **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 16 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
-| **Git Version Control** | Tooling | Beginner | 20 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
-| **WebSocket Technology** | Real-time | Intermediate | 12 | ✅ Live | TCP Handshake, HTTP Upgrade, Full-duplex messaging, Chat App |
-| **Web Performance** | Optimization | Intermediate | 18 | ✅ Live | Core Web Vitals (LCP, CLS, INP), CDN, Caching, Bundle Splitting |
-| **Frontend Architecture** | Architecture | Intermediate | 15 | ✅ Live | Component Architecture, Redux/Flux, Micro-frontends, Rendering |
-| **Software Architecture** | Systems Design | Advanced | 22 | ✅ Live | Monolith vs Microservices, C4 Model, ADRs, Saga Pattern, CQRS |
+| **Linux, Cloud VPS & DevOps** | DevOps | Intermediate | 10 | ✅ Live | CLI, Systemd, SSH Keys, UFW/Fail2ban, Nginx SSL, GitHub Actions CI/CD |
+| **n8n Workflow Automation** | Automation | Beginner | 20 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
+| **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 12 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
+| **Git Version Control** | Tooling | Beginner | 25 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
+| **WebSocket Technology** | Real-time | Intermediate | 13 | ✅ Live | TCP Handshake, HTTP Upgrade, Full-duplex messaging, Chat App |
+| **Web Performance** | Optimization | Intermediate | 21 | ✅ Live | Core Web Vitals (LCP, CLS, INP), CDN, Caching, Bundle Splitting |
+| **Frontend Architecture** | Architecture | Intermediate | 17 | ✅ Live | Component Architecture, Redux/Flux, Micro-frontends, Rendering |
+| **Software Architecture** | Systems Design | Advanced | 24 | ✅ Live | Monolith vs Microservices, C4 Model, ADRs, Saga Pattern, CQRS |
 
 ---
 
@@ -154,7 +155,8 @@
 | **M1.2** | Interactive `<CodePlayground />`, `<Quiz />`, `<LessonCompletion />` | ✅ Completed | Completed |
 | **M1.3** | Course Cards Sync on `/courses` (Docker, Next.js, MongoDB, Linux) | ✅ Completed | Completed |
 | **M1.4** | Linux & Cloud DevOps Course (`/linux-devops` 10 lessons) | ✅ Completed | Completed |
-| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`) | ✅ Completed | Completed |
+| **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`) — 120 commands / 8 categories | ✅ Completed | Completed |
+| **M1.5b** | Stabilization & Fixes (Quiz props, Mermaid SVGs, Starlight nav, 24 course overviews, Progress sync) | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 

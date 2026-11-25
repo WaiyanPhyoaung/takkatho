@@ -1,8 +1,6 @@
-User-agent: *
-Allow: /
-
 # Allow all search engines to crawl the site
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /_astro/
 Disallow: /api/
