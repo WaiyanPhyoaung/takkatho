@@ -2323,6 +2323,31 @@ export const sidebar = [
         label: "EP12. Messenger Auto-Reply AI Bot",
         slug: "n8n-course/special/facebook-messenger-bot",
       },
+      {
+        label: "Deep Dives (နောက်ထပ် လေ့လာရန်)",
+        items: [
+          {
+            label: "n8n ထည့်သွင်းခြင်းနှင့် Setup",
+            slug: "n8n-course/introduction/installation-setup",
+          },
+          {
+            label: "Triggers နဲ့ Events",
+            slug: "n8n-course/core-concepts/triggers-and-events",
+          },
+          {
+            label: "Credentials နဲ့ Security",
+            slug: "n8n-course/core-concepts/credentials-security",
+          },
+          {
+            label: "HTTP Request နဲ့ Webhook",
+            slug: "n8n-course/first-workflow/http-request-webhook",
+          },
+          {
+            label: "API Integration လက်တွေ့",
+            slug: "n8n-course/real-world/connecting-apis",
+          },
+        ],
+      },
     ],
   },
   {

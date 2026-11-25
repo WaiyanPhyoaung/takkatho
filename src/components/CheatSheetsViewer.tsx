@@ -210,29 +210,52 @@ export const CheatSheetsViewer: React.FC = () => {
 
   useEffect(() => () => window.clearTimeout(resetTimer.current), []);
 
-  // Shareable filters: /cheatsheets?category=git&q=reset opens pre-filtered,
-  // which is how the homepage cards deep-link here. State starts at "all" so
-  // the server-rendered HTML and the first client render match; the URL is
-  // read after hydration, and only then written back.
+  // Shareable filters: /cheatsheets?category=git&q=reset (or #git) opens
+  // pre-filtered. State starts at "all" so the server-rendered HTML and the
+  // first client render match; the URL is read after hydration, and only then
+  // written back.
   const [urlReady, setUrlReady] = useState(false);
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get("category");
-    if (category && VALID_CATEGORIES.has(category)) {
-      setSelectedCategory(category as CheatCategoryId);
-    }
-    const q = params.get("q");
-    if (q) setSearchQuery(q);
+    const syncFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get("category");
+      const hashCategory = window.location.hash.replace(/^#/, "").trim();
+      if (category && VALID_CATEGORIES.has(category)) {
+        setSelectedCategory(category as CheatCategoryId);
+      } else if (hashCategory && VALID_CATEGORIES.has(hashCategory)) {
+        setSelectedCategory(hashCategory as CheatCategoryId);
+      }
+      const q = params.get("q");
+      if (q) setSearchQuery(q);
+    };
+    syncFromUrl();
     setUrlReady(true);
+    window.addEventListener("hashchange", syncFromUrl);
+    return () => window.removeEventListener("hashchange", syncFromUrl);
   }, []);
 
-  // ⌘K / Ctrl+K focuses search, the way every other developer tool behaves.
+  // ⌘K / Ctrl+K or / outside form fields focuses search.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
         inputRef.current?.focus();
         inputRef.current?.select();
+        return;
+      }
+      if (event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        const active = document.activeElement as HTMLElement | null;
+        const isTyping =
+          active &&
+          (active.tagName === "INPUT" ||
+            active.tagName === "TEXTAREA" ||
+            active.tagName === "SELECT" ||
+            active.isContentEditable);
+        if (!isTyping) {
+          event.preventDefault();
+          inputRef.current?.focus();
+          inputRef.current?.select();
+        }
       }
     };
     window.addEventListener("keydown", onKeyDown);

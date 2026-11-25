@@ -1,4 +1,4 @@
-import React, { useMemo, useState, type JSX } from "react";
+import React, { useEffect, useMemo, useState, type JSX } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
@@ -414,21 +414,50 @@ const DifficultyBadge: React.FC<{ difficulty: Course["difficulty"] }> = ({
 
 const CourseStats: React.FC<{
   lessonCount: number;
+  completedCount?: number;
   estimatedTime?: string;
-}> = ({ lessonCount, estimatedTime }) => (
-  <div className="mt-3 flex items-center gap-4 text-xs">
-    <span className="flex items-center gap-1">
-      <BookOpen className="w-3 h-3" aria-hidden="true" />
-      {lessonCount} lessons
-    </span>
-    {estimatedTime && (
-      <span className="flex items-center gap-1">
-        <Clock className="w-3 h-3" aria-hidden="true" />
-        {estimatedTime}
-      </span>
-    )}
-  </div>
-);
+}> = ({ lessonCount, completedCount = 0, estimatedTime }) => {
+  const safeCompleted = Math.min(completedCount, lessonCount);
+  const progressPct =
+    lessonCount > 0 ? Math.round((safeCompleted / lessonCount) * 100) : 0;
+
+  return (
+    <div className="mt-3 space-y-2">
+      <div className="flex items-center flex-wrap gap-3 text-xs">
+        <span className="flex items-center gap-1">
+          <BookOpen className="w-3 h-3" aria-hidden="true" />
+          {lessonCount} lessons
+        </span>
+        {estimatedTime && (
+          <span className="flex items-center gap-1">
+            <Clock className="w-3 h-3" aria-hidden="true" />
+            {estimatedTime}
+          </span>
+        )}
+        {safeCompleted > 0 && (
+          <span className="ml-auto font-semibold text-green-700 dark:text-green-400">
+            ✓ {safeCompleted}/{lessonCount} done ({progressPct}%)
+          </span>
+        )}
+      </div>
+      {safeCompleted > 0 && (
+        <div
+          className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-stone-800"
+          role="progressbar"
+          aria-valuenow={progressPct}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`${safeCompleted} of ${lessonCount} lessons completed`}
+        >
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-orange-600 to-green-600 transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const matchesQuery = (course: Course, query: string): boolean => {
   if (!query) return true;
@@ -454,6 +483,47 @@ export function CoursesListing({ facts }: { facts: CourseFacts }): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [progressByDir, setProgressByDir] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q) setSearchTerm(q);
+
+    try {
+      const seenPaths = new Set<string>();
+      const counts: Record<string, number> = {};
+
+      const addPath = (pathStr: string) => {
+        const clean = pathStr.replace(/\/$/, "");
+        if (!clean || seenPaths.has(clean)) return;
+        const dir = clean.split("/").filter(Boolean)[0];
+        if (!dir) return;
+        seenPaths.add(clean);
+        counts[dir] = (counts[dir] ?? 0) + 1;
+      };
+
+      const rawMap = localStorage.getItem("takkatho_course_paths");
+      if (rawMap) {
+        const parsed = JSON.parse(rawMap) as Record<string, { path?: string }>;
+        for (const [k, v] of Object.entries(parsed)) {
+          addPath(v?.path || k);
+        }
+      }
+
+      const prefix = "takkatho_completed_";
+      for (let i = 0; i < localStorage.length; i++) {
+        const storageKey = localStorage.key(i);
+        if (storageKey?.startsWith(prefix) && localStorage.getItem(storageKey) === "true") {
+          addPath(storageKey.slice(prefix.length));
+        }
+      }
+
+      setProgressByDir(counts);
+    } catch {
+      // Ignore storage read errors in restricted environments.
+    }
+  }, []);
 
   const query = searchTerm.trim().toLowerCase();
 
@@ -611,6 +681,7 @@ export function CoursesListing({ facts }: { facts: CourseFacts }): JSX.Element {
 
                     <CourseStats
                       lessonCount={fact?.lessonCount ?? 0}
+                      completedCount={progressByDir[course.dir] ?? 0}
                       estimatedTime={course.estimatedTime}
                     />
 

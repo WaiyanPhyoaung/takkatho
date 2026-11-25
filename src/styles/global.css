@@ -1213,3 +1213,35 @@ html {
   box-sizing: border-box;
   max-width: 100%;
 }
+
+/* Mermaid Diagrams */
+.mermaid-container {
+  margin: 1.75rem 0;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--sl-color-hairline-light, #e5e7eb);
+  background: var(--sl-color-bg-nav, #fafaf9);
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+
+:root[data-theme="dark"] .mermaid-container {
+  background: #141210;
+  border-color: #292524;
+}
+
+.mermaid-container pre.mermaid {
+  margin: 0;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  font-size: 0.85rem;
+  color: var(--sl-color-gray-3);
+  text-align: center;
+}
+
+.mermaid-container.is-rendered pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

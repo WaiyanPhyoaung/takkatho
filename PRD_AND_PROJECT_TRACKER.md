@@ -1,7 +1,7 @@
 # 🎓 Takkatho (တက္ကသိုလ်) — Product Requirements Document (PRD) & Master Project Tracker
 
-> **Document Status**: Living Document (Updated: August 2026)  
-> **Version**: 1.1.0  
+> **Document Status**: Living Document (Updated: November 2026)  
+> **Version**: 1.2.0  
 > **Live URL**: [https://takkatho.dev](https://takkatho.dev)  
 > **Repository**: [github.com/WaiyanPhyoaung/takkatho](https://github.com/WaiyanPhyoaung/takkatho)
 
@@ -23,8 +23,8 @@
 
 | Layer | Technology | Rationale |
 | :--- | :--- | :--- |
-| **Framework** | **Astro 5 + Starlight** | Content-driven docs များအတွက် Ultra-fast static generation, Zero JS footprint by default |
-| **UI Components** | **React 19 + TypeScript** | Interactive widgets (Playground, Quiz, Modals, Listing Filters) တည်ဆောက်ရန် |
+| **Framework** | **Astro 7 + Starlight 0.42** | Content-driven docs များအတွက် Ultra-fast static generation, Zero JS footprint by default |
+| **UI Components** | **React 19 + TypeScript + Mermaid 11** | Interactive widgets (Playground, Quiz, Progress Tracking) နှင့် live Mermaid diagrams |
 | **Styling** | **TailwindCSS 4 + Custom Design Tokens** | Modern Neo-dark/light theme, custom scrollbars, typography optimization |
 | **Search Engine** | **Pagefind (Extended v1.3)** | Client-side zero-latency full-text offline-capable search |
 | **Deployment** | **Vercel Edge Platform** | Global CDN, Web Analytics, Speed Insights, Static Asset Caching |
@@ -34,7 +34,7 @@
 
 ## 3. Current Platform Status & Content Audit
 
-လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု** နှင့် **သင်ခန်းစာပေါင်း 373 ခု** ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
+လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု** နှင့် **သင်ခန်းစာပေါင်း 378 ခု** (Overview pages အပါအဝင် စုစုပေါင်း 402+ စာမျက်နှာ) ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
 
 ### 📚 Course Library Breakdown
 
@@ -58,7 +58,7 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **MongoDB (NoSQL)** | Database | Beginner | 5 | ✅ Live | Document model, Collections, CRUD, Aggregations, Atlas Cloud |
 | **Data Structures & Algorithms**| Computer Science| Intermediate | 15 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
 | **Docker & Containers** | DevOps | Intermediate | 5 | ✅ Live | Images, Containers, Dockerfile, Docker Compose, Production Tips |
-| **n8n Workflow Automation** | Automation | Beginner | 15 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
+| **n8n Workflow Automation** | Automation | Beginner | 20 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
 | **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 12 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
 | **Git Version Control** | Tooling | Beginner | 25 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
 | **WebSocket Technology** | Real-time | Intermediate | 13 | ✅ Live | TCP Handshake, HTTP Upgrade, Full-duplex messaging, Chat App |
@@ -82,7 +82,7 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 - `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage`.
 
 ### 3. Global Full-Text Search
-- Powered by Starlight + Pagefind, indexing 385 pages (373 lessons plus course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
+- Powered by Starlight + Pagefind, indexing 402 pages (378 lessons plus 24 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
 
 ---
 
@@ -152,12 +152,13 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 
 | Milestone | Target Feature / Task | Status | Target Timeline |
 | :--- | :--- | :--- | :--- |
-| **M1.0** | 24 Core Technical Courses (373 lessons) | ✅ Completed | Completed |
+| **M1.0** | 24 Core Technical Courses (378 lessons) | ✅ Completed | Completed |
 | **M1.1** | Career Roadmaps (`/roadmaps`) | ✅ Completed | Completed |
 | **M1.2** | Interactive `<CodePlayground />`, `<Quiz />`, `<LessonCompletion />` | ✅ Completed | Completed |
 | **M1.3** | Course Cards Sync on `/courses` (Docker, Next.js, MongoDB, Linux) | ✅ Completed | Completed |
 | **M1.4** | Linux & Cloud DevOps Course (`/linux-devops` 10 lessons) | ✅ Completed | Completed |
 | **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`, 120 commands in 8 categories) | ✅ Completed | Completed |
+| **M1.5b** | Platform Audit Fixes (Quiz scoring, Mermaid runtime, Starlight nav, 17 Course Overviews, 5 n8n deep dives, progress tracking & `?q=` sync) | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 

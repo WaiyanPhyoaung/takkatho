@@ -1,0 +1,85 @@
+---
+import NovaMarkdownContent from "starlight-theme-nova/components/MarkdownContent.astro";
+---
+
+<NovaMarkdownContent>
+  <slot />
+</NovaMarkdownContent>
+
+<script>
+  const renderMermaidDiagrams = async () => {
+    const preBlocks = document.querySelectorAll<HTMLPreElement>(
+      ".mermaid-container pre.mermaid",
+    );
+    if (preBlocks.length === 0) return;
+
+    const { default: mermaid } = await import("mermaid");
+    const isDark = document.documentElement.dataset.theme === "dark";
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: isDark ? "dark" : "default",
+      securityLevel: "loose",
+      fontFamily: '"Noto Sans Myanmar", "Geist", system-ui, sans-serif',
+      themeVariables: isDark
+        ? {
+            primaryColor: "#ea580c",
+            primaryTextColor: "#f5f5f4",
+            primaryBorderColor: "#fb923c",
+            lineColor: "#a8a29e",
+            secondaryColor: "#292524",
+            tertiaryColor: "#1c1917",
+          }
+        : {
+            primaryColor: "#fff7ed",
+            primaryTextColor: "#1c1917",
+            primaryBorderColor: "#ea580c",
+            lineColor: "#57534e",
+            secondaryColor: "#ffedd5",
+            tertiaryColor: "#fafaf9",
+          },
+    });
+
+    for (const pre of preBlocks) {
+      const source = pre.dataset.mermaidSrc || pre.textContent || "";
+      if (!source.trim()) continue;
+      if (!pre.dataset.mermaidSrc) {
+        pre.dataset.mermaidSrc = source;
+      }
+
+      pre.removeAttribute("data-processed");
+      pre.textContent = source;
+      pre.closest(".mermaid-container")?.classList.remove("is-rendered");
+    }
+
+    await mermaid.run({
+      nodes: Array.from(preBlocks),
+    });
+
+    for (const pre of preBlocks) {
+      if (pre.getAttribute("data-processed") === "true" || pre.querySelector("svg")) {
+        pre.closest(".mermaid-container")?.classList.add("is-rendered");
+      }
+    }
+  };
+
+  let lastTheme = document.documentElement.dataset.theme;
+  const observer = new MutationObserver(() => {
+    const currentTheme = document.documentElement.dataset.theme;
+    if (currentTheme !== lastTheme) {
+      lastTheme = currentTheme;
+      renderMermaidDiagrams();
+    }
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", renderMermaidDiagrams);
+  } else {
+    renderMermaidDiagrams();
+  }
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+</script>

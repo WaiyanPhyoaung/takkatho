@@ -4,6 +4,7 @@ import starlight from "@astrojs/starlight";
 import starlightThemeNova from "starlight-theme-nova";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import { satteri } from "@astrojs/markdown-satteri";
 // import vercelStatic from "@astrojs/vercel/static";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -65,6 +66,44 @@ const FIX_NOVA_MENU_ARIA = `addEventListener("DOMContentLoaded", () => {
 const FONT_STYLESHEET =
   "https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Noto+Sans+Myanmar:wght@400..700&display=swap";
 
+/**
+ * Transforms ```mermaid code blocks into <div class="mermaid-container not-content"><pre class="mermaid">...</pre></div>
+ * at the HAST stage: after Markdown parsing (preserving arrows like --> without SmartyPants en-dash conversion)
+ * and before Expressive Code highlights <pre><code> blocks.
+ */
+const satteriMermaidPlugin = {
+  name: "satteri-mermaid",
+  element: {
+    filter: ["pre"],
+    /**
+     * @param {any} node
+     * @param {any} ctx
+     * @returns {import("hast").Element | undefined}
+     */
+    visit(node, ctx) {
+      const code = node.children?.find(
+        /** @param {any} child */
+        (child) => child.type === "element" && child.tagName === "code",
+      );
+      const classes = code?.properties?.className;
+      if (!Array.isArray(classes) || !classes.includes("language-mermaid")) return;
+      return {
+        type: "element",
+        tagName: "div",
+        properties: { className: ["mermaid-container", "not-content"] },
+        children: [
+          {
+            type: "element",
+            tagName: "pre",
+            properties: { className: ["mermaid"] },
+            children: [{ type: "text", value: ctx.textContent(code) }],
+          },
+        ],
+      };
+    },
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
@@ -77,6 +116,11 @@ export default defineConfig({
   // Bare course URLs such as /git-course used to 404 because those courses
   // have no overview page. Each now 301s to the course's first lesson.
   redirects: courseRootRedirects,
+  markdown: {
+    processor: satteri({
+      hastPlugins: [satteriMermaidPlugin],
+    }),
+  },
   integrations: [
     // No changefreq, priority or lastmod: Google ignores the first two, and
     // only trusts lastmod when it is accurate. Stamping every URL with the
@@ -92,9 +136,21 @@ export default defineConfig({
         // so Nova's header classes were never generated and the lesson header
         // became a full-screen overlay. Nova's own tailwind.css would fix that
         // but also moves this site's md/lg breakpoints and Starlight's colors.
-        starlightThemeNova({ stylingSystem: "css" }),
+        starlightThemeNova({
+          stylingSystem: "css",
+          nav: [
+            { label: "Courses", href: "/courses" },
+            { label: "Roadmaps", href: "/roadmaps" },
+            { label: "Cheat Sheets", href: "/cheatsheets" },
+            { label: "About", href: "/about" },
+          ],
+        }),
         burmeseUiStrings(),
       ],
+      components: {
+        MarkdownContent: "./src/components/starlight/MarkdownContent.astro",
+        MobileMenuFooter: "./src/components/starlight/MobileMenuFooter.astro",
+      },
       // Lessons are Burmese. Without this every page declared lang="en", so
       // screen readers read Burmese text with an English voice.
       locales: {
