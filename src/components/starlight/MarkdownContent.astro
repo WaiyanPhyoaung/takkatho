@@ -1,10 +1,45 @@
 ---
 import NovaMarkdownContent from "starlight-theme-nova/components/MarkdownContent.astro";
+import LessonCompletion from "@/components/mdx/LessonCompletion";
+import { courses } from "@/lib/course-stats.mjs";
+
+const LEGACY_COMPLETION_IDS: Record<string, string> = {
+  "/docker/introduction/what-is-docker": "docker-01-intro",
+  "/linux-devops/01-cli-basics/01-navigation-and-files": "linux-devops-01-navigation",
+  "/linux-devops/01-cli-basics/02-permissions-and-users": "linux-devops-02-permissions",
+  "/linux-devops/02-system-management/01-package-management": "linux-devops-03-packages",
+  "/linux-devops/02-system-management/02-processes-and-services": "linux-devops-04-processes-systemd",
+  "/linux-devops/03-server-security/01-ssh-keys-and-access": "linux-devops-05-ssh-hardening",
+  "/linux-devops/03-server-security/02-firewall-and-hardening": "linux-devops-06-firewall-swap",
+  "/linux-devops/04-nginx-reverse-proxy/01-nginx-fundamentals": "linux-devops-07-nginx-basics",
+  "/linux-devops/04-nginx-reverse-proxy/02-reverse-proxy-and-ssl": "linux-devops-08-reverse-proxy-ssl",
+  "/linux-devops/05-cicd-automation/01-github-actions-basics": "linux-devops-09-github-actions",
+  "/linux-devops/05-cicd-automation/02-automated-vps-deployment": "linux-devops-10-automated-deployment",
+};
+
+const route = Astro.locals.starlightRoute;
+const cleanPath = Astro.url.pathname.replace(/\/$/, "");
+const segments = cleanPath.split("/").filter(Boolean);
+const courseDirs = new Set(courses.map((c) => c.dir));
+const isLessonPage = segments.length >= 2 && courseDirs.has(segments[0]);
+const lessonTitle = route?.entry?.data?.title ?? "";
+const legacyId = LEGACY_COMPLETION_IDS[cleanPath];
 ---
 
 <NovaMarkdownContent>
   <slot />
 </NovaMarkdownContent>
+
+{
+  isLessonPage && (
+    <LessonCompletion
+      client:idle
+      lessonId={cleanPath}
+      lessonTitle={lessonTitle}
+      legacyId={legacyId}
+    />
+  )
+}
 
 <script>
   const renderMermaidDiagrams = async () => {

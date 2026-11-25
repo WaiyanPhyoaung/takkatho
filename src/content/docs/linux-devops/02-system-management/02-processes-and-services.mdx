@@ -5,7 +5,6 @@ description: "Process Monitoring (htop, ps, free, df)၊ Systemd Background Serv
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Terminal ကို ပိတ်လိုက်သော်လည်း Backend Application (Node.js / Python / Go) များသည် Server ပေါ်တွင် **၂၄ နာရီ မရပ်မနား အလုပ်လုပ်နေစေရန်** နှင့် Server Crash ဖြစ်သွားပါက အလိုအလျောက် ပြန်လည် စတင်နိုင်စေရန် **Linux Systemd Services** ကို စနစ်တကျ ရေးဆွဲရပါမည်။
@@ -157,10 +156,4 @@ journalctl -u myapi -n 100 --no-pager
       explanation: "'Restart=always' သည် App Crash ဖြစ်သွားတိုင်း စက္ကန့်ပိုင်းအတွင်း အလိုအလျောက် ပြန်လည် အသက်သွင်းပေးသဖြင့် Zero-downtime ဖြစ်စေပါသည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-04-processes-systemd"
-  lessonTitle="Processes and Systemd Services"
 />

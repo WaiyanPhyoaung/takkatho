@@ -5,6 +5,7 @@ description: "နောက်ထပ် ဘာတွေဆက်လေ့လာ�
 
 import { Aside, Code, LinkCard } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import Quiz from "@/components/mdx/Quiz";
 import before from '@/assets/html/before.png';
 
 <Aside title="ရည်ရွယ်ချက်">
@@ -110,3 +111,43 @@ HTML လေ့လာခြင်းက ဒီမှာတင် မပြီး�
 
 - HTML ကို လေ့လာခြင်းဟာ အစပဲ ရှိပါသေးတယ်။ နောက်အဆင့်တွေမှာ Styling, Interactivity, နဲ့ Responsive design တို့ ပါဝင်လာမှာ ဖြစ်ပါတယ် ခင်ဗျာ။
 </Aside>
+
+<Quiz
+  client:idle
+  title="HTML Final Checkpoint Quiz"
+  questions={[
+    {
+      question: "Semantic HTML5 Tags များ (<header>, <nav>, <main>, <article>) ကို အသုံးပြုခြင်း၏ အဓိက အကျိုးကျေးဇူးက ဘာလဲ?",
+      options: [
+        "CSS မရေးဘဲ Animation များ အလိုအလျောက် ဖြစ်စေခြင်း",
+        "Screen Readers (Accessibility) နှင့် Search Engines (SEO) များက Webpage ဖွဲ့စည်းပုံကို တိကျစွာ နားလည်စေခြင်း",
+        "Browser ထဲတွင် JavaScript ကို ပိုမြန်စေခြင်း",
+        "Database နှင့် တိုက်ရိုက် ချိတ်ဆက်နိုင်ခြင်း"
+      ],
+      correctIndex: 1,
+      explanation: "Semantic HTML သည် Browser, Screen Reader နှင့် SEO Crawlers များအတွက် စာမျက်နှာ၏ အဓိပ္ပာယ်နှင့် ဖွဲ့စည်းပုံကို ရှင်းလင်းစွာ ဖော်ပြပေးပါတယ်။"
+    },
+    {
+      question: "<img> tag ထဲတွင် alt attribute ထည့်သွင်းရခြင်း၏ အဓိက ရည်ရွယ်ချက်မှာ အဘယ်နည်း?",
+      options: [
+        "ပုံမတက်လာသည့်အခါ အစားထိုးစာသား ပြသရန်နှင့် Screen Readers များအတွက် ပုံအကြောင်း ရှင်းပြရန်",
+        "ပုံ၏ Resolution ကို အလိုအလျောက် မြှင့်တင်ရန်",
+        "ပုံကို Center ပို့ရန်",
+        "Click နှိပ်လျှင် Link ဖွင့်ရန်"
+      ],
+      correctIndex: 0,
+      explanation: "alt text သည် broken image fallback အတွက်သာမက မသန်စွမ်း Accessibility (Screen Readers) နှင့် Image SEO အတွက်ပါ မရှိမဖြစ် လိုအပ်ပါတယ်။"
+    },
+    {
+      question: "User ထံမှ Password သို့မဟုတ် အချက်အလက်များကို Server သို့ ပေးပို့ရာတွင် URL တွင် မပေါ်စေရန် <form> ၌ မည်သည့် method ကို သုံးသင့်သနည်း?",
+      options: [
+        "GET",
+        "FETCH",
+        "POST",
+        "SEND"
+      ],
+      correctIndex: 2,
+      explanation: "GET သည် Data ကို URL query string ထဲတွင် ထည့်ပို့သော်လည်း POST သည် Request body ထဲမှ ပေးပို့သောကြောင့် Form data/Password များအတွက် သင့်တော်ပါတယ်။"
+    }
+  ]}
+/>

@@ -77,9 +77,9 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 - 🏛️ **Backend & Systems Architect**: SQL → Relational DB Design → MongoDB → Web Performance → Software Architecture
 
 ### 2. Interactive Learning Components (`src/components/mdx/`)
-- `<CodePlayground />`: Live HTML/CSS/JS Sandbox with tabbed editor, instant preview iframe, syntax coloring, reset & copy controls.
-- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese.
-- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage`.
+- `<CodePlayground />`: Live HTML/CSS/JS Sandbox with tabbed editor, instant preview iframe, syntax coloring, reset & copy controls (embedded across HTML, CSS, Advanced CSS, and JavaScript lessons).
+- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese (embedded across 12 core courses).
+- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage` across **all 378 lessons (all 24 courses)** via `MarkdownContent.astro`, synced with `/courses` progress bars.
 
 ### 3. Global Full-Text Search
 - Powered by Starlight + Pagefind, indexing 402 pages (378 lessons plus 24 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
@@ -159,6 +159,7 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **M1.4** | Linux & Cloud DevOps Course (`/linux-devops` 10 lessons) | ✅ Completed | Completed |
 | **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`, 120 commands in 8 categories) | ✅ Completed | Completed |
 | **M1.5b** | Platform Audit Fixes (Quiz scoring, Mermaid runtime, Starlight nav, 17 Course Overviews, 5 n8n deep dives, progress tracking & `?q=` sync) | ✅ Completed | Completed |
+| **M1.5c** | Interactive Rollout: Auto `<LessonCompletion />` (all 378 lessons), `<CodePlayground />` (9 lessons), `<Quiz />` (21 lessons / 12 courses) | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 interface LessonCompletionProps {
   lessonId?: string;
   lessonTitle?: string;
+  legacyId?: string;
 }
 
 type CompletedCourseMap = Record<
@@ -15,24 +16,53 @@ const COURSE_PATHS_KEY = "takkatho_course_paths";
 export const LessonCompletion: React.FC<LessonCompletionProps> = ({
   lessonId,
   lessonTitle,
+  legacyId,
 }) => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [key, setKey] = useState<string>("");
   const [normalizedPath, setNormalizedPath] = useState<string>("");
 
   useEffect(() => {
-    const id = (lessonId || window.location.pathname).replace(/\/$/, "");
-    setNormalizedPath(id);
-    const storageKey = `takkatho_completed_${id}`;
+    const pathId = window.location.pathname.replace(/\/$/, "");
+    const resolvedId = (lessonId || pathId).replace(/\/$/, "");
+    setNormalizedPath(pathId || resolvedId);
+    const storageKey = `takkatho_completed_${resolvedId}`;
     setKey(storageKey);
+
     try {
-      if (localStorage.getItem(storageKey) === "true") {
+      const isDone = localStorage.getItem(storageKey) === "true";
+      const legacyKey = legacyId ? `takkatho_completed_${legacyId}` : "";
+      const isLegacyDone = legacyKey ? localStorage.getItem(legacyKey) === "true" : false;
+
+      if (isDone || isLegacyDone) {
         setCompleted(true);
+        // Migrate legacy completion state into canonical path + course progress map
+        if (isLegacyDone && !isDone) {
+          localStorage.setItem(storageKey, "true");
+        }
+        const canonicalPath = pathId || resolvedId;
+        if (canonicalPath.startsWith("/")) {
+          const rawPaths = localStorage.getItem(COURSE_PATHS_KEY);
+          const parsed: CompletedCourseMap = rawPaths ? JSON.parse(rawPaths) : {};
+          if (!parsed[canonicalPath]) {
+            const courseDir = canonicalPath.split("/").filter(Boolean)[0] ?? "";
+            parsed[canonicalPath] = {
+              path: canonicalPath,
+              courseDir,
+              title:
+                lessonTitle ||
+                document.title.split("|")[0]?.trim() ||
+                canonicalPath,
+              completedAt: Date.now(),
+            };
+            localStorage.setItem(COURSE_PATHS_KEY, JSON.stringify(parsed));
+          }
+        }
       }
     } catch {
       // Storage may be unavailable in private browsing or strict privacy modes.
     }
-  }, [lessonId]);
+  }, [lessonId, lessonTitle, legacyId]);
 
   const toggleCompletion = () => {
     if (!key) return;
@@ -58,6 +88,9 @@ export const LessonCompletion: React.FC<LessonCompletionProps> = ({
         }
       } else {
         localStorage.removeItem(key);
+        if (legacyId) {
+          localStorage.removeItem(`takkatho_completed_${legacyId}`);
+        }
         if (normalizedPath && parsed[normalizedPath]) {
           delete parsed[normalizedPath];
           localStorage.setItem(COURSE_PATHS_KEY, JSON.stringify(parsed));
@@ -72,15 +105,15 @@ export const LessonCompletion: React.FC<LessonCompletionProps> = ({
     <div className="not-content my-8 p-5 rounded-2xl bg-gradient-to-r from-orange-500/10 via-amber-500/5 to-orange-500/10 border border-orange-500/20 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
       <div className="flex items-center gap-3">
         <div
-          className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-colors ${completed ? "bg-green-700 text-white" : "bg-orange-500/20 text-orange-700 dark:text-orange-400"}`}
+          className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-colors shrink-0 ${completed ? "bg-green-700 text-white" : "bg-orange-500/20 text-orange-700 dark:text-orange-400"}`}
         >
           {completed ? "✓" : "📖"}
         </div>
         <div>
-          <h2 className="font-bold text-base text-gray-900 dark:text-white">
+          <p className="font-bold text-base text-gray-900 dark:text-white m-0">
             {completed ? "သင်ခန်းစာ ပြီးမြောက်ပါပြီ!" : "ဒီသင်ခန်းစာ ဖတ်ပြီးပြီလား?"}
-          </h2>
-          <p className="text-xs text-gray-600 dark:text-gray-400">
+          </p>
+          <p className="text-xs text-gray-600 dark:text-gray-400 m-0 mt-0.5">
             {completed ? "သင်၏ လေ့လာမှု တိုးတက်မှုကို သိမ်းဆည်းပြီးပါပြီ" : "ပြီးမြောက်ကြောင်း မှတ်သားထားရန် အောက်ပါ ခလုတ်ကို နှိပ်ပါ"}
           </p>
         </div>

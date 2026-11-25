@@ -5,7 +5,6 @@ description: "Backend App (Node.js/Docker) များသို့ Reverse Prox
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Production Server ပေါ်တွင် Node.js, Python, Go သို့မဟုတ် Docker Containers များကို Port 3000, 8080 ကဲ့သို့သော Internal Port များဖြင့်သာ Run ထားလေ့ရှိပါတယ်။ အပြင်လောကမှ User များက Standard Domain (e.g. `api.example.com`) ဖြင့် **လုံခြုံသော HTTPS (Port 443)** မှတစ်ဆင့် ချိတ်ဆက်နိုင်ရန် **Nginx Reverse Proxy** နှင့် **Certbot SSL** ကို အသုံးပြုရပါမည်။
@@ -125,10 +124,4 @@ Output တွင် **"Congratulations, all simulated renewals succeeded"** ဟ�
       explanation: "Reverse Proxy ခံထားပါက Backend App သို့ ရောက်လာသော Request များ၏ IP သည် 127.0.0.1 ဖြစ်နေပါမည်။ User ၏ အစစ်အမှန် IP ကို သိရှိစေရန် အဆိုပါ Header များကို လက်ဆင့်ကမ်း ပို့ပေးရပါသည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-08-reverse-proxy-ssl"
-  lessonTitle="Nginx Reverse Proxy and Let's Encrypt SSL"
 />

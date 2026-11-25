@@ -5,7 +5,6 @@ description: "Continuous Integration & Deployment (CI/CD) မိတ်ဆက်�
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Code အသစ်ရေးတိုင်း Manual build လုပ်ပြီး Server ပေါ်သို့ လက်ဖြင့် လိုက်တင်နေရခြင်းသည် အမှားအယွင်း ဖြစ်လွယ်ပြီး အချိန်ကုန်စေပါတယ်။ ဤသင်ခန်းစာတွင် **GitHub Actions** ဖြင့် `git push` လုပ်လိုက်သည်နှင့် အလိုအလျောက် Test စစ်ဆေးပေးပြီး Build ဆောက်ပေးသည့် **Automated CI Pipeline** ကို တည်ဆောက်ပါမည်။
@@ -136,10 +135,4 @@ jobs:
       explanation: "GitHub Actions သည် repository root ရှိ .github/workflows/ folder အောက်ရှိ YAML ဖိုင်များ (*.yml သို့မဟုတ် *.yaml) ကိုသာ အလိုအလျောက် detect လုပ်ပြီး execute လုပ်ပေးပါသည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-09-github-actions"
-  lessonTitle="GitHub Actions CI Fundamentals"
 />

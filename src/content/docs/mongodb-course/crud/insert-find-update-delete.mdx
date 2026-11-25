@@ -3,6 +3,8 @@ title: "CRUD လုပ်ဆောင်ချက်များ"
 description: "ဒေတာ ထည့်ခြင်း၊ ရှာဖွေခြင်း၊ ပြင်ဆင်ခြင်း၊ ဖျက်ခြင်း"
 ---
 
+import Quiz from "@/components/mdx/Quiz";
+
 ဒေတာဘေ့စ်တစ်ခုမှာ အမြဲတမ်း လုပ်ရတဲ့ အလုပ် ၄ ခု (CRUD - Create, Read, Update, Delete) ကို MongoDB မှာ ဘယ်လို လုပ်လဲ ကြည့်ရအောင်။
 
 ဒီနေရာမှာ `users` ဆိုတဲ့ Collection ကို အသုံးပြုသွားပါမယ်။
@@ -67,3 +69,32 @@ db.users.deleteOne({ name: "Nyi Nyi" });
 // အသက် 18 အောက် လူတွေအကုန် ဖျက်မယ် ($lt = less than)
 db.users.deleteMany({ age: { $lt: 18 } });
 ```
+
+<Quiz
+  client:idle
+  title="MongoDB CRUD Checkpoint Quiz"
+  questions={[
+    {
+      question: "MongoDB တွင် Document တစ်ခု၏ Field တန်ဖိုးကိုသာ ပြင်ဆင်ပြီး ကျန် Field များ မပျက်စီးစေရန် updateOne() ထဲ၌ မည်သည့် Operator ကို သုံးရမည်နည်း?",
+      options: [
+        "$set",
+        "$replace",
+        "$push",
+        "$lt"
+      ],
+      correctIndex: 0,
+      explanation: "$set operator သည် သတ်မှတ်ထားသော Field များကိုသာ Update လုပ်ပေးပြီး Document ထဲရှိ ကျန် Field များကို မူလအတိုင်း ထိန်းသိမ်းထားပေးပါတယ်။"
+    },
+    {
+      question: "MongoDB Query တွင် `{ age: { $lt: 18 } }` ဟု ရေးသားထားပါက `$lt` ၏ အဓိပ္ပာယ်မှာ အဘယ်နည်း?",
+      options: [
+        "18 ထက် ကြီးသော (Greater Than)",
+        "18 နှင့် တူညီသော (Equal)",
+        "18 အောက် ငယ်သော (Less Than)",
+        "18 မဟုတ်သော (Not Equal)"
+      ],
+      correctIndex: 2,
+      explanation: "$lt သည် Less Than (<) ဖြစ်ပြီး $gt သည် Greater Than (>) ဖြစ်ပါတယ်။"
+    }
+  ]}
+/>

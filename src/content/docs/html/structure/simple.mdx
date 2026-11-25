@@ -5,6 +5,7 @@ description: "HTML ရဲ့ အခြေခံတည်ဆောက်ပုံ
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro'
+import CodePlayground from "@/components/mdx/CodePlayground";
 import structure from '@/assets/html/structure.png'
 import domTree from '@/assets/html/dom-tree.svg'
 
@@ -102,3 +103,36 @@ Browser က HTML ကိုဖတ်ပြီး **DOM (Document Object Model)** 
 <Aside type="note" title="သတိပြုရန်">
 DOM tree ကို နားလည်ထားတာ JavaScript (element တွေကို ရှာဖို့) နဲ့ CSS (element တွေကို ပုံစံချဖို့) လေ့လာတဲ့အခါ အမြဲ အသုံးဝင်ပါတယ်။
 </Aside>
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (Live Playground)
+
+အောက်ပါ HTML editor ထဲမှာ `<h1>`, `<p>`, `<button>` tags တွေကို စိတ်ကြိုက် ပြောင်းလဲပြီး **Run Code ⚡** ကို နှိပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="HTML Basic Structure Playground"
+  defaultTab="html"
+  initialHtml={`<main class="box">
+  <h1>မင်္ဂလာပါ တက္ကသိုလ်!</h1>
+  <p>ဒါက ခင်ဗျားရဲ့ ပထမဆုံး HTML Document ဖြစ်ပါတယ်။</p>
+  <ul>
+    <li>HTML - Structure</li>
+    <li>CSS - Style</li>
+    <li>JavaScript - Interactivity</li>
+  </ul>
+</main>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 2rem;
+}
+.box {
+  background: white;
+  border: 2px solid #ea580c;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+h1 { color: #ea580c; margin-top: 0; }`}
+  initialJs={``}
+/>

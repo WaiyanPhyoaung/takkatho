@@ -4,6 +4,7 @@ description: "Beginner CSS ပြီးနောက် ဆက်လက်လေ�
 ---
 
 import { Aside, LinkCard, CardGrid } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
 
 <Aside title="ဂုဏ်ယူပါတယ်">
 ဂုဏ်ယူပါတယ် ခင်ဗျာ! အခုဆိုရင် ခင်ဗျားအနေနဲ့ Beginner CSS Course ကို အောင်မြင်စွာ လေ့လာ ပြီးဆုံးသွားပြီပဲ ဖြစ်ပါတယ်။
@@ -42,3 +43,43 @@ Website တစ်ခုကို ရေးတဲ့အခါ CSS တွေကိ
 <Aside type="tip">
 သတိထားရမယ့် အချက်လေးတစ်ခုကတော့၊ အခု သင်ခဲ့တဲ့ အခြေခံ CSS တွေကို သေသေချာချာ ပိုင်နိုင်သွားပြီ ဆိုမှသာ Framework တွေကို ကူးပြောင်း အသုံးပြုတာက ခင်ဗျားအတွက် ရေရှည်မှာ ပိုပြီး အကျိုးရှိစေမှာ ဖြစ်ပါတယ် ခင်ဗျာ။
 </Aside>
+
+<Quiz
+  client:idle
+  title="CSS Mastery Final Checkpoint Quiz"
+  questions={[
+    {
+      question: "box-sizing: border-box; ကို အသုံးပြုထားသော Element တစ်ခု၏ width: 300px; padding: 20px; border: 5px solid; ဖြစ်လျှင် စုစုပေါင်း Screen ပေါ်တွင် နေရာယူမည့် အကျယ်မှာ ဘယ်လောက်လဲ?",
+      options: [
+        "350px",
+        "325px",
+        "300px",
+        "250px"
+      ],
+      correctIndex: 2,
+      explanation: "border-box တွင် padding နှင့် border တို့ကို သတ်မှတ်ထားသော width (300px) အတွင်းမှာပင် ထည့်တွက်ပေးသောကြောင့် Layout မပျက်စီးစေပါ။"
+    },
+    {
+      question: "Row နှင့် Column နှစ်ဖက်လုံး (2-Dimensional) ပါဝင်သော Complex Page Layout တည်ဆောက်ရာတွင် အသင့်တော်ဆုံးမှာ အဘယ်နည်း?",
+      options: [
+        "CSS Grid",
+        "float: left",
+        "z-index",
+        "margin: auto"
+      ],
+      correctIndex: 0,
+      explanation: "Flexbox သည် 1D (Row သို့မဟုတ် Column တစ်ကြောင်းတည်း) အတွက် အားသာပြီး၊ CSS Grid သည် Row နှင့် Column နှစ်ခုလုံး ထိန်းချုပ်နိုင်သော 2D Layouts များအတွက် အကောင်းဆုံးဖြစ်ပါတယ်။"
+    },
+    {
+      question: "CSS Specificity အရ အောက်ပါ Selector များထဲမှ ဦးစားပေးမှု (Priority) အမြင့်ဆုံးမှာ မည်သည်နည်း?",
+      options: [
+        "p (Element Selector)",
+        ".card (Class Selector)",
+        "#header (ID Selector)",
+        "* (Universal Selector)"
+      ],
+      correctIndex: 2,
+      explanation: "Specificity အစဉ်မှာ Inline Style > ID (#header) > Class (.card) > Element (p) > Universal (*) ဖြစ်ပါတယ်။"
+    }
+  ]}
+/>

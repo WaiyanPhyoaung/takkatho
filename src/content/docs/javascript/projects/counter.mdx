@@ -3,6 +3,8 @@ title: "Project 1: Interactive Counter"
 description: "ရိုးရှင်းသော ရေတွက်စက် (Counter) တည်ဆောက်ခြင်း"
 ---
 
+import CodePlayground from "@/components/mdx/CodePlayground";
+
 သင်ခန်းစာတွေ အများကြီး လေ့လာပြီးပြီဆိုတော့ အခု လက်တွေ့ Project သေးသေးလေး တစ်ခု စပြီး ရေးကြည့်ကြရအောင်။
 ဒီ Project ကတော့ "အပေါင်း" ခလုတ်နှိပ်ရင် ဂဏန်းတိုးမယ်၊ "အနှုတ်" ခလုတ်နှိပ်ရင် ဂဏန်းလျော့မယ်၊ "Reset" နှိပ်ရင် သုည (0) ပြန်ဖြစ်သွားမယ့် ရိုးရှင်းတဲ့ ရေတွက်စက်လေး တစ်ခု ဖြစ်ပါတယ်။
 
@@ -57,4 +59,57 @@ increaseBtn.addEventListener("click", function() {
 });
 ```
 
-👉 **မေးခွန်း (သင်ကိုယ်တိုင် လုပ်ဆောင်ရန်):** Decrease (အနှုတ်) ခလုတ်နဲ့ Reset (သုည ပြန်ထားခြင်း) ခလုတ်တွေ အတွက် Event Listener Code တွေကို ကိုယ့်ဘာသာ အထက်ပါ ပုံစံအတိုင်း ဆက်လက် ရေးသားကြည့်ပါ။
+👉 **မေးခွန်း (သင်ကိုယ်တိုင် လုပ်ဆောင်ရန်):** Decrease (အနှုတ်) ခလုတ်နဲ့ Reset (သုည ပြန်ထားခြင်း) ခလုတ်တွေ အတွက် Event Listener Code တွေကို ကိုယ့်ဘာသာ အထက်ပါ ပုံစံအတိုင်း အောက်က Live Playground ထဲမှာ ဆက်လက် ရေးသားစမ်းသပ်ကြည့်ပါ ခင်ဗျာ။
+
+## Interactive Counter Live Playground
+
+<CodePlayground
+  client:idle
+  title="Counter App Playground"
+  defaultTab="js"
+  initialHtml={`<div class="counter-container">
+  <h1>Counter</h1>
+  <span id="value">0</span>
+  <div class="button-group">
+    <button id="decrease">Decrease (-)</button>
+    <button id="reset">Reset</button>
+    <button id="increase">Increase (+)</button>
+  </div>
+</div>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.counter-container { text-align: center; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+#value { display: block; font-size: 3.5rem; font-weight: bold; margin: 1rem 0; color: #0f172a; }
+.button-group { display: flex; gap: 0.5rem; }
+button { padding: 0.5rem 1rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: white; font-weight: 600; cursor: pointer; }
+#increase { background: #ea580c; color: white; border-color: #ea580c; }`}
+  initialJs={`const value = document.getElementById('value');
+let count = 0;
+
+function updateDisplay() {
+  value.textContent = count;
+  value.style.color = count > 0 ? '#16a34a' : count < 0 ? '#dc2626' : '#0f172a';
+}
+
+document.getElementById('increase').addEventListener('click', () => {
+  count++;
+  updateDisplay();
+});
+
+document.getElementById('decrease').addEventListener('click', () => {
+  count--;
+  updateDisplay();
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  count = 0;
+  updateDisplay();
+});`}
+/>

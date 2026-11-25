@@ -4,6 +4,7 @@ description: "Custom Properties (Variables) များကို Type သတ်
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import CodePlayground from "@/components/mdx/CodePlayground";
 
 <Aside title="ပိုမို ထက်မြက်လာသော Variables များ (Smarter Variables)">
 ပုံမှန် CSS Variable (`--color: red`) တွေက ဘာပဲထည့်ထည့် စာသား (String) အနေနဲ့ပဲ မှတ်သားထားပါတယ်။ `@property` ကို သုံးလိုက်ရင်တော့ "ဒါက အရောင်၊ ဒါကတော့ နံပါတ်" ဆိုပြီး တိတိကျကျ အမျိုးအစား (Type) သတ်မှတ်ပေးလို့ ရသွားပါပြီ။
@@ -41,3 +42,45 @@ import { Aside } from "@astrojs/starlight/components";
 *   `<angle>` (deg, rad စသည့် ထောင့်ချိုးများ)
 *   `<number>` (ကိန်းဂဏန်းများ)
 *   `<percentage>` (ရာခိုင်နှုန်းများ)
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (`@property` Playground)
+
+`@property` ဖြင့် Type သတ်မှတ်ထားသော Gradient Angle Animation ကို CSS tab ထဲတွင် ပြင်ဆင်စမ်းသပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="@property Animated Gradient Playground"
+  defaultTab="css"
+  initialHtml={`<div class="wrapper">
+  <div class="glow-card">Animated @property Gradient</div>
+</div>`}
+  initialCss={`@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.glow-card {
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(var(--angle), #ea580c, #6366f1);
+  animation: spin-angle 4s linear infinite;
+}
+
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}`}
+  initialJs={``}
+/>

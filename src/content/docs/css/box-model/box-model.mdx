@@ -5,6 +5,7 @@ description: "CSS ၏ အရေးအကြီးဆုံး သဘောတရ
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import CodePlayground from "@/components/mdx/CodePlayground";
 import boxModel from '@/assets/css/box.jpg'
 
 <Aside title="သေတ္တာလေးများ">
@@ -55,3 +56,32 @@ p { margin-top: 30px; }
 <Aside type="tip">
 Project တစ်ခု စရေးပြီဆိုတာနဲ့ အပေါ်ဆုံးမှာ `* { box-sizing: border-box; }` လို့ အရင်ဆုံး ကြေညာထားတာက အကောင်းဆုံး Practice ဖြစ်ပါတယ်။ ဒါမှသာ နောက်ပိုင်း Layout အကျယ်အဝန်းတွေ တွက်ချက်ရတာ ပိုပြီး လွယ်ကူသွားမှာပါ။
 </Aside>
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (Box Model Playground)
+
+`box-sizing: border-box` နဲ့ `content-box` ပြောင်းကြည့်ပြီး Box နှစ်ခုရဲ့ အကျယ် ဘယ်လိုကွာသွားလဲ လက်တွေ့ စမ်းသပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="CSS Box Model Playground"
+  defaultTab="css"
+  initialHtml={`<div class="box content-box">content-box (200px + padding + border)</div>
+<div class="box border-box">border-box (စုစုပေါင်း 200px အတိ)</div>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  padding: 1.5rem;
+}
+.box {
+  width: 200px;
+  padding: 20px;
+  border: 6px solid #ea580c;
+  margin-bottom: 16px;
+  background: #fff7ed;
+  font-size: 13px;
+  font-weight: 600;
+}
+.content-box { box-sizing: content-box; }
+.border-box { box-sizing: border-box; border-color: #16a34a; background: #f0fdf4; }`}
+  initialJs={``}
+/>

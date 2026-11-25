@@ -5,6 +5,7 @@ description: "Forms"
 
 import { Aside, Code } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import CodePlayground from "@/components/mdx/CodePlayground";
 import formImage from '@/assets/html/form.png'
 import inputsImage from '@/assets/html/inputs.png'
 import formSubmission from '@/assets/html/form-submission.svg'
@@ -140,3 +141,56 @@ HTML မှာ JavaScript ကို မလိုဘဲ Browser ကနေတိ�
 <Aside type="caution" title="သတိပြုရန်">
 HTML validation တွေဟာ User Experience ကို ပိုကောင်းစေပေမဲ့ Server-side validation ကို **ဘယ်တော့မှ အစားမထိုးနိုင်ပါဘူး**။ Security အတွက် Server ဘက်ကနေလည်း Data ကို အမြဲတမ်း စစ်ဆေးရပါမယ် ခင်ဗျာ။
 </Aside>
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (Live Form Playground)
+
+`required`, `minlength`, `type="email"` စတဲ့ validation attributes တွေကို ပြောင်းလဲပြီး Submit လုပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="HTML Form & Validation Playground"
+  defaultTab="html"
+  initialHtml={`<form id="signup" class="form-card">
+  <h2>Register Form</h2>
+  <label for="username">အမည် (အနည်းဆုံး ၃ လုံး):</label>
+  <input id="username" type="text" required minlength="3" placeholder="Mg Mg" />
+
+  <label for="email">Email:</label>
+  <input id="email" type="email" required placeholder="mgmg@example.com" />
+
+  <button type="submit">Submit</button>
+  <p id="result"></p>
+</form>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  padding: 1.5rem;
+}
+.form-card {
+  max-width: 340px;
+  margin: auto;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+input { padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; }
+button {
+  margin-top: 0.5rem;
+  padding: 0.65rem;
+  background: #ea580c;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}`}
+  initialJs={`document.getElementById('signup').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('username').value;
+  document.getElementById('result').textContent = '✓ Form submitted by ' + name;
+});`}
+/>

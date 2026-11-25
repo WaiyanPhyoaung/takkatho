@@ -4,6 +4,7 @@ description: "Python မှာ သင်ခဲ့ရသမျှကို Projec
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
 
 <Aside title="ဒီ Module ပြီးရင် ခင်ဗျားလုပ်နိုင်မှာများ">
 - Real-world Program ၃ ခုကို ကိုယ်တိုင် ဆောက်နိုင်မယ်
@@ -323,3 +324,43 @@ Python အခြေခံကို ကောင်းကောင်းနား
 </Aside>
 
 **Python Course တစ်ခုလုံး အောင်မြင်စွာ ပြီးဆုံးပါပြီ — ဂုဏ်ယူပါတယ်! 🎉**
+
+<Quiz
+  client:idle
+  title="Python Programming Final Quiz"
+  questions={[
+    {
+      question: "Python တွင် Key-Value pairs များဖြင့် Data သိမ်းဆည်းလိုသောအခါ မည်သည့် Data Structure ကို သုံးသနည်း?",
+      options: [
+        "List ([1, 2, 3])",
+        "Tuple ((1, 2, 3))",
+        "Dictionary ({'name': 'Kyaw', 'age': 20})",
+        "Set ({1, 2, 3})"
+      ],
+      correctIndex: 2,
+      explanation: "Dictionary သည် Key နှင့် Value တွဲလျက် Data များကို O(1) Lookup speed ဖြင့် မြန်ဆန်စွာ သိမ်းဆည်း ရှာဖွေနိုင်ပါတယ်။"
+    },
+    {
+      question: "Python တွင် Error ဖြစ်နိုင်ချေရှိသော Code ကို Program မပျက်ဘဲ ကိုင်တွယ် (Handle) ရန် မည်သည့် Keywords များကို သုံးသနည်း?",
+      options: [
+        "try / except",
+        "catch / throw",
+        "if / error",
+        "guard / recover"
+      ],
+      correctIndex: 0,
+      explanation: "Python တွင် Exception handling အတွက် try block ထဲတွင် စမ်းသပ်ပြီး except block ဖြင့် error ကို ဖမ်းယူကိုင်တွယ်ရပါတယ်။"
+    },
+    {
+      question: "Python Function တစ်ခု ဖန်တီးရာတွင် မည်သည့် Keyword ဖြင့် စတင်ရသနည်း?",
+      options: [
+        "func",
+        "function",
+        "def",
+        "fn"
+      ],
+      correctIndex: 2,
+      explanation: "Python တွင် Function ကြေညာရန် def keyword ကို အသုံးပြုပါတယ်။"
+    }
+  ]}
+/>

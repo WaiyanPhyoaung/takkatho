@@ -5,7 +5,6 @@ description: "GitHub Secrets Configuration (SSH Key)၊ appleboy/ssh-action ဖ�
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   CI Pipeline တွင် စစ်ဆေးမှုများ အောင်မြင်သွားပါက `main` branch သို့ Code အသစ်ရောက်သည်နှင့် Cloud VPS ပေါ်သို့ SSH ဖြင့် အလိုအလျောက် ဝင်ရောက်ပြီး **Node.js Service (သို့မဟုတ်) Docker Containers များကို Zero-downtime ဖြင့် Deploy ပြုလုပ်ပေးမည့် Automated CD Pipeline** ကို တည်ဆောက်ပါမည်။
@@ -137,10 +136,4 @@ jobs:
       explanation: "GitHub Secrets သည် Sensitive API keys နှင့် SSH credentials များကို Logs များနှင့် Public Codebase ထဲတွင် မပေါ်စေဘဲ Runner ကသာ သုံးစွဲနိုင်ရန် လုံခြုံစွာ Encrypt ပြုလုပ်ပေးထားပါသည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-10-automated-deployment"
-  lessonTitle="Automated VPS Deployment"
 />

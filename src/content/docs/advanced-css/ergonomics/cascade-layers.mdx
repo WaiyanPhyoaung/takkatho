@@ -4,6 +4,7 @@ description: "CSS Specificity ပြဿနာကို ဖြေရှင်း�
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
 
 <Aside title="!important ကို နှုတ်ဆက်လိုက်ပါ (No More !important)">
 CSS ရေးဖူးသူတိုင်း "ငါရေးထားတဲ့ Style က ဘာလို့ အလုပ်မလုပ်တာလဲ?" ဆိုပြီး ဒေါသတကြီးနဲ့ `!important` တွေ လိုက်တပ်ဖူးကြမှာပါ။ `@layer` ကတော့ အဲ့ဒီလို မဖြစ်ရအောင် Style တွေရဲ့ အဆင့်အတန်း (Priority) ကို စနစ်တကျ ခွဲခြား သတ်မှတ်ပေးပါတယ်။
@@ -38,3 +39,32 @@ Style တွေကို အလွှာ (Layer) လေးတွေ ခွဲထ
 ## အကျိုးကျေးဇူးများ (Benefits)
 *   Third-party CSS တွေ (ဥပမာ - Bootstrap, Tailwind) ကို Layer တစ်ခုထဲ သီးသန့် ထည့်ထားလိုက်ရင်၊ ကိုယ်ပိုင်ရေးထားတဲ့ Code တွေနဲ့ ဝင်တိုက်တာ (Conflict ဖြစ်တာ) မျိုး လုံးဝ မဖြစ်တော့ပါဘူး။
 *   Code တွေကို အလုပ်လုပ်ပုံအလိုက် အပိုင်းလေးတွေ စနစ်တကျ ခွဲခြားရေးသားလို့ ရသွားတဲ့အတွက် Project ကြီးလာလေ ပိုပြီး သိသာလေ ဖြစ်ပါတယ်။
+
+<Quiz
+  client:idle
+  title="Cascade Layers (@layer) Quiz"
+  questions={[
+    {
+      question: "@layer reset, base, utilities; ဟု ကြေညာထားလျှင် (Specificity မတူသည့်တိုင်) မည်သည့် Layer က Style များက အမြဲ အနိုင်ရမည်နည်း?",
+      options: [
+        "ပထမဆုံး ကြေညာထားသော reset layer",
+        "အလယ်ရှိ base layer",
+        "နောက်ဆုံးတွင် ကြေညာထားသော utilities layer",
+        "Selector အရှည်ဆုံး Layer"
+      ],
+      correctIndex: 2,
+      explanation: "@layer အစီအစဉ်အရ နောက်ဆုံးမှာ ကြေညာထားသော Layer (utilities) သည် ရှေ့က Layer များထက် ဦးစားပေးမှု (Priority) ပိုမြင့်ပါတယ်။"
+    },
+    {
+      question: "@layer မသုံးဘဲ ပြင်ပတွင် တိုက်ရိုက် ရေးထားသော Unlayered CSS Rules များသည် @layer ထဲက Style များထက် ဘယ်လို နေရာယူသနည်း?",
+      options: [
+        "Unlayered styles များက @layer styles အားလုံးထက် Priority ပိုမြင့်သည်",
+        "@layer styles များက အမြဲ အနိုင်ရသည်",
+        "အမြဲ Error တက်သည်",
+        "Browser က ဖျက်ပစ်သည်"
+      ],
+      correctIndex: 0,
+      explanation: "CSS Cascade spec အရ Layer အပြင်ဘက်မှ Unlayered styles များသည် မည်သည့် @layer ထက်မဆို ဦးစားပေးမှု ပိုမြင့်သောကြောင့် Reset/Base များကို @layer ထဲ ထည့်လေ့ရှိပါတယ်။"
+    }
+  ]}
+/>

@@ -5,6 +5,7 @@ description: "Branches များကို Merge လုပ်ခြင်း"
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from "@/components/Content-image.astro";
+import Quiz from "@/components/mdx/Quiz";
 import branches from "@/assets/git-course/branches.png";
 import gitMerge from "@/assets/git-course/git-merge.png";
 
@@ -29,3 +30,32 @@ Merge ဘယ်လို လုပ်ရမလဲ ဆိုရင် -
 များသောအားဖြင့် `git merge` Command ကို ရိုက်လိုက်တာနဲ့ Git က Branch နှစ်ခုရဲ့ ပြောင်းလဲမှုတွေကို အလိုအလျောက် ပေါင်းစပ်ပေးပါတယ်။ တချို့ အခြေအနေတွေမှာတော့ Merge လုပ်လိုက်ပြီ ဆိုတဲ့ မှတ်တမ်းအနေနဲ့ Commit အသစ်တစ်ခုကို အလိုအလျောက် ဖန်တီးပေးလေ့ ရှိပါတယ် ခင်ဗျာ။
 
 <ContentImage src={gitMerge} alt="git merge" />
+
+<Quiz
+  client:idle
+  title="Git Branching & Merging Quiz"
+  questions={[
+    {
+      question: "feature-login branch ကို main branch ထဲသို့ ပြန်ပေါင်း (merge) လိုလျှင် အရင်ဆုံး မည်သည့် branch သို့ ပြောင်းရမည်နည်း?",
+      options: [
+        "feature-login branch ပေါ်မှာ နေပြီး git merge main ရိုက်ရမည်",
+        "git switch main ဖြင့် main branch သို့ အရင်သွားပြီးမှ git merge feature-login ရိုက်ရမည်",
+        "git clone ပြန်လုပ်ရမည်",
+        "git stash pop ရိုက်ရမည်"
+      ],
+      correctIndex: 1,
+      explanation: "git merge <source> သည် လက်ရှိ ခင်ဗျား ရောက်နေသော Target branch ထဲသို့ source branch ကို ဆွဲထည့်ပေးခြင်း ဖြစ်ပါတယ်။"
+    },
+    {
+      question: "Staging Area ထဲသို့ ပြင်ဆင်ထားသော ဖိုင်များကို ထည့်ပြီး Commit မှတ်တမ်းတင်ရာတွင် မှန်ကန်သော အစဉ်မှာ မည်သည်နည်း?",
+      options: [
+        "git push → git commit → git add",
+        "git commit → git add → git status",
+        "git add . → git commit -m '...' → git push",
+        "git merge → git add → git commit"
+      ],
+      correctIndex: 2,
+      explanation: "Working Directory မှ Staging Area (git add) သို့ တင်ပြီးမှ Local Repository (git commit) သို့ မှတ်တမ်းတင်ကာ Remote (git push) သို့ ပို့ရပါတယ်။"
+    }
+  ]}
+/>

@@ -4,6 +4,7 @@ description: "React Server Components (RSC) နှင့် Client Components ('
 ---
 
 import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Next.js App Router ၏ အနှစ်သာရဖြစ်သော **React Server Components (RSC)** နှင့် **Client Components** တို့၏ ကွာခြားချက်များကို ရှင်းလင်းစွာ ခွဲခြားနိုင်ပြီး၊ Server-side Data Fetching ကို ကျွမ်းကျင်စွာ ပြုလုပ်ရန် ဖြစ်ပါတယ်။
@@ -78,3 +79,32 @@ export default function Counter() {
 <Aside title="💡 Best Practice">
   Component များကို တတ်နိုင်သမျှ **Server Component** အဖြစ်သာ ထားရှိပြီး၊ `onClick` သို့မဟုတ် State လိုအပ်သော ခလုတ်/Form သီးသန့် အစိတ်အပိုင်း သေးသေးလေးများကိုသာ Leaf Client Component အဖြစ် `'use client'` ခွဲထုတ် ရေးသားပါ။
 </Aside>
+
+<Quiz
+  client:idle
+  title="Next.js Server vs Client Components Quiz"
+  questions={[
+    {
+      question: "Next.js App Router ထဲတွင် Component တစ်ခု ဖန်တီးလိုက်လျှင် Default အားဖြင့် မည်သည့် Component အမျိုးအစား ဖြစ်သနည်း?",
+      options: [
+        "Client Component",
+        "Server Component",
+        "Static Only Component",
+        "Edge Middleware"
+      ],
+      correctIndex: 1,
+      explanation: "App Router ရှိ app/ folder အတွင်းရှိ Component တိုင်းသည် ထိပ်ဆုံးတွင် 'use client' မရေးသရွေ့ Default အားဖြင့် Server Component ဖြစ်ပါတယ်။"
+    },
+    {
+      question: "useState, useEffect သို့မဟုတ် onClick Event handler များ အသုံးပြုလိုလျှင် ဖိုင်၏ ထိပ်ဆုံးတွင် ဘာထည့်ပေးရမည်နည်း?",
+      options: [
+        "'use server';",
+        "'use strict';",
+        "'use client';",
+        "export const dynamic = true;"
+      ],
+      correctIndex: 2,
+      explanation: "React Hooks (useState, useEffect) နှင့် Browser Event Handlers များသည် Client-side တွင် run ရသောကြောင့် ဖိုင်ထိပ်ဆုံးတွင် 'use client' directive ထည့်ပေးရပါတယ်။"
+    }
+  ]}
+/>

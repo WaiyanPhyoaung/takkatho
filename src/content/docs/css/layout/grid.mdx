@@ -5,6 +5,7 @@ description: "ခေတ်မီ Layout ချနည်း (၂)"
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import CodePlayground from "@/components/mdx/CodePlayground";
 import gridLayout from '@/assets/css/grid.png'
 import gridGap from '@/assets/css/grid-gap.png'
 import gridArea from '@/assets/css/span.png'
@@ -164,3 +165,43 @@ Flexbox မှာ Item တွေကို Alignment ညှိလို့ရသ�
 *   **Flexbox:** ရိုးရှင်းတဲ့ 1D အတန်းလိုက် Layout တွေ (ဥပမာ - Navbar, Button Group) တည်ဆောက်တဲ့အခါနဲ့ Content အပေါ်မူတည်ပြီး အကြီးအသေးကို ပြောင်းလွယ်ပြင်လွယ် ဖြစ်စေချင်တဲ့အခါ သုံးပါ။
 *   **Grid:** ရှုပ်ထွေးတဲ့ 2D Layout ကြီးတွေ (ဥပမာ - Photo Gallery, Dashboard, တစ်မျက်နှာလုံးစာ Page Layout) နဲ့ အကျယ်အဝန်းကို အတိအကျ Layout ချချင်တဲ့အခါမျိုးမှာ သုံးပါတယ် ခင်ဗျာ။
 </Aside>
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (CSS Grid Playground)
+
+`grid-template-columns` ကို `repeat(2, 1fr)` သို့မဟုတ် `1fr 2fr 1fr` စသဖြင့် ပြောင်းလဲစမ်းသပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="CSS Grid Layout Playground"
+  defaultTab="css"
+  initialHtml={`<div class="grid-container">
+  <div class="card span-2">Header / Featured (span 2)</div>
+  <div class="card">Card 2</div>
+  <div class="card">Card 3</div>
+  <div class="card">Card 4</div>
+  <div class="card">Card 5</div>
+</div>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  padding: 1.5rem;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.card {
+  padding: 1.25rem;
+  background: #1e293b;
+  color: #f8fafc;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+.span-2 {
+  grid-column: span 2;
+  background: #ea580c;
+}`}
+  initialJs={``}
+/>

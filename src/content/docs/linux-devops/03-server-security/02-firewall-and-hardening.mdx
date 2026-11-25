@@ -5,7 +5,6 @@ description: "UFW (Uncomplicated Firewall) Setup၊ Ports 80, 443, 22 Rules၊ F
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Server ပေါ်တွင် မလိုအပ်သော Ports များ ပွင့်နေပါက Hacker များ ဝင်ရောက်တိုက်ခိုက်နိုင်ပါတယ်။ ဤသင်ခန်းစာတွင် **UFW Firewall** ဖြင့် Traffic ထိန်းချုပ်ခြင်း၊ **Fail2ban** ဖြင့် တိုက်ခိုက်သူ IP များကို အလိုအလျောက် ပိတ်ဆို့ခြင်းနှင့် RAM နည်းသော VPS များ Out of Memory မဖြစ်စေရန် **Swap Memory** ထည့်သွင်းခြင်းတို့ကို လေ့လာပါမည်။
@@ -148,10 +147,4 @@ free -h
       explanation: "UFW ၏ default policy သည် incoming traffic အားလုံးကို deny လုပ်ထားသဖြင့် SSH ကို ကြိုတင် allow မလုပ်ပါက ခင်ဗျား၏ လက်ရှိ session ပါ ပြတ်တောက်သွားပါမည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-06-firewall-swap"
-  lessonTitle="Firewall, Fail2ban and Swap Memory"
 />

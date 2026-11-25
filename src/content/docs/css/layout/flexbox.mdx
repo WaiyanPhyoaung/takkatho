@@ -5,6 +5,7 @@ description: "ခေတ်မီ Layout ချနည်း (၁)"
 
 import { Aside } from "@astrojs/starlight/components";
 import ContentImage from '@/components/Content-image.astro';
+import CodePlayground from "@/components/mdx/CodePlayground";
 import flexDirection from '@/assets/css/flex-directions.png'
 import justifyContent from '@/assets/css/justify-content.png'
 import alignItems from '@/assets/css/align-items.png'
@@ -189,3 +190,42 @@ Element တစ်ခုကို Screen ရဲ့ အလယ်တည့်တည
 }
 ```
 </Aside>
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (Flexbox Playground)
+
+`justify-content` ကို `center`, `space-between`, `flex-end` စသဖြင့် ပြောင်းလဲပြီး စမ်းသပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="CSS Flexbox Alignment Playground"
+  defaultTab="css"
+  initialHtml={`<div class="flex-container">
+  <div class="item">Box 1</div>
+  <div class="item">Box 2</div>
+  <div class="item">Box 3</div>
+</div>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  padding: 1.5rem;
+}
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  height: 220px;
+  padding: 16px;
+  background: #fff7ed;
+  border: 2px dashed #ea580c;
+  border-radius: 1rem;
+}
+.item {
+  padding: 1rem 1.25rem;
+  background: #ea580c;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.75rem;
+}`}
+  initialJs={``}
+/>

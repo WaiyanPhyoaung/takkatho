@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface CodePlaygroundProps {
   title?: string;
   initialHtml?: string;
   initialCss?: string;
   initialJs?: string;
+  defaultTab?: "html" | "css" | "js";
 }
 
 const defaultHtml = `<div class="card">
@@ -62,76 +63,107 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
   initialHtml = defaultHtml,
   initialCss = defaultCss,
   initialJs = defaultJs,
+  defaultTab = "html",
 }) => {
   const [html, setHtml] = useState(initialHtml);
   const [css, setCss] = useState(initialCss);
   const [js, setJs] = useState(initialJs);
-  const [activeTab, setActiveTab] = useState<"html" | "css" | "js">("html");
+  const [activeTab, setActiveTab] = useState<"html" | "css" | "js">(defaultTab);
   const [srcDoc, setSrcDoc] = useState("");
   const [copied, setCopied] = useState(false);
+  const copyTimer = useRef<number | undefined>(undefined);
 
-  const runCode = () => {
-    const combined = `
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
+
+  const buildDoc = (h: string, c: string, j: string) => `
       <!DOCTYPE html>
       <html>
         <head>
-          <style>${css}</style>
+          <style>${c}</style>
         </head>
         <body>
-          ${html}
-          <script>${js}</script>
+          ${h}
+          <script>${j}</script>
         </body>
       </html>
     `;
-    setSrcDoc(combined);
+
+  const runCode = () => {
+    setSrcDoc(buildDoc(html, css, js));
   };
 
   useEffect(() => {
-    runCode();
-  }, []);
+    setSrcDoc(buildDoc(initialHtml, initialCss, initialJs));
+  }, [initialHtml, initialCss, initialJs]);
 
   const handleReset = () => {
     setHtml(initialHtml);
     setCss(initialCss);
     setJs(initialJs);
-    runCode();
+    setSrcDoc(buildDoc(initialHtml, initialCss, initialJs));
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     let textToCopy = html;
     if (activeTab === "css") textToCopy = css;
     if (activeTab === "js") textToCopy = js;
 
-    navigator.clipboard.writeText(textToCopy);
+    let ok = true;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
+      await navigator.clipboard.writeText(textToCopy);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = textToCopy;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        ok = document.execCommand("copy");
+      } catch {
+        ok = false;
+      }
+      document.body.removeChild(textarea);
+    }
+    if (!ok) return;
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    window.clearTimeout(copyTimer.current);
+    copyTimer.current = window.setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="my-10 rounded-3xl bg-stone-950 border border-orange-500/30 text-stone-100 shadow-2xl overflow-hidden backdrop-blur-xl">
+    <div className="not-content my-10 rounded-3xl bg-stone-950 border border-orange-500/30 text-stone-100 shadow-2xl overflow-hidden backdrop-blur-xl">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-stone-900 border-b border-stone-800">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 font-bold flex items-center justify-center text-sm">
+          <div
+            className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 font-bold flex items-center justify-center text-sm"
+            aria-hidden="true"
+          >
             💻
           </div>
-          <h3 className="text-base font-bold text-white">{title}</h3>
+          <p className="text-base font-bold text-white m-0">{title}</p>
         </div>
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={handleCopy}
-            className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-300 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-200 transition-colors cursor-pointer"
           >
             {copied ? "✓ Copied!" : "📋 Copy Code"}
           </button>
           <button
+            type="button"
             onClick={handleReset}
-            className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-300 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-200 transition-colors cursor-pointer"
           >
             🔄 Reset
           </button>
           <button
+            type="button"
             onClick={runCode}
             className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-orange-700 to-amber-700 hover:from-orange-800 hover:to-amber-800 text-white font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
           >
@@ -147,6 +179,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
           {/* Tabs */}
           <div className="flex border-b border-stone-800 bg-stone-900/50">
             <button
+              type="button"
               onClick={() => setActiveTab("html")}
               className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer ${
                 activeTab === "html"
@@ -157,6 +190,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
               HTML
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab("css")}
               className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer ${
                 activeTab === "css"
@@ -167,6 +201,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
               CSS
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab("js")}
               className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer ${
                 activeTab === "js"
@@ -182,6 +217,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
           <div className="relative flex-1 p-4">
             {activeTab === "html" && (
               <textarea
+                aria-label="HTML code editor"
                 value={html}
                 onChange={(e) => setHtml(e.target.value)}
                 className="w-full h-full min-h-[340px] bg-transparent text-orange-300 font-mono text-xs leading-relaxed outline-none resize-none"
@@ -190,6 +226,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
             )}
             {activeTab === "css" && (
               <textarea
+                aria-label="CSS code editor"
                 value={css}
                 onChange={(e) => setCss(e.target.value)}
                 className="w-full h-full min-h-[340px] bg-transparent text-amber-300 font-mono text-xs leading-relaxed outline-none resize-none"
@@ -198,6 +235,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
             )}
             {activeTab === "js" && (
               <textarea
+                aria-label="JavaScript code editor"
                 value={js}
                 onChange={(e) => setJs(e.target.value)}
                 className="w-full h-full min-h-[340px] bg-transparent text-yellow-300 font-mono text-xs leading-relaxed outline-none resize-none"
@@ -209,13 +247,13 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
 
         {/* Right Column: Live Output Iframe */}
         <div className="flex flex-col bg-white">
-          <div className="px-4 py-2 bg-stone-900 border-b border-stone-800 text-xs font-semibold text-stone-400 flex items-center justify-between">
+          <div className="px-4 py-2 bg-stone-900 border-b border-stone-800 text-xs font-semibold text-stone-300 flex items-center justify-between">
             <span>Live Output Preview</span>
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
           </div>
           <iframe
             srcDoc={srcDoc}
-            title="Live Output"
+            title={`Live Output: ${title}`}
             sandbox="allow-scripts"
             className="w-full flex-1 min-h-[340px] border-none bg-white"
           />

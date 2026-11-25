@@ -3,6 +3,8 @@ title: "Mini Project: Todo List Logic"
 description: "TypeScript ကို အသုံးပြု၍ Todo List ၏ အလုပ်လုပ်ပုံကို ရေးသားခြင်း"
 ---
 
+import Quiz from "@/components/mdx/Quiz";
+
 ဒီ Course မှာ သင်ယူခဲ့တဲ့ TypeScript အခြေခံတွေ (Types, Interfaces, Functions, Arrays) ကို ပေါင်းစပ်ပြီး **Todo List** တစ်ခုရဲ့ နောက်ကွယ်က အလုပ်လုပ်ပုံ (Logic) ကို ရေးကြည့်ရအောင်။
 
 ဒီ Project မှာ အောက်ပါ လုပ်ဆောင်ချက်တွေ ပါဝင်ပါမယ်။
@@ -154,3 +156,32 @@ viewTodos();
 ဂုဏ်ယူပါတယ်။ သင်ဟာ TypeScript ရဲ့ အခြေခံတွေကို နားလည်သွားရုံသာမက၊ အဲ့ဒီ အခြေခံတွေကို ပေါင်းစပ်ပြီး အသုံးဝင်တဲ့ Logic တစ်ခုကိုပါ ကိုယ်တိုင် ရေးသားနိုင်သွားပါပြီ။ 
 
 ဒီ Logic တွေကို React လို Frontend Framework တွေနဲ့ တွဲသုံးလိုက်ရင် တကယ့် အသုံးဝင်တဲ့ Web Application တစ်ခု ဖြစ်လာပါလိမ့်မယ်။ TypeScript လောကထဲကို ဝင်ရောက်လာတဲ့အတွက် ကြိုဆိုပါတယ်။ ဆက်လက် လေ့လာသွားဖို့ တိုက်တွန်းပါတယ်။
+
+<Quiz
+  client:idle
+  title="TypeScript Fundamentals Final Quiz"
+  questions={[
+    {
+      question: "Interface တစ်ခုထဲတွင် မဖြစ်မနေ ထည့်စရာမလိုသော Optional Property ကို မည်သို့ ရေးသားသနည်း?",
+      options: [
+        "description!: string",
+        "description?: string",
+        "optional description: string",
+        "description: string | null"
+      ],
+      correctIndex: 1,
+      explanation: "Property နာမည်နောက်တွင် ? (Question mark) ထည့်ပေးခြင်းဖြင့် အဲ့ဒီ Property ကို Optional (string | undefined) အဖြစ် သတ်မှတ်နိုင်ပါတယ်။"
+    },
+    {
+      question: "Union Type (`type Status = 'pending' | 'done'`) ၏ အားသာချက်က ဘာလဲ?",
+      options: [
+        "သတ်မှတ်ထားသော တန်ဖိုးများထဲမှ တစ်ခုသာ လက်ခံစေပြီး Typo Error များကို Compile time တွင် ကာကွယ်ပေးခြင်း",
+        "Variable ကို Runtime တွင် Number အဖြစ် အလိုအလျောက် ပြောင်းပေးခြင်း",
+        "Database table များ ဖန်တီးပေးခြင်း",
+        "any type နှင့် အတူတူပင် ဖြစ်ခြင်း"
+      ],
+      correctIndex: 0,
+      explanation: "Literal Union Type သည် 'pending' သို့မဟုတ် 'done' မှလွဲ၍ အခြားမှားယွင်းသော စာလုံးပေါင်းများကို TypeScript က ချက်ချင်း Error ပြတားဆီးပေးပါတယ်။"
+    }
+  ]}
+/>

@@ -5,7 +5,6 @@ description: "Linux Permissions Matrix (rwx, chmod, chown)၊ Principle of Least
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Linux Server တွင် လုံခြုံရေးသည် အရေးအကြီးဆုံး ဖြစ်ပါတယ်။ မည်သည့် User သည် မည်သည့် File ကို ဖတ်ခွင့် (Read)၊ ပြင်ခွင့် (Write) သို့မဟုတ် Run ခွင့် (Execute) ရှိသည်ကို စနစ်တကျ သတ်မှတ်နိုင်ရန် **Permissions (`chmod`, `chown`)** နှင့် **User Management (`sudo`)** ကို နားလည်ရပါမည်။
@@ -165,10 +164,4 @@ sudo apt update
       explanation: "777 သည် Owner, Group, Others အားလုံးကို ဖတ်ခွင့်၊ ပြင်ခွင့်၊ ဖျက်ခွင့်နှင့် Run ခွင့် အကုန်ပေးလိုက်ခြင်း ဖြစ်သဖြင့် အလွန် အန္တရာယ်များလှပါသည်။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-02-permissions"
-  lessonTitle="Permissions and Users"
 />

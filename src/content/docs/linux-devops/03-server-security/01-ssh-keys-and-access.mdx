@@ -5,7 +5,6 @@ description: "Asymmetric SSH Key Pair Generation (Ed25519 vs RSA)၊ Password-le
 
 import { Aside } from "@astrojs/starlight/components";
 import Quiz from "../../../../components/mdx/Quiz";
-import LessonCompletion from "../../../../components/mdx/LessonCompletion";
 
 <Aside title="💡 ရည်ရွယ်ချက်">
   Cloud VPS (DigitalOcean, AWS, Hetzner, Linode) အသစ်တစ်ခု စတင်ဖွင့်လှစ်သည့်အခါ Password ဖြင့်သာ Login ဝင်ပါက Hacker Bot များ၏ Brute-force တိုက်ခိုက်မှုဒဏ်ကို ချက်ချင်း ခံရနိုင်ပါတယ်။ ဤသင်ခန်းစာတွင် **ခေတ်မီ Ed25519 SSH Key Pair** ဖြင့် ၁၀၀% လုံခြုံသော Password-less Authentication စနစ် တည်ဆောက်ပါမည်။
@@ -150,10 +149,4 @@ Password တောင်းဆိုခြင်း မရှိဘဲ ချက
       explanation: "စကားဝှက်ဖြင့် login ဝင်ခွင့်ကို လုံးဝ ပိတ်လိုက်သောအခါ Cryptographic Key မရှိသူ မည်သူမျှ (Hacker များ အကြိမ်သန်းပေါင်းများစွာ စကားဝှက် ရိုက်မှန်းသော်လည်း) Server ထဲသို့ ဝင်ရောက်နိုင်ခြင်း မရှိတော့ပါ။"
     }
   ]}
-/>
-
-<LessonCompletion
-  client:idle
-  lessonId="linux-devops-05-ssh-hardening"
-  lessonTitle="SSH Keys and Server Hardening"
 />

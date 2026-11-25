@@ -3,6 +3,8 @@ title: "Event Listeners"
 description: "Events များကို နားထောင်ခြင်း (Listening to Events)"
 ---
 
+import CodePlayground from "@/components/mdx/CodePlayground";
+
 JavaScript မှာ Event တစ်ခုခု (ဥပမာ - User က ခလုတ်နှိပ်ခြင်း) ဖြစ်လာမယ့် အချိန်ကို စောင့်ကြည့်နေပြီး၊ အကယ်၍ တကယ် ဖြစ်လာခဲ့ရင် သတ်မှတ်ထားတဲ့ Function တစ်ခုကို အလုပ်လုပ် (Run) ခိုင်းဖို့အတွက် `addEventListener` ဆိုတဲ့ Method ကို အသုံးပြုရပါတယ်။
 
 ## Syntax (ရေးသားပုံ)
@@ -44,3 +46,41 @@ btn.addEventListener("click", function(e) {
     console.log(e.target); // User က ဘယ် Element ကို အတိအကျ နှိပ်လိုက်တာလဲ ဆိုတာကို ပြပေးပါတယ်
 });
 ```
+
+## ကိုယ်တိုင် စမ်းသပ်ရေးသားကြည့်ရန် (Event Listeners Playground)
+
+JavaScript tab ထဲမှာ click handler ကို စိတ်ကြိုက်ပြင်ပြီး **Run Code ⚡** နှိပ်ကာ preview ထဲမှာ ခလုတ်ကို စမ်းနှိပ်ကြည့်ပါ ခင်ဗျာ။
+
+<CodePlayground
+  client:idle
+  title="JavaScript addEventListener Playground"
+  defaultTab="js"
+  initialHtml={`<div class="box">
+  <button id="demo-btn">Click Me!</button>
+  <p id="status">ခလုတ်ကို မနှိပ်ရသေးပါ</p>
+</div>`}
+  initialCss={`body {
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  background: #f8fafc;
+}
+.box { text-align: center; }
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #ea580c;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+p { margin-top: 1rem; font-weight: 600; color: #0f172a; }`}
+  initialJs={`let clicks = 0;
+const btn = document.getElementById('demo-btn');
+const status = document.getElementById('status');
+
+btn.addEventListener('click', (e) => {
+  clicks++;
+  status.textContent = e.target.textContent + ' — ' + clicks + ' ကြိမ် နှိပ်ပြီးပါပြီ';
+});`}
+/>

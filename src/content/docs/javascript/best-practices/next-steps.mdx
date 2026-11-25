@@ -3,6 +3,8 @@ title: "What to Learn Next?"
 description: "ဆက်လက်လေ့လာသင့်သော အရာများ"
 ---
 
+import Quiz from "@/components/mdx/Quiz";
+
 ပထမဆုံး အနေနဲ့ ဂုဏ်ယူပါတယ်။ အခုဆိုရင် သင်ဟာ JavaScript ရဲ့ အရေးကြီးတဲ့ အခြေခံ သဘောတရားတွေကို ပိုင်နိုင်စွာ နားလည်သွားပြီပဲ ဖြစ်ပါတယ်။ ဒါပေမဲ့ Web Development ခရီးစဉ်က ဒီနေရာမှာတင် မဆုံးသေးပါဘူး။ ဆက်လက်ပြီး မြှင့်တင် လေ့လာစရာတွေ အများကြီး ကျန်ရှိနေပါသေးတယ်။
 
 ## ၁။ Advanced DOM Manipulation (အဆင့်မြင့် DOM အသုံးပြုနည်းများ)
@@ -30,3 +32,43 @@ Backend Server တွေ၊ API တွေဆီကနေ Data တွေ လှ�
 > **အရေးကြီး အကြံပြုချက်:** အခြေခံ JavaScript ကို သေချာ မခိုင်မာသေးဘဲ Framework တွေကို အလျင်စလို ခုန်မကူးပါနဲ့။ အခြေခံ ပိုင်နိုင်ထားမယ် ဆိုရင် မည်သည့် Framework ကိုမဆို လေ့လာတဲ့အခါ အလွန် လွယ်ကူ ချောမွေ့သွားပါလိမ့်မယ်။
 
 **ရှေ့ဆက်ပြီး ကြိုးစားပါ! အောင်မြင်မှုတွေက သင့်ကို စောင့်ကြိုနေပါတယ်။**
+
+<Quiz
+  client:idle
+  title="JavaScript Essentials Checkpoint Quiz"
+  questions={[
+    {
+      question: "ပြောင်းလဲရန် မလိုအပ်သော Variable များ (သို့မဟုတ် Reassign မလုပ်မည့် Variable များ) အတွက် မည်သည့် Keyword ကို ဦးစားပေး သုံးသင့်သနည်း?",
+      options: [
+        "var",
+        "const",
+        "let",
+        "static"
+      ],
+      correctIndex: 1,
+      explanation: "Modern JavaScript တွင် Reassign မလုပ်မည့် တန်ဖိုးများအတွက် const ကို အမြဲ ဦးစားပေး သုံးသင့်ပြီး၊ တန်ဖိုးပြောင်းလဲမည့်အခါမှ let ကို သုံးရပါတယ်။"
+    },
+    {
+      question: "5 === '5' ၏ ရလဒ်သည် အဘယ်နည်း?",
+      options: [
+        "true",
+        "false",
+        "undefined",
+        "SyntaxError"
+      ],
+      correctIndex: 1,
+      explanation: "Strict Equality (===) သည် တန်ဖိုးသာမက Data Type ကိုပါ စစ်ဆေးသောကြောင့် Number 5 နှင့် String '5' သည် false ဖြစ်ပါတယ်။"
+    },
+    {
+      question: "DOM Element တစ်ခုကို Click နှိပ်သည့် Event နားထောင်ရန် မည်သည့် Method ကို သုံးသနည်း?",
+      options: [
+        "element.onClickListen()",
+        "element.attach('click')",
+        "element.addEventListener('click', handler)",
+        "document.watchClick(element)"
+      ],
+      correctIndex: 2,
+      explanation: "addEventListener သည် Standard ဖြစ်ပြီး Element တစ်ခုတည်းပေါ်တွင် Multiple listeners များကိုပါ ထပ်မံ ချိတ်ဆက်နိုင်ပါတယ်။"
+    }
+  ]}
+/>
