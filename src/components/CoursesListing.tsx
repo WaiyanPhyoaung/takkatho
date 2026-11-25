@@ -359,6 +359,18 @@ export const coursesData: Course[] = [
     tags: ["Python", "Pandas", "NumPy", "Scraping", "Playwright", "Automation"],
     estimatedTime: "5 weeks",
   },
+  {
+    id: "ai-agents",
+    title: "Modern AI Agents & LLM Engineering",
+    description:
+      "LLM APIs, Structured Outputs, Function Calling, Embeddings, ChromaDB Vector Search, RAG Memory နှင့် Multi-Agent Production Systems တည်ဆောက်ခြင်း",
+    difficulty: "intermediate",
+    category: "Artificial Intelligence",
+    icon: "sparkles",
+    dir: "ai-agents",
+    tags: ["AI Agents", "LLM", "RAG", "Function Calling", "Vector DB", "Python"],
+    estimatedTime: "5 weeks",
+  },
 ];
 
 

@@ -1,0 +1,113 @@
+---
+title: "Structured Outputs & JSON Schema Validation"
+description: "LLM APIs မှ JSON Schema, Pydantic နှင့် Typed Enums များသုံးပြီး 100% Reliable Structured Data ထုတ်ယူနည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="🎯 ဘာကြောင့် Structured Outputs လိုအပ်သလဲ">
+  User ကို စာသားပြဖို့ မဟုတ်ဘဲ **ခင်ဗျားရဲ့ Backend Code, Database သို့မဟုတ် Frontend UI** ထဲကို Data ပို့ချင်တဲ့အခါ "Please reply ONLY in JSON" လို့ Prompt ထဲ ရေးရုံနဲ့ မလုံလောက်ပါဘူး။ Model က Markdown fence (` ```json `) ညှပ်ထည့်တာ၊ Key name လွဲတာတွေ ဖြစ်နိုင်လို့ **Schema-constrained Structured Outputs** ကို အသုံးပြုရပါတယ်။
+</Aside>
+
+## 1. JSON Mode vs Strict Structured Outputs
+
+| Approach | အာမခံချက် | ဖြစ်နိုင်သော ပြဿနာ |
+| :--- | :--- | :--- |
+| **Prompt Only** ("Return JSON") | 85–95% ခန့်သာ Valid ဖြစ် | Intro text ("Here is your JSON:") ပါလာပြီး `json.loads()` Crash ဖြစ်တတ် |
+| **JSON Mode** (`response_format={"type": "json_object"}`) | Valid JSON syntax အာမခံ | Required fields ပျောက်ခြင်း၊ Data type (`"12000"` string vs `12000` int) မှားခြင်း ဖြစ်နိုင် |
+| **Strict Structured Outputs** (Pydantic / JSON Schema) | **100% Schema-compliant** (Constrained Decoding) | Schema design ရှင်းလင်းစွာ သတ်မှတ်ထားရန် လို |
+
+---
+
+## 2. Pydantic Models ဖြင့် Typed Output ထုတ်ယူခြင်း
+
+Customer Support Ticket သို့မဟုတ် Burmese Chat Message တစ်ခုထဲကနေ **Intent, Priority Level, Product Name နှင့် Reply Summary** ကို Database ထဲ တိုက်ရိုက်သိမ်းနိုင်တဲ့ Python object အဖြစ် ထုတ်ယူကြည့်ပါမယ်။
+
+```python
+# structured_ticket.py — pip install openai pydantic
+import os
+from typing import Literal
+from openai import OpenAI
+from pydantic import BaseModel, Field
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+
+class SupportTicket(BaseModel):
+    intent: Literal["refund", "delivery_delay", "technical_bug", "general_inquiry"]
+    priority: Literal["low", "medium", "high", "urgent"]
+    order_id: str | None = Field(
+        default=None,
+        description="Order reference code like ORD-1042 if mentioned by the customer",
+    )
+    summary_en: str = Field(description="One-sentence internal ops summary in English")
+    suggested_reply_mm: str = Field(
+        description="Polite customer reply in Burmese matching the issue"
+    )
+
+
+customer_msg = (
+    "မင်္ဂလာပါ ခင်ဗျာ။ ကျွန်တော် ORD-8821 နဲ့ မှာထားတဲ့ Router က "
+    "၅ ရက်ကျော်ပြီ အခုထိ မရောက်သေးလို့ Delivery status စစ်ပေးပါဦး။"
+)
+
+completion = client.beta.chat.completions.parse(
+    model="gpt-4o-mini",
+    temperature=0.0,
+    messages=[
+        {
+            "role": "system",
+            "content": "Extract structured support ticket metadata accurately.",
+        },
+        {"role": "user", "content": customer_msg},
+    ],
+    response_format=SupportTicket,
+)
+
+ticket: SupportTicket | None = completion.choices[0].message.parsed
+if ticket:
+    print(ticket.model_dump_json(indent=2))
+```
+
+<Aside type="note" title="🔍 Literal / Enum များ၏ အစွမ်း">
+  `Literal["low", "medium", "high", "urgent"]` လို Allowed values တွေကို တိတိကျကျ ပိတ်ပေးထားခြင်းအားဖြင့် Model သည် `"critical"` သို့မဟုတ် `"HIGH"` လို မသတ်မှတ်ထားတဲ့ စာလုံးအသစ်တွေ ထုတ်ပေးခွင့် မရှိတော့ဘဲ ခင်ဗျားရဲ့ SQL Database `ENUM` သို့မဟုတ် Routing `if/elif` Logic တွေ ဘယ်တော့မှ မပျက်စီးတော့ပါဘူး။
+</Aside>
+
+---
+
+## 3. Google Gemini SDK (`google-genai`) တွင် Structured Output သုံးနည်း
+
+Gemini API ကို တိုက်ရိုက်သုံးတဲ့ Project များတွင်လည်း **Pydantic Class** ကိုပင် `response_schema` ထဲ တိုက်ရိုက်ထည့်၍ အလားတူ အသုံးပြုနိုင်ပါတယ် —
+
+```python
+# gemini_structured.py — pip install google-genai pydantic
+import os
+from google import genai
+from google.genai import types
+
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=customer_msg,
+    config=types.GenerateContentConfig(
+        system_instruction="Extract structured support ticket metadata accurately.",
+        temperature=0.0,
+        response_mime_type="application/json",
+        response_schema=SupportTicket,
+    ),
+)
+
+ticket = SupportTicket.model_validate_json(response.text)
+print(ticket.intent, ticket.order_id)
+```
+
+---
+
+## 4. Production Patterns: Refusal Handling & Fallback Retry
+
+1. **Refusal Checks**: Policy နှင့် မညီသော Prompt ဝင်လာပါက Model သည် JSON အစား `message.refusal` ပြန်ပေးတတ်ပါတယ်။ `.parsed` မသုံးမီ `if message.refusal:` အရင်စစ်ပါ။
+2. **Schema Complexity Limit**: Nested objects အဆင့်ဆင့် အရမ်းရှုပ်ထွေးအောင် မရေးဘဲ Flat & Clear fields များသုံးပါ။
+3. **`Field(description=...)` ကို Prompt Engineering အဖြစ် သုံးပါ**: Field တစ်ခုချင်းစီရဲ့ `description` သည် Model က Value ဖြည့်ရာမှာ တိုက်ရိုက်ဖတ်သည့် Documentation ဖြစ်သောကြောင့် Example pattern များ ထည့်ရေးပေးသင့်ပါတယ်။
+
+👉 **နောက်တစ်ဆင့်**: LLM က Data ထုတ်ပေးရုံသာမက **Database Query လုပ်ခြင်း၊ Weather API ခေါ်ခြင်းစတဲ့ Real-world Tools တွေကို ဘယ်လို ခေါ်သုံးခိုင်းမလဲ** ဆိုတာကို **[Module 2.1: Function Calling & Tool Use](/ai-agents/02-tool-use/01-function-calling-basics)** မှာ ဆက်လက် လေ့လာပါမယ်။

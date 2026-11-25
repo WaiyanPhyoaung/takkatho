@@ -34,7 +34,7 @@
 
 ## 3. Current Platform Status & Content Audit
 
-လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၅ ခု** နှင့် **သင်ခန်းစာပေါင်း 400 ခု** (Overview pages အပါအဝင် စုစုပေါင်း 425+ စာမျက်နှာ) ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
+လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၆ ခု** နှင့် **သင်ခန်းစာပေါင်း 410 ခု** (Overview pages အပါအဝင် စုစုပေါင်း 436+ စာမျက်နှာ) ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
 
 ### 📚 Course Library Breakdown
 
@@ -67,6 +67,7 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **Software Architecture** | Systems Design | Advanced | 24 | ✅ Live | Monolith vs Microservices, C4 Model, ADRs, Saga Pattern, CQRS |
 | **Linux, Cloud VPS & DevOps** | DevOps | Intermediate | 10 | ✅ Live | Linux CLI, Permissions, systemd, SSH, UFW, Nginx Reverse Proxy, GitHub Actions CI/CD |
 | **Python Data Science & Scraping** | Data Science & Automation | Intermediate | 10 | ✅ Live | NumPy, Pandas, Matplotlib/Seaborn, BeautifulSoup, Playwright, Telegram Tracker Bot |
+| **Modern AI Agents & LLM Engineering** | Artificial Intelligence | Intermediate | 10 | ✅ Live | LLM APIs, Structured Outputs, Function Calling, ReAct Loop, ChromaDB/pgvector, RAG Citations & Memory, Multi-Agent Evals |
 
 ---
 
@@ -74,16 +75,16 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 
 ### 1. Guided Career Roadmaps (`/roadmaps`)
 - 🛣️ **Full-Stack Web Developer**: HTML → CSS → JS → TypeScript → Node.js → Next.js
-- 🤖 **AI & Business Automation**: AI Proficiency → n8n Automation → Python → Docker
+- 🤖 **AI & Business Automation**: AI Proficiency → n8n Automation → Python → Python Data Science → Modern AI Agents → Docker → Linux DevOps
 - 🏛️ **Backend & Systems Architect**: SQL → Relational DB Design → MongoDB → Web Performance → Software Architecture
 
 ### 2. Interactive Learning Components (`src/components/mdx/`)
 - `<CodePlayground />`: Live HTML/CSS/JS Sandbox with tabbed editor, instant preview iframe, syntax coloring, reset & copy controls (embedded across HTML, CSS, Advanced CSS, and JavaScript lessons).
-- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese (embedded across 14 core courses).
-- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage` across **all 400 lessons (all 25 courses)** via `MarkdownContent.astro`, synced with `/courses` progress bars.
+- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese (embedded across 15 core courses).
+- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage` across **all 410 lessons (all 26 courses)** via `MarkdownContent.astro`, synced with `/courses` progress bars.
 
 ### 3. Global Full-Text Search
-- Powered by Starlight + Pagefind, indexing 425 pages (400 lessons plus 25 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
+- Powered by Starlight + Pagefind, indexing 436 pages (410 lessons plus 26 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
 
 ---
 
@@ -163,7 +164,8 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **M1.5c** | Interactive Rollout: Auto `<LessonCompletion />` (all 378 lessons), `<CodePlayground />` (9 lessons), `<Quiz />` (21 lessons / 12 courses) | ✅ Completed | Completed |
 | **M1.5d** | Flagship Short Courses Expansion: Docker (8), Next.js (8), Node.js (10), MongoDB (8) — 390 total lessons | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`, 10 lessons -> 400 total lessons across 25 courses) | ✅ Completed | Completed |
-| **M1.7** | Modern AI Agents & LLM App Engineering (`/ai-agents`) | 🔄 Next Up | Sprint 5 |
+| **M1.7** | Modern AI Agents & LLM App Engineering (`/ai-agents`, 10 lessons -> 410 total lessons across 26 courses) | ✅ Completed | Completed |
+| **M1.8** | Interactive CodePlayground Expansion (Python / TS / SQL sandboxes or Quiz coverage to all 26 courses) | 🔄 Next Up | Sprint 6 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 
 ---

@@ -1,0 +1,25 @@
+---
+title: "Modern AI Agents & LLM Engineering မိတ်ဆက် (Course Overview)"
+description: "LLM APIs (OpenAI / Gemini), Structured Outputs, Function Calling, Vector Databases, RAG Agents, Multi-Agent Workflows နှင့် Production Guardrails များ တည်ဆောက်ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="👋 ကြိုဆိုပါတယ်">
+  **Modern AI Agents & LLM Application Engineering** သင်ရိုးမှ ကြိုဆိုပါတယ်။ ChatGPT သို့မဟုတ် Gemini UI ကို အသုံးပြုရုံသာမက **ကိုယ်ပိုင် Software Application များထဲမှာ LLM APIs တွေကို စနစ်တကျ ချိတ်ဆက်ပြီး Database၊ External APIs နဲ့ Documents တွေကို ကိုယ်တိုင် ရှာဖွေဆုံးဖြတ် အလုပ်လုပ်နိုင်တဲ့ AI Agents တွေ** တည်ဆောက်ချင်တဲ့ Developers များအတွက် ရည်ရွယ်ထားပါတယ်။
+</Aside>
+
+## 📚 သင်ရိုးတွင် ပါဝင်သည့် Modules ၅ ခု
+
+1. **Module 1: LLM API Foundations** — Stateless Messages API (`system`, `user`, `assistant`), Tokens & Context Window, Temperature, Streaming SSE နှင့် Schema-enforced Structured Outputs (`Pydantic` / JSON Schema)။
+2. **Module 2: Function Calling & Tool Use** — LLM မှ External APIs နှင့် SQLite Database များကို လှမ်းခေါ်စေခြင်း၊ Safe ReAct Agent Loop (`max_steps` နှင့် Error Recovery) တည်ဆောက်ခြင်း။
+3. **Module 3: Embeddings & Vector Databases** — Semantic Meaning ကို Vectors အဖြစ် ပြောင်းလဲခြင်း၊ Document Chunking strategies၊ `ChromaDB` နှင့် Metadata filtering / Hybrid Search။
+4. **Module 4: Retrieval-Augmented Generation (RAG)** — Source Citations ပါဝင်သည့် Document Q&A Pipeline၊ Groundedness prompt design၊ Query Rewriting နှင့် Conversational Memory။
+5. **Module 5: Autonomous Multi-Agent Workflows & Production Evals** — Router, Supervisor နှင့် Evaluator-Optimizer Multi-Agent patterns (`LangGraph` / Workflow state)၊ Prompt Injection Guardrails နှင့် Capstone Docs-to-Action Agent။
+
+## 🛠️ ကြိုတင် ပြင်ဆင်ရန် (Prerequisites)
+
+- [Python Programming](/python/module-0) (Functions, Dictionaries, Virtual Environments, `pip`) အခြေခံ သိရှိထားရန် လိုအပ်ပါတယ်။
+- OpenAI API Key သို့မဟုတ် Google Gemini API Key တစ်ခုခု ရှိပါက လက်တွေ့ စမ်းသပ်နိုင်ပါတယ် (Free tier ဖြင့် စတင်နိုင်ပါတယ်)။
+
+👉 **[Module 1: LLM APIs, Tokens & System Prompts Architecture သို့ စတင်မည် →](/ai-agents/01-llm-foundations/01-llm-apis-and-tokens)**

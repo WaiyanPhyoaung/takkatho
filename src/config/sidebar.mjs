@@ -2616,4 +2616,78 @@ export const sidebar = [
       },
     ],
   },
+  {
+    label: "Modern AI Agents & LLM Engineering",
+    items: [
+      {
+        label: "မိတ်ဆက် (Course Overview)",
+        slug: "ai-agents",
+      },
+      {
+        label: "1. LLM API Foundations",
+        items: [
+          {
+            label: "1. LLM APIs, Tokens & System Prompts",
+            slug: "ai-agents/01-llm-foundations/01-llm-apis-and-tokens",
+          },
+          {
+            label: "2. Structured Outputs & Pydantic",
+            slug: "ai-agents/01-llm-foundations/02-structured-outputs",
+          },
+        ],
+      },
+      {
+        label: "2. Function Calling & Tool Use",
+        items: [
+          {
+            label: "1. Function Calling & DB Tools",
+            slug: "ai-agents/02-tool-use/01-function-calling-basics",
+          },
+          {
+            label: "2. Safe ReAct Agent Loop",
+            slug: "ai-agents/02-tool-use/02-agent-loop-react",
+          },
+        ],
+      },
+      {
+        label: "3. Embeddings & Vector Databases",
+        items: [
+          {
+            label: "1. Embeddings & Overlap Chunking",
+            slug: "ai-agents/03-embeddings-vector-db/01-embeddings-and-chunking",
+          },
+          {
+            label: "2. ChromaDB, pgvector & Hybrid Search",
+            slug: "ai-agents/03-embeddings-vector-db/02-vector-databases",
+          },
+        ],
+      },
+      {
+        label: "4. Retrieval-Augmented Generation (RAG)",
+        items: [
+          {
+            label: "1. RAG Pipeline & Source Citations",
+            slug: "ai-agents/04-rag/01-rag-pipeline-and-citations",
+          },
+          {
+            label: "2. Memory & Standalone Query Rewriting",
+            slug: "ai-agents/04-rag/02-rag-memory-and-query-rewriting",
+          },
+        ],
+      },
+      {
+        label: "5. Multi-Agent & Production Evals",
+        items: [
+          {
+            label: "1. Multi-Agent Orchestration Patterns",
+            slug: "ai-agents/05-multi-agent-production/01-multi-agent-orchestration",
+          },
+          {
+            label: "2. Guardrails, Evals & Support Capstone",
+            slug: "ai-agents/05-multi-agent-production/02-guardrails-evals-and-capstone",
+          },
+        ],
+      },
+    ],
+  },
 ];

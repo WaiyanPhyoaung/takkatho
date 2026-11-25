@@ -1,0 +1,113 @@
+---
+title: "Vector Databases (ChromaDB & pgvector) and Hybrid Search"
+description: "ChromaDB ဖြင့် Local Persistent Vector Store တည်ဆောက်ခြင်း၊ Metadata Filtering နှင့် Hybrid Search (BM25 + Semantic Vectors) ပေါင်းစပ်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💾 Numpy Loop မှ Vector Database သို့">
+  Chunks ၁၀ ခုလောက်ကို `for` loop နဲ့ Cosine Similarity တွက်တာ မြန်ပေမယ့် **Chunks ၁ သိန်းကျော်** လာရင် Brute-force တွက်တာ အရမ်းနှေးသွားပါမယ်။ Vector Databases (`ChromaDB`, `pgvector`, `Qdrant`, `Pinecone`) များသည် **HNSW (Hierarchical Navigable Small World)** Index ကို သုံးပြီး Milliseconds အတွင်း ရှာဖွေပေးပါတယ်။
+</Aside>
+
+## 1. ChromaDB ဖြင့် Persistent Knowledge Base တည်ဆောက်ခြင်း
+
+Local environment သို့မဟုတ် VPS ပေါ်မှာ Python service တစ်ခုအနေနဲ့ Run ချင်ရင် `chromadb` သည် Setup လုပ်ရ အလွယ်ကူဆုံး Persistent Vector DB ဖြစ်ပါတယ် —
+
+```python
+# chroma_store.py — pip install chromadb openai
+import os
+import chromadb
+from chromadb.utils import embedding_functions
+
+openai_ef = embedding_functions.OpenAIEmbeddingFunction(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model_name="text-embedding-3-small",
+)
+
+client = chromadb.PersistentClient(path="./knowledge_db")
+collection = client.get_or_create_collection(
+    name="company_docs",
+    embedding_function=openai_ef,
+    metadata={"hnsw:space": "cosine"},
+)
+
+collection.upsert(
+    ids=["doc_refund_1", "doc_shipping_1", "doc_warranty_1"],
+    documents=[
+        "Full refund is available within 14 days for unopened items.",
+        "Yangon & Mandalay express delivery arrives within 48 hours.",
+        "All laptops include a 12-month official hardware warranty.",
+    ],
+    metadatas=[
+        {"department": "billing", "year": 2026},
+        {"department": "logistics", "year": 2026},
+        {"department": "support", "year": 2025},
+    ],
+)
+```
+
+---
+
+## 2. Metadata Filtering (`where` Clause)
+
+Vector Search တစ်ခုတည်း ရှာတဲ့အခါ 2023 Policy document အဟောင်းတွေပါ ရောပါလာတတ်ပါတယ်။ **Metadata Filtering** သုံးပြီး Vector ရှာဖွေမှု မလုပ်ခင် (သို့) ရှာနေစဉ် **Pre-filter** လုပ်ထားနိုင်ပါတယ် —
+
+```python
+results = collection.query(
+    query_texts=["How fast is Yangon shipping?"],
+    n_results=2,
+    where={"department": "logistics"},
+)
+
+for doc, meta, dist in zip(
+    results["documents"][0],
+    results["metadatas"][0],
+    results["distances"][0],
+):
+    print(f"distance={dist:.3f} | meta={meta} | {doc}")
+```
+
+---
+
+## 3. Production Vector DB ရွေးချယ်မှု နှင့် Hybrid Search
+
+| Database | အကောင်းဆုံး အသုံးပြုရန် | Highlights |
+| :--- | :--- | :--- |
+| **ChromaDB** | Local prototypes, Small/Medium Python apps | Zero external infra (`PersistentClient`) |
+| **PostgreSQL + `pgvector`** | **Existing Web Apps (Next.js / FastAPI)** | User tables, Permissions နဲ့ Vector ကို SQL Transaction တစ်ခုတည်းမှာ Join နိုင် |
+| **Qdrant / Pinecone** | Million+ scale, Multi-tenant SaaS | Managed filtering, High throughput & Hybrid sparse/dense native support |
+
+### Semantic + Keyword = Hybrid Search (RRF)
+
+- **Dense Vectors (Embeddings)** သည် စာသားအဓိပ္ပာယ်ကို ရှာဖွေရာမှာ အားကောင်းသော်လည်း **Exact Error Codes (`ERR_504_TIMEOUT`), SKUs (`SKU-9981`), လူနာမည်** များကို ရှာရာမှာ Keyword search (`BM25`) လောက် မတိကျပါဘူး။
+- Production Systems များတွင် Vector Top-10 နှင့် BM25 Keyword Top-10 နှစ်မျိုးလုံးကို **Reciprocal Rank Fusion (RRF)** ဖြင့် ပေါင်းစပ်ပြီး Cross-encoder **Reranker** ဖြင့် Top-4 အကောင်းဆုံး Chunks များကိုသာ LLM ဆီ ပို့ပေးလေ့ ရှိပါတယ်။
+
+<Quiz
+  client:idle
+  title="Module 3 Checkpoint"
+  questions={[
+    {
+      question: "Document များကို Vector DB ထဲ မထည့်မီ Chunking ပြုလုပ်ရာတွင် chunk_overlap ထည့်ပေးရခြင်း၏ အဓိက အကြောင်းရင်းမှာ အဘယ်နည်း?",
+      options: [
+        "Embedding API ကုန်ကျစရိတ် ပိုများစေရန်",
+        "Chunk နှစ်ခုကြား စာကြောင်းတစ်ဝက်တွင် အဓိပ္ပာယ် ပြတ်တောက်မသွားစေဘဲ Continuity ထိန်းသိမ်းရန်",
+        "Vector Dimension အရေအတွက် 1536 မှ 3072 သို့ တိုးမြှင့်ရန်",
+        "JSON Schema validation အလိုအလျောက် ဖြစ်စေရန်"
+      ],
+      correctIndex: 1,
+      explanation: "chunk_overlap (10–20%) ထည့်ပေးခြင်းဖြင့် boundary နားက စာကြောင်း/အချက်အလက်များ နှစ်ပိုင်းကွဲပြီး context ပျောက်သွားခြင်းမှ ကာကွယ်ပေးပါတယ်။"
+    },
+    {
+      question: "Exact Product SKU ('SKU-8841') သို့မဟုတ် Error Code ('ECONNRESET') များကိုပါ မလွတ်တမ်း ရှာဖွေနိုင်ရန် မည်သည့် Search Strategy ကို သုံးသင့်သနည်း?",
+      options: [
+        "Hybrid Search (Keyword BM25 + Dense Semantic Vector Search)",
+        "Temperature ကို 1.2 ထား၍ Prompt မေးခြင်း",
+        "Chunks အားလုံးကို System prompt ထဲ တိုက်ရိုက် ကူးထည့်ခြင်း",
+        "Chunk size ကို 50 characters အထိ ဖြတ်တောက်ခြင်း"
+      ],
+      correctIndex: 0,
+      explanation: "Dense Vector search သည် အဓိပ္ပာယ်တူတာကို ရှာရာမှာ ကောင်းသော်လည်း Exact codes/SKUs များအတွက် BM25 keyword search နှင့် ပေါင်းစပ်သည့် Hybrid Search က အကောင်းဆုံး ဖြစ်ပါတယ်။"
+    }
+  ]}
+/>
