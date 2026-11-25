@@ -22,11 +22,94 @@ const cheatsheetCards = CHEATSHEET_DATA.map((section) => ({
     .join(", "),
   count: section.items.length,
 }));
+
+// Latest & recently expanded flagship courses rendered on the homepage, backed
+// by coursesData and sidebar lesson counts so titles/descriptions/counts never drift.
+const LATEST_FEATURED_SPECS = [
+  {
+    id: "ai-agents",
+    badge: "NEW",
+    badgeClass:
+      "bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300",
+    iconGradient: "from-purple-600 to-fuchsia-500 shadow-purple-500/25",
+    cardHover: "hover:shadow-purple-500/10",
+    titleHover: "group-hover:text-purple-600 dark:group-hover:text-purple-400",
+    iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
+  },
+  {
+    id: "python-datascience",
+    badge: "NEW",
+    badgeClass:
+      "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300",
+    iconGradient: "from-emerald-600 to-teal-500 shadow-emerald-500/25",
+    cardHover: "hover:shadow-emerald-500/10",
+    titleHover: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+    iconPath:
+      "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+  },
+  {
+    id: "linux-devops",
+    badge: "NEW",
+    badgeClass:
+      "bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300",
+    iconGradient: "from-orange-600 to-amber-500 shadow-orange-500/25",
+    cardHover: "hover:shadow-orange-500/10",
+    titleHover: "group-hover:text-orange-600 dark:group-hover:text-orange-400",
+    iconPath:
+      "M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
+  },
+  {
+    id: "docker",
+    badge: "Updated",
+    badgeClass: "bg-sky-100 dark:bg-sky-900/50 text-sky-800 dark:text-sky-300",
+    iconGradient: "from-sky-600 to-blue-500 shadow-sky-500/25",
+    cardHover: "hover:shadow-sky-500/10",
+    titleHover: "group-hover:text-sky-600 dark:group-hover:text-sky-400",
+    iconPath:
+      "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",
+  },
+  {
+    id: "nextjs",
+    badge: "Updated",
+    badgeClass:
+      "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300",
+    iconGradient: "from-indigo-600 to-violet-600 shadow-indigo-500/25",
+    cardHover: "hover:shadow-indigo-500/10",
+    titleHover: "group-hover:text-indigo-600 dark:group-hover:text-indigo-400",
+    iconPath:
+      "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
+  },
+  {
+    id: "nodejs",
+    badge: "Updated",
+    badgeClass:
+      "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300",
+    iconGradient: "from-green-600 to-emerald-500 shadow-green-500/25",
+    cardHover: "hover:shadow-green-500/10",
+    titleHover: "group-hover:text-green-600 dark:group-hover:text-green-400",
+    iconPath: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+  },
+];
+
+const latestFeaturedCourses = LATEST_FEATURED_SPECS.map((spec) => {
+  const course = coursesData.find((c) => c.id === spec.id);
+  if (!course) {
+    throw new Error(`Homepage featured course missing from coursesData: ${spec.id}`);
+  }
+  return {
+    ...spec,
+    href: `/${course.dir}`,
+    title: course.title,
+    description: course.description,
+    estimatedTime: course.estimatedTime,
+    lessonCount: lessonCountFor(course.dir),
+  };
+});
 ---
 
 <StandaloneLayout
   title="တက္ကသိုလ် - Myanmar Programming Learning Platform"
-  description="မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများကို လေ့လာပါ။ TypeScript, WebSocket, Git, Web Performance နှင့် အခြား နည်းပညာများ"
+  description="မြန်မာဘာသာဖြင့် programming သင်ခန်းစာများကို လေ့လာပါ။ AI Agents, Python Data Science, Linux DevOps, Docker, Next.js, TypeScript နှင့် အခြား နည်းပညာများ"
 >
   <div class="neo-page neo-home">
     <!-- Hero Section -->
@@ -569,8 +652,8 @@ const cheatsheetCards = CHEATSHEET_DATA.map((section) => ({
                   </svg>
                 </div>
                 <span
-                  class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-medium"
-                  >NEW</span
+                  class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-xs font-medium"
+                  >Intermediate</span
                 >
               </div>
               <h3
@@ -881,383 +964,96 @@ const cheatsheetCards = CHEATSHEET_DATA.map((section) => ({
           >
             နောက်ဆုံးထွက် သင်ခန်းစာများ
           </h2>
+          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            AI Agents, Python Data Science, Cloud DevOps နှင့် 2026 Full-Stack သင်ရိုးသစ်များ
+          </p>
         </div>
 
         <!-- Course Grid -->
         <div
           class="neo-card-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
-          <!-- Python -->
-          <a href="/python" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
+          {
+            latestFeaturedCourses.map((course) => (
+              <a href={course.href} class="group">
                 <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25"
+                  class={`neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br ${course.cardHover} hover:-translate-y-1 transition-all duration-300`}
                 >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <div class="flex items-start justify-between mb-4">
+                    <div
+                      class={`p-3 rounded-xl bg-gradient-to-br ${course.iconGradient} text-white shadow-lg`}
+                    >
+                      <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d={course.iconPath}
+                        ></path>
+                      </svg>
+                    </div>
+                    <span
+                      class={`px-2.5 py-1 rounded-lg ${course.badgeClass} text-xs font-semibold`}
+                    >
+                      {course.badge}
+                    </span>
+                  </div>
+                  <h3
+                    class={`text-xl font-bold text-gray-900 dark:text-white mb-2 ${course.titleHover} transition-colors`}
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
+                    {course.title}
+                  </h3>
+                  <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                    {course.description}
+                  </p>
+                  <div
+                    class="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-400"
+                  >
+                    <span class="flex items-center gap-1">
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        ></path>
+                      </svg>
+                      {course.lessonCount} lessons
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                      {course.estimatedTime}
+                    </span>
+                  </div>
                 </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs font-medium"
-                  >Beginner</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-              >
-                Python Programming
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Python ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Variables,
-                Loops, Functions မှစ၍ OOP အထိ ပါဝင်သည်။
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  {lessons("/python")} lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  4 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Java -->
-          <a href="/java" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-red-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-red-600 to-orange-500 text-white shadow-lg shadow-red-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs font-medium"
-                  >Beginner</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors"
-              >
-                Java Programming
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Java ကို အခြေခံမှစ၍ လွယ်ကူရှင်းလင်းစွာ လေ့လာခြင်း။ Syntax, OOP,
-                Collections နှင့် Exception Handling များ ပါဝင်သည်။
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  {lessons("/java")} lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  5 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Golang -->
-          <a href="/golang" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-xs font-medium"
-                  >Intermediate</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"
-              >
-                Golang Programming
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Google မှ ဖန်တီးထားသော Go Language ကို အခြေခံမှစ၍ Concurrency
-                နှင့် REST API တည်ဆောက်ခြင်းအထိ လေ့လာခြင်း။
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  {lessons("/golang")} lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  6 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- SQL -->
-          <a href="/sql-course/introduction/what-is-sql" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
-                    ></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-xs font-medium"
-                  >Beginner</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors"
-              >
-                SQL Masterclass
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Database များနှင့် စကားပြောဆိုရန်၊ ဒေတာများ ထိန်းချုပ်ရန်နှင့်
-                တည်ဆောက်ရန် မရှိမဖြစ်လိုအပ်သော SQL ကို အလွယ်ကူဆုံး လေ့လာခြင်း
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  {lessons("/sql-course/introduction/what-is-sql")} lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  2 weeks
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- TypeScript -->
-          <a href="/typescript" class="group">
-            <div
-              class="neo-card relative h-full p-6 rounded-2xl bg-gradient-to-br hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div class="flex items-start justify-between mb-4">
-                <div
-                  class="p-3 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
-                </div>
-                <span
-                  class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-xs font-medium"
-                  >Intermediate</span
-                >
-              </div>
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
-              >
-                TypeScript Programming
-              </h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                JavaScript ကို Type System ဖြင့် ပိုမိုခိုင်မာအောင်
-                တည်ဆောက်ခြင်း။ Interfaces, Generics နှင့် Advanced Types များ
-                ပါဝင်သည်။
-              </p>
-              <div
-                class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500"
-              >
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    ></path>
-                  </svg>
-                  {lessons("/typescript")} lessons
-                </span>
-                <span class="flex items-center gap-1">
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  5 weeks
-                </span>
-              </div>
-            </div>
-          </a>
+              </a>
+            ))
+          }
         </div>
       </div>
     </section>
