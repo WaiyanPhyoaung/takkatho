@@ -16,9 +16,9 @@ Forward Proxy (VPN ကဲ့သို့) သည် Client ဘက်မှ အ�
 
 ```mermaid
 graph LR
-    User["🌐 User (https://api.example.com)"] -->|Port 443 HTTPS (SSL)| Nginx["🛡️ Nginx Reverse Proxy"]
-    Nginx -->|proxy_pass :3000| NodeApp["🟢 Node.js API (localhost:3000)"]
-    Nginx -->|proxy_pass :8080| DockerApp["🐳 Docker Container (localhost:8080)"]
+    User["🌐 User (https://api.example.com)"] -->|"Port 443 HTTPS (SSL)"| Nginx["🛡️ Nginx Reverse Proxy"]
+    Nginx -->|"proxy_pass :3000"| NodeApp["🟢 Node.js API (localhost:3000)"]
+    Nginx -->|"proxy_pass :8080"| DockerApp["🐳 Docker Container (localhost:8080)"]
 ```
 
 ---
@@ -71,7 +71,7 @@ sudo systemctl reload nginx
 ```mermaid
 graph TD
     CertbotCLI["sudo certbot --nginx -d api.example.com"] --> LetEncrypt["Let's Encrypt CA Server"]
-    LetEncrypt -->|Domain ပိုင်ဆိုင်မှု စစ်ဆေးသည်| NginxConf["Nginx Config သို့ SSL Certs များ အလိုအလျောက် ထည့်ပေးသည်"]
+    LetEncrypt -->|"Domain ပိုင်ဆိုင်မှု စစ်ဆေးသည်"| NginxConf["Nginx Config သို့ SSL Certs များ အလိုအလျောက် ထည့်ပေးသည်"]
     NginxConf --> HTTPSLive["🔒 100% Free HTTPS Live!"]
 ```
 

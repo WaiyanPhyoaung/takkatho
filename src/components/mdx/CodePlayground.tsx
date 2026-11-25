@@ -70,6 +70,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
   const [js, setJs] = useState(initialJs);
   const [activeTab, setActiveTab] = useState<"html" | "css" | "js">(defaultTab);
   const [srcDoc, setSrcDoc] = useState("");
+  const [runId, setRunId] = useState(0);
   const [copied, setCopied] = useState(false);
   const copyTimer = useRef<number | undefined>(undefined);
 
@@ -90,6 +91,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
 
   const runCode = () => {
     setSrcDoc(buildDoc(html, css, js));
+    setRunId((n) => n + 1);
   };
 
   useEffect(() => {
@@ -101,6 +103,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
     setCss(initialCss);
     setJs(initialJs);
     setSrcDoc(buildDoc(initialHtml, initialCss, initialJs));
+    setRunId((n) => n + 1);
   };
 
   const handleCopy = async () => {
@@ -252,6 +255,7 @@ export const CodePlayground: React.FC<CodePlaygroundProps> = ({
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
           </div>
           <iframe
+            key={runId}
             srcDoc={srcDoc}
             title={`Live Output: ${title}`}
             sandbox="allow-scripts"
