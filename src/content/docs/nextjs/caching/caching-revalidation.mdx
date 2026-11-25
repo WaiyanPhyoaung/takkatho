@@ -1,0 +1,89 @@
+---
+title: "Caching, Dynamic Rendering & On-Demand Revalidation"
+description: "Next.js Static vs Dynamic Rendering, revalidatePath နှင့် revalidateTag ဖြင့် Data Cache ကို တိကျစွာ ထိန်းချုပ်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Next.js မှာ "Database ထဲ Data အသစ်ထည့်ပြီးပေမယ့် Page ပေါ်မှာ မပြောင်းသေးဘူး" ဆိုတဲ့ ပြဿနာကို ဖြေရှင်းနိုင်ဖို့ Static Rendering, Dynamic Rendering နဲ့ On-Demand Cache Revalidation တွေကို ရှင်းရှင်းလင်းလင်း နားလည်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## Static vs. Dynamic Rendering
+
+Next.js App Router တွင် Route တစ်ခုသည် Dynamic inputs (`cookies()`, `headers()`, `searchParams`) မသုံးထားပါက Build time တွင် **Static** အဖြစ် Pre-render လုပ်ပေးပြီး, User request အလိုက် Real-time data ပြောင်းဖို့ လိုလာသည့်အခါ **Dynamic** Rendering သို့ ပြောင်းလဲအသုံးပြုနိုင်ပါတယ်။
+
+| Pattern | Config / API | ဘယ်နေရာမှာ သုံးသင့်လဲ? |
+| :--- | :--- | :--- |
+| **Static (SSG)** | Default (No dynamic APIs) | Blog posts, Documentation, Marketing pages |
+| **ISR (Time-based)** | `export const revalidate = 60;` | စက္ကန့် ၆၀ တစ်ခါ Update လုပ်လိုသော Catalog/News |
+| **Dynamic (SSR)** | `export const dynamic = "force-dynamic";` သို့မဟုတ် `cookies()` | Dashboard, Cart, User-specific pages |
+| **On-Demand Revalidation** | `revalidatePath()` / `revalidateTag()` | Admin မှ Data ပြင်လိုက်သည်နှင့် Cache ချက်ချင်း ရှင်းခြင်း |
+
+---
+
+## `fetch()` Caching နှင့် Tagged Revalidation
+
+Next.js 15+ တွင် `fetch()` သည် Default အားဖြင့် Uncached (`no-store`) ဖြစ်ပြီး, Cache လုပ်လိုပါက `cache: "force-cache"` သို့မဟုတ် `next: { tags: [...] }` ကို ရှင်းရှင်းလင်းလင်း ထည့်သွင်းပေးရပါတယ်။
+
+```typescript
+// Data ကို Cache လုပ်ပြီး 'courses' tag တပ်ထားခြင်း
+const res = await fetch("https://api.example.com/courses", {
+  next: { tags: ["courses"], revalidate: 3600 },
+});
+```
+
+---
+
+## Server Action မှတစ်ဆင့် Cache ချက်ချင်း Update လုပ်ခြင်း
+
+```typescript
+// app/actions/course.ts
+"use server";
+
+import { revalidatePath, revalidateTag } from "next/cache";
+
+export async function publishNewCourse(title: string) {
+  await db.course.create({ data: { title } });
+
+  // Option A: Page path တစ်ခုလုံး Cache ရှင်းခြင်း
+  revalidatePath("/courses");
+
+  // Option B: Tag တူညီသော Cached queries အားလုံး ရှင်းခြင်း
+  revalidateTag("courses", "max");
+}
+```
+
+<Aside type="tip">
+  Data တစ်ခုကို Website ရဲ့ နေရာအများကြီး (Homepage + Courses page + Header count) မှာ သုံးထားရင် `revalidatePath` တစ်ခုချင်း လိုက်ခေါ်မယ့်အစား `revalidateTag` နဲ့ စုစည်းထိန်းချုပ်တာက ပိုမိုသပ်ရပ်ပါတယ် ခင်ဗျာ။
+</Aside>
+
+<Quiz
+  client:idle
+  title="Next.js Caching & Revalidation Quiz"
+  questions={[
+    {
+      question: "Server Action တစ်ခုဖြင့် Database ထဲသို့ Post အသစ် ထည့်ပြီးနောက် `/blog` စာမျက်နှာပေါ်တွင် ချက်ချင်း Update ဖြစ်စေရန် မည်သည့် Function ကို ခေါ်သင့်သနည်း?",
+      options: [
+        "window.location.reload()",
+        "revalidatePath('/blog')",
+        "JSON.stringify()",
+        "useEffect()"
+      ],
+      correctIndex: 1,
+      explanation: "Server Action ထဲတွင် revalidatePath('/blog') ကို ခေါ်ပေးခြင်းဖြင့် Next.js server cache ကို ရှင်းလင်းပြီး Updated data ကို UI တွင် ချက်ချင်း ပြန်ပြပေးပါတယ်။"
+    },
+    {
+      question: "Page တစ်ခုကို Request ဝင်လာတိုင်း Server ပေါ်တွင် အသစ် Render လုပ်စေလိုပါက မည်သည့် Route Segment Config ကို သုံးနိုင်သနည်း?",
+      options: [
+        "export const dynamic = 'force-dynamic';",
+        "export const static = true;",
+        "export const edge = false;",
+        "export const memo = true;"
+      ],
+      correctIndex: 0,
+      explanation: "export const dynamic = 'force-dynamic'; သည် Route တစ်ခုကို Request တိုင်းတွင် Dynamic SSR အဖြစ် Render လုပ်ရန် သတ်မှတ်ပေးပါတယ်။"
+    }
+  ]}
+/>

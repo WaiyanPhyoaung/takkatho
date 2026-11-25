@@ -111,10 +111,27 @@ export const sidebar = [
             label: "Indexing နဲ့ Aggregation",
             slug: "mongodb-course/advanced/indexing-aggregation",
           },
+          {
+            label: "Pagination, Transactions & Security",
+            slug: "mongodb-course/advanced/transactions-security",
+          },
         ],
       },
       {
-        label: "5. Cloud နှင့် လက်တွေ့အသုံးချခြင်း",
+        label: "5. Data Modeling & Mongoose",
+        items: [
+          {
+            label: "Schema Design (Embed vs Reference)",
+            slug: "mongodb-course/modeling/schema-design-relationships",
+          },
+          {
+            label: "Mongoose Schemas, Validation & Hooks",
+            slug: "mongodb-course/mongoose/mongoose-odm",
+          },
+        ],
+      },
+      {
+        label: "6. Cloud နှင့် လက်တွေ့အသုံးချခြင်း",
         items: [
           {
             label: "MongoDB Atlas",
@@ -487,6 +504,33 @@ export const sidebar = [
           {
             label: "Simple REST API",
             slug: "nodejs/module-7",
+          },
+        ],
+      },
+      {
+        label: "Module 8: Middleware & Validation",
+        items: [
+          {
+            label: "Express Middleware, Error Handling & Zod",
+            slug: "nodejs/module-8",
+          },
+        ],
+      },
+      {
+        label: "Module 9: Auth & Security",
+        items: [
+          {
+            label: "JWT, bcrypt Hashing & Secrets",
+            slug: "nodejs/module-9",
+          },
+        ],
+      },
+      {
+        label: "Module 10: Production Backend",
+        items: [
+          {
+            label: "DB Pooling, node:test & Graceful Shutdown",
+            slug: "nodejs/module-10",
           },
         ],
       },
@@ -2373,6 +2417,18 @@ export const sidebar = [
         label: "5. Production Best Practices & Security",
         slug: "docker/production/best-practices",
       },
+      {
+        label: "6. Docker Networking & Isolation",
+        slug: "docker/networking/docker-networking",
+      },
+      {
+        label: "7. Multi-stage Builds & Image Optimization",
+        slug: "docker/dockerfile/multi-stage-builds",
+      },
+      {
+        label: "8. Container Debugging, Logs & Healthchecks",
+        slug: "docker/debugging/logs-exec-healthchecks",
+      },
     ],
   },
   {
@@ -2397,6 +2453,18 @@ export const sidebar = [
       {
         label: "5. Vercel Deployment, Env & SEO",
         slug: "nextjs/deployment/vercel-deployment",
+      },
+      {
+        label: "6. Route Handlers (API) & Middleware",
+        slug: "nextjs/api/route-handlers-middleware",
+      },
+      {
+        label: "7. Caching & On-Demand Revalidation",
+        slug: "nextjs/caching/caching-revalidation",
+      },
+      {
+        label: "8. Auth Patterns, Loading & Error UI",
+        slug: "nextjs/security/auth-error-handling",
       },
     ],
   },

@@ -34,7 +34,7 @@
 
 ## 3. Current Platform Status & Content Audit
 
-လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု** နှင့် **သင်ခန်းစာပေါင်း 378 ခု** (Overview pages အပါအဝင် စုစုပေါင်း 402+ စာမျက်နှာ) ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
+လက်ရှိတွင် Takkatho ပေါ်တွင် **ဘာသာရပ် ၂၄ ခု** နှင့် **သင်ခန်းစာပေါင်း 390 ခု** (Overview pages အပါအဝင် စုစုပေါင်း 414+ စာမျက်နှာ) ကို အောင်မြင်စွာ တည်ဆောက် ထုတ်ဝေပြီး ဖြစ်ပါသည်။
 
 ### 📚 Course Library Breakdown
 
@@ -51,13 +51,13 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **Python Programming** | Programming | Beginner | 14 | ✅ Live | Syntax, Data Structures, OOP, Error Handling |
 | **Golang** | Systems / Backend | Intermediate | 9 | ✅ Live | Goroutines, Channels, Pointers, REST APIs |
 | **Java Programming** | Enterprise / OOP | Beginner | 7 | ✅ Live | OOP Principles, Collections Framework, Exception Handling |
-| **Node.js & Express** | Backend | Intermediate | 7 | ✅ Live | Event Loop, File System, REST APIs, Express Middleware |
-| **Next.js (App Router)** | Full-Stack | Intermediate | 5 | ✅ Live | Server Components (RSC), Server Actions, Routing, Vercel Deploy |
+| **Node.js & Express** | Backend | Intermediate | 10 | ✅ Live | Event Loop, File System, REST APIs, Middleware, JWT/bcrypt, DB Pooling, Tests |
+| **Next.js (App Router)** | Full-Stack | Intermediate | 8 | ✅ Live | RSC, Server Actions, Route Handlers, Middleware, Caching & Revalidation, Auth |
 | **SQL Masterclass** | Database | Beginner | 8 | ✅ Live | CRUD, WHERE Clause, ORDER BY, Aggregations, GROUP BY, JOINs |
 | **Relational Database Design**| Database | Intermediate | 30 | ✅ Live | Normalization (1NF–5NF), Keys, Relationships, DDL/DML |
-| **MongoDB (NoSQL)** | Database | Beginner | 5 | ✅ Live | Document model, Collections, CRUD, Aggregations, Atlas Cloud |
+| **MongoDB (NoSQL)** | Database | Beginner | 8 | ✅ Live | Document model, CRUD, Modeling, Mongoose ODM, Pagination, Transactions & Security |
 | **Data Structures & Algorithms**| Computer Science| Intermediate | 15 | ✅ Live | Big-O, Stacks, Queues, Binary Trees, Graphs, Sorting, DP |
-| **Docker & Containers** | DevOps | Intermediate | 5 | ✅ Live | Images, Containers, Dockerfile, Docker Compose, Production Tips |
+| **Docker & Containers** | DevOps | Intermediate | 8 | ✅ Live | Images, Containers, Multi-stage Builds, Networking, Compose, Debugging & Healthchecks |
 | **n8n Workflow Automation** | Automation | Beginner | 20 | ✅ Live | Webhooks, API Integrations, Telegram Bots, AI Nodes, Cron Triggers |
 | **AI Proficiency for Devs** | Artificial Intelligence | Intermediate | 12 | ✅ Live | Prompt Engineering, AI Code Generation, Debugging, RAG, Security |
 | **Git Version Control** | Tooling | Beginner | 25 | ✅ Live | Branching, Merge vs Rebase, Conflict Resolution, Reflog, Stashing |
@@ -78,11 +78,11 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 
 ### 2. Interactive Learning Components (`src/components/mdx/`)
 - `<CodePlayground />`: Live HTML/CSS/JS Sandbox with tabbed editor, instant preview iframe, syntax coloring, reset & copy controls (embedded across HTML, CSS, Advanced CSS, and JavaScript lessons).
-- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese (embedded across 12 core courses).
-- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage` across **all 378 lessons (all 24 courses)** via `MarkdownContent.astro`, synced with `/courses` progress bars.
+- `<Quiz />`: Multiple-choice assessment widget with instant scoring, answer feedback, and detailed explanations in Burmese (embedded across 13 core courses).
+- `<LessonCompletion />`: Client-side lesson progress tracking storing completion states in `localStorage` across **all 390 lessons (all 24 courses)** via `MarkdownContent.astro`, synced with `/courses` progress bars.
 
 ### 3. Global Full-Text Search
-- Powered by Starlight + Pagefind, indexing 402 pages (378 lessons plus 24 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
+- Powered by Starlight + Pagefind, indexing 414 pages (390 lessons plus 24 course overviews). Lesson pages declare `lang="my"`, but the index is built as English (`PAGEFIND_FORCE_LANGUAGE=en` in `astro.config.mjs`) so English technical terms keep stemming.
 
 ---
 
@@ -160,6 +160,7 @@ Lesson counts are the number of lessons in each course's sidebar group (`src/con
 | **M1.5** | Visual Cheat Sheets Page (`/cheatsheets`, 120 commands in 8 categories) | ✅ Completed | Completed |
 | **M1.5b** | Platform Audit Fixes (Quiz scoring, Mermaid runtime, Starlight nav, 17 Course Overviews, 5 n8n deep dives, progress tracking & `?q=` sync) | ✅ Completed | Completed |
 | **M1.5c** | Interactive Rollout: Auto `<LessonCompletion />` (all 378 lessons), `<CodePlayground />` (9 lessons), `<Quiz />` (21 lessons / 12 courses) | ✅ Completed | Completed |
+| **M1.5d** | Flagship Short Courses Expansion: Docker (8), Next.js (8), Node.js (10), MongoDB (8) — 390 total lessons | ✅ Completed | Completed |
 | **M1.6** | Python Data Science & Scraping Course (`/python-datascience`) | 🔄 Next Up | Sprint 4 |
 | **M2.0** | Cloud Auth & Multi-device Progress Sync (Supabase / Clerk) | 💡 Future | Q4 2026 |
 

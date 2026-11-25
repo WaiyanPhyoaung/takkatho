@@ -1,0 +1,131 @@
+---
+title: "Real Database Connections, API Testing & Graceful Shutdown"
+description: "Production Node.js Backend တွင် Database Connection Pooling, node:test Built-in Test Runner နှင့် Graceful Shutdown တည်ဆောက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Module 7 က In-memory array အစား Real Database တွေနဲ့ Connection Pooling ချိတ်ဆက်နည်း၊ `node:test` သုံးပြီး Automated Tests ရေးနည်းနဲ့ Deploy လုပ်တဲ့အခါ User request တွေ ပြတ်တောက်မသွားစေမယ့် **Graceful Shutdown** တွေကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Database Connection Pooling
+
+HTTP Request ဝင်လာတိုင်း Database connection အသစ် ဖွင့်-ပိတ် လုပ်နေမယ်ဆိုရင် Server အရမ်းနှေးသွားပါမယ်။ ဒါကြောင့် Connection Pool (`pg.Pool`, Prisma, သို့မဟုတ် Mongoose connection pool) ကို App စတင်ချိန်မှာ တစ်ကြိမ်သာ တည်ဆောက်ထားပြီး ပြန်လည် မျှဝေသုံးစွဲရပါတယ်။
+
+```javascript
+// db/pool.js (PostgreSQL Example with pg)
+import pg from "pg";
+
+export const pool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 20,                 // တစ်ပြိုင်နက် အများဆုံး Connections 20
+  idleTimeoutMillis: 30000,
+});
+
+// SQL Injection ကာကွယ်ရန် Parameterized Query ($1) ကို အမြဲသုံးပါ
+export async function getUserByEmail(email) {
+  const { rows } = await pool.query(
+    "SELECT id, email, role FROM users WHERE email = $1",
+    [email],
+  );
+  return rows[0] ?? null;
+}
+```
+
+---
+
+## 2. Node.js Built-in Test Runner (`node --test`)
+
+Modern Node.js တွင် Jest သို့မဟုတ် Mocha ထပ် Install စရာမလိုဘဲ **`node:test`** နှင့် **`node:assert/strict`** တို့ တစ်ပါတည်း ပါဝင်လာပါတယ်။
+
+```javascript
+// tests/math.test.js
+import test from "node:test";
+import assert from "node:assert/strict";
+
+function calculateDiscount(price, percent) {
+  if (price < 0 || percent < 0 || percent > 100) {
+    throw new Error("Invalid discount inputs");
+  }
+  return price * (1 - percent / 100);
+}
+
+test("applies 20% discount correctly", () => {
+  assert.equal(calculateDiscount(10000, 20), 8000);
+});
+
+test("throws on invalid percentage", () => {
+  assert.throws(() => calculateDiscount(10000, 150), /Invalid discount inputs/);
+});
+```
+
+```bash
+# Terminal တွင် စမ်းသပ် Run ကြည့်ခြင်း
+node --test
+```
+
+---
+
+## 3. Graceful Shutdown (`SIGTERM` / `SIGINT`)
+
+VPS သို့မဟုတ် Docker container ကို Restart/Deploy လုပ်တဲ့အခါ Server process ဆီ `SIGTERM` signal ဝင်လာပါတယ်။ လက်ရှိ ဝင်နေဆဲ Requests တွေ ပြီးအောင် စောင့်ပြီးမှ HTTP Server နဲ့ DB Pool ကို သေချာ ပိတ်ပေးရပါတယ်။
+
+```javascript
+const server = app.listen(3000, () => {
+  console.log("API Server running on port 3000");
+});
+
+async function shutdown(signal) {
+  console.log(`${signal} received: closing HTTP server...`);
+  server.close(async () => {
+    await pool.end();
+    console.log("Database connections closed safely.");
+    process.exit(0);
+  });
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
+```
+
+<Quiz
+  client:idle
+  title="Production Node.js Architecture Quiz"
+  questions={[
+    {
+      question: "Express Middleware function တွင် Parameter ၄ ခု `(err, req, res, next)` ပါဝင်နေပါက Express က မည်သို့ သတ်မှတ်သနည်း?",
+      options: [
+        "Authentication Middleware",
+        "Global Error Handling Middleware",
+        "Static File Server",
+        "Database Pool Middleware"
+      ],
+      correctIndex: 1,
+      explanation: "Express သည် argument 4 ခု (err ရှေ့ဆုံးပါဝင်) ရှိသော Middleware function ကိုသာ Error Handler အဖြစ် အသိအမှတ်ပြုပြီး Routes အောက်ဆုံးတွင် ထားရှိရပါတယ်။"
+    },
+    {
+      question: "SQL Query ရေးသားရာတွင် `'SELECT * FROM users WHERE email = ' + email` အစား Parameterized Query (`$1`, `[email]`) ကို ဘာကြောင့် သုံးသင့်သနည်း?",
+      options: [
+        "Code ပိုရှည်စေရန်",
+        "SQL Injection တိုက်ခိုက်မှုများကို အလိုအလျောက် ကာကွယ်ပေးနိုင်ရန်",
+        "JSON format ပြောင်းပေးရန်",
+        "CORS errors ရှင်းရန်"
+      ],
+      correctIndex: 1,
+      explanation: "Parameterized queries များသည် user input ကို SQL command အဖြစ် interpret မလုပ်ဘဲ Data တန်ဖိုးသီးသန့်အဖြစ်သာ သတ်မှတ်ပေးသဖြင့် SQL Injection ကို ကာကွယ်ပေးပါတယ်။"
+    },
+    {
+      question: "Server process ကို Restart/Stop လုပ်ချိန်တွင် `SIGTERM` signal ကို ဖမ်းယူပြီး HTTP Server နှင့် DB Pool ကို ဘာကြောင့် ဖြည်းညင်းစွာ ပိတ်ပေး (Graceful Shutdown) သင့်သနည်း?",
+      options: [
+        "Request ဝင်နေဆဲ User များ၏ အလုပ် (Payment, DB Write) များ တစ်ဝက်တစ်ပျက် ပြတ်တောက်မသွားစေရန်",
+        "CPU speed ၂ ဆ တက်စေရန်",
+        "Database table များ ဖျက်ပစ်ရန်",
+        "npm install အလိုအလျောက် run ရန်"
+      ],
+      correctIndex: 0,
+      explanation: "Graceful shutdown သည် Connection အသစ်များ လက်မခံတော့ဘဲ လက်ရှိ Processing ဖြစ်နေဆဲ requests များ ပြီးစီးမှ DB connections များကို Safely ပိတ်ပေးပါတယ်။"
+    }
+  ]}
+/>

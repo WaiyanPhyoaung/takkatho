@@ -1,0 +1,102 @@
+---
+title: "Container Debugging, Logs, Healthchecks & Resource Limits"
+description: "Production Docker Containers များတွင် Logs ကြည့်ခြင်း၊ docker exec ဖြင့် Debug လုပ်ခြင်း၊ HEALTHCHECK နှင့် CPU/Memory ကန့်သတ်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Server ပေါ်မှာ Container crash ဖြစ်နေတာ၊ Memory ပြည့်ပြီး server နှေးကွေးသွားတာမျိုး ကြုံရတဲ့အခါ စနစ်တကျ စစ်ဆေးဖြေရှင်းနိုင်ဖို့ Debugging commands တွေနဲ့ Production Safeguards တွေကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Containers Logs နှင့် Resource Monitoring
+
+```bash
+# Container ၏ နောက်ဆုံး Lines 100 ကို Real-time Follow လုပ်ကြည့်ခြင်း
+docker logs -f --tail 100 backend-api
+
+# Container များ၏ CPU, Memory, Network I/O အသုံးပြုမှုကို Real-time ကြည့်ခြင်း
+docker stats
+
+# Container ဘာကြောင့် Exit ဖြစ်သွားသလဲ (Exit Code, Env, Mounts) အသေးစိတ် ကြည့်ခြင်း
+docker inspect backend-api --format '{{.State.ExitCode}} - {{.State.OOMKilled}}'
+```
+
+<Aside type="note">
+  `OOMKilled: true` (Exit code `137`) ဖြစ်နေပါက Container သည် ခွင့်ပြုထားသော RAM ပမာဏထက် ကျော်လွန်သုံးစွဲမိသဖြင့် Linux Kernel မှ ရပ်တန့်လိုက်ခြင်း ဖြစ်ပါတယ်။
+</Aside>
+
+---
+
+## 2. Container အတွင်းသို့ ဝင်ရောက် Debug လုပ်ခြင်း (`docker exec`)
+
+```bash
+# Alpine-based container ထဲသို့ interactive shell ဝင်ခြင်း
+docker exec -it backend-api sh
+
+# Ubuntu/Debian-based container ဖြစ်ပါက bash သုံးနိုင်သည်
+docker exec -it my-postgres bash
+
+# Container ထဲသို့ မဝင်ဘဲ Command တစ်ကြောင်းတည်း စစ်ဆေးခြင်း
+docker exec backend-api env | grep NODE_ENV
+```
+
+---
+
+## 3. `HEALTHCHECK` နှင့် Auto-Restart Policy
+
+Container ဟာ Process run နေသော်လည်း App inside မှာ Hang ဖြစ်နေနိုင်ပါတယ်။ `HEALTHCHECK` ထည့်ထားခြင်းဖြင့် App တကယ် အဖြေပြန်ပေးနိုင်သလားကို Docker က အလိုအလျောက် စစ်ဆေးပေးပါတယ်။
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:3000/health || exit 1
+```
+
+`docker-compose.yml` တွင် Resource Limits နှင့် Restart Policy တွဲသတ်မှတ်ခြင်း:
+
+```yaml
+services:
+  api:
+    image: my-api:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+```
+
+<Quiz
+  client:idle
+  title="Container Debugging & Healthcheck Quiz"
+  questions={[
+    {
+      question: "Docker container တစ်ခု Exit Code `137` နှင့် `OOMKilled: true` ဖြစ်၍ ရပ်သွားပါက ဘာကြောင့် ဖြစ်နိုင်သနည်း?",
+      options: [
+        "Syntax error တစ်ခု ရှိနေခြင်းကြောင့်",
+        "Container သည် သတ်မှတ်ထားသော Memory (RAM) Limit ထက် ကျော်လွန်သုံးစွဲမိခြင်းကြောင့်",
+        "Port 80 မဖွင့်ထားခြင်းကြောင့်",
+        "Docker network မရှိခြင်းကြောင့်"
+      ],
+      correctIndex: 1,
+      explanation: "OOM (Out Of Memory) Killed သည် Memory limit ထက် ကျော်လွန်သွားသည့်အခါ Linux kernel မှ SIGKILL (Exit code 137 = 128 + 9) ဖြင့် Container ကို ရပ်တန့်လိုက်ခြင်း ဖြစ်ပါတယ်။"
+    },
+    {
+      question: "Container တစ်ခုအတွင်းသို့ Interactive shell ဝင်ရောက်စစ်ဆေးရန် မည်သည့် Command ကို သုံးသနည်း?",
+      options: [
+        "docker logs -f <container>",
+        "docker build -it <container>",
+        "docker exec -it <container> sh",
+        "docker attach --prune <container>"
+      ],
+      correctIndex: 2,
+      explanation: "docker exec -it <container> sh (သို့မဟုတ် bash) သည် Run နေဆဲ Container အတွင်း၌ Interactive terminal အသစ်တစ်ခု ဖွင့်ပေးပါတယ်။"
+    }
+  ]}
+/>

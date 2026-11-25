@@ -160,7 +160,7 @@ try {
     }
   }
   assert(
-    mermaidRoutes.length === 26 && totalSvgsRendered >= 26,
+    mermaidRoutes.length >= 26 && totalSvgsRendered >= mermaidRoutes.length,
     `All ${mermaidRoutes.length} Mermaid lessons rendered ${totalSvgsRendered} clean SVGs`,
   );
 

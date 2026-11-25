@@ -1,0 +1,79 @@
+---
+title: "Mongoose ODM: Schemas, Validation & Hooks"
+description: "Node.js နှင့် MongoDB တွဲသုံးရာတွင် Mongoose Schema, Data Validation, Populate နှင့် Pre-save Middleware Hooks တည်ဆောက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  MongoDB က Schema-less (ဘာ Data ထည့်ထည့် လက်ခံ) ဖြစ်သော်လည်း Production application မှာ Bug မဖြစ်စေဖို့ Data Shape, Required fields နဲ့ Validation တွေကို Code ထဲမှာ စနစ်တကျ ထိန်းချုပ်နိုင်မယ့် **Mongoose ODM** ကို အသုံးချတတ်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Mongoose Schema & Model တည်ဆောက်ခြင်း
+
+```javascript
+// models/Course.js
+import mongoose from "mongoose";
+
+const courseSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "သင်တန်းအမည် မဖြစ်မနေ ထည့်ရပါမည်"],
+      trim: true,
+      minlength: 3,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    level: {
+      type: String,
+      enum: ["beginner", "intermediate", "advanced"],
+      default: "beginner",
+    },
+    instructor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // User model နှင့် Reference ချိတ်ဆက်ထားခြင်း
+      required: true,
+    },
+    price: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+  },
+  { timestamps: true }, // createdAt နှင့် updatedAt ကို အလိုအလျောက် ထည့်ပေးသည်
+);
+
+export const Course = mongoose.models.Course || mongoose.model("Course", courseSchema);
+```
+
+---
+
+## 2. Middleware Hooks (`pre('save')`)
+
+Document ကို Database ထဲ မသိမ်းခင် Slug အလိုအလျောက် ထုတ်ပေးတာ သို့မဟုတ် Password hash လုပ်တာတွေကို **`pre('save')`** hook မှာ ရေးနိုင်ပါတယ်:
+
+```javascript
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 12);
+});
+```
+
+---
+
+## 3. `populate()` နှင့် `.lean()` Performance Tip
+
+- **`populate("instructor", "name email")`**: Reference ID နေရာတွင် Author ၏ `name` နှင့် `email` ကိုသာ ဆွဲထည့်ပေးပါတယ် (Password field များ ချန်လှပ်နိုင်သည်)။
+- **`.lean()`**: Read-only queries များတွင် Mongoose hydration overhead မပါဘဲ Plain JavaScript objects ပြန်ပေးသဖြင့် Memory နှင့် Speed သိသိသာသာ ပိုမြန်ပါတယ်။
+
+```javascript
+const courses = await Course.find({ level: "beginner" })
+  .populate("instructor", "name")
+  .sort({ createdAt: -1 })
+  .lean();
+```

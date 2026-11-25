@@ -1,0 +1,124 @@
+---
+title: "Authentication, Loading UI & Error Boundaries"
+description: "Next.js App Router တွင် loading.tsx (Suspense Streaming), error.tsx Error Boundaries နှင့် Server-side Auth Verification Patterns"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Production App တစ်ခုမှာ API နှေးနေချိန် **Skeleton Loading (`loading.tsx`)** ပြသနည်း၊ Error တက်သွားချိန် App တစ်ခုလုံး Crash မဖြစ်စေဘဲ **`error.tsx`** နဲ့ Recovery လုပ်နည်း၊ နဲ့ **Server Component + Action Layer မှာ Auth စစ်ဆေးနည်း** တွေကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Streaming UI နှင့် `loading.tsx`
+
+App Router ထဲမှာ `app/courses/loading.tsx` ဖန်တီးလိုက်ရုံနဲ့ Next.js က `page.tsx` ကို `<Suspense>` နဲ့ အလိုအလျောက် Wrap လုပ်ပေးပြီး Database query ပြီးတဲ့အထိ Skeleton loader ကို ချက်ချင်း ပြသပေးပါတယ်။
+
+```tsx
+// app/courses/loading.tsx
+export default function LoadingCourses() {
+  return (
+    <div className="space-y-4 p-6 animate-pulse">
+      <div className="h-8 w-48 rounded bg-stone-200 dark:bg-stone-800" />
+      <div className="h-32 rounded-xl bg-stone-200 dark:bg-stone-800" />
+    </div>
+  );
+}
+```
+
+---
+
+## 2. Error Boundaries (`error.tsx`) နှင့် `not-found.tsx`
+
+`error.tsx` သည် Error recovery UI ဖြစ်သောကြောင့် ထိပ်ဆုံးတွင် **`"use client"`** မဖြစ်မနေ ထည့်ရပါမည်။
+
+```tsx
+// app/courses/error.tsx
+"use client";
+
+export default function CourseError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <div className="p-6 rounded-2xl border border-red-500/30 bg-red-500/10">
+      <h2 className="font-bold text-lg">တစ်ခုခု မှားယွင်းနေပါတယ်</h2>
+      <p className="text-sm opacity-80">{error.message}</p>
+      <button
+        type="button"
+        onClick={() => reset()}
+        className="mt-4 px-4 py-2 rounded-lg bg-orange-700 text-white"
+      >
+        ပြန်လည်ကြိုးစားမည်
+      </button>
+    </div>
+  );
+}
+```
+
+Data ရှာမတွေ့သည့်အခါ Server Component ထဲမှ `notFound()` ကို ခေါ်ပေးလျှင် အနီးဆုံး `not-found.tsx` ကို Render လုပ်ပေးပါတယ်:
+
+```tsx
+import { notFound } from "next/navigation";
+
+export default async function CourseDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const course = await getCourseBySlug(slug);
+  if (!course) notFound();
+  return <article>{course.title}</article>;
+}
+```
+
+---
+
+## 3. Defense-in-Depth Authentication Check
+
+Middleware တစ်ခုတည်းကိုသာ ယုံကြည်၍ Data Access ကို မကာကွယ်သင့်ပါ။ Server Component နှင့် Server Action တိုင်း၏ အတွင်းတွင် **Data Access Layer (DAL)** helper ဖြင့် Session ကို ထပ်မံ စစ်ဆေးပါ။
+
+```typescript
+// lib/auth.ts
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+export async function requireUser() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("session")?.value;
+  if (!token) redirect("/login");
+
+  const user = await verifySessionToken(token);
+  if (!user) redirect("/login");
+  return user;
+}
+```
+
+<Quiz
+  client:idle
+  title="Next.js Error Boundaries & Auth Quiz"
+  questions={[
+    {
+      question: "Next.js App Router တွင် `error.tsx` ဖိုင် ရေးသားရာ၌ ထိပ်ဆုံးတွင် ဘာကြောင့် `'use client'` ထည့်သွင်းရသနည်း?",
+      options: [
+        "CSS styles များ ထည့်ရန်",
+        "React Error Boundaries နှင့် reset() click handler များသည် Browser client-side တွင် အလုပ်လုပ်ရသောကြောင့်",
+        "Database ချိတ်ဆက်ရန်",
+        "SEO meta tags များ ထုတ်ပေးရန်"
+      ],
+      correctIndex: 1,
+      explanation: "React ၏ Error Boundary lifecycle နှင့် user ပြန်နှိပ်နိုင်သည့် reset() button များသည် Client Component ဖြစ်ရန် လိုအပ်ပါတယ်။"
+    },
+    {
+      question: "Security အရ Next.js App တွင် Session Authentication ကို မည်သည့်နေရာတွင်ပါ ထပ်မံစစ်ဆေးသင့်သနည်း?",
+      options: [
+        "CSS ဖိုင်ထဲတွင်",
+        "Middleware အပြင် Server Components နှင့် Server Actions (Data Access Layer) များထဲတွင်ပါ စစ်ဆေးသင့်သည်",
+        "Footer component ထဲတွင်သာ",
+        "HTML comments ထဲတွင်"
+      ],
+      correctIndex: 1,
+      explanation: "Defense-in-Depth အနေဖြင့် Middleware အပြင် Data ဖတ်/ရေး ပြုလုပ်သည့် Server Action နှင့် Server Component တိုင်းတွင်ပါ Session ကို တိုက်ရိုက် verify လုပ်သင့်ပါတယ်။"
+    }
+  ]}
+/>

@@ -1,0 +1,86 @@
+---
+title: "Production MongoDB: Pagination, Transactions & Security"
+description: "MongoDB Cursor-based Pagination, Multi-Document ACID Transactions, NoSQL Injection ကာကွယ်ခြင်းနှင့် Production Best Practices"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Data Records သန်းချီ ရှိလာတဲ့အခါ မြန်ဆန်နေစေမယ့် **Cursor Pagination**, Bank Transfer / Order Payment လို အလုပ်တွေအတွက် **ACID Transactions**, နဲ့ **NoSQL Injection** ကာကွယ်ရေးတို့ကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Offset (`skip`) vs. Cursor Pagination
+
+`skip(50000).limit(20)` သုံးရင် Database က ရှေ့က Records 50,000 ကို အရင်ဖတ်ပြီးမှ ကျော်ရလို့ အရမ်းနှေးသွားပါတယ်။ **Cursor-based pagination** က Index `_id` (သို့မဟုတ် `createdAt`) ကို တိုက်ရိုက် ဖြတ်ရှာတဲ့အတွက် Page 1,000 ရောက်လည်း မြန်နှုန်း မကျသွားပါဘူး။
+
+```javascript
+// ❌ Offset pagination (Data များလာလျှင် နှေးကွေးသည်)
+await Post.find().sort({ _id: -1 }).skip((page - 1) * 20).limit(20);
+
+// ✅ Cursor-based pagination (Index ကို တိုက်ရိုက်သုံးသည်)
+const query = lastSeenId ? { _id: { $lt: lastSeenId } } : {};
+const posts = await Post.find(query).sort({ _id: -1 }).limit(20).lean();
+```
+
+---
+
+## 2. Multi-Document ACID Transactions
+
+E-Commerce Order တစ်ခုတင်လိုက်ရင် (1) Order create လုပ်ခြင်း နဲ့ (2) Product stock လျှော့ခြင်း — ၂ ခုလုံး အောင်မြင်မှ အတည်ပြုပြီး တစ်ခုခု မှားယွင်းပါက **Rollback** ပြန်လုပ်ဖို့ MongoDB Replica Set (Atlas တွင် Default ပါဝင်သည်) ပေါ်မှာ Transactions သုံးနိုင်ပါတယ်။
+
+```javascript
+const session = await mongoose.startSession();
+try {
+  await session.withTransaction(async () => {
+    await Product.updateOne(
+      { _id: productId, stock: { $gte: 1 } },
+      { $inc: { stock: -1 } },
+      { session },
+    );
+
+    await Order.create([{ userId, productId, status: "confirmed" }], { session });
+  });
+} finally {
+  await session.endSession();
+}
+```
+
+---
+
+## 3. NoSQL Injection ကာကွယ်နည်း
+
+Login request ထဲမှာ User က String အစား `{ "$ne": null }` ဆိုတဲ့ JSON Object ပို့လိုက်ရင် Query operator အဖြစ် ဝင်ရောက်တိုက်ခိုက်နိုင်ပါတယ်။
+
+- Input validation (`zod`) ဖြင့် `email` နှင့် `password` ကို **String** ဖြစ်ကြောင်း တိကျစွာ စစ်ဆေးပါ။
+- Mongoose တွင် `mongoose.set("sanitizeFilter", true)` (သို့မဟုတ် Explicit string casting) ကို အသုံးပြုပါ။
+- MongoDB Atlas Network Access တွင် IP Allowlist နှင့် Strong Role-Based Users များသာ ခွင့်ပြုထားပါ။
+
+<Quiz
+  client:idle
+  title="MongoDB Production & Data Modeling Quiz"
+  questions={[
+    {
+      question: "Document တစ်ခုတည်းထဲတွင် Data များကို Embed လုပ်မည့်အစား သီးခြား Collection ခွဲ၍ Reference (ObjectId) ချိတ်သင့်သည့် အခြေအနေမှာ မည်သည်နည်း?",
+      options: [
+        "User ၏ Shipping Address တစ်ခုတည်းကို သိမ်းဆည်းလိုသည့်အခါ",
+        "Blog Post တစ်ခုအောက်တွင် Comments သိန်းချီ၍ အကန့်အသတ်မရှိ တိုးပွားလာနိုင်သည့်အခါ",
+        "1:1 User profile setting သိမ်းလိုသည့်အခါ",
+        "Order item ၃ ခုခန့်သာ ပါဝင်သည့်အခါ"
+      ],
+      correctIndex: 1,
+      explanation: "Unbounded (အကန့်အသတ်မရှိ ကြီးထွားနိုင်သော) 1:Many data များကို Embed လုပ်ပါက 16MB document size limit ကို ကျော်လွန်သွားနိုင်သဖြင့် Reference ခွဲထားရပါတယ်။"
+    },
+    {
+      question: "Records သန်းချီ ရှိသော Collection တွင် `.skip(100000).limit(20)` ထက် Cursor-based pagination (`_id: { $lt: lastSeenId }`) က ဘာကြောင့် ပိုမြန်သနည်း?",
+      options: [
+        "Index ကို တိုက်ရိုက် ဖြတ်ရှာနိုင်ပြီး ရှေ့မှ Documents 100,000 ကို မလိုအပ်ဘဲ Scan ဖတ်ပြီး ကျော်ပစ်စရာ မလိုသောကြောင့်",
+        "Documents များကို အလိုအလျောက် ဖျက်ပစ်သောကြောင့်",
+        "JavaScript Array.map ကို သုံးသောကြောင့်",
+        "Database schema မလိုတော့သောကြောင့်"
+      ],
+      correctIndex: 0,
+      explanation: "skip() သည် ကျော်လွှားမည့် rows အားလုံးကို အစကနေ Scan ဖတ်ပြီးမှ ချန်လှပ်ရသော်လည်း Cursor pagination သည် B-Tree index ပေါ်မှ တိုက်ရိုက် စတင်ဖတ်ယူနိုင်ပါတယ်။"
+    }
+  ]}
+/>

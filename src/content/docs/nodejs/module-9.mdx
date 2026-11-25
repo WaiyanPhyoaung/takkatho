@@ -1,0 +1,81 @@
+---
+title: "Authentication & API Security (JWT, bcrypt & Secrets)"
+description: "Node.js Backend တွင် bcrypt ဖြင့် Password Hashing, JWT Token Authentication, Auth Middleware နှင့် Security Best Practices"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  User Login/Register စနစ်တစ်ခုကို Backend မှာ လုံခြုံစွာ တည်ဆောက်နိုင်ဖို့ **Password Hashing (`bcrypt`)**, **JSON Web Tokens (`JWT`)**, Protected Routes နဲ့ **Environment Secrets (`.env`)** အသုံးပြုနည်းတွေကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Password ကို Plain Text အတိုင်း ဘာကြောင့် မသိမ်းသင့်သလဲ?
+
+Database leak ဖြစ်သွားခဲ့ရင် User ရဲ့ မူရင်း Password တွေ ပေါက်ကြားမသွားစေဖို့ Register လုပ်ကတည်းက **`bcrypt`** (သို့မဟုတ် `argon2`) ဖြင့် One-way Hash + Salt ပြောင်းလဲပြီးမှ သိမ်းဆည်းရပါမယ်။
+
+```javascript
+import bcrypt from "bcrypt";
+
+// 1. Register: Plain password ကို Hash လုပ်ခြင်း (Cost factor 12)
+const passwordHash = await bcrypt.hash("MySecretPass123", 12);
+
+// 2. Login: User ရိုက်ထည့်လိုက်သော password နှင့် DB ထဲက hash ကို တိုက်စစ်ခြင်း
+const isMatch = await bcrypt.compare("MySecretPass123", passwordHash);
+```
+
+---
+
+## 2. JWT (JSON Web Token) ဖြင့် Session ထိန်းသိမ်းခြင်း
+
+Login အောင်မြင်သွားတဲ့အခါ Server က Signed Token တစ်ခု ထုတ်ပေးပြီး Client က နောက်ပိုင်း API ခေါ်တိုင်း `Authorization: Bearer <token>` (သို့မဟုတ် HttpOnly Cookie) နဲ့ ပြန်ပို့ပေးရပါတယ်။
+
+```javascript
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is required");
+}
+
+// Login controller ထဲတွင် Token ထုတ်ပေးခြင်း
+export function signAccessToken(user) {
+  return jwt.sign(
+    { sub: user.id, role: user.role },
+    JWT_SECRET,
+    { expiresIn: "1h" },
+  );
+}
+```
+
+### Protected Route Middleware (`requireAuth`)
+
+```javascript
+export function requireAuth(req, res, next) {
+  const header = req.headers.authorization;
+  if (!header?.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+
+  const token = header.slice(7);
+  try {
+    req.user = jwt.verify(token, JWT_SECRET);
+    next();
+  } catch {
+    return res.status(401).json({ error: "Invalid or expired token" });
+  }
+}
+
+// Token မှန်ကန်သူသာ ဝင်ကြည့်နိုင်သော Profile endpoint
+app.get("/api/me", requireAuth, (req, res) => {
+  res.json({ userId: req.user.sub, role: req.user.role });
+});
+```
+
+---
+
+## 3. Essential Node.js Security Checklist
+
+1. **CORS (`cors`)**: Allowed frontend domains များကိုသာ ခွင့်ပြုပါ (`origin: process.env.FRONTEND_URL`)။ `*` (Allow All) ကို Auth cookies သုံးသော Production API များတွင် မသုံးပါနဲ့။
+2. **Security Headers (`helmet`)**: `app.use(helmet())` ဖြင့် HTTP security headers များ အလိုအလျောက် ထည့်သွင်းပါ။
+3. **Rate Limiting (`express-rate-limit`)**: `/api/login` Endpoint တွင် Brute-force attack များ ကာကွယ်ရန် Rate limit ကန့်သတ်ထားပါ။
+4. **Secrets Management**: `.env` ဖိုင်ကို `.gitignore` ထဲ အမြဲ ထည့်ထားပြီး Git ထဲ ဘယ်တော့မှ commit မလုပ်ပါနဲ့။
