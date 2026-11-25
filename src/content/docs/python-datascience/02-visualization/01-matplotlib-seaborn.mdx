@@ -1,0 +1,74 @@
+---
+title: "Data Visualization with Matplotlib & Seaborn"
+description: "Matplotlib နှင့် Seaborn ကို အသုံးပြု၍ Line, Bar, Distribution နှင့် Correlation Heatmap Charts များ ရေးဆွဲခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  ကိန်းဂဏန်း Data table ကြီးတွေကို မျက်စိနဲ့ ကြည့်ရုံထက် Charts, Graphs တွေအဖြစ် မြင်သာအောင် ပြောင်းလဲပြသခြင်း (Data Visualization) ကို **Matplotlib** နဲ့ **Seaborn** သုံးပြီး တည်ဆောက်တတ်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Matplotlib Basics (Bar Chart နှင့် Line Chart)
+
+**Matplotlib** သည် Python Visualization ၏ အခြေခံအကျဆုံး Library ဖြစ်ပြီး Chart element တိုင်း (Title, Labels, Legend, Grid) ကို အသေးစိတ် ထိန်းချုပ်နိုင်ပါတယ်။
+
+```python
+import matplotlib.pyplot as plt
+
+months = ["Jan", "Feb", "Mar", "Apr", "May"]
+revenue_lakhs = [12.5, 15.0, 14.2, 19.8, 24.5]
+
+plt.figure(figsize=(8, 4))
+plt.plot(months, revenue_lakhs, marker="o", linewidth=2, color="#ea580c")
+plt.title("Monthly Revenue Trend (2026)")
+plt.xlabel("Month")
+plt.ylabel("Revenue (Lakhs MMK)")
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.tight_layout()
+
+# Script automation တွင် PNG Image အဖြစ် Save ထားနိုင်သည်
+plt.savefig("monthly_revenue.png", dpi=150)
+plt.show()
+```
+
+---
+
+## 2. Seaborn ဖြင့် Pandas DataFrame မှ Charts များ တိုက်ရိုက်ဆွဲခြင်း
+
+**Seaborn** သည် Matplotlib အပေါ်တွင် တည်ဆောက်ထားပြီး Pandas DataFrame columns များကို `x`, `y`, `hue` ဖြင့် တိုက်ရိုက် ချိတ်ဆက်ပေးနိုင်ပါတယ်။
+
+```python
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set_theme(style="whitegrid")
+
+df = pd.DataFrame({
+    "course": ["Python", "JavaScript", "Docker", "SQL", "Linux"],
+    "students": [420, 610, 290, 350, 310],
+    "level": ["Beginner", "Beginner", "Intermediate", "Beginner", "Intermediate"],
+})
+
+plt.figure(figsize=(8, 4.5))
+ax = sns.barplot(data=df, x="course", y="students", hue="level", palette="Oranges")
+ax.set_title("Enrollments by Course & Difficulty")
+plt.tight_layout()
+plt.savefig("course_enrollments.png", dpi=150)
+```
+
+---
+
+## 3. ဘယ် Chart အမျိုးအစားကို ဘယ်နေရာမှာ သုံးမလဲ?
+
+| Chart Type | Seaborn / Matplotlib Function | အသုံးဝင်ပုံ |
+| :--- | :--- | :--- |
+| **Line Chart** | `sns.lineplot()` / `plt.plot()` | အချိန်အလိုက် ပြောင်းလဲမှု (Time-series, Daily Traffic, Stock/Prices) |
+| **Bar Chart** | `sns.barplot()` | Category အလိုက် ပမာဏ နှိုင်းယှဉ်ခြင်း |
+| **Histogram** | `sns.histplot(kde=True)` | တန်ဖိုးများ ဖြန့်ကြက်မှု (Distribution e.g. Salary range, Price distribution) |
+| **Heatmap** | `sns.heatmap(df.corr(numeric_only=True), annot=True)` | Variables များအကြား ဆက်နွယ်မှု (Correlation Matrix) ကြည့်ခြင်း |
+
+<Aside type="tip">
+  Automated Telegram / Email daily reports တွေ ပို့ချင်တဲ့အခါ `plt.savefig("chart.png", dpi=150)` နဲ့ PNG ပုံထုတ်ပြီး Bot API ကနေ Chart ပုံကို တိုက်ရိုက် ပို့ပေးနိုင်ပါတယ် ခင်ဗျာ။
+</Aside>

@@ -1,0 +1,78 @@
+---
+title: "Pandas DataFrames, Filtering & GroupBy"
+description: "Pandas Series နှင့် DataFrame များဖြင့် CSV/Excel ဒေတာများ ဖတ်ရှုခြင်း၊ Filtering ပြုလုပ်ခြင်းနှင့် GroupBy Analytics တွက်ချက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Excel spreadsheet သို့မဟုတ် SQL Table တစ်ခုလို Rows နဲ့ Columns တွေပါတဲ့ Data တွေကို Python ထဲမှာ အလွယ်တကူ စစ်ထုတ် (Filter), တွက်ချက် (Aggregate) နိုင်ဖို့ **Pandas DataFrame** ကို ကျွမ်းကျင်စွာ အသုံးချတတ်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. DataFrame ဖန်တီးခြင်းနှင့် CSV ဖတ်ရှုခြင်း
+
+Pandas ရဲ့ အဓိက Data structure ၂ ခုကတော့ Column တစ်ခုစာ ဖြစ်တဲ့ **`Series`** နဲ့ Table တစ်ခုလုံး ဖြစ်တဲ့ **`DataFrame`** တို့ ဖြစ်ပါတယ်။
+
+```python
+import pandas as pd
+
+# CSV ဖိုင်မှ DataFrame အဖြစ် တိုက်ရိုက် ဖတ်ယူခြင်း
+# df = pd.read_csv("orders.csv")
+
+# ဥပမာ DataFrame တည်ဆောက်ခြင်း
+data = {
+    "product": ["Laptop", "Mouse", "Keyboard", "Monitor", "USB-C Hub"],
+    "category": ["Computer", "Accessory", "Accessory", "Display", "Accessory"],
+    "price": [1850000, 35000, 95000, 420000, 45000],
+    "sold_qty": [4, 25, 12, 6, 18],
+}
+df = pd.DataFrame(data)
+
+print(df.head(3))     # ထိပ်ဆုံး Row ၃ ခု ကြည့်ခြင်း
+print(df.info())      # Columns, Data types, Missing values စစ်ဆေးခြင်း
+print(df.describe())  # Numeric columns များ၏ Statistics ကြည့်ခြင်း
+```
+
+---
+
+## 2. Column အသစ်တွက်ထုတ်ခြင်းနှင့် Filtering
+
+```python
+# Revenue column အသစ် ထည့်သွင်းခြင်း
+df["revenue"] = df["price"] * df["sold_qty"]
+
+# 100,000 MMK အထက် ရှိသော Accessory ပစ္စည်းများ သို့မဟုတ် ဈေးကြီးပစ္စည်းများ စစ်ထုတ်ခြင်း
+accessories = df[df["category"] == "Accessory"]
+high_value = df[(df["price"] >= 95000) & (df["sold_qty"] >= 5)]
+
+# Revenue အများဆုံးမှ အနည်းဆုံးသို့ စီခြင်း
+top_selling = df.sort_values(by="revenue", ascending=False)
+print(top_selling[["product", "revenue"]])
+```
+
+---
+
+## 3. GroupBy ဖြင့် Summary Report ထုတ်ခြင်း
+
+SQL ရဲ့ `GROUP BY` လိုပဲ Pandas မှာ `.groupby()` ကို သုံးပြီး Category အလိုက် စုစုပေါင်း ရောင်းအားကို တစ်ကြောင်းတည်းနဲ့ တွက်ထုတ်နိုင်ပါတယ်:
+
+```python
+summary = (
+    df.groupby("category")
+    .agg(
+        total_items=("sold_qty", "sum"),
+        total_revenue=("revenue", "sum"),
+        avg_price=("price", "mean"),
+    )
+    .reset_index()
+)
+
+print(summary)
+
+# ရလဒ်ကို CSV / Excel အဖြစ် ပြန် Export ထုတ်ခြင်း
+summary.to_csv("category_summary.csv", index=False)
+```
+
+<Aside type="tip">
+  CSV ဖိုင်ထဲမှာ မြန်မာစာ (Unicode) များ ပါဝင်ပြီး Microsoft Excel ဖြင့် ဖွင့်ကြည့်ရာတွင် စာမပျက်စေရန် `summary.to_csv("report.csv", index=False, encoding="utf-8-sig")` ဟု `utf-8-sig` သုံးပေးသင့်ပါတယ်။
+</Aside>

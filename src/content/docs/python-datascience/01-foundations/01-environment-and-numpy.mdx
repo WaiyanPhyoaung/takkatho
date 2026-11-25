@@ -1,0 +1,75 @@
+---
+title: "Environment Setup & NumPy Arrays"
+description: "Python Data Science Virtual Environment (venv/uv) တည်ဆောက်ခြင်းနှင့် NumPy Array Vectorization ဖြင့် မြန်ဆန်စွာ တွက်ချက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Data Science နဲ့ Automation project တွေ စတင်တဲ့အခါ system Python packages တွေ မရောထွေးစေဖို့ Virtual Environment တည်ဆောက်နည်းနဲ့ **NumPy** arrays တွေကို Python list ထက် အဆပေါင်းများစွာ ပိုမြန်အောင် ဘယ်လိုသုံးရသလဲဆိုတာ လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Project Environment (`venv`) တည်ဆောက်ခြင်း
+
+Data Science project တစ်ခုချင်းစီအတွက် သီးသန့် library versions တွေ ထိန်းသိမ်းနိုင်ဖို့ Virtual Environment ဖန်တီးသင့်ပါတယ်:
+
+```bash
+# Project folder ဖန်တီး၍ virtual environment စတင်ခြင်း
+mkdir python-datascience && cd python-datascience
+python3 -m venv .venv
+
+# macOS / Linux တွင် Activate လုပ်ခြင်း
+source .venv/bin/activate
+
+# Windows PowerShell တွင် Activate လုပ်ခြင်း
+# .\.venv\Scripts\Activate.ps1
+
+# Data Science core packages များ Install လုပ်ခြင်း
+pip install numpy pandas matplotlib seaborn requests beautifulsoup4
+```
+
+---
+
+## 2. Python List vs. NumPy Array (Vectorization)
+
+Python ပုံမှန် List တစ်ခုထဲက ဂဏန်း ၁ သန်းကို ၂ နဲ့ မြှောက်ချင်ရင် `for` loop ပတ်ရပါတယ်။ **NumPy (`ndarray`)** ကတော့ C-level memory layout ကို သုံးထားလို့ Loop မလိုဘဲ **Vectorized operation** ဖြင့် တစ်ပြိုင်နက်တည်း အလွန်မြန်ဆန်စွာ တွက်ချက်ပေးပါတယ်။
+
+```python
+import numpy as np
+
+# 1D Array ဖန်တီးခြင်း
+prices_mmk = np.array([15000, 28000, 42000, 12500])
+
+# Loop ပတ်စရာမလိုဘဲ အားလုံးကို 10% Discount တွက်ခြင်း
+discounted = prices_mmk * 0.9
+print("Discounted:", discounted)      # [13500. 25200. 37800. 11250.]
+
+# အခြေခံ Statistics တွက်ချက်မှုများ
+print("Mean:", np.mean(prices_mmk))   # 24375.0
+print("Max:", np.max(prices_mmk))     # 42000
+print("Sum:", np.sum(prices_mmk))     # 97500
+```
+
+---
+
+## 3. 2D Matrices, Shape နှင့် Slicing
+
+Data table တွေ (Rows & Columns) နဲ့ အလုပ်လုပ်တဲ့အခါ 2D NumPy arrays တွေရဲ့ `shape` နဲ့ indexing ကို နားလည်ထားရပါမယ်:
+
+```python
+# Row 3 ခု, Column 2 ခုပါသော Matrix
+sales = np.array([
+    [120, 150],  # Day 1: [Shop A, Shop B]
+    [200, 180],  # Day 2
+    [160, 220],  # Day 3
+])
+
+print("Shape:", sales.shape)           # (3, 2)
+print("Total per shop:", sales.sum(axis=0))  # [480, 550] -> Column အလိုက် ပေါင်းခြင်း
+print("Total per day:", sales.sum(axis=1))   # [270, 380, 380] -> Row အလိုက် ပေါင်းခြင်း
+print("Shop B Day 2:", sales[1, 1])    # 180
+```
+
+<Aside type="tip">
+  `axis=0` ဆိုတာ Column တစ်လျှောက် (အပေါ်-အောက်) တွက်တာဖြစ်ပြီး `axis=1` ဆိုတာ Row တစ်လျှောက် (ဘယ်-ညာ) တွက်တာ ဖြစ်ပါတယ် ခင်ဗျာ။ Pandas ထဲမှာလည်း ဒီ concept အတိုင်းပဲ ဆက်သုံးသွားရမှာပါ။
+</Aside>

@@ -347,6 +347,18 @@ export const coursesData: Course[] = [
     tags: ["Linux", "Ubuntu", "DevOps", "Nginx", "VPS", "CI/CD", "SSH", "Security"],
     estimatedTime: "4 weeks",
   },
+  {
+    id: "python-datascience",
+    title: "Python Data Science & Web Scraping",
+    description:
+      "NumPy, Pandas Data Cleaning, Matplotlib Visualization, BeautifulSoup, Playwright Browser Automation နှင့် Telegram Price Tracker Bot တည်ဆောက်ခြင်း",
+    difficulty: "intermediate",
+    category: "Data Science & Automation",
+    icon: "trending",
+    dir: "python-datascience",
+    tags: ["Python", "Pandas", "NumPy", "Scraping", "Playwright", "Automation"],
+    estimatedTime: "5 weeks",
+  },
 ];
 
 

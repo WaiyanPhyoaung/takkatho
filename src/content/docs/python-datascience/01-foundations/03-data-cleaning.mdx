@@ -1,0 +1,100 @@
+---
+title: "Data Cleaning: Missing Values, Duplicates & String Prep"
+description: "Pandas ဖြင့် Dirty Data များ သန့်စင်ခြင်း — NaN Missing Values ဖြည့်သွင်း/ဖယ်ရှားခြင်း၊ Duplicates ရှင်းလင်းခြင်းနှင့် Data Types ပြောင်းလဲခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  လက်တွေ့ Data Analytics နဲ့ Web Scraping တွေကနေ ရလာတဲ့ Dataset တွေဟာ ဘယ်တော့မှ သန့်ရှင်းမနေပါဘူး။ ဈေးနှုန်းထဲမှာ `MMK`, `,` စာသားတွေ ပါနေတာ၊ Missing (`NaN`) ဖြစ်နေတာ၊ Row တွေ ထပ်နေတာတွေကို ခင်ဗျား ဘယ်လို စနစ်တကျ Clean လုပ်မလဲဆိုတာ လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Missing Values (`NaN`) စစ်ဆေးခြင်းနှင့် ကိုင်တွယ်ခြင်း
+
+```python
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    "name": ["Mg Mg", "Su Su", "Kyaw Kyaw", "Su Su", None],
+    "city": [" yangon ", "Mandalay", None, "Mandalay", "Yangon"],
+    "price_raw": ["25,000 MMK", "18,500 MMK", None, "18,500 MMK", "30,000 MMK"],
+})
+
+# Column တစ်ခုချင်းစီမှာ Missing values ဘယ်နှခု ရှိလဲ ကြည့်ခြင်း
+print(df.isna().sum())
+
+# 1. နာမည် လုံးဝ မပါသော Row များကို ဖယ်ရှားခြင်း
+df = df.dropna(subset=["name"])
+
+# 2. City မပါလျှင် Default တန်ဖိုး "Unknown" ဖြည့်ပေးခြင်း
+df["city"] = df["city"].fillna("Unknown")
+```
+
+---
+
+## 2. String Cleaning နှင့် Numeric Type Conversion
+
+Web scraping ကနေ ရလာတဲ့ `"25,000 MMK"` လို စာသားတွေကို တွက်ချက်လို့ရအောင် Integer/Float အဖြစ် ပြောင်းလဲပေးရပါမယ်:
+
+```python
+# Extra whitespace ဖယ်ရှား၍ Capitalize ညှိခြင်း
+df["city"] = df["city"].str.strip().str.title()
+
+# "25,000 MMK" -> 25000.0 သို့ ပြောင်းလဲခြင်း
+df["price"] = (
+    df["price_raw"]
+    .astype(str)
+    .str.replace(",", "", regex=False)
+    .str.replace("MMK", "", regex=False)
+    .str.strip()
+)
+# Number မဖြစ်နိုင်သော စာသားများ ပါလျှင် Crash မဖြစ်ဘဲ NaN ပြောင်းပေးရန် errors="coerce" သုံးပါ
+df["price"] = pd.to_numeric(df["price"], errors="coerce")
+
+# ကျန်ရှိသော NaN price ကို Median (အလယ်တန်ဖိုး) ဖြင့် ဖြည့်ခြင်း
+df["price"] = df["price"].fillna(df["price"].median())
+```
+
+---
+
+## 3. Duplicate Rows များ ဖယ်ရှားခြင်း
+
+```python
+# ထပ်နေသော Rows အရေအတွက် စစ်ဆေးခြင်း
+print("Duplicates:", df.duplicated().sum())
+
+# ထပ်နေသော Rows များ ဖယ်ရှား၍ Index ပြန်စီခြင်း
+df = df.drop_duplicates(subset=["name", "city"], keep="first").reset_index(drop=True)
+print(df)
+```
+
+<Quiz
+  client:idle
+  title="Pandas & Data Cleaning Checkpoint Quiz"
+  questions={[
+    {
+      question: "String column တစ်ခုကို ဂဏန်း (Numeric) အဖြစ် ပြောင်းလဲရာတွင် Format မကိုက်သော စာသားများ ပါလာပါက Program crash မဖြစ်ဘဲ `NaN` အဖြစ် ပြောင်းပေးရန် `pd.to_numeric()` တွင် မည်သည့် argument ကို ထည့်သင့်သနည်း?",
+      options: [
+        "errors='ignore'",
+        "errors='coerce'",
+        "fallback=0",
+        "safe=True"
+      ],
+      correctIndex: 1,
+      explanation: "errors='coerce' သည် Parse လုပ်၍မရသော Invalid string values များကို ValueError မတက်စေဘဲ NaN အဖြစ် အလိုအလျောက် ပြောင်းလဲပေးပါတယ်။"
+    },
+    {
+      question: "Excel ဖြင့် ဖွင့်ကြည့်ရာတွင် မြန်မာစာ Unicode များ မပျက်စီးစေရန် `df.to_csv()` တွင် မည်သည့် Encoding ကို သုံးသင့်သနည်း?",
+      options: [
+        "ascii",
+        "latin-1",
+        "utf-8-sig",
+        "cp1252"
+      ],
+      correctIndex: 2,
+      explanation: "utf-8-sig (UTF-8 with BOM) သည် Excel က ဖိုင်ကို UTF-8 Unicode အဖြစ် မှန်ကန်စွာ သိရှိဖတ်ရှုနိုင်ရန် ကူညီပေးပါတယ်။"
+    }
+  ]}
+/>

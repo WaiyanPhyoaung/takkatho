@@ -1,0 +1,70 @@
+---
+title: "HTML Parsing & Data Extraction with BeautifulSoup"
+description: "BeautifulSoup (bs4) ဖြင့် HTML Elements, Attributes, Links နှင့် Tables များမှ Structured Data ထုတ်ယူ၍ CSV/JSON သိမ်းဆည်းခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  `requests` ကနေ ရလာတဲ့ HTML စာသားပုံကြီးထဲကနေ ခင်ဗျား တကယ်လိုချင်တဲ့ Product Title, Price, Link စတာတွေကို **BeautifulSoup (`bs4`)** CSS Selectors တွေ သုံးပြီး တိတိကျကျ ခွဲထုတ်နိုင်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. BeautifulSoup (`soup.select` & `soup.select_one`)
+
+Browser ထဲမှာ Right-click -> **Inspect (DevTools)** နှိပ်ပြီး Element ရဲ့ Class နာမည် (သို့) HTML structure ကို ကြည့်ပြီး CSS Selector အတိုင်း ဆွဲထုတ်နိုင်ပါတယ်။
+
+```python
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+url = "https://books.toscrape.com/"
+res = requests.get(url, timeout=10)
+res.raise_for_status()
+
+soup = BeautifulSoup(res.text, "html.parser")
+books = []
+
+for card in soup.select("article.product_pod"):
+    title_el = card.select_one("h3 a")
+    price_el = card.select_one("p.price_color")
+
+    if not title_el or not price_el:
+        continue
+
+    books.append({
+        "title": title_el.get("title", "").strip(),
+        "price": price_el.get_text(strip=True),
+        "link": title_el.get("href", ""),
+    })
+
+df = pd.DataFrame(books)
+print(df.head())
+df.to_csv("books.csv", index=False, encoding="utf-8-sig")
+```
+
+---
+
+## 2. Relative URLs များကို Full URL ပြောင်းလဲခြင်း (`urljoin`)
+
+HTML `<a>` tag ထဲက `href` တွေဟာ `catalogue/book_1/index.html` လို Relative path ဖြစ်နေတတ်ပါတယ်။ `urllib.parse.urljoin` ကို သုံးပြီး Full URL ဖြစ်အောင် အမြဲ ပေါင်းပေးသင့်ပါတယ်:
+
+```python
+from urllib.parse import urljoin
+
+base_url = "https://books.toscrape.com/"
+full_url = urljoin(base_url, "catalogue/a-light-in-the-attic_1000/index.html")
+# -> "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+```
+
+---
+
+## 3. HTML Tables များကို Pandas ဖြင့် ၁ ကြောင်းတည်း ဖတ်ခြင်း
+
+Webpage ထဲမှာ Standard `<table>` tag ဖြင့် ရေးထားသော ဇယားများ ရှိပါက BeautifulSoup loop ပတ်စရာမလိုဘဲ `pd.read_html()` ဖြင့် DataFrame တစ်ခါတည်း ထုတ်ယူနိုင်ပါတယ် (Optional dependencies: `pip install lxml`):
+
+```python
+tables = pd.read_html(res.text)
+print(f"Found {len(tables)} tables")
+first_table_df = tables[0]
+```

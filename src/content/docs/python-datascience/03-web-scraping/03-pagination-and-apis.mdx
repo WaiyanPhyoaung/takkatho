@@ -1,0 +1,111 @@
+---
+title: "Pagination Scraping & Hidden JSON APIs ရှာဖွေနည်း"
+description: "Multi-page Pagination Loops, Network Tab မှ Hidden JSON API Endpoints များ ရှာဖွေခြင်းနှင့် Retry Logic တည်ဆောက်နည်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Quiz from "@/components/mdx/Quiz";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Page 1 တစ်မျက်နှာတည်းမဟုတ်ဘဲ "Next" ခလုတ်ပါတဲ့ Page 50, 100 အထိ Data ဆွဲယူနည်းနဲ့ React/Vue Websites တွေရဲ့ နောက်ကွယ်က JSON API ကို DevTools ကနေ ရှာပြီး HTML Parse စရာမလိုဘဲ Clean JSON ဆွဲယူနည်းတွေကို လေ့လာရန် ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Multi-Page Pagination Loop
+
+E-Commerce သို့မဟုတ် Job Listings တွေမှာ Page အများကြီး ရှိနေတဲ့အခါ "Next" link ရှိနေသေးသရွေ့ Loop ပတ်ပြီး `time.sleep()` နဲ့ ယဉ်ကျေးစွာ ဆွဲယူနိုင်ပါတယ်:
+
+```python
+import time
+from urllib.parse import urljoin
+import requests
+from bs4 import BeautifulSoup
+
+session = requests.Session()
+session.headers.update({"User-Agent": "TakkathoScraperBot/1.0"})
+
+current_url = "https://books.toscrape.com/catalogue/page-1.html"
+all_titles = []
+
+for _ in range(5):  # Safety limit: စမ်းသပ်ရန် Page 5 ခုအထိသာ ပတ်မည်
+    res = session.get(current_url, timeout=10)
+    if res.status_code != 200:
+        break
+
+    soup = BeautifulSoup(res.text, "html.parser")
+    for h3 in soup.select("article.product_pod h3 a"):
+        all_titles.append(h3.get("title", "").strip())
+
+    next_btn = soup.select_one("li.next a")
+    if not next_btn or not next_btn.get("href"):
+        break
+
+    current_url = urljoin(current_url, next_btn["href"])
+    time.sleep(1.0)  # Rate limiting
+
+print(f"Scraped {len(all_titles)} items!")
+```
+
+---
+
+## 2. Pro Trick: Hidden JSON APIs ရှာဖွေခြင်း (DevTools Network Tab)
+
+ခေတ်သစ် Website အများစု (React, Next.js, Vue) ဟာ Page ကို Browser ထဲမှာ JavaScript နဲ့ Render လုပ်တဲ့အတွက် `requests.get(url)` နဲ့ HTML ယူရင် ဗလာ Page ပဲ ရတတ်ပါတယ်။ ဒါပေမဲ့ Backend ကနေ JSON Data ဆွဲယူနေတဲ့ API endpoint ကို Browser DevTools ကနေ အလွယ်တကူ ရှာနိုင်ပါတယ်:
+
+1. Browser မှာ **F12 (Inspect) -> Network Tab -> Fetch/XHR** ကို ရွေးပါ။
+2. Webpage ကို Refresh (သို့) Page 2 နှိပ်ကြည့်ပါ။
+3. JSON Data တွေ ပြန်ပေးနေတဲ့ Request URL (ဥပမာ `https://api.example.com/v1/products?page=2`) ကို တွေ့ပါက Right-click -> **Copy -> Copy URL** ယူပြီး `res.json()` နဲ့ တိုက်ရိုက် ဖတ်နိုင်ပါတယ်။
+
+```python
+# JSON Endpoint မှ Data တိုက်ရိုက် ယူခြင်း (BeautifulSoup မလိုတော့ပါ!)
+res = session.get("https://api.example.com/v1/products?page=1", timeout=10)
+data = res.json()
+for item in data.get("items", []):
+    print(item["name"], item["price"])
+```
+
+---
+
+## 3. Retry Strategy (`requests` Session Adapter)
+
+Network ခဏပြတ်သွားတာ သို့မဟုတ် Server ခဏ Overload (`502`, `503`, `429`) ဖြစ်သွားတဲ့အခါ Scraper တစ်ခုလုံး ရပ်မသွားအောင် Auto-retry ထည့်ထားသင့်ပါတယ်:
+
+```python
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+retry_policy = Retry(
+    total=3,
+    backoff_factor=1.5,              # 1.5s, 3s, 4.5s စောင့်ပြီး ပြန်ကြိုးစားမည်
+    status_forcelist=[429, 500, 502, 503, 504],
+)
+session.mount("https://", HTTPAdapter(max_retries=retry_policy))
+```
+
+<Quiz
+  client:idle
+  title="HTTP Web Scraping Checkpoint Quiz"
+  questions={[
+    {
+      question: "Webpage တစ်ခုက React/JavaScript ဖြင့် Data များကို Fetch လုပ်နေသောကြောင့် BeautifulSoup တွင် Element များ မတွေ့ရပါက ပထမဆုံး စစ်ဆေးသင့်သည့် အလွယ်ကူဆုံး နည်းလမ်းမှာ အဘယ်နည်း?",
+      options: [
+        "CSS file ကို ဖျက်ပစ်ခြင်း",
+        "Browser DevTools -> Network Tab (Fetch/XHR) ထဲတွင် Website သုံးနေသော JSON API Endpoint ကို ရှာဖွေစစ်ဆေးခြင်း",
+        "timeout=0 ထားခြင်း",
+        "pandas.read_csv ဖြင့် HTML ကို ဖတ်ခြင်း"
+      ],
+      correctIndex: 1,
+      explanation: "SPA websites များစွာသည် Backend မှ JSON API ခေါ်၍ Render လုပ်သောကြောင့် Network Tab မှ XHR/Fetch JSON URL ကို တွေ့ရှိပါက Headless Browser မလိုဘဲ requests ဖြင့် မြန်ဆန်စွာ ဆွဲယူနိုင်ပါတယ်။"
+    },
+    {
+      question: "Pagination loop ဖြင့် စာမျက်နှာ ၅၀ ကို ဆွဲယူရာတွင် `requests.Session()` နှင့် `time.sleep(1)` ကို ဘာကြောင့် ထည့်သင့်သနည်း?",
+      options: [
+        "TCP Connection များ ပြန်လည်သုံးစွဲ၍ မြန်ဆန်စေပြီး Server overload / IP Ban မဖြစ်အောင် Rate Limiting ထိန်းသိမ်းရန်",
+        "HTML code များကို Image ပြောင်းရန်",
+        "Browser UI ဖွင့်ပြရန်",
+        "JSON format မှ XML ပြောင်းရန်"
+      ],
+      correctIndex: 0,
+      explanation: "Session သည် TCP/TLS connection ကို reuse လုပ်ပေးပြီး time.sleep() က Target server ကို Overload မဖြစ်စေဘဲ Ethical rate limit ကို လိုက်နာပေးပါတယ်။"
+    }
+  ]}
+/>

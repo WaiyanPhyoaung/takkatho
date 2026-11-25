@@ -2542,4 +2542,78 @@ export const sidebar = [
       },
     ],
   },
+  {
+    label: "Python Data Science & Scraping",
+    items: [
+      {
+        label: "မိတ်ဆက် (Course Overview)",
+        slug: "python-datascience",
+      },
+      {
+        label: "1. Data Foundations (NumPy & Pandas)",
+        items: [
+          {
+            label: "1. Environment & NumPy Arrays",
+            slug: "python-datascience/01-foundations/01-environment-and-numpy",
+          },
+          {
+            label: "2. Pandas DataFrames & GroupBy",
+            slug: "python-datascience/01-foundations/02-pandas-dataframes",
+          },
+          {
+            label: "3. Data Cleaning & Type Prep",
+            slug: "python-datascience/01-foundations/03-data-cleaning",
+          },
+        ],
+      },
+      {
+        label: "2. Data Visualization",
+        items: [
+          {
+            label: "1. Matplotlib & Seaborn Charts",
+            slug: "python-datascience/02-visualization/01-matplotlib-seaborn",
+          },
+        ],
+      },
+      {
+        label: "3. Web Scraping Mastery",
+        items: [
+          {
+            label: "1. Requests, Headers & Ethics",
+            slug: "python-datascience/03-web-scraping/01-requests-and-ethics",
+          },
+          {
+            label: "2. BeautifulSoup Parsing & CSV",
+            slug: "python-datascience/03-web-scraping/02-beautifulsoup-parsing",
+          },
+          {
+            label: "3. Pagination & Hidden JSON APIs",
+            slug: "python-datascience/03-web-scraping/03-pagination-and-apis",
+          },
+        ],
+      },
+      {
+        label: "4. Headless Browser Automation",
+        items: [
+          {
+            label: "1. Playwright Basics & SPAs",
+            slug: "python-datascience/04-browser-automation/01-playwright-basics",
+          },
+          {
+            label: "2. Forms, Auth State & Cron Jobs",
+            slug: "python-datascience/04-browser-automation/02-forms-auth-automation",
+          },
+        ],
+      },
+      {
+        label: "5. Capstone Project",
+        items: [
+          {
+            label: "1. Price Tracker & Telegram Bot",
+            slug: "python-datascience/05-capstone/01-price-tracker-telegram-bot",
+          },
+        ],
+      },
+    ],
+  },
 ];

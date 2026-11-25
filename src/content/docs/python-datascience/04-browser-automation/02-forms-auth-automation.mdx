@@ -1,0 +1,77 @@
+---
+title: "Automated Form Filling, Screenshots & Cron Jobs"
+description: "Playwright ဖြင့် Form ဖြည့်သွင်းခြင်း၊ Dashboard PDF/Screenshots ထုတ်ခြင်းနှင့် Automated Scripts များ Schedule Run ခြင်း"
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="💡 ရည်ရွယ်ချက်">
+  Data Scrape လုပ်ရုံသာမက နေ့စဉ် ထပ်ခါတလဲလဲ လုပ်နေရတဲ့ Form submission, Dashboard screenshot report ထုတ်ခြင်းနဲ့ Authenticated session reuse လုပ်ခြင်းတွေကို Automate လုပ်တတ်စေဖို့ ဖြစ်ပါတယ်။
+</Aside>
+
+## 1. Web Forms များကို Code ဖြင့် ဖြည့်သွင်းခြင်း
+
+Playwright Locators (`get_by_label`, `get_by_placeholder`, `get_by_role`) များကို သုံးခြင်းဖြင့် CSS class name များ ပြောင်းသွားသည့်တိုင် Script မပျက်ဘဲ တည်ငြိမ်အောင် ရေးနိုင်ပါတယ်။
+
+```python
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page(viewport={"width": 1280, "height": 800})
+
+    page.goto("https://example.com/search", wait_until="networkidle")
+    page.get_by_placeholder("Search courses...").fill("Python Automation")
+    page.get_by_role("button", name="Search").click()
+
+    page.wait_for_load_state("networkidle")
+    page.screenshot(path="search_results.png", full_page=True)
+    browser.close()
+```
+
+---
+
+## 2. Login Session (`storage_state`) ကို ပြန်သုံးခြင်း
+
+Script Run တိုင်း Login ခဏခဏ ပြန်ဝင်နေရမယ့်အစား Cookies/LocalStorage state ကို JSON ဖိုင်အဖြစ် သိမ်းဆည်းထားပြီး ပြန်သုံးနိုင်ပါတယ်:
+
+```python
+# 1. တစ်ကြိမ်သာ Login ဝင်၍ auth.json တွင် သိမ်းခြင်း
+context.storage_state(path="auth.json")
+
+# 2. နောက်တစ်ခါ Automation Run တိုင်း Login မဝင်ဘဲ တိုက်ရိုက်သုံးခြင်း
+context = browser.new_context(storage_state="auth.json")
+```
+
+---
+
+## 3. Linux VPS / GitHub Actions ဖြင့် နေ့စဉ် Auto-Run ခြင်း
+
+Script ကို Linux Server ပေါ်မှာ `crontab -e` ဖြင့် မနက်တိုင်း 9:00 AM မှာ အလိုအလျောက် Run စေနိုင်သလို (သို့) GitHub Actions YAML workflow ဖြင့် Free cron runner ပေါ်မှာလည်း Run နိုင်ပါတယ်:
+
+```yaml
+# .github/workflows/daily-tracker.yml
+name: Daily Price Tracker
+on:
+  schedule:
+    - cron: "30 2 * * *" # UTC 02:30 (Myanmar Time 09:00 AM)
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests beautifulsoup4 pandas
+      - env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python price_tracker.py
+```
+
+<Aside type="caution" title="Security Warning">
+  `auth.json` (Cookies/Session tokens) နှင့် `.env` ဖိုင်များကို GitHub Repository ထဲသို့ ဘယ်တော့မှ Push မလုပ်မိစေရန် `.gitignore` ထဲတွင် မဖြစ်မနေ ထည့်ထားပါ။
+</Aside>
